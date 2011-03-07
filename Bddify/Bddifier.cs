@@ -8,7 +8,7 @@ namespace Bddify
 {
     public class Bddifier
     {
-        enum ExecutionResult
+        protected enum ExecutionResult
         {
             Succeeded = 0,
             Failed = 1,
@@ -21,23 +21,34 @@ namespace Bddify
         public static Action<string> PrintOutput = DefaultPrintOutput;
         public static Func<string, string> CreateSentenceFromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
         public static Func<string, string> CreateSentenceFromName = CreateSentenceFromUnderscoreSeparatedWords;
+        public static Func<MethodInfo, string> ReportByMethodInfo =
+            method =>
+            {
+                var header = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).Single();
+                return string.Format("{0} {1}", header.Text.PadRight(header.TextPad), CreateSentenceFromName(method.Name));
+            };
 
         public void Run(object bddee)
         {
             _instanceUnderTest = bddee;
-            Execute();
+            ReportOnType();
+            RunSteps(ScanAssembly(_instanceUnderTest.GetType()));
         }
 
-        private void Execute()
+        private void RunSteps(IEnumerable<MethodInfo> methods)
         {
-            PrintOutput("Scenario: " + CreateSentenceFromName(_instanceUnderTest.GetType().Name) + Environment.NewLine);
-            var methods = ScanAssembly(_instanceUnderTest.GetType());
-            var result = methods.Aggregate(ExecutionResult.Succeeded, (current, method) => (ExecutionResult)Math.Max((int)current, (int)Execute(method)));
-            
-            if(result == ExecutionResult.NotImplemented)
+            var result = (ExecutionResult)methods.Max(m => (int)Execute(m));
+
+            if (result == ExecutionResult.NotImplemented)
                 Assert.Inconclusive();
-            else if(result == ExecutionResult.Failed)
+            else if (result == ExecutionResult.Failed)
                 Assert.Fail();
+        }
+
+        protected virtual void ReportOnType()
+        {
+            PrintOutput("Scenario: " + CreateSentenceFromName(_instanceUnderTest.GetType().Name));
+            PrintOutput(string.Empty); // print an empty line
         }
 
         private ExecutionResult Execute(MethodInfo method)
@@ -67,7 +78,7 @@ namespace Bddify
             return result;
         }
 
-        private static IEnumerable<MethodInfo> ScanAssembly(Type type)
+        protected virtual IEnumerable<MethodInfo> ScanAssembly(Type type)
         {
             return type
                 .GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
@@ -75,7 +86,7 @@ namespace Bddify
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
         }
 
-        private static void Report(MethodInfo method, ExecutionResult result, Exception exception)
+        protected virtual void Report(MethodInfo method, ExecutionResult result, Exception exception)
         {
             var message = ReportByMethodInfo(method);
 
@@ -91,17 +102,10 @@ namespace Bddify
 
                 PrintOutput(exception.Message);
                 PrintOutput(exception.StackTrace);
-                PrintOutput("===== End of stack trace =====" + Environment.NewLine);
+                PrintOutput("===== End of stack trace =====");
+                PrintOutput(string.Empty); // print an empty line
             }
         }
-
-        public static Func<MethodInfo, string> ReportByMethodInfo =
-            method =>
-            {
-                var header = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).Single();
-                var methodText = string.Join(Environment.NewLine, header.Text);
-                return string.Format("{0} {1}", methodText.PadRight(header.TextPad), CreateSentenceFromName(method.Name));
-            };
     }
 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
