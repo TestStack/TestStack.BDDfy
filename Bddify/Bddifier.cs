@@ -101,9 +101,6 @@ namespace Bddify
 
             if (exception != null)
             {
-                if (!typeof(AssertionException).IsAssignableFrom(exception.GetType()))
-                    PrintOutput("There was an exception:");
-
                 PrintOutput(exception.Message);
                 PrintOutput(exception.StackTrace);
                 PrintOutput("===== End of stack trace =====");
