@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ThenWithExceptionLeadsToFailedTest.cs" />
+    <Compile Include="WhenWithExceptionLeadsToFailedTest.cs" />
+    <Compile Include="GivenWithExceptionLeadsToFailedTest.cs" />
     <Compile Include="NotImplementedThenIsInconclusive.cs" />
     <Compile Include="NotImplementedWhenIsInconclusive.cs" />
     <Compile Include="NotImplementedGivenIsInconclusive.cs" />
