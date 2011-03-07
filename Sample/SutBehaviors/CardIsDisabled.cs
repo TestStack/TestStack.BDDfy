@@ -37,7 +37,6 @@ namespace SutBehaviors
         [Test]
         public void Execute()
         {
-            Bddifier.CreateSentenceFromName = BddifyExtensions.CreateSentenceFromCamelName;
             this.Bddify();
         }
     }

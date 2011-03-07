@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemUnderTest", "Sample\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SutBehaviors", "Sample\SutBehaviors\SutBehaviors.csproj", "{02FF30E2-ED16-4668-8883-D897099A011F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests", "Bddify.Tests\Bddify.Tests.csproj", "{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,16 @@ Global
 		{02FF30E2-ED16-4668-8883-D897099A011F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{02FF30E2-ED16-4668-8883-D897099A011F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{02FF30E2-ED16-4668-8883-D897099A011F}.Release|x86.ActiveCfg = Release|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

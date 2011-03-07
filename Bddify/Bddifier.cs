@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace Bddify
@@ -19,8 +20,11 @@ namespace Bddify
 
         public static readonly Action<string> DefaultPrintOutput = Console.WriteLine;
         public static Action<string> PrintOutput = DefaultPrintOutput;
+        
         public static Func<string, string> CreateSentenceFromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
-        public static Func<string, string> CreateSentenceFromName = CreateSentenceFromUnderscoreSeparatedWords;
+        public static Func<string, string> CreateSentenceFromCamelName = name => Regex.Replace(name, "[a-z][A-Z]", m => m.Value[0] + " " + char.ToLower(m.Value[1]));
+        public static Func<string, string> CreateSentenceFromName = name => CreateSentenceFromCamelName(CreateSentenceFromUnderscoreSeparatedWords(name));
+
         public static Func<MethodInfo, string> ReportByMethodInfo =
             method =>
             {
