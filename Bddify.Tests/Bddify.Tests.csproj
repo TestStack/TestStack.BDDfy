@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotImplementedThenIsInconclusive.cs" />
+    <Compile Include="NotImplementedWhenIsInconclusive.cs" />
     <Compile Include="NotImplementedGivenIsInconclusive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,23 +3,22 @@ using NUnit.Framework;
 
 namespace Bddify.Tests
 {
-    public class NotImplementedGivenIsInconclusive
+    public class NotImplementedWhenIsInconclusive
     {
         [Given]
         void TheTestMethodIsNotFullyImplemented()
         {      
-            throw new NotImplementedException();
         }
 
         [When]
-        void GivenPartThrowsNotImplementedException()
+        void WhenPartThrowsNotImplementedException()
         {
+            throw new NotImplementedException();
         }
         
         [Then]
         void TheTestIsFlaggedAsInconclusive()
         {
-            Assert.That(1, Is.EqualTo(1));
         }
 
         [Test]
