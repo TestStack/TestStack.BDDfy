@@ -37,7 +37,7 @@ namespace SutBehaviors
         [Test]
         public void Execute()
         {
-            this.BddifyIntoFile("d:\\temp\\report.txt");
+            this.Bddify("d:\\temp\\report.txt");
         }
     }
 }

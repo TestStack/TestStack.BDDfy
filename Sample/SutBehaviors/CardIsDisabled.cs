@@ -37,9 +37,8 @@ namespace SutBehaviors
         [Test]
         public void Execute()
         {
-            this.BddifyIntoFile("d:\\temp\\report.txt");
-            //Bddifier.Bddify.CreateSentenceFromName = BddifyExtensions.CreateSentenceCamelName;
-            //this.Bddify();
+            Bddifier.CreateSentenceFromName = BddifyExtensions.CreateSentenceFromCamelName;
+            this.Bddify();
         }
     }
 }
