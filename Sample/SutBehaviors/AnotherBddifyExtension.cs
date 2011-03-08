@@ -21,13 +21,13 @@ namespace SutBehaviors
                 Action<string> report =
                     s =>
                     {
-                        Bddifier.DefaultPrintOutput(s);
+                        BddifyReporter.DefaultPrintOutput(s);
                         file.WriteLine(s);
                     };
 
-                Bddifier.PrintOutput = report;
-                var bdder = new Bddifier();
-                bdder.Run(bddee);
+                BddifyReporter.PrintOutput = report;
+                var bdder = new Bddifier(new BddifyReporter(), bddee);
+                bdder.Run();
             }
         }
 
