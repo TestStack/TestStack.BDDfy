@@ -9,7 +9,7 @@ namespace Bddify
         public static void Bddify(this object bddee)
         {
             BddifyReporter.PrintOutput = BddifyReporter.DefaultPrintOutput;
-            var bdder = new Bddifier(new BddifyReporter(), bddee);
+            var bdder = new Bddifier(new BddifyReporter(), new Scanner(),  bddee);
             //var stack = new StackTrace(true);
             //var frames = stack.GetFrames();
             //if (frames != null && frames.Any(f => f.GetMethod().Name == ""))

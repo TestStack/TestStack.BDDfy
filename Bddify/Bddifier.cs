@@ -9,26 +9,20 @@ namespace Bddify
     public class Bddifier
     {
         private readonly IBddifyReporter _reporter;
+        private readonly IScanner _scanner;
         readonly object _instanceUnderTest;
 
-        public Bddifier(IBddifyReporter reporter, object bddee)
+        public Bddifier(IBddifyReporter reporter, IScanner scanner, object bddee)
         {
             _instanceUnderTest = bddee;
             _reporter = reporter;
+            _scanner = scanner;
         }
 
         public void Run()
         {
             _reporter.ReportOnObjectUnderTest(_instanceUnderTest);
-            RunSteps(ScanAssembly(_instanceUnderTest.GetType()));
-        }
-
-        protected virtual IEnumerable<MethodInfo> ScanAssembly(Type type)
-        {
-            return type
-                .GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => m.GetCustomAttributes(typeof(ExecutableAttribute), false).Any())
-                .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
+            RunSteps(_scanner.Scan(_instanceUnderTest.GetType()));
         }
 
         private void RunSteps(IEnumerable<MethodInfo> methods)

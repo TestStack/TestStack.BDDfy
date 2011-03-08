@@ -50,6 +50,7 @@
     <Compile Include="BddifyTests.cs" />
     <Compile Include="ExceptionThrowingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScannerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

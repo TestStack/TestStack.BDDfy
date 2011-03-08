@@ -17,7 +17,10 @@ namespace Bddify
         public static Func<MethodInfo, string> ReportByMethodInfo =
             method =>
                 {
-                    var header = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).Single();
+                    var header = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+                    if (header == null)
+                        return CreateSentenceFromName(method.Name);
+
                     return string.Format("{0} {1}", header.Text.PadRight(header.TextPad), CreateSentenceFromName(method.Name));
                 };
 

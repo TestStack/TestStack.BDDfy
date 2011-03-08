@@ -26,7 +26,7 @@ namespace SutBehaviors
                     };
 
                 BddifyReporter.PrintOutput = report;
-                var bdder = new Bddifier(new BddifyReporter(), bddee);
+                var bdder = new Bddifier(new BddifyReporter(), new Scanner(), bddee);
                 bdder.Run();
             }
         }

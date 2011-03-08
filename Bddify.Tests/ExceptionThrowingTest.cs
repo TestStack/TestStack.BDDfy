@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Linq;
 
 namespace Bddify.Tests
 {
@@ -57,8 +56,13 @@ namespace Bddify.Tests
 
         public void Execute()
         {
-            var bddify = new Bddifier(_reporter, this);
+            var bddify = new Bddifier(_reporter, new Scanner(), this);
             bddify.Run();
+        }
+
+        public static MethodInfo GetMethodInfo(Action<ExceptionThrowingTest> action)
+        {
+            return action.Method;
         }
     }
 }
