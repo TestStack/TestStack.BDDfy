@@ -38,9 +38,13 @@ namespace Bddify
             PrintOutput(ReportByMethodInfo(method));
         }
 
-        public void ReportNotImplemented(MethodInfo method)
+        public void ReportNotImplemented(MethodInfo method, Exception notImplementedException)
         {
-            PrintOutput(ReportByMethodInfo(method) + "  [Not Implemented] ");
+            var message = ReportByMethodInfo(method) + "  [Not Implemented] ";
+            if(!string.IsNullOrEmpty(notImplementedException.Message))
+                message += " : " + notImplementedException.Message;
+
+            PrintOutput(message);
         }
 
         public void ReportOnObjectUnderTest(object objectUnderTest)

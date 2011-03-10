@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions
 {
@@ -41,7 +42,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
-            var bddify = new Bddifier(_reporter, new Scanner(), /*new InconclusiveException(string.Empty), */this);
+            var bddify = new Bddifier(_reporter, new Scanner(), new InconclusiveException(string.Empty), this);
             bddify.Run();
         }
     }

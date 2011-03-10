@@ -4,6 +4,7 @@
     {
         Succeeded = 0,
         Failed = 1,
-        NotImplemented = 2
+        NotImplemented = 2,
+        Inconclusive
     }
 }

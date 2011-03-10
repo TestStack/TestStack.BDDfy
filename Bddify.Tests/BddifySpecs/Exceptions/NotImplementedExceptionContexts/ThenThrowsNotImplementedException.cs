@@ -1,3 +1,4 @@
+using System;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -26,7 +27,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
         [Test]
         public void ThenIsReportedAsNotImplemeneted()
         {
-            Reporter.Received().ReportNotImplemented(GetMethodInfo(Sut.Then));
+            Reporter.Received().ReportNotImplemented(GetMethodInfo(Sut.Then), Arg.Any<NotImplementedException>());
         }
     }
 }

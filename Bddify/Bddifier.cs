@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NUnit.Framework;
 
 namespace Bddify
 {
@@ -10,13 +9,19 @@ namespace Bddify
     {
         private readonly IBddifyReporter _reporter;
         private readonly IScanner _scanner;
+        private readonly Exception _inconclusiveException;
         readonly object _instanceUnderTest;
 
-        public Bddifier(IBddifyReporter reporter, IScanner scanner, object bddee)
+        public Bddifier(
+            IBddifyReporter reporter, 
+            IScanner scanner, 
+            Exception inconclusiveException, 
+            object bddee)
         {
             _instanceUnderTest = bddee;
             _reporter = reporter;
             _scanner = scanner;
+            _inconclusiveException = inconclusiveException;
         }
 
         public void Run()
@@ -29,10 +34,8 @@ namespace Bddify
         {
             var result = (ExecutionResult)methods.Max(m => (int)Execute(m));
 
-            if (result == ExecutionResult.NotImplemented)
-                Assert.Inconclusive();
-            else if (result == ExecutionResult.Failed)
-                Assert.Fail();
+            if (result == ExecutionResult.NotImplemented || result == ExecutionResult.Inconclusive)
+                throw _inconclusiveException;
         }
 
         private ExecutionResult Execute(MethodInfo method)
@@ -46,9 +49,10 @@ namespace Bddify
                 if (ex.InnerException == null)
                     throw;
 
-                if (ex.InnerException is NotImplementedException)
+                if (ex.InnerException is NotImplementedException ||
+                    ex.InnerException.GetType() == _inconclusiveException.GetType())
                 {
-                    _reporter.ReportNotImplemented(method);
+                    _reporter.ReportNotImplemented(method, ex.InnerException);
                     return ExecutionResult.NotImplemented;
                 }
 

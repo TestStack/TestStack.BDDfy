@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using NUnit.Framework;
 
 namespace Bddify
 {
@@ -9,7 +10,7 @@ namespace Bddify
         public static void Bddify(this object bddee)
         {
             BddifyReporter.PrintOutput = BddifyReporter.DefaultPrintOutput;
-            var bdder = new Bddifier(new BddifyReporter(), new Scanner(),  bddee);
+            var bdder = new Bddifier(new BddifyReporter(), new Scanner(), new InconclusiveException(string.Empty),  bddee);
             //var stack = new StackTrace(true);
             //var frames = stack.GetFrames();
             //if (frames != null && frames.Any(f => f.GetMethod().Name == ""))
