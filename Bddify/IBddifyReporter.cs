@@ -5,9 +5,9 @@ namespace Bddify
 {
     public interface IBddifyReporter
     {
-        ExecutionResult ReportException(MethodInfo method, Exception exception);
-        ExecutionResult ReportSuccess(MethodInfo method);
-        ExecutionResult ReportNotImplemented(MethodInfo method);
+        void ReportException(MethodInfo method, Exception exception);
+        void ReportSuccess(MethodInfo method);
+        void ReportNotImplemented(MethodInfo method);
         void ReportOnObjectUnderTest(object objectUnderTest);
     }
 }

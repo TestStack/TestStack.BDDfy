@@ -47,12 +47,17 @@ namespace Bddify
                     throw;
 
                 if (ex.InnerException is NotImplementedException)
-                    return _reporter.ReportNotImplemented(method);
+                {
+                    _reporter.ReportNotImplemented(method);
+                    return ExecutionResult.NotImplemented;
+                }
 
-                return _reporter.ReportException(method, ex.InnerException);
+                _reporter.ReportException(method, ex.InnerException);
+                throw ex.InnerException;
             }
 
-            return _reporter.ReportSuccess(method);
+            _reporter.ReportSuccess(method);
+            return ExecutionResult.Succeeded;
         }
     }
 }

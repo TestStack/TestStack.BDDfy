@@ -47,8 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BddifyTests.cs" />
-    <Compile Include="ExceptionThrowingTest.cs" />
+    <Compile Include="BddifySpecs\Exceptions\AssertionException\ThenThrowsAssertionExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
+    <Compile Include="BddifySpecs\Exceptions\HandlingExceptionBase.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\GivenThrowsNotImplementedExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\NotImplementedExceptionBase.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\ThenThrowsNotImplementedException.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\WhenThrowsNotImplementedExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\GivenThrowsExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\OtherExceptionBase.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\ThenThrowsExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenThrowsExceptionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScannerTests.cs" />
   </ItemGroup>

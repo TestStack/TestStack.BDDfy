@@ -24,26 +24,23 @@ namespace Bddify
                     return string.Format("{0} {1}", header.Text.PadRight(header.TextPad), CreateSentenceFromName(method.Name));
                 };
 
-        public ExecutionResult ReportException(MethodInfo method, Exception exception)
+        public void ReportException(MethodInfo method, Exception exception)
         {
             PrintOutput(ReportByMethodInfo(method) + "  [Failed] ");
             PrintOutput("====================================");
             PrintOutput(exception.Message);
             PrintOutput(exception.StackTrace);
             PrintOutput("======== End of stack trace ========");
-            return ExecutionResult.Failed;
         }
 
-        public ExecutionResult ReportSuccess(MethodInfo method)
+        public void ReportSuccess(MethodInfo method)
         {
             PrintOutput(ReportByMethodInfo(method));
-            return ExecutionResult.Succeeded;
         }
 
-        public ExecutionResult ReportNotImplemented(MethodInfo method)
+        public void ReportNotImplemented(MethodInfo method)
         {
             PrintOutput(ReportByMethodInfo(method) + "  [Not Implemented] ");
-            return ExecutionResult.NotImplemented;
         }
 
         public void ReportOnObjectUnderTest(object objectUnderTest)

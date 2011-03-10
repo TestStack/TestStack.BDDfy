@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnotherBddifyExtension.cs" />
     <Compile Include="card_is_disabled.cs" />
     <Compile Include="CardIsDisabled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
