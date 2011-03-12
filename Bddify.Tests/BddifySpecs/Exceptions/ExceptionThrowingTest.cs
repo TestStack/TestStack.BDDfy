@@ -38,7 +38,15 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
-            _bddify = new Bddifier(Assert.Inconclusive, new GwtScanner(), new TestRunner<InconclusiveException>(), new ConsoleReporter(), this);
+            _bddify = new Bddifier(
+                this, 
+                new GwtScanner(), 
+                new IProcessor[]
+                    {
+                        new TestRunner<InconclusiveException>(), 
+                        new ConsoleReporter(),
+                        new ExceptionHandler(Assert.Inconclusive)
+                    });
             _bddify.Run();
         }
 

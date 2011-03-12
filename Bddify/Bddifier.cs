@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Bddify
 {
@@ -24,47 +25,23 @@ namespace Bddify
                 return string.Format("{0} {1}", header.Text.PadRight(header.TextPad), CreateSentenceFromName(method.Name));
             };
 
-        private readonly Action _assertInconclusive;
-        private readonly IResultProcessor _resultProcessor;
+        private readonly IEnumerable<IProcessor> _processors;
         private readonly object _testObject;
         private readonly IScanner _scanner;
-        private readonly ITestRunner _runner;
 
-        public Bddifier(
-            Action assertInconclusive,
-            IScanner scanner,
-            ITestRunner runner,
-            IResultProcessor resultProcessor, 
-            object testObject)
+        public Bddifier(object testObject, IScanner scanner, IEnumerable<IProcessor> processors)
         {
-            _assertInconclusive = assertInconclusive;
-            _resultProcessor = resultProcessor;
+            _processors = processors;
             _testObject = testObject;
             _scanner = scanner;
-            _runner = runner;
         }
 
         public void Run()
         {
             var steps = _scanner.Scan(_testObject.GetType());
             Bddee = new Bddee(_testObject, steps);
-            _runner.Run(Bddee);
-            _resultProcessor.Process(Bddee);
-            RethrowExceptions(Bddee);
-        }
-
-        private void RethrowExceptions(Bddee bddee)
-        {
-            var worseResult = (StepExecutionResult)bddee.Steps.Max(s => (int)s.Result);
-            var stepWithWorseResult = bddee.Steps.First(s => s.Result == worseResult);
-            if (worseResult == StepExecutionResult.Failed)
-                throw stepWithWorseResult.Exception;
-
-            if (worseResult == StepExecutionResult.Inconclusive)
-                throw stepWithWorseResult.Exception;
-
-            if (worseResult == StepExecutionResult.NotImplemented)
-                _assertInconclusive();
+            foreach (var processor in _processors)
+                processor.Process(Bddee);
         }
 
         public Bddee Bddee { get; private set; }

@@ -2,10 +2,10 @@
 
 namespace Bddify
 {
-    public class TestRunner<TInconclusiveException> : ITestRunner
+    public class TestRunner<TInconclusiveException> : IProcessor
         where TInconclusiveException : Exception
     {
-        public void Run(Bddee bddee)
+        public void Process(Bddee bddee)
         {
             foreach (var executionStep in bddee.Steps)
             {

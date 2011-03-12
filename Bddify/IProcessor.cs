@@ -1,6 +1,6 @@
 namespace Bddify
 {
-    public interface IResultProcessor
+    public interface IProcessor
     {
         void Process(Bddee bddee);
     }

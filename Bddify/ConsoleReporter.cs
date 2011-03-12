@@ -2,7 +2,7 @@
 
 namespace Bddify
 {
-    public class ConsoleReporter : IResultProcessor
+    public class ConsoleReporter : IProcessor
     {
         public void Process(Bddee bddee)
         {
