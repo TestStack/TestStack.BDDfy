@@ -1,19 +1,15 @@
 using System;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions
 {
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
-        private readonly IBddifyReporter _reporter;
         private bool _givenShouldThrow;
         private bool _whenShouldThrow;
         private bool _thenShouldThrow;
-
-        public ExceptionThrowingTest(IBddifyReporter reporter)
-        {
-            _reporter = reporter;
-        }
+        private Bddifier _bddify;
 
         [Given]
         public void Given()
@@ -42,8 +38,32 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
-            var bddify = new Bddifier(_reporter, new Scanner(), new InconclusiveException(string.Empty), this);
-            bddify.Run();
+            _bddify = new Bddifier(Assert.Inconclusive, new GwtScanner(), new TestRunner<InconclusiveException>(), new ConsoleReporter(), this);
+            _bddify.Run();
+        }
+
+        public ExecutionStep GivenStep
+        {
+            get
+            {
+                return _bddify.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
+            }
+        }
+
+        public ExecutionStep WhenStep
+        {
+            get
+            {
+                return _bddify.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
+            }
+        }
+
+        public ExecutionStep ThenStep
+        {
+            get
+            {
+                return _bddify.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+            }
         }
     }
 }

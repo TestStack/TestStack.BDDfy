@@ -1,17 +1,14 @@
 using System;
-using NSubstitute;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
 {
-    public class NotImplementedExceptionBase : HandlingExceptionBase
+    public class NotImplementedExceptionBase
     {
-        protected readonly IBddifyReporter Reporter;
         protected readonly ExceptionThrowingTest<NotImplementedException> Sut;
 
         public NotImplementedExceptionBase()
         {
-            Reporter = Substitute.For<IBddifyReporter>();
-            Sut = new ExceptionThrowingTest<NotImplementedException>(Reporter);
+            Sut = new ExceptionThrowingTest<NotImplementedException>();
         }
     }
 }

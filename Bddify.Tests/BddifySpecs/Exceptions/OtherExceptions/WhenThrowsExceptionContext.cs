@@ -1,6 +1,7 @@
 using System;
 using NSubstitute;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
 {
@@ -15,19 +16,19 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
         [Test]
         public void GivenIsReportedAsSuccessful()
         {
-            Reporter.Received().ReportSuccess(GetMethodInfo(Sut.Given));
+            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Succeeded));
         }
 
         [Test]
         public void WhenIsReportedAsFailed()
         {
-            Reporter.Received().ReportException(GetMethodInfo(Sut.When), Arg.Any<Exception>());
+            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.Failed));
         }
 
         [Test]
         public void ThenIsNotExecuted()
         {
-            Reporter.DidNotReceive().ReportSuccess(GetMethodInfo(Sut.Then));
+            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
         }
     }
 }

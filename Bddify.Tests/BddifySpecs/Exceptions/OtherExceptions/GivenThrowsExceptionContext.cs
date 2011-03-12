@@ -15,19 +15,19 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
         [Test]
         public void GivenShouldBeReportedAsFailed()
         {
-            Reporter.Received().ReportException(GetMethodInfo(Sut.Given), Arg.Any<Exception>());
+            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Failed));
         }
 
         [Test]
         public void WhenShouldNotBeExecuted()
         {
-            Reporter.DidNotReceive().ReportSuccess(GetMethodInfo(Sut.When));
+            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
         }
 
         [Test]
         public void ThenShouldNotBeExecuted()
         {
-            Reporter.DidNotReceive().ReportSuccess(GetMethodInfo(Sut.Then));
+            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
         }
 
     }

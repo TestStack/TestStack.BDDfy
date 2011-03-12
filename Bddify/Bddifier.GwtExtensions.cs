@@ -32,11 +32,17 @@ namespace Bddify
 
     public class ThenAttribute : GwtExectuableAttribute
     {
-        public ThenAttribute() : base(5, "Then") { }
+        public ThenAttribute() : base(5, "Then")
+        {
+            Asserts = true;
+        }
     }
 
     public class AndThenAttribute : GwtExectuableAttribute
     {
-        public AndThenAttribute() : base(5, And) { }
+        public AndThenAttribute() : base(5, And)
+        {
+            Asserts = true;
+        }
     }
 }

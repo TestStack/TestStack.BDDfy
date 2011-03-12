@@ -15,19 +15,19 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
         [Test]
         public void GivenIsReportedAsSuccessful()
         {
-            Reporter.Received().ReportSuccess(GetMethodInfo(Sut.Given));
+            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Succeeded));
         }
 
         [Test]
         public void WhenIsReportedAsNotImplemented()
         {
-            Reporter.Received().ReportNotImplemented(GetMethodInfo(Sut.When), Arg.Any<NotImplementedException>());
+            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
         }
 
         [Test]
-        public void ThenIsReportedAsSuccessful()
+        public void ThenIsNotExecuted()
         {
-            Reporter.Received().ReportSuccess(GetMethodInfo(Sut.Then));
+            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
         }
     }
 }

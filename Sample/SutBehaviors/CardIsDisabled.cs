@@ -1,5 +1,4 @@
 ﻿using SystemUnderTest;
-using Bddify;
 using NUnit.Framework;
 
 namespace SutBehaviors

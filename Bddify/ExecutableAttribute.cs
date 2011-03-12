@@ -12,6 +12,7 @@ namespace Bddify
         }
 
         public int Order { get; private set; }
+        public bool Asserts { get; set; }
         public string Text { get; private set; }
         public int TextPad { get; set; }
     }
