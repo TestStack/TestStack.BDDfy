@@ -43,19 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtmAndCardSamples\AtmAndCardSystem.cs" />
     <Compile Include="BddifyNunit.cs" />
-    <Compile Include="card_is_disabled.cs" />
-    <Compile Include="CardIsDisabled.cs" />
+    <Compile Include="AtmAndCardSamples\card_is_disabled.cs" />
+    <Compile Include="AtmAndCardSamples\CardIsDisabled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Bddify\Bddify.csproj">
       <Project>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</Project>
       <Name>Bddify</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SystemUnderTest\SystemUnderTest.csproj">
-      <Project>{915CBB8A-429A-4BF6-89BF-ACC599791FE1}</Project>
-      <Name>SystemUnderTest</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

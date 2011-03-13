@@ -1,30 +1,34 @@
-﻿using SystemUnderTest;
+﻿using Bddify;
 using NUnit.Framework;
 
-namespace SutBehaviors
+namespace SutBehaviors.AtmAndCardSamples
 {
-    public class CardIsDisabled
+    public class card_is_disabled
     {
         private Card _card;
         Atm _subject;
 
-        void GivenTheCardIsDisabled()
+        [Given]
+        void the_card_is_disabled()
         {
             _card = new Card(false);
             _subject = new Atm();
         }
 
-        void WhenTheAccountHolderRequestsMoney()
+        [When]
+        void the_account_holder_requests_money()
         {
             _subject.RequestMoney(_card);
         }
 
-        void ThenTheAtmShouldRetainTheCard()
+        [Then]
+        void the_Atm_should_retain_the_card()
         {
             Assert.That(_subject.CardIsRetained, Is.True);
         }
 
-        void AndTheAtmShouldSayTheCardHasBeenRetained()
+        [AndThen]
+        void the_Atm_should_say_the_card_has_been_retained()
         {
             Assert.That(_subject.Message, Is.EqualTo(DisplayMessage.CardIsRetained));
         }
