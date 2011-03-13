@@ -49,6 +49,7 @@
     <Compile Include="ConsoleReporter.cs" />
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="ExecutableAttribute.cs" />
+    <Compile Include="ProcessType.cs" />
     <Compile Include="StepExecutionResult.cs" />
     <Compile Include="ExecutionStep.cs" />
     <Compile Include="IProcessor.cs" />

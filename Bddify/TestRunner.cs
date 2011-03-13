@@ -5,6 +5,11 @@ namespace Bddify
     public class TestRunner<TInconclusiveException> : IProcessor
         where TInconclusiveException : Exception
     {
+        public ProcessType ProcessType
+        {
+            get { return ProcessType.Execute; }
+        }
+
         public void Process(Bddee bddee)
         {
             foreach (var executionStep in bddee.Steps)

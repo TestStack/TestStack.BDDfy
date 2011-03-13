@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BddifySpecs\Exceptions\AssertionException\ThenThrowsAssertionExceptionContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
+    <Compile Include="BddifySpecs\OutOfOrderProcessorsContext.cs" />
     <Compile Include="HandlingExceptionBase.cs" />
     <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\GivenThrowsNotImplementedExceptionContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\NotImplementedExceptionBase.cs" />

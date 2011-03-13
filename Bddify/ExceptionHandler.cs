@@ -12,6 +12,11 @@ namespace Bddify
             _assertInconclusive = assertInconclusive;
         }
 
+        public ProcessType ProcessType
+        {
+            get { return ProcessType.HandleExceptions; }
+        }
+
         public void Process(Bddee bddee)
         {
             var worseResult = (StepExecutionResult)bddee.Steps.Max(s => (int)s.Result);

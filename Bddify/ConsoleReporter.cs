@@ -4,6 +4,11 @@ namespace Bddify
 {
     public class ConsoleReporter : IProcessor
     {
+        public ProcessType ProcessType
+        {
+            get { return ProcessType.Report; }
+        }
+
         public void Process(Bddee bddee)
         {
             Report(bddee.Object);
