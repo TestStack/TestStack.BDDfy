@@ -4,6 +4,9 @@ namespace Bddify
 {
     public class ConsoleReporter : IProcessor
     {
+        public static readonly Action<string> DefaultPrintOutput = Console.WriteLine;
+        public static Action<string> PrintOutput = DefaultPrintOutput;
+
         public ProcessType ProcessType
         {
             get { return ProcessType.Report; }
@@ -36,16 +39,16 @@ namespace Bddify
 
         static void ReportFailed(ExecutionStep step)
         {
-            Bddifier.PrintOutput(step.ReadableMethodName + "  [Failed] ");
-            Bddifier.PrintOutput("====================================");
-            Bddifier.PrintOutput(step.Exception.Message);
-            Bddifier.PrintOutput(step.Exception.StackTrace);
-            Bddifier.PrintOutput("======== End of stack trace ========");
+            PrintOutput(step.ReadableMethodName + "  [Failed] ");
+            PrintOutput("====================================");
+            PrintOutput(step.Exception.Message);
+            PrintOutput(step.Exception.StackTrace);
+            PrintOutput("======== End of stack trace ========");
         }
 
         static void ReportSuccess(ExecutionStep step)
         {
-            Bddifier.PrintOutput(step.ReadableMethodName);
+            PrintOutput(step.ReadableMethodName);
         }
 
         static void ReportNotImplemented(ExecutionStep step)
@@ -54,12 +57,12 @@ namespace Bddify
             if(!string.IsNullOrEmpty(step.Exception.Message))
                 message += " : " + step.Exception.Message;
 
-            Bddifier.PrintOutput(message);
+            PrintOutput(message);
         }
 
         static void Report(object objectUnderTest)
         {
-            Bddifier.PrintOutput("Scenario: " + Bddifier.CreateSentenceFromTypeName(objectUnderTest.GetType().Name) + Environment.NewLine);
+            PrintOutput("Scenario: " + NetToString.CreateSentenceFromTypeName(objectUnderTest.GetType().Name) + Environment.NewLine);
         }
     }
 }

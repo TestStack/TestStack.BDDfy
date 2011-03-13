@@ -36,7 +36,7 @@ namespace Bddify
                 .Where(m => m.GetCustomAttributes(typeof(ExecutableAttribute), false).Any())
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
 
-            return methods.Select(m => new ExecutionStep(m, Bddifier.CreateSentenceFromName(m.Name), IsAssertingByAttribute(m)));
+            return methods.Select(m => new ExecutionStep(m, NetToString.CreateSentenceFromName(m.Name), IsAssertingByAttribute(m)));
         }
 
         private static bool IsAssertingByAttribute(MethodInfo method)
@@ -67,7 +67,7 @@ namespace Bddify
                 }
             }
 
-            return targetMethods.Keys.Select(m => new ExecutionStep(m, Bddifier.CreateSentenceFromName(m.Name), _methodNamingConvention[targetMethods[m]]));
+            return targetMethods.Keys.Select(m => new ExecutionStep(m, NetToString.CreateSentenceFromName(m.Name), _methodNamingConvention[targetMethods[m]]));
         }
     }
 }
