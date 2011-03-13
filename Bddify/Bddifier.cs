@@ -36,7 +36,7 @@ namespace Bddify
             _scanner = scanner;
         }
 
-        public void Run()
+        public Bddee Run()
         {
             var steps = _scanner.Scan(_testObject.GetType());
             Bddee = new Bddee(_testObject, steps);
@@ -44,6 +44,8 @@ namespace Bddify
             //run processors in the right order regardless of the order they are provided to the Bddifer
             foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
                 processor.Process(Bddee);
+
+            return Bddee;
         }
 
         public Bddee Bddee { get; private set; }

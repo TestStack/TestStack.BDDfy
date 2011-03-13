@@ -55,13 +55,14 @@ namespace Bddify
             var methods = typeToScan.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             var targetMethods = new Dictionary<MethodInfo, string>();
 
-            foreach (var method in methods)
+            foreach (var conventionKey in _methodNamingConvention.Keys)
             {
-                foreach (var conventionKey in _methodNamingConvention.Keys)
+                foreach (var method in methods)
                 {
                     if (method.Name.StartsWith(conventionKey))
                     {
                         targetMethods.Add(method, conventionKey);
+                        break;
                     }
                 }
             }
