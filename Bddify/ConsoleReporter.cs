@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bddify
 {
@@ -6,6 +8,8 @@ namespace Bddify
     {
         public static readonly Action<string> DefaultPrintOutput = Console.WriteLine;
         public static Action<string> PrintOutput = DefaultPrintOutput;
+        readonly List<Exception> _exceptions = new List<Exception>();
+        private int _longestStepSentence;
 
         public ProcessType ProcessType
         {
@@ -14,50 +18,62 @@ namespace Bddify
 
         public void Process(Bddee bddee)
         {
+            var reporterRegistry
+                = new Dictionary<StepExecutionResult, Action<ExecutionStep>>
+                          {
+                              {StepExecutionResult.Succeeded, s => ReportOnStep(s)},
+                              {StepExecutionResult.Failed, s => ReportOnStep(s, true)},
+                              {StepExecutionResult.Inconclusive, s => ReportOnStep(s)},
+                              {StepExecutionResult.NotImplemented, s => ReportOnStep(s, true)},
+                          };
+
+            _longestStepSentence = bddee.Steps.Max(s => s.ReadableMethodName.Length);
+
             Report(bddee);
+            
             foreach (var step in bddee.Steps)
-                Report(step);
+                reporterRegistry[step.Result](step);
+
+            ReportExceptions();
         }
 
-        static void Report(ExecutionStep step)
+        void ReportOnStep(ExecutionStep step, bool reportOnException = false)
         {
-            switch (step.Result)
+            var message =
+                string.Format
+                    ("{0}  [{1}]",
+                    step.ReadableMethodName.PadRight(_longestStepSentence + 5),
+                    NetToString.CreateSentenceFromCamelName(step.Result.ToString()));
+
+            if(reportOnException)
             {
-                case StepExecutionResult.Succeeded:
-                    ReportSuccess(step);
-                    break;
-
-                case StepExecutionResult.Failed:
-                    ReportFailed(step);
-                    break;
-
-                case StepExecutionResult.Inconclusive:
-                    ReportNotImplemented(step);
-                    break;
+                _exceptions.Add(step.Exception);
+                message += string.Format(" :: Exception Stack Trace below on number [{0}]", _exceptions.Count);
             }
-        }
-
-        static void ReportFailed(ExecutionStep step)
-        {
-            PrintOutput(step.ReadableMethodName + "  [Failed] ");
-            PrintOutput("====================================");
-            PrintOutput(step.Exception.Message);
-            PrintOutput(step.Exception.StackTrace);
-            PrintOutput("======== End of stack trace ========");
-        }
-
-        static void ReportSuccess(ExecutionStep step)
-        {
-            PrintOutput(step.ReadableMethodName);
-        }
-
-        static void ReportNotImplemented(ExecutionStep step)
-        {
-            var message = step.ReadableMethodName + "  [Not Implemented] ";
-            if(!string.IsNullOrEmpty(step.Exception.Message))
-                message += " : " + step.Exception.Message;
 
             PrintOutput(message);
+        }
+
+        void ReportExceptions()
+        {
+            if (_exceptions.Count == 0)
+                return;
+
+            PrintOutput(string.Empty);
+            PrintOutput("Exceptions' Details: ");
+            PrintOutput(string.Empty);
+
+            for (int index = 0; index < _exceptions.Count; index++)
+            {
+                var exception = _exceptions[index];
+                PrintOutput(string.Format("[{0}]:", index + 1));
+                
+                if (string.IsNullOrEmpty(exception.Message))
+                    PrintOutput(exception.Message);
+         
+                PrintOutput(exception.StackTrace);
+                PrintOutput("============================================================================================================");
+            }
         }
 
         static void Report(Bddee bddee)
