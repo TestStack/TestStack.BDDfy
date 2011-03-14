@@ -14,7 +14,7 @@ namespace Bddify
 
         public void Process(Bddee bddee)
         {
-            Report(bddee.Object);
+            Report(bddee);
             foreach (var step in bddee.Steps)
                 Report(step);
         }
@@ -60,9 +60,9 @@ namespace Bddify
             PrintOutput(message);
         }
 
-        static void Report(object objectUnderTest)
+        static void Report(Bddee bddee)
         {
-            PrintOutput("Scenario: " + NetToString.CreateSentenceFromTypeName(objectUnderTest.GetType().Name) + Environment.NewLine);
+            PrintOutput("Scenario: " +  bddee.ScenarioSentence + Environment.NewLine);
         }
     }
 }

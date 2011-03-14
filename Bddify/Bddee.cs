@@ -9,7 +9,11 @@ namespace Bddify
         {
             Object = bddeeObject;
             _steps = steps.ToList();
+
+            ScenarioSentence = NetToString.CreateSentenceFromTypeName(bddeeObject.GetType().Name);
         }
+
+        public string ScenarioSentence { get; private set; }
 
         public object Object { get; set; }
         private readonly List<ExecutionStep> _steps;

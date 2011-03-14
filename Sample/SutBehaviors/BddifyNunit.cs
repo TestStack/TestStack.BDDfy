@@ -15,6 +15,7 @@ namespace SutBehaviors
                 { 
                     new TestRunner<InconclusiveException>(), 
                     new ConsoleReporter(),
+                    new HtmlReporter("d:\\temp"),
                     new ExceptionHandler(Assert.Inconclusive)
                 });
 

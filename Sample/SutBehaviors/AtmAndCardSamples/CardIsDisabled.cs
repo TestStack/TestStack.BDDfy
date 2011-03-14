@@ -27,6 +27,7 @@ namespace SutBehaviors.AtmAndCardSamples
         void AndTheAtmShouldSayTheCardHasBeenRetained()
         {
             Assert.That(_subject.Message, Is.EqualTo(DisplayMessage.CardIsRetained));
+            Assert.Inconclusive();
         }
 
         [Test]

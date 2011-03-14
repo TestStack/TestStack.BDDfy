@@ -1,0 +1,36 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>Scenario for @Model.ScenarioSentence</title>
+	</head>
+
+	<body>
+        <p>Scenario for @Model.ScenarioSentence</p>
+
+		<table width="100%">
+		    <thead>
+		        <tr>
+		            <td>Step</td>
+		            <td>Result</td>
+                    <td>Exception</td>
+		        </tr>
+		    </thead>
+
+            <tbody>
+                @foreach (var step in @Model.Steps)
+                { 
+                    <tr>
+                        <td>@step.ReadableMethodName</td>
+                        <td>@step.Result</td>
+                        <td>
+                        @if (step.Exception != null)
+                        {
+                            @step.Exception.Message
+                        }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+		</table>
+	</body>
+</html>

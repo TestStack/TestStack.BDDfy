@@ -31,16 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\Dependencies\NUnit\nunit.framework.dll</HintPath>
+    <Reference Include="RazorEngine">
+      <HintPath>..\Dependencies\RazorEngine\RazorEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\RazorEngine\System.Web.Razor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bddee.cs" />
@@ -50,6 +48,7 @@
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="ExecutableAttribute.cs" />
     <Compile Include="ExecutableAttributeScanner.cs" />
+    <Compile Include="HtmlReporter.cs" />
     <Compile Include="NetToString.cs" />
     <Compile Include="ProcessType.cs" />
     <Compile Include="StepExecutionResult.cs" />
@@ -59,6 +58,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GwtScanner.cs" />
     <Compile Include="TestRunner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HtmlReport.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
