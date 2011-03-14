@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Bddify;
+using NUnit.Framework;
 
 namespace SutBehaviors.AtmAndCardSamples
 {
@@ -31,7 +32,7 @@ namespace SutBehaviors.AtmAndCardSamples
         [Test]
         public void Execute()
         {
-            this.Bddify();
+            this.Bddify<GwtScanner>();
         }
     }
 }

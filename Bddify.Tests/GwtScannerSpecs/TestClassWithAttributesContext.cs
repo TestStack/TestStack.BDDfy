@@ -41,7 +41,7 @@ namespace Bddify.Tests.GwtScannerSpecs
         public void WhenTestClassHasAttributes()
         {
             _typeWithAttribute = new TypeWithAttribute();
-            _steps = new GwtScanner().Scan(typeof(TypeWithAttribute)).ToList();
+            _steps = new ExecutableAttributeScanner().Scan(typeof(TypeWithAttribute)).ToList();
         }
 
         [Test]

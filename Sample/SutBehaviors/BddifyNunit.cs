@@ -5,11 +5,12 @@ namespace SutBehaviors
 {
     public static class BddifyNunit
     {
-        public static Bddifier Bddify(this object testObject)
+        public static Bddifier Bddify<T>(this object testObject)
+            where T : IScanner, new()
         {
             var bddifier = new Bddifier(
                 testObject,
-                new GwtScanner(),
+                new T(),
                 new IProcessor[]
                 { 
                     new TestRunner<InconclusiveException>(), 

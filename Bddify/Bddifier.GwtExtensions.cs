@@ -4,35 +4,34 @@ namespace Bddify
     {
         protected const string And = " and";
 
-        public GwtExectuableAttribute(int order, string text) : base(order, text)
+        public GwtExectuableAttribute(int order) : base(order)
         {
-            TextPad = 5;
         }
     }
 
     public class GivenAttribute : GwtExectuableAttribute
     {
-        public GivenAttribute() : base(1, "Given") { }
+        public GivenAttribute() : base(1) { }
     }
 
     public class AndGivenAttribute : GwtExectuableAttribute
     {
-        public AndGivenAttribute() : base(2, And) { }
+        public AndGivenAttribute() : base(2) { }
     }
 
     public class WhenAttribute : GwtExectuableAttribute
     {
-        public WhenAttribute() : base(3, "When") { }
+        public WhenAttribute() : base(3) { }
     }
 
     public class AndWhenAttribute : GwtExectuableAttribute
     {
-        public AndWhenAttribute() : base(4, And) { }
+        public AndWhenAttribute() : base(4) { }
     }
 
     public class ThenAttribute : GwtExectuableAttribute
     {
-        public ThenAttribute() : base(5, "Then")
+        public ThenAttribute() : base(5)
         {
             Asserts = true;
         }
@@ -40,7 +39,7 @@ namespace Bddify
 
     public class AndThenAttribute : GwtExectuableAttribute
     {
-        public AndThenAttribute() : base(5, And)
+        public AndThenAttribute() : base(5)
         {
             Asserts = true;
         }

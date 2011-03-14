@@ -49,6 +49,7 @@
     <Compile Include="ConsoleReporter.cs" />
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="ExecutableAttribute.cs" />
+    <Compile Include="ExecutableAttributeScanner.cs" />
     <Compile Include="NetToString.cs" />
     <Compile Include="ProcessType.cs" />
     <Compile Include="StepExecutionResult.cs" />

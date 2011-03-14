@@ -9,26 +9,26 @@ namespace SutBehaviors.AtmAndCardSamples
         Atm _subject;
 
         [Given]
-        void the_card_is_disabled()
+        void Given_the_card_is_disabled()
         {
             _card = new Card(false);
             _subject = new Atm();
         }
 
         [When]
-        void the_account_holder_requests_money()
+        void when_the_account_holder_requests_money()
         {
             _subject.RequestMoney(_card);
         }
 
         [Then]
-        void the_Atm_should_retain_the_card()
+        void then_the_Atm_should_retain_the_card()
         {
             Assert.That(_subject.CardIsRetained, Is.True);
         }
 
         [AndThen]
-        void the_Atm_should_say_the_card_has_been_retained()
+        void and_the_Atm_should_say_the_card_has_been_retained()
         {
             Assert.That(_subject.Message, Is.EqualTo(DisplayMessage.CardIsRetained));
         }
@@ -36,7 +36,7 @@ namespace SutBehaviors.AtmAndCardSamples
         [Test]
         public void Execute()
         {
-            this.Bddify();
+            this.Bddify<ExecutableAttributeScanner>();
         }
     }
 }
