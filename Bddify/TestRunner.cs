@@ -25,7 +25,10 @@ namespace Bddify
                         throw;
 
                     if (ex.InnerException is NotImplementedException)
+                    {
                         executionStep.Result = StepExecutionResult.NotImplemented;
+                        executionStep.Exception = ex.InnerException;
+                    }
                     else if (ex.InnerException.GetType() == typeof(TInconclusiveException))
                     {
                         executionStep.Result = StepExecutionResult.Inconclusive;

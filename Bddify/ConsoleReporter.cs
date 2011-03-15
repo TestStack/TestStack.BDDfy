@@ -25,6 +25,7 @@ namespace Bddify
                               {StepExecutionResult.Failed, s => ReportOnStep(s, true)},
                               {StepExecutionResult.Inconclusive, s => ReportOnStep(s)},
                               {StepExecutionResult.NotImplemented, s => ReportOnStep(s, true)},
+                              {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
             _longestStepSentence = bddee.Steps.Max(s => s.ReadableMethodName.Length);
