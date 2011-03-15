@@ -6,6 +6,13 @@ namespace Bddify.Tests
     {
         public static Bddifier Bddify(this object testObject)
         {
+            var bddifier = LazyBddify(testObject);
+            bddifier.Run();
+            return bddifier;
+        }
+
+        public static Bddifier LazyBddify(this object testObject)
+        {
             var bddifier = new Bddifier(
                 testObject,
                 new GwtScanner(),
@@ -16,7 +23,6 @@ namespace Bddify.Tests
                     new ExceptionHandler(Assert.Inconclusive)
                 });
 
-            bddifier.Run();
             return bddifier;
         }
     }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using System.Linq;
 
-namespace Bddify.Tests.GwtScannerSpecs
+namespace Bddify.Tests.ScannerSpecs
 {
     public class TestClassWithoutAttributesContext
     {

@@ -51,7 +51,7 @@
     <Compile Include="BddifySpecs\Arguments\ArgumentsProvidedForGivenContext.cs" />
     <Compile Include="BddifySpecs\Arguments\ArgumentsProvidedForThenContext.cs" />
     <Compile Include="BddifySpecs\Arguments\MultipleArgumentAttributesProvidedToSameMethodContext.cs" />
-    <Compile Include="BddifySpecs\Exceptions\AssertionException\ThenThrowsAssertionExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\InconclusiveExceptionContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
     <Compile Include="BddifySpecs\OutOfOrderProcessorsContext.cs" />
     <Compile Include="Helpers.cs" />
@@ -64,8 +64,8 @@
     <Compile Include="BddifySpecs\Exceptions\OtherExceptions\ThenThrowsExceptionContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenThrowsExceptionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GwtScannerSpecs\ScannerTests.cs" />
-    <Compile Include="GwtScannerSpecs\TestClassWithAttributesContext.cs" />
+    <Compile Include="ScannerSpecs\TestClassWithoutAttributesContext.cs" />
+    <Compile Include="ScannerSpecs\TestClassWithAttributesContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

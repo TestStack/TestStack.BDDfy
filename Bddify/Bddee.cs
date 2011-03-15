@@ -21,5 +21,13 @@ namespace Bddify
         {
             get { return _steps; }
         }
+
+        public StepExecutionResult Result
+        {
+            get
+            {
+                return (StepExecutionResult)Steps.Max(s => (int)s.Result);
+            }
+        }
     }
 }

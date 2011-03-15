@@ -19,7 +19,7 @@ namespace Bddify
 
         public void Process(Bddee bddee)
         {
-            var worseResult = (StepExecutionResult)bddee.Steps.Max(s => (int)s.Result);
+            var worseResult = bddee.Result;
             var stepWithWorseResult = bddee.Steps.First(s => s.Result == worseResult);
             if (worseResult == StepExecutionResult.Failed)
                 throw stepWithWorseResult.Exception;
