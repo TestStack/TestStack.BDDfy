@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Bddify
 {
@@ -12,7 +11,7 @@ namespace Bddify
             _inputArguments = inputArguments;
         }
 
-        public IEnumerable<object> InputArguments
+        public object[] InputArguments
         {
             get { return _inputArguments; }
         }

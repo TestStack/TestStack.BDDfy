@@ -14,7 +14,8 @@ namespace Bddify
                 .Where(m => m.GetCustomAttributes(typeof(ExecutableAttribute), false).Any())
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
 
-            return methods.Select(m => new ExecutionStep(m, NetToString.CreateSentenceFromName(m.Name), IsAssertingByAttribute(m)));
+            // ToDo: the arguments should be provided
+            return methods.Select(m => new ExecutionStep(m, null, NetToString.CreateSentenceFromName(m.Name), IsAssertingByAttribute(m)));
         }
 
         private static bool IsAssertingByAttribute(MethodInfo method)

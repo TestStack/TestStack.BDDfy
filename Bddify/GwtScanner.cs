@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace Bddify
 {
@@ -27,7 +28,12 @@ namespace Bddify
                 {
                     if (method.Name.StartsWith(conventionKey))
                     {
-                        yield return new ExecutionStep(method, NetToString.CreateSentenceFromName(method.Name), _methodNamingConvention[conventionKey]);
+                        var argAttribute = (WithArgsAttribute)method.GetCustomAttributes(typeof(WithArgsAttribute), false).FirstOrDefault();
+                        object[] inputs = null;
+                        if (argAttribute != null)
+                            inputs = argAttribute.InputArguments;
+
+                        yield return new ExecutionStep(method, inputs, NetToString.CreateSentenceFromName(method.Name), _methodNamingConvention[conventionKey]);
                         break;
                     }
                 }
