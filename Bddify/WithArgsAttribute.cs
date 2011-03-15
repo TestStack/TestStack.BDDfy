@@ -2,6 +2,7 @@ using System;
 
 namespace Bddify
 {
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class WithArgsAttribute : Attribute
     {
         private readonly object[] _inputArguments;

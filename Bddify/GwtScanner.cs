@@ -28,12 +28,25 @@ namespace Bddify
                 {
                     if (method.Name.StartsWith(conventionKey))
                     {
-                        var argAttribute = (WithArgsAttribute)method.GetCustomAttributes(typeof(WithArgsAttribute), false).FirstOrDefault();
+                        var argAttributes = (WithArgsAttribute[])method.GetCustomAttributes(typeof(WithArgsAttribute), false);
                         object[] inputs = null;
-                        if (argAttribute != null)
-                            inputs = argAttribute.InputArguments;
+                        if (argAttributes != null && argAttributes.Length > 0)
+                            inputs = argAttributes[0].InputArguments;
 
+                        // creating the method itself
                         yield return new ExecutionStep(method, inputs, NetToString.CreateSentenceFromName(method.Name), _methodNamingConvention[conventionKey]);
+
+                        if (argAttributes != null && argAttributes.Length > 1)
+                        {
+                            for (int index = 1; index < argAttributes.Length; index++)
+                            {
+                                var argAttribute = argAttributes[index];
+                                inputs = argAttribute.InputArguments;
+                                if (inputs != null && inputs.Length > 0)
+                                    yield return new ExecutionStep(method, inputs, NetToString.CreateSentenceFromName(method.Name), _methodNamingConvention[conventionKey]);
+                            }
+                        }
+
                         break;
                     }
                 }

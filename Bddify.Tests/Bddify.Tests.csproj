@@ -50,6 +50,7 @@
     <Compile Include="BddifyNunit.cs" />
     <Compile Include="BddifySpecs\Arguments\ArgumentsProvidedForGivenContext.cs" />
     <Compile Include="BddifySpecs\Arguments\ArgumentsProvidedForThenContext.cs" />
+    <Compile Include="BddifySpecs\Arguments\MultipleArgumentAttributesProvidedToSameMethodContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\AssertionException\ThenThrowsAssertionExceptionContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
     <Compile Include="BddifySpecs\OutOfOrderProcessorsContext.cs" />
