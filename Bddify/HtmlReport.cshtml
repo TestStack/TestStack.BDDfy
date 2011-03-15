@@ -5,32 +5,43 @@
 	</head>
 
 	<body>
-        <p>Scenario for @Model.ScenarioSentence</p>
+		<h2>Scenario: @Model.ScenarioSentence</h2>
 
-		<table width="100%">
-		    <thead>
-		        <tr>
-		            <td>Step</td>
-		            <td>Result</td>
-                    <td>Exception</td>
-		        </tr>
-		    </thead>
-
-            <tbody>
-                @foreach (var step in @Model.Steps)
-                { 
-                    <tr>
-                        <td>@step.ReadableMethodName</td>
-                        <td>@step.Result</td>
-                        <td>
-                        @if (step.Exception != null)
-                        {
-                            @step.Exception.Message
-                        }
-                        </td>
-                    </tr>
-                }
-            </tbody>
+		<table width="100%" style="border-collapse:collapse">
+			<tbody>
+				@foreach (var step in @Model.Steps) {
+                    if (step.Result == Bddify.StepExecutionResult.Succeeded) 
+                    {
+                        <tr style="background-color:Lime"> 
+				            <td>@step.ReadableMethodName</td>
+						    <td>@step.Result</td>
+					    </tr>
+                    }
+                    else if (step.Result == Bddify.StepExecutionResult.NotImplemented || step.Result == Bddify.StepExecutionResult.Inconclusive)
+                    {
+                        <tr style="background-color:Yellow">
+				            <td>@step.ReadableMethodName</td>
+						    <td>@step.Result</td>
+					    </tr>
+                    }
+                    else if (step.Result == Bddify.StepExecutionResult.Failed)
+                    {
+                        <tr style="background-color:Red">
+				            <td>@step.ReadableMethodName</td>
+						    <td>@step.Result</td>
+					    </tr>
+                    }
+                    else
+                    {
+                        <tr>
+				            <td>@step.ReadableMethodName</td>
+						    <td>@step.Result</td>
+					    </tr>
+                    }
+				}
+			</tbody>
 		</table>
+
+		<p>Run by Bddifier</p>
 	</body>
 </html>

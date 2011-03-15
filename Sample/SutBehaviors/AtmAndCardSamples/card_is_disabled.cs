@@ -24,7 +24,7 @@ namespace SutBehaviors.AtmAndCardSamples
         [Then]
         void then_the_Atm_should_retain_the_card()
         {
-            Assert.That(_subject.CardIsRetained, Is.True);
+            Assert.That(_subject.CardIsRetained, Is.False);
         }
 
         [AndThen]
