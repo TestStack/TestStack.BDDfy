@@ -1,6 +1,7 @@
 ﻿using System;
+using Bddify.Core;
 
-namespace Bddify
+namespace Bddify.Processors
 {
     public class TestRunner<TInconclusiveException> : IProcessor
         where TInconclusiveException : Exception

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Bddify.Core;
+using Bddify.Scanners;
 using Bddify.Tests.BddifySpecs.Exceptions;
 using NSubstitute;
 using NUnit.Framework;

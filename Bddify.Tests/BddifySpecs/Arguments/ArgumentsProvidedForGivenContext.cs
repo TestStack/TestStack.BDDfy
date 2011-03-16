@@ -1,3 +1,4 @@
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Arguments

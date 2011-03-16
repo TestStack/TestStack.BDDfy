@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bddify
+namespace Bddify.Core
 {
     public class Bddee
     {

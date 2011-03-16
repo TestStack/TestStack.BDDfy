@@ -1,3 +1,7 @@
+using Bddify.Core;
+using Bddify.Processors;
+using Bddify.Reporters;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Tests

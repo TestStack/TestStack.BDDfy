@@ -1,5 +1,5 @@
 using System;
-using NSubstitute;
+using Bddify.Core;
 using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions

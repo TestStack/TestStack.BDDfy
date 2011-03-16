@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Bddify
+namespace Bddify.Core
 {
     public class NetToString
     {

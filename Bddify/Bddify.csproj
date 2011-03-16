@@ -41,30 +41,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bddee.cs" />
-    <Compile Include="Bddifier.cs" />
-    <Compile Include="Bddifier.GwtExtensions.cs" />
-    <Compile Include="ConsoleReporter.cs" />
-    <Compile Include="ExceptionHandler.cs" />
-    <Compile Include="ExecutableAttribute.cs" />
-    <Compile Include="ExecutableAttributeScanner.cs" />
-    <Compile Include="HtmlReporter.cs" />
-    <Compile Include="NetToString.cs" />
-    <Compile Include="ProcessType.cs" />
-    <Compile Include="StepExecutionResult.cs" />
-    <Compile Include="ExecutionStep.cs" />
-    <Compile Include="IProcessor.cs" />
-    <Compile Include="IScanner.cs" />
+    <Compile Include="Core\Bddee.cs" />
+    <Compile Include="Core\Bddifier.cs" />
+    <Compile Include="Scanners\Bddifier.GwtExtensions.cs" />
+    <Compile Include="Reporters\ConsoleReporter.cs" />
+    <Compile Include="Processors\ExceptionHandler.cs" />
+    <Compile Include="Scanners\ExecutableAttribute.cs" />
+    <Compile Include="Scanners\ExecutableAttributeScanner.cs" />
+    <Compile Include="Reporters\HtmlReporter.cs" />
+    <Compile Include="Core\NetToString.cs" />
+    <Compile Include="Core\ProcessType.cs" />
+    <Compile Include="Core\StepExecutionResult.cs" />
+    <Compile Include="Core\ExecutionStep.cs" />
+    <Compile Include="Core\IProcessor.cs" />
+    <Compile Include="Core\IScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GwtScanner.cs" />
-    <Compile Include="TestRunner.cs" />
-    <Compile Include="WithArgsAttribute.cs" />
+    <Compile Include="Scanners\GwtScanner.cs" />
+    <Compile Include="Processors\TestRunner.cs" />
+    <Compile Include="Scanners\WithArgsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HtmlReport.cshtml">
+    <Content Include="Reporters\HtmlReport.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reporters\jquery-1.4.4.min.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

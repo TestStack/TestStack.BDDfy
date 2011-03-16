@@ -1,4 +1,7 @@
 using Bddify;
+using Bddify.Core;
+using Bddify.Processors;
+using Bddify.Reporters;
 using NUnit.Framework;
 
 namespace SutBehaviors

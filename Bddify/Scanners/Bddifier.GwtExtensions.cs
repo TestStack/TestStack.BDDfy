@@ -1,4 +1,4 @@
-namespace Bddify
+namespace Bddify.Scanners
 {
     public class GwtExectuableAttribute : ExecutableAttribute
     {

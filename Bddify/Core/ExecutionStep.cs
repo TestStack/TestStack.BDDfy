@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Bddify
+namespace Bddify.Core
 {
     public class ExecutionStep
     {

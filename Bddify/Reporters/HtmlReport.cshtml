@@ -23,22 +23,22 @@
 				text-align:left
 			}
 			
-			tr.Passed
+			td.Passed
 			{
 				background-color:Green
 			}
 			
-			tr.Failed
+			td.Failed
 			{
 				background-color:Red
 			}
 			
-			tr.Inconclusive
+			td.Inconclusive
 			{
 				background-color:Yellow
 			}
 			
-			tr.NotImplemented
+			td.NotImplemented
 			{
 				background-color:Yellow
 			}
@@ -54,23 +54,23 @@
 				<tbody>
 					<tr>
 						<th>Passed</th>
-						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.Passed)</td>
+						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
 					</tr>
 					<tr>
 						<th>Failed</th>
-						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.Failed)</td>
+						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
 					</tr>
 					<tr>
 						<th>Inconclusive</th>
-						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.Inconclusive)</td>
+						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
 					</tr>
 					<tr>
 						<th>Not Implemented</th>
-						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.NotImplemented)</td>
+						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
 					</tr>
 					<tr>
 						<th>Not Executed</th>
-						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.NotExecuted)</td>
+						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
 					</tr>
 				</tbody>
 			</table>
@@ -85,16 +85,16 @@
 			</thead>
 			<tbody>
 				@foreach (var bddee in @Model) {
-					<tr class="@bddee.Result" id="@bddee.Object.GetType().Name">
-						<td>@bddee.ScenarioSentence</td>
-						<td></td>
-						<td>@bddee.Result</td>
+					<tr id="@bddee.Object.GetType().Name">
+						<td class="@bddee.Result">@bddee.ScenarioSentence</td>
+						<td class="@bddee.Result"></td>
+						<td class="@bddee.Result">@bddee.Result</td>
 					</tr>
 					@foreach (var step in bddee.Steps) {
-					<tr class="@bddee.Object.GetType().Name, @step.Result">
+					<tr class="@bddee.Object.GetType().Name">
 						<td></td>
-						<td>@step.ReadableMethodName</td>
-						<td>@step.Result</td>
+						<td class="@step.Result">@step.ReadableMethodName</td>
+						<td class="@step.Result">@step.Result</td>
 					</tr>
 					}
 				}

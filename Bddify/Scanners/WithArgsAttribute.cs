@@ -1,6 +1,6 @@
 using System;
 
-namespace Bddify
+namespace Bddify.Scanners
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class WithArgsAttribute : Attribute

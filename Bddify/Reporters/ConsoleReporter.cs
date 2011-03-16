@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bddify.Core;
 
-namespace Bddify
+namespace Bddify.Reporters
 {
     public class ConsoleReporter : IProcessor
     {

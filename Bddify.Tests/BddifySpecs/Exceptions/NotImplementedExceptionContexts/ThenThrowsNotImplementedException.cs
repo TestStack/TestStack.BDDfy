@@ -1,4 +1,5 @@
 using System;
+using Bddify.Core;
 using NSubstitute;
 using NUnit.Framework;
 

@@ -1,4 +1,5 @@
 using System.Linq;
+using Bddify.Core;
 using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions

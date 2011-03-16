@@ -1,4 +1,5 @@
 ﻿using Bddify;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace SutBehaviors.AtmAndCardSamples

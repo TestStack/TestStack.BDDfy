@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
+using Bddify.Core;
 
-namespace Bddify
+namespace Bddify.Scanners
 {
     public class GwtScanner : IScanner
     {

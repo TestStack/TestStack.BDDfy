@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bddify
+namespace Bddify.Core
 {
     public interface IScanner
     {

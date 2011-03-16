@@ -1,4 +1,4 @@
-﻿namespace Bddify
+﻿namespace Bddify.Core
 {
     public enum ProcessType
     {

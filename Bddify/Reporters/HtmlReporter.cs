@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Bddify.Core;
 using RazorEngine;
 
-namespace Bddify
+namespace Bddify.Reporters
 {
     public class HtmlReporter : IProcessor
     {
@@ -27,7 +28,7 @@ namespace Bddify
 
         string GetTemplateFile(Bddee bddee)
         {
-            var templatefile = Path.Combine(Environment.CurrentDirectory, "HtmlReport.cshtml");
+            var templatefile = Path.Combine(Environment.CurrentDirectory, "Reporters\\HtmlReport.cshtml");
             return File.ReadAllText(templatefile);
         }
 

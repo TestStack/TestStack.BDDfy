@@ -1,3 +1,4 @@
+using Bddify.Scanners;
 using NUnit.Framework;
 using System.Collections.Generic;
 
