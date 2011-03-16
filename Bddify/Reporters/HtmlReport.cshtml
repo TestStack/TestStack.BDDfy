@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
+		
 		<style type="text/css">
 			body
 			{
@@ -42,7 +43,19 @@
 			{
 				background-color:Yellow
 			}
+			
+			th.scenarioHeader
+			{
+			    width:400px    
+			}
+
+            th.resultHeader
+            {
+                width:100px;
+            }
 		</style>
+
+		<script type="text/javascript" src="jquery-1.4.4.min.js"> </script>
 	</head>
 
 	<body>
@@ -79,19 +92,20 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Scenario</th>
+					<th class="scenarioHeader">Scenario</th>
 					<th>Result</th>
+					<th class="resultHeader"></th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (var bddee in @Model) {
-					<tr id="@bddee.Object.GetType().Name">
+					<tr class="scenario" id="@bddee.Object.GetType().Name">
 						<td class="@bddee.Result">@bddee.ScenarioSentence</td>
 						<td class="@bddee.Result"></td>
 						<td class="@bddee.Result">@bddee.Result</td>
 					</tr>
 					@foreach (var step in bddee.Steps) {
-					<tr class="@bddee.Object.GetType().Name">
+					<tr class="steps @bddee.Object.GetType().Name">
 						<td></td>
 						<td class="@step.Result">@step.ReadableMethodName</td>
 						<td class="@step.Result">@step.Result</td>
@@ -102,5 +116,16 @@
 		</table>
 
 		<p>Run by Bddifier</p>
+
+        <script type="text/javascript">
+        	$(function () {
+        	    $('tr.steps').hide();
+        	    $('tr.scenario').click(function () {
+        	        $('tr.' + $(this).attr('id')).toggle();
+        	    });
+        	});
+	    </script>
+
 	</body>
+
 </html>

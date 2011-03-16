@@ -3,3 +3,4 @@ glob:*/bin
 glob:*/obj
 glob:Bddify.5.0.ReSharper.user
 glob:Bddify.Tests/Bddify.Tests.csproj.user
+glob:Bddify.suo
