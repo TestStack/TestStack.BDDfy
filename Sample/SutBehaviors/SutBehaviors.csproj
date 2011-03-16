@@ -48,6 +48,7 @@
     <Compile Include="AtmAndCardSamples\card_is_disabled.cs" />
     <Compile Include="AtmAndCardSamples\CardIsDisabled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleMathContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Bddify\Bddify.csproj">

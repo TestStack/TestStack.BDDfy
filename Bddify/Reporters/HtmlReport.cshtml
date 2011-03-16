@@ -4,19 +4,40 @@
 		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
 		
 		<style type="text/css">
-			body
+			#main
 			{
 				margin:auto;
 				width:80%;
-				background-color:#688EF2;
+				background-color:#a0a0e0;
+			}
+			
+			body
+			{
+			    background-color:#606060;
+			}
+			
+			#header
+			{
+			    padding:10px;
+			    height:100px;
+			    background-color:#555555;
+			    color:White;
+			}
+			
+			#summaryBox
+			{
+			    padding:10px;
+			}
+			
+			#testResult
+			{
 			}
 			
 			table
 			{
-				border:1px solid black;
 				width:100%;
-				margin:5px;
 				padding:5px;
+				border-collapse:collapse;
 			}
 			
 			tbody
@@ -44,88 +65,134 @@
 				background-color:Yellow
 			}
 			
+			tr.scenario
+			{
+			    cursor:pointer;
+			}
+			
 			th.scenarioHeader
 			{
-			    width:400px    
+				width:400px    
 			}
 
-            th.resultHeader
-            {
-                width:100px;
-            }
+			th.resultHeader
+			{
+				width:100px;
+			}
+			
+			th.summaryResult
+			{
+				width:100px;    
+			}
+			
+			th.summaryCount
+			{
+				width:100px;    
+			}
+			
+			table#summaryTable
+			{
+				width:250px;
+				border-collapse:collapse;
+			}
+			
+			table#summaryTable td
+			{
+				text-align:left;
+			}
 		</style>
 
 		<script type="text/javascript" src="jquery-1.4.4.min.js"> </script>
 	</head>
 
 	<body>
-		<h2>Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
+        <div id="main">
+	        <div id="header">
+    	        <h2>Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
+            </div>
 
-		<div>
-			<h3>Test Summary:</h3>
-			<table>
-				<tbody>
-					<tr>
-						<th>Passed</th>
-						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
-					</tr>
-					<tr>
-						<th>Failed</th>
-						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
-					</tr>
-					<tr>
-						<th>Inconclusive</th>
-						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
-					</tr>
-					<tr>
-						<th>Not Implemented</th>
-						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
-					</tr>
-					<tr>
-						<th>Not Executed</th>
-						<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		    <div id="summaryBox">
+			    <strong>Test Summary:</strong>
+			    <table id="summaryTable">
+				    <thead>
+					    <tr>
+						    <td class="summaryResult"></td>
+						    <td class="summaryCount"></td>
+					    </tr>
+				    </thead>
+				    <tbody>
+					    <tr>
+						    <th>Passed</th>
+						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+					    </tr>
+					    <tr>
+						    <th>Failed</th>
+						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+					    </tr>
+					    <tr>
+						    <th>Inconclusive</th>
+						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+					    </tr>
+					    <tr>
+						    <th>Not Implemented</th>
+						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+					    </tr>
+					    <tr>
+						    <th>Not Executed</th>
+						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+					    </tr>
+				    </tbody>
+			    </table>
+		    </div>
 
-		<table>
-			<thead>
-				<tr>
-					<th class="scenarioHeader">Scenario</th>
-					<th>Result</th>
-					<th class="resultHeader"></th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var bddee in @Model) {
-					<tr class="scenario" id="@bddee.Object.GetType().Name">
-						<td class="@bddee.Result">@bddee.ScenarioSentence</td>
-						<td class="@bddee.Result"></td>
-						<td class="@bddee.Result">@bddee.Result</td>
-					</tr>
-					@foreach (var step in bddee.Steps) {
-					<tr class="steps @bddee.Object.GetType().Name">
-						<td></td>
-						<td class="@step.Result">@step.ReadableMethodName</td>
-						<td class="@step.Result">@step.Result</td>
-					</tr>
-					}
-				}
-			</tbody>
-		</table>
+            <div id="testResult">
+		        <table>
+			        <thead>
+				        <tr>
+					        <th class="scenarioHeader"></th>
+					        <th></th>
+					        <th class="resultHeader"></th>
+				        </tr>
+			        </thead>
+			        <tbody>
+				        @foreach (var group in Model.GroupBy(b => b.Object.GetType().Namespace)) {
+					        <tr class="namespace">
+						        <td colspan="3"><strong>@group.Key</strong></td>
+					        </tr>
 
-		<p>Run by Bddifier</p>
+					        foreach (var bddee in group) {
+						        <tr class="scenario" id="@bddee.Object.GetType().Name">
+							        <td class="@bddee.Result">@bddee.ScenarioSentence</td>
+							        <td class="@bddee.Result"></td>
+							        <td class="@bddee.Result">@bddee.Result</td>
+						        </tr>
+						        foreach (var step in bddee.Steps) {
+						        <tr class="step @bddee.Object.GetType().Name">
+							        <td></td>
+							        <td class="@step.Result">@step.ReadableMethodName</td>
+							        <td class="@step.Result">@step.Result</td>
+						        </tr>
+						        }
 
-        <script type="text/javascript">
-        	$(function () {
-        	    $('tr.steps').hide();
-        	    $('tr.scenario').click(function () {
-        	        $('tr.' + $(this).attr('id')).toggle();
-        	    });
-        	});
-	    </script>
+                                <!-- empty row to separate scenarios -->
+						        <tr class="step @bddee.Object.GetType().Name" style="height:5px">
+							        <td colspan="3"></td>
+						        </tr>
+					        }
+				        }
+			        </tbody>
+		        </table>
+            </div>
 
+		    <script type="text/javascript">
+		        $(function () {
+		            $('tr.step').hide();
+		            $('tr.scenario').click(function () {
+		                $('tr.' + $(this).attr('id')).toggle();
+		            });
+		        });
+		    </script>
+        </div>
 	</body>
 
 </html>
