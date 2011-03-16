@@ -17,7 +17,7 @@ namespace Bddify
                 try
                 {
                     executionStep.Method.Invoke(bddee.Object, executionStep.InputArguments);
-                    executionStep.Result = StepExecutionResult.Succeeded;
+                    executionStep.Result = StepExecutionResult.Passed;
                 }
                 catch (Exception ex)
                 {

@@ -1,43 +1,102 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 	<head>
-		<title>Scenario for @Model.ScenarioSentence</title>
+		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
+		<style type="text/css">
+			body
+			{
+				margin:auto;
+				width:80%;
+				background-color:#688EF2;
+			}
+			
+			table
+			{
+				border:1px solid black;
+				width:100%;
+				margin:5px;
+				padding:5px;
+			}
+			
+			tbody
+			{
+				text-align:left
+			}
+			
+			tr.Passed
+			{
+				background-color:Green
+			}
+			
+			tr.Failed
+			{
+				background-color:Red
+			}
+			
+			tr.Inconclusive
+			{
+				background-color:Yellow
+			}
+			
+			tr.NotImplemented
+			{
+				background-color:Yellow
+			}
+		</style>
 	</head>
 
 	<body>
-		<h2>Scenario: @Model.ScenarioSentence</h2>
+		<h2>Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
 
-		<table width="100%" style="border-collapse:collapse">
+		<div>
+			<h3>Test Summary:</h3>
+			<table>
+				<tbody>
+					<tr>
+						<th>Passed</th>
+						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.Passed)</td>
+					</tr>
+					<tr>
+						<th>Failed</th>
+						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.Failed)</td>
+					</tr>
+					<tr>
+						<th>Inconclusive</th>
+						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.Inconclusive)</td>
+					</tr>
+					<tr>
+						<th>Not Implemented</th>
+						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.NotImplemented)</td>
+					</tr>
+					<tr>
+						<th>Not Executed</th>
+						<td>@Model.Count(b => b.Result == Bddify.StepExecutionResult.NotExecuted)</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Scenario</th>
+					<th>Result</th>
+				</tr>
+			</thead>
 			<tbody>
-				@foreach (var step in @Model.Steps) {
-                    if (step.Result == Bddify.StepExecutionResult.Succeeded) 
-                    {
-                        <tr style="background-color:Lime"> 
-				            <td>@step.ReadableMethodName</td>
-						    <td>@step.Result</td>
-					    </tr>
-                    }
-                    else if (step.Result == Bddify.StepExecutionResult.NotImplemented || step.Result == Bddify.StepExecutionResult.Inconclusive)
-                    {
-                        <tr style="background-color:Yellow">
-				            <td>@step.ReadableMethodName</td>
-						    <td>@step.Result</td>
-					    </tr>
-                    }
-                    else if (step.Result == Bddify.StepExecutionResult.Failed)
-                    {
-                        <tr style="background-color:Red">
-				            <td>@step.ReadableMethodName</td>
-						    <td>@step.Result</td>
-					    </tr>
-                    }
-                    else
-                    {
-                        <tr>
-				            <td>@step.ReadableMethodName</td>
-						    <td>@step.Result</td>
-					    </tr>
-                    }
+				@foreach (var bddee in @Model) {
+					<tr class="@bddee.Result" id="@bddee.Object.GetType().Name">
+						<td>@bddee.ScenarioSentence</td>
+						<td></td>
+						<td>@bddee.Result</td>
+					</tr>
+					@foreach (var step in bddee.Steps) {
+					<tr class="@bddee.Object.GetType().Name, @step.Result">
+						<td></td>
+						<td>@step.ReadableMethodName</td>
+						<td>@step.Result</td>
+					</tr>
+					}
 				}
 			</tbody>
 		</table>

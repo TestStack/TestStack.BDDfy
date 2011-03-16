@@ -15,7 +15,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
         [Test]
         public void GivenIsReportedAsSuccessful()
         {
-            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Succeeded));
+            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
         }
 
         [Test]

@@ -21,7 +21,7 @@ namespace Bddify
             var reporterRegistry
                 = new Dictionary<StepExecutionResult, Action<ExecutionStep>>
                           {
-                              {StepExecutionResult.Succeeded, s => ReportOnStep(s)},
+                              {StepExecutionResult.Passed, s => ReportOnStep(s)},
                               {StepExecutionResult.Failed, s => ReportOnStep(s, true)},
                               {StepExecutionResult.Inconclusive, s => ReportOnStep(s)},
                               {StepExecutionResult.NotImplemented, s => ReportOnStep(s, true)},

@@ -85,13 +85,13 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         [Test]
         public void GivenIsFlaggedAsSuccessful()
         {
-            Assert.That(GivenStep.Result, Is.EqualTo(StepExecutionResult.Succeeded));
+            Assert.That(GivenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
         }
 
         [Test]
         public void WhenIsFlaggedAsSuccessful()
         {
-            Assert.That(WhenStep.Result, Is.EqualTo(StepExecutionResult.Succeeded));
+            Assert.That(WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
         }
     }
 }

@@ -1,5 +1,6 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using RazorEngine;
 
 namespace Bddify
@@ -7,12 +8,11 @@ namespace Bddify
     public class HtmlReporter : IProcessor
     {
         private readonly string _filePath;
-        private readonly bool _createCompleteHtml;
+        static readonly List<Bddee> _bddees = new List<Bddee>();
 
         public HtmlReporter(string filePath, bool createCompleteHtml = true)
         {
             _filePath = filePath;
-            _createCompleteHtml = createCompleteHtml;
         }
 
         public ProcessType ProcessType
@@ -27,16 +27,18 @@ namespace Bddify
 
         string GetTemplateFile(Bddee bddee)
         {
-            //var templatefile = Path.Combine(Assembly.get.GetExecutingAssembly().Location, "HtmlReport.cshtml");
-            var templatefile = @"C:\Users\Mehdi\Documents\_mine\Professional\Blog\SourceCode\Bddify\Bddify\HtmlReport.cshtml";
+            var templatefile = Path.Combine(Environment.CurrentDirectory, "HtmlReport.cshtml");
             return File.ReadAllText(templatefile);
         }
 
         private void CreateHtmlFile(Bddee bddee)
         {
-            var fileName = Path.Combine(_filePath, bddee.Object.GetType().Name + ".html");
+            // ToDo: this is a dirty hack because I am creating the file each and every time.
+            // should create the file once and dynamically edit it for consequent calls
+            _bddees.Add(bddee);
+            var fileName = Path.Combine(_filePath, "bddify.html");
 
-            var report = Razor.Parse(GetTemplateFile(bddee), bddee);
+            var report = Razor.Parse(GetTemplateFile(bddee), _bddees);
             File.WriteAllText(fileName, report);
         }
     }
