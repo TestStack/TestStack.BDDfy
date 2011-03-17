@@ -7,7 +7,7 @@
 			#main
 			{
 				margin:auto;
-				width:80%;
+				width:95%;
 				background-color:#a0a0e0;
 			}
 			
@@ -31,7 +31,7 @@
 			
 			#testResult
 			{
-				margin:10px;
+			    padding:10px;
 			}
 			
 			table
@@ -126,6 +126,20 @@
 			{
 				text-align:left;
 			}
+			
+			tr.assembly
+			{
+			    background-color:#101010;
+			    color:White;
+			    height:40px;
+			}
+			
+			tr.namespace
+			{
+			    background-color:#303030;
+			    color:White;
+			    height:35px;
+			}
 		</style>
 
 		<script type="text/javascript" src="jquery-1.4.4.min.js"> </script>
@@ -177,11 +191,11 @@
 					<tbody>
 						@foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
 							<tr class="assembly">
-								<td colspan="3"><strong>Assembly: </strong>@assembly.Key</td>
+								<td colspan="3">...@assembly.Key.Substring(assembly.Key.Length - 60)</td>
 							</tr>
 							foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
 								<tr class="namespace">
-									<td colspan="3"><strong>Class: </strong>@group.Key</td>
+									<td colspan="3">@group.Key</td>
 								</tr>
 
 								foreach (var bddee in group) {
