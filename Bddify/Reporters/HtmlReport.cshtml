@@ -4,24 +4,27 @@
 		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
 		
 		<style type="text/css">
-			#main
-			{
-				margin:auto;
-				width:95%;
-				background-color:#a0a0e0;
-			}
-			
 			body
 			{
-				background-color:#606060;
+				background-color:black;
+			}
+			
+			#main
+			{
+				margin:20, 0, 20, 0;
+				background-color:#9090a0;
 			}
 			
 			#header
 			{
-				padding:10px;
-				height:60px;
-				background-color:#555555;
+				height:50px;
+				background-color:#101010;
 				color:White;
+			}
+			
+			#headerText
+			{
+			    padding:10px;
 			}
 			
 			#summaryBox
@@ -148,7 +151,7 @@
 	<body>
 		<div id="main">
 			<div id="header">
-				<h2>Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
+				<h2 id="headerText">Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
 			</div>
 
 			<div id="summaryBox">
@@ -204,7 +207,7 @@
 										<td colspan="2" class="@bddee.Result">@bddee.ScenarioSentence</td>
 									</tr>
 									foreach (var step in bddee.Steps) {
-                                        string stepClass = "step";
+                                        string stepClass = "step " + bddee.Id;
                                         string result = step.ReadableMethodName;
                                         if(step.Exception != null){
                                             stepClass += " hasException";
@@ -213,7 +216,6 @@
                                                 result += " (" + step.Exception.Message + ")";
                                             }
                                         }
-                                        stepClass += " " + bddee.Id;
 
 									    <tr class="@stepClass" id="@step.Id">
 										    <td class="duration"></td>
@@ -223,7 +225,7 @@
                                         if (step.Exception != null){
 									        <tr class="step exceptionDetails @step.Id">
 										        <td class="duration"></td>
-										        <td class="indentation"></td>
+										        <td class="indentation @step.Result"></td>
 										        <td class="@step.Result">@step.Exception.StackTrace</td>
 									        </tr>
                                         }
