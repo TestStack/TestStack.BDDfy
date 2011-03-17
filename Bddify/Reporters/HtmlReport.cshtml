@@ -76,6 +76,11 @@
 				cursor:pointer;
 			}
 			
+			tr.hasException
+			{
+				cursor:pointer;
+			}
+			
 			th.scenarioHeader
 			{
 				width:400px    
@@ -180,13 +185,13 @@
 								</tr>
 
 								foreach (var bddee in group) {
-									<tr class="scenario" id="@bddee.Object.GetType().Name">
+									<tr class="scenario" id="@bddee.Id">
 										<td class="duration @bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
 										<td colspan="2" class="@bddee.Result">@bddee.ScenarioSentence</td>
 										<td class="result @bddee.Result">@bddee.Result</td>
 									</tr>
 									foreach (var step in bddee.Steps) {
-                                        string stepClass = "step " + bddee.Object.GetType().Name;
+                                        string stepClass = "step";
                                         string result = step.ReadableMethodName;
                                         if(step.Exception != null){
                                             stepClass += " hasException";
@@ -195,24 +200,25 @@
                                                 result += " (" + step.Exception.Message + ")";
                                             }
                                         }
+                                        stepClass += " " + bddee.Id;
 
-									    <tr class="@stepClass">
+									    <tr class="@stepClass" id="@step.Id">
 										    <td class="duration"></td>
 										    <td colspan="2" class="@step.Result">@result</td>
 										    <td class="result @step.Result">@step.Result</td>
 									    </tr>
 
                                         if (step.Exception != null){
-									        <tr class="step exceptionDetails @bddee.Object.GetType().Name">
+									        <tr class="step exceptionDetails @step.Id">
 										        <td class="duration"></td>
 										        <td class="indentation"></td>
-										        <td colspan="2" class="Failed @step.Result">@step.Exception.StackTrace</td>
+										        <td colspan="2" class="@step.Result">@step.Exception.StackTrace</td>
 									        </tr>
                                         }
 									}
 
 									<!-- empty row to separate scenarios -->
-									<tr class="step @bddee.Object.GetType().Name" style="height:5px">
+									<tr class="step @bddee.Id" style="height:5px">
 										<td colspan="3"></td>
 									</tr>
 								}
@@ -226,6 +232,9 @@
 				$(function () {
 					$('tr.step').hide();
 					$('tr.scenario').click(function () {
+						$('tr.' + $(this).attr('id')).toggle();
+					});
+					$('tr.hasException').click(function () {
 						$('tr.' + $(this).attr('id')).toggle();
 					});
 				});

@@ -12,8 +12,10 @@ namespace Bddify.Core
             Asserts = asserts;
             Result = StepExecutionResult.NotExecuted;
             InputArguments = inputArgs;
+            Id = Guid.NewGuid();
         }
 
+        public Guid Id { get; private set; }
         public MethodInfo Method { get; private set; }
         public object[] InputArguments { get; private set; }
         public bool Asserts { get; private set; }
