@@ -8,7 +8,6 @@
 			{
 				margin:auto;
 				width:80%;
-				height:100%;
 				background-color:#a0a0e0;
 			}
 			
@@ -20,7 +19,7 @@
 			#header
 			{
 				padding:10px;
-				height:100px;
+				height:60px;
 				background-color:#555555;
 				color:White;
 			}
@@ -173,25 +172,43 @@
 					<tbody>
 						@foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
 							<tr class="assembly">
-								<td colspan="3"><strong>Assembly: </strong>@assembly.Key</td>
+								<td colspan="4"><strong>Assembly: </strong>@assembly.Key</td>
 							</tr>
 							foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
 								<tr class="namespace">
-									<td colspan="3"><strong>Class: </strong>@group.Key</td>
+									<td colspan="4"><strong>Class: </strong>@group.Key</td>
 								</tr>
 
 								foreach (var bddee in group) {
 									<tr class="scenario" id="@bddee.Object.GetType().Name">
 										<td class="duration @bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
-										<td class="@bddee.Result">@bddee.ScenarioSentence</td>
+										<td colspan="2" class="@bddee.Result">@bddee.ScenarioSentence</td>
 										<td class="result @bddee.Result">@bddee.Result</td>
 									</tr>
 									foreach (var step in bddee.Steps) {
-									<tr class="step @bddee.Object.GetType().Name">
-										<td class="duration"></td>
-										<td class="@step.Result">@step.ReadableMethodName</td>
-										<td class="result @step.Result">@step.Result</td>
-									</tr>
+                                        string stepClass = "step " + bddee.Object.GetType().Name;
+                                        string result = step.ReadableMethodName;
+                                        if(step.Exception != null){
+                                            stepClass += " hasException";
+                                            
+                                            if(!string.IsNullOrEmpty(step.Exception.Message)){
+                                                result += " (" + step.Exception.Message + ")";
+                                            }
+                                        }
+
+									    <tr class="@stepClass">
+										    <td class="duration"></td>
+										    <td colspan="2" class="@step.Result">@result</td>
+										    <td class="result @step.Result">@step.Result</td>
+									    </tr>
+
+                                        if (step.Exception != null){
+									        <tr class="step exceptionDetails @bddee.Object.GetType().Name">
+										        <td class="duration"></td>
+										        <td class="indentation"></td>
+										        <td colspan="2" class="Failed @step.Result">@step.Exception.StackTrace</td>
+									        </tr>
+                                        }
 									}
 
 									<!-- empty row to separate scenarios -->
