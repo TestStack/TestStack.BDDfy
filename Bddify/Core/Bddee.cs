@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,7 +15,7 @@ namespace Bddify.Core
         }
 
         public string ScenarioSentence { get; private set; }
-
+        public TimeSpan Duration { get; set; }
         public object Object { get; set; }
         private readonly List<ExecutionStep> _steps;
         public IEnumerable<ExecutionStep> Steps

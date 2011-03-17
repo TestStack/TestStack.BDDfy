@@ -31,6 +31,7 @@
 			
 			#testResult
 			{
+			    margin:10px;
 			}
 			
 			table
@@ -89,6 +90,11 @@
 			{
 				width:100px;    
 			}
+
+            th.durationHeader
+            {
+                width:20px;
+            }
 			
 			table#summaryTable
 			{
@@ -112,7 +118,8 @@
             </div>
 
 		    <div id="summaryBox">
-			    <strong>Test Summary:</strong>
+			    <p>Summary:</p>
+
 			    <table id="summaryTable">
 				    <thead>
 					    <tr>
@@ -122,23 +129,23 @@
 				    </thead>
 				    <tbody>
 					    <tr>
-						    <th>Passed</th>
+						    <td>Passed</td>
 						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
 					    </tr>
 					    <tr>
-						    <th>Failed</th>
+						    <td>Failed</td>
 						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
 					    </tr>
 					    <tr>
-						    <th>Inconclusive</th>
+						    <td>Inconclusive</td>
 						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
 					    </tr>
 					    <tr>
-						    <th>Not Implemented</th>
+						    <td>Not Implemented</td>
 						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
 					    </tr>
 					    <tr>
-						    <th>Not Executed</th>
+						    <td>Not Executed</td>
 						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
 					    </tr>
 				    </tbody>
@@ -149,36 +156,43 @@
 		        <table>
 			        <thead>
 				        <tr>
-					        <th class="scenarioHeader"></th>
-					        <th></th>
-					        <th class="resultHeader"></th>
+					        <td class="durationHeader">Duration</td>
+					        <td class="scenarioHeader">Scenario</td>
+					        <td></td>
+					        <td class="resultHeader">Result</td>
 				        </tr>
 			        </thead>
 			        <tbody>
-				        @foreach (var group in Model.GroupBy(b => b.Object.GetType().Namespace)) {
-					        <tr class="namespace">
-						        <td colspan="3"><strong>@group.Key</strong></td>
+				        @foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
+					        <tr class="assembly">
+						        <td colspan="4">@assembly.Key</td>
 					        </tr>
+                            foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
+					            <tr class="namespace">
+						            <td colspan="4">@group.Key</td>
+					            </tr>
 
-					        foreach (var bddee in group) {
-						        <tr class="scenario" id="@bddee.Object.GetType().Name">
-							        <td class="@bddee.Result">@bddee.ScenarioSentence</td>
-							        <td class="@bddee.Result"></td>
-							        <td class="@bddee.Result">@bddee.Result</td>
-						        </tr>
-						        foreach (var step in bddee.Steps) {
-						        <tr class="step @bddee.Object.GetType().Name">
-							        <td></td>
-							        <td class="@step.Result">@step.ReadableMethodName</td>
-							        <td class="@step.Result">@step.Result</td>
-						        </tr>
-						        }
+					            foreach (var bddee in group) {
+						            <tr class="scenario" id="@bddee.Object.GetType().Name">
+							            <td class="@bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
+							            <td class="@bddee.Result">@bddee.ScenarioSentence</td>
+							            <td class="@bddee.Result"></td>
+							            <td class="@bddee.Result">@bddee.Result</td>
+						            </tr>
+						            foreach (var step in bddee.Steps) {
+						            <tr class="step @bddee.Object.GetType().Name">
+							            <td></td>
+							            <td class="@step.Result">@step.ReadableMethodName</td>
+							            <td class="@step.Result">@step.Result</td>
+						            </tr>
+						            }
 
-                                <!-- empty row to separate scenarios -->
-						        <tr class="step @bddee.Object.GetType().Name" style="height:5px">
-							        <td colspan="3"></td>
-						        </tr>
-					        }
+                                    <!-- empty row to separate scenarios -->
+						            <tr class="step @bddee.Object.GetType().Name" style="height:5px">
+							            <td colspan="4"></td>
+						            </tr>
+					            }
+                            }
 				        }
 			        </tbody>
 		        </table>

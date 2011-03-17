@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Bddify.Core
@@ -20,11 +21,13 @@ namespace Bddify.Core
         {
             var steps = _scanner.Scan(_testObject.GetType());
             Bddee = new Bddee(_testObject, steps);
-
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             //run processors in the right order regardless of the order they are provided to the Bddifer
             foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
                 processor.Process(Bddee);
-
+            stopWatch.Stop();
+            Bddee.Duration = stopWatch.Elapsed;
             return Bddee;
         }
 
