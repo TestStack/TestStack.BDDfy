@@ -50,6 +50,7 @@
     <Compile Include="BddifyNunit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddPartiallyFailingTest.cs" />
+    <Compile Include="SomeIncompleteTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

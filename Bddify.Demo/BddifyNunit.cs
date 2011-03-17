@@ -1,6 +1,7 @@
 using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Demo
@@ -23,6 +24,11 @@ namespace Bddify.Demo
 
             bddifier.Run();
             return bddifier;
+        }
+
+        public static Bddifier Bddify(this object testObject)
+        {
+            return testObject.Bddify<GwtScanner>();
         }
     }
 }

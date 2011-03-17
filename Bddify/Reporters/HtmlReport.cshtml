@@ -8,30 +8,31 @@
 			{
 				margin:auto;
 				width:80%;
+				height:100%;
 				background-color:#a0a0e0;
 			}
 			
 			body
 			{
-			    background-color:#606060;
+				background-color:#606060;
 			}
 			
 			#header
 			{
-			    padding:10px;
-			    height:100px;
-			    background-color:#555555;
-			    color:White;
+				padding:10px;
+				height:100px;
+				background-color:#555555;
+				color:White;
 			}
 			
 			#summaryBox
 			{
-			    padding:10px;
+				padding:10px;
 			}
 			
 			#testResult
 			{
-			    margin:10px;
+				margin:10px;
 			}
 			
 			table
@@ -66,9 +67,14 @@
 				background-color:Yellow
 			}
 			
+			td.NotExecuted
+			{
+				background-color:Gray
+			}
+			
 			tr.scenario
 			{
-			    cursor:pointer;
+				cursor:pointer;
 			}
 			
 			th.scenarioHeader
@@ -91,10 +97,20 @@
 				width:100px;    
 			}
 
-            th.durationHeader
-            {
-                width:20px;
-            }
+			td.duration
+			{
+				width:100px;
+			}
+			
+			td.indentation
+			{
+				width:30px;
+			}
+			
+			td.result
+			{
+			    width:150px;
+			}
 			
 			table#summaryTable
 			{
@@ -112,101 +128,92 @@
 	</head>
 
 	<body>
-        <div id="main">
-	        <div id="header">
-    	        <h2>Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
-            </div>
+		<div id="main">
+			<div id="header">
+				<h2>Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
+			</div>
 
-		    <div id="summaryBox">
-			    <p>Summary:</p>
+			<div id="summaryBox">
+				<p>Summary:</p>
 
-			    <table id="summaryTable">
-				    <thead>
-					    <tr>
-						    <td class="summaryResult"></td>
-						    <td class="summaryCount"></td>
-					    </tr>
-				    </thead>
-				    <tbody>
-					    <tr>
-						    <td>Passed</td>
-						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
-					    </tr>
-					    <tr>
-						    <td>Failed</td>
-						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
-					    </tr>
-					    <tr>
-						    <td>Inconclusive</td>
-						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
-					    </tr>
-					    <tr>
-						    <td>Not Implemented</td>
-						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
-					    </tr>
-					    <tr>
-						    <td>Not Executed</td>
-						    <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
-					    </tr>
-				    </tbody>
-			    </table>
-		    </div>
+				<table id="summaryTable">
+					<thead>
+						<tr>
+							<td class="summaryResult"></td>
+							<td class="summaryCount"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Passed</td>
+							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+						</tr>
+						<tr>
+							<td>Failed</td>
+							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+						</tr>
+						<tr>
+							<td>Inconclusive</td>
+							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+						</tr>
+						<tr>
+							<td>Not Implemented</td>
+							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+						</tr>
+						<tr>
+							<td>Not Executed</td>
+							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-            <div id="testResult">
-		        <table>
-			        <thead>
-				        <tr>
-					        <td class="durationHeader">Duration</td>
-					        <td class="scenarioHeader">Scenario</td>
-					        <td></td>
-					        <td class="resultHeader">Result</td>
-				        </tr>
-			        </thead>
-			        <tbody>
-				        @foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
-					        <tr class="assembly">
-						        <td colspan="4">@assembly.Key</td>
-					        </tr>
-                            foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
-					            <tr class="namespace">
-						            <td colspan="4">@group.Key</td>
-					            </tr>
+			<div id="testResult">
+				<table>
+					<tbody>
+						@foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
+							<tr class="assembly">
+								<td colspan="3"><strong>Assembly: </strong>@assembly.Key</td>
+							</tr>
+							foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
+								<tr class="namespace">
+									<td colspan="3"><strong>Class: </strong>@group.Key</td>
+								</tr>
 
-					            foreach (var bddee in group) {
-						            <tr class="scenario" id="@bddee.Object.GetType().Name">
-							            <td class="@bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
-							            <td class="@bddee.Result">@bddee.ScenarioSentence</td>
-							            <td class="@bddee.Result"></td>
-							            <td class="@bddee.Result">@bddee.Result</td>
-						            </tr>
-						            foreach (var step in bddee.Steps) {
-						            <tr class="step @bddee.Object.GetType().Name">
-							            <td></td>
-							            <td class="@step.Result">@step.ReadableMethodName</td>
-							            <td class="@step.Result">@step.Result</td>
-						            </tr>
-						            }
+								foreach (var bddee in group) {
+									<tr class="scenario" id="@bddee.Object.GetType().Name">
+										<td class="duration @bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
+										<td class="@bddee.Result">@bddee.ScenarioSentence</td>
+										<td class="result @bddee.Result">@bddee.Result</td>
+									</tr>
+									foreach (var step in bddee.Steps) {
+									<tr class="step @bddee.Object.GetType().Name">
+										<td class="duration"></td>
+										<td class="@step.Result">@step.ReadableMethodName</td>
+										<td class="result @step.Result">@step.Result</td>
+									</tr>
+									}
 
-                                    <!-- empty row to separate scenarios -->
-						            <tr class="step @bddee.Object.GetType().Name" style="height:5px">
-							            <td colspan="4"></td>
-						            </tr>
-					            }
-                            }
-				        }
-			        </tbody>
-		        </table>
-            </div>
+									<!-- empty row to separate scenarios -->
+									<tr class="step @bddee.Object.GetType().Name" style="height:5px">
+										<td colspan="3"></td>
+									</tr>
+								}
+							}
+						}
+					</tbody>
+				</table>
+			</div>
 
-		    <script type="text/javascript">
-		        $(function () {
-		            $('tr.step').hide();
-		            $('tr.scenario').click(function () {
-		                $('tr.' + $(this).attr('id')).toggle();
-		            });
-		        });
-		    </script>
-        </div>
+			<script type="text/javascript">
+				$(function () {
+					$('tr.step').hide();
+					$('tr.scenario').click(function () {
+						$('tr.' + $(this).attr('id')).toggle();
+					});
+				});
+			</script>
+		</div>
 	</body>
 
 </html>
