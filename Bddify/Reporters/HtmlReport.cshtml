@@ -63,7 +63,7 @@
 			
 			td.NotImplemented
 			{
-				background-color:Yellow
+				background-color:Orange
 			}
 			
 			td.NotExecuted
@@ -149,24 +149,24 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Passed</td>
-							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+							<td class="Passed">Passed</td>
+							<td class="Passed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
 						</tr>
 						<tr>
-							<td>Failed</td>
-							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+							<td class="Failed">Failed</td>
+							<td class="Failed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
 						</tr>
 						<tr>
-							<td>Inconclusive</td>
-							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+							<td class="Inconclusive">Inconclusive</td>
+							<td class="Inconclusive">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
 						</tr>
 						<tr>
-							<td>Not Implemented</td>
-							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+							<td class="NotImplemented">Not Implemented</td>
+							<td class="NotImplemented">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
 						</tr>
 						<tr>
-							<td>Not Executed</td>
-							<td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+							<td class="NotExecuted">Not Executed</td>
+							<td class="NotExecuted">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
 						</tr>
 					</tbody>
 				</table>
@@ -177,18 +177,17 @@
 					<tbody>
 						@foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
 							<tr class="assembly">
-								<td colspan="4"><strong>Assembly: </strong>@assembly.Key</td>
+								<td colspan="3"><strong>Assembly: </strong>@assembly.Key</td>
 							</tr>
 							foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
 								<tr class="namespace">
-									<td colspan="4"><strong>Class: </strong>@group.Key</td>
+									<td colspan="3"><strong>Class: </strong>@group.Key</td>
 								</tr>
 
 								foreach (var bddee in group) {
 									<tr class="scenario" id="@bddee.Id">
 										<td class="duration @bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
 										<td colspan="2" class="@bddee.Result">@bddee.ScenarioSentence</td>
-										<td class="result @bddee.Result">@bddee.Result</td>
 									</tr>
 									foreach (var step in bddee.Steps) {
                                         string stepClass = "step";
@@ -205,14 +204,13 @@
 									    <tr class="@stepClass" id="@step.Id">
 										    <td class="duration"></td>
 										    <td colspan="2" class="@step.Result">@result</td>
-										    <td class="result @step.Result">@step.Result</td>
 									    </tr>
 
                                         if (step.Exception != null){
 									        <tr class="step exceptionDetails @step.Id">
 										        <td class="duration"></td>
 										        <td class="indentation"></td>
-										        <td colspan="2" class="@step.Result">@step.Exception.StackTrace</td>
+										        <td class="@step.Result">@step.Exception.StackTrace</td>
 									        </tr>
                                         }
 									}
