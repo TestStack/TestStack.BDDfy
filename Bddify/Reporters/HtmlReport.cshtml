@@ -27,14 +27,32 @@
 			    padding:10px;
 			}
 			
-			#summaryBox
+			#summaryDiv
 			{
 				padding:10px;
+				margin-bottom:50px;
+				margin-top:30px;
 			}
+            
+            #resultSummary
+            {
+                float:left;
+            }
+			
+			#coverageSummary
+			{
+                float:left;
+                margin-left:50px;
+			}
+
+            #coverageSummary table
+            {
+            }
 			
 			#testResult
 			{
 			    padding:10px;
+			    float:none;
 			}
 			
 			table
@@ -94,7 +112,7 @@
 				width:100px;
 			}
 			
-			th.summaryResult
+			th.summaryHeader
 			{
 				width:100px;    
 			}
@@ -119,13 +137,13 @@
 			    width:150px;
 			}
 			
-			table#summaryTable
+			table.summaryTable
 			{
 				width:250px;
 				border-collapse:collapse;
 			}
 			
-			table#summaryTable td
+			table.summaryTable td
 			{
 				text-align:left;
 			}
@@ -154,39 +172,68 @@
 				<h2 id="headerText">Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
 			</div>
 
-			<div id="summaryBox">
-				<p>Summary:</p>
+			<div id="summaryDiv">
+                <strong>Summary</strong>
 
-				<table id="summaryTable">
-					<thead>
-						<tr>
-							<td class="summaryResult"></td>
-							<td class="summaryCount"></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="Passed">Passed</td>
-							<td class="Passed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
-						</tr>
-						<tr>
-							<td class="Failed">Failed</td>
-							<td class="Failed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
-						</tr>
-						<tr>
-							<td class="Inconclusive">Inconclusive</td>
-							<td class="Inconclusive">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
-						</tr>
-						<tr>
-							<td class="NotImplemented">Not Implemented</td>
-							<td class="NotImplemented">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
-						</tr>
-						<tr>
-							<td class="NotExecuted">Not Executed</td>
-							<td class="NotExecuted">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
-						</tr>
-					</tbody>
-				</table>
+                <div id="innderSummaryDiv">
+                    <div id="resultSummary">
+				        <table class="summaryTable">
+					        <thead>
+						        <tr>
+							        <td class="summaryHeader"></td>
+							        <td class="summaryCount"></td>
+						        </tr>
+					        </thead>
+					        <tbody>
+						        <tr>
+							        <td class="Passed">Passed</td>
+							        <td class="Passed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+						        </tr>
+						        <tr>
+							        <td class="Failed">Failed</td>
+							        <td class="Failed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+						        </tr>
+						        <tr>
+							        <td class="Inconclusive">Inconclusive</td>
+							        <td class="Inconclusive">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+						        </tr>
+						        <tr>
+							        <td class="NotImplemented">Not Implemented</td>
+							        <td class="NotImplemented">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+						        </tr>
+						        <tr>
+							        <td class="NotExecuted">Not Executed</td>
+							        <td class="NotExecuted">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+						        </tr>
+					        </tbody>
+				        </table>
+                    </div>
+
+                    <div id="coverageSummary">
+				        <table class="summaryTable">
+					        <thead>
+						        <tr>
+							        <td class="summaryHeader"></td>
+							        <td class="summaryCount"></td>
+						        </tr>
+					        </thead>
+					        <tbody>
+						        <tr>
+							        <td>Assemblies</td>
+							        <td>@Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase).Count()</td>
+						        </tr>
+						        <tr>
+							        <td>Namespaces</td>
+							        <td>@Model.GroupBy(b => b.Object.GetType().Namespace).Count()</td>
+						        </tr>
+						        <tr>
+							        <td>Test Classes</td>
+							        <td>@Model.Count()</td>
+						        </tr>
+					        </tbody>
+				        </table>
+                    </div>
+                </div>
 			</div>
 
 			<div id="testResult">
