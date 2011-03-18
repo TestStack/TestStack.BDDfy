@@ -26,21 +26,17 @@ namespace Bddify.Reporters
             CreateHtmlFile(bddee);
         }
 
-        static string JqueryFile
+        static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
+        static string GetHtmlTemplate()
         {
-            get
+            string htmlTemplate;
+            var templateResourceStream = typeof(HtmlReporter).Assembly.GetManifestResourceStream("Bddify.Reporters.HtmlReport.cshtml");
+            using (var sr = new StreamReader(templateResourceStream))
             {
-                return Path.Combine(Environment.CurrentDirectory, "Reporters\\jquery-1.4.4.min.js");
+                htmlTemplate = sr.ReadToEnd();
             }
-        }
 
-        static string TemplateFile
-        {
-            get
-            {
-                var templatefile = Path.Combine(Environment.CurrentDirectory, "Reporters\\HtmlReport.cshtml");
-                return File.ReadAllText(templatefile);
-            }
+            return htmlTemplate;
         }
 
         private void CreateHtmlFile(Bddee bddee)
@@ -49,11 +45,8 @@ namespace Bddify.Reporters
             // should create the file once and dynamically edit it for consequent calls
             _bddees.Add(bddee);
             var fileName = Path.Combine(_filePath, "bddify.html");
-            var jquery = Path.Combine(_filePath, "jquery-1.4.4.min.js");
-            if(!File.Exists(jquery))
-                File.Copy(JqueryFile, jquery, true);
 
-            var report = Razor.Parse(TemplateFile, _bddees);
+            var report = Razor.Parse(HtmlTemplate.Value, _bddees);
             File.WriteAllText(fileName, report);
         }
     }

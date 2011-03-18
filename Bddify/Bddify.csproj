@@ -62,12 +62,7 @@
     <Compile Include="Scanners\WithArgsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Reporters\HtmlReport.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reporters\jquery-1.4.4.min.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Reporters\HtmlReport.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

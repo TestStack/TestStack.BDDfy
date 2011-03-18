@@ -163,7 +163,18 @@
 			}
 		</style>
 
-		<script type="text/javascript" src="jquery-1.4.4.min.js"> </script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"> </script>
+		<script type="text/javascript">
+			$(function () {
+			    $('tr.step').hide();
+			    $('tr.scenario').click(function () {
+			        $('tr.' + $(this).attr('id')).toggle();
+			    });
+			    $('tr.hasException').click(function () {
+			        $('tr.' + $(this).attr('id')).toggle();
+			    });
+			});
+		</script>
 	</head>
 
 	<body>
@@ -288,18 +299,6 @@
 					</tbody>
 				</table>
 			</div>
-
-			<script type="text/javascript">
-				$(function () {
-					$('tr.step').hide();
-					$('tr.scenario').click(function () {
-						$('tr.' + $(this).attr('id')).toggle();
-					});
-					$('tr.hasException').click(function () {
-						$('tr.' + $(this).attr('id')).toggle();
-					});
-				});
-			</script>
 		</div>
 	</body>
 
