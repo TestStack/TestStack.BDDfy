@@ -37,6 +37,8 @@ namespace Bddify.Reporters
                 reporterRegistry[step.Result](step);
 
             ReportExceptions();
+
+            PrintOutput("============================================================================================================");
         }
 
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)

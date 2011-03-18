@@ -28,7 +28,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return (InconclusiveTestClass)_bddifier.Bddee.Object;
+                return (InconclusiveTestClass)_bddifier.Bddees.First().Object;
             }
         }
 
@@ -36,7 +36,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddifier.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.GivenAClassUnderTest));
+                return _bddifier.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.GivenAClassUnderTest));
             }
         }
 
@@ -44,7 +44,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddifier.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
+                return _bddifier.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
             }
         }
 
@@ -52,7 +52,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddifier.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
+                return _bddifier.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
             }
         }
 
@@ -68,7 +68,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         [Test]
         public void ResultIsInconclusive()
         {
-            Assert.That(_bddifier.Bddee.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_bddifier.Bddees.First().Result, Is.EqualTo(StepExecutionResult.Inconclusive));
         }
 
         [Test]

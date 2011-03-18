@@ -58,7 +58,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddify.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
+                return _bddify.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
             }
         }
 
@@ -66,7 +66,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddify.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
+                return _bddify.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
             }
         }
 
@@ -74,7 +74,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddify.Bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+                return _bddify.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
             }
         }
     }

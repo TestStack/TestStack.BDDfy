@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Bddify.Core
 {
@@ -17,20 +18,65 @@ namespace Bddify.Core
             _scanner = scanner;
         }
 
-        public Bddee Run()
+        public void Run()
         {
-            var steps = _scanner.Scan(_testObject.GetType());
-            Bddee = new Bddee(_testObject, steps);
+            if (RunScenarioWith())
+                return;
+
+            var bddee = GetBddee();
+            RunBddee(bddee);
+        }
+
+        private void RunBddee(Bddee bddee)
+        {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             //run processors in the right order regardless of the order they are provided to the Bddifer
             foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
-                processor.Process(Bddee);
+                processor.Process(bddee);
             stopWatch.Stop();
-            Bddee.Duration = stopWatch.Elapsed;
-            return Bddee;
+            bddee.Duration = stopWatch.Elapsed;
         }
 
-        public Bddee Bddee { get; private set; }
+        string ScenarioSentence
+        {
+            get
+            {
+                return NetToString.CreateSentenceFromTypeName(_testObject.GetType().Name);
+            }
+        }
+
+        private Bddee GetBddee(string scenarioSentence = null)
+        {
+            if (string.IsNullOrEmpty(scenarioSentence))
+                scenarioSentence = ScenarioSentence;
+
+            var steps = _scanner.Scan(_testObject.GetType());
+            var bddee = new Bddee(_testObject, steps, scenarioSentence);
+            _bddees.Add(bddee);
+            return bddee;
+        }
+
+        bool RunScenarioWith()
+        {
+            var runWithScenarioAtts = (RunScenarioWithArgsAttribute[])_testObject.GetType().GetCustomAttributes(typeof(RunScenarioWithArgsAttribute), false);
+            if(!runWithScenarioAtts.Any())
+                return false;
+
+            foreach (var argSet in runWithScenarioAtts)
+            {
+                var bddee = GetBddee(ScenarioSentence + " with args (" + string.Join(", ", argSet.ScenarioArguments) + ")");
+                var argSetterMethod = _testObject.GetType().GetMethod("RunScenarioWithArgs", BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                argSetterMethod.Invoke(_testObject, argSet.ScenarioArguments);
+                RunBddee(bddee);
+            }
+            return true;
+        }
+
+        private List<Bddee> _bddees = new List<Bddee>();
+        public IEnumerable<Bddee> Bddees
+        {
+            get { return _bddees; }
+        }
     }
 }

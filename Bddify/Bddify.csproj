@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Core\Bddee.cs" />
     <Compile Include="Core\Bddifier.cs" />
+    <Compile Include="Core\RunScenarioWithArgsAttribute.cs" />
     <Compile Include="Scanners\Bddifier.GwtExtensions.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Processors\ExceptionHandler.cs" />

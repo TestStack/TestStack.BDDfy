@@ -6,13 +6,13 @@ namespace Bddify.Core
 {
     public class Bddee
     {
-        public Bddee(object bddeeObject, IEnumerable<ExecutionStep> steps)
+        public Bddee(object bddeeObject, IEnumerable<ExecutionStep> steps, string scenarioSentence)
         {
             Object = bddeeObject;
             _steps = steps.ToList();
             Id = Guid.NewGuid();
 
-            ScenarioSentence = NetToString.CreateSentenceFromTypeName(bddeeObject.GetType().Name);
+            ScenarioSentence = scenarioSentence;
         }
 
         public string ScenarioSentence { get; private set; }
