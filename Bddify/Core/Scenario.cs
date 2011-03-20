@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Bddify.Core
 {
-    public class Bddee
+    public class Scenario
     {
-        public Bddee(object bddeeObject, IEnumerable<ExecutionStep> steps, string scenarioSentence)
+        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioSentence)
         {
-            Object = bddeeObject;
+            Object = testClass;
             _steps = steps.ToList();
             Id = Guid.NewGuid();
 

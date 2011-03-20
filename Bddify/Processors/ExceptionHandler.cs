@@ -18,10 +18,10 @@ namespace Bddify.Processors
             get { return ProcessType.HandleExceptions; }
         }
 
-        public void Process(Bddee bddee)
+        public void Process(Scenario scenario)
         {
-            var worseResult = bddee.Result;
-            var stepWithWorseResult = bddee.Steps.First(s => s.Result == worseResult);
+            var worseResult = scenario.Result;
+            var stepWithWorseResult = scenario.Steps.First(s => s.Result == worseResult);
             if (worseResult == StepExecutionResult.Failed)
                 throw stepWithWorseResult.Exception;
 

@@ -48,8 +48,9 @@
     <Compile Include="AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs" />
     <Compile Include="AtmAndCardSamples\Card_is_disabled_passing_test.cs" />
     <Compile Include="BddifyNunit.cs" />
+    <Compile Include="SomeFailingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AddPartiallyFailingTest.cs" />
+    <Compile Include="TestWithScenarioArguments.cs" />
     <Compile Include="SomeIncompleteTest.cs" />
   </ItemGroup>
   <ItemGroup>

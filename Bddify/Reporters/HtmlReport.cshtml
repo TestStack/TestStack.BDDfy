@@ -89,7 +89,7 @@
 			
 			td.NotExecuted
 			{
-				background-color:Gray
+				background-color:#606060;
 			}
 			
 			tr.scenario
@@ -259,13 +259,13 @@
 									<td colspan="3">@group.Key</td>
 								</tr>
 
-								foreach (var bddee in group) {
-									<tr class="scenario" id="@bddee.Id">
-										<td class="duration @bddee.Result">@bddee.Duration.Milliseconds (ms)</td>
-										<td colspan="2" class="@bddee.Result">@bddee.ScenarioSentence</td>
+								foreach (var scenario in group) {
+									<tr class="scenario" id="@scenario.Id">
+										<td class="duration @scenario.Result">@scenario.Duration.Milliseconds (ms)</td>
+										<td colspan="2" class="@scenario.Result">@scenario.ScenarioSentence</td>
 									</tr>
-									foreach (var step in bddee.Steps) {
-                                        string stepClass = "step " + bddee.Id;
+									foreach (var step in scenario.Steps) {
+                                        string stepClass = "step " + scenario.Id;
                                         string result = step.ReadableMethodName;
                                         if(step.Exception != null){
                                             stepClass += " hasException";
@@ -290,7 +290,7 @@
 									}
 
 									<!-- empty row to separate scenarios -->
-									<tr class="step @bddee.Id" style="height:5px">
+									<tr class="step @scenario.Id" style="height:5px">
 										<td colspan="3"></td>
 									</tr>
 								}

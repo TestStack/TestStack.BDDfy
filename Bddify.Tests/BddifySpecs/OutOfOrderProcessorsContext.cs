@@ -18,15 +18,15 @@ namespace Bddify.Tests.BddifySpecs
             _list = new List<ProcessType>();
             var exceptionHandler = Substitute.For<IProcessor>();
             exceptionHandler.ProcessType.Returns(ProcessType.HandleExceptions);
-            exceptionHandler.When(p => p.Process(Arg.Any<Bddee>())).Do(i => _list.Add(ProcessType.HandleExceptions));
+            exceptionHandler.When(p => p.Process(Arg.Any<Scenario>())).Do(i => _list.Add(ProcessType.HandleExceptions));
 
             var reporter = Substitute.For<IProcessor>();
             reporter.ProcessType.Returns(ProcessType.Report);
-            reporter.When(p => p.Process(Arg.Any<Bddee>())).Do(i => _list.Add(ProcessType.Report));
+            reporter.When(p => p.Process(Arg.Any<Scenario>())).Do(i => _list.Add(ProcessType.Report));
             
             var runner = Substitute.For<IProcessor>();
             runner.ProcessType.Returns(ProcessType.Execute);
-            runner.When(p => p.Process(Arg.Any<Bddee>())).Do(i => _list.Add(ProcessType.Execute));
+            runner.When(p => p.Process(Arg.Any<Scenario>())).Do(i => _list.Add(ProcessType.Execute));
 
             var bddify = new Bddifier(new ExceptionThrowingTest<Exception>(), new GwtScanner(), new IProcessor[] { reporter, exceptionHandler, runner });
             bddify.Run();

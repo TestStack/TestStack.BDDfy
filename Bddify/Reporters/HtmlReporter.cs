@@ -9,21 +9,21 @@ namespace Bddify.Reporters
 {
     public class HtmlReporter : IProcessor
     {
-        static readonly List<Bddee> Bddees = new List<Bddee>();
+        static readonly List<Scenario> Scenarios = new List<Scenario>();
 
         public ProcessType ProcessType
         {
             get { return ProcessType.Report; }
         }
 
-        public void Process(Bddee bddee)
+        public void Process(Scenario scenario)
         {
             // ToDo: this is a dirty hack because I am creating the file each and every time.
             // should create the file once and dynamically edit it for consequent calls
-            Bddees.Add(bddee);
+            Scenarios.Add(scenario);
             var fileName = Path.Combine(AssemblyDirectory, "bddify.html");
 
-            var report = Razor.Parse(HtmlTemplate.Value, Bddees);
+            var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
             File.WriteAllText(fileName, report);
         }
 

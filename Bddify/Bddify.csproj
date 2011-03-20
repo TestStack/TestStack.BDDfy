@@ -41,7 +41,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Bddee.cs" />
+    <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />
     <Compile Include="Core\RunScenarioWithArgsAttribute.cs" />
     <Compile Include="Scanners\Bddifier.GwtExtensions.cs" />

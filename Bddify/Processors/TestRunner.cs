@@ -11,13 +11,13 @@ namespace Bddify.Processors
             get { return ProcessType.Execute; }
         }
 
-        public void Process(Bddee bddee)
+        public void Process(Scenario scenario)
         {
-            foreach (var executionStep in bddee.Steps)
+            foreach (var executionStep in scenario.Steps)
             {
                 try
                 {
-                    executionStep.Method.Invoke(bddee.Object, executionStep.InputArguments);
+                    executionStep.Method.Invoke(scenario.Object, executionStep.InputArguments);
                     executionStep.Result = StepExecutionResult.Passed;
                 }
                 catch (Exception ex)

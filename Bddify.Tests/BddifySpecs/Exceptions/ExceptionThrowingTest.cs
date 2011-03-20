@@ -15,7 +15,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         private bool _whenShouldThrow;
         private bool _thenShouldThrow;
         private Bddifier _bddify;
-        Bddee _bddee;
+        Scenario _scenario;
 
         [Given]
         public void Given()
@@ -44,15 +44,15 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
-            var bddeeInterceptor = Substitute.For<IProcessor>();
-            bddeeInterceptor.When(p => p.Process(Arg.Any<Bddee>())).Do(c => _bddee = c.Arg<Bddee>());
+            var interceptor = Substitute.For<IProcessor>();
+            interceptor.When(p => p.Process(Arg.Any<Scenario>())).Do(c => _scenario = c.Arg<Scenario>());
 
             _bddify = new Bddifier(
                 this, 
                 new GwtScanner(), 
                 new IProcessor[]
                     {
-                        bddeeInterceptor,
+                        interceptor,
                         new TestRunner<InconclusiveException>(), 
                         new ConsoleReporter(),
                         new ExceptionHandler(Assert.Inconclusive)
@@ -64,7 +64,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
             }
         }
 
@@ -72,7 +72,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
             }
         }
 
@@ -80,7 +80,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
             }
         }
     }

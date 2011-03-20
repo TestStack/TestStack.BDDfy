@@ -17,7 +17,7 @@ namespace Bddify.Reporters
             get { return ProcessType.Report; }
         }
 
-        public void Process(Bddee bddee)
+        public void Process(Scenario scenario)
         {
             var reporterRegistry
                 = new Dictionary<StepExecutionResult, Action<ExecutionStep>>
@@ -29,11 +29,11 @@ namespace Bddify.Reporters
                               {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
-            _longestStepSentence = bddee.Steps.Max(s => s.ReadableMethodName.Length);
+            _longestStepSentence = scenario.Steps.Max(s => s.ReadableMethodName.Length);
 
-            Report(bddee);
+            Report(scenario);
             
-            foreach (var step in bddee.Steps)
+            foreach (var step in scenario.Steps)
                 reporterRegistry[step.Result](step);
 
             ReportExceptions();
@@ -80,9 +80,9 @@ namespace Bddify.Reporters
             }
         }
 
-        static void Report(Bddee bddee)
+        static void Report(Scenario scenario)
         {
-            PrintOutput("Scenario: " +  bddee.ScenarioSentence + Environment.NewLine);
+            PrintOutput("Scenario: " +  scenario.ScenarioSentence + Environment.NewLine);
         }
     }
 }
