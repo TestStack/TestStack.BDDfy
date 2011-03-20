@@ -3,6 +3,7 @@ using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
+using NSubstitute;
 using NUnit.Framework;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         private bool _whenShouldThrow;
         private bool _thenShouldThrow;
         private Bddifier _bddify;
+        Bddee _bddee;
 
         [Given]
         public void Given()
@@ -42,11 +44,15 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
+            var bddeeInterceptor = Substitute.For<IProcessor>();
+            bddeeInterceptor.When(p => p.Process(Arg.Any<Bddee>())).Do(c => _bddee = c.Arg<Bddee>());
+
             _bddify = new Bddifier(
                 this, 
                 new GwtScanner(), 
                 new IProcessor[]
                     {
+                        bddeeInterceptor,
                         new TestRunner<InconclusiveException>(), 
                         new ConsoleReporter(),
                         new ExceptionHandler(Assert.Inconclusive)
@@ -58,7 +64,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddify.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
+                return _bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
             }
         }
 
@@ -66,7 +72,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddify.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
+                return _bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
             }
         }
 
@@ -74,7 +80,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddify.Bddees.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+                return _bddee.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
             }
         }
     }

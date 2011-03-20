@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Bddify.Core;
 using RazorEngine;
 
@@ -8,13 +9,7 @@ namespace Bddify.Reporters
 {
     public class HtmlReporter : IProcessor
     {
-        private readonly string _filePath;
-        static readonly List<Bddee> _bddees = new List<Bddee>();
-
-        public HtmlReporter(string filePath, bool createCompleteHtml = true)
-        {
-            _filePath = filePath;
-        }
+        static readonly List<Bddee> Bddees = new List<Bddee>();
 
         public ProcessType ProcessType
         {
@@ -23,7 +18,13 @@ namespace Bddify.Reporters
 
         public void Process(Bddee bddee)
         {
-            CreateHtmlFile(bddee);
+            // ToDo: this is a dirty hack because I am creating the file each and every time.
+            // should create the file once and dynamically edit it for consequent calls
+            Bddees.Add(bddee);
+            var fileName = Path.Combine(AssemblyDirectory, "bddify.html");
+
+            var report = Razor.Parse(HtmlTemplate.Value, Bddees);
+            File.WriteAllText(fileName, report);
         }
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
@@ -39,15 +40,16 @@ namespace Bddify.Reporters
             return htmlTemplate;
         }
 
-        private void CreateHtmlFile(Bddee bddee)
+        // http://stackoverflow.com/questions/52797/c-how-do-i-get-the-path-of-the-assembly-the-code-is-in#answer-283917
+        static public string AssemblyDirectory
         {
-            // ToDo: this is a dirty hack because I am creating the file each and every time.
-            // should create the file once and dynamically edit it for consequent calls
-            _bddees.Add(bddee);
-            var fileName = Path.Combine(_filePath, "bddify.html");
-
-            var report = Razor.Parse(HtmlTemplate.Value, _bddees);
-            File.WriteAllText(fileName, report);
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                var uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Bddify.Demo
                 { 
                     new TestRunner<InconclusiveException>(), 
                     new ConsoleReporter(),
-                    new HtmlReporter("d:\\temp"),
+                    new HtmlReporter(),
                     new ExceptionHandler(Assert.Inconclusive)
                 });
 
