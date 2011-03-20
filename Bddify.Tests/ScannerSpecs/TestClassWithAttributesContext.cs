@@ -16,17 +16,17 @@ namespace Bddify.Tests.ScannerSpecs
             [Then]
             public void Then() { }
 
-            public void ThenIShouldNotBeReturnedBecauseIDoNotHaveAttributes() {}
+            public void ThenIShouldNotBeReturnedBecauseIDoNotHaveAttributes() { }
 
             [When]
             public void When() { }
 
-            public void WhenNoAttributeIsProvided() {}
+            public void WhenNoAttributeIsProvided() { }
 
             [Given]
             public void Given() { }
 
-            public void GivenWithoutAttribute() {}
+            public void GivenWithoutAttribute() { }
 
             [AndWhen]
             public void TheOtherPartOfWhen() { }
@@ -43,7 +43,7 @@ namespace Bddify.Tests.ScannerSpecs
         public void WhenTestClassHasAttributes()
         {
             _typeWithAttribute = new TypeWithAttribute();
-            _steps = new ExecutableAttributeScanner().Scan(typeof(TypeWithAttribute)).ToList();
+            _steps = new ExecutableAttributeScanner().Scan(_typeWithAttribute).Steps.ToList();
         }
 
         [Test]

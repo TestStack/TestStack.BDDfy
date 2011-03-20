@@ -47,6 +47,7 @@
     <Compile Include="Scanners\Bddifier.GwtExtensions.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Processors\ExceptionHandler.cs" />
+    <Compile Include="Scanners\DefaultScannerBase.cs" />
     <Compile Include="Scanners\ExecutableAttribute.cs" />
     <Compile Include="Scanners\ExecutableAttributeScanner.cs" />
     <Compile Include="Reporters\HtmlReporter.cs" />

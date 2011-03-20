@@ -26,7 +26,7 @@ namespace Bddify.Tests.ScannerSpecs
         public void Setup()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
-            _steps = new GwtScanner().Scan(typeof(TypeWithoutAttribute)).ToList();
+            _steps = new GwtScanner().Scan(_typeWithoutAttribute).Steps.ToList();
         }
             
         [Test]

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Bddify.Core
+﻿namespace Bddify.Core
 {
     public interface IScanner
     {
-        IEnumerable<ExecutionStep> Scan(Type typeToScan);
+        Scenario Scan(object testObject);
     }
 }

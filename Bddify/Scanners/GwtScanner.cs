@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
 
 namespace Bddify.Scanners
 {
-    public class GwtScanner : IScanner
+    public class GwtScanner : DefaultScannerBase
     {
         readonly Dictionary<string, bool> _methodNamingConvention =
             new Dictionary<string, bool>
@@ -18,9 +17,9 @@ namespace Bddify.Scanners
                     {"And", true} 
                 };
 
-        public virtual IEnumerable<ExecutionStep> Scan(Type typeToScan)
+        protected override IEnumerable<ExecutionStep> ScanForSteps()
         {
-            var methods = typeToScan.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var methods = TestObject.GetType().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             foreach (var conventionKey in _methodNamingConvention.Keys)
             {
@@ -52,8 +51,7 @@ namespace Bddify.Scanners
                 }
             }
 
-            yield break; ;
+            yield break;
         }
-
     }
 }
