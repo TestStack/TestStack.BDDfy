@@ -10,8 +10,8 @@ namespace Bddify.Tests.ScannerSpecs
     {
         private List<Scenario> _result;
 
-        [RunScenarioWithArgs(1, 2, 3)]
-        [RunScenarioWithArgs(4, 5, 6)]
+        [RunScenarioWithArgs("Arg1", 2, 3)]
+        [RunScenarioWithArgs("Arg2", 5, 6)]
         private class ScenarioWithArgs
         {
         }
@@ -31,8 +31,10 @@ namespace Bddify.Tests.ScannerSpecs
         [Test]
         public void ArgsAreSetProperlyOnScenarios()
         {
-            Assert.That(_result[0].ArgsSet, Is.EquivalentTo(new[]{1, 2, 3}));
-            Assert.That(_result[1].ArgsSet, Is.EquivalentTo(new[]{4, 5, 6}));
+            var argsSets = _result.Select(r => r.ArgsSet);
+            Assert.That(argsSets.Count(a => a.Length != 3), Is.EqualTo(0));
+            Assert.That(argsSets.Single(o => o[0].ToString() == "Arg1")[1], Is.EqualTo(2));
+            Assert.That(argsSets.Single(o => o[0].ToString() == "Arg2")[2], Is.EqualTo(6));
         }
     }
 }
