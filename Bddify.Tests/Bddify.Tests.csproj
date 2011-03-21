@@ -64,6 +64,7 @@
     <Compile Include="BddifySpecs\Exceptions\OtherExceptions\ThenThrowsExceptionContext.cs" />
     <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenThrowsExceptionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScannerSpecs\RunScenarioWithArgsContext.cs" />
     <Compile Include="ScannerSpecs\TestClassWithoutAttributesContext.cs" />
     <Compile Include="ScannerSpecs\TestClassWithAttributesContext.cs" />
   </ItemGroup>
