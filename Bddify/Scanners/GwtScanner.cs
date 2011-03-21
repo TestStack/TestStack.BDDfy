@@ -33,7 +33,7 @@ namespace Bddify.Scanners
                             inputs = argAttributes[0].InputArguments;
 
                         // creating the method itself
-                        yield return new ExecutionStep(method, inputs, NetToString.CreateSentenceFromName(method.Name), _methodNamingConvention[conventionKey]);
+                        yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), _methodNamingConvention[conventionKey]);
 
                         if (argAttributes != null && argAttributes.Length > 1)
                         {
@@ -42,7 +42,7 @@ namespace Bddify.Scanners
                                 var argAttribute = argAttributes[index];
                                 inputs = argAttribute.InputArguments;
                                 if (inputs != null && inputs.Length > 0)
-                                    yield return new ExecutionStep(method, inputs, NetToString.CreateSentenceFromName(method.Name), _methodNamingConvention[conventionKey]);
+                                    yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), _methodNamingConvention[conventionKey]);
                             }
                         }
 

@@ -15,7 +15,7 @@ namespace Bddify.Scanners
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
 
             // ToDo: the arguments should be provided
-            return methods.Select(m => new ExecutionStep(m, null, NetToString.CreateSentenceFromName(m.Name), IsAssertingByAttribute(m)));
+            return methods.Select(m => new ExecutionStep(m, null, NetToString.FromName(m.Name), IsAssertingByAttribute(m)));
         }
 
         private static bool IsAssertingByAttribute(MethodInfo method)

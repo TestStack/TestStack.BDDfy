@@ -47,7 +47,7 @@ namespace Bddify.Reporters
                 string.Format
                     ("{0}  [{1}]",
                     step.ReadableMethodName.PadRight(_longestStepSentence + 5),
-                    NetToString.CreateSentenceFromCamelName(step.Result.ToString()));
+                    NetToString.FromCamelName(step.Result.ToString()));
 
             if(reportOnException)
             {
@@ -82,7 +82,7 @@ namespace Bddify.Reporters
 
         static void Report(Scenario scenario)
         {
-            PrintOutput("Scenario: " +  scenario.ScenarioSentence + Environment.NewLine);
+            PrintOutput("Scenario: " +  scenario.ScenarioText + Environment.NewLine);
         }
     }
 }

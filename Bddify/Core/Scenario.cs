@@ -6,24 +6,24 @@ namespace Bddify.Core
 {
     public class Scenario
     {
-        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioSentence, IEnumerable<object[]> argSets = null)
+        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet = null)
         {
             Object = testClass;
             _steps = steps.ToList();
             Id = Guid.NewGuid();
 
-            ScenarioSentence = scenarioSentence;
-            _argSests = argSets;
+            ScenarioText = scenarioText;
+            _argsSet = argsSet;
         }
 
-        public string ScenarioSentence { get; private set; }
+        public string ScenarioText { get; private set; }
         public TimeSpan Duration { get; set; }
         public object Object { get; set; }
         public Guid Id { get; private set; }
-        private IEnumerable<object[]> _argSests;
-        public IEnumerable<object[]> ArgSets
+        private object[] _argsSet;
+        public object[] ArgsSet
         {
-            get { return _argSests; }
+            get { return _argsSet; }
         }
 
         private readonly List<ExecutionStep> _steps;

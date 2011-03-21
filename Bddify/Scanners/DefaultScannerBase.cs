@@ -8,33 +8,39 @@ namespace Bddify.Scanners
     {
         protected object TestObject;
 
-        protected virtual IEnumerable<object []> GetArgsSet()
+        protected virtual IEnumerable<object []> GetArgsSets()
         {
             var runWithScenarioAtts = (RunScenarioWithArgsAttribute[])TestObject.GetType().GetCustomAttributes(typeof(RunScenarioWithArgsAttribute), false);
 
             return runWithScenarioAtts.Select(argSet => argSet.ScenarioArguments).ToList();
         }
 
-        string ScenarioSentence
+        string ScenarioText
         {
             get
             {
-                return NetToString.CreateSentenceFromTypeName(TestObject.GetType().Name);
+                return NetToString.FromTypeName(TestObject.GetType().Name);
             }
         }
 
-        protected virtual Scenario GetScenario(IEnumerable<object[]> argSets = null)
+        protected virtual Scenario GetScenario(object[] argsSet = null)
         {
-            return new Scenario(TestObject, ScanForSteps(), ScenarioSentence, argSets);
+            var scenarioText = ScenarioText;
+            if (argsSet != null)
+                scenarioText += string.Format(" with args ({0})", string.Join(", ", argsSet));
+            return new Scenario(TestObject, ScanForSteps(), scenarioText, argsSet);
         }
 
         abstract protected IEnumerable<ExecutionStep> ScanForSteps();
 
-        public virtual Scenario Scan(object testObject)
+        public virtual IEnumerable<Scenario> Scan(object testObject)
         {
             TestObject = testObject;
-            var argsSet = GetArgsSet();
-            return GetScenario(argsSet);
+            var argsSet = GetArgsSets();
+            if(argsSet.Any())
+                return argsSet.Select(GetScenario);
+
+            return new[] { GetScenario() };
         }
     }
 }

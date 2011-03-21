@@ -262,7 +262,7 @@
 								foreach (var scenario in group) {
 									<tr class="scenario" id="@scenario.Id">
 										<td class="duration @scenario.Result">@scenario.Duration.Milliseconds (ms)</td>
-										<td colspan="2" class="@scenario.Result">@scenario.ScenarioSentence</td>
+										<td colspan="2" class="@scenario.Result">@scenario.ScenarioText</td>
 									</tr>
 									foreach (var step in scenario.Steps) {
                                         string stepClass = "step " + scenario.Id;

@@ -19,16 +19,24 @@ namespace Bddify.Core
 
         public void Run()
         {
-            Scenario = _scanner.Scan(_testObject);
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
-            //run processors in the right order regardless of the order they are provided to the Bddifer
-            foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
-                processor.Process(Scenario);
-            stopWatch.Stop();
-            Scenario.Duration = stopWatch.Elapsed;
+            foreach (var scenario in _scanner.Scan(_testObject))
+            {
+                _scenarios.Add(scenario);
+                var stopWatch = new Stopwatch();
+                stopWatch.Start();
+                //run processors in the right order regardless of the order they are provided to the Bddifer
+                foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
+                    processor.Process(scenario);
+                stopWatch.Stop();
+                scenario.Duration = stopWatch.Elapsed;
+            }
         }
 
-        public Scenario Scenario {get; private set;}
+        private readonly List<Scenario> _scenarios = new List<Scenario>();
+
+        public IEnumerable<Scenario> Scenarios
+        {
+            get { return _scenarios; }
+        }
     }
 }

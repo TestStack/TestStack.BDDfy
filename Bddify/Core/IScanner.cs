@@ -1,7 +1,9 @@
-﻿namespace Bddify.Core
+﻿using System.Collections.Generic;
+
+namespace Bddify.Core
 {
     public interface IScanner
     {
-        Scenario Scan(object testObject);
+        IEnumerable<Scenario> Scan(object testObject);
     }
 }
