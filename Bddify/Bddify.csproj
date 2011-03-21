@@ -44,7 +44,7 @@
     <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />
     <Compile Include="Core\RunScenarioWithArgsAttribute.cs" />
-    <Compile Include="Scanners\Bddifier.GwtExtensions.cs" />
+    <Compile Include="Scanners\GwtAttributes.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Processors\ExceptionHandler.cs" />
     <Compile Include="Scanners\DefaultScannerBase.cs" />
