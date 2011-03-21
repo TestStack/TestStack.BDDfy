@@ -50,7 +50,7 @@
     <Compile Include="BddifyNunit.cs" />
     <Compile Include="SomeFailingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestWithScenarioArguments.cs" />
+    <Compile Include="FailingTestWithScenarioArguments.cs" />
     <Compile Include="SomeIncompleteTest.cs" />
   </ItemGroup>
   <ItemGroup>

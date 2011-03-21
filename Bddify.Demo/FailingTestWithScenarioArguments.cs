@@ -6,7 +6,8 @@ namespace Bddify.Demo
 {
     [RunScenarioWithArgs(1, 2, 3)]
     [RunScenarioWithArgs(-1, 5, 4)]
-    public class TestWithScenarioArguments
+    [RunScenarioWithArgs(3, 7, 9)] // failing test
+    public class FailingTestWithScenarioArguments
     {
         private int _expectedResult;
         private int _input1;
