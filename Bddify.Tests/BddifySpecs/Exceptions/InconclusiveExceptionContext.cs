@@ -23,12 +23,13 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         }
 
         Bddifier _bddifier;
+        private Scenario _scenario;
 
         InconclusiveTestClass TestClass
         {
             get
             {
-                return (InconclusiveTestClass)_bddifier.Scenarios.First().Object;
+                return (InconclusiveTestClass)_scenario.Object;
             }
         }
 
@@ -36,7 +37,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddifier.Scenarios.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.GivenAClassUnderTest));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.GivenAClassUnderTest));
             }
         }
 
@@ -44,7 +45,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddifier.Scenarios.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
             }
         }
 
@@ -52,7 +53,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         {
             get
             {
-                return _bddifier.Scenarios.First().Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
             }
         }
 
@@ -61,14 +62,15 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         public void InconclusiveExceptionSetup()
         {
             var testClass = new InconclusiveTestClass();
-            _bddifier = testClass.LazyBddify(); 
+            _bddifier = testClass.LazyBddify();
             Assert.Throws<InconclusiveException>(() => _bddifier.Run());
+            _scenario = _bddifier.Scenarios.First();
         }
 
         [Test]
         public void ResultIsInconclusive()
         {
-            Assert.That(_bddifier.Scenarios.First().Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
         }
 
         [Test]

@@ -44,20 +44,23 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
-            var interceptor = Substitute.For<IProcessor>();
-            interceptor.When(p => p.Process(Arg.Any<Scenario>())).Do(c => _scenario = c.Arg<Scenario>());
-
             _bddify = new Bddifier(
                 this, 
                 new GwtScanner(), 
                 new IProcessor[]
                     {
-                        interceptor,
                         new TestRunner<InconclusiveException>(), 
                         new ConsoleReporter(),
                         new ExceptionHandler(Assert.Inconclusive)
                     });
-            _bddify.Run();
+            try
+            {
+                _bddify.Run();
+            }
+            finally 
+            {
+                _scenario = _bddify.Scenarios.First();
+            }
         }
 
         public ExecutionStep GivenStep
