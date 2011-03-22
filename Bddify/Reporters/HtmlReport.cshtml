@@ -61,6 +61,12 @@
 				float:none;
 			}
 			
+			#testResult table
+			{
+                background-color:White;
+                color:Black;
+			}
+			
 			table
 			{
 				width:100%;
@@ -174,6 +180,16 @@
 				height:35px;
 			}
 			
+			tr.step
+			{
+			    background-color:#eee;
+			}
+		
+		    td.result
+		    {
+		        width:10px;
+		    }
+			
 			.spacer 
 			{ 
 				padding-bottom:5px;
@@ -257,17 +273,18 @@
 					<tbody>
 						@foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
 							<tr class="assembly">
-								<td colspan="3">...@assembly.Key.Substring(assembly.Key.Length - 60)</td>
+								<td colspan="4">...@assembly.Key.Substring(assembly.Key.Length - 60)</td>
 							</tr>
 							foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
 								<tr class="namespace">
-									<td colspan="3">@group.Key</td>
+									<td colspan="4">@group.Key</td>
 								</tr>
 
 								foreach (var scenario in group) {
 									<tr class="scenario" id="@scenario.Id">
-										<td class="duration @scenario.Result">@scenario.Duration.Milliseconds (ms)</td>
-										<td colspan="2" class="@scenario.Result">@scenario.ScenarioText</td>
+										<td class="duration">@scenario.Duration.Milliseconds (ms)</td>
+										<td colspan="2">@scenario.ScenarioText</td>
+										<td class="result @scenario.Result"></td>
 									</tr>
 									foreach (var step in scenario.Steps) {
                                         string stepClass = "step " + scenario.Id;
@@ -282,21 +299,23 @@
 
 									    <tr class="@stepClass" id="@step.Id">
 										    <td class="duration"></td>
-										    <td colspan="2" class="@step.Result">@result</td>
+										    <td colspan="2">@result</td>
+    										<td class="result @scenario.Result"></td>
 									    </tr>
 
                                         if (step.Exception != null){
 									        <tr class="step exceptionDetails @step.Id">
 										        <td class="duration"></td>
 										        <td class="indentation @step.Result"></td>
-										        <td class="@step.Result">@step.Exception.StackTrace</td>
+										        <td>@step.Exception.StackTrace</td>
+        										<td class="result @scenario.Result"></td>
 									        </tr>
                                         }
 									}
 
 									<!-- empty row to separate scenarios -->
 									<tr class="step @scenario.Id spacer">
-										<td colspan="3"></td>
+										<td colspan="4"></td>
 									</tr>
 								}
 							}
