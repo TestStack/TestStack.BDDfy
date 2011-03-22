@@ -67,6 +67,7 @@
     <Compile Include="ScannerSpecs\RunScenarioWithArgsContext.cs" />
     <Compile Include="ScannerSpecs\TestClassWithoutAttributesContext.cs" />
     <Compile Include="ScannerSpecs\TestClassWithAttributesContext.cs" />
+    <Compile Include="BddifySpecs\RunScenarioWithArgs\RunScenarioWithArgsContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">
@@ -74,9 +75,7 @@
       <Name>Bddify</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestRunner\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
