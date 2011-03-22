@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+﻿<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
@@ -6,12 +6,16 @@
 		<style type="text/css">
 			body
 			{
-				background-color:black;
+				min-width:900px;
+				max-width:100%;
+				background-color:#fff;
 			}
 			
 			#main
 			{
-				margin:20, 0, 20, 0;
+				margin: 0 auto;
+				width: 100%;
+				text-align:center;
 				background-color:#9090a0;
 			}
 			
@@ -24,7 +28,7 @@
 			
 			#headerText
 			{
-			    padding:10px;
+				padding:10px;
 			}
 			
 			#summaryDiv
@@ -33,28 +37,28 @@
 				margin-bottom:50px;
 				margin-top:30px;
 			}
-            
-            #resultSummary
-            {
-                float:left;
-            }
+			
+			#resultSummary
+			{
+				float:left;
+			}
 			
 			#coverageSummary
 			{
-                float:left;
-                margin-left:50px;
+				float:left;
+				margin-left:50px;
+				background-color:Black;
 			}
 
-            #coverageSummary table
-            {
-				background-color:Black;
-                color:White;
-            }
+			#coverageSummary table
+			{
+				color:White;
+			}
 			
 			#testResult
 			{
-			    padding:10px;
-			    float:none;
+				padding:10px;
+				float:none;
 			}
 			
 			table
@@ -66,17 +70,23 @@
 			
 			tbody
 			{
-				text-align:left
+				text-align:left;
+			}
+			
+			td 
+			{
+				padding:5px;
 			}
 			
 			td.Passed
 			{
-				background-color:Green
+				background-color:#009F00;
 			}
 			
 			td.Failed
 			{
-				background-color:Red
+				background-color:#DF0000;
+				font-weight:bold;
 			}
 			
 			td.Inconclusive
@@ -106,7 +116,7 @@
 			
 			th.scenarioHeader
 			{
-				width:400px    
+				width:250px    
 			}
 
 			th.resultHeader
@@ -136,7 +146,7 @@
 			
 			td.result
 			{
-			    width:150px;
+				width:150px;
 			}
 			
 			table.summaryTable
@@ -152,16 +162,21 @@
 			
 			tr.assembly
 			{
-			    background-color:#101010;
-			    color:White;
-			    height:40px;
+				background-color:#101010;
+				color:White;
+				height:40px;
 			}
 			
 			tr.namespace
 			{
-			    background-color:#303030;
-			    color:White;
-			    height:35px;
+				background-color:#303030;
+				color:White;
+				height:35px;
+			}
+			
+			.spacer 
+			{ 
+				padding-bottom:5px;
 			}
 		</style>
 
@@ -182,7 +197,7 @@
 	<body>
 		<div id="main">
 			<div id="header">
-				<h2 id="headerText">Bddify Test Result @DateTime.Now.ToShortDateString()</h2>
+				<h1 id="headerText">Bddify Test Result @DateTime.Now.ToShortDateString()</h1>
 			</div>
 
 			<div id="summaryDiv">
@@ -191,12 +206,6 @@
                 <div id="innderSummaryDiv">
                     <div id="resultSummary">
 				        <table class="summaryTable">
-					        <thead>
-						        <tr>
-							        <td class="summaryHeader"></td>
-							        <td class="summaryCount"></td>
-						        </tr>
-					        </thead>
 					        <tbody>
 						        <tr>
 							        <td class="Passed">Passed</td>
@@ -224,12 +233,6 @@
 
                     <div id="coverageSummary">
 				        <table class="summaryTable">
-					        <thead>
-						        <tr>
-							        <td class="summaryHeader"></td>
-							        <td class="summaryCount"></td>
-						        </tr>
-					        </thead>
 					        <tbody>
 						        <tr>
 							        <td>Assemblies</td>
@@ -292,7 +295,7 @@
 									}
 
 									<!-- empty row to separate scenarios -->
-									<tr class="step @scenario.Id" style="height:5px">
+									<tr class="step @scenario.Id spacer">
 										<td colspan="3"></td>
 									</tr>
 								}
