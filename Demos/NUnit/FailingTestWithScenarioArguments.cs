@@ -2,7 +2,7 @@ using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
 
-namespace Bddify.Demo
+namespace Demos.NUnit
 {
     [RunScenarioWithArgs(1, 2, 3)]
     [RunScenarioWithArgs(-1, 5, 4)]

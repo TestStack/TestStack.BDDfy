@@ -4,7 +4,7 @@ using Bddify.Reporters;
 using Bddify.Scanners;
 using NUnit.Framework;
 
-namespace Bddify.Demo
+namespace Demos.NUnit
 {
     public static class BddifyNunit
     {

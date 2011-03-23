@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 
-namespace Bddify.Demo
+namespace Demos.NUnit
 {
     public class SomeIncompleteTest
     {

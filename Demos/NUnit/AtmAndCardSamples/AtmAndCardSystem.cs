@@ -1,4 +1,4 @@
-namespace Bddify.Demo.AtmAndCardSamples
+namespace Demos.NUnit.AtmAndCardSamples
 {
     public class Atm
     {
