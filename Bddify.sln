@@ -6,15 +6,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests", "Bddify.Tests\Bddify.Tests.csproj", "{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60D7F179-1DBE-4747-B7DB-996876C437CC}"
-	ProjectSection(SolutionItems) = preProject
-		Bddify.nuspec = Bddify.nuspec
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{4CF56259-9C6F-4E3C-A5BB-CCD561500146}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit", "Demos\NUnit\NUnit.csproj", "{49BE28D4-937F-4EDE-93D4-134AE20AB23D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsTest", "Demos\MsTest\MsTest.csproj", "{8697B730-2064-4F1B-9B46-F7782217C44A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{1028A699-1730-496E-A7E5-F7EA149B7707}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Bddify.0.1.nupkg = NuGet\Bddify.0.1.nupkg
+		NuGet\Bddify.nuspec = NuGet\Bddify.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +75,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4CF56259-9C6F-4E3C-A5BB-CCD561500146} = {60D7F179-1DBE-4747-B7DB-996876C437CC}
+		{1028A699-1730-496E-A7E5-F7EA149B7707} = {60D7F179-1DBE-4747-B7DB-996876C437CC}
 		{49BE28D4-937F-4EDE-93D4-134AE20AB23D} = {4CF56259-9C6F-4E3C-A5BB-CCD561500146}
 		{8697B730-2064-4F1B-9B46-F7782217C44A} = {4CF56259-9C6F-4E3C-A5BB-CCD561500146}
 	EndGlobalSection
