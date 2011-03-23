@@ -16,18 +16,24 @@ namespace Bddify.Reporters
             get { return ProcessType.Report; }
         }
 
+        static HtmlReporter()
+        {
+            var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
+            File.WriteAllText(FileName, report);
+        }
+
         public void Process(Scenario scenario)
         {
             // ToDo: this is a dirty hack because I am creating the file each and every time.
             // should create the file once and dynamically edit it for consequent calls
             Scenarios.Add(scenario);
-            var fileName = Path.Combine(AssemblyDirectory, "bddify.html");
-
             var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
-            File.WriteAllText(fileName, report);
+            File.WriteAllText(FileName, report);
         }
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
+        private static readonly string FileName = Path.Combine(AssemblyDirectory, "bddify.html");
+
         static string GetHtmlTemplate()
         {
             string htmlTemplate;

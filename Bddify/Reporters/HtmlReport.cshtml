@@ -279,18 +279,17 @@
 					<tbody>
 						@foreach (var assembly in Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase)) {
 							<tr class="assembly">
-								<td colspan="5">...@assembly.Key.Substring(assembly.Key.Length - 60)</td>
+								<td colspan="4">...@assembly.Key.Substring(assembly.Key.Length - 60)</td>
 							</tr>
 							foreach (var group in assembly.GroupBy(b => b.Object.GetType().Namespace)){
 								<tr class="namespace">
-									<td colspan="5">@group.Key</td>
+									<td colspan="4">@group.Key</td>
 								</tr>
 
 								foreach (var scenario in group) {
 									<tr class="scenario" id="@scenario.Id">
-										<td class="duration">@scenario.Duration.Milliseconds (ms)</td>
-										<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
 										<td class="result @scenario.Result"></td>
+										<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
 									</tr>
 									foreach (var step in scenario.Steps) {
                                         string stepClass = "step " + scenario.Id;
@@ -304,26 +303,24 @@
                                         }
 
 									    <tr class="@stepClass" id="@step.Id">
-										    <td class="duration"></td>
+    										<td class="result @step.Result"></td>
 										    <td class="indentation"></td>
 										    <td colspan="2">@result</td>
-    										<td class="result @step.Result"></td>
 									    </tr>
 
                                         if (step.Exception != null){
 									        <tr class="step exceptionDetails @step.Id">
-										        <td class="duration"></td>
+        										<td class="result @step.Result"></td>
     										    <td class="indentation"></td>
 										        <td class="indentation"></td>
 										        <td>@step.Exception.StackTrace</td>
-        										<td class="result @step.Result"></td>
 									        </tr>
                                         }
 									}
 
 									<!-- empty row to separate scenarios -->
 									<tr class="step @scenario.Id spacer">
-										<td colspan="5"></td>
+										<td colspan="4"></td>
 									</tr>
 								}
 							}
