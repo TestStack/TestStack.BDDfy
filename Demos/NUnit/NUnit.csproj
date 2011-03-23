@@ -8,8 +8,8 @@
     <ProjectGuid>{49BE28D4-937F-4EDE-93D4-134AE20AB23D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bddify.Demo</RootNamespace>
-    <AssemblyName>Bddify.Demo</AssemblyName>
+    <RootNamespace>Demos.NUnit</RootNamespace>
+    <AssemblyName>Demos.NUnit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -54,7 +54,7 @@
     <Compile Include="SomeIncompleteTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bddify\Bddify.csproj">
+    <ProjectReference Include="..\..\Bddify\Bddify.csproj">
       <Project>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</Project>
       <Name>Bddify</Name>
     </ProjectReference>

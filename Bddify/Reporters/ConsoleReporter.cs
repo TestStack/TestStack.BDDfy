@@ -76,7 +76,6 @@ namespace Bddify.Reporters
                     PrintOutput(exception.Message);
          
                 PrintOutput(exception.StackTrace);
-                PrintOutput("============================================================================================================");
             }
         }
 
