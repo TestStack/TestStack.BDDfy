@@ -11,7 +11,4 @@
     <description>Bddify is a small yet very extensible BDD framework with low footprint</description>
 	<projectUrl>https://code.google.com/p/bddify/</projectUrl>
   </metadata>
-  <files>
-      <file src="Build\*.dll" target="lib" /> 
-  </files>
 </package>
