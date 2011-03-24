@@ -172,6 +172,11 @@
 				color: Maroon;
 			}
 			
+			.exceptionDetails
+			{
+			    color:Maroon;
+			}
+			
 			th.scenarioHeader
 			{
 				width:250px    
@@ -400,22 +405,23 @@
                   @foreach (var step in scenario.Steps) {
                     string stepClass = string.Empty;
                     string result = step.ReadableMethodName;
+                    var rowSpan = 1;
                     if(step.Exception != null){
                       stepClass = "hasException";
+                      rowSpan = 2;
                                             
                       if(!string.IsNullOrEmpty(step.Exception.Message)){
                           result += " [Exception Message: '" + step.Exception.Message + "']";
                       }
                     }
                     <tr class="@stepClass step" onclick="toggle('@step.Id');">
-    									<td class="result @step.Result"></td>
+    									<td rowspan="@rowSpan" class="result @step.Result"></td>
 										  <td class="indentation"></td>
 										  <td colspan="2">@result</td>
                     </tr>
 
                     if (step.Exception != null) {
-									  <tr class="exceptionDetails step" id="@step.Id" style="display:none">
-        							<td class="result @step.Result"></td>
+									  <tr class="exceptionDetails step" id="@step.Id">
     									<td class="indentation"></td>
 										  <td class="indentation"></td>
 										  <td>@step.Exception.StackTrace</td>
@@ -425,11 +431,7 @@
                   </table>                                    
                 </td>
 		  				</tr>
-								    <!-- empty row to separate scenarios -->
-								    <tr class="spacer step">
-									    <td colspan="4"></td>
-								    </tr>
-                            }
+                }
               }
 					</tbody>
 				</table>
