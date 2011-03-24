@@ -18,17 +18,19 @@ namespace Bddify.Reporters
 
         static HtmlReporter()
         {
-            //var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
-            //File.WriteAllText(FileName, report);
+            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
+        }
+
+        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
+        {
+            // run this only once when the appdomain is unloading, that is when the last test is run
+            var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
+            File.WriteAllText(FileName, report);
         }
 
         public void Process(Scenario scenario)
         {
-            // ToDo: this is a dirty hack because I am creating the file each and every time.
-            // should create the file once and dynamically edit it for consequent calls
             Scenarios.Add(scenario);
-            var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
-            File.WriteAllText(FileName, report);
         }
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
