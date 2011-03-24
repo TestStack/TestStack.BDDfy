@@ -41,19 +41,17 @@
 			
 			#summaryDiv
 			{
-			  height:200px;
+			  height:230px;
 			  margin:5px;
 			  padding:5px;
 			}
 			
 			#resultSummary
 			{
-				float:left;
 			}
 			
 			#coverageSummary
 			{
-				float:left;
 				margin-left:50px;
 			}
 
@@ -61,10 +59,9 @@
 			{
 			  margin:5px;
 			  padding:5px;
-				float:none;
 			}
 			
-			#testResult table
+			#testResult>table
 			{
         background-color:White;
         color:Black;
@@ -130,9 +127,7 @@
 			
 			tr.namespaceResultSummary
 			{
-			    height:20px;
-			    background-color:black;
-			    color:White;
+			    height:17px;
 			}
 			
 			tr.hasException
@@ -178,7 +173,9 @@
 			
 			table.summaryTable
 			{
-				width:250px;
+				width:200px;
+				background-color:#101010;
+				color:#fff;
 				border-collapse:collapse;
 			}
 			
@@ -201,9 +198,14 @@
 			
 			tr.namespace
 			{
+				height:35px;
+				background-color:#303030;
+			}
+			
+			table.namespace
+			{
 				background-color:#303030;
 				color:White;
-				height:35px;
 			}
 			
 			tr.step
@@ -254,6 +256,11 @@
             <div id="resultSummary">
 				      <table class="summaryTable">
 					      <tbody>
+						      <tr class="namespace">
+                    <td />
+							      <td class="summaryLable">Namespaces</td>
+							      <td>@Model.GroupBy(b => b.Object.GetType().Namespace).Count()</td>
+						      </tr>
 						      <tr>
                     <td class="result Passed"></td>
                     <td class="summaryLable">Passed</td>
@@ -273,26 +280,10 @@
 				            <td class="result NotImplemented"></td>
 							      <td class="summaryLable">Not Implemented</td>
 							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
-						      </tr>
+  					      </tr>
 						      <tr>
 				            <td class="result NotExecuted"></td>
 							      <td class="summaryLable">Not Executed</td>
-							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
-						      </tr>
-					      </tbody>
-				      </table>
-            </div>
-
-            <div id="coverageSummary">
-				      <table class="summaryTable">
-					      <tbody>
-						      <tr>
-							      <td class="summaryLable">Namespaces</td>
-							      <td>@Model.GroupBy(b => b.Object.GetType().Namespace).Count()</td>
-						      </tr>
-						      <tr>
-							      <td class="summaryLable">Test Classes</td>
-							      <td>@Model.Count()</td>
 						      </tr>
 					      </tbody>
 				      </table>
@@ -317,7 +308,7 @@
       {
 							<tr class="namespace">
 								<td colspan="4">
-                  <table>
+                  <table class="namespace">
                     <tr>
                       <td>@group.Key</td>
                       <td class="namespaceResultSummary">
