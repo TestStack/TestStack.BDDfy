@@ -12,5 +12,6 @@ namespace Bddify.Scanners
 
         public int Order { get; private set; }
         public bool Asserts { get; set; }
+        public string StepText { get; set; }
     }
 }

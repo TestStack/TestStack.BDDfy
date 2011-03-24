@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
 using Bddify.Scanners;
+using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;
 
 namespace Bddify.Tests.ScannerSpecs

@@ -15,6 +15,7 @@ namespace Bddify.Scanners
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
 
             // ToDo: the arguments should be provided
+            // ToDO: should use StepText if it is provided
             return methods.Select(m => new ExecutionStep(m, null, NetToString.FromName(m.Name), IsAssertingByAttribute(m)));
         }
 

@@ -3,6 +3,7 @@ using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
+using Bddify.Scanners.GwtAttributes;
 using NSubstitute;
 using NUnit.Framework;
 using System.Linq;

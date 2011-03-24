@@ -1,4 +1,5 @@
 ﻿using Bddify.Scanners;
+using Bddify.Scanners.GwtAttributes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Demos.MsTest.AtmAndCardSamples

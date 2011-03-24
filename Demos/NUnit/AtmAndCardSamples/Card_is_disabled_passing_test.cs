@@ -1,4 +1,5 @@
 ﻿using Bddify.Scanners;
+using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;
 
 namespace Demos.NUnit.AtmAndCardSamples
