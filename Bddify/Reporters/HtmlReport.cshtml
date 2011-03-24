@@ -15,28 +15,35 @@
 			{
 				margin: 0 auto;
 				width: 100%;
-				text-align:center;
 				background-color:#9090a0;
 			}
 			
 			#header
 			{
 				height:50px;
-				background-color:#101010;
-				color:White;
+				vertical-align:middle;
+				background-color:Green;
+				padding:10px;
 			}
 			
-			#headerText
+			#bddifyTitle
 			{
-				padding:10px;
+			    font-size:x-large;
+			    font-weight:bold;
+				color:yellow;
+			}
+			
+			#bddifyDescription
+			{
+			    font-size:large;
+				color:#fff;
 			}
 			
 			#summaryDiv
 			{
-				padding:10px;
-				margin-bottom:50px;
-				margin-top:30px;
-				color:White;
+			    height:210px;
+			    margin:5px;
+			    padding:5px;
 			}
 			
 			#resultSummary
@@ -48,17 +55,12 @@
 			{
 				float:left;
 				margin-left:50px;
-				background-color:Black;
 			}
 
-			#coverageSummary table
-			{
-				color:White;
-			}
-			
 			#testResult
 			{
-				padding:10px;
+			    margin:5px;
+			    padding:5px;
 				float:none;
 			}
 			
@@ -220,7 +222,9 @@
 	<body>
 		<div id="main">
 			<div id="header">
-				<h1 id="headerText">Bddify Test Result @DateTime.Now.ToShortDateString()</h1>
+				<span id="bddifyTitle">Bddify</span>
+                <br />
+				<span id="bddifyDescription">An awesome BDD framework for .Net developers</span>
 			</div>
 
 			<div id="summaryDiv">
@@ -228,35 +232,40 @@
                     string assemblyName = string.Empty;
                     if (Model.Count > 0) { 
                         string assembly = Model[0].Object.GetType().Assembly.CodeBase;
-                        assemblyName = assembly.Substring(assembly.Length - 60);
+                        assemblyName = "..." + assembly.Substring(assembly.Length - 60);
                     }
                 }
 
-                <h2>Summary of test run for @assemblyName </h2>
+                <h4>Summary of Bddify run for '@assemblyName' </h4>
 
                 <div id="innderSummaryDiv">
                     <div id="resultSummary">
 				        <table class="summaryTable">
 					        <tbody>
 						        <tr>
-							        <td class="Passed">Passed</td>
-							        <td class="Passed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+				                    <td class="result Passed"></td>
+                			        <td>Passed</td>
+							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
 						        </tr>
 						        <tr>
-							        <td class="Failed">Failed</td>
-							        <td class="Failed">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+				                    <td class="result Failed"></td>
+							        <td>Failed</td>
+							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
 						        </tr>
 						        <tr>
-							        <td class="Inconclusive">Inconclusive</td>
-							        <td class="Inconclusive">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+				                    <td class="result Inconclusive"></td>
+							        <td>Inconclusive</td>
+							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
 						        </tr>
 						        <tr>
-							        <td class="NotImplemented">Not Implemented</td>
-							        <td class="NotImplemented">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+				                    <td class="result NotImplemented"></td>
+							        <td>Not Implemented</td>
+							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
 						        </tr>
 						        <tr>
-							        <td class="NotExecuted">Not Executed</td>
-							        <td class="NotExecuted">@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+				                    <td class="result NotExecuted"></td>
+							        <td>Not Executed</td>
+							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
 						        </tr>
 					        </tbody>
 				        </table>
