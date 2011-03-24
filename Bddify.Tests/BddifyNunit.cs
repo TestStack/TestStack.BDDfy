@@ -22,7 +22,7 @@ namespace Bddify.Tests
                 new GwtScanner(),
                 new IProcessor[]
                 { 
-                    new TestRunner<InconclusiveException>(), 
+                    new TestRunner(), 
                     new ConsoleReporter(),
                     new ExceptionHandler(Assert.Inconclusive)
                 });

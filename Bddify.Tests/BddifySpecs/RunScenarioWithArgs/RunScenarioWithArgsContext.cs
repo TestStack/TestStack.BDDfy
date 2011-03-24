@@ -69,7 +69,7 @@ namespace Bddify.Tests.BddifySpecs.RunScenarioWithArgs
         [Test]
         public void ArgSet1IsPassed()
         {
-            var runner = new TestRunner<InconclusiveException>();
+            var runner = new TestRunner();
             var scenario = _scenarios.Single(s => (ArgsNumber)s.ArgsSet[0] == ArgsNumber.ArgSet1);
             runner.Process(scenario);
             Assert.That(_testObject.Input1, Is.EqualTo(1));

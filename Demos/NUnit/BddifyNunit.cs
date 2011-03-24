@@ -16,7 +16,7 @@ namespace Demos.NUnit
                 new T(),
                 new IProcessor[]
                 { 
-                    new TestRunner<InconclusiveException>(), 
+                    new TestRunner(), 
                     new ConsoleReporter(),
                     new HtmlReporter(),
                     new ExceptionHandler(Assert.Inconclusive)

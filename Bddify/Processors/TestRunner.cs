@@ -4,14 +4,20 @@ using Bddify.Core;
 
 namespace Bddify.Processors
 {
-    public class TestRunner<TInconclusiveException> : IProcessor
-        where TInconclusiveException : Exception
+    public class TestRunner : IProcessor
     {
+        private readonly Predicate<Exception> _isInconclusive;
         private readonly string _runScenarioWithArgsMethodName;
 
-        public TestRunner(string runScenarioWithArgsMethodName = "RunScenarioWithArgs")
+        public TestRunner(Predicate<Exception> isInconclusive, string runScenarioWithArgsMethodName = "RunScenarioWithArgs")
         {
+            _isInconclusive = isInconclusive;
             _runScenarioWithArgsMethodName = runScenarioWithArgsMethodName;
+        }
+
+        public TestRunner(string runScenarioWithArgsMethodName = "RunScenarioWithArgs")
+            : this(x => x.GetType().Name.Contains("InconclusiveException"), runScenarioWithArgsMethodName)
+        {
         }
 
         public ProcessType ProcessType
@@ -44,7 +50,7 @@ namespace Bddify.Processors
                         executionStep.Result = StepExecutionResult.NotImplemented;
                         executionStep.Exception = ex.InnerException;
                     }
-                    else if (ex.InnerException.GetType() == typeof(TInconclusiveException))
+                    else if (_isInconclusive(ex.InnerException))
                     {
                         executionStep.Result = StepExecutionResult.Inconclusive;
                         executionStep.Exception = ex.InnerException;

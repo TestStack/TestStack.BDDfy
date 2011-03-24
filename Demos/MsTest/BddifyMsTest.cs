@@ -16,7 +16,7 @@ namespace Demos.MsTest
                 new T(),
                 new IProcessor[]
                 { 
-                    new TestRunner<AssertInconclusiveException>(), 
+                    new TestRunner(), 
                     new ConsoleReporter(),
                     new HtmlReporter(),
                     new ExceptionHandler(Assert.Inconclusive)
