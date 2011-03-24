@@ -15,7 +15,7 @@
 			{
 				margin: 0 auto;
 				width: 100%;
-				background-color:#9090a0;
+				background-color:#ddf;
 			}
 			
 			#header
@@ -28,22 +28,22 @@
 			
 			#bddifyTitle
 			{
-			    font-size:x-large;
-			    font-weight:bold;
+			  font-size:x-large;
+			  font-weight:bold;
 				color:yellow;
 			}
 			
 			#bddifyDescription
 			{
-			    font-size:large;
+			  font-size:large;
 				color:#fff;
 			}
 			
 			#summaryDiv
 			{
-			    height:210px;
-			    margin:5px;
-			    padding:5px;
+			  height:210px;
+			  margin:5px;
+			  padding:5px;
 			}
 			
 			#resultSummary
@@ -59,15 +59,15 @@
 
 			#testResult
 			{
-			    margin:5px;
-			    padding:5px;
+			  margin:5px;
+			  padding:5px;
 				float:none;
 			}
 			
 			#testResult table
 			{
-                background-color:White;
-                color:Black;
+        background-color:White;
+        color:Black;
 			}
 			
 			table
@@ -191,31 +191,34 @@
 			
 			tr.step
 			{
-			    background-color:#eee;
+			  background-color:#eee;
 			}
+
+      tr.step td
+      {
+      }
 		
-		    td.result
-		    {
-		        width:10px;
-		    }
+		  td.result
+		  {
+		    width:10px;
+		  }
 			
-			.spacer 
+			.spacer td
 			{ 
-				padding-bottom:5px;
+				padding:1px;
 			}
 		</style>
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"> </script>
 		<script type="text/javascript">
-			$(function () {
-			    $('tr.step').hide();
-			    $('tr.scenario').click(function () {
-			        $('tr.' + $(this).attr('id')).toggle();
-			    });
-			    $('tr.hasException').click(function () {
-			        $('tr.' + $(this).attr('id')).toggle();
-			    });
-			});
+		    function toggle(id) {
+		      var e = document.getElementById(id);
+		      if (e.style.display == 'none') {
+		        e.style.display = '';
+		      }
+		      else {
+		        e.style.display = 'none';
+		      }
+		    }
 		</script>
 	</head>
 
@@ -228,69 +231,69 @@
 			</div>
 
 			<div id="summaryDiv">
-                @{
-                    string assemblyName = string.Empty;
-                    if (Model.Count > 0) { 
-                        string assembly = Model[0].Object.GetType().Assembly.CodeBase;
-                        assemblyName = "..." + assembly.Substring(assembly.Length - 60);
-                    }
-                }
+        @{
+            string assemblyName = string.Empty;
+            if (Model.Count > 0) { 
+                string assembly = Model[0].Object.GetType().Assembly.CodeBase;
+                assemblyName = "..." + assembly.Substring(assembly.Length - 60);
+            }
+        }
 
-                <h4>Summary of Bddify run for '@assemblyName' </h4>
+        <h4>Summary of Bddify run for '@assemblyName' </h4>
 
-                <div id="innderSummaryDiv">
-                    <div id="resultSummary">
-				        <table class="summaryTable">
-					        <tbody>
-						        <tr>
-				                    <td class="result Passed"></td>
-                			        <td>Passed</td>
-							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
-						        </tr>
-						        <tr>
-				                    <td class="result Failed"></td>
-							        <td>Failed</td>
-							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
-						        </tr>
-						        <tr>
-				                    <td class="result Inconclusive"></td>
-							        <td>Inconclusive</td>
-							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
-						        </tr>
-						        <tr>
-				                    <td class="result NotImplemented"></td>
-							        <td>Not Implemented</td>
-							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
-						        </tr>
-						        <tr>
-				                    <td class="result NotExecuted"></td>
-							        <td>Not Executed</td>
-							        <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
-						        </tr>
-					        </tbody>
-				        </table>
-                    </div>
+        <div id="innderSummaryDiv">
+            <div id="resultSummary">
+				      <table class="summaryTable">
+					      <tbody>
+						      <tr>
+                    <td class="result Passed"></td>
+                    <td>Passed</td>
+							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+						      </tr>
+						      <tr>
+				            <td class="result Failed"></td>
+							      <td>Failed</td>
+							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+						      </tr>
+						      <tr>
+				            <td class="result Inconclusive"></td>
+							      <td>Inconclusive</td>
+							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+						      </tr>
+						      <tr>
+				            <td class="result NotImplemented"></td>
+							      <td>Not Implemented</td>
+							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+						      </tr>
+						      <tr>
+				            <td class="result NotExecuted"></td>
+							      <td>Not Executed</td>
+							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+						      </tr>
+					      </tbody>
+				      </table>
+            </div>
 
-                    <div id="coverageSummary">
-				        <table class="summaryTable">
-					        <tbody>
-						        <tr>
-							        <td>Assemblies</td>
-							        <td>@Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase).Count()</td>
-						        </tr>
-						        <tr>
-							        <td>Namespaces</td>
-							        <td>@Model.GroupBy(b => b.Object.GetType().Namespace).Count()</td>
-						        </tr>
-						        <tr>
-							        <td>Test Classes</td>
-							        <td>@Model.Count()</td>
-						        </tr>
-					        </tbody>
-				        </table>
-                    </div>
-                </div>
-			</div>
+            <div id="coverageSummary">
+				      <table class="summaryTable">
+					      <tbody>
+						      <tr>
+							      <td>Assemblies</td>
+							      <td>@Model.GroupBy(b => b.Object.GetType().Assembly.CodeBase).Count()</td>
+						      </tr>
+						      <tr>
+							      <td>Namespaces</td>
+							      <td>@Model.GroupBy(b => b.Object.GetType().Namespace).Count()</td>
+						      </tr>
+						      <tr>
+							      <td>Test Classes</td>
+							      <td>@Model.Count()</td>
+						      </tr>
+					      </tbody>
+				      </table>
+            </div>
+        </div>
+		  </div>
 
 			<div id="testResult">
 				<table>
@@ -301,43 +304,48 @@
 							</tr>
 
 							foreach (var scenario in group) {
-								<tr class="scenario" id="@scenario.Id">
-									<td class="result @scenario.Result"></td>
-									<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
-								</tr>
-								foreach (var step in scenario.Steps) {
-                                    string stepClass = "step " + scenario.Id;
-                                    string result = step.ReadableMethodName;
-                                    if(step.Exception != null){
-                                        stepClass += " hasException";
+              <tr class="scenario" onclick="toggle('@scenario.Id');">
+								<td class="result @scenario.Result"></td>
+								<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
+							</tr>
+							<tr class="step" id="@scenario.Id" style="display:none">
+                <td class="result @scenario.Result" />
+                <td colspan="3" style="padding:0px">
+                  <table>
+                  @foreach (var step in scenario.Steps) {
+                    string stepClass = string.Empty;
+                    string result = step.ReadableMethodName;
+                    if(step.Exception != null){
+                      stepClass = "hasException";
                                             
-                                        if(!string.IsNullOrEmpty(step.Exception.Message)){
-                                            result += " [Exception Message: '" + step.Exception.Message + "']";
-                                        }
-                                    }
-
-									<tr class="@stepClass" id="@step.Id">
+                      if(!string.IsNullOrEmpty(step.Exception.Message)){
+                          result += " [Exception Message: '" + step.Exception.Message + "']";
+                      }
+                    }
+                    <tr class="@stepClass step" onclick="toggle('@step.Id');">
     									<td class="result @step.Result"></td>
-										<td class="indentation"></td>
-										<td colspan="2">@result</td>
-									</tr>
+										  <td class="indentation"></td>
+										  <td colspan="2">@result</td>
+                    </tr>
 
-                                    if (step.Exception != null){
-									    <tr class="step exceptionDetails @step.Id">
-        									<td class="result @step.Result"></td>
-    										<td class="indentation"></td>
-										    <td class="indentation"></td>
-										    <td>@step.Exception.StackTrace</td>
-									    </tr>
-                                    }
-								}
-
-								<!-- empty row to separate scenarios -->
-								<tr class="step @scenario.Id spacer">
-									<td colspan="4"></td>
-								</tr>
-							}
-						}
+                    if (step.Exception != null) {
+									  <tr class="exceptionDetails step" id="@step.Id" style="display:none">
+        							<td class="result @step.Result"></td>
+    									<td class="indentation"></td>
+										  <td class="indentation"></td>
+										  <td>@step.Exception.StackTrace</td>
+									  </tr>
+                    }
+                  }
+                  </table>                                    
+                </td>
+		  				</tr>
+								    <!-- empty row to separate scenarios -->
+								    <tr class="spacer step">
+									    <td colspan="4"></td>
+								    </tr>
+                            }
+              }
 					</tbody>
 				</table>
 			</div>
