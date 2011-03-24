@@ -4,44 +4,54 @@
 		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
 		
 		<style type="text/css">
+		<style type="text/css"> 
 			body
 			{
 				min-width:900px;
 				max-width:100%;
 				background-color:#fff;
+				font-family: Segoe UI, Verdana, Arial, Helvetica, sans-serif;
+				font-size: 10pt;
+				margin: 0;
+				padding: 0;
+				background-repeat: repeat-x;
+		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAGNCAIAAACnknc+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAILSURBVGhD7ZZJbgMxDAT5/886jmfRruhoIFH1gTCQA4O6tdlsUhoh9nVkwB5nBuxxZMB85qra1VuZq7nL49hiX2cGllwAtTVlzgeqqkU012DPMwP2PAuwZKwWg8nenmjiQOVgPPdVnnvk1q783KOqv68CmJAh9pJMyMpc3RZc6kcH85n/4+rXXQD7vgug5NdVgFVdARPRhPnrroAddwVWb6xW0ZzVeCQyOVarwVJ57VFrEdF88pkqYEI+UgWc1T5z32Cyup1pi525AmotZ26AXbkBUk712qOSy971ylsMGi9pJedqJYu1oPmdG2BKLu3eI6s/2pujpdwAg6mWZKk0YFV3QJmLatHbK/dUtliqDVBrEdFy6cAy90QT5rk2wHLtgJaFuU8W0dC81A6YkH1r8fVW1W2UPVZaB9wy9+ad19aBFQ3NaxuACXMps3kfdY/ujeatd8BpDrGXtMw9c7c+ABO9xdzC3FuNyXsfgMloHzTvfQIr2gRk8jHbHhNrUfIYfY+BtqQPy3zeItrAPxtjAkruYwKG3kOZ+6LJuekH3mhzjj3LnHuLapYn/hkFG3OdGCYX5uK86aatj0j2ph+YmhsHV9UyGnVX5jJ5mP/eQCz1z1sRa4m1vG0grkNch7gOMz6D+AziM4jP4O9/pON1iNchXod4HeJ1eN9AvIrxKsarGK9ivIr/5VX8Ac/k0qafpzWgAAAAAElFTkSuQmCC);
 			}
 			
 			#main
 			{
-				margin: 0 auto;
 				width: 100%;
-				background-color:#ddf;
 			}
 			
 			#header
 			{
-				height:50px;
 				vertical-align:middle;
-				background-color:Green;
 				padding:10px;
+				background-repeat: repeat-x;
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAABOCAIAAACfcrDqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADPSURBVEhLzda7jcQwEARRSglfMmtvCpvFeRcTb5TBK4PAEjQHrflUD3X9vH+XndvCnqh774W3qK618R5LQHswCegpHcCmTtiocrM4cgbLsvcpVUXrWK46hNIBbutOuKgLR5UnW7yls1otgUNlnXEsqypXzdxFNTDAwKZFpOv1eWH0JLS9LP38/ga03TAJF7V3W8WuqpHpNWQTPKp6BkJNtjVLgW2qnKvWX/8JdQjlMUq5qr0LA4xA4jWVpRiWslRzNqGOdXAJZXno9fr8YfQ/c6c/iQFM16IAAAAASUVORK5CYII=);
+        border-bottom: 2px solid #fff;
+        height: 57px;
 			}
 			
 			#bddifyTitle
 			{
-			  font-size:x-large;
-			  font-weight:bold;
-				color:yellow;
+			  	font-size: 20pt;
+			  	font-family: Trebuchet MS;
+			  	font-weight:bold;
+				  color: white;
+				  text-shadow: #262f57 1px 1px 3px;
 			}
 			
 			#bddifyDescription
 			{
 			  font-size:large;
 				color:#fff;
+				color: #fff;
+				text-shadow: #262f57 1px 1px 3px;
 			}
 			
 			#summaryDiv
 			{
-			  height:230px;
 			  margin:5px;
 			  padding:5px;
 			}
@@ -54,24 +64,30 @@
 			{
 				margin-left:50px;
 			}
-
+ 
 			#testResult
 			{
 			  margin:5px;
 			  padding:5px;
 			}
+			#testResult p 
+			{
+			    font-weight: bold;
+			    color: #2B547D;
+			    font-size: 14pt;
+			}
 			
 			#testResult>table
 			{
-        background-color:White;
-        color:Black;
+		        background-color:White;
+		        color:Black;
 			}
 			
 			table
 			{
-				width:100%;
-				padding:5px;
-				border-collapse:collapse;
+				  width:100%;
+				  padding:5px;
+				  border-collapse: collapse;
 			}
 			
 			tbody
@@ -82,32 +98,51 @@
 			td 
 			{
 				padding:5px;
+				border-right: 0;
+			  border: 1px solid #f0f0f0;
 			}
 			
 			td.Passed
 			{
-				background-color:#009F00;
+				background-color: #a9e088;
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKfSURBVDjLpZPrS1NhHMf9O3bOdmwDCWREIYKEUHsVJBI7mg3FvCxL09290jZj2EyLMnJexkgpLbPUanNOberU5taUMnHZUULMvelCtWF0sW/n7MVMEiN64AsPD8/n83uucQDi/id/DBT4Dolypw/qsz0pTMbj/WHpiDgsdSUyUmeiPt2+V7SrIM+bSss8ySGdR4abQQv6lrui6VxsRonrGCS9VEjSQ9E7CtiqdOZ4UuTqnBHO1X7YXl6Daa4yGq7vWO1D40wVDtj4kWQbn94myPGkCDPdSesczE2sCZShwl8CzcwZ6NiUs6n2nYX99T1cnKqA2EKui6+TwphA5k4yqMayopU5mANV3lNQTBdCMVUA9VQh3GuDMHiVcLCS3J4jSLhCGmKCjBEx0xlshjXYhApfMZRP5CyYD+UkG08+xt+4wLVQZA1tzxthm2tEfD3JxARH7QkbD1ZuozaggdZbxK5kAIsf5qGaKMTY2lAU/rH5HW3PLsEwUYy+YCcERmIjJpDcpzb6l7th9KtQ69fi09ePUej9l7cx2DJbD7UrG3r3afQHOyCo+V3QQzE35pvQvnAZukk5zL5qRL59jsKbPzdheXoBZc4saFhBS6AO7V4zqCpiawuptwQG+UAa7Ct3UT0hh9p9EnXT5Vh6t4C22QaUDh6HwnECOmcO7K+6kW49DKqS2DrEZCtfuI+9GrNHg4fMHVSO5kE7nAPVkAxKBxcOzsajpS4Yh4ohUPPWKTUh3PaQEptIOr6BiJjcZXCwktaAGfrRIpwblqOV3YKdhfXOIvBLeREWpnd8ynsaSJoyESFphwTtfjN6X1jRO2+FxWtCWksqBApeiFIR9K6fiTpPiigDoadqCEag5YUFKl6Yrciw0VOlhOivv/Ff8wtn0KzlebrUYwAAAABJRU5ErkJggg==);
+				background-repeat: no-repeat;
+		    background-position: center center;
 			}
 			
 			td.Failed
 			{
-				background-color:#DF0000;
-				font-weight:bold;
+				background-color: #f7b8ad;
+				font-weight:bold;
+				background-repeat: no-repeat;
+		    background-position: center center;
+		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJPSURBVDjLpZPLS5RhFMYfv9QJlelTQZwRb2OKlKuINuHGLlBEBEOLxAu46oL0F0QQFdWizUCrWnjBaDHgThCMoiKkhUONTqmjmDp2GZ0UnWbmfc/ztrC+GbM2dXbv4ZzfeQ7vefKMMfifyP89IbevNNCYdkN2kawkCZKfSPZTOGTf6Y/m1uflKlC3LvsNTWArr9BT2LAf+W73dn5jHclIBFZyfYWU3or7T4K7AJmbl/yG7EtX1BQXNTVCYgtgbAEAYHlqYHlrsTEVQWr63RZFuqsfDAcdQPrGRR/JF5nKGm9xUxMyr0YBAEXXHgIANq/3ADQobD2J9fAkNiMTMSFb9z8ambMAQER3JC1XttkYGGZXoyZEGyTHRuBuPgBTUu7VSnUAgAUAWutOV2MjZGkehgYUA6O5A0AlkAyRnotiX3MLlFKduYCqAtuGXpyH0XQmOj+TIURt51OzURTYZdBKV2UBSsOIcRp/TVTT4ewK6idECAihtUKOArWcjq/B8tQ6UkUR31+OYXP4sTOdisivrkMyHodWejlXwcC38Fvs8dY5xaIId89VlJy7ACpCNCFCuOp8+BJ6A631gANQSg1mVmOxxGQYRW2nHMha4B5WA3chsv22T5/B13AIicWZmNZ6cMchTXUe81Okzz54pLi0uQWp+TmkZqMwxsBV74Or3od4OISPr0e3SHa3PX0f3HXKofNH/UIG9pZ5PeUth+CyS2EMkEqs4fPEOBJLsyske48/+xD8oxcAYPzs4QaS7RR2kbLTTOTQieczfzfTv8QPldGvTGoF6/8AAAAASUVORK5CYII=);
 			}
 			
 			td.Inconclusive
 			{
-				background-color:Yellow
+				background-color: #fff8b9;
+				background-repeat: no-repeat;
+		    background-position: center center;
+		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIsSURBVDjLpVNLSJQBEP7+h6uu62vLVAJDW1KQTMrINQ1vPQzq1GOpa9EppGOHLh0kCEKL7JBEhVCHihAsESyJiE4FWShGRmauu7KYiv6Pma+DGoFrBQ7MzGFmPr5vmDFIYj1mr1WYfrHPovA9VVOqbC7e/1rS9ZlrAVDYHig5WB0oPtBI0TNrUiC5yhP9jeF4X8NPcWfopoY48XT39PjjXeF0vWkZqOjd7LJYrmGasHPCCJbHwhS9/F8M4s8baid764Xi0Ilfp5voorpJfn2wwx/r3l77TwZUvR+qajXVn8PnvocYfXYH6k2ioOaCpaIdf11ivDcayyiMVudsOYqFb60gARJYHG9DbqQFmSVNjaO3K2NpAeK90ZCqtgcrjkP9aUCXp0moetDFEeRXnYCKXhm+uTW0CkBFu4JlxzZkFlbASz4CQGQVBFeEwZm8geyiMuRVntzsL3oXV+YMkvjRsydC1U+lhwZsWXgHb+oWVAEzIwvzyVlk5igsi7DymmHlHsFQR50rjl+981Jy1Fw6Gu0ObTtnU+cgs28AKgDiy+Awpj5OACBAhZ/qh2HOo6i+NeA73jUAML4/qWux8mt6NjW1w599CS9xb0mSEqQBEDAtwqALUmBaG5FV3oYPnTHMjAwetlWksyByaukxQg2wQ9FlccaK/OXA3/uAEUDp3rNIDQ1ctSk6kHh1/jRFoaL4M4snEMeD73gQx4M4PsT1IZ5AfYH68tZY7zv/ApRMY9mnuVMvAAAAAElFTkSuQmCC);
 			}
 			
 			td.NotImplemented
 			{
-				background-color:Orange
+				background-color: #c7e3ff;
+			  background-repeat: no-repeat;
+		    background-position: center center;
+		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKcSURBVDjLpZPLa9RXHMU/d0ysZEwmMQqZiTaP0agoaKGJUiwIxU0hUjtUQaIuXHSVbRVc+R8ICj5WvrCldJquhVqalIbOohuZxjDVxDSP0RgzyST9zdzvvffrQkh8tBs9yy9fPhw45xhV5X1U8+Yhc3U0LcEdVxdOVq20OA0ooQjhpnfhzuDZTx6++m9edfDFlZGMtXKxI6HJnrZGGtauAWAhcgwVnnB/enkGo/25859l3wIcvpzP2EhuHNpWF9/dWs/UnKW4EOGDkqhbQyqxjsKzMgM/P1ymhlO5C4ezK4DeS/c7RdzQoa3x1PaWenJjJZwT9rQ1gSp/js1jYoZdyfX8M1/mp7uFaTR8mrt29FEMQILr62jQ1I5kA8OF59jIItVA78dJertTiBNs1ZKfLNG+MUHX1oaURtIHEAOw3p/Y197MWHEJEUGCxwfHj8MTZIcnsGKxzrIURYzPLnJgbxvG2hMrKdjItjbV11CYKeG8R7ygIdB3sBMFhkem0RAAQ3Fuka7UZtRHrasOqhYNilOwrkrwnhCU/ON5/q04vHV48ThxOCuoAbxnBQB+am65QnO8FqMxNCjBe14mpHhxBBGCWBLxD3iyWMaYMLUKsO7WYH6Stk1xCAGccmR/Ozs/bKJuXS39R/YgIjgROloSDA39Deit1SZWotsjD8pfp5ONqZ6uTfyWn+T7X0f59t5fqDhUA4ry0fYtjJcWeZQvTBu4/VqRuk9/l9Fy5cbnX+6Od26s58HjWWaflwkusKGxjm1bmhkvLXHvh1+WMbWncgPfZN+qcvex6xnUXkzvSiYP7EvTvH4toDxdqDD4+ygT+cKMMbH+3MCZ7H9uAaDnqytpVX8cDScJlRY0YIwpAjcNcuePgXP/P6Z30QuoP4J7WbYhuQAAAABJRU5ErkJggg==);
+ 
 			}
 			
 			td.NotExecuted
 			{
-				background-color:#606060;
+				background-color:#c7e3ff;
+				background-repeat: no-repeat;
+		    background-position: center center;
+		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJySURBVDjLpVNLbxJRFO4P8BfwO2Dp0g27VmvSnYkbEzYmLpq6sZP66KIxQmYsUUyb1gYqCZrU2qamVJwOIKaxUKAMD4HyKBQGHAaGx1COcy4P8bHzJt/i3pzvO+c759wJAJgYx7Vl0KjQqdCrmBlAP3jT/Bk/TryiQnv/rWhwuDOM9zjGnYROhUAwLBweRbg3riQza68YMAZjfxMYkK/a2DwVOE3whbIIktwB5bJHUGu0IVesgOcoyK/sJSiMHYoMBbRIDka+S82WAnjkdhcqUgcEFfVWl7xJchsOfX7JshNFES0RQF9YNmYekuPnDSj+aEOh2kc014BcpTUS2Tvw8Hc3CmhHgwI6B3fGYNl4SmIbbjxiCQnJ+WoLphZcEMpIkCk3SUwkeQ603csgFwX0nm9RDj1jqUi6/pBV4YJIrg5ZoakKfCIInkkgNhS4qMqwuvmeQy4KzPhPQgI2q1zrEAHMiLi56IVYvgFTlCpAOWH6sZvc28olbFg3BeQSgeNAkAhg+egVydNP3CQrik7OO4mtyfl9chcbHVhdez0S0H/+GuaqUgtqskJ8EjLVJyeL8oiMCXAysWwVaIt1ZEFndcaZdK4MvR5AutQk5SI5UZAJJh/sk6lgYzvdHhx8CQNl/jBqouaerWRwsj5eEJujSSARx4mekYwNxQRxNbvpxTp/2xzrj3G4SPS7ALX1kZUKlX5gta6QalIXMlkmzBzLVsBosUlz9M6vRRpf5SWrj1q3b/FefxzSBZH0BD2HUwLssgFYolf4WdP236s8/pnuvEoZFl7uMk+X1zj6uVl4ZmKERaOFmzM6mFtM5N+f6X++80/jPghfk2d02wAAAABJRU5ErkJggg==);
+ 
 			}
 			
 			tr.scenario
@@ -117,12 +152,12 @@
 			
 			td.scenarioText
 			{
-				text-decoration:underline;
+				color: #000;
 			}
 			
 			td.namespaceResultSummary
 			{
-			  width:60%;
+			  width:20%;
 			}
 			
 			tr.namespaceResultSummary
@@ -133,14 +168,15 @@
 			tr.hasException
 			{
 				cursor:pointer;
-				text-decoration:underline;
+				font-weight: bold;
+				color: Maroon;
 			}
 			
 			th.scenarioHeader
 			{
 				width:250px    
 			}
-
+ 
 			th.resultHeader
 			{
 				width:100px;
@@ -155,7 +191,7 @@
 			{
 				width:100px;    
 			}
-
+ 
 			td.duration
 			{
 				width:100px;
@@ -163,7 +199,8 @@
 			
 			td.indentation
 			{
-				width:30px;
+				width: 0px;
+				display: none;
 			}
 			
 			td.result
@@ -174,8 +211,6 @@
 			table.summaryTable
 			{
 				width:200px;
-				background-color:#101010;
-				color:#fff;
 				border-collapse:collapse;
 			}
 			
@@ -198,21 +233,19 @@
 			
 			tr.namespace
 			{
-				height:35px;
-				background-color:#303030;
+			    background: #f0f0f0;
 			}
 			
 			table.namespace
 			{
-				background-color:#303030;
-				color:White;
+			    font-weight: bold;
 			}
 			
 			tr.step
 			{
-			  background-color:#eee;
+			  background-color:#fafafa;
 			}
-
+ 
       tr.step td
       {
       }
@@ -224,8 +257,16 @@
 			
 			.spacer td
 			{ 
-				padding:1px;
+				padding:0px;
+				display: none;    /* Why do you need this cell at all? seems like a waste of space and it messes with borders */
 			}
+		
+			#summaryDiv h4 
+			{
+			  font-size: 14pt;
+			  color: #2B547D;
+			}		
+			
 		</style>
 
 		<script type="text/javascript">
@@ -283,7 +324,7 @@
   					      </tr>
 						      <tr>
 				            <td class="result NotExecuted"></td>
-							      <td class="summaryLable">Not Executed</td>
+							      <td colspan="2" class="summaryLable">Not Executed</td>
 						      </tr>
 					      </tbody>
 				      </table>
