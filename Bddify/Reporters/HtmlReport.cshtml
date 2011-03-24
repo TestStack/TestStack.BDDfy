@@ -41,7 +41,7 @@
 			
 			#summaryDiv
 			{
-			  height:210px;
+			  height:200px;
 			  margin:5px;
 			  padding:5px;
 			}
@@ -121,6 +121,18 @@
 			td.scenarioText
 			{
 				text-decoration:underline;
+			}
+			
+			td.namespaceResultSummary
+			{
+			  width:60%;
+			}
+			
+			tr.namespaceResultSummary
+			{
+			    height:20px;
+			    background-color:black;
+			    color:White;
 			}
 			
 			tr.hasException
@@ -301,9 +313,47 @@
 
 				<table>
 					<tbody>
-						@foreach (var group in Model.GroupBy(b => b.Object.GetType().Namespace)){
+						@foreach (var group in Model.GroupBy(b => b.Object.GetType().Namespace))
+      {
 							<tr class="namespace">
-								<td colspan="4">@group.Key</td>
+								<td colspan="4">
+                  <table>
+                    <tr>
+                      <td>@group.Key</td>
+                      <td class="namespaceResultSummary">
+                      @{
+                        var fullWidth = 400;
+                        var all = group.Count();
+                        var failed = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
+                        var failedRatio = (double)failed / all * 100;
+                        var failedVisible = (failedRatio == 0 ? "none" : "");
+                        var passed = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
+                        var passedRatio = (double)passed / all * 100;
+                        var passedVisible = (passedRatio == 0 ? "none" : "");
+                        var notImplemented = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
+                        var notImplementedRatio = (double)notImplemented / all * 100;
+                        var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
+                        var inconclusive = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
+                        var inconclusiveRatio = (double)inconclusive / all * 100;
+                        var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
+                        var notExecuted = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
+                        var notExecutedRatio = (double)notExecuted / all * 100;
+                        var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
+
+                                                }
+                        <table>
+                          <tr class="namespaceResultSummary">
+                            <td class="Failed" style="width:@failedRatio%;display:@failedVisible"></td>
+                            <td class="Passed" style="width:@passedRatio%;display:@passedVisible"></td>
+                            <td class="NotImplemented" style="width:@notImplementedRatio%;display:@notImplementedVisible"></td>
+                            <td class="Inconclusive" style="width:@inconclusiveRatio%;display:@inconclusiveVisible"></td>
+                            <td class="NotExecuted" style="width:@notExecutedRatio%;display:@notExecutedVisible"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
 							</tr>
 
 							foreach (var scenario in group) {
