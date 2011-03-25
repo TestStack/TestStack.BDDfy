@@ -4,7 +4,6 @@
 		<title>Bddify Test Result @DateTime.Now.ToShortDateString()</title>
 		
 		<style type="text/css">
-		<style type="text/css"> 
 			body
 			{
 				min-width:900px;
@@ -15,8 +14,7 @@
 				margin: 0;
 				padding: 0;
 				background-repeat: repeat-x;
-		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAGNCAIAAACnknc+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAILSURBVGhD7ZZJbgMxDAT5/886jmfRruhoIFH1gTCQA4O6tdlsUhoh9nVkwB5nBuxxZMB85qra1VuZq7nL49hiX2cGllwAtTVlzgeqqkU012DPMwP2PAuwZKwWg8nenmjiQOVgPPdVnnvk1q783KOqv68CmJAh9pJMyMpc3RZc6kcH85n/4+rXXQD7vgug5NdVgFVdARPRhPnrroAddwVWb6xW0ZzVeCQyOVarwVJ57VFrEdF88pkqYEI+UgWc1T5z32Cyup1pi525AmotZ26AXbkBUk712qOSy971ylsMGi9pJedqJYu1oPmdG2BKLu3eI6s/2pujpdwAg6mWZKk0YFV3QJmLatHbK/dUtliqDVBrEdFy6cAy90QT5rk2wHLtgJaFuU8W0dC81A6YkH1r8fVW1W2UPVZaB9wy9+ad19aBFQ3NaxuACXMps3kfdY/ujeatd8BpDrGXtMw9c7c+ABO9xdzC3FuNyXsfgMloHzTvfQIr2gRk8jHbHhNrUfIYfY+BtqQPy3zeItrAPxtjAkruYwKG3kOZ+6LJuekH3mhzjj3LnHuLapYn/hkFG3OdGCYX5uK86aatj0j2ph+YmhsHV9UyGnVX5jJ5mP/eQCz1z1sRa4m1vG0grkNch7gOMz6D+AziM4jP4O9/pON1iNchXod4HeJ1eN9AvIrxKsarGK9ivIr/5VX8Ac/k0qafpzWgAAAAAElFTkSuQmCC);
-			}
+		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAGNCAIAAACnknc+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAILSURBVGhD7ZZJbgMxDAT5/886jmfRruhoIFH1gTCQA4O6tdlsUhoh9nVkwB5nBuxxZMB85qra1VuZq7nL49hiX2cGllwAtTVlzgeqqkU012DPMwP2PAuwZKwWg8nenmjiQOVgPPdVnnvk1q783KOqv68CmJAh9pJMyMpc3RZc6kcH85n/4+rXXQD7vgug5NdVgFVdARPRhPnrroAddwVWb6xW0ZzVeCQyOVarwVJ57VFrEdF88pkqYEI+UgWc1T5z32Cyup1pi525AmotZ26AXbkBUk712qOSy971ylsMGi9pJedqJYu1oPmdG2BKLu3eI6s/2pujpdwAg6mWZKk0YFV3QJmLatHbK/dUtliqDVBrEdFy6cAy90QT5rk2wHLtgJaFuU8W0dC81A6YkH1r8fVW1W2UPVZaB9wy9+ad19aBFQ3NaxuACXMps3kfdY/ujeatd8BpDrGXtMw9c7c+ABO9xdzC3FuNyXsfgMloHzTvfQIr2gRk8jHbHhNrUfIYfY+BtqQPy3zeItrAPxtjAkruYwKG3kOZ+6LJuekH3mhzjj3LnHuLapYn/hkFG3OdGCYX5uK86aatj0j2ph+YmhsHV9UyGnVX5jJ5mP/eQCz1z1sRa4m1vG0grkNch7gOMz6D+AziM4jP4O9/pON1iNchXod4HeJ1eN9AvIrxKsarGK9ivIr/5VX8Ac/k0qafpzWgAAAAAElFTkSuQmCC);			}
 			
 			#main
 			{
@@ -74,7 +72,7 @@
 			{
 			    font-weight: bold;
 			    color: #2B547D;
-			    font-size: 14pt;
+			    font-size: 12pt;
 			}
 			
 			#testResult>table
@@ -249,7 +247,14 @@
 			  font-size: 14pt;
 			  color: #2B547D;
 			}		
-			
+
+      div#generatedAt
+      {
+        font-size: 11pt;
+        font-family:Cambria;
+        margin:30px;
+        color:#229;
+      }			
 		</style>
 
 		<script type="text/javascript">
@@ -320,7 +325,7 @@
             string assemblyName = string.Empty;
             if (Model.Count > 0) { 
                 string assembly = Model[0].Object.GetType().Assembly.CodeBase;
-                assemblyName = assembly; // "..." + assembly.Substring(assembly.Length - 60);
+                assemblyName = "..." + assembly.Substring(assembly.Length - 60);
             }
         }
 
@@ -380,7 +385,7 @@
                 <td class="result" />
                 <td colspan="3" style="padding:0px">
                   <table>
-                  @foreach (var step in scenario.Steps) {
+                  @foreach (var step in scenario.Steps.Where(s => s.ShouldReport)) {
                     string stepClass = string.Empty;
                     string result = step.ReadableMethodName;
                     var rowSpan = 1;
@@ -415,6 +420,7 @@
 				</table>
 			</div>
 		</div>
+    <div id="generatedAt">Report generated at: @DateTime.Now</div>
 	</body>
 
 </html>

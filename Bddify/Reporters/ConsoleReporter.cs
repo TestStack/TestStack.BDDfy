@@ -33,7 +33,7 @@ namespace Bddify.Reporters
 
             Report(scenario);
             
-            foreach (var step in scenario.Steps)
+            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                 reporterRegistry[step.Result](step);
 
             ReportExceptions();
