@@ -64,6 +64,7 @@
     <Compile Include="Scanners\GwtAttributes\GwtExectuableAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\ThenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\WhenAttribute.cs" />
+    <Compile Include="Scanners\MethodNameMatcher.cs" />
     <Compile Include="Scanners\MethodNameScanner.cs" />
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Scanners\WithArgsAttribute.cs" />

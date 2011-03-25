@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
 
@@ -6,26 +7,47 @@ namespace Bddify.Scanners
 {
     public class MethodNameScanner : DefaultScannerBase
     {
-        readonly Dictionary<string, bool> _methodNamingConvention =
-            new Dictionary<string, bool>
-                { 
-                    {"Given", false}, 
-                    {"AndGiven", false} ,
-                    {"When", false}, 
-                    {"AndWhen", false}, 
-                    {"Then", true}, 
-                    {"And", true} 
-                };
+        //readonly Dictionary<string, bool> _methodNamingConvention =
+        //    new Dictionary<string, bool>
+        //        { 
+        //            {"Given", false}, 
+        //            {"AndGiven", false} ,
+        //            {"When", false}, 
+        //            {"AndWhen", false}, 
+        //            {"Then", true}, 
+        //            {"And", true} 
+        //        };
+
+        private readonly MethodNameMatcher[] _matchers;
+
+        public MethodNameScanner(params MethodNameMatcher[] matchers)
+        {
+            _matchers = matchers;
+        }
+
+        public MethodNameScanner()
+            : this(
+                    new[]{
+                            new MethodNameMatcher(s => s.StartsWith("Given", StringComparison.OrdinalIgnoreCase), false),
+                            new MethodNameMatcher(s => s.StartsWith("AndGiven", StringComparison.OrdinalIgnoreCase), false),
+                            new MethodNameMatcher(s => s.StartsWith("When", StringComparison.OrdinalIgnoreCase), false),
+                            new MethodNameMatcher(s => s.StartsWith("AndWhen", StringComparison.OrdinalIgnoreCase), false),
+                            new MethodNameMatcher(s => s.StartsWith("Then", StringComparison.OrdinalIgnoreCase), true),
+                            new MethodNameMatcher(s => s.StartsWith("And", StringComparison.OrdinalIgnoreCase), true)
+                        })
+        {
+
+        }
 
         protected override IEnumerable<ExecutionStep> ScanForSteps()
         {
             var methods = TestObject.GetType().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-            foreach (var conventionKey in _methodNamingConvention.Keys)
+            foreach (var matcher in _matchers)
             {
                 foreach (var method in methods)
                 {
-                    if (method.Name.StartsWith(conventionKey))
+                    if (matcher.IsMethodOfInterest(method.Name))
                     {
                         var argAttributes = (WithArgsAttribute[])method.GetCustomAttributes(typeof(WithArgsAttribute), false);
                         object[] inputs = null;
@@ -33,7 +55,7 @@ namespace Bddify.Scanners
                             inputs = argAttributes[0].InputArguments;
 
                         // creating the method itself
-                        yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), _methodNamingConvention[conventionKey]);
+                        yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), matcher.Asserts, matcher.ShouldReport);
 
                         if (argAttributes != null && argAttributes.Length > 1)
                         {
@@ -42,7 +64,7 @@ namespace Bddify.Scanners
                                 var argAttribute = argAttributes[index];
                                 inputs = argAttribute.InputArguments;
                                 if (inputs != null && inputs.Length > 0)
-                                    yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), _methodNamingConvention[conventionKey]);
+                                    yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), matcher.Asserts, matcher.ShouldReport);
                             }
                         }
 
