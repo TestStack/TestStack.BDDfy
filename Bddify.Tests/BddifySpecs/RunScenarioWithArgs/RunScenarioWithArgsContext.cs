@@ -63,7 +63,7 @@ namespace Bddify.Tests.BddifySpecs.RunScenarioWithArgs
         public void Setup()
         {
             _testObject = new ScenarioWithArgs();
-            _scenarios = new GwtScanner().Scan(_testObject);
+            _scenarios = new MethodNameScanner().Scan(_testObject);
         }
 
         [Test]

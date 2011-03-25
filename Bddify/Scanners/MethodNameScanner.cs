@@ -4,7 +4,7 @@ using Bddify.Core;
 
 namespace Bddify.Scanners
 {
-    public class GwtScanner : DefaultScannerBase
+    public class MethodNameScanner : DefaultScannerBase
     {
         readonly Dictionary<string, bool> _methodNamingConvention =
             new Dictionary<string, bool>

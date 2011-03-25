@@ -28,7 +28,7 @@ namespace Bddify.Tests.BddifySpecs
             runner.ProcessType.Returns(ProcessType.Execute);
             runner.When(p => p.Process(Arg.Any<Scenario>())).Do(i => _list.Add(ProcessType.Execute));
 
-            var bddify = new Bddifier(new ExceptionThrowingTest<Exception>(), new GwtScanner(), new IProcessor[] { reporter, exceptionHandler, runner });
+            var bddify = new Bddifier(new ExceptionThrowingTest<Exception>(), new MethodNameScanner(), new IProcessor[] { reporter, exceptionHandler, runner });
             bddify.Run();
         }
 

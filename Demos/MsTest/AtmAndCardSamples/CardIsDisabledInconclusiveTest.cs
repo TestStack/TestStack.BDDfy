@@ -34,7 +34,7 @@ namespace Demos.MsTest.AtmAndCardSamples
         [TestMethod]
         public void Execute()
         {
-            this.Bddify<GwtScanner>();
+            this.Bddify<MethodNameScanner>();
         }
     }
 }

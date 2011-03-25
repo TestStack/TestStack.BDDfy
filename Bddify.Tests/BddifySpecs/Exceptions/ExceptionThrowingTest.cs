@@ -47,7 +47,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
 
             _bddify = new Bddifier(
                 this, 
-                new GwtScanner(), 
+                new MethodNameScanner(), 
                 new IProcessor[]
                     {
                         new TestRunner(), 

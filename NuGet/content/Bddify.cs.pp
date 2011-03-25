@@ -11,7 +11,7 @@ namespace $rootnamespace$
         {
             var bddifier = new Bddifier(
                 testObject,
-                new GwtScanner(),
+                new MethodNameScanner(),
                 new IProcessor[]
                 { 
                     new TestRunner(), 

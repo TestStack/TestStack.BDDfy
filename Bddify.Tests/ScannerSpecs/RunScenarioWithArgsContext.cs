@@ -19,7 +19,7 @@ namespace Bddify.Tests.ScannerSpecs
         [SetUp]
         public void Setup()
         {
-            _result = new GwtScanner().Scan(new ScenarioWithArgs()).ToList();
+            _result = new MethodNameScanner().Scan(new ScenarioWithArgs()).ToList();
         }
 
         [Test]

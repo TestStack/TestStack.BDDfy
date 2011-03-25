@@ -19,7 +19,7 @@ namespace Bddify.Tests
         {
             var bddifier = new Bddifier(
                 testObject,
-                new GwtScanner(),
+                new MethodNameScanner(),
                 new IProcessor[]
                 { 
                     new TestRunner(), 

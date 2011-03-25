@@ -33,7 +33,7 @@ namespace Demos.NUnit.AtmAndCardSamples
         [Test]
         public void Execute()
         {
-            this.Bddify<GwtScanner>();
+            this.Bddify<MethodNameScanner>();
         }
     }
 }
