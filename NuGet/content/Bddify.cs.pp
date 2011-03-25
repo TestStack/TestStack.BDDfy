@@ -14,7 +14,7 @@ namespace $rootnamespace$
                 new GwtScanner(),
                 new IProcessor[]
                 { 
-                    new TestRunner<InconclusiveException>(), //specify inconclusive exception of your testing framework of choice; e.g. InconclusiveException for nUnit and AssertInconclusiveException for MsTest
+                    new TestRunner(), 
                     new ConsoleReporter(),
                     new HtmlReporter(),
                     new ExceptionHandler(Assert.Inconclusive) // provide an action that throws inconclusive exception; e.g. Assert.Inconclusive for nUnit and MsTest

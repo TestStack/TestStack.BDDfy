@@ -1,6 +1,5 @@
 using Bddify.Core;
 using Bddify.Scanners;
-using NUnit.Framework;
 
 namespace $rootnamespace$
 {
