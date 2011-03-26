@@ -68,7 +68,7 @@
     <Compile Include="ScannerSpecs\RunScenarioWithArgsContext.cs" />
     <Compile Include="ScannerSpecs\TestClassWithoutAttributesContext.cs" />
     <Compile Include="ScannerSpecs\TestClassWithAttributesContext.cs" />
-    <Compile Include="BddifySpecs\RunScenarioWithArgs\RunScenarioWithArgsContext.cs" />
+    <Compile Include="BddifySpecs\RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

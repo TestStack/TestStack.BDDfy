@@ -7,17 +7,6 @@ namespace Bddify.Scanners
 {
     public class MethodNameScanner : DefaultScannerBase
     {
-        //readonly Dictionary<string, bool> _methodNamingConvention =
-        //    new Dictionary<string, bool>
-        //        { 
-        //            {"Given", false}, 
-        //            {"AndGiven", false} ,
-        //            {"When", false}, 
-        //            {"AndWhen", false}, 
-        //            {"Then", true}, 
-        //            {"And", true} 
-        //        };
-
         private readonly MethodNameMatcher[] _matchers;
 
         public MethodNameScanner(params MethodNameMatcher[] matchers)
@@ -28,6 +17,8 @@ namespace Bddify.Scanners
         public MethodNameScanner()
             : this(
                     new[]{
+                            new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), false),
+                            new MethodNameMatcher(s => s.Equals("Setup", StringComparison.OrdinalIgnoreCase), false),
                             new MethodNameMatcher(s => s.StartsWith("Given", StringComparison.OrdinalIgnoreCase), false),
                             new MethodNameMatcher(s => s.StartsWith("AndGiven", StringComparison.OrdinalIgnoreCase), false),
                             new MethodNameMatcher(s => s.StartsWith("When", StringComparison.OrdinalIgnoreCase), false),
@@ -36,7 +27,6 @@ namespace Bddify.Scanners
                             new MethodNameMatcher(s => s.StartsWith("And", StringComparison.OrdinalIgnoreCase), true)
                         })
         {
-
         }
 
         protected override IEnumerable<ExecutionStep> ScanForSteps()

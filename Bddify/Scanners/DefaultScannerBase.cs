@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
@@ -23,12 +24,18 @@ namespace Bddify.Scanners
             }
         }
 
-        protected virtual Scenario GetScenario(object[] argsSet = null)
+        protected virtual Scenario GetScenario(bool instantiateNewObject, object[] argsSet = null)
         {
             var scenarioText = ScenarioText;
             if (argsSet != null)
                 scenarioText += string.Format(" with args ({0})", string.Join(", ", argsSet));
-            return new Scenario(TestObject, ScanForSteps(), scenarioText, argsSet);
+
+            // Instantiating a new object per scenario so that scenarios in RunScenarioWithArgs run in isolation.
+            object testObject = TestObject;
+            if (instantiateNewObject)
+                testObject = Activator.CreateInstance(TestObject.GetType());
+
+            return new Scenario(testObject, ScanForSteps(), scenarioText, argsSet);
         }
 
         abstract protected IEnumerable<ExecutionStep> ScanForSteps();
@@ -38,9 +45,9 @@ namespace Bddify.Scanners
             TestObject = testObject;
             var argsSet = GetArgsSets();
             if(argsSet.Any())
-                return argsSet.Select(GetScenario);
+                return argsSet.Select(a => GetScenario(true, a));
 
-            return new[] { GetScenario() };
+            return new[] { GetScenario(false) };
         }
     }
 }

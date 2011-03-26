@@ -21,6 +21,10 @@ namespace Bddify.Processors
         public void Process(Scenario scenario)
         {
             var worseResult = scenario.Result;
+            
+            if(!scenario.Steps.Any())
+                return;
+
             var stepWithWorseResult = scenario.Steps.First(s => s.Result == worseResult);
             if (worseResult == StepExecutionResult.Failed)
                 throw stepWithWorseResult.Exception;

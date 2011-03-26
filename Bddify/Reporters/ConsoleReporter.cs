@@ -29,12 +29,14 @@ namespace Bddify.Reporters
                               {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
-            _longestStepSentence = scenario.Steps.Max(s => s.ReadableMethodName.Length);
-
             Report(scenario);
-            
-            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                reporterRegistry[step.Result](step);
+
+            if (scenario.Steps.Any())
+            {
+                _longestStepSentence = scenario.Steps.Max(s => s.ReadableMethodName.Length);
+                foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                    reporterRegistry[step.Result](step);
+            }
 
             ReportExceptions();
 

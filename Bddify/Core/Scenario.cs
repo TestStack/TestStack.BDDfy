@@ -36,6 +36,9 @@ namespace Bddify.Core
         {
             get
             {
+                if (!Steps.Any())
+                    return StepExecutionResult.NotExecuted;
+
                 return (StepExecutionResult)Steps.Max(s => (int)s.Result);
             }
         }
