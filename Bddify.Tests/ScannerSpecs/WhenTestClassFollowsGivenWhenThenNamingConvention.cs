@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Reflection;
 using Bddify.Core;
 using NUnit.Framework;
 using System.Linq;
+using System;
 
 namespace Bddify.Tests.ScannerSpecs
 {
@@ -13,11 +15,13 @@ namespace Bddify.Tests.ScannerSpecs
         private class TypeWithoutAttribute
         {
             public void AndThen() {}
-            public void AndWhen() {}
+            public void AndWhen1() {}
+            public void AndWhen2() {}
             public void Given() {}
             public void AndSomething() { }
             public void When() {}
-            public void AndGiven() { }
+            public void AndGiven1() { }
+            public void AndGiven2() { }
             public void Then(){}
         }
 
@@ -32,43 +36,68 @@ namespace Bddify.Tests.ScannerSpecs
         public void AllMethodsFollowingTheNamingConventionAreReturnedAsSteps()
         {
             // AndSomething 
-            Assert.That(_steps.Count, Is.EqualTo(6));
+            Assert.That(_steps.Count, Is.EqualTo(9));
+        }
+
+        private static void AssertStep(ExecutionStep step, MethodInfo methodInfo, bool asserts = false)
+        {
+            Assert.That(step.Method, Is.EqualTo(methodInfo));
+            Assert.That(step.Asserts, Is.EqualTo(asserts));
+            Assert.That(step.ShouldReport, Is.True);
         }
 
         [Test]
         public void GivenIsReturnedFirst()
         {
-            Assert.That(_steps[0].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithoutAttribute.Given)));
+            AssertStep(_steps[0], Helpers.GetMethodInfo(_typeWithoutAttribute.Given));
         }
 
         [Test]
-        public void AndGivenIsReturnedSecond()
+        public void AndGiven1IsReturnedInTheCorrectSpot()
         {
-            Assert.That(_steps[1].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven)));
+            AssertStep(_steps[1], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven1));
         }
 
         [Test]
-        public void WhenIsReturnedThird()
+        public void AndGiven2IsReturnedInTheCorrectSpot()
         {
-            Assert.That(_steps[2].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithoutAttribute.When)));
+            AssertStep(_steps[2], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven2));
         }
 
         [Test]
-        public void AndWhenIsReturnedForth()
+        public void WhenIsReturnedAfterGivens()
         {
-            Assert.That(_steps[3].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen)));
+            AssertStep(_steps[3], Helpers.GetMethodInfo(_typeWithoutAttribute.When));
         }
 
         [Test]
-        public void ThenIsReturnedFifth()
+        public void AndWhen1IsReturnedInTheCorrectSpot()
         {
-            Assert.That(_steps[4].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithoutAttribute.Then)));
+            AssertStep(_steps[4], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen1));
         }
 
         [Test]
-        public void AndThenIsReturnedSixth()
+        public void AndWhen2IsReturnedInTheCorrectSpot()
         {
-            Assert.That(_steps[5].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithoutAttribute.AndThen)));
+            AssertStep(_steps[5], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen2));
+        }
+
+        [Test]
+        public void ThenIsReturnedAfterWhens()
+        {
+            AssertStep(_steps[6], Helpers.GetMethodInfo(_typeWithoutAttribute.Then), true);
+        }
+
+        [Test]
+        public void AndThenIsReturnedInTheCorrectSpot()
+        {
+            AssertStep(_steps[7], Helpers.GetMethodInfo(_typeWithoutAttribute.AndThen), true);
+        }
+
+        [Test]
+        public void AndSomethingIsReturnedInTheCorrectSpot()
+        {
+            AssertStep(_steps[8], Helpers.GetMethodInfo(_typeWithoutAttribute.AndSomething), true);
         }
     }
 }

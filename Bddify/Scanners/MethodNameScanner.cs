@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
+using System.Linq;
 
 namespace Bddify.Scanners
 {
@@ -31,14 +32,19 @@ namespace Bddify.Scanners
 
         protected override IEnumerable<ExecutionStep> ScanForSteps()
         {
-            var methods = TestObject.GetType().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var methodsToScan = TestObject.GetType().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
+            var foundMethods = new List<MethodInfo>();
 
             foreach (var matcher in _matchers)
             {
-                foreach (var method in methods)
+                // if a method is already matched we should exclude it because it may match against another criteria too
+                // e.g. a method starting with AndGiven matches against both AndGiven and And
+                foreach (var method in methodsToScan.Except(foundMethods))
                 {
                     if (matcher.IsMethodOfInterest(method.Name))
                     {
+                        foundMethods.Add(method);
+
                         var argAttributes = (WithArgsAttribute[])method.GetCustomAttributes(typeof(WithArgsAttribute), false);
                         object[] inputs = null;
                         if (argAttributes != null && argAttributes.Length > 0)
@@ -57,8 +63,6 @@ namespace Bddify.Scanners
                                     yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), matcher.Asserts, matcher.ShouldReport);
                             }
                         }
-
-                        break;
                     }
                 }
             }
