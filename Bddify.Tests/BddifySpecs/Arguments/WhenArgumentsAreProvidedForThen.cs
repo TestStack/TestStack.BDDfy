@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Arguments
 {
-    public class ArgumentsProvidedForThenContext
+    public class WhenArgumentsAreProvidedForThen
     {
         void GivenArgumentsAreProvidedForThenPart()
         {

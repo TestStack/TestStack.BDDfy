@@ -5,12 +5,12 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
 {
-    public class ThenThrowsNotImplementedException : NotImplementedExceptionBase
+    public class WhenWhenThrowsNotImplementedException : NotImplementedExceptionBase
     {
         [SetUp]
         public void SetupContext()
         {
-            Assert.Throws<InconclusiveException>(() => Sut.Execute(thenShouldThrow:true));
+            Assert.Throws<InconclusiveException>(() => Sut.Execute(whenShouldThrow:true));
         }
 
         [Test]
@@ -20,15 +20,15 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
         }
 
         [Test]
-        public void WhenIsReportedAsSuccessful()
+        public void WhenIsReportedAsNotImplemented()
         {
-            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
         }
 
         [Test]
-        public void ThenIsReportedAsNotImplemeneted()
+        public void ThenIsNotExecuted()
         {
-            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
         }
     }
 }

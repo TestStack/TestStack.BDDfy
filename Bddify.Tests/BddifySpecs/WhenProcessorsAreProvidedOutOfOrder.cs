@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs
 {
-    public class OutOfOrderProcessorsContext
+    public class WhenProcessorsAreProvidedOutOfOrder
     {
         private List<ProcessType> _list;
 

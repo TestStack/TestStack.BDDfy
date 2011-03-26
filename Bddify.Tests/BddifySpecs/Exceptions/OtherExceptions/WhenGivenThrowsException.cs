@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
 {
-    public class GivenThrowsExceptionContext : OtherExceptionBase
+    public class WhenGivenThrowsException : OtherExceptionBase
     {
         [SetUp]
         public void SetupContext()

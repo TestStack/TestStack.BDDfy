@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.ScannerSpecs
 {
-    public class TestClassWithAttributesContext
+    public class WhenTestClassUsesExecutableAttributes
     {
         private TypeWithAttribute _typeWithAttribute;
         private List<ExecutionStep> _steps;

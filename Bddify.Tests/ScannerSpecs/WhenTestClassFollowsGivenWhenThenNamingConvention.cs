@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Bddify.Tests.ScannerSpecs
 {
-    public class TestClassWithoutAttributesContext
+    public class WhenTestClassFollowsGivenWhenThenNamingConvention
     {
         private List<ExecutionStep> _steps;
         private TypeWithoutAttribute _typeWithoutAttribute;
@@ -29,8 +29,9 @@ namespace Bddify.Tests.ScannerSpecs
         }
             
         [Test]
-        public void AllMethodsAreReturnedExceptAndSomething()
+        public void AllMethodsFollowingTheNamingConventionAreReturnedAsSteps()
         {
+            // AndSomething 
             Assert.That(_steps.Count, Is.EqualTo(6));
         }
 

@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions
 {
-    public class InconclusiveExceptionContext
+    public class WhenAnInconclusiveTestIsRun
     {
         public class InconclusiveTestClass
         {

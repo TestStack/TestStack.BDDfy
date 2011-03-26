@@ -2,15 +2,16 @@ using System;
 using Bddify.Core;
 using NSubstitute;
 using NUnit.Framework;
+using System.Linq;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
+namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
 {
-    public class WhenThrowsNotImplementedExceptionContext : NotImplementedExceptionBase
+    public class WhenWhenThrowsException : OtherExceptionBase
     {
         [SetUp]
         public void SetupContext()
         {
-            Assert.Throws<InconclusiveException>(() => Sut.Execute(whenShouldThrow:true));
+            Assert.Throws<Exception>(() => Sut.Execute(whenShouldThrow : true));
         }
 
         [Test]
@@ -20,9 +21,9 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
         }
 
         [Test]
-        public void WhenIsReportedAsNotImplemented()
+        public void WhenIsReportedAsFailed()
         {
-            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.Failed));
         }
 
         [Test]

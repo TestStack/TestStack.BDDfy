@@ -48,26 +48,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BddifyNunit.cs" />
-    <Compile Include="BddifySpecs\Arguments\ArgumentsProvidedForGivenContext.cs" />
-    <Compile Include="BddifySpecs\Arguments\ArgumentsProvidedForThenContext.cs" />
-    <Compile Include="BddifySpecs\Arguments\MultipleArgumentAttributesProvidedToSameMethodContext.cs" />
-    <Compile Include="BddifySpecs\Exceptions\InconclusiveExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Arguments\WhenArgumentsAreProvidedForGiven.cs" />
+    <Compile Include="BddifySpecs\Arguments\WhenArgumentsAreProvidedForThen.cs" />
+    <Compile Include="BddifySpecs\Arguments\WhenMultipleArgumentsAreProvidedForTheSameStep.cs" />
+    <Compile Include="BddifySpecs\Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
-    <Compile Include="BddifySpecs\OutOfOrderProcessorsContext.cs" />
+    <Compile Include="BddifySpecs\WhenProcessorsAreProvidedOutOfOrder.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\GivenThrowsNotImplementedExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\WhenGivenThrowsNotImplementedException.cs" />
     <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\NotImplementedExceptionBase.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\ThenThrowsNotImplementedException.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\WhenThrowsNotImplementedExceptionContext.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\GivenThrowsExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\WhenThenThrowsNotImplementedException.cs" />
+    <Compile Include="BddifySpecs\Exceptions\NotImplementedExceptionContexts\WhenWhenThrowsNotImplementedException.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenGivenThrowsException.cs" />
     <Compile Include="BddifySpecs\Exceptions\OtherExceptions\OtherExceptionBase.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\ThenThrowsExceptionContext.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenThrowsExceptionContext.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenThenThrowsException.cs" />
+    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenWhenThrowsException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScannerSpecs\MethodNameConventionContext.cs" />
-    <Compile Include="ScannerSpecs\RunScenarioWithArgsContext.cs" />
-    <Compile Include="ScannerSpecs\TestClassWithoutAttributesContext.cs" />
-    <Compile Include="ScannerSpecs\TestClassWithAttributesContext.cs" />
+    <Compile Include="ScannerSpecs\WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen.cs" />
+    <Compile Include="ScannerSpecs\WhenScenarioIsRunWithArguments.cs" />
+    <Compile Include="ScannerSpecs\WhenTestClassFollowsGivenWhenThenNamingConvention.cs" />
+    <Compile Include="ScannerSpecs\WhenTestClassUsesExecutableAttributes.cs" />
     <Compile Include="BddifySpecs\RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
   </ItemGroup>
   <ItemGroup>

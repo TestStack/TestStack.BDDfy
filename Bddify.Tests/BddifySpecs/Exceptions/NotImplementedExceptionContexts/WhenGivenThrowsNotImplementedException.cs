@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
 {
-    public class GivenThrowsNotImplementedExceptionContext : NotImplementedExceptionBase
+    public class WhenGivenThrowsNotImplementedException : NotImplementedExceptionBase
     {
         [SetUp]
         public void SetupContext()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Bddify.Tests.BddifySpecs.Arguments
 {
-    public class MultipleArgumentAttributesProvidedToSameMethodContext
+    public class WhenMultipleArgumentsAreProvidedForTheSameStep
     {
         private readonly List<int> _inputs = new List<int>();
 
@@ -16,7 +16,7 @@ namespace Bddify.Tests.BddifySpecs.Arguments
             _inputs.Add(input);
         }
 
-        void ThenMethodIsCalledOncePerArgument()
+        void ThenTheMethodIsCalledOncePerArgument()
         {
             Assert.That(_inputs.Count, Is.EqualTo(3));
             Assert.That(_inputs, Contains.Item(1));

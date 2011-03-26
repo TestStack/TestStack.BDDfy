@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Bddify.Tests.ScannerSpecs
 {
-    public class RunScenarioWithArgsContext
+    public class WhenScenarioIsRunWithArguments
     {
         private List<Scenario> _result;
 
@@ -23,7 +23,7 @@ namespace Bddify.Tests.ScannerSpecs
         }
 
         [Test]
-        public void ReturnsOneScenarioPerAttribute()
+        public void ThenOneScenarioIsReturnedPerAttribute()
         {
             Assert.That(_result.Count, Is.EqualTo(2));
         }
