@@ -41,9 +41,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Bddify.cs" />
+    <Compile Include="Core\IExceptionHandler.cs" />
     <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />
     <Compile Include="Core\RunScenarioWithArgsAttribute.cs" />
+    <Compile Include="Scanners\DefaultMethodNameScanner.cs" />
     <Compile Include="Scanners\GwtAttributes\AndGivenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\AndWhenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\GivenAttribute.cs" />

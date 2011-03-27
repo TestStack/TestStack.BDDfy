@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
+using Bddify.Scanners;
 using NUnit.Framework;
 using System.Linq;
 using System;
@@ -29,7 +30,7 @@ namespace Bddify.Tests.ScannerSpecs
         public void Setup()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
-            _steps = new Scanners.MethodNameScanner().Scan(_typeWithoutAttribute).First().Steps.ToList();
+            _steps = new DefaultMethodNameScanner().Scan(_typeWithoutAttribute).First().Steps.ToList();
         }
             
         [Test]

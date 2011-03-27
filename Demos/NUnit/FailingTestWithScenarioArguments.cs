@@ -38,7 +38,7 @@ namespace Demos.NUnit
         [Test]
         public void Execute()
         {
-            this.Bddify<MethodNameScanner>();
+            this.Bddify();
         }
     }
 }

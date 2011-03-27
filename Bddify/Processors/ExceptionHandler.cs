@@ -4,7 +4,7 @@ using Bddify.Core;
 
 namespace Bddify.Processors
 {
-    public class ExceptionHandler : IProcessor
+    public class ExceptionHandler : IExceptionHandler
     {
         private readonly Action _assertInconclusive;
 

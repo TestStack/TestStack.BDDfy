@@ -28,7 +28,7 @@ namespace Demos.NUnit
 
         public static Bddifier Bddify(this object testObject)
         {
-            return testObject.Bddify<MethodNameScanner>();
+            return testObject.Bddify<DefaultMethodNameScanner>();
         }
     }
 }

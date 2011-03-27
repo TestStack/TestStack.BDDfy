@@ -38,7 +38,7 @@ namespace Demos.MsTest
         [TestMethod]
         public void Execute()
         {
-            this.Bddify<MethodNameScanner>();
+            this.Bddify();
         }
     }
 }

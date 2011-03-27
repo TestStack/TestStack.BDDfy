@@ -1,7 +1,5 @@
 using Bddify.Core;
 using Bddify.Processors;
-using Bddify.Reporters;
-using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Tests
@@ -17,17 +15,7 @@ namespace Bddify.Tests
 
         public static Bddifier LazyBddify(this object testObject)
         {
-            var bddifier = new Bddifier(
-                testObject,
-                new MethodNameScanner(),
-                new IProcessor[]
-                { 
-                    new TestRunner(), 
-                    new ConsoleReporter(),
-                    new ExceptionHandler(Assert.Inconclusive)
-                });
-
-            return bddifier;
+            return testObject.LazyBddify(new ExceptionHandler(Assert.Inconclusive));
         }
     }
 }
