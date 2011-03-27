@@ -47,6 +47,7 @@
     <Compile Include="Run.cs" />
     <Compile Include="WhenTwoNumbersAreAdded.cs" />
     <Compile Include="WhenTwoNumbersAreMultiplied.cs" />
+    <Compile Include="WhenTwoNumbersAreSubtracted.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Bddify\Bddify.csproj">

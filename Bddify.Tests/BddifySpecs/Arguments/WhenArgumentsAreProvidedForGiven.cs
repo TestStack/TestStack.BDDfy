@@ -1,3 +1,4 @@
+using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
 
@@ -9,7 +10,7 @@ namespace Bddify.Tests.BddifySpecs.Arguments
         private int _input2;
         private int _input1;
 
-        [WithArgs(1, 2, 3)]
+        [RunStepWithArgs(1, 2, 3)]
         void GivenArgumentsAreProvidedForGivenPart(int input1, int input2, int input3)
         {
             _input1 = input1;

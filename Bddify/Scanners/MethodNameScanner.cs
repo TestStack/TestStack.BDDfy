@@ -30,7 +30,7 @@ namespace Bddify.Scanners
                     {
                         foundMethods.Add(method);
 
-                        var argAttributes = (WithArgsAttribute[])method.GetCustomAttributes(typeof(WithArgsAttribute), false);
+                        var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                         object[] inputs = null;
                         if (argAttributes != null && argAttributes.Length > 0)
                             inputs = argAttributes[0].InputArguments;

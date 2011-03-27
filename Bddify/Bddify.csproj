@@ -70,7 +70,7 @@
     <Compile Include="Scanners\MethodNameMatcher.cs" />
     <Compile Include="Scanners\MethodNameScanner.cs" />
     <Compile Include="Processors\TestRunner.cs" />
-    <Compile Include="Scanners\WithArgsAttribute.cs" />
+    <Compile Include="Core\RunStepWithArgsAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reporters\HtmlReport.cshtml" />

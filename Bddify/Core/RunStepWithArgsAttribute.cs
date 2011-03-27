@@ -1,13 +1,13 @@
 using System;
 
-namespace Bddify.Scanners
+namespace Bddify.Core
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class WithArgsAttribute : Attribute
+    public class RunStepWithArgsAttribute : Attribute
     {
         private readonly object[] _inputArguments;
 
-        public WithArgsAttribute(params object[] inputArguments)
+        public RunStepWithArgsAttribute(params object[] inputArguments)
         {
             _inputArguments = inputArguments;
         }

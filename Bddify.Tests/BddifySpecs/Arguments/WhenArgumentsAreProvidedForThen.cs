@@ -1,3 +1,4 @@
+using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
 
@@ -9,7 +10,7 @@ namespace Bddify.Tests.BddifySpecs.Arguments
         {
         }
 
-        [WithArgs(1, "Test")]
+        [RunStepWithArgs(1, "Test")]
         void ThenArgumentsAreSentToThenPart(int argument1, string argument2)
         {
             Assert.That(argument1, Is.EqualTo(1));

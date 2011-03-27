@@ -1,3 +1,4 @@
+using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace Bddify.Tests.BddifySpecs.Arguments
     {
         private readonly List<int> _inputs = new List<int>();
 
-        [WithArgs(1)]
-        [WithArgs(2)]
-        [WithArgs(3)]
+        [RunStepWithArgs(1)]
+        [RunStepWithArgs(2)]
+        [RunStepWithArgs(3)]
         void GivenMultipleArgumentAttributesAreProvidedToSameMethod(int input)
         {
             _inputs.Add(input);
