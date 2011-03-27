@@ -41,7 +41,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Bddify.cs" />
+    <Compile Include="Core\BddifyExtensions.cs" />
     <Compile Include="Core\IExceptionHandler.cs" />
     <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />

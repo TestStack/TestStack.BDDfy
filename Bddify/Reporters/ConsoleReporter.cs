@@ -40,7 +40,7 @@ namespace Bddify.Reporters
 
             ReportExceptions();
 
-            PrintOutput("============================================================================================================");
+            PrintOutput("================================================================================");
         }
 
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)
