@@ -24,6 +24,11 @@ namespace Bddify.Reporters
         static void CurrentDomain_DomainUnload(object sender, EventArgs e)
         {
             // run this only once when the appdomain is unloading, that is when the last test is run
+            GenerateHtmlReport();
+        }
+
+        internal static void GenerateHtmlReport()
+        {
             var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
             File.WriteAllText(FileName, report);
         }

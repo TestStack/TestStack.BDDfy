@@ -17,6 +17,8 @@ namespace Bddify.Core
                 var testObject = Activator.CreateInstance(testObjectType);
                 testObject.Bddify();
             }
+
+            HtmlReporter.GenerateHtmlReport();
         }
 
         public static void Bddify(this object testObject, IExceptionHandler exceptionHandler = null)
