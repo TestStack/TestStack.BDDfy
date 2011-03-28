@@ -26,26 +26,37 @@ namespace Bddify.Scanners
                 // e.g. a method starting with AndGiven matches against both AndGiven and And
                 foreach (var method in methodsToScan.Except(foundMethods))
                 {
+                    var methodName = NetToString.FromName(method.Name);
+
                     if (matcher.IsMethodOfInterest(method.Name))
                     {
                         foundMethods.Add(method);
 
                         var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                         object[] inputs = null;
+                        var stepMethodName  = methodName;
+
                         if (argAttributes != null && argAttributes.Length > 0)
+                        {
                             inputs = argAttributes[0].InputArguments;
+                            stepMethodName += " with args (" + string.Join(", ", inputs) + ")";
+                        }
 
                         // creating the method itself
-                        yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), matcher.Asserts, matcher.ShouldReport);
+                        yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ShouldReport);
 
                         if (argAttributes != null && argAttributes.Length > 1)
                         {
                             for (int index = 1; index < argAttributes.Length; index++)
                             {
+                                stepMethodName = methodName;
                                 var argAttribute = argAttributes[index];
                                 inputs = argAttribute.InputArguments;
                                 if (inputs != null && inputs.Length > 0)
-                                    yield return new ExecutionStep(method, inputs, NetToString.FromName(method.Name), matcher.Asserts, matcher.ShouldReport);
+                                {
+                                    stepMethodName += " with args (" + string.Join(", ", inputs) + ")";
+                                    yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ShouldReport);
+                                }
                             }
                         }
                     }
