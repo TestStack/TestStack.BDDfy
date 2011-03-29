@@ -7,8 +7,6 @@ namespace Bddify.Reporters
 {
     public class ConsoleReporter : IProcessor
     {
-        public static readonly Action<string> DefaultPrintOutput = Console.WriteLine;
-        public static Action<string> PrintOutput = DefaultPrintOutput;
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
 
@@ -40,7 +38,7 @@ namespace Bddify.Reporters
 
             ReportExceptions();
 
-            PrintOutput("================================================================================");
+            Console.WriteLine("================================================================================");
         }
 
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)
@@ -57,7 +55,15 @@ namespace Bddify.Reporters
                 message += string.Format(" :: Exception Stack Trace below on number [{0}]", _exceptions.Count);
             }
 
-            PrintOutput(message);
+            if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            else if (step.Result == StepExecutionResult.Failed)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (step.Result == StepExecutionResult.NotExecuted)
+                Console.ForegroundColor = ConsoleColor.Gray;
+            
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         void ReportExceptions()
@@ -65,25 +71,26 @@ namespace Bddify.Reporters
             if (_exceptions.Count == 0)
                 return;
 
-            PrintOutput(string.Empty);
-            PrintOutput("Exceptions' Details: ");
-            PrintOutput(string.Empty);
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Exceptions' Details: ");
+            Console.WriteLine(string.Empty);
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                PrintOutput(string.Format("[{0}]:", index + 1));
+                Console.WriteLine(string.Format("[{0}]:", index + 1));
                 
                 if (string.IsNullOrEmpty(exception.Message))
-                    PrintOutput(exception.Message);
+                    Console.WriteLine(exception.Message);
          
-                PrintOutput(exception.StackTrace);
+                Console.WriteLine(exception.StackTrace);
             }
         }
 
         static void Report(Scenario scenario)
         {
-            PrintOutput("Scenario: " +  scenario.ScenarioText + Environment.NewLine);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Scenario: " +  scenario.ScenarioText + Environment.NewLine);
         }
     }
 }

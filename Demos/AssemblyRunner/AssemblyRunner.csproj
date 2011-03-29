@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Run.cs" />
+    <Compile Include="SomeIncompleteTest.cs" />
     <Compile Include="WhenTwoNumbersAreAdded.cs" />
     <Compile Include="WhenTwoNumbersAreMultiplied.cs" />
     <Compile Include="WhenTwoNumbersAreSubtracted.cs" />
