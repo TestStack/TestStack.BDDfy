@@ -132,6 +132,22 @@
 				background-color:#c7e3ff;
 				background-repeat: no-repeat;		    background-position: center center;		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJySURBVDjLpVNLbxJRFO4P8BfwO2Dp0g27VmvSnYkbEzYmLpq6sZP66KIxQmYsUUyb1gYqCZrU2qamVJwOIKaxUKAMD4HyKBQGHAaGx1COcy4P8bHzJt/i3pzvO+c759wJAJgYx7Vl0KjQqdCrmBlAP3jT/Bk/TryiQnv/rWhwuDOM9zjGnYROhUAwLBweRbg3riQza68YMAZjfxMYkK/a2DwVOE3whbIIktwB5bJHUGu0IVesgOcoyK/sJSiMHYoMBbRIDka+S82WAnjkdhcqUgcEFfVWl7xJchsOfX7JshNFES0RQF9YNmYekuPnDSj+aEOh2kc014BcpTUS2Tvw8Hc3CmhHgwI6B3fGYNl4SmIbbjxiCQnJ+WoLphZcEMpIkCk3SUwkeQ603csgFwX0nm9RDj1jqUi6/pBV4YJIrg5ZoakKfCIInkkgNhS4qMqwuvmeQy4KzPhPQgI2q1zrEAHMiLi56IVYvgFTlCpAOWH6sZvc28olbFg3BeQSgeNAkAhg+egVydNP3CQrik7OO4mtyfl9chcbHVhdez0S0H/+GuaqUgtqskJ8EjLVJyeL8oiMCXAysWwVaIt1ZEFndcaZdK4MvR5AutQk5SI5UZAJJh/sk6lgYzvdHhx8CQNl/jBqouaerWRwsj5eEJujSSARx4mekYwNxQRxNbvpxTp/2xzrj3G4SPS7ALX1kZUKlX5gta6QalIXMlkmzBzLVsBosUlz9M6vRRpf5SWrj1q3b/FefxzSBZH0BD2HUwLssgFYolf4WdP236s8/pnuvEoZFl7uMk+X1zj6uVl4ZmKERaOFmzM6mFtM5N+f6X++80/jPghfk2d02wAAAABJRU5ErkJggg==);			}
 			
+			td.FailedException
+			{
+				font-weight: bold;
+				color: Maroon;
+			}
+			
+			td.NotImplementedException
+			{
+			  font-weight:bold;
+			}
+			
+			td.InconclusiveException
+			{
+			  font-weight:bold;
+			}
+			
 			tr.scenario
 			{
 				cursor:pointer;
@@ -150,17 +166,6 @@
 			tr.namespaceResultSummary
 			{
 			    height:17px;
-			}
-			
-			tr.hasException
-			{
-				font-weight: bold;
-				color: Maroon;
-			}
-			
-			.exceptionDetails
-			{
-			    color:Maroon;
 			}
 			
 			th.scenarioHeader
@@ -325,7 +330,10 @@
         @{
             string assemblyName = string.Empty;
             if (Model.Count > 0) {
-              assemblyName = Model[0].Object.GetType().Assembly.CodeBase;
+              var codeBase = Model[0].Object.GetType().Assembly.CodeBase;
+              var uri = new UriBuilder(codeBase);
+              string path = Uri.UnescapeDataString(uri.Path);
+              assemblyName = System.IO.Path.GetDirectoryName(path);
             }
         }
 
@@ -390,24 +398,24 @@
                     string result = step.ReadableMethodName;
                     var rowSpan = 1;
                     if(step.Exception != null){
-                      stepClass = "hasException";
+                      stepClass = step.Result + "Exception";
                       rowSpan = 2;
                                             
                       if(!string.IsNullOrEmpty(step.Exception.Message)){
                           result += " [Exception Message: '" + step.Exception.Message + "']";
                       }
                     }
-                    <tr class="@stepClass step" onclick="toggle('@step.Id');">
+                    <tr class="step" onclick="toggle('@step.Id');">
     									<td rowspan="@rowSpan" class="result @step.Result"></td>
 										  <td class="indentation"></td>
-										  <td colspan="2">@result</td>
+										  <td colspan="2" class="@stepClass">@result</td>
                     </tr>
 
                     if (step.Exception != null) {
-									  <tr class="exceptionDetails step" id="@step.Id">
+									  <tr class="step" id="@step.Id">
     									<td></td>
 										  <td colspan="2" class="indentation"></td>
-										  <td><code>@step.Exception.StackTrace</code></td>
+										  <td class="@stepClass"><code>@step.Exception.StackTrace</code></td>
 									  </tr>
                     }
                   }
