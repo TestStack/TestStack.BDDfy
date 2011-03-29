@@ -22,7 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{D19C1DCE-6B35-4DF4-BAAE-777205FC4ACB}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\content\Bddify.cs.pp = NuGet\content\Bddify.cs.pp
-		NuGet\content\SimpleTest.cs.pp = NuGet\content\SimpleTest.cs.pp
+		NuGet\content\RunMe.cs.pp = NuGet\content\RunMe.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{C45056D9-0E10-4223-9701-3F519947915E}"

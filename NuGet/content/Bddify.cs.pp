@@ -1,6 +1,6 @@
 using Bddify.Core;
 using Bddify.Processors;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace $rootnamespace$
 {
