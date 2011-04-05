@@ -332,8 +332,7 @@
             if (Model.Count > 0) {
               var codeBase = Model[0].Object.GetType().Assembly.CodeBase;
               var uri = new UriBuilder(codeBase);
-              string path = Uri.UnescapeDataString(uri.Path);
-              assemblyName = System.IO.Path.GetDirectoryName(path);
+              assemblyName = Uri.UnescapeDataString(uri.Path);
             }
         }
 
