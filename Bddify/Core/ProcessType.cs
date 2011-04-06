@@ -2,11 +2,11 @@
 {
     public enum ProcessType
     {
-        Firstly = 0,
-        Execute = 1,
-        BeforeReport = 2,
-        Report = 3,
-        BeforeHandleException = 4,
-        HandleExceptions = 5
+        Firstly = 1,
+        Execute = 2,
+        BeforeReport = 3,
+        Report = 4,
+        BeforeHandleException = 5,
+        HandleExceptions = 6
     }
 }
