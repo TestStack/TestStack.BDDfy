@@ -5,6 +5,7 @@ namespace StoryDemo
 {
     [RunScenarioWithArgs(1, 2, 2)]
     [RunScenarioWithArgs(4, 5, 20)]
+    [WithStory(typeof(CalculatorStory))]
     public class WhenTwoNumbersAreMultiplied
     {
         private int _expectedResult;

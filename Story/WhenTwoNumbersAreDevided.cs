@@ -1,7 +1,9 @@
+using Bddify.Core;
 using NUnit.Framework;
 
 namespace StoryDemo
 {
+    [WithStory(typeof(CalculatorStory))]
     public class WhenTwoNumbersAreDevided
     {
         void ThenTheResultIsCorrect()

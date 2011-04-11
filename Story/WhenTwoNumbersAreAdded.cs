@@ -5,6 +5,7 @@ namespace StoryDemo
 {
 	[RunScenarioWithArgs(1, 2, 3)]
 	[RunScenarioWithArgs(4, 5, 9)]
+    [WithStory(typeof(CalculatorStory))]
 	public class WhenTwoNumbersAreAdded
 	{
 		private int _expectedResult;

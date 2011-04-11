@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace StoryDemo
 {
+    [WithStory(typeof(CalculatorStory))]
     public class WhenTwoNumbersAreSubtracted
     {
         [RunStepWithArgs(5, 3, 2)]
