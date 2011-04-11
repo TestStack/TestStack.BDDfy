@@ -43,17 +43,15 @@ namespace Bddify.Reporters
             Console.WriteLine();
         }
 
-        private void ReportOnStory(Scenario scenario)
+        private static void ReportOnStory(Scenario scenario)
         {
-            var withStoryAttribute = (WithStoryAttribute)scenario.Object.GetType().GetCustomAttributes(typeof(WithStoryAttribute), true).FirstOrDefault();
-            if(withStoryAttribute == null)
+            if(scenario.Story == null)
                 return;
 
-            var storyType = withStoryAttribute.StoryType;
-            if(storyType == _lastStoryType)
+            if(scenario.Story == _lastStoryType)
                 return; // we have already reported on this story
 
-            _lastStoryType = storyType;
+            _lastStoryType = scenario.Story;
             var storyAttribute = (StoryAttribute)_lastStoryType.GetCustomAttributes(typeof(StoryAttribute), true).First();
             Console.WriteLine("Story: " + storyAttribute.Title);
             Console.WriteLine("\t" + storyAttribute.AsA);

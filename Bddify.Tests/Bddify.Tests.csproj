@@ -53,7 +53,6 @@
     <Compile Include="BddifySpecs\Arguments\WhenMultipleArgumentsAreProvidedForTheSameStep.cs" />
     <Compile Include="BddifySpecs\Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
-    <Compile Include="ScannerSpecs\Story\WhenBddifyIsRunOnAStory.cs" />
     <Compile Include="ScannerSpecs\Story\FirstScenario.cs" />
     <Compile Include="ScannerSpecs\Story\ScenarioInStoryWithArgs.cs" />
     <Compile Include="ScannerSpecs\Story\StoryDouble.cs" />

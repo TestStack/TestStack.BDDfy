@@ -36,5 +36,11 @@ namespace Bddify.Tests.ScannerSpecs
             var scenariosWithArgs = _bddifier.Scenarios.Where(s => s.Object.GetType() == typeof(ScenarioInStoryWithArgs));
             Assert.That(scenariosWithArgs.Count(), Is.EqualTo(2));
         }
+
+        [Test]
+        public void ThenStoryTypeShouldBeSetOnScenarios()
+        {
+            Assert.True(_bddifier.Scenarios.All(s => s.Story == typeof(StoryDouble)));
+        }
     }
 }
