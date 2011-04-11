@@ -9,6 +9,7 @@ namespace Bddify.Reporters
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
+        private static Type _lastStoryType;
 
         public ProcessType ProcessType
         {
@@ -27,6 +28,8 @@ namespace Bddify.Reporters
                               {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
+            ReportOnStory(scenario);
+
             Report(scenario);
 
             if (scenario.Steps.Any())
@@ -37,15 +40,33 @@ namespace Bddify.Reporters
             }
 
             ReportExceptions();
+            Console.WriteLine();
+        }
 
-            Console.WriteLine("================================================================================");
+        private void ReportOnStory(Scenario scenario)
+        {
+            var withStoryAttribute = (WithStoryAttribute)scenario.Object.GetType().GetCustomAttributes(typeof(WithStoryAttribute), true).FirstOrDefault();
+            if(withStoryAttribute == null)
+                return;
+
+            var storyType = withStoryAttribute.StoryType;
+            if(storyType == _lastStoryType)
+                return; // we have already reported on this story
+
+            _lastStoryType = storyType;
+            var storyAttribute = (StoryAttribute)_lastStoryType.GetCustomAttributes(typeof(StoryAttribute), true).First();
+            Console.WriteLine("Story: " + storyAttribute.Title);
+            Console.WriteLine("\t" + storyAttribute.AsA);
+            Console.WriteLine("\t" + storyAttribute.IWant);
+            Console.WriteLine("\t" + storyAttribute.SoThat);
+            Console.WriteLine();
         }
 
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)
         {
             var message =
                 string.Format
-                    ("{0}  [{1}]",
+                    ("\t{0}  [{1}]",
                     step.ReadableMethodName.PadRight(_longestStepSentence + 5),
                     NetToString.FromCamelName(step.Result.ToString()));
 
@@ -72,16 +93,16 @@ namespace Bddify.Reporters
                 return;
 
             Console.WriteLine(string.Empty);
-            Console.WriteLine("Exceptions' Details: ");
+            Console.WriteLine("\tExceptions' Details: ");
             Console.WriteLine(string.Empty);
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                Console.WriteLine(string.Format("[{0}]:", index + 1));
+                Console.WriteLine(string.Format("\t[{0}]:", index + 1));
                 
                 if (string.IsNullOrEmpty(exception.Message))
-                    Console.WriteLine(exception.Message);
+                    Console.WriteLine("\t" + exception.Message);
          
                 Console.WriteLine(exception.StackTrace);
             }
@@ -90,7 +111,7 @@ namespace Bddify.Reporters
         static void Report(Scenario scenario)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Scenario: " +  scenario.ScenarioText + Environment.NewLine);
+            Console.WriteLine("Scenario: " +  scenario.ScenarioText);
         }
     }
 }
