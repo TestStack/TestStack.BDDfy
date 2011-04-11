@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}</ProjectGuid>
+    <ProjectGuid>{A12B0550-B84C-4DFF-9D26-C97C4AB1094F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bddify.Tests</RootNamespace>
-    <AssemblyName>Bddify.Tests</AssemblyName>
+    <RootNamespace>StoryDemo</RootNamespace>
+    <AssemblyName>Story</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NSubstitute">
-      <HintPath>..\Dependencies\NSubstitute\NSubstitute.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\NUnit\nunit.framework.dll</HintPath>
@@ -47,33 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BddifyNunit.cs" />
-    <Compile Include="BddifySpecs\Arguments\WhenArgumentsAreProvidedForGiven.cs" />
-    <Compile Include="BddifySpecs\Arguments\WhenArgumentsAreProvidedForThen.cs" />
-    <Compile Include="BddifySpecs\Arguments\WhenMultipleArgumentsAreProvidedForTheSameStep.cs" />
-    <Compile Include="BddifySpecs\Exceptions\WhenAnInconclusiveTestIsRun.cs" />
-    <Compile Include="BddifySpecs\Exceptions\ExceptionThrowingTest.cs" />
-    <Compile Include="ScannerSpecs\Story\WhenBddifyIsRunOnAStory.cs" />
-    <Compile Include="ScannerSpecs\Story\FirstScenario.cs" />
-    <Compile Include="ScannerSpecs\Story\ScenarioInStoryWithArgs.cs" />
-    <Compile Include="ScannerSpecs\Story\StoryDouble.cs" />
-    <Compile Include="BddifySpecs\WhenProcessorsAreProvidedOutOfOrder.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedException\WhenGivenThrowsNotImplementedException.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedException\NotImplementedExceptionBase.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedException\WhenThenThrowsNotImplementedException.cs" />
-    <Compile Include="BddifySpecs\Exceptions\NotImplementedException\WhenWhenThrowsNotImplementedException.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenGivenThrowsException.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\OtherExceptionBase.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenThenThrowsException.cs" />
-    <Compile Include="BddifySpecs\Exceptions\OtherExceptions\WhenWhenThrowsException.cs" />
+    <Compile Include="WhenTwoNumbersAreDevided.cs" />
+    <Compile Include="CalculatorStory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScannerSpecs\WhenScannerIsRunOnAStory.cs" />
-    <Compile Include="ScannerSpecs\WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen.cs" />
-    <Compile Include="ScannerSpecs\WhenScenarioIsRunWithArguments.cs" />
-    <Compile Include="ScannerSpecs\WhenTestClassFollowsGivenWhenThenNamingConvention.cs" />
-    <Compile Include="ScannerSpecs\WhenTestClassUsesExecutableAttributes.cs" />
-    <Compile Include="BddifySpecs\RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
+    <Compile Include="WhenTwoNumbersAreAdded.cs" />
+    <Compile Include="WhenTwoNumbersAreMultiplied.cs" />
+    <Compile Include="WhenTwoNumbersAreSubtracted.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">
@@ -81,7 +57,6 @@
       <Name>Bddify</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

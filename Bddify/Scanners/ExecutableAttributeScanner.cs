@@ -7,9 +7,9 @@ namespace Bddify.Scanners
 {
     public class ExecutableAttributeScanner : DefaultScannerBase
     {
-        protected override IEnumerable<ExecutionStep> ScanForSteps()
+        protected override IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject)
         {
-            var methods = TestObject.GetType()
+            var methods = scenarioObject.GetType()
                 .GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(m => m.GetCustomAttributes(typeof(ExecutableAttribute), false).Any())
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);

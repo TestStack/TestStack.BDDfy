@@ -7,47 +7,76 @@ namespace Bddify.Scanners
 {
     public abstract class DefaultScannerBase : IScanner
     {
-        protected object TestObject;
+        private static readonly Func<IEnumerable<Type>> StoryScenariosQuery = () =>
+            from assembly in AppDomain.CurrentDomain.GetAssemblies()
+            from type in assembly.GetTypes()
+            where Attribute.IsDefined(type, typeof(WithStoryAttribute), true)
+            select type;
+        private Lazy<IEnumerable<Type>> _storyScenarios = new Lazy<IEnumerable<Type>>(StoryScenariosQuery);
 
-        protected virtual IEnumerable<object []> GetArgsSets()
+        protected virtual IEnumerable<object []> GetArgsSets(object scenarioObject)
         {
-            var runWithScenarioAtts = (RunScenarioWithArgsAttribute[])TestObject.GetType().GetCustomAttributes(typeof(RunScenarioWithArgsAttribute), false);
+            var runWithScenarioAtts = (RunScenarioWithArgsAttribute[])scenarioObject.GetType().GetCustomAttributes(typeof(RunScenarioWithArgsAttribute), false);
 
             return runWithScenarioAtts.Select(argSet => argSet.ScenarioArguments).ToList();
         }
 
-        string ScenarioText
+        static string GetScenarioText(object scenarioObject)
         {
-            get
-            {
-                return NetToString.FromTypeName(TestObject.GetType().Name);
-            }
+            return NetToString.FromTypeName(scenarioObject.GetType().Name);
         }
 
-        protected virtual Scenario GetScenario(bool instantiateNewObject, object[] argsSet = null)
+        protected virtual Scenario GetScenario(object scenarioObject, bool instantiateNewObject = false, object[] argsSet = null)
         {
-            var scenarioText = ScenarioText;
+            var scenarioText = GetScenarioText(scenarioObject);
             if (argsSet != null)
                 scenarioText += string.Format(" with args ({0})", string.Join(", ", argsSet));
 
             // Instantiating a new object per scenario so that scenarios in RunScenarioWithArgs run in isolation.
-            object testObject = TestObject;
+            object testObject = scenarioObject;
             if (instantiateNewObject)
-                testObject = Activator.CreateInstance(TestObject.GetType());
+                testObject = Activator.CreateInstance(testObject.GetType());
 
-            return new Scenario(testObject, ScanForSteps(), scenarioText, argsSet);
+            return new Scenario(testObject, ScanForSteps(testObject), scenarioText, argsSet);
         }
 
-        abstract protected IEnumerable<ExecutionStep> ScanForSteps();
+        abstract protected IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject);
 
         public virtual IEnumerable<Scenario> Scan(object testObject)
         {
-            TestObject = testObject;
-            var argsSet = GetArgsSets();
-            if(argsSet.Any())
-                return argsSet.Select(a => GetScenario(true, a));
+            return IsStory(testObject) ? HandleStory(testObject) : HandleScenario(testObject);
+        }
 
-            return new[] { GetScenario(false) };
+        private IEnumerable<Scenario> HandleScenario(object scenarioObject)
+        {
+            var argsSet = GetArgsSets(scenarioObject);
+            if(argsSet.Any())
+                return argsSet.Select(a => GetScenario(scenarioObject, instantiateNewObject:true, argsSet:a));
+
+            return new[] { GetScenario(scenarioObject) };
+        }
+
+        private IEnumerable<Scenario> HandleStory(object storyObject)
+        {
+            var scenarioTypesForThisStory = _storyScenarios.Value.Where(t => t
+                .GetCustomAttributes(typeof(WithStoryAttribute), true)
+                .Cast<WithStoryAttribute>()
+                .Any(a => a.StoryType == storyObject.GetType()));
+
+            foreach (var scenarioType in scenarioTypesForThisStory)
+            {
+                // ToDo: I may change this to use IoC
+                var scenarioObject = Activator.CreateInstance(scenarioType);
+
+                foreach (var scenario in HandleScenario(scenarioObject))
+                    yield return scenario;
+            }
+            yield break; 
+        }
+
+        internal bool IsStory(object testObject)
+        {
+            return testObject.GetType().GetCustomAttributes(typeof(StoryAttribute), false).Any();
         }
     }
 }

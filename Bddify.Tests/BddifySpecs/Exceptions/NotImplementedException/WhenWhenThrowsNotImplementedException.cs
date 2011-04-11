@@ -1,9 +1,7 @@
-using System;
 using Bddify.Core;
-using NSubstitute;
 using NUnit.Framework;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedExceptionContexts
+namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedException
 {
     public class WhenWhenThrowsNotImplementedException : NotImplementedExceptionBase
     {

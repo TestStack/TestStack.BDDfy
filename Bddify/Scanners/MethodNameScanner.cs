@@ -15,9 +15,9 @@ namespace Bddify.Scanners
             _matchers = matchers;
         }
 
-        protected override IEnumerable<ExecutionStep> ScanForSteps()
+        protected override IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject)
         {
-            var methodsToScan = TestObject.GetType().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
+            var methodsToScan = scenarioObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
             var foundMethods = new List<MethodInfo>();
 
             foreach (var matcher in _matchers)
