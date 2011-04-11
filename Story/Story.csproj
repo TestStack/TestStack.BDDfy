@@ -44,12 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WhenTwoNumbersAreDevided.cs" />
-    <Compile Include="CalculatorStory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WhenTwoNumbersAreAdded.cs" />
-    <Compile Include="WhenTwoNumbersAreMultiplied.cs" />
-    <Compile Include="WhenTwoNumbersAreSubtracted.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

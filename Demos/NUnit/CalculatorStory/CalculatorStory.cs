@@ -1,7 +1,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace StoryDemo
+namespace Demos.NUnit.CalculatorStory
 {
     [Story(
         "Calculator can do the four main functions",
@@ -13,7 +13,7 @@ namespace StoryDemo
         [Test]
         public void Execute()
         {
-            this.Bddify();
+            BddifyExtensions.Bddify(this);
         }
     }
 }

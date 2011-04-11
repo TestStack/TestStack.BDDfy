@@ -1,7 +1,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace StoryDemo
+namespace Demos.NUnit.CalculatorStory
 {
     [WithStory(typeof(CalculatorStory))]
     public class WhenTwoNumbersAreDevided
