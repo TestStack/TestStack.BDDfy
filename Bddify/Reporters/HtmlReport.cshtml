@@ -396,14 +396,12 @@
           foreach (var storyGroup in namespaceGroup.GroupBy(s => s.Story)) {
             
             if (storyGroup.Key != null) { 
-              // Story exists so let's report on it before we start reporting on scenarios
-              var storyAttribute = (Bddify.Core.StoryAttribute)storyGroup.Key.GetCustomAttributes(typeof(Bddify.Core.StoryAttribute), true).First();
               <tr class="story">
                 <td colspan="4">
-                  Story: @storyAttribute.Title <br />
-                  @storyAttribute.AsA <br />
-                  @storyAttribute.IWant <br />
-                  @storyAttribute.SoThat
+                  Story: @storyGroup.Key.Narrative.Title <br />
+                  @storyGroup.Key.Narrative.AsA <br />
+                  @storyGroup.Key.Narrative.IWant <br />
+                  @storyGroup.Key.Narrative.SoThat
                 </td>
               </tr>
             }
