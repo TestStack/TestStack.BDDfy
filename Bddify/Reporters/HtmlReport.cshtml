@@ -232,6 +232,11 @@
 			    background: #f0f0f0;
 			}
 			
+			tr.story
+			{
+        background: #FDE8FD;
+      }
+			
 			table.namespace
 			{
 			    font-weight: bold;
@@ -295,6 +300,11 @@
 							      <td class="summaryLable">Namespaces</td>
 							      <td>@Model.GroupBy(b => b.Object.GetType().Namespace).Count()</td>
 						      </tr>
+						      <tr class="story">
+                    <td />
+							      <td class="summaryLable">Stories</td>
+							      <td>@Model.GroupBy(b => b.Story).Count(g => g.Key != null)</td>
+						      </tr>
 						      <tr>
                     <td class="result Passed"></td>
                     <td class="summaryLable">Passed</td>
@@ -328,46 +338,46 @@
 
 			<div id="testResult">
         @{
-            string assemblyName = string.Empty;
-            if (Model.Count > 0) {
-              var codeBase = Model[0].Object.GetType().Assembly.CodeBase;
-              var uri = new UriBuilder(codeBase);
-              assemblyName = Uri.UnescapeDataString(uri.Path);
-            }
+          string assemblyName = string.Empty;
+          if (Model.Count > 0)
+          {
+            var codeBase = Model[0].Object.GetType().Assembly.CodeBase;
+            var uri = new UriBuilder(codeBase);
+            assemblyName = Uri.UnescapeDataString(uri.Path);
+          }
         }
 
         <p>Assembly: '@assemblyName'</p>
 
 				<table>
 					<tbody>
-						@foreach (var group in Model.GroupBy(b => b.Object.GetType().Namespace))
+						@foreach (var namespaceGroup in Model.GroupBy(b => b.Object.GetType().Namespace))
       {
 							<tr class="namespace">
 								<td colspan="4">
                   <table class="namespace">
                     <tr>
-                      <td>@group.Key</td>
+                      <td>@namespaceGroup.Key</td>
                       <td class="namespaceResultSummary">
                       @{
-                        var fullWidth = 400;
-                        var all = group.Count();
-                        var failed = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
-                        var failedRatio = (double)failed / all * 100;
-                        var failedVisible = (failedRatio == 0 ? "none" : "");
-                        var passed = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
-                        var passedRatio = (double)passed / all * 100;
-                        var passedVisible = (passedRatio == 0 ? "none" : "");
-                        var notImplemented = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
-                        var notImplementedRatio = (double)notImplemented / all * 100;
-                        var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
-                        var inconclusive = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
-                        var inconclusiveRatio = (double)inconclusive / all * 100;
-                        var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
-                        var notExecuted = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
-                        var notExecutedRatio = (double)notExecuted / all * 100;
-                        var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
-
-                                                }
+                     var fullWidth = 400;
+                     var all = namespaceGroup.Count();
+                     var failed = namespaceGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
+                     var failedRatio = (double)failed / all * 100;
+                     var failedVisible = (failedRatio == 0 ? "none" : "");
+                     var passed = namespaceGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
+                     var passedRatio = (double)passed / all * 100;
+                     var passedVisible = (passedRatio == 0 ? "none" : "");
+                     var notImplemented = namespaceGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
+                     var notImplementedRatio = (double)notImplemented / all * 100;
+                     var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
+                     var inconclusive = namespaceGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
+                     var inconclusiveRatio = (double)inconclusive / all * 100;
+                     var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
+                     var notExecuted = namespaceGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
+                     var notExecutedRatio = (double)notExecuted / all * 100;
+                     var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
+                      }
                         <table>
                           <tr class="namespaceResultSummary">
                             <td class="Failed" style="width:@failedRatio%;display:@failedVisible"></td>
@@ -383,7 +393,22 @@
                 </td>
 							</tr>
 
-							foreach (var scenario in group) {
+          foreach (var storyGroup in namespaceGroup.GroupBy(s => s.Story)) {
+            
+            if (storyGroup.Key != null) { 
+              // Story exists so let's report on it before we start reporting on scenarios
+              var storyAttribute = (Bddify.Core.StoryAttribute)storyGroup.Key.GetCustomAttributes(typeof(Bddify.Core.StoryAttribute), true).First();
+              <tr class="story">
+                <td colspan="4">
+                  Story: @storyAttribute.Title <br />
+                  @storyAttribute.AsA <br />
+                  @storyAttribute.IWant <br />
+                  @storyAttribute.SoThat
+                </td>
+              </tr>
+            }
+              
+            foreach (var scenario in storyGroup) { 
               <tr class="scenario" onclick="toggle('@scenario.Id');">
 								<td class="result @scenario.Result"></td>
 								<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
@@ -392,16 +417,19 @@
                 <td class="result" />
                 <td colspan="3" style="padding:0px">
                   <table>
-                  @foreach (var step in scenario.Steps.Where(s => s.ShouldReport)) {
+                  @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                  {
                     string stepClass = string.Empty;
                     string result = step.ReadableMethodName;
                     var rowSpan = 1;
-                    if(step.Exception != null){
+                    if (step.Exception != null)
+                    {
                       stepClass = step.Result + "Exception";
                       rowSpan = 2;
-                                            
-                      if(!string.IsNullOrEmpty(step.Exception.Message)){
-                          result += " [Exception Message: '" + step.Exception.Message + "']";
+
+                      if (!string.IsNullOrEmpty(step.Exception.Message))
+                      {
+                        result += " [Exception Message: '" + step.Exception.Message + "']";
                       }
                     }
                     <tr class="step" onclick="toggle('@step.Id');">
@@ -410,7 +438,8 @@
 										  <td colspan="2" class="@stepClass">@result</td>
                     </tr>
 
-                    if (step.Exception != null) {
+                    if (step.Exception != null)
+                    {
 									  <tr class="step" id="@step.Id">
     									<td></td>
 										  <td colspan="2" class="indentation"></td>
@@ -421,8 +450,9 @@
                   </table>                                    
                 </td>
 		  				</tr>
-                }
-              }
+            }
+          }
+      }
 					</tbody>
 				</table>
 			</div>

@@ -5,7 +5,7 @@ namespace Demos.NUnit.CalculatorStory
 {
 	[RunScenarioWithArgs(1, 2, 3)]
 	[RunScenarioWithArgs(4, 5, 9)]
-    [WithStory(typeof(CalculatorStory))]
+    [WithStory(typeof(CalculatorCanDoFourMainMathFunctions))]
 	public class WhenTwoNumbersAreAdded
 	{
 		private int _expectedResult;

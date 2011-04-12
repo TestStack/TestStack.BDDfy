@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Demos.NUnit.CalculatorStory
 {
-    [WithStory(typeof(CalculatorStory))]
+    [WithStory(typeof(CalculatorCanDoFourMainMathFunctions))]
     public class WhenTwoNumbersAreDevided
     {
         void ThenTheResultIsCorrect()

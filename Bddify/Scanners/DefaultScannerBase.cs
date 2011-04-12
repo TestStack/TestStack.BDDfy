@@ -16,7 +16,11 @@ namespace Bddify.Scanners
 
         public virtual IEnumerable<Scenario> Scan(object testObject)
         {
-            return IsStory(testObject) ? HandleStory(testObject) : HandleScenario(testObject);
+            var storyAttribute = GetStoryAttribute(testObject);
+            if(storyAttribute!=null) 
+                return HandleStory(testObject, storyAttribute);
+            
+            return HandleScenario(testObject);
         }
 
         abstract protected IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject);
@@ -33,7 +37,7 @@ namespace Bddify.Scanners
             return NetToString.FromTypeName(scenarioObject.GetType().Name);
         }
 
-        protected virtual Scenario GetScenario(object scenarioObject, bool instantiateNewObject = false, Type story = null, object[] argsSet = null)
+        protected virtual Scenario GetScenario(object scenarioObject, bool instantiateNewObject = false, Story story = null, object[] argsSet = null)
         {
             var scenarioText = GetScenarioText(scenarioObject);
             if (argsSet != null)
@@ -47,7 +51,7 @@ namespace Bddify.Scanners
             return new Scenario(testObject, ScanForSteps(testObject), scenarioText, story, argsSet);
         }
 
-        private IEnumerable<Scenario> HandleScenario(object scenarioObject, Type story = null)
+        private IEnumerable<Scenario> HandleScenario(object scenarioObject, Story story = null)
         {
             var argsSet = GetArgsSets(scenarioObject);
             if(argsSet.Any())
@@ -56,28 +60,33 @@ namespace Bddify.Scanners
             return new[] { GetScenario(scenarioObject, story: story) };
         }
 
-        private IEnumerable<Scenario> HandleStory(object storyObject)
+        private IEnumerable<Scenario> HandleStory(object storyObject, StoryAttribute storyAttribute)
         {
+            var storyType = storyObject.GetType();
             var scenarioTypesForThisStory = _storyScenarios.Value.Where(t => t
                 .GetCustomAttributes(typeof(WithStoryAttribute), true)
                 .Cast<WithStoryAttribute>()
-                .Any(a => a.StoryType == storyObject.GetType()));
-            var storyType = storyObject.GetType();
+                .Any(a => a.StoryType == storyType));
+
+            if (string.IsNullOrEmpty(storyAttribute.Title))
+                storyAttribute.Title = NetToString.FromTypeName(storyType.Name);
+
+            var story = new Story (storyAttribute, storyType);
 
             foreach (var scenarioType in scenarioTypesForThisStory)
             {
                 // ToDo: I may change this to use IoC
                 var scenarioObject = Activator.CreateInstance(scenarioType);
 
-                foreach (var scenario in HandleScenario(scenarioObject, storyType))
+                foreach (var scenario in HandleScenario(scenarioObject, story))
                     yield return scenario;
             }
             yield break; 
         }
 
-        internal bool IsStory(object testObject)
+        internal StoryAttribute GetStoryAttribute(object testObject)
         {
-            return testObject.GetType().GetCustomAttributes(typeof(StoryAttribute), false).Any();
+            return (StoryAttribute)testObject.GetType().GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
         }
     }
 }

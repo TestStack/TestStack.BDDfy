@@ -38,9 +38,11 @@ namespace Bddify.Tests.ScannerSpecs
         }
 
         [Test]
-        public void ThenStoryTypeShouldBeSetOnScenarios()
+        public void ThenStoryShouldBeSetOnScenarios()
         {
-            Assert.True(_bddifier.Scenarios.All(s => s.Story == typeof(StoryDouble)));
+            Assert.True(_bddifier.Scenarios.All(s => s.Story.StoryType == typeof(StoryDouble)));
+            Assert.True(_bddifier.Scenarios.All(s => s.Story.Narrative != null));
+            Assert.True(_bddifier.Scenarios.All(s => s.Story.Narrative.Title == NetToString.FromTypeName(typeof(StoryDouble).Name)));
         }
     }
 }

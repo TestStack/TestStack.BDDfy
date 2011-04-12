@@ -46,6 +46,7 @@
     <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />
     <Compile Include="Core\RunScenarioWithArgsAttribute.cs" />
+    <Compile Include="Core\Story.cs" />
     <Compile Include="Core\StoryAttribute.cs" />
     <Compile Include="Core\WithStoryAttribute.cs" />
     <Compile Include="Scanners\DefaultMethodNameScanner.cs" />

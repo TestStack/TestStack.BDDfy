@@ -6,7 +6,7 @@ namespace Bddify.Core
 {
     public class Scenario
     {
-        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, Type story = null, object[] argsSet = null)
+        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, Story story = null, object[] argsSet = null)
         {
             Object = testClass;
             _steps = steps.ToList();
@@ -44,6 +44,6 @@ namespace Bddify.Core
             }
         }
 
-        public Type Story { get; private set; }
+        public Story Story { get; private set; }
     }
 }
