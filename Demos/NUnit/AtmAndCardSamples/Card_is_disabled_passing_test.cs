@@ -17,13 +17,13 @@ namespace Demos.NUnit.AtmAndCardSamples
         }
 
         [When]
-        void when_the_account_holder_requests_money()
+        void When_the_account_holder_requests_money()
         {
             _subject.RequestMoney(_card);
         }
 
         [Then]
-        void then_the_Atm_should_retain_the_card()
+        void Then_the_Atm_should_retain_the_card()
         {
             Assert.That(_subject.CardIsRetained, Is.True);
         }

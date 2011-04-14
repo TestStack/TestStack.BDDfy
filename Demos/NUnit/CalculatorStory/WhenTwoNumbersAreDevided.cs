@@ -1,5 +1,5 @@
+using System;
 using Bddify.Core;
-using NUnit.Framework;
 
 namespace Demos.NUnit.CalculatorStory
 {
@@ -8,7 +8,7 @@ namespace Demos.NUnit.CalculatorStory
     {
         void ThenTheResultIsCorrect()
         {
-            Assert.That(4/2, Is.EqualTo(2));
+            throw new NotImplementedException();
         }
     }
 }

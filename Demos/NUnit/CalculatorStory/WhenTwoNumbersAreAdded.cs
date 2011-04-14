@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Demos.NUnit.CalculatorStory
 {
 	[RunScenarioWithArgs(1, 2, 3)]
-	[RunScenarioWithArgs(4, 5, 9)]
+	[RunScenarioWithArgs(4, 5, 8)] // failing scenario
     [WithStory(typeof(CalculatorCanDoFourMainMathFunctions))]
 	public class WhenTwoNumbersAreAdded
 	{
