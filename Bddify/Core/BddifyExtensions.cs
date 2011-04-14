@@ -10,21 +10,21 @@ namespace Bddify.Core
 {
     public static class BddifyExtensions
     {
-        public static void Bddify(this Assembly assmebly, Predicate<Type> shouldBddify)
+        public static void Bddify(this Assembly assmebly, Predicate<Type> shouldBddify, bool htmlReport = true, bool consoleReport = true)
         {
             foreach (var testObjectType in assmebly.GetTypes().Where(t => shouldBddify(t)))
             {
                 var testObject = Activator.CreateInstance(testObjectType);
-                testObject.Bddify();
+                IExceptionHandler handler = null; // I should not throw exceptions because it will stop the assembly runner
+                testObject.Bddify(handler, htmlReport:htmlReport, consoleReport:consoleReport);
             }
 
             HtmlReporter.GenerateHtmlReport();
         }
 
-        public static void Bddify(this object testObject, IExceptionHandler exceptionHandler = null)
+        public static void Bddify(this object testObject, IExceptionHandler exceptionHandler, bool htmlReport = true, bool consoleReport = true)
         {
-            var bddifier = LazyBddify(testObject, exceptionHandler);
-            bddifier.Run();
+            testObject.LazyBddify(exceptionHandler, htmlReport, consoleReport).Run();
         }
 
         public static Bddifier LazyBddify(this object testObject, IExceptionHandler exceptionHandler = null, bool htmlReport = true, bool consoleReport = true)

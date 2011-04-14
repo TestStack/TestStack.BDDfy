@@ -12,7 +12,7 @@ namespace Demos.NUnit.CalculatorStory
         [Test]
         public void Execute()
         {
-            BddifyExtensions.Bddify(this);
+            this.Bddify();
         }
     }
 }
