@@ -234,21 +234,29 @@
 			
 			tr.namespace
 			{
-			    background: #f0f0f0;
+			  background: #f0f0f0;
 			}
 			
-			td.story
+			tr.story
 			{
-        font-weight:bold;
+			  background: #f0f0f0;
+			  margin-bottom:0px;
       }
       
       ul.storyNarrative
       {
           font-weight:normal;
           font-style:italic;
+          margin:0px 0px 0px 20px;
+          padding-top:0px;
       }
 			
 			table.namespace
+			{
+			    font-weight: bold;
+			}
+			
+			table.story
 			{
 			    font-weight: bold;
 			}
@@ -377,23 +385,16 @@
 
             foreach (var group in groupedScenarios) {
               var story = group.First().Story;
-			
-          		<tr class="namespace">
+              var groupClass = story == null ? "namespace" : "story";
+          		<tr class="@groupClass">
 								<td colspan="5">
-                  <table class="namespace">
+                  <table class="@groupClass">
                     <tr>
                     @if(story == null){
                       <td>Namespace: @group.Key</td>
                       }
                       else {
-                      <td class="story" colspan="5">
-                        Story: @story.Narrative.Title
-                        <ul class="storyNarrative">
-                          <li>@story.Narrative.AsA </li>
-                          <li>@story.Narrative.IWant </li>
-                          <li>@story.Narrative.SoThat</li>
-                         </ul>
-                      </td>
+                      <td>Story: @story.Narrative.Title</td>
                     }
                       <td class="namespaceResultSummary">
                       @{
@@ -429,8 +430,20 @@
                   </table>
                 </td>
 							</tr>
-
-            foreach (var scenario in group) { 
+            
+            if (story != null) { 
+            <tr class="story">
+              <td colspan="5">
+                <ul class="storyNarrative">
+                  <li>@story.Narrative.AsA </li>
+                  <li>@story.Narrative.IWant </li>
+                  <li>@story.Narrative.SoThat</li>
+                </ul>
+              </td>                                    
+            </tr>
+              }
+              foreach (var scenario in group)
+              { 
               <tr class="scenario" onclick="toggle('@scenario.Id');">
 								<td class="result @scenario.Result"></td>
 								<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
@@ -460,20 +473,20 @@
 										  <td colspan="2" class="@stepClass">@result</td>
                     </tr>
 
-                    if (step.Exception != null)
-                    {
+                                          if (step.Exception != null)
+                                          {
 									  <tr class="step" id="@step.Id">
     									<td></td>
 										  <td colspan="2" class="indentation"></td>
 										  <td class="@stepClass"><code>@step.Exception.StackTrace</code></td>
 									  </tr>
-                    }
+                                          }
                   }
                   </table>                                    
                 </td>
 		  				</tr>
+                         }
             }
-          }
       }
 					</tbody>
 				</table>
