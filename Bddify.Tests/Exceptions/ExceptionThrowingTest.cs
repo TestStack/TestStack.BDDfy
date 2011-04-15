@@ -4,18 +4,16 @@ using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
-using NSubstitute;
 using NUnit.Framework;
 using System.Linq;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions
+namespace Bddify.Tests.Exceptions
 {
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
         private bool _givenShouldThrow;
         private bool _whenShouldThrow;
         private bool _thenShouldThrow;
-        private Bddifier _bddify;
         Scenario _scenario;
 
         [Given]
@@ -45,22 +43,23 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _whenShouldThrow = whenShouldThrow;
             _thenShouldThrow = thenShouldThrow;
 
-            _bddify = new Bddifier(
+            var bddify = new Bddifier(
                 this,
                 new DefaultMethodNameScanner(),
-                new ExceptionProcessor(Assert.Inconclusive),
                 new IProcessor[]
                     {
                         new TestRunner(), 
-                        new ConsoleReporter()
+                        new ConsoleReporter(),
+                        new ExceptionProcessor(Assert.Inconclusive),
                     });
             try
             {
-                _bddify.Run();
+                bddify.Run();
             }
             finally 
             {
-                _scenario = _bddify.Scenarios.First();
+                Story = bddify.Story;
+                _scenario = bddify.Story.Scenarios.First();
             }
         }
 
@@ -87,5 +86,15 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
                 return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
             }
         }
+
+        public Scenario Scenario
+        {
+            get
+            {
+                return _scenario;
+            }
+        }
+
+        public Core.Story Story { get; private set; }
     }
 }

@@ -33,9 +33,10 @@ namespace Bddify.Reporters
             File.WriteAllText(FileName, report);
         }
 
-        public void Process(Scenario scenario)
+        public void Process(Story story)
         {
-            Scenarios.Add(scenario);
+            //ToDo: this should change to understand stories and not scenarios
+            Scenarios.AddRange(story.Scenarios);
         }
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);

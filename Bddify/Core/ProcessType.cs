@@ -6,6 +6,7 @@
         Execute = 2,
         BeforeReport = 3,
         Report = 4,
-        Finally = 5,
+        AfterReport = 5,
+        ProcessExceptions = 6,
     }
 }

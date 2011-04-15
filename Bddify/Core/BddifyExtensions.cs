@@ -37,7 +37,10 @@ namespace Bddify.Core
             if(htmlReport)
                 processors.Add(new HtmlReporter());
 
-            return new Bddifier(testObject, new DefaultMethodNameScanner(), exceptionProcessor, processors);
+            if(exceptionProcessor != null)
+                processors.Add(exceptionProcessor);
+
+            return new Bddifier(testObject, new DefaultMethodNameScanner(), processors);
         }
     }
 }

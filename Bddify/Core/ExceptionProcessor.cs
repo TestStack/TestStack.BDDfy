@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Bddify.Core
@@ -13,11 +12,16 @@ namespace Bddify.Core
             _assertInconclusive = assertInconclusive;
         }
 
-        public void ProcessExceptions(IEnumerable<Scenario> scenarios)
+        public ProcessType ProcessType
         {
-            var worseResult = (StepExecutionResult)scenarios.Max(s => (int)s.Result);
+            get { return ProcessType.ProcessExceptions; }
+        }
+
+        public void Process(Story story)
+        {
+            var worseResult = story.Result;
             
-            var stepWithWorseResult = scenarios.SelectMany(s => s.Steps).First(s => s.Result == worseResult);
+            var stepWithWorseResult = story.Scenarios.SelectMany(s => s.Steps).First(s => s.Result == worseResult);
             if (worseResult == StepExecutionResult.Failed)
                 throw stepWithWorseResult.Exception;
 

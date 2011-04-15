@@ -1,10 +1,9 @@
 using Bddify.Core;
-using Bddify.Scanners;
 using NUnit.Framework;
 
-namespace Bddify.Tests.BddifySpecs.Arguments
+namespace Bddify.Tests.Arguments
 {
-    public class WhenArgumentsAreProvidedForThen
+    public class ArgumentsProvidedForThen
     {
         void GivenArgumentsAreProvidedForThenPart()
         {

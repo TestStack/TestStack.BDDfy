@@ -1,7 +1,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedException
+namespace Bddify.Tests.Exceptions.NotImplementedException
 {
     public class WhenThenThrowsNotImplementedException : NotImplementedExceptionBase
     {
@@ -27,6 +27,18 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedException
         public void ThenIsReportedAsNotImplemeneted()
         {
             Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+        }
+
+        [Test]
+        public void ThenScenarioResultReturnsNoImplemented()
+        {
+            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+        }
+
+        [Test]
+        public void ThenStoryResultReturnsNoImplemented()
+        {
+            Assert.That(Sut.Story.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
         }
     }
 }

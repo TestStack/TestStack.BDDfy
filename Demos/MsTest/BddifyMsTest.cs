@@ -14,12 +14,12 @@ namespace Demos.MsTest
             var bddifier = new Bddifier(
                 testObject,
                 new T(),
-                new ExceptionProcessor(Assert.Inconclusive),
                 new IProcessor[]
                 { 
                     new TestRunner(), 
                     new ConsoleReporter(),
                     new HtmlReporter(),
+                    new ExceptionProcessor(Assert.Inconclusive),
                 });
 
             bddifier.Run();

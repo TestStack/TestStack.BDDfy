@@ -6,12 +6,11 @@ namespace Bddify.Core
 {
     public class Scenario
     {
-        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, Story story = null, object[] argsSet = null)
+        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet = null)
         {
             Object = testClass;
             _steps = steps.ToList();
             Id = Guid.NewGuid();
-            Story = story;
 
             ScenarioText = scenarioText;
             _argsSet = argsSet;
@@ -43,7 +42,5 @@ namespace Bddify.Core
                 return (StepExecutionResult)Steps.Max(s => (int)s.Result);
             }
         }
-
-        public Story Story { get; private set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Bddify.Tests.ScannerSpecs
         public void Setup()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
-            _steps = new DefaultMethodNameScanner().Scan(_typeWithoutAttribute).First().Steps.ToList();
+            _steps = new DefaultMethodNameScanner().Scan(_typeWithoutAttribute).Scenarios.First().Steps.ToList();
         }
             
         [Test]

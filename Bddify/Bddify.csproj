@@ -49,6 +49,7 @@
     <Compile Include="Core\RunScenarioWithArgsAttribute.cs" />
     <Compile Include="Core\Story.cs" />
     <Compile Include="Core\StoryAttribute.cs" />
+    <Compile Include="Core\StoryNarrative.cs" />
     <Compile Include="Core\WithStoryAttribute.cs" />
     <Compile Include="Scanners\DefaultMethodNameScanner.cs" />
     <Compile Include="Scanners\GwtAttributes\AndGivenAttribute.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Scanners\GwtAttributes\GwtExectuableAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\ThenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\WhenAttribute.cs" />
-    <Compile Include="Scanners\HelperExtensions.cs" />
     <Compile Include="Scanners\MethodNameMatcher.cs" />
     <Compile Include="Scanners\MethodNameScanner.cs" />
     <Compile Include="Processors\TestRunner.cs" />

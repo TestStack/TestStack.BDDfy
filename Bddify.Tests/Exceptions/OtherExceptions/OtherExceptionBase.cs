@@ -1,6 +1,8 @@
 using System;
+using Bddify.Core;
+using NUnit.Framework;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
+namespace Bddify.Tests.Exceptions.OtherExceptions
 {
     public class OtherExceptionBase
     {

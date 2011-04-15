@@ -25,45 +25,48 @@ namespace Bddify.Processors
             get { return ProcessType.Execute; }
         }
 
-        public void Process(Scenario scenario)
+        public void Process(Story story)
         {
-            if (scenario.ArgsSet != null)
+            foreach (var scenario in story.Scenarios)
             {
-                var argSetterMethod = scenario.Object.GetType().GetMethod(_runScenarioWithArgsMethodName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                argSetterMethod.Invoke(scenario.Object, scenario.ArgsSet);
-            }
-
-            foreach (var executionStep in scenario.Steps)
-            {
-                try
+                if (scenario.ArgsSet != null)
                 {
-                    executionStep.Method.Invoke(scenario.Object, executionStep.InputArguments);
-                    executionStep.Result = StepExecutionResult.Passed;
+                    var argSetterMethod = scenario.Object.GetType().GetMethod(_runScenarioWithArgsMethodName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                    argSetterMethod.Invoke(scenario.Object, scenario.ArgsSet);
                 }
-                catch (Exception ex)
+
+                foreach (var executionStep in scenario.Steps)
                 {
-                    if (ex.InnerException == null)
-                        throw;
+                    try
+                    {
+                        executionStep.Method.Invoke(scenario.Object, executionStep.InputArguments);
+                        executionStep.Result = StepExecutionResult.Passed;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.InnerException == null)
+                            throw;
 
-                    if (ex.InnerException is NotImplementedException)
-                    {
-                        executionStep.Result = StepExecutionResult.NotImplemented;
-                        executionStep.Exception = ex.InnerException;
-                    }
-                    else if (_isInconclusive(ex.InnerException))
-                    {
-                        executionStep.Result = StepExecutionResult.Inconclusive;
-                        executionStep.Exception = ex.InnerException;
-                    }
-                    else
-                    {
-                        executionStep.Exception = ex.InnerException;
-                        executionStep.Result = StepExecutionResult.Failed;
-                    }
+                        if (ex.InnerException is NotImplementedException)
+                        {
+                            executionStep.Result = StepExecutionResult.NotImplemented;
+                            executionStep.Exception = ex.InnerException;
+                        }
+                        else if (_isInconclusive(ex.InnerException))
+                        {
+                            executionStep.Result = StepExecutionResult.Inconclusive;
+                            executionStep.Exception = ex.InnerException;
+                        }
+                        else
+                        {
+                            executionStep.Exception = ex.InnerException;
+                            executionStep.Result = StepExecutionResult.Failed;
+                        }
 
-                    // exceptions are only tolerated on asserting methods
-                    if(!executionStep.Asserts)
-                        break;
+                        // exceptions are only tolerated on asserting methods
+                        if (!executionStep.Asserts)
+                            break;
+                    }
                 }
             }
         }

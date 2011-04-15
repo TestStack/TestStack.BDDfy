@@ -2,7 +2,7 @@ using System;
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
+namespace Bddify.Tests.Exceptions.OtherExceptions
 {
     public class WhenThenThrowsException : OtherExceptionBase
     {
@@ -28,6 +28,18 @@ namespace Bddify.Tests.BddifySpecs.Exceptions.OtherExceptions
         public void ThenIsReportedAsFailed()
         {
             Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.Failed));
+        }
+
+        [Test]
+        public void ThenScenarioResultReturnsFailed()
+        {
+            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
+        }
+
+        [Test]
+        public void ThenStoryResultReturnsFailed()
+        {
+            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
         }
     }
 }

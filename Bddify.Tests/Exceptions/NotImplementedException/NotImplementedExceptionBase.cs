@@ -1,4 +1,4 @@
-namespace Bddify.Tests.BddifySpecs.Exceptions.NotImplementedException
+namespace Bddify.Tests.Exceptions.NotImplementedException
 {
     public class NotImplementedExceptionBase
     {

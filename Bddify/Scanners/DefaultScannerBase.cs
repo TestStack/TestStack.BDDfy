@@ -14,13 +14,13 @@ namespace Bddify.Scanners
             select type;
         private readonly Lazy<IEnumerable<Type>> _storyScenarios = new Lazy<IEnumerable<Type>>(StoryScenariosQuery);
 
-        public virtual IEnumerable<Scenario> Scan(object testObject)
+        public virtual Story Scan(object testObject)
         {
             var storyAttribute = GetStoryAttribute(testObject);
             if(storyAttribute!=null) 
                 return HandleStory(testObject, storyAttribute);
             
-            return HandleScenario(testObject);
+            return new Story(null, null, HandleScenario(testObject).ToList());
         }
 
         abstract protected IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject);
@@ -37,7 +37,7 @@ namespace Bddify.Scanners
             return NetToString.FromTypeName(scenarioObject.GetType().Name);
         }
 
-        protected virtual Scenario GetScenario(object scenarioObject, bool instantiateNewObject = false, Story story = null, object[] argsSet = null)
+        protected virtual Scenario GetScenario(object scenarioObject, bool instantiateNewObject = false, object[] argsSet = null)
         {
             var scenarioText = GetScenarioText(scenarioObject);
             if (argsSet != null)
@@ -48,40 +48,41 @@ namespace Bddify.Scanners
             if (instantiateNewObject)
                 testObject = Activator.CreateInstance(testObject.GetType());
 
-            return new Scenario(testObject, ScanForSteps(testObject), scenarioText, story, argsSet);
+            return new Scenario(testObject, ScanForSteps(testObject), scenarioText, argsSet);
         }
 
-        private IEnumerable<Scenario> HandleScenario(object scenarioObject, Story story = null)
+        private IEnumerable<Scenario> HandleScenario(object scenarioObject)
         {
             var argsSet = GetArgsSets(scenarioObject);
             if(argsSet.Any())
-                return argsSet.Select(a => GetScenario(scenarioObject, instantiateNewObject:true, story:story, argsSet:a));
+                return argsSet.Select(a => GetScenario(scenarioObject, instantiateNewObject:true, argsSet:a));
 
-            return new[] { GetScenario(scenarioObject, story: story) };
+            return new[] { GetScenario(scenarioObject) };
         }
 
-        private IEnumerable<Scenario> HandleStory(object storyObject, StoryAttribute storyAttribute)
+        private Story HandleStory(object storyObject, StoryAttribute storyAttribute)
         {
             var storyType = storyObject.GetType();
-            var scenarioTypesForThisStory = _storyScenarios.Value.Where(t => t
-                .GetCustomAttributes(typeof(WithStoryAttribute), true)
+            var scenarioTypesForThisStory = 
+                _storyScenarios.Value
+                .Where(t => t.GetCustomAttributes(typeof(WithStoryAttribute), true)
                 .Cast<WithStoryAttribute>()
                 .Any(a => a.StoryType == storyType));
 
             if (string.IsNullOrEmpty(storyAttribute.Title))
                 storyAttribute.Title = NetToString.FromTypeName(storyType.Name);
 
-            var story = new Story (storyAttribute, storyType);
+            var scenarios = new List<Scenario>();
 
             foreach (var scenarioType in scenarioTypesForThisStory)
             {
                 // ToDo: I may change this to use IoC
                 var scenarioObject = Activator.CreateInstance(scenarioType);
-
-                foreach (var scenario in HandleScenario(scenarioObject, story))
-                    yield return scenario;
+                scenarios.AddRange(HandleScenario(scenarioObject));
             }
-            yield break; 
+
+            var narrative = new StoryNarrative(storyAttribute.Title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
+            return new Story(narrative, storyType, scenarios);
         }
 
         internal StoryAttribute GetStoryAttribute(object testObject)

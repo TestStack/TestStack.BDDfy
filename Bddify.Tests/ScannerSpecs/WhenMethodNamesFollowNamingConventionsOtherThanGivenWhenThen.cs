@@ -20,7 +20,7 @@ namespace Bddify.Tests.ScannerSpecs
             var setupMethod = new MethodNameMatcher(s => s.Equals(SetupMethodName, StringComparison.OrdinalIgnoreCase), false, false);
             var methodNameMatchers = new[] { specEndMatcher, specStartMatcher, setupMethod };
             var scanner = new MethodNameScanner(methodNameMatchers);
-            _scenario = scanner.Scan(this);
+            _scenario = scanner.Scan(this).Scenarios;
         }
 
         public void ThisMethodSpecificationShouldNotBeIncluded()

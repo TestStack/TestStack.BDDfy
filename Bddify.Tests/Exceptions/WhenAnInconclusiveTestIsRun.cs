@@ -2,7 +2,7 @@ using System.Linq;
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace Bddify.Tests.BddifySpecs.Exceptions
+namespace Bddify.Tests.Exceptions
 {
     public class WhenAnInconclusiveTestIsRun
     {
@@ -64,7 +64,7 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             var testClass = new InconclusiveTestClass();
             _bddifier = testClass.LazyBddify();
             Assert.Throws<InconclusiveException>(() => _bddifier.Run());
-            _scenario = _bddifier.Scenarios.First();
+            _scenario = _bddifier.Story.Scenarios.First();
         }
 
         [Test]
@@ -95,6 +95,18 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
         public void WhenIsFlaggedAsSuccessful()
         {
             Assert.That(WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+        }
+
+        [Test]
+        public void ThenScenarioResultReturnsInconclusive()
+        {
+            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+        }
+
+        [Test]
+        public void ThenStoryResultReturnsInconclusive()
+        {
+            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
         }
     }
 }

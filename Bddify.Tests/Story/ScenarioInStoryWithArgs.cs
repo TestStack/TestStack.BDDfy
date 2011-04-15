@@ -1,6 +1,6 @@
 using Bddify.Core;
 
-namespace Bddify.Tests.ScannerSpecs.Story
+namespace Bddify.Tests.Story
 {
     [WithStory(typeof(StoryDouble))]
     [RunScenarioWithArgs(1, 2)]

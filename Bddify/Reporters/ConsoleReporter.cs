@@ -16,7 +16,7 @@ namespace Bddify.Reporters
             get { return ProcessType.Report; }
         }
 
-        public void Process(Scenario scenario)
+        public void Process(Story story)
         {
             var reporterRegistry
                 = new Dictionary<StepExecutionResult, Action<ExecutionStep>>
@@ -28,36 +28,39 @@ namespace Bddify.Reporters
                               {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
-            _exceptions.Clear();
+            ReportOnStory(story);
 
-            ReportOnStory(scenario);
-
-            Report(scenario);
-
-            if (scenario.Steps.Any())
+            foreach (var scenario in story.Scenarios)
             {
-                _longestStepSentence = scenario.Steps.Max(s => s.ReadableMethodName.Length);
-                foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                    reporterRegistry[step.Result](step);
+                Report(scenario);
+
+                if (scenario.Steps.Any())
+                {
+                    _longestStepSentence = scenario.Steps.Max(s => s.ReadableMethodName.Length);
+                    foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                        reporterRegistry[step.Result](step);
+                }
+
+                Console.WriteLine();
             }
 
             ReportExceptions();
             Console.WriteLine();
         }
 
-        private static void ReportOnStory(Scenario scenario)
+        private static void ReportOnStory(Story story)
         {
-            if(scenario.Story == null)
+            if(story.Type == null)
                 return;
 
-            if(scenario.Story.StoryType == _lastStoryType)
+            if(story.Type == _lastStoryType)
                 return; // we have already reported on this story
 
-            _lastStoryType = scenario.Story.StoryType;
-            Console.WriteLine("Story: " + scenario.Story.Narrative.Title);
-            Console.WriteLine("\t" + scenario.Story.Narrative.AsA);
-            Console.WriteLine("\t" + scenario.Story.Narrative.IWant);
-            Console.WriteLine("\t" + scenario.Story.Narrative.SoThat);
+            _lastStoryType = story.Type;
+            Console.WriteLine("Story: " + story.Narrative.Title);
+            Console.WriteLine("\t" + story.Narrative.AsA);
+            Console.WriteLine("\t" + story.Narrative.IWant);
+            Console.WriteLine("\t" + story.Narrative.SoThat);
             Console.WriteLine();
         }
 
@@ -91,17 +94,19 @@ namespace Bddify.Reporters
             if (_exceptions.Count == 0)
                 return;
 
-            Console.WriteLine(string.Empty);
-            Console.WriteLine("\tExceptions' Details: ");
-            Console.WriteLine(string.Empty);
+            Console.WriteLine("====================");
+            Console.WriteLine("Exceptions' Details: ");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                Console.WriteLine(string.Format("\t[{0}]:", index + 1));
+                Console.WriteLine();
+                Console.Write(string.Format("[{0}]: ", index + 1));
                 
-                if (string.IsNullOrEmpty(exception.Message))
-                    Console.WriteLine("\t" + exception.Message);
+                if (!string.IsNullOrEmpty(exception.Message))
+                    Console.WriteLine(exception.Message);
+                else
+                    Console.WriteLine();
          
                 Console.WriteLine(exception.StackTrace);
             }

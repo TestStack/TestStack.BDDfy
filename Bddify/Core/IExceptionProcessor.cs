@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-
 namespace Bddify.Core
 {
-    public interface IExceptionProcessor
+    public interface IExceptionProcessor : IProcessor
     {
-        void ProcessExceptions(IEnumerable<Scenario> scenarios);
     }
 }

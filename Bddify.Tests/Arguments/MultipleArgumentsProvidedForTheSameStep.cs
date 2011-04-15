@@ -1,11 +1,10 @@
 using Bddify.Core;
-using Bddify.Scanners;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace Bddify.Tests.BddifySpecs.Arguments
+namespace Bddify.Tests.Arguments
 {
-    public class WhenMultipleArgumentsAreProvidedForTheSameStep
+    public class MultipleArgumentsProvidedForTheSameStep
     {
         private readonly List<int> _inputs = new List<int>();
 

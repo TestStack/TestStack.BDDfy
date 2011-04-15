@@ -3,7 +3,7 @@ using Bddify.Core;
 using NUnit.Framework;
 using System.Linq;
 
-namespace Bddify.Tests.BddifySpecs.RunScenarioWithArgs
+namespace Bddify.Tests.RunScenarioWithArgs
 {
     // This is to test that in RunScenarioWithArgs scenarios, one object per scenario is created so that changed object state
     // in one scenario does not cause another scenario to fail
@@ -75,7 +75,7 @@ namespace Bddify.Tests.BddifySpecs.RunScenarioWithArgs
             var bddifier = testObject.LazyBddify();
 
             Assert.Throws<AssertionException>(bddifier.Run);
-            _scenarios = bddifier.Scenarios.ToList();
+            _scenarios = bddifier.Story.Scenarios.ToList();
         }
 
         [Test]
