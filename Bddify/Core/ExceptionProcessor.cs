@@ -1,31 +1,23 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Bddify.Core;
 
-namespace Bddify.Processors
+namespace Bddify.Core
 {
-    public class ExceptionHandler : IExceptionHandler
+    public class ExceptionProcessor : IExceptionProcessor
     {
         private readonly Action _assertInconclusive;
 
-        public ExceptionHandler(Action assertInconclusive)
+        public ExceptionProcessor(Action assertInconclusive)
         {
             _assertInconclusive = assertInconclusive;
         }
 
-        public ProcessType ProcessType
+        public void ProcessExceptions(IEnumerable<Scenario> scenarios)
         {
-            get { return ProcessType.HandleExceptions; }
-        }
-
-        public void Process(Scenario scenario)
-        {
-            var worseResult = scenario.Result;
+            var worseResult = (StepExecutionResult)scenarios.Max(s => (int)s.Result);
             
-            if(!scenario.Steps.Any())
-                return;
-
-            var stepWithWorseResult = scenario.Steps.First(s => s.Result == worseResult);
+            var stepWithWorseResult = scenarios.SelectMany(s => s.Steps).First(s => s.Result == worseResult);
             if (worseResult == StepExecutionResult.Failed)
                 throw stepWithWorseResult.Exception;
 

@@ -28,6 +28,8 @@ namespace Bddify.Reporters
                               {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
+            _exceptions.Clear();
+
             ReportOnStory(scenario);
 
             Report(scenario);

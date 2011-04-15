@@ -19,6 +19,7 @@ namespace Bddify.Tests.BddifySpecs.RunScenarioWithArgs
         }
 
         [RunScenarioWithArgs(ArgsNumber.ArgSet1, 1, 2, 3)]
+        [RunScenarioWithArgs(ArgsNumber.ArgSet1, 4, 6, 9)] // failing scenario to make sure all scenarios are run regardless of their result
         [RunScenarioWithArgs(ArgsNumber.ArgSet2, 4, 5, 9)]
         private class ScenarioWithArgs
         {
@@ -71,21 +72,23 @@ namespace Bddify.Tests.BddifySpecs.RunScenarioWithArgs
         public void Setup()
         {
             var testObject = new ScenarioWithArgs();
-            var bddify = testObject.LazyBddify();
-            bddify.Run();
-            _scenarios = bddify.Scenarios.ToList();
+            var bddifier = testObject.LazyBddify();
+
+            Assert.Throws<AssertionException>(bddifier.Run);
+            _scenarios = bddifier.Scenarios.ToList();
         }
 
         [Test]
         public void ThenOneScenarioIsRunPerAttribute()
         {
-            Assert.That(_scenarios.Count, Is.EqualTo(2));
+            Assert.That(_scenarios.Count, Is.EqualTo(3));
         }
 
         [Test]
         public void ThenEachScenarioTakesAUniqueTestObjectInstance()
         {
-            Assert.IsFalse(object.ReferenceEquals(_scenarios[0].Object, _scenarios[1].Object));
+            Assert.IsFalse(ReferenceEquals(_scenarios[0].Object, _scenarios[1].Object));
+            Assert.IsFalse(ReferenceEquals(_scenarios[1].Object, _scenarios[2].Object));
         }
     }
 }

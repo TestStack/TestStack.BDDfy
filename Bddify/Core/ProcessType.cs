@@ -6,7 +6,6 @@
         Execute = 2,
         BeforeReport = 3,
         Report = 4,
-        BeforeHandleException = 5,
-        HandleExceptions = 6
+        Finally = 5,
     }
 }

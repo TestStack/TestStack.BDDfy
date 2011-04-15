@@ -16,9 +16,7 @@ namespace Bddify.Tests.BddifySpecs
         public void Setup()
         {
             _list = new List<ProcessType>();
-            var exceptionHandler = Substitute.For<IProcessor>();
-            exceptionHandler.ProcessType.Returns(ProcessType.HandleExceptions);
-            exceptionHandler.When(p => p.Process(Arg.Any<Scenario>())).Do(i => _list.Add(ProcessType.HandleExceptions));
+            var exceptionProcessor = Substitute.For<IExceptionProcessor>();
 
             var reporter = Substitute.For<IProcessor>();
             reporter.ProcessType.Returns(ProcessType.Report);
@@ -28,14 +26,14 @@ namespace Bddify.Tests.BddifySpecs
             runner.ProcessType.Returns(ProcessType.Execute);
             runner.When(p => p.Process(Arg.Any<Scenario>())).Do(i => _list.Add(ProcessType.Execute));
 
-            var bddify = new Bddifier(new ExceptionThrowingTest<Exception>(), new DefaultMethodNameScanner(), new IProcessor[] { reporter, exceptionHandler, runner });
+            var bddify = new Bddifier(new ExceptionThrowingTest<Exception>(), new DefaultMethodNameScanner(), exceptionProcessor, new IProcessor[] { reporter, runner });
             bddify.Run();
         }
 
         [Test]
         public void ProcessorsAreAllCalled()
         {
-            Assert.That(_list.Count, Is.EqualTo(3));
+            Assert.That(_list.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -48,12 +46,6 @@ namespace Bddify.Tests.BddifySpecs
         public void ReporterIsCalledSecond()
         {
             Assert.That(_list[1], Is.EqualTo(ProcessType.Report));
-        }
-
-        [Test]
-        public void ExceptionHandlerIsCalledLast()
-        {
-            Assert.That(_list[2], Is.EqualTo(ProcessType.HandleExceptions));
         }
     }
 }

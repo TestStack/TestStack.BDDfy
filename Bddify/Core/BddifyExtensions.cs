@@ -15,19 +15,19 @@ namespace Bddify.Core
             foreach (var testObjectType in assmebly.GetTypes().Where(t => shouldBddify(t)))
             {
                 var testObject = Activator.CreateInstance(testObjectType);
-                IExceptionHandler handler = null; // I should not throw exceptions because it will stop the assembly runner
-                testObject.Bddify(handler, htmlReport:htmlReport, consoleReport:consoleReport);
+                IExceptionProcessor processor = null; // I should not throw exceptions because it will stop the assembly runner
+                testObject.Bddify(processor, htmlReport:htmlReport, consoleReport:consoleReport);
             }
 
             HtmlReporter.GenerateHtmlReport();
         }
 
-        public static void Bddify(this object testObject, IExceptionHandler exceptionHandler, bool htmlReport = true, bool consoleReport = true)
+        public static void Bddify(this object testObject, IExceptionProcessor exceptionProcessor, bool htmlReport = true, bool consoleReport = true)
         {
-            testObject.LazyBddify(exceptionHandler, htmlReport, consoleReport).Run();
+            testObject.LazyBddify(exceptionProcessor, htmlReport, consoleReport).Run();
         }
 
-        public static Bddifier LazyBddify(this object testObject, IExceptionHandler exceptionHandler = null, bool htmlReport = true, bool consoleReport = true)
+        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool htmlReport = true, bool consoleReport = true)
         {
             var processors = new List<IProcessor> {new TestRunner()};
 
@@ -37,10 +37,7 @@ namespace Bddify.Core
             if(htmlReport)
                 processors.Add(new HtmlReporter());
 
-            if (exceptionHandler != null)
-                processors.Add(exceptionHandler);
-
-            return new Bddifier(testObject, new DefaultMethodNameScanner(), processors);
+            return new Bddifier(testObject, new DefaultMethodNameScanner(), exceptionProcessor, processors);
         }
     }
 }

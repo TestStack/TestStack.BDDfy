@@ -46,13 +46,13 @@ namespace Bddify.Tests.BddifySpecs.Exceptions
             _thenShouldThrow = thenShouldThrow;
 
             _bddify = new Bddifier(
-                this, 
-                new DefaultMethodNameScanner(), 
+                this,
+                new DefaultMethodNameScanner(),
+                new ExceptionProcessor(Assert.Inconclusive),
                 new IProcessor[]
                     {
                         new TestRunner(), 
-                        new ConsoleReporter(),
-                        new ExceptionHandler(Assert.Inconclusive)
+                        new ConsoleReporter()
                     });
             try
             {

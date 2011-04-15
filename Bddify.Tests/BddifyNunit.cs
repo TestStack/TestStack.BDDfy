@@ -15,7 +15,7 @@ namespace Bddify.Tests
 
         public static Bddifier LazyBddify(this object testObject)
         {
-            return testObject.LazyBddify(new ExceptionHandler(Assert.Inconclusive));
+            return testObject.LazyBddify(new ExceptionProcessor(Assert.Inconclusive));
         }
     }
 }
