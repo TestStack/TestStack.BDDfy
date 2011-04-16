@@ -94,8 +94,8 @@ namespace Bddify.Reporters
             if (_exceptions.Count == 0)
                 return;
 
-            Console.WriteLine("====================");
-            Console.WriteLine("Exceptions' Details: ");
+            Console.WriteLine("=========================");
+            Console.WriteLine(" [ Exceptions' Details ]");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
@@ -104,12 +104,27 @@ namespace Bddify.Reporters
                 Console.Write(string.Format("[{0}]: ", index + 1));
                 
                 if (!string.IsNullOrEmpty(exception.Message))
-                    Console.WriteLine(exception.Message);
+                    Console.WriteLine(FlattenExceptionMessage(exception.Message));
                 else
                     Console.WriteLine();
-         
+                    
                 Console.WriteLine(exception.StackTrace);
             }
+
+            Console.WriteLine();
+            Console.WriteLine(" [End of excetion details]");
+            Console.WriteLine("===========================");
+        }
+
+        static string FlattenExceptionMessage(string message)
+        {
+            // ToDo: if gets complex will change it with a regex
+            return message
+                .Replace("\t", " ") // replace tab with one space
+                .Replace(Environment.NewLine, ", ") // replace new line with one space
+                .Trim() // trim starting and trailing spaces
+                .Replace("  ", " ")
+                .TrimEnd(','); // chop any , from the end
         }
 
         static void Report(Scenario scenario)

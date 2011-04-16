@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
+using Bddify.Core;
 
-namespace Bddify.Core
+namespace Bddify.Processors
 {
     public class ExceptionProcessor : IExceptionProcessor
     {

@@ -57,7 +57,7 @@
     <Compile Include="Scanners\GwtAttributes\GivenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\AndThenAttribute.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
-    <Compile Include="Core\ExceptionProcessor.cs" />
+    <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Scanners\DefaultScannerBase.cs" />
     <Compile Include="Scanners\ExecutableAttribute.cs" />
     <Compile Include="Scanners\ExecutableAttributeScanner.cs" />
