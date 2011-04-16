@@ -29,8 +29,8 @@ namespace Bddify.Reporters
 
         internal static void GenerateHtmlReport()
         {
-            var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
-            File.WriteAllText(FileName, report);
+            //var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
+            //File.WriteAllText(FileName, report);
         }
 
         public void Process(Story story)
