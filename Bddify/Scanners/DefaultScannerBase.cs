@@ -7,12 +7,7 @@ namespace Bddify.Scanners
 {
     public abstract class DefaultScannerBase : IScanner
     {
-        private static readonly Func<IEnumerable<Type>> StoryScenariosQuery = () =>
-            from assembly in AppDomain.CurrentDomain.GetAssemblies()
-            from type in assembly.GetTypes()
-            where Attribute.IsDefined(type, typeof(WithStoryAttribute), true)
-            select type;
-        private readonly Lazy<IEnumerable<Type>> _storyScenarios = new Lazy<IEnumerable<Type>>(StoryScenariosQuery);
+        static IEnumerable<Type> _allScenarios;
 
         public virtual Story Scan(object testObject)
         {
@@ -63,11 +58,7 @@ namespace Bddify.Scanners
         private Story HandleStory(object storyObject, StoryAttribute storyAttribute)
         {
             var storyType = storyObject.GetType();
-            var scenarioTypesForThisStory = 
-                _storyScenarios.Value
-                .Where(t => t.GetCustomAttributes(typeof(WithStoryAttribute), true)
-                .Cast<WithStoryAttribute>()
-                .Any(a => a.StoryType == storyType));
+            var scenarioTypesForThisStory = GetStoryScenarios(storyType);
 
             if (string.IsNullOrEmpty(storyAttribute.Title))
                 storyAttribute.Title = NetToString.FromTypeName(storyType.Name);
@@ -83,6 +74,20 @@ namespace Bddify.Scanners
 
             var narrative = new StoryNarrative(storyAttribute.Title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
             return new Story(narrative, storyType, scenarios);
+        }
+
+        private static IEnumerable<Type> GetStoryScenarios(Type storyType)
+        {
+            // ToDo: this is not thread-safe
+            if (_allScenarios == null)
+                _allScenarios = (from type in storyType.Assembly.GetTypes()
+                                 where Attribute.IsDefined(type, typeof(WithStoryAttribute), true)
+                                 select type).ToList();
+
+            return _allScenarios
+                .Where(t => t.GetCustomAttributes(typeof(WithStoryAttribute), true)
+                .Cast<WithStoryAttribute>()
+                .Any(a => a.StoryType == storyType));
         }
 
         internal StoryAttribute GetStoryAttribute(object testObject)
