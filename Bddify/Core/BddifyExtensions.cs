@@ -27,6 +27,11 @@ namespace Bddify.Core
             testObject.LazyBddify(exceptionProcessor, htmlReport, consoleReport).Run();
         }
 
+        public static void Bddify(this object testObject, Action assertInconclusive, bool htmlReport = true, bool consoleReport = true)
+        {
+            testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport);
+        }
+
         public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool htmlReport = true, bool consoleReport = true)
         {
             var processors = new List<IProcessor> {new TestRunner()};
