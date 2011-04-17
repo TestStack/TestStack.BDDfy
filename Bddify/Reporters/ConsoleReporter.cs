@@ -30,7 +30,7 @@ namespace Bddify.Reporters
 
             _longestStepSentence = story.Scenarios.SelectMany(s => s.Steps).Max(s => s.ReadableMethodName.Length);
 
-            ReportOnStory(story);
+            ReportStoryHeader(story);
 
             foreach (var scenario in story.Scenarios)
             {
@@ -46,11 +46,19 @@ namespace Bddify.Reporters
             }
 
             ReportExceptions();
+
+            ReportStoryFooter(story);
         }
 
-        private static void ReportOnStory(Story story)
+        private static void ReportStoryFooter(Story story)
         {
-            if(story.Type == null)
+        }
+
+        private static void ReportStoryHeader(Story story)
+        {
+            Console.WriteLine("================================================================================");
+
+            if (story.Type == null)
                 return;
 
             if(story.Type == _lastStoryType)
@@ -112,6 +120,7 @@ namespace Bddify.Reporters
 
             Console.WriteLine();
             Console.WriteLine("<< End of excetion details >>");
+            Console.WriteLine();
         }
 
         static string FlattenExceptionMessage(string message)
