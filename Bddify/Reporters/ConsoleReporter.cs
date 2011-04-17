@@ -94,8 +94,7 @@ namespace Bddify.Reporters
             if (_exceptions.Count == 0)
                 return;
 
-            Console.WriteLine("=========================");
-            Console.WriteLine(" [ Exceptions' Details ]");
+            Console.WriteLine("<< Exceptions' Details >>");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
@@ -112,8 +111,7 @@ namespace Bddify.Reporters
             }
 
             Console.WriteLine();
-            Console.WriteLine(" [End of excetion details]");
-            Console.WriteLine("===========================");
+            Console.WriteLine("<< End of excetion details >>");
         }
 
         static string FlattenExceptionMessage(string message)
