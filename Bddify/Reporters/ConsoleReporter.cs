@@ -28,6 +28,8 @@ namespace Bddify.Reporters
                               {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
                           };
 
+            _longestStepSentence = story.Scenarios.SelectMany(s => s.Steps).Max(s => s.ReadableMethodName.Length);
+
             ReportOnStory(story);
 
             foreach (var scenario in story.Scenarios)
@@ -36,7 +38,6 @@ namespace Bddify.Reporters
 
                 if (scenario.Steps.Any())
                 {
-                    _longestStepSentence = scenario.Steps.Max(s => s.ReadableMethodName.Length);
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                         reporterRegistry[step.Result](step);
                 }
@@ -45,7 +46,6 @@ namespace Bddify.Reporters
             }
 
             ReportExceptions();
-            Console.WriteLine();
         }
 
         private static void ReportOnStory(Story story)
