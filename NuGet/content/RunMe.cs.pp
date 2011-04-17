@@ -93,7 +93,8 @@ namespace $rootnamespace$
     AsA = "As a second grader",
     IWant = "I want a calculator with four main functions",
     SoThat = "So I do not have to learn to calculate!!")]
-    public class CalculatorCanDoFourMainMathFunctions
+    [TestClass]
+	public class CalculatorCanDoFourMainMathFunctions
     {
         [TestMethod]
         public void Execute()
