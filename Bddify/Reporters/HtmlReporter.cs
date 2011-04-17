@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Bddify.Core;
 using RazorEngine;
@@ -9,7 +10,7 @@ namespace Bddify.Reporters
 {
     public class HtmlReporter : IProcessor
     {
-        static readonly List<Scenario> Scenarios = new List<Scenario>();
+        static readonly List<Story> Stories = new List<Story>();
 
         public ProcessType ProcessType
         {
@@ -29,14 +30,14 @@ namespace Bddify.Reporters
 
         internal static void GenerateHtmlReport()
         {
-            //var report = Razor.Parse(HtmlTemplate.Value, Scenarios);
-            //File.WriteAllText(FileName, report);
+            var report = Razor.Parse(HtmlTemplate.Value, Stories);
+            File.WriteAllText(FileName, report);
         }
 
         public void Process(Story story)
         {
             //ToDo: this should change to understand stories and not scenarios
-            Scenarios.AddRange(story.Scenarios);
+            Stories.Add(story);
         }
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);

@@ -13,6 +13,7 @@
 				font-size: 10pt;
 				margin: 0;
 				padding: 0;
+				min-height:700px;
 				background-repeat: repeat-x;
 		    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAGNCAIAAACnknc+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAILSURBVGhD7ZZJbgMxDAT5/886jmfRruhoIFH1gTCQA4O6tdlsUhoh9nVkwB5nBuxxZMB85qra1VuZq7nL49hiX2cGllwAtTVlzgeqqkU012DPMwP2PAuwZKwWg8nenmjiQOVgPPdVnnvk1q783KOqv68CmJAh9pJMyMpc3RZc6kcH85n/4+rXXQD7vgug5NdVgFVdARPRhPnrroAddwVWb6xW0ZzVeCQyOVarwVJ57VFrEdF88pkqYEI+UgWc1T5z32Cyup1pi525AmotZ26AXbkBUk712qOSy971ylsMGi9pJedqJYu1oPmdG2BKLu3eI6s/2pujpdwAg6mWZKk0YFV3QJmLatHbK/dUtliqDVBrEdFy6cAy90QT5rk2wHLtgJaFuU8W0dC81A6YkH1r8fVW1W2UPVZaB9wy9+ad19aBFQ3NaxuACXMps3kfdY/ujeatd8BpDrGXtMw9c7c+ABO9xdzC3FuNyXsfgMloHzTvfQIr2gRk8jHbHhNrUfIYfY+BtqQPy3zeItrAPxtjAkruYwKG3kOZ+6LJuekH3mhzjj3LnHuLapYn/hkFG3OdGCYX5uK86aatj0j2ph+YmhsHV9UyGnVX5jJ5mP/eQCz1z1sRa4m1vG0grkNch7gOMz6D+AziM4jP4O9/pON1iNchXod4HeJ1eN9AvIrxKsarGK9ivIr/5VX8Ac/k0qafpzWgAAAAAElFTkSuQmCC);			}
 
@@ -24,6 +25,7 @@
 			#main
 			{
 				width: 100%;
+				height:100%;
 			}
 			
 			#header
@@ -34,6 +36,26 @@
 				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAABOCAIAAACfcrDqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADPSURBVEhLzda7jcQwEARRSglfMmtvCpvFeRcTb5TBK4PAEjQHrflUD3X9vH+XndvCnqh774W3qK618R5LQHswCegpHcCmTtiocrM4cgbLsvcpVUXrWK46hNIBbutOuKgLR5UnW7yls1otgUNlnXEsqypXzdxFNTDAwKZFpOv1eWH0JLS9LP38/ga03TAJF7V3W8WuqpHpNWQTPKp6BkJNtjVLgW2qnKvWX/8JdQjlMUq5qr0LA4xA4jWVpRiWslRzNqGOdXAJZXno9fr8YfQ/c6c/iQFM16IAAAAASUVORK5CYII=);
         border-bottom: 2px solid #fff;
         height: 57px;
+			}
+			
+			#footer
+			{
+			  color:#fff;
+				background-repeat: repeat-x;
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAABOCAIAAACfcrDqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADPSURBVEhLzda7jcQwEARRSglfMmtvCpvFeRcTb5TBK4PAEjQHrflUD3X9vH+XndvCnqh774W3qK618R5LQHswCegpHcCmTtiocrM4cgbLsvcpVUXrWK46hNIBbutOuKgLR5UnW7yls1otgUNlnXEsqypXzdxFNTDAwKZFpOv1eWH0JLS9LP38/ga03TAJF7V3W8WuqpHpNWQTPKp6BkJNtjVLgW2qnKvWX/8JdQjlMUq5qr0LA4xA4jWVpRiWslRzNqGOdXAJZXno9fr8YfQ/c6c/iQFM16IAAAAASUVORK5CYII=);			  padding-top:15px;
+			  padding-bottom:15px;
+			  margin-top:20px;
+			  text-align:center;
+			}
+			
+			#footer a
+			{
+			  color:#fff;
+			}
+			
+			#footer a:hover
+			{
+			  color:#3865C6;
 			}
 			
 			#bddifyTitle
@@ -58,11 +80,14 @@
 			  margin:5px;
 			  padding:5px;
 			}
-			
-			#resultSummary
-			{
-			}
-			
+
+      div#generatedAt
+      {
+        font-size: 12pt;
+        font-family:Cambria;
+        color:#229;
+      }			
+						
 			#coverageSummary
 			{
 				margin-left:50px;
@@ -277,14 +302,6 @@
 			  font-size: 14pt;
 			  color: #2B547D;
 			}		
-
-      div#generatedAt
-      {
-        font-size: 11pt;
-        font-family:Cambria;
-        margin:30px;
-        color:#229;
-      }			
 		</style>
 
 		<script type="text/javascript">
@@ -305,12 +322,15 @@
 			<div id="header">
 				<span id="bddifyTitle">Bddify</span>
                 <br />
-				<span id="bddifyDescription">An awesome BDD framework for .Net developers</span>
+				<span id="bddifyDescription">A simple BDD framework for .Net developers</span>
 			</div>
 
 			<div id="summaryDiv">
         <h4>Summary</h4>
-
+          
+        @{
+          var scenarios = Model.SelectMany(s => s.Scenarios).ToList();
+          }
         <div id="innderSummaryDiv">
             <div id="resultSummary">
 				      <table class="summaryTable">
@@ -318,37 +338,37 @@
 						      <tr class="namespace">
                     <td />
 							      <td class="summaryLable">Namespaces</td>
-							      <td>@Model.Where(b => b.Story == null).GroupBy(b => b.Object.GetType().Namespace).Count()</td>
+							      <td>@Model.Where(b => b.Type == null).SelectMany(s => s.Scenarios).GroupBy(b => b.Object.GetType().Namespace).Count()</td>
 						      </tr>
 						      <tr class="story">
                     <td />
 							      <td class="summaryLable">Stories</td>
-							      <td>@Model.Where(b => b.Story != null).GroupBy(b => b.Story).Count()</td>
+							      <td>@Model.Where(b => b.Type != null).Count()</td>
 						      </tr>
 						      <tr>
                     <td class="result Passed"></td>
                     <td class="summaryLable">Passed</td>
-							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
+							      <td>@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</td>
 						      </tr>
 						      <tr>
 				            <td class="result Failed"></td>
 							      <td class="summaryLable">Failed</td>
-							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
+							      <td>@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</td>
 						      </tr>
 						      <tr>
 				            <td class="result Inconclusive"></td>
 							      <td class="summaryLable">Inconclusive</td>
-							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
+							      <td>@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</td>
 						      </tr>
 						      <tr>
 				            <td class="result NotImplemented"></td>
 							      <td class="summaryLable">Not Implemented</td>
-							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
+							      <td>@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</td>
   					      </tr>
 						      <tr>
 				            <td class="result NotExecuted"></td>
 							      <td class="summaryLable">Not Executed</td>
-							      <td>@Model.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
+							      <td>@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</td>
 						      </tr>
 					      </tbody>
 				      </table>
@@ -361,61 +381,66 @@
           string assemblyName = string.Empty;
           if (Model.Count > 0)
           {
-            var codeBase = Model[0].Object.GetType().Assembly.CodeBase;
+            var codeBase = scenarios[0].Object.GetType().Assembly.CodeBase;
             var uri = new UriBuilder(codeBase);
             assemblyName = Uri.UnescapeDataString(uri.Path);
           }
         }
 
         <p>Assembly: '@assemblyName'</p>
+        <p>Tested at: @DateTime.Now</p>
 
 				<table>
 					<tbody>
           @{
-            var scenariosWithNoStory = from scenario in Model
-                                       where scenario.Story == null
-                                       group scenario by scenario.Object.GetType().Namespace into g
-                                       select g;
-                                 
-            var scenariosWithStory =   from scenario in Model
-                                       where scenario.Story != null
-                                       group scenario by scenario.Story.StoryType.Name into g 
-                                       select g;
-                                       
-            var groupedScenarios = scenariosWithStory.Union(scenariosWithNoStory);
+            var groupedByNamespace =  from story in Model
+                                      where story.Type == null
+                                      group story by story.Scenarios.First().Object.GetType().Namespace into g
+                                      select g;
 
-            foreach (var group in groupedScenarios) {
-              var story = group.First().Story;
-              var groupClass = story == null ? "namespace" : "story";
-          		<tr class="@groupClass">
+            var groupedByStories =  from story in Model
+                                    where story.Type != null
+                                    group story by story.Type.Name into g
+                                    select g;
+
+            var groupedScenarios = groupedByStories.Union(groupedByNamespace);
+
+            foreach (var scenarioGroup in groupedScenarios)
+            {
+              var story = scenarioGroup.First();
+              var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
+              var headerClass = story.Type == null ? "namespace" : "story";
+          		<tr class="@headerClass">
 								<td colspan="5">
-                  <table class="@groupClass">
+                  <table class="@headerClass">
                     <tr>
-                    @if(story == null){
-                      <td>Namespace: @group.Key</td>
-                      }
-                      else {
+                    @if (story.Type == null)
+                    {
+                      <td>Namespace: @story.Scenarios.First().Object.GetType().Namespace</td>
+                    }
+                    else
+                    {
                       <td>Story: @story.Narrative.Title</td>
                     }
                       <td class="namespaceResultSummary">
-                      @{
-                     var fullWidth = 400;
-                     var all = group.Count();
-                     var failed = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
-                     var failedRatio = (double)failed / all * 100;
-                     var failedVisible = (failedRatio == 0 ? "none" : "");
-                     var passed = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
-                     var passedRatio = (double)passed / all * 100;
-                     var passedVisible = (passedRatio == 0 ? "none" : "");
-                     var notImplemented = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
-                     var notImplementedRatio = (double)notImplemented / all * 100;
-                     var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
-                     var inconclusive = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
-                     var inconclusiveRatio = (double)inconclusive / all * 100;
-                     var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
-                     var notExecuted = group.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
-                     var notExecutedRatio = (double)notExecuted / all * 100;
-                     var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
+                  @{
+                    var fullWidth = 400;
+                    var all = scenariosInGroup.Count();
+                    var failed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
+                    var failedRatio = (double)failed / all * 100;
+                    var failedVisible = (failedRatio == 0 ? "none" : "");
+                    var passed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
+                    var passedRatio = (double)passed / all * 100;
+                    var passedVisible = (passedRatio == 0 ? "none" : "");
+                    var notImplemented = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
+                    var notImplementedRatio = (double)notImplemented / all * 100;
+                    var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
+                    var inconclusive = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
+                    var inconclusiveRatio = (double)inconclusive / all * 100;
+                    var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
+                    var notExecuted = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
+                    var notExecutedRatio = (double)notExecuted / all * 100;
+                    var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
                       }
                         <table>
                           <tr class="namespaceResultSummary">
@@ -432,7 +457,8 @@
                 </td>
 							</tr>
             
-            if (story != null) { 
+            if (story.Type != null && !string.IsNullOrEmpty(story.Narrative.AsA))
+            { 
             <tr class="story">
               <td colspan="5">
                 <ul class="storyNarrative">
@@ -442,9 +468,10 @@
                 </ul>
               </td>                                    
             </tr>
-              }
-              foreach (var scenario in group)
-              { 
+            }
+
+            foreach (var scenario in scenariosInGroup)
+            { 
               <tr class="scenario" onclick="toggle('@scenario.Id');">
 								<td class="result @scenario.Result"></td>
 								<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
@@ -474,26 +501,26 @@
 										  <td colspan="2" class="@stepClass">@result</td>
                     </tr>
 
-                                          if (step.Exception != null)
-                                          {
+                    if (step.Exception != null)
+                    {
 									  <tr class="step" id="@step.Id">
     									<td></td>
 										  <td colspan="2" class="indentation"></td>
 										  <td class="@stepClass"><code>@step.Exception.StackTrace</code></td>
 									  </tr>
-                                          }
+                    }
                   }
                   </table>                                    
                 </td>
 		  				</tr>
-                         }
+                }
+              }
             }
-      }
 					</tbody>
 				</table>
 			</div>
 		</div>
-    <div id="generatedAt">Report generated at: @DateTime.Now</div>
-	</body>
 
+    <div id="footer">Powered by <a href="https://code.google.com/p/bddify/">bddify</a> framework</div>
+	</body>
 </html>
