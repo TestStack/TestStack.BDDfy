@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +16,9 @@ namespace Bddify.Tests.Scanner
 
         private class TypeWithAttribute
         {
+            public const string MethodTextForWhenSomethingHappens = "When Something Happens";
+            public const string MethodTextForAndThen = "The text for the and then part";
+
             [Then]
             [RunStepWithArgs(1, 2)]
             [RunStepWithArgs(3, 4)]
@@ -22,7 +26,7 @@ namespace Bddify.Tests.Scanner
 
             public void ThenIShouldNotBeReturnedBecauseIDoNotHaveAttributes() { }
 
-            [When]
+            [When(StepText = MethodTextForWhenSomethingHappens)]
             public void When() { }
 
             public void WhenNoAttributeIsProvided() { }
@@ -35,7 +39,7 @@ namespace Bddify.Tests.Scanner
             [AndWhen]
             public void TheOtherPartOfWhen() { }
 
-            [AndThen]
+            [AndThen(StepText = MethodTextForAndThen)]
             public void AndThen() { }
 
             [AndGiven]
@@ -47,6 +51,11 @@ namespace Bddify.Tests.Scanner
         {
             _typeWithAttribute = new TypeWithAttribute();
             _steps = new ExecutableAttributeScanner().Scan(typeof(TypeWithAttribute)).ToList();
+        }
+
+        private static string GetStepTextFromMethodName(Action methodInfoAction)
+        {
+            return NetToString.FromName(Helpers.GetMethodInfo(methodInfoAction).Name);
         }
 
         [Test]
@@ -68,6 +77,12 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void GivenStepTextIsFetchedFromMethodName()
+        {
+            Assert.That(_steps[0].ReadableMethodName, Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
+        }
+
+        [Test]
         public void AndGivenIsReturnedSecond()
         {
             Assert.That(_steps[1].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.SomeOtherPartOfTheGiven)));
@@ -80,9 +95,21 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void AndGivenStepTextIsFetchedFromMethodName()
+        {
+            Assert.That(_steps[1].ReadableMethodName, Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven)));
+        }
+
+        [Test]
         public void WhenIsReturnedThird()
         {
             Assert.That(_steps[2].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.When)));
+        }
+
+        [Test]
+        public void WhenStepTextIsFetchedFromExecutableAttribute()
+        {
+            Assert.That(_steps[2].ReadableMethodName, Is.EqualTo(TypeWithAttribute.MethodTextForWhenSomethingHappens));
         }
 
         [Test]
@@ -98,19 +125,42 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void AndWhenStepTextIsFetchedFromMethodName()
+        {
+            Assert.That(_steps[3].ReadableMethodName, Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
+        }
+
+        [Test]
         public void AndWhenStepDoesNotAssert()
         {
             Assert.That(_steps[3].Asserts, Is.False);
         }
 
-        [Test]
-        public void ThenIsReturnedFifthAndSixthWithTwoArgSets()
+        [TestCase(4)]
+        [TestCase(5)]
+        public void ThenStepIsReturnedInTheCorrectSpot(int stepIndex)
         {
-            var thenMethodInfo = _typeWithAttribute.GetType().GetMethod("Then", new [] {typeof(int), typeof(int)});
-            Assert.That(_steps[4].Method, Is.EqualTo(thenMethodInfo));
-            Assert.That(_steps[4].InputArguments, Is.EqualTo(new object[] { 1, 2 }));
-            Assert.That(_steps[5].Method, Is.EqualTo(thenMethodInfo));
-            Assert.That(_steps[5].InputArguments, Is.EqualTo(new object[] { 3, 4 }));
+            MethodInfo thenMethodInfo = GetThenMethodInfo();
+            Assert.That(_steps[stepIndex].Method, Is.EqualTo(thenMethodInfo));
+        }
+
+        [TestCase(4)]
+        [TestCase(5)]
+        public void ThenStepIsProvidedWithCorrectArguments(int stepIndex)
+        {
+            Assert.That(_steps[stepIndex].InputArguments, Is.Not.Null);
+            Assert.That(_steps[stepIndex].InputArguments.Length, Is.EqualTo(2));
+
+            // steps are not in the order attributes are provided.
+            // so make sure that the first argument in the arg set matches one of the first arguments
+            // and the same for the second arguments
+            Assert.That(new object[] {1, 3}, Contains.Item(_steps[stepIndex].InputArguments[0]));
+            Assert.That(new object[] {2, 4}, Contains.Item(_steps[stepIndex].InputArguments[1]));
+        }
+
+        private MethodInfo GetThenMethodInfo()
+        {
+            return _typeWithAttribute.GetType().GetMethod("Then", new [] {typeof(int), typeof(int)});
         }
 
         [Test]
@@ -118,6 +168,14 @@ namespace Bddify.Tests.Scanner
         {
             Assert.That(_steps[4].Asserts, Is.True);
             Assert.That(_steps[5].Asserts, Is.True);
+        }
+
+        [TestCase(4)]
+        [TestCase(5)]
+        public void ThenStepTextIsFetchedFromMethodNamePostfixedWithArguments(int thenStepIndex)
+        {
+            Assert.IsTrue(_steps[thenStepIndex].ReadableMethodName.Contains(" with args ("));
+            Assert.IsTrue(_steps[thenStepIndex].ReadableMethodName.Contains(NetToString.FromName(GetThenMethodInfo().Name)));
         }
 
         [Test]
@@ -130,6 +188,12 @@ namespace Bddify.Tests.Scanner
         public void AndThenStepAsserts()
         {
             Assert.That(_steps[6].Asserts, Is.True);
+        }
+
+        [Test]
+        public void AndThenStepTextIsFetchedFromExecutableAttribute()
+        {
+            Assert.That(_steps[6].ReadableMethodName, Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
         }
     }
 }

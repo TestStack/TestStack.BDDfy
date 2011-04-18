@@ -17,7 +17,10 @@ namespace Bddify.Scanners
                 if(executableAttribute == null)
                     continue;
 
-                var readableMethodName = NetToString.FromName(methodInfo.Name);
+                string readableMethodName = executableAttribute.StepText;
+                if(string.IsNullOrEmpty(readableMethodName))
+                    readableMethodName = NetToString.FromName(methodInfo.Name);
+
                 var stepAsserts = IsAssertingByAttribute(methodInfo);
 
                 var argSets = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
@@ -30,6 +33,7 @@ namespace Bddify.Scanners
 
                 foreach (var argSet in argSets)
                 {
+                    readableMethodName += " with args (" + string.Join(", ", argSet) + ")";
                     var executionStep = new ExecutionStep(methodInfo, argSet.InputArguments, readableMethodName, stepAsserts);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                 }
