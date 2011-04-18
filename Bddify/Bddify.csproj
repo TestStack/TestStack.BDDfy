@@ -50,7 +50,7 @@
     <Compile Include="Core\Story.cs" />
     <Compile Include="Core\StoryAttribute.cs" />
     <Compile Include="Core\StoryNarrative.cs" />
-    <Compile Include="Core\WithStoryAttribute.cs" />
+    <Compile Include="Core\WithScenarioAttribute.cs" />
     <Compile Include="Scanners\DefaultScanForStepsByMethodName.cs" />
     <Compile Include="Scanners\GwtAttributes\AndGivenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\AndWhenAttribute.cs" />

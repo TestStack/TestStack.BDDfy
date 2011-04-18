@@ -8,7 +8,6 @@ namespace Bddify.Scanners
     public class ScanForScenarios : IScanForScenarios
     {
         private readonly IScanForSteps _stepScanner;
-        static IEnumerable<Type> _allScenarios;
 
         public ScanForScenarios(IScanForSteps stepScanner)
         {
@@ -66,16 +65,9 @@ namespace Bddify.Scanners
 
         private static IEnumerable<Type> GetScenarioTypes(Type storyType)
         {
-            // ToDo: this is not thread-safe
-            if (_allScenarios == null)
-                _allScenarios = (from type in storyType.Assembly.GetTypes()
-                                 where Attribute.IsDefined(type, typeof(WithStoryAttribute), true)
-                                 select type).ToList();
-
-            return _allScenarios
-                .Where(t => t.GetCustomAttributes(typeof(WithStoryAttribute), true)
-                                .Cast<WithStoryAttribute>()
-                                .Any(a => a.StoryType == storyType));
+            return storyType.GetCustomAttributes(typeof(WithScenarioAttribute), false)
+                .Cast<WithScenarioAttribute>()
+                .Select(a => a.ScenarioType);
         }
 
         internal StoryAttribute GetStoryAttribute(Type storyType)

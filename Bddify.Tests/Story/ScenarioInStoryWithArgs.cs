@@ -2,7 +2,6 @@ using Bddify.Core;
 
 namespace Bddify.Tests.Story
 {
-    [WithStory(typeof(StoryDouble))]
     [RunScenarioWithArgs(1, 2)]
     [RunScenarioWithArgs(3, 6)]
     public class ScenarioInStoryWithArgs

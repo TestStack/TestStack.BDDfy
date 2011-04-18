@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace Demos.NUnit.CalculatorStory
 {
-    [WithStory(typeof(CalculatorCanDoFourMainMathFunctions))]
     public class WhenTwoNumbersAreSubtracted
     {
         [RunStepWithArgs(5, 3, 2)]
