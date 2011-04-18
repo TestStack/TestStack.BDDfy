@@ -5,7 +5,7 @@ using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;
 
-namespace Bddify.Tests.ScannerSpecs
+namespace Bddify.Tests.Scanner
 {
     public class WhenTestClassUsesExecutableAttributes
     {

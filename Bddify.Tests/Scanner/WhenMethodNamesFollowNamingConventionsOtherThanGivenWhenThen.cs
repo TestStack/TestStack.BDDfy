@@ -5,7 +5,7 @@ using Bddify.Scanners;
 using NUnit.Framework;
 using System.Linq;
 
-namespace Bddify.Tests.ScannerSpecs
+namespace Bddify.Tests.Scanner
 {
     public class WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen
     {
