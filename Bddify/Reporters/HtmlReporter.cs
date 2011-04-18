@@ -36,7 +36,6 @@ namespace Bddify.Reporters
 
         public void Process(Story story)
         {
-            //ToDo: this should change to understand stories and not scenarios
             Stories.Add(story);
         }
 
