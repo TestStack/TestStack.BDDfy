@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="AtmAndCardSamples\AtmAndCardSystem.cs" />
     <Compile Include="AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs" />
-    <Compile Include="AtmAndCardSamples\Card_is_disabled_passing_test.cs" />
     <Compile Include="BddifyNunit.cs" />
     <Compile Include="CalculatorStory\CalculatorCanDoFourMainMathFunctions.cs" />
     <Compile Include="CalculatorStory\WhenTwoNumbersAreAdded.cs" />

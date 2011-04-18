@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="AtmAndCardSamples\AtmAndCardSystem.cs" />
     <Compile Include="AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs" />
-    <Compile Include="AtmAndCardSamples\Card_is_disabled_passing_test.cs" />
     <Compile Include="BddifyMsTest.cs" />
     <Compile Include="SomeFailingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

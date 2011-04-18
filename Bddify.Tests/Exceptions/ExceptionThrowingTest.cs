@@ -11,9 +11,9 @@ namespace Bddify.Tests.Exceptions
 {
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
-        private bool _givenShouldThrow;
-        private bool _whenShouldThrow;
-        private bool _thenShouldThrow;
+        private static bool _givenShouldThrow;
+        private static bool _whenShouldThrow;
+        private static bool _thenShouldThrow;
         Scenario _scenario;
 
         [Given]
@@ -45,7 +45,7 @@ namespace Bddify.Tests.Exceptions
 
             var bddify = new Bddifier(
                 this,
-                new DefaultMethodNameScanner(),
+                new DefaultScanner(new ScanForScenarios(new DefaultScanForStepsByMethodName())),
                 new IProcessor[]
                     {
                         new TestRunner(), 

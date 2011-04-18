@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -5,11 +6,11 @@ using Bddify.Core;
 
 namespace Bddify.Scanners
 {
-    public class ExecutableAttributeScanner : DefaultScannerBase
+    public class ExecutableAttributeScanner : IScanForSteps
     {
-        protected override IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject)
+        public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
-            var methods = scenarioObject.GetType()
+            var methods = scenarioType
                 .GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(m => m.GetCustomAttributes(typeof(ExecutableAttribute), false).Any())
                 .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);

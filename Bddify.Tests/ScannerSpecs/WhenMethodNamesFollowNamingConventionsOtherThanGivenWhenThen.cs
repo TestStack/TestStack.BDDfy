@@ -9,7 +9,7 @@ namespace Bddify.Tests.ScannerSpecs
 {
     public class WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen
     {
-        private IEnumerable<Scenario> _scenario;
+        private List<ExecutionStep> _steps;
         private const string SetupMethodName = "Setup";
 
         [SetUp]
@@ -19,8 +19,8 @@ namespace Bddify.Tests.ScannerSpecs
             var specStartMatcher = new MethodNameMatcher(s => s.StartsWith("specification", StringComparison.OrdinalIgnoreCase), true);
             var setupMethod = new MethodNameMatcher(s => s.Equals(SetupMethodName, StringComparison.OrdinalIgnoreCase), false, false);
             var methodNameMatchers = new[] { specEndMatcher, specStartMatcher, setupMethod };
-            var scanner = new MethodNameScanner(methodNameMatchers);
-            _scenario = scanner.Scan(this).Scenarios;
+            var scanner = new ScanForStepsByMethodName(methodNameMatchers);
+            _steps = scanner.Scan(this.GetType()).ToList();
         }
 
         public void ThisMethodSpecificationShouldNotBeIncluded()
@@ -36,21 +36,15 @@ namespace Bddify.Tests.ScannerSpecs
         }
 
         [Test]
-        public void TheScenarioIsFound()
-        {
-            Assert.That(_scenario.Count(), Is.EqualTo(1));
-        }
-
-        [Test]
         public void TheStepsAreFoundUsingConventionInjection()
         {
-            Assert.That(_scenario.First().Steps.Count(), Is.EqualTo(3));
+            Assert.That(_steps.Count, Is.EqualTo(3));
         }
 
         [Test]
         public void TheSetupMethodIsPickedAsNonAsserting()
         {
-            var setupMethod = _scenario.First().Steps.Single(s => s.ReadableMethodName == SetupMethodName);
+            var setupMethod = _steps.Single(s => s.ReadableMethodName == SetupMethodName);
             Assert.That(setupMethod.ShouldReport, Is.False);
             Assert.That(setupMethod.Asserts, Is.False);
         }
@@ -58,7 +52,7 @@ namespace Bddify.Tests.ScannerSpecs
         [Test]
         public void TheSpecificationMethodsAreAssertingAndReporting()
         {
-            var specMethods = _scenario.First().Steps.Where(s => !s.ReadableMethodName.Contains(SetupMethodName));
+            var specMethods = _steps.Where(s => !s.ReadableMethodName.Contains(SetupMethodName));
             Assert.That(specMethods.Count(), Is.EqualTo(2));
             Assert.That(specMethods.Count(s => s.Asserts), Is.EqualTo(2));
             Assert.That(specMethods.Count(s => s.ShouldReport), Is.EqualTo(2));

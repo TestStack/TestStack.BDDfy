@@ -51,14 +51,14 @@
     <Compile Include="Core\StoryAttribute.cs" />
     <Compile Include="Core\StoryNarrative.cs" />
     <Compile Include="Core\WithStoryAttribute.cs" />
-    <Compile Include="Scanners\DefaultMethodNameScanner.cs" />
+    <Compile Include="Scanners\DefaultScanForStepsByMethodName.cs" />
     <Compile Include="Scanners\GwtAttributes\AndGivenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\AndWhenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\GivenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\AndThenAttribute.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
-    <Compile Include="Scanners\DefaultScannerBase.cs" />
+    <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Scanners\ExecutableAttribute.cs" />
     <Compile Include="Scanners\ExecutableAttributeScanner.cs" />
     <Compile Include="Reporters\HtmlReporter.cs" />
@@ -72,8 +72,11 @@
     <Compile Include="Scanners\GwtAttributes\GwtExectuableAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\ThenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\WhenAttribute.cs" />
+    <Compile Include="Scanners\IScanForScenarios.cs" />
+    <Compile Include="Scanners\IScanForSteps.cs" />
     <Compile Include="Scanners\MethodNameMatcher.cs" />
-    <Compile Include="Scanners\MethodNameScanner.cs" />
+    <Compile Include="Scanners\ScanForScenarios.cs" />
+    <Compile Include="Scanners\ScanForStepsByMethodName.cs" />
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Core\RunStepWithArgsAttribute.cs" />
   </ItemGroup>

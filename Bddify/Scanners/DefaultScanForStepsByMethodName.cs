@@ -2,9 +2,9 @@ using System;
 
 namespace Bddify.Scanners
 {
-    public class DefaultMethodNameScanner : MethodNameScanner
+    public class DefaultScanForStepsByMethodName : ScanForStepsByMethodName
     {
-        public DefaultMethodNameScanner()
+        public DefaultScanForStepsByMethodName()
             : base(new[]{
                             new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), false),
                             new MethodNameMatcher(s => s.Equals("Setup", StringComparison.OrdinalIgnoreCase), false),

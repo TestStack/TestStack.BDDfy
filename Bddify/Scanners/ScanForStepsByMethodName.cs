@@ -6,18 +6,18 @@ using System.Linq;
 
 namespace Bddify.Scanners
 {
-    public class MethodNameScanner : DefaultScannerBase
+    public class ScanForStepsByMethodName : IScanForSteps
     {
         private readonly MethodNameMatcher[] _matchers;
 
-        public MethodNameScanner(MethodNameMatcher[] matchers)
+        public ScanForStepsByMethodName(MethodNameMatcher[] matchers)
         {
             _matchers = matchers;
         }
 
-        protected override IEnumerable<ExecutionStep> ScanForSteps(object scenarioObject)
+        public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
-            var methodsToScan = scenarioObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
+            var methodsToScan = scenarioType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
             var foundMethods = new List<MethodInfo>();
 
             foreach (var matcher in _matchers)
