@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
@@ -15,7 +16,9 @@ namespace Bddify.Tests.Scanner
         private class TypeWithAttribute
         {
             [Then]
-            public void Then() { }
+            [RunStepWithArgs(1, 2)]
+            [RunStepWithArgs(3, 4)]
+            public void Then(int input1, int input2) { }
 
             public void ThenIShouldNotBeReturnedBecauseIDoNotHaveAttributes() { }
 
@@ -39,7 +42,6 @@ namespace Bddify.Tests.Scanner
             public void SomeOtherPartOfTheGiven() { }
         }
 
-
         [SetUp]
         public void WhenTestClassHasAttributes()
         {
@@ -50,7 +52,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void DecoratedMethodsAreReturned()
         {
-            Assert.That(_steps.Count, Is.EqualTo(6));
+            Assert.That(_steps.Count, Is.EqualTo(7));
         }
 
         [Test]
@@ -60,9 +62,21 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void GivenStepDoesNotAssert()
+        {
+            Assert.That(_steps[0].Asserts, Is.False);
+        }
+
+        [Test]
         public void AndGivenIsReturnedSecond()
         {
             Assert.That(_steps[1].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.SomeOtherPartOfTheGiven)));
+        }
+
+        [Test]
+        public void AndGivenStepDoesNotAssert()
+        {
+            Assert.That(_steps[1].Asserts, Is.False);
         }
 
         [Test]
@@ -72,21 +86,50 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void WhenStepDoesNotAssert()
+        {
+            Assert.That(_steps[2].Asserts, Is.False);
+        }
+
+        [Test]
         public void AndWhenIsReturnedForth()
         {
             Assert.That(_steps[3].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.TheOtherPartOfWhen)));
         }
 
         [Test]
-        public void ThenIsReturnedFifth()
+        public void AndWhenStepDoesNotAssert()
         {
-            Assert.That(_steps[4].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.Then)));
+            Assert.That(_steps[3].Asserts, Is.False);
+        }
+
+        [Test]
+        public void ThenIsReturnedFifthAndSixthWithTwoArgSets()
+        {
+            var thenMethodInfo = _typeWithAttribute.GetType().GetMethod("Then", new [] {typeof(int), typeof(int)});
+            Assert.That(_steps[4].Method, Is.EqualTo(thenMethodInfo));
+            Assert.That(_steps[4].InputArguments, Is.EqualTo(new object[] { 1, 2 }));
+            Assert.That(_steps[5].Method, Is.EqualTo(thenMethodInfo));
+            Assert.That(_steps[5].InputArguments, Is.EqualTo(new object[] { 3, 4 }));
+        }
+
+        [Test]
+        public void ThenStepsDoAssert()
+        {
+            Assert.That(_steps[4].Asserts, Is.True);
+            Assert.That(_steps[5].Asserts, Is.True);
         }
 
         [Test]
         public void AndThenIsReturnedSixth()
         {
-            Assert.That(_steps[5].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.AndThen)));
+            Assert.That(_steps[6].Method, Is.EqualTo(Helpers.GetMethodInfo(_typeWithAttribute.AndThen)));
+        }
+
+        [Test]
+        public void AndThenStepAsserts()
+        {
+            Assert.That(_steps[6].Asserts, Is.True);
         }
     }
 }

@@ -10,15 +10,38 @@ namespace Bddify.Scanners
     {
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
-            var methods = scenarioType
-                .GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => m.GetCustomAttributes(typeof(ExecutableAttribute), false).Any())
-                .OrderBy(m => ((ExecutableAttribute)m.GetCustomAttributes(typeof(ExecutableAttribute), false)[0]).Order);
+            var steps = new List<Tuple<ExecutableAttribute, ExecutionStep>>();
+            foreach (var methodInfo in scenarioType.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                var executableAttribute = (ExecutableAttribute)methodInfo.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+                if(executableAttribute == null)
+                    continue;
 
-            // ToDo: the arguments should be provided
-            // ToDO: should use StepText if it is provided
-            return methods.Select(m => new ExecutionStep(m, null, NetToString.FromName(m.Name), IsAssertingByAttribute(m)));
+                var readableMethodName = NetToString.FromName(methodInfo.Name);
+                var stepAsserts = IsAssertingByAttribute(methodInfo);
+
+                var argSets = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
+                if (argSets == null || argSets.Length == 0)
+                {
+                    var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts);
+                    steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
+                    continue;
+                }
+
+                foreach (var argSet in argSets)
+                {
+                    var executionStep = new ExecutionStep(methodInfo, argSet.InputArguments, readableMethodName, stepAsserts);
+                    steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
+                }
+            }
+
+            if (steps.Count > 0)
+                Handled = true;
+
+            return steps.OrderBy(s => s.Item1.Order).Select(s => s.Item2).ToList();
         }
+
+        public bool Handled { get; private set; }
 
         private static bool IsAssertingByAttribute(MethodInfo method)
         {

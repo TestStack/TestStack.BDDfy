@@ -7,5 +7,6 @@ namespace Bddify.Scanners
     public interface IScanForSteps
     {
         IEnumerable<ExecutionStep> Scan(Type scenarioType);
+        bool Handled { get; }
     }
 }
