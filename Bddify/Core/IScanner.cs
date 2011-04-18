@@ -1,7 +1,9 @@
-﻿namespace Bddify.Core
+﻿using System;
+
+namespace Bddify.Core
 {
     public interface IScanner
     {
-        Story Scan(object testObject);
+        Story Scan(Type storyType);
     }
 }

@@ -14,9 +14,8 @@ namespace Bddify.Scanners
             _scenarioScanner = scenarioScanner;
         }
 
-        public virtual Story Scan(object testObject)
+        public virtual Story Scan(Type storyType)
         {
-            var storyType = testObject.GetType();
             var scenarios = GetScenarios(storyType);
             var narrative = GetStoryNarrative(storyType);
             
