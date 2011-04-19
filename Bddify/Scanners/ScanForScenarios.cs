@@ -72,7 +72,7 @@ namespace Bddify.Scanners
                 foreach (var step in scanner.Scan(scenarioType))
                 {
                     // if a method has been found by another scanner, ignore it
-                    if (steps.Any(s => s == step)) 
+                    if (steps.Any(s => s.Equals(step))) 
                         continue;
 
                     steps.Add(step);

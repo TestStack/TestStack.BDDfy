@@ -24,6 +24,10 @@ namespace Bddify.Tests.Scanner
                 
             }
 
+            [AndGiven]
+            public void ThenThisMethodIsFoundAsAnGivenStepNotThenStep()
+            {}
+
             public void Then()
             {
             }
@@ -73,6 +77,12 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void StepScannerPriorityIsConsidered()
+        {
+            VerifyStepAndItsProperties(_sut.ThenThisMethodIsFoundAsAnGivenStepNotThenStep, ExecutionOrder.ConsequentSetupState);
+        }
+
+        [Test]
         public void WhenStepIsScanned()
         {
             VerifyStepAndItsProperties(_sut.When, ExecutionOrder.Transition);
@@ -91,9 +101,9 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void AndThenStepIsScanned() // this also means that a method is considered only once even if it matches more than one scanner
+        public void AndThenStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsequentAssertion, 2);
+            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsequentAssertion);
         }
 
         [Test]
