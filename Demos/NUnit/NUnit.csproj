@@ -52,6 +52,7 @@
     <Compile Include="CalculatorStory\WhenTwoNumbersAreDevided.cs" />
     <Compile Include="CalculatorStory\WhenTwoNumbersAreMultiplied.cs" />
     <Compile Include="CalculatorStory\WhenTwoNumbersAreSubtracted.cs" />
+    <Compile Include="ScenarioWithMixedSteps.cs" />
     <Compile Include="SomeFailingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FailingTestWithScenarioArguments.cs" />

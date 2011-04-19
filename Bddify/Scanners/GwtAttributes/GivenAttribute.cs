@@ -2,6 +2,6 @@
 {
     public class GivenAttribute : GwtExectuableAttribute
     {
-        public GivenAttribute() : base(1) { }
+        public GivenAttribute() : base(Core.ExecutionOrder.SetupState) { }
     }
 }

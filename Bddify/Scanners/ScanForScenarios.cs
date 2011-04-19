@@ -7,11 +7,11 @@ namespace Bddify.Scanners
 {
     public class ScanForScenarios : IScanForScenarios
     {
-        private readonly IScanForSteps _stepScanner;
+        private readonly IEnumerable<IScanForSteps> _stepScanners;
 
-        public ScanForScenarios(IScanForSteps stepScanner)
+        public ScanForScenarios(IEnumerable<IScanForSteps> stepScanners)
         {
-            _stepScanner = stepScanner;
+            _stepScanners = stepScanners;
         }
 
         public IEnumerable<Scenario> Scan(Type storyType)
@@ -58,7 +58,7 @@ namespace Bddify.Scanners
 
             object testObject = Activator.CreateInstance(scenarioType);
 
-            var steps = _stepScanner.Scan(scenarioType).ToList();
+            var steps = _stepScanners.SelectMany(s => s.Scan(scenarioType)).ToList();
 
             return new Scenario(testObject, steps, scenarioText, argsSet);
         }

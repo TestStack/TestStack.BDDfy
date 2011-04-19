@@ -1,8 +1,10 @@
-﻿namespace Bddify.Scanners.GwtAttributes
+﻿using Bddify.Core;
+
+namespace Bddify.Scanners.GwtAttributes
 {
     public class GwtExectuableAttribute : ExecutableAttribute
     {
-        public GwtExectuableAttribute(int order) : base(order)
+        public GwtExectuableAttribute(ExecutionOrder order) : base(order)
         {
         }
     }

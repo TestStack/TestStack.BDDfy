@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BddifyExtensions.cs" />
+    <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IExceptionProcessor.cs" />
     <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Scanners\GwtAttributes\GwtExectuableAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\ThenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\WhenAttribute.cs" />
+    <Compile Include="Scanners\IgnoreStepAttribute.cs" />
     <Compile Include="Scanners\IScanForScenarios.cs" />
     <Compile Include="Scanners\IScanForSteps.cs" />
     <Compile Include="Scanners\MethodNameMatcher.cs" />

@@ -12,7 +12,7 @@ namespace Bddify.Tests.Story
         [SetUp]
         public void Setup()
         {
-            var scanner = new DefaultScanner(new ScanForScenarios(new DefaultScanForStepsByMethodName()));
+            var scanner = new DefaultScanner(new ScanForScenarios(new[] {new DefaultScanForStepsByMethodName()}));
             _story = scanner.Scan(typeof(StoryDouble));
         }
 

@@ -45,7 +45,14 @@ namespace Bddify.Core
             if(exceptionProcessor != null)
                 processors.Add(exceptionProcessor);
 
-            return new Bddifier(testObject, new DefaultScanner(new ScanForScenarios(new DefaultScanForStepsByMethodName())), processors);
+            var scanner = new DefaultScanner(
+                new ScanForScenarios(
+                    new IScanForSteps[]
+                        {
+                            new DefaultScanForStepsByMethodName(),
+                            new ExecutableAttributeScanner()
+                        }));
+            return new Bddifier(testObject, scanner, processors);
         }
     }
 }

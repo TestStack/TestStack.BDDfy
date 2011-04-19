@@ -17,7 +17,7 @@ namespace Bddify.Scanners
 
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
-            var methodsToScan = scenarioType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
+            var methodsToScan = scenarioType.GetMethodsOfInterest();
             var foundMethods = new List<MethodInfo>();
 
             foreach (var matcher in _matchers)
@@ -44,7 +44,7 @@ namespace Bddify.Scanners
                         }
 
                         // creating the method itself
-                        yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ShouldReport);
+                        yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
 
                         if (argAttributes != null && argAttributes.Length > 1)
                         {
@@ -56,7 +56,7 @@ namespace Bddify.Scanners
                                 if (inputs != null && inputs.Length > 0)
                                 {
                                     stepMethodName += " with args (" + string.Join(", ", inputs) + ")";
-                                    yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ShouldReport);
+                                    yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                                 }
                             }
                         }

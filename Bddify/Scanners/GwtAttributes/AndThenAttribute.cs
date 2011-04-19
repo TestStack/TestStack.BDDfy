@@ -2,7 +2,7 @@ namespace Bddify.Scanners.GwtAttributes
 {
     public class AndThenAttribute : GwtExectuableAttribute
     {
-        public AndThenAttribute() : base(5)
+        public AndThenAttribute() : base(Core.ExecutionOrder.ConsequentAssertion)
         {
             Asserts = true;
         }

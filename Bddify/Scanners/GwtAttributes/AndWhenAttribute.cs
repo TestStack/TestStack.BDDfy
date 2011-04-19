@@ -1,7 +1,9 @@
-﻿namespace Bddify.Scanners.GwtAttributes
+﻿using System.CodeDom.Compiler;
+
+namespace Bddify.Scanners.GwtAttributes
 {
     public class AndWhenAttribute : GwtExectuableAttribute
     {
-        public AndWhenAttribute() : base(4) { }
+        public AndWhenAttribute() : base(Core.ExecutionOrder.ConsequentTransition) { }
     }
 }

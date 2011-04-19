@@ -2,7 +2,7 @@
 {
     public class ThenAttribute : GwtExectuableAttribute
     {
-        public ThenAttribute() : base(5)
+        public ThenAttribute() : base(Core.ExecutionOrder.Assertion)
         {
             Asserts = true;
         }

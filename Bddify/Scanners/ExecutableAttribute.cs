@@ -1,16 +1,17 @@
 ﻿using System;
+using Bddify.Core;
 
 namespace Bddify.Scanners
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ExecutableAttribute : Attribute
     {
-        public ExecutableAttribute(int order)
+        public ExecutableAttribute(ExecutionOrder order)
         {
-            Order = order;
+            ExecutionOrder = order;
         }
 
-        public int Order { get; private set; }
+        public ExecutionOrder ExecutionOrder { get; private set; }
         public bool Asserts { get; set; }
         public string StepText { get; set; }
     }

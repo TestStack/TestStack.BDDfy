@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Bddify.Core;
+using System.Linq;
 
 namespace Bddify.Processors
 {

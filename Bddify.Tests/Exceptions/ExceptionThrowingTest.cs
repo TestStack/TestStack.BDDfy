@@ -45,7 +45,7 @@ namespace Bddify.Tests.Exceptions
 
             var bddify = new Bddifier(
                 this,
-                new DefaultScanner(new ScanForScenarios(new DefaultScanForStepsByMethodName())),
+                new DefaultScanner(new ScanForScenarios(new[] {new DefaultScanForStepsByMethodName()})),
                 new IProcessor[]
                     {
                         new TestRunner(), 

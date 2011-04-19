@@ -19,7 +19,7 @@ namespace Bddify.Tests.Scanner
         [SetUp]
         public void Setup()
         {
-            _result = new ScanForScenarios(new DefaultScanForStepsByMethodName()).Scan(typeof(ScenarioWithArgs)).ToList();
+            _result = new ScanForScenarios(new[] {new DefaultScanForStepsByMethodName()}).Scan(typeof(ScenarioWithArgs)).ToList();
         }
 
         [Test]

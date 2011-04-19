@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Bddify.Core;
+using Bddify.Scanners;
 
 namespace Bddify.Scanners
 {
@@ -11,7 +12,7 @@ namespace Bddify.Scanners
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
             var steps = new List<Tuple<ExecutableAttribute, ExecutionStep>>();
-            foreach (var methodInfo in scenarioType.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            foreach (var methodInfo in scenarioType.GetMethodsOfInterest())
             {
                 var executableAttribute = (ExecutableAttribute)methodInfo.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
                 if(executableAttribute == null)
@@ -26,7 +27,7 @@ namespace Bddify.Scanners
                 var argSets = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                 if (argSets == null || argSets.Length == 0)
                 {
-                    var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts);
+                    var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                     continue;
                 }
@@ -34,7 +35,7 @@ namespace Bddify.Scanners
                 foreach (var argSet in argSets)
                 {
                     readableMethodName += " with args (" + string.Join(", ", argSet) + ")";
-                    var executionStep = new ExecutionStep(methodInfo, argSet.InputArguments, readableMethodName, stepAsserts);
+                    var executionStep = new ExecutionStep(methodInfo, argSet.InputArguments, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                 }
             }
@@ -42,7 +43,7 @@ namespace Bddify.Scanners
             if (steps.Count > 0)
                 Handled = true;
 
-            return steps.OrderBy(s => s.Item1.Order).Select(s => s.Item2).ToList();
+            return steps.OrderBy(s => s.Item1.ExecutionOrder).Select(s => s.Item2).ToList();
         }
 
         public bool Handled { get; private set; }

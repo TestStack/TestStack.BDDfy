@@ -2,6 +2,6 @@
 {
     public class WhenAttribute : GwtExectuableAttribute
     {
-        public WhenAttribute() : base(3) { }
+        public WhenAttribute() : base(Core.ExecutionOrder.Transition) { }
     }
 }

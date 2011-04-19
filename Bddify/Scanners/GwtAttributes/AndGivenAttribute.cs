@@ -2,6 +2,6 @@
 {
     public class AndGivenAttribute : GwtExectuableAttribute
     {
-        public AndGivenAttribute() : base(2) { }
+        public AndGivenAttribute() : base(Core.ExecutionOrder.ConsequentSetupState) { }
     }
 }
