@@ -7,25 +7,25 @@ namespace Demos.NUnit
 {
     public class ScenarioWithMixedSteps
     {
-        void GivenThisScenarioHasAMixtureOfLegacyAndBddStyleTests()
-        {}
-
-        [AndGiven]
-        void AndThisIsLegacySetupMethod()
-        {}
-
         void WhenThisClassIsBddified()
+        { }
+
+        [AndThen]
+        void IncludingThisLegacyTestMethod()
+        { }
+
+        void GivenThisScenarioHasAMixtureOfLegacyAndBddStyleTests()
         {}
 
         [AndWhen]
         void LegacyTransitionMethod()
-        {}
+        { }
 
         void ThenStepsAreScannedProperly()
-        {}
+        { }
 
-        [AndThen]
-        void IncludingThisLegacyTestMethod()
+        [AndGiven]
+        void AndThisIsLegacySetupMethod()
         {}
 
         [IgnoreStep]

@@ -1,3 +1,4 @@
+using System;
 using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
@@ -68,64 +69,50 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void GivenStepIsScanned()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.Given));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var givenStep = matchingSteps.First();
-            Assert.That(givenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
+            VerifyStepAndItsProperties(_sut.Given, ExecutionOrder.SetupState);
         }
 
         [Test]
         public void WhenStepIsScanned()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.When));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var whenStep = matchingSteps.First();
-            Assert.That(whenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Transition));
+            VerifyStepAndItsProperties(_sut.When, ExecutionOrder.Transition);
         }
 
         [Test]
         public void LegacyTransitionStepIsScanned()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.LegacyTransitionMethod));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var transitionStep = matchingSteps.First();
-            Assert.That(transitionStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsequentTransition));
+            VerifyStepAndItsProperties(_sut.LegacyTransitionMethod, ExecutionOrder.ConsequentTransition);
         }
 
         [Test]
         public void ThenStepIsScanned()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.Then));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var thenStep = matchingSteps.First();
-            Assert.That(thenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Assertion));
+            VerifyStepAndItsProperties(_sut.Then, ExecutionOrder.Assertion);
         }
 
         [Test]
         public void AndThenStepIsScanned() // this also means that a method is considered only once even if it matches more than one scanner
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.AndThen));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var andThenStep = matchingSteps.First();
-            Assert.That(andThenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsequentAssertion));
+            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsequentAssertion, 2);
         }
 
         [Test]
         public void LegacyAssertionStepIsScanned()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.TestThatSomethingIsRight));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var testStep = matchingSteps.First();
-            Assert.That(testStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Assertion));
+            VerifyStepAndItsProperties(_sut.TestThatSomethingIsRight, ExecutionOrder.Assertion);
         }
 
         [Test]
         public void LegacyConsequentAssertionStepIsScanned()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(_sut.TestThatSomethingIsWrong));
-            Assert.That(matchingSteps.Count(), Is.EqualTo(1));
-            var testStep = matchingSteps.First();
-            Assert.That(testStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsequentAssertion));
+            VerifyStepAndItsProperties(_sut.TestThatSomethingIsWrong, ExecutionOrder.ConsequentAssertion);
+        }
+
+        void VerifyStepAndItsProperties(Action stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
+        {
+            var matchingSteps = _scenario.Steps.Where(s => s.Method == Helpers.GetMethodInfo(stepMethodAction));
+            Assert.That(matchingSteps.Count(), Is.EqualTo(expectedCount));
+            Assert.IsTrue(matchingSteps.All(s => s.ExecutionOrder == expectedOrder));
         }
 
         [Test]

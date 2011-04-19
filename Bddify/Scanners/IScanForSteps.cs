@@ -8,8 +8,8 @@ namespace Bddify.Scanners
 {
     public interface IScanForSteps
     {
+        int Priority { get; }
         IEnumerable<ExecutionStep> Scan(Type scenarioType);
-        bool Handled { get; }
     }
 
     public static class StepScanner

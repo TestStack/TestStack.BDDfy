@@ -58,9 +58,27 @@ namespace Bddify.Scanners
 
             object testObject = Activator.CreateInstance(scenarioType);
 
-            var steps = _stepScanners.SelectMany(s => s.Scan(scenarioType)).ToList();
+            var steps = ScanScenarioForSteps(scenarioType); 
 
             return new Scenario(testObject, steps, scenarioText, argsSet);
+        }
+
+        private IEnumerable<ExecutionStep> ScanScenarioForSteps(Type scenarioType)
+        {
+            var steps = new List<ExecutionStep>();
+            // scanners are sorted by priority to make sure the higher priority scanners get to scan the scenario first
+            foreach (var scanner in _stepScanners.OrderBy(s => s.Priority))
+            {
+                foreach (var step in scanner.Scan(scenarioType))
+                {
+                    // if a method has been found by another scanner, ignore it
+                    if (steps.Any(s => s == step)) 
+                        continue;
+
+                    steps.Add(step);
+                    yield return step;
+                }
+            }
         }
 
         private static IEnumerable<Type> GetScenarioTypes(Type storyType)

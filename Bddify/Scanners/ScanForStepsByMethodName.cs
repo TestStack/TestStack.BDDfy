@@ -15,6 +15,11 @@ namespace Bddify.Scanners
             _matchers = matchers;
         }
 
+        public int Priority
+        {
+            get { return 2; }
+        }
+
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
             var methodsToScan = scenarioType.GetMethodsOfInterest();
@@ -30,7 +35,6 @@ namespace Bddify.Scanners
 
                     if (matcher.IsMethodOfInterest(method.Name))
                     {
-                        Handled = true;
                         foundMethods.Add(method);
 
                         var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
@@ -66,7 +70,5 @@ namespace Bddify.Scanners
 
             yield break;
         }
-
-        public bool Handled {get; private set;}
     }
 }

@@ -9,16 +9,11 @@ namespace Bddify.Core
         public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet = null)
         {
             Object = testClass;
-            _steps = GetUniqueSteps(steps);
+            _steps = steps.OrderBy(o => o.ExecutionOrder).ToList();
             Id = Guid.NewGuid();
 
             ScenarioText = scenarioText;
             _argsSet = argsSet;
-        }
-
-        static List<ExecutionStep> GetUniqueSteps(IEnumerable<ExecutionStep> steps)
-        {
-            return steps.Distinct().OrderBy(o => o.ExecutionOrder).ToList();
         }
 
         public string ScenarioText { get; private set; }

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Bddify.Core;
-using Bddify.Scanners;
 
 namespace Bddify.Scanners
 {
     public class ExecutableAttributeScanner : IScanForSteps
     {
+        public int Priority
+        {
+            get { return 1; }
+        }
+
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
             var steps = new List<Tuple<ExecutableAttribute, ExecutionStep>>();
@@ -40,13 +44,8 @@ namespace Bddify.Scanners
                 }
             }
 
-            if (steps.Count > 0)
-                Handled = true;
-
-            return steps.OrderBy(s => s.Item1.ExecutionOrder).Select(s => s.Item2).ToList();
+            return steps.Select(s => s.Item2).ToList();
         }
-
-        public bool Handled { get; private set; }
 
         private static bool IsAssertingByAttribute(MethodInfo method)
         {
