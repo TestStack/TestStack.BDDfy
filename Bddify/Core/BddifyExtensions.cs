@@ -15,16 +15,16 @@ namespace Bddify.Core
             foreach (var testObjectType in assmebly.GetTypes().Where(t => shouldBddify(t)))
             {
                 var testObject = Activator.CreateInstance(testObjectType);
-                IExceptionProcessor processor = null; // I should not throw exceptions because it will stop the assembly runner
-                testObject.Bddify(processor, htmlReport:htmlReport, consoleReport:consoleReport);
+                // should not handle exceptions in this case
+                testObject.Bddify(handleExceptions: false, htmlReport: htmlReport, consoleReport: consoleReport);
             }
 
             HtmlReporter.GenerateHtmlReport();
         }
 
-        public static void Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool htmlReport = true, bool consoleReport = true)
+        public static void Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
-            testObject.LazyBddify(exceptionProcessor, htmlReport, consoleReport).Run();
+            testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport).Run();
         }
 
         public static void Bddify(this object testObject, Action assertInconclusive, bool htmlReport = true, bool consoleReport = true)
@@ -32,7 +32,7 @@ namespace Bddify.Core
             testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport);
         }
 
-        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool htmlReport = true, bool consoleReport = true)
+        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
             var processors = new List<IProcessor> {new TestRunner()};
 
@@ -42,10 +42,13 @@ namespace Bddify.Core
             if(htmlReport)
                 processors.Add(new HtmlReporter());
 
-            if (exceptionProcessor == null)
-                exceptionProcessor = new ExceptionProcessor();
+            if (handleExceptions)
+            {
+                if (exceptionProcessor == null)
+                    exceptionProcessor = new ExceptionProcessor();
 
-            processors.Add(exceptionProcessor);
+                processors.Add(exceptionProcessor);
+            }
 
             var scanner = new DefaultScanner(
                 new ScanForScenarios(
