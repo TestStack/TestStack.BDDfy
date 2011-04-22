@@ -41,8 +41,6 @@ namespace Bddify.Reporters
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                         reporterRegistry[step.Result](step);
                 }
-
-                Console.WriteLine();
             }
 
             ReportExceptions();
@@ -56,8 +54,6 @@ namespace Bddify.Reporters
 
         private static void ReportStoryHeader(Story story)
         {
-            Console.WriteLine("================================================================================");
-
             if (story.Type == null)
                 return;
 
@@ -69,7 +65,6 @@ namespace Bddify.Reporters
             Console.WriteLine("\t" + story.Narrative.AsA);
             Console.WriteLine("\t" + story.Narrative.IWant);
             Console.WriteLine("\t" + story.Narrative.SoThat);
-            Console.WriteLine();
         }
 
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)
@@ -83,7 +78,7 @@ namespace Bddify.Reporters
             if(reportOnException)
             {
                 _exceptions.Add(step.Exception);
-                message += string.Format(" :: Exception Stack Trace below on number [{0}]", _exceptions.Count);
+                message += string.Format(" :: Exception number [{0}] below", _exceptions.Count);
             }
 
             if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
@@ -99,16 +94,17 @@ namespace Bddify.Reporters
 
         void ReportExceptions()
         {
+            Console.WriteLine();
             if (_exceptions.Count == 0)
                 return;
 
-            Console.WriteLine("<< Exceptions' Details >>");
+            Console.Write("Exceptions:");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
                 Console.WriteLine();
-                Console.Write(string.Format("[{0}]: ", index + 1));
+                Console.Write(string.Format("  {0}. ", index + 1));
                 
                 if (!string.IsNullOrEmpty(exception.Message))
                     Console.WriteLine(FlattenExceptionMessage(exception.Message));
@@ -118,8 +114,6 @@ namespace Bddify.Reporters
                 Console.WriteLine(exception.StackTrace);
             }
 
-            Console.WriteLine();
-            Console.WriteLine("<< End of excetion details >>");
             Console.WriteLine();
         }
 
@@ -137,7 +131,8 @@ namespace Bddify.Reporters
         static void Report(Scenario scenario)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Scenario: " +  scenario.ScenarioText);
+            Console.WriteLine();
+            Console.WriteLine("Scenario: " + scenario.ScenarioText);
         }
     }
 }
