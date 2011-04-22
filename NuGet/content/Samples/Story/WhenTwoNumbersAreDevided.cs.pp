@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace $rootnamespace$
+namespace $rootnamespace$.Samples.Story
 {
     public class WhenTwoNumbersAreDevided
     {

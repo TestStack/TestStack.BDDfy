@@ -2,7 +2,7 @@ using System;
 using Bddify.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace $rootnamespace$
+namespace $rootnamespace$.Samples.Story
 {
     [RunScenarioWithArgs(1, 2, 2)]
     [RunScenarioWithArgs(4, 5, 20)]

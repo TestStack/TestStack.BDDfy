@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A51D
 		NuGet\content\Samples\SomeInconclusiveTest.cs.pp = NuGet\content\Samples\SomeInconclusiveTest.cs.pp
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StorySample", "StorySample", "{E608773D-753C-445C-94A3-693A47253C32}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Story", "Story", "{E608773D-753C-445C-94A3-693A47253C32}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\content\Samples\Story\CalculatorCanDoFourMainMathFunctions.cs.pp = NuGet\content\Samples\Story\CalculatorCanDoFourMainMathFunctions.cs.pp
 		NuGet\content\Samples\Story\WhenTwoNumbersAreAdded.cs.pp = NuGet\content\Samples\Story\WhenTwoNumbersAreAdded.cs.pp
