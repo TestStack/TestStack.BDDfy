@@ -8,7 +8,7 @@ namespace Bddify.Processors
     public class ExceptionProcessor : IExceptionProcessor
     {
         private readonly Action _assertInconclusive;
-        private static readonly Action FoundInconclusiveAssertion;
+        private static readonly Action BestGuessInconclusiveAssertion;
 
         static ExceptionProcessor()
         {
@@ -30,7 +30,7 @@ namespace Bddify.Processors
                         var ctor = constructors.First(c => c.GetParameters().Length == shortestCtor);
                         var argList = new List<object>();
                         argList.AddRange(ctor.GetParameters().Select(p => DefaultValue(p.ParameterType)));
-                        FoundInconclusiveAssertion = () => { throw (Exception)ctor.Invoke(argList.ToArray()); };
+                        BestGuessInconclusiveAssertion = () => { throw (Exception)ctor.Invoke(argList.ToArray()); };
                         return;
                     }
                 }
@@ -43,7 +43,7 @@ namespace Bddify.Processors
             return !myType.IsValueType ? null : Activator.CreateInstance(myType);
         }
 
-        public ExceptionProcessor() : this(FoundInconclusiveAssertion)
+        public ExceptionProcessor() : this(BestGuessInconclusiveAssertion)
         {
         }
 
