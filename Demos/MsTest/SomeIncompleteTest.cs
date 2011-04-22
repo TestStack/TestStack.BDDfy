@@ -1,4 +1,5 @@
 using System;
+using Bddify.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Demos.MsTest

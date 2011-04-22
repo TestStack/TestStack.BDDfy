@@ -22,7 +22,7 @@ namespace Bddify.Core
             HtmlReporter.GenerateHtmlReport();
         }
 
-        public static void Bddify(this object testObject, IExceptionProcessor exceptionProcessor, bool htmlReport = true, bool consoleReport = true)
+        public static void Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool htmlReport = true, bool consoleReport = true)
         {
             testObject.LazyBddify(exceptionProcessor, htmlReport, consoleReport).Run();
         }
@@ -42,8 +42,10 @@ namespace Bddify.Core
             if(htmlReport)
                 processors.Add(new HtmlReporter());
 
-            if(exceptionProcessor != null)
-                processors.Add(exceptionProcessor);
+            if (exceptionProcessor == null)
+                exceptionProcessor = new ExceptionProcessor();
+
+            processors.Add(exceptionProcessor);
 
             var scanner = new DefaultScanner(
                 new ScanForScenarios(

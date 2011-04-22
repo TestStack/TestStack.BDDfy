@@ -1,4 +1,5 @@
 using System;
+using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;

@@ -1,4 +1,5 @@
-﻿using Bddify.Scanners;
+﻿using Bddify.Core;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Demos.NUnit.AtmAndCardSamples

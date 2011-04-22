@@ -1,4 +1,5 @@
-﻿using Bddify.Scanners;
+﻿using Bddify.Core;
+using Bddify.Scanners;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Demos.MsTest.AtmAndCardSamples
