@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BddifyNunit.cs" />
     <Compile Include="Arguments\ArgumentsProvidedForGiven.cs" />
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
