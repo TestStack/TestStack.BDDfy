@@ -16,6 +16,7 @@ namespace Bddify.Processors
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if(assembly.GetName().FullName.StartsWith("System") || // exclude system assemblies
+                    assembly.Equals(typeof(ExceptionProcessor).Assembly) ||
                     assembly.GetName().FullName.StartsWith("mscorlib"))
                     continue;
 
@@ -35,6 +36,8 @@ namespace Bddify.Processors
                     }
                 }
             }
+
+            BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
         }
 
         //http://stackoverflow.com/questions/520290/how-can-i-get-the-default-value-of-a-type-in-a-non-generic-way
