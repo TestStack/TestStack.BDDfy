@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Story", "Story", "{E608773D
 		NuGet\content\Samples\Story\WhenTwoNumbersAreSubtracted.cs.pp = NuGet\content\Samples\Story\WhenTwoNumbersAreSubtracted.cs.pp
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests.MsTest", "Bddify.Tests.MsTest\Bddify.Tests.MsTest.csproj", "{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,16 @@ Global
 		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

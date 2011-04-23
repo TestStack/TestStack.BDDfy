@@ -4,10 +4,9 @@ using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
-using NUnit.Framework;
 using System.Linq;
 
-namespace Bddify.Tests.Exceptions
+namespace Bddify.Tests.MsTest.Exceptions
 {
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
