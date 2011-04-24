@@ -7,40 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests", "Bddify.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60D7F179-1DBE-4747-B7DB-996876C437CC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{4CF56259-9C6F-4E3C-A5BB-CCD561500146}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnit", "Demos\NUnit\NUnit.csproj", "{49BE28D4-937F-4EDE-93D4-134AE20AB23D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsTest", "Demos\MsTest\MsTest.csproj", "{8697B730-2064-4F1B-9B46-F7782217C44A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{1028A699-1730-496E-A7E5-F7EA149B7707}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet\Bddify.nuspec = NuGet\Bddify.nuspec
+		NuGet\bddify\Bddify.nuspec = NuGet\bddify\Bddify.nuspec
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{D19C1DCE-6B35-4DF4-BAAE-777205FC4ACB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{C45056D9-0E10-4223-9701-3F519947915E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{082E29A5-BC34-4231-9502-82E9875E4229}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyRunner", "Demos\AssemblyRunner\AssemblyRunner.csproj", "{708A05B7-7275-4B8E-B972-EA23B15EE736}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A51D9F71-9E97-4F2F-B7C4-7D7A80090C14}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet\content\Samples\ScenarioWithArgs.cs.pp = NuGet\content\Samples\ScenarioWithArgs.cs.pp
-		NuGet\content\Samples\SomeIncompleteTest.cs.pp = NuGet\content\Samples\SomeIncompleteTest.cs.pp
-		NuGet\content\Samples\SomeInconclusiveTest.cs.pp = NuGet\content\Samples\SomeInconclusiveTest.cs.pp
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Story", "Story", "{E608773D-753C-445C-94A3-693A47253C32}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet\content\Samples\Story\CalculatorCanDoFourMainMathFunctions.cs.pp = NuGet\content\Samples\Story\CalculatorCanDoFourMainMathFunctions.cs.pp
-		NuGet\content\Samples\Story\WhenTwoNumbersAreAdded.cs.pp = NuGet\content\Samples\Story\WhenTwoNumbersAreAdded.cs.pp
-		NuGet\content\Samples\Story\WhenTwoNumbersAreDevided.cs.pp = NuGet\content\Samples\Story\WhenTwoNumbersAreDevided.cs.pp
-		NuGet\content\Samples\Story\WhenTwoNumbersAreMultiplied.cs.pp = NuGet\content\Samples\Story\WhenTwoNumbersAreMultiplied.cs.pp
-		NuGet\content\Samples\Story\WhenTwoNumbersAreSubtracted.cs.pp = NuGet\content\Samples\Story\WhenTwoNumbersAreSubtracted.cs.pp
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests.MsTest", "Bddify.Tests.MsTest\Bddify.Tests.MsTest.csproj", "{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}"
 EndProject
@@ -76,36 +50,6 @@ Global
 		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}.Release|x86.ActiveCfg = Release|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D}.Release|x86.ActiveCfg = Release|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8697B730-2064-4F1B-9B46-F7782217C44A}.Release|x86.ActiveCfg = Release|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|Any CPU.Build.0 = Release|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{708A05B7-7275-4B8E-B972-EA23B15EE736}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -131,15 +75,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4CF56259-9C6F-4E3C-A5BB-CCD561500146} = {60D7F179-1DBE-4747-B7DB-996876C437CC}
 		{1028A699-1730-496E-A7E5-F7EA149B7707} = {60D7F179-1DBE-4747-B7DB-996876C437CC}
-		{49BE28D4-937F-4EDE-93D4-134AE20AB23D} = {4CF56259-9C6F-4E3C-A5BB-CCD561500146}
-		{8697B730-2064-4F1B-9B46-F7782217C44A} = {4CF56259-9C6F-4E3C-A5BB-CCD561500146}
-		{708A05B7-7275-4B8E-B972-EA23B15EE736} = {4CF56259-9C6F-4E3C-A5BB-CCD561500146}
-		{D19C1DCE-6B35-4DF4-BAAE-777205FC4ACB} = {1028A699-1730-496E-A7E5-F7EA149B7707}
 		{C45056D9-0E10-4223-9701-3F519947915E} = {1028A699-1730-496E-A7E5-F7EA149B7707}
 		{082E29A5-BC34-4231-9502-82E9875E4229} = {1028A699-1730-496E-A7E5-F7EA149B7707}
-		{A51D9F71-9E97-4F2F-B7C4-7D7A80090C14} = {D19C1DCE-6B35-4DF4-BAAE-777205FC4ACB}
-		{E608773D-753C-445C-94A3-693A47253C32} = {A51D9F71-9E97-4F2F-B7C4-7D7A80090C14}
 	EndGlobalSection
 EndGlobal
