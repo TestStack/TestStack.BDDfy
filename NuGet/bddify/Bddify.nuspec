@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>bddify</id>
+    <version>0.3</version>
+    <title>A simple BDD framework for .Net programmers</title>
+    <authors>Mehdi Khalili</authors>
+    <owners>Mehdi Khalili</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>bddify is a simple but powerful BDD framework for .Net developers</description>
+	<projectUrl>https://code.google.com/p/bddify/</projectUrl>
+  </metadata>
+</package>
