@@ -2,7 +2,7 @@ glob:*.ReSharper*
 glob:*/bin
 glob:*/obj
 glob:Bddify.Tests/Bddify.Tests.csproj.user
-glob:Bddify.suo
 glob:NuGet/lib/*
 glob:TestResults/*
 glob:_ReSharper*
+glob:*.suo
