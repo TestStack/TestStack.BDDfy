@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8697B730-2064-4F1B-9B46-F7782217C44A}</ProjectGuid>
+    <ProjectGuid>{9D14B03B-9514-4DD8-9D4B-914A10D7EB59}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Demos.MsTest</RootNamespace>
-    <AssemblyName>Demos.MsTest</AssemblyName>
+    <RootNamespace>Bddify.Samples</RootNamespace>
+    <AssemblyName>Bddify.Samples</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,18 +40,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AtmAndCardSamples\AtmAndCardSystem.cs" />
-    <Compile Include="AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs" />
-    <Compile Include="SomeFailingTest.cs" />
+    <Compile Include="AssemblyRunner\content\Run.cs" />
+    <Compile Include="AssemblyRunner\content\SomeIncompleteTest.cs" />
+    <Compile Include="AssemblyRunner\content\WhenTwoNumbersAreAdded.cs" />
+    <Compile Include="AssemblyRunner\content\WhenTwoNumbersAreMultiplied.cs" />
+    <Compile Include="AssemblyRunner\content\WhenTwoNumbersAreSubtracted.cs" />
+    <Compile Include="MsTest\content\AtmAndCardSamples\AtmAndCardSystem.cs" />
+    <Compile Include="MsTest\content\AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs" />
+    <Compile Include="MsTest\content\FailingTestWithScenarioArguments.cs" />
+    <Compile Include="MsTest\content\SomeFailingTest.cs" />
+    <Compile Include="MsTest\content\SomeIncompleteTest.cs" />
+    <Compile Include="NUnit\content\AtmAndCardSamples\AtmAndCardSystem.cs" />
+    <Compile Include="NUnit\content\AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs" />
+    <Compile Include="NUnit\content\CalculatorStory\CalculatorCanDoFourMainMathFunctions.cs" />
+    <Compile Include="NUnit\content\CalculatorStory\WhenTwoNumbersAreAdded.cs" />
+    <Compile Include="NUnit\content\CalculatorStory\WhenTwoNumbersAreDevided.cs" />
+    <Compile Include="NUnit\content\CalculatorStory\WhenTwoNumbersAreMultiplied.cs" />
+    <Compile Include="NUnit\content\CalculatorStory\WhenTwoNumbersAreSubtracted.cs" />
+    <Compile Include="NUnit\content\FailingTestWithScenarioArguments.cs" />
+    <Compile Include="NUnit\content\ScenarioWithMixedSteps.cs" />
+    <Compile Include="NUnit\content\SomeFailingTest.cs" />
+    <Compile Include="NUnit\content\SomeIncompleteTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FailingTestWithScenarioArguments.cs" />
-    <Compile Include="SomeIncompleteTest.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\Bddify\Bddify.csproj">
-      <Project>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</Project>
-      <Name>Bddify</Name>
-    </ProjectReference>
+    <None Include="AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec" />
+    <None Include="MsTest\Bddify.Samples.MsTest.nuspec" />
+    <None Include="NUnit\Bddify.Samples.NUnit.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
