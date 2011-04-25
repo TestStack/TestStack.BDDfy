@@ -4,7 +4,7 @@ using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;
 
-namespace Demos.NUnit
+namespace $rootnamespace$
 {
     public class ScenarioWithMixedSteps
     {

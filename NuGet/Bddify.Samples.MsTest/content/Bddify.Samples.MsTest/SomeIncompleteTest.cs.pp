@@ -2,7 +2,7 @@ using System;
 using Bddify.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Demos.MsTest
+namespace $rootnamespace$
 {
     [TestClass]
     public class SomeIncompleteTest

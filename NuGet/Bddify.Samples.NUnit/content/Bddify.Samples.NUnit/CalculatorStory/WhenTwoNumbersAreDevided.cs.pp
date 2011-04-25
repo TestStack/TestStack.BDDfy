@@ -1,7 +1,7 @@
 using System;
 using Bddify.Core;
 
-namespace Demos.NUnit.CalculatorStory
+namespace $rootnamespace$.CalculatorStory
 {
     public class WhenTwoNumbersAreDevided
     {

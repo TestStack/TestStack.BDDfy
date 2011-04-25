@@ -2,9 +2,9 @@ using System;
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace Demos.NUnit
+namespace $rootnamespace$
 {
-    public class SomeIncompleteTest
+    public class SomeFailingTest
     {
         void GivenThisTestOrOneOfTheClassesItCallsToIsIncomplete()
         {
@@ -12,7 +12,7 @@ namespace Demos.NUnit
 
         void WhenTheTestIsRun()
         {
-            throw new NotImplementedException();
+            throw new ApplicationException("There was an error here");
         }
 
         void ThenItIsFlaggedAsIncomplete()

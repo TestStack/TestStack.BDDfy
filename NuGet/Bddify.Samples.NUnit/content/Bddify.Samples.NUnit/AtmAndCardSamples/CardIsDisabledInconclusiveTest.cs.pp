@@ -1,10 +1,9 @@
 ﻿using Bddify.Core;
 using Bddify.Scanners;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
-namespace Demos.MsTest.AtmAndCardSamples
+namespace $rootnamespace$.AtmAndCardSamples
 {
-    [TestClass]
     public class CardIsDisabledInconclusiveTest
     {
         private Card _card;
@@ -23,16 +22,16 @@ namespace Demos.MsTest.AtmAndCardSamples
 
         void ThenTheAtmShouldRetainTheCard()
         {
-            Assert.IsTrue(_subject.CardIsRetained);
+            Assert.That(_subject.CardIsRetained, Is.True);
         }
 
         void AndTheAtmShouldSayTheCardHasBeenRetained()
         {
-            Assert.AreEqual(_subject.Message, DisplayMessage.CardIsRetained);
+            Assert.That(_subject.Message, Is.EqualTo(DisplayMessage.CardIsRetained));
             Assert.Inconclusive();
         }
 
-        [TestMethod]
+        [Test]
         public void Execute()
         {
             this.Bddify();

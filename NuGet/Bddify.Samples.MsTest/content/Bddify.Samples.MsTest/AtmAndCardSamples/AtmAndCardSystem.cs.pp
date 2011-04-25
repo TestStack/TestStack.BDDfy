@@ -1,4 +1,4 @@
-namespace Demos.NUnit.AtmAndCardSamples
+namespace $rootnamespace$.AtmAndCardSamples
 {
     public class Atm
     {
