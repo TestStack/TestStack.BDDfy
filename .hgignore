@@ -6,3 +6,5 @@ glob:NuGet/lib/*
 glob:TestResults/*
 glob:_ReSharper*
 glob:*.suo
+glob:*.exe
+glob:*.dll
