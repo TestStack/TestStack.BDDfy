@@ -20,7 +20,7 @@ namespace Bddify.Core
         public StepExecutionResult Result
         {
             get 
-            { 
+            {
                 return (StepExecutionResult)Scenarios.Max(s => (int)s.Result); 
             }
         }

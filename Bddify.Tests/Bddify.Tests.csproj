@@ -71,6 +71,7 @@
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
     <Compile Include="RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
     <Compile Include="Story\WhenScenarioContainsMultipleSteps.cs" />
+    <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

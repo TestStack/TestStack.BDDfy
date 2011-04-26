@@ -381,7 +381,7 @@
           string assemblyName = string.Empty;
           if (Model.Count > 0)
           {
-            var codeBase = scenarios[0].Object.GetType().Assembly.CodeBase;
+            var codeBase = Model[0].Type.Assembly.CodeBase;
             var uri = new UriBuilder(codeBase);
             assemblyName = Uri.UnescapeDataString(uri.Path);
           }
@@ -393,15 +393,15 @@
 				<table>
 					<tbody>
           @{
-            var groupedByNamespace =  from story in Model
-                                      where story.Type == null
-                                      group story by story.Scenarios.First().Object.GetType().Namespace into g
-                                      select g;
+            var groupedByNamespace = from story in Model
+                                     where story.Type == null
+                                     group story by story.Scenarios.First().Object.GetType().Namespace into g
+                                     select g;
 
-            var groupedByStories =  from story in Model
-                                    where story.Type != null
-                                    group story by story.Type.Name into g
-                                    select g;
+            var groupedByStories = from story in Model
+                                   where story.Type != null
+                                   group story by story.Type.Name into g
+                                   select g;
 
             var groupedScenarios = groupedByStories.Union(groupedByNamespace);
 
@@ -423,25 +423,26 @@
                       <td>Story: @story.Narrative.Title</td>
                     }
                       <td class="namespaceResultSummary">
-                  @{
-                    var fullWidth = 400;
-                    var all = scenariosInGroup.Count();
-                    var failed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
-                    var failedRatio = (double)failed / all * 100;
-                    var failedVisible = (failedRatio == 0 ? "none" : "");
-                    var passed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
-                    var passedRatio = (double)passed / all * 100;
-                    var passedVisible = (passedRatio == 0 ? "none" : "");
-                    var notImplemented = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
-                    var notImplementedRatio = (double)notImplemented / all * 100;
-                    var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
-                    var inconclusive = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
-                    var inconclusiveRatio = (double)inconclusive / all * 100;
-                    var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
-                    var notExecuted = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
-                    var notExecutedRatio = (double)notExecuted / all * 100;
-                    var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
-                      }
+
+                    @if (story.Scenarios.Any())
+                    {
+                      var fullWidth = 400;
+                      var all = scenariosInGroup.Count();
+                      var failed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
+                      var failedRatio = (double)failed / all * 100;
+                      var failedVisible = (failedRatio == 0 ? "none" : "");
+                      var passed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
+                      var passedRatio = (double)passed / all * 100;
+                      var passedVisible = (passedRatio == 0 ? "none" : "");
+                      var notImplemented = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
+                      var notImplementedRatio = (double)notImplemented / all * 100;
+                      var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
+                      var inconclusive = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
+                      var inconclusiveRatio = (double)inconclusive / all * 100;
+                      var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
+                      var notExecuted = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
+                      var notExecutedRatio = (double)notExecuted / all * 100;
+                      var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
                         <table>
                           <tr class="namespaceResultSummary">
                             <td class="Failed" style="width:@failedRatio%;display:@failedVisible"></td>
@@ -451,14 +452,15 @@
                             <td class="NotExecuted" style="width:@notExecutedRatio%;display:@notExecutedVisible"></td>
                           </tr>
                         </table>
+                      }
                       </td>
                     </tr>
                   </table>
                 </td>
 							</tr>
             
-            if (story.Type != null && !string.IsNullOrEmpty(story.Narrative.AsA))
-            { 
+                  if (story.Type != null && !string.IsNullOrEmpty(story.Narrative.AsA))
+                  { 
             <tr class="story">
               <td colspan="5">
                 <ul class="storyNarrative">
@@ -468,10 +470,10 @@
                 </ul>
               </td>                                    
             </tr>
-            }
+                  }
 
-            foreach (var scenario in scenariosInGroup)
-            { 
+                  foreach (var scenario in scenariosInGroup)
+                  { 
               <tr class="scenario" onclick="toggle('@scenario.Id');">
 								<td class="result @scenario.Result"></td>
 								<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
@@ -501,20 +503,20 @@
 										  <td colspan="2" class="@stepClass">@result</td>
                     </tr>
 
-                    if (step.Exception != null)
-                    {
+                                          if (step.Exception != null)
+                                          {
 									  <tr class="step" id="@step.Id">
     									<td></td>
 										  <td colspan="2" class="indentation"></td>
 										  <td class="@stepClass"><code>@step.Exception.StackTrace</code></td>
 									  </tr>
-                    }
+                                          }
                   }
                   </table>                                    
                 </td>
 		  				</tr>
-                }
-              }
+                  }
+            }
             }
 					</tbody>
 				</table>
