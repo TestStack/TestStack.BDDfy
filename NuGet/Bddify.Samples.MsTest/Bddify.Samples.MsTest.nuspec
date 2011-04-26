@@ -7,8 +7,11 @@
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>bddify is a simple but powerful BDD framework for .Net developers</description>
-	<projectUrl>https://code.google.com/p/bddify/</projectUrl>
+    <description>
+      Bddify is a simple but powerful BDD framework for .Net developers.
+      Bddify.Samples.MsTest package is a small sample that demonstrates how you can use Bddify with MsTest.
+    </description>
+    <projectUrl>https://code.google.com/p/bddify/</projectUrl>
     <dependencies>
       <dependency id="Bddify" version="0.3" />
     </dependencies>
