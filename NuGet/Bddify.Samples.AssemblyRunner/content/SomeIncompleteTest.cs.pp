@@ -1,6 +1,6 @@
 using System;
 
-namespace AssemblyRunner
+namespace $rootnamespace$.Bddify.Samples.AssemblyRunner
 {
     public class WhenTheScenarioIsIncomplete
     {

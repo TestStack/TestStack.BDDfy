@@ -2,7 +2,7 @@ using System;
 using Bddify.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace $rootnamespace$
+namespace $rootnamespace$.Bddify.Samples.MsTest
 {
     [TestClass]
     public class SomeFailingTest

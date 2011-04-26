@@ -1,4 +1,4 @@
-namespace $rootnamespace$.AtmAndCardSamples
+namespace $rootnamespace$.Bddify.Samples.MsTest.AtmAndCardSamples
 {
     public class Atm
     {

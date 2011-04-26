@@ -1,7 +1,7 @@
 using System;
 using Bddify.Core;
 
-namespace AssemblyRunner
+namespace $rootnamespace$.Bddify.Samples.AssemblyRunner
 {
 	[RunScenarioWithArgs(1, 2, 3)]
 	[RunScenarioWithArgs(4, 5, 9)]

@@ -1,7 +1,7 @@
 using System;
 using Bddify.Core;
 
-namespace AssemblyRunner
+namespace $rootnamespace$.Bddify.Samples.AssemblyRunner
 {
     public class WhenTwoNumbersAreSubtracted
     {

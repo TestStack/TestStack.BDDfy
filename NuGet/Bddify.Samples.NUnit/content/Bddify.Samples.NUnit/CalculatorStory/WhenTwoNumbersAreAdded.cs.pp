@@ -1,7 +1,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.CalculatorStory
+namespace $rootnamespace$.Bddify.Samples.NUnit.CalculatorStory
 {
 	[RunScenarioWithArgs(1, 2, 3)]
 	[RunScenarioWithArgs(4, 5, 8)] // failing scenario

@@ -2,7 +2,7 @@
 using Bddify.Scanners;
 using NUnit.Framework;
 
-namespace $rootnamespace$.AtmAndCardSamples
+namespace $rootnamespace$.Bddify.Samples.NUnit.AtmAndCardSamples
 {
     public class CardIsDisabledInconclusiveTest
     {

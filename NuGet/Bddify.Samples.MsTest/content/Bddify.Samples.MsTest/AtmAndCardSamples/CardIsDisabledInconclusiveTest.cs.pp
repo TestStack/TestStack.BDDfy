@@ -2,7 +2,7 @@
 using Bddify.Scanners;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace $rootnamespace$.AtmAndCardSamples
+namespace $rootnamespace$.Bddify.Samples.MsTest.AtmAndCardSamples
 {
     [TestClass]
     public class CardIsDisabledInconclusiveTest

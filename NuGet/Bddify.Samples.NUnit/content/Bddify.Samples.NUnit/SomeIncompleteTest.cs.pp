@@ -2,7 +2,7 @@ using System;
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$
+namespace $rootnamespace$.Bddify.Samples.NUnit
 {
     public class SomeIncompleteTest
     {

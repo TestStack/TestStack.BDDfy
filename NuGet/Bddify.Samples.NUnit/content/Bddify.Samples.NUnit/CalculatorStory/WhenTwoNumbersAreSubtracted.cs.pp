@@ -1,7 +1,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.CalculatorStory
+namespace $rootnamespace$.Bddify.Samples.NUnit.CalculatorStory
 {
     public class WhenTwoNumbersAreSubtracted
     {
