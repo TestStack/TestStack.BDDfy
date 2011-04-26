@@ -12,6 +12,8 @@ namespace Bddify.Core
             _inputArguments = inputArguments;
         }
 
+        public string StepTextTemplate { get; set; }
+
         public object[] InputArguments
         {
             get { return _inputArguments; }

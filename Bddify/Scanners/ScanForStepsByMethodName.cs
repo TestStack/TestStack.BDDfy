@@ -43,8 +43,12 @@ namespace Bddify.Scanners
 
                         if (argAttributes != null && argAttributes.Length > 0)
                         {
-                            inputs = argAttributes[0].InputArguments;
-                            stepMethodName += " " + string.Join(", ", inputs);
+                            var runStepWithArgsAttribute = argAttributes[0];
+                            inputs = runStepWithArgsAttribute.InputArguments;
+                            if (string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
+                                stepMethodName += " " + string.Join(", ", inputs);
+                            else
+                                stepMethodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, runStepWithArgsAttribute.InputArguments);
                         }
 
                         // creating the method itself
@@ -59,7 +63,11 @@ namespace Bddify.Scanners
                                 inputs = argAttribute.InputArguments;
                                 if (inputs != null && inputs.Length > 0)
                                 {
-                                    stepMethodName += " " + string.Join(", ", inputs);
+                                    if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
+                                        stepMethodName += " " + string.Join(", ", inputs);
+                                    else
+                                        stepMethodName = string.Format(argAttribute.StepTextTemplate, argAttribute.InputArguments);
+
                                     yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                                 }
                             }
