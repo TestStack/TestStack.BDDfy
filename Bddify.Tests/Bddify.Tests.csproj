@@ -50,7 +50,6 @@
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />
-    <Compile Include="Scanner\StepText.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
@@ -74,7 +73,9 @@
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
     <Compile Include="RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
     <Compile Include="Story\WhenScenarioContainsMultipleSteps.cs" />
+    <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
+    <Compile Include="WhenStoryWithScenarioWithNoStepIsBddified.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">
