@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9D14B03B-9514-4DD8-9D4B-914A10D7EB59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bddify.Samples</RootNamespace>
+    <AssemblyName>Bddify.Samples</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Bddify.Samples.AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec" />
+    <None Include="Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec" />
+    <None Include="Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec" />
+    <None Include="Bddify\Bddify.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bddify.Samples.AssemblyRunner\content\Run.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\SomeIncompleteTest.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreAdded.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreMultiplied.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreSubtracted.cs.pp" />
+    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\AtmAndCardSamples\AtmAndCardSystem.cs.pp" />
+    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs.pp" />
+    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
+    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeFailingTest.cs.pp" />
+    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeIncompleteTest.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\AtmAndCardSamples\AtmAndCardSystem.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\CalculatorCanDoFourMainMathFunctions.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreAdded.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreDevided.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreMultiplied.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreSubtracted.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\FailingTestWithScenarioArguments.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\ScenarioWithMixedSteps.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\SomeFailingTest.cs.pp" />
+    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\SomeIncompleteTest.cs.pp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify\Bddify.nuspec
+$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec
+$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec
+$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
