@@ -80,6 +80,9 @@ namespace Bddify.Reporters
             if(reportOnException)
             {
                 _exceptions.Add(step.Exception);
+                if (!string.IsNullOrEmpty(step.Exception.Message))
+                    message += " " + FlattenExceptionMessage(step.Exception.Message);
+
                 message += string.Format(" :: Exception number [{0}] below", _exceptions.Count);
             }
 
