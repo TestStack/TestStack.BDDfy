@@ -1,10 +1,10 @@
 glob:*.ReSharper*
 glob:*/bin
 glob:*/obj
-glob:Bddify.Tests/Bddify.Tests.csproj.user
 glob:NuGet/lib/*
 glob:TestResults/*
 glob:_ReSharper*
 glob:*.suo
 glob:*.exe
 glob:*.dll
+glob:*.csproj.user
