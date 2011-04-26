@@ -54,7 +54,7 @@ namespace Bddify.Scanners
         {
             var scenarioText = GetScenarioText(scenarioType);
             if (argsSet != null)
-                scenarioText += string.Format(" with args ({0})", string.Join(", ", argsSet));
+                scenarioText += " " + string.Join(", ", argsSet);
 
             object testObject = Activator.CreateInstance(scenarioType);
 

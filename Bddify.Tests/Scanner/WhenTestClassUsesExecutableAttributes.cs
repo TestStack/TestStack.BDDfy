@@ -213,7 +213,7 @@ namespace Bddify.Tests.Scanner
         public void ThenStepTextIsFetchedFromMethodNamePostfixedWithArguments()
         {
             var steps = ThenSteps.ToList();
-            Assert.IsTrue(steps.All(s => s.ReadableMethodName.Contains(" with args (")));
+            Assert.IsTrue(steps.All(s => s.ReadableMethodName.EndsWith(" 1, 2") || s.ReadableMethodName.EndsWith(" 3, 4")));
         }
 
         ExecutionStep AndThenStep

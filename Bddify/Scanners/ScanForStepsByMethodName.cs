@@ -44,7 +44,7 @@ namespace Bddify.Scanners
                         if (argAttributes != null && argAttributes.Length > 0)
                         {
                             inputs = argAttributes[0].InputArguments;
-                            stepMethodName += " with args (" + string.Join(", ", inputs) + ")";
+                            stepMethodName += " " + string.Join(", ", inputs);
                         }
 
                         // creating the method itself
@@ -59,7 +59,7 @@ namespace Bddify.Scanners
                                 inputs = argAttribute.InputArguments;
                                 if (inputs != null && inputs.Length > 0)
                                 {
-                                    stepMethodName += " with args (" + string.Join(", ", inputs) + ")";
+                                    stepMethodName += " " + string.Join(", ", inputs);
                                     yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                                 }
                             }

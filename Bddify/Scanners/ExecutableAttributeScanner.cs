@@ -38,7 +38,7 @@ namespace Bddify.Scanners
 
                 foreach (var argSet in argSets)
                 {
-                    readableMethodName += " with args (" + string.Join(", ", argSet) + ")";
+                    readableMethodName += " " + string.Join(", ", argSet.InputArguments);
                     var executionStep = new ExecutionStep(methodInfo, argSet.InputArguments, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                 }

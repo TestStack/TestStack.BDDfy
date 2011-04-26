@@ -10,7 +10,7 @@ namespace Bddify.Core
         {
             Narrative = narrative;
             Type = storyType;
-            Scenarios = scenarios;
+            Scenarios = scenarios.OrderBy(s => s.ScenarioText).ToList();
         }
 
         public StoryNarrative Narrative { get; private set; }
