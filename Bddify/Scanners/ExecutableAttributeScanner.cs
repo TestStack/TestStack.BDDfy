@@ -28,18 +28,22 @@ namespace Bddify.Scanners
 
                 var stepAsserts = IsAssertingByAttribute(methodInfo);
 
-                var argSets = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                if (argSets == null || argSets.Length == 0)
+                var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
+                if (runStepWithArgsAttributes == null || runStepWithArgsAttributes.Length == 0)
                 {
                     var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                     continue;
                 }
 
-                foreach (var argSet in argSets)
+                foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
                 {
-                    readableMethodName += " " + string.Join(", ", argSet.InputArguments);
-                    var executionStep = new ExecutionStep(methodInfo, argSet.InputArguments, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
+                    var methodName = readableMethodName + " " + string.Join(", ", runStepWithArgsAttribute.InputArguments);
+
+                    if(!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
+                        methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, runStepWithArgsAttribute.InputArguments);
+
+                    var executionStep = new ExecutionStep(methodInfo, runStepWithArgsAttribute.InputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                 }
             }

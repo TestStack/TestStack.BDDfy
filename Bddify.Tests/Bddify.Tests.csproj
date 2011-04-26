@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />
     <Compile Include="Scanner\StepText.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
+    <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Story\FirstScenario.cs" />
     <Compile Include="Story\ScenarioInStoryWithArgs.cs" />

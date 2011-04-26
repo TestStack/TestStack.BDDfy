@@ -41,35 +41,25 @@ namespace Bddify.Scanners
                         object[] inputs = null;
                         var stepMethodName  = methodName;
 
-                        if (argAttributes != null && argAttributes.Length > 0)
+                        if (argAttributes == null || argAttributes.Length == 0)
                         {
-                            var runStepWithArgsAttribute = argAttributes[0];
-                            inputs = runStepWithArgsAttribute.InputArguments;
-                            if (string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
-                                stepMethodName += " " + string.Join(", ", inputs);
-                            else
-                                stepMethodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, runStepWithArgsAttribute.InputArguments);
+                            // creating the method itself
+                            yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+                            continue;
                         }
 
-                        // creating the method itself
-                        yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
-
-                        if (argAttributes != null && argAttributes.Length > 1)
+                        foreach (var argAttribute in argAttributes)
                         {
-                            for (int index = 1; index < argAttributes.Length; index++)
+                            stepMethodName = methodName;
+                            inputs = argAttribute.InputArguments;
+                            if (inputs != null && inputs.Length > 0)
                             {
-                                stepMethodName = methodName;
-                                var argAttribute = argAttributes[index];
-                                inputs = argAttribute.InputArguments;
-                                if (inputs != null && inputs.Length > 0)
-                                {
-                                    if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
-                                        stepMethodName += " " + string.Join(", ", inputs);
-                                    else
-                                        stepMethodName = string.Format(argAttribute.StepTextTemplate, argAttribute.InputArguments);
+                                if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
+                                    stepMethodName += " " + string.Join(", ", inputs);
+                                else
+                                    stepMethodName = string.Format(argAttribute.StepTextTemplate, argAttribute.InputArguments);
 
-                                    yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
-                                }
+                                yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                             }
                         }
                     }
