@@ -8,8 +8,8 @@
     <ProjectGuid>{C46C2B71-EE10-4C66-8691-AB2392123C6D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bddify.Tests.MsTest</RootNamespace>
-    <AssemblyName>Bddify.Tests.MsTest</AssemblyName>
+    <RootNamespace>Bddify.Tests.XUnit</RootNamespace>
+    <AssemblyName>Bddify.Tests.XUnit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
