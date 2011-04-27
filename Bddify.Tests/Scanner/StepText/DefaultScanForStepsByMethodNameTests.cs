@@ -54,12 +54,6 @@ namespace Bddify.Tests.Scanner.StepText
         }
 
         [Test]
-        public void TheMethodWithUnderscoreAndPascalCaseIsSeparatedButCaseIsRetained()
-        {
-            VerifyMethod("When Step Name Uses Underscore With Pascal Case");
-        }
-
-        [Test]
         public void TheMethodWithUnderscoreAndLowerCaseWordsIsSeparatedAndCaseIsRetained()
         {
             VerifyMethod("Then with lower case underscored method name");

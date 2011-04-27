@@ -12,8 +12,7 @@ namespace Bddify.Tests.Scanner.StepText
         {
             [Given]
             public void ThePascalCaseForMethodName() { }
-            [When]
-            public void Step_Name_Uses_Underscore_With_Pascal_Case() { }
+
             [Then]
             public void with_lower_case_underscored_method_name() { }
 
@@ -52,12 +51,6 @@ namespace Bddify.Tests.Scanner.StepText
         public void TheMethodWithPascalCaseIsSeparatedAndTurnedIntoLowerCaseExceptTheFirstWord()
         {
             VerifyMethod("The pascal case for method name");
-        }
-
-        [Test]
-        public void TheMethodWithUnderscoreAndPascalCaseIsSeparatedButCaseIsRetained()
-        {
-            VerifyMethod("Step Name Uses Underscore With Pascal Case");
         }
 
         [Test]

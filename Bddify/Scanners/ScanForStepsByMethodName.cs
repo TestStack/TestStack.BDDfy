@@ -31,7 +31,7 @@ namespace Bddify.Scanners
                 // e.g. a method starting with AndGiven matches against both AndGiven and And
                 foreach (var method in methodsToScan.Except(foundMethods))
                 {
-                    var methodName = NetToString.FromName(method.Name);
+                    var methodName = NetToString.Convert(method.Name);
 
                     if (!matcher.IsMethodOfInterest(method.Name)) 
                         continue;

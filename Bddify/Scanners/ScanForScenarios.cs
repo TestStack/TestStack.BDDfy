@@ -47,7 +47,7 @@ namespace Bddify.Scanners
 
         static string GetScenarioText(Type scenarioType)
         {
-            return NetToString.FromTypeName(scenarioType.Name);
+            return NetToString.Convert(scenarioType.Name);
         }
 
         protected virtual Scenario GetScenario(Type scenarioType, object[] argsSet = null)

@@ -75,7 +75,7 @@ namespace Bddify.Reporters
                 string.Format
                     ("\t{0}  [{1}]",
                     step.ReadableMethodName.PadRight(_longestStepSentence + 5),
-                    NetToString.FromPascalCase(step.Result.ToString()));
+                    NetToString.Convert(step.Result.ToString()));
 
             if(reportOnException)
             {

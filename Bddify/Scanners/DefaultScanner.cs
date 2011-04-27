@@ -35,7 +35,7 @@ namespace Bddify.Scanners
 
             var title = storyAttribute.Title;
             if (string.IsNullOrEmpty(title))
-                title = NetToString.FromTypeName(storyType.Name);
+                title = NetToString.Convert(storyType.Name);
 
             return new StoryNarrative(title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
         }

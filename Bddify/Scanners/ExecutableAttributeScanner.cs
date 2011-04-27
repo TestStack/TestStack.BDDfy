@@ -24,7 +24,7 @@ namespace Bddify.Scanners
 
                 string readableMethodName = executableAttribute.StepText;
                 if(string.IsNullOrEmpty(readableMethodName))
-                    readableMethodName = NetToString.FromName(methodInfo.Name);
+                    readableMethodName = NetToString.Convert(methodInfo.Name);
 
                 var stepAsserts = IsAssertingByAttribute(methodInfo);
 

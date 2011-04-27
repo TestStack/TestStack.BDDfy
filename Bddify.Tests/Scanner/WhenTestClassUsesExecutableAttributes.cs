@@ -55,7 +55,7 @@ namespace Bddify.Tests.Scanner
 
         private static string GetStepTextFromMethodName(Action methodInfoAction)
         {
-            return NetToString.FromName(Helpers.GetMethodInfo(methodInfoAction).Name);
+            return NetToString.Convert(Helpers.GetMethodInfo(methodInfoAction).Name);
         }
 
         [Test]
