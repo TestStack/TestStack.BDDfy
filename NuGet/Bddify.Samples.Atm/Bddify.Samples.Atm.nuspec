@@ -3,14 +3,11 @@
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bddify.Samples.Atm</id>
     <version>0.3</version>
-    <title>A simple BDD framework for .Net programmers</title>
+    <title>A small BDD sample done using bddify</title>
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-      Bddify is a simple but powerful BDD framework for .Net developers.
-      Bddify.Samples.Atm package is a small sample that implements Dan North's BDD example using bddify
-    </description>
+    <description>Bddify.Samples.Atm package is a small sample that implements Dan North's BDD example using bddify.</description>
     <projectUrl>https://code.google.com/p/bddify/</projectUrl>
     <dependencies>
       <dependency id="Bddify" version="0.3" />

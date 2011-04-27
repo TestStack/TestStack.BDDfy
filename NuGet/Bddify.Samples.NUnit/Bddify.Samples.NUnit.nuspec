@@ -3,14 +3,11 @@
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bddify.Samples.NUnit</id>
     <version>0.3</version>
-    <title>A simple BDD framework for .Net programmers</title>
+    <title>A small sample that demonstrates how you can use Bddify with NUnit</title>
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-      Bddify is a simple but powerful BDD framework for .Net developers.
-      Bddify.Samples.NUnit package is a small sample that demonstrates how you can use Bddify with NUnit.
-    </description>
+    <description>Bddify.Samples.NUnit package is a small sample that demonstrates how you can use Bddify with NUnit.</description>
     <projectUrl>https://code.google.com/p/bddify/</projectUrl>
     <dependencies>
       <dependency id="Bddify" version="0.3" />
