@@ -73,17 +73,19 @@ namespace Bddify.Reporters
         {
             var message =
                 string.Format
-                    ("\t{0}  [{1}]",
+                    ("\t{0}  [{1}] ",
                     step.ReadableMethodName.PadRight(_longestStepSentence + 5),
                     NetToString.Convert(step.Result.ToString()));
 
             if(reportOnException)
             {
                 _exceptions.Add(step.Exception);
-                if (!string.IsNullOrEmpty(step.Exception.Message))
-                    message += " " + FlattenExceptionMessage(step.Exception.Message);
 
-                message += string.Format(" :: Exception number [{0}] below", _exceptions.Count);
+                var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
+                if (!string.IsNullOrEmpty(step.Exception.Message))
+                    message += string.Format("[{0}] {1}", FlattenExceptionMessage(step.Exception.Message), exceptionReference);
+                else
+                    message += string.Format("{0}", exceptionReference);
             }
 
             if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
