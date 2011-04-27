@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Bddify.Core;
 
 namespace Bddify.Processors
@@ -10,17 +12,20 @@ namespace Bddify.Processors
         private readonly Action _assertInconclusive;
         private static readonly Action BestGuessInconclusiveAssertion;
 
+        static readonly List<string> ExcludedAssemblies =
+            new List<string>(new[] { "System", "mscorlib", "Bddify", "TestDriven", "JetBrains.ReSharper" });
+    
         static ExceptionProcessor()
         {
             var exceptionType = typeof(Exception);
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if(assembly.GetName().FullName.StartsWith("System") || // exclude system assemblies
-                    assembly.Equals(typeof(ExceptionProcessor).Assembly) ||
-                    assembly.GetName().FullName.StartsWith("mscorlib"))
+                if(ExcludedAssemblies.Any(ex => assembly.GetName().FullName.StartsWith(ex)))
                     continue;
 
-                foreach (var inconclusiveExceptionType in assembly.GetTypes())
+                File.AppendAllText("d:\\ExceptionProcessor.txt", assembly.GetName().FullName + Environment.NewLine);
+
+                foreach (var inconclusiveExceptionType in GetTypesSafely(assembly))
                 {
                     if (inconclusiveExceptionType.Name.Contains("Inconclusive") &&
                         inconclusiveExceptionType.Name.Contains("Exception") &&
@@ -38,6 +43,18 @@ namespace Bddify.Processors
             }
 
             BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
+        }
+
+        private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                return ex.Types.Where(x => x != null);
+            }
         }
 
         //http://stackoverflow.com/questions/520290/how-can-i-get-the-default-value-of-a-type-in-a-non-generic-way
