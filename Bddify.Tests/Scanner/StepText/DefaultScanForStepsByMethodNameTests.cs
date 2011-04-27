@@ -17,6 +17,12 @@ namespace Bddify.Tests.Scanner.StepText
             [RunStepWithArgs(3, 4, 5)]
             public void WhenStepIsRunWithArgumentsWithoutProvidedText(int input1, int input2, int input3) { }
 
+            [RunStepWithArgs(new[] {1, 2, 3, 4, 5})]
+            public void WhenStepIsRunWithArrayArgumentsWithoutProvidedText(int[] input) { }
+
+            [RunStepWithArgs("input string")]
+            public void WhenSomeStringIsProvidedAsInput(string input) { }
+
             [RunStepWithArgs(1, 2, 3, StepTextTemplate = "The step text gets argument {0}, {1} and then {2}")]
             [RunStepWithArgs(3, 4, 5, StepTextTemplate = "The step text gets argument {0}, {1} and then {2}")]
             public void WhenStepIsRunWithArgumentsWithProvidedText(int input1, int input2, int input3) { }
@@ -67,6 +73,18 @@ namespace Bddify.Tests.Scanner.StepText
         {
             VerifyMethod("When step is run with arguments without provided text 1, 2, 3");
             VerifyMethod("When step is run with arguments without provided text 3, 4, 5");
+        }
+
+        [Test]
+        public void TheMethodWithArrayArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
+        {
+            VerifyMethod("When step is run with array arguments without provided text 1, 2, 3, 4, 5");
+        }
+
+        [Test]
+        public void TheMethodIsRunWithAnStringAsProvidedArgumentsWithoutProvidedTextTemplate()
+        {
+            VerifyMethod("When some string is provided as input input string");
         }
 
         [Test]

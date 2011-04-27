@@ -55,7 +55,7 @@ namespace Bddify.Scanners
                             if (inputs != null && inputs.Length > 0)
                             {
                                 if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
-                                    stepMethodName += " " + string.Join(", ", inputs);
+                                    stepMethodName += " " + string.Join(", ", FlattenArray(inputs));
                                 else
                                     stepMethodName = string.Format(argAttribute.StepTextTemplate, argAttribute.InputArguments);
 
@@ -67,6 +67,24 @@ namespace Bddify.Scanners
             }
 
             yield break;
+        }
+
+        private static IEnumerable<string> FlattenArray(object[] inputs)
+        {
+            var stringOffArray = new List<string>();
+            foreach (var input in inputs)
+            {
+                var inputArray = input as Array;
+                if(inputArray != null)
+                {
+                    var temp = (from object arrElement in inputArray select arrElement.ToString()).ToList();
+                    stringOffArray.Add(string.Join(", ", temp));
+                }
+                else
+                    stringOffArray.Add(input.ToString());
+            }
+
+            return stringOffArray;
         }
     }
 }

@@ -75,7 +75,7 @@ namespace Bddify.Reporters
                 string.Format
                     ("\t{0}  [{1}]",
                     step.ReadableMethodName.PadRight(_longestStepSentence + 5),
-                    NetToString.FromCamelName(step.Result.ToString()));
+                    NetToString.FromPascalCase(step.Result.ToString()));
 
             if(reportOnException)
             {
