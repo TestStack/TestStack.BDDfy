@@ -26,6 +26,14 @@ namespace Bddify.Tests.Scanner.StepText
             [RunStepWithArgs(1, 2, 3, StepTextTemplate = "The step text gets argument {0}, {1} and then {2}")]
             [RunStepWithArgs(3, 4, 5, StepTextTemplate = "The step text gets argument {0}, {1} and then {2}")]
             public void StepIsRunWithArgumentsWithProvidedText(int input1, int input2, int input3) { }
+
+            [When]
+            [RunStepWithArgs(new[] { 1, 2, 3, 4, 5 })]
+            public void WhenStepIsRunWithArrayArgumentsWithoutProvidedText(int[] input) { }
+
+            [When]
+            [RunStepWithArgs(new[] { 1, 2, 3, 4, 5 }, StepTextTemplate = "With the following inputs {0}")]
+            public void WhenStepIsRunWithArrayArgumentsWithProvidedText(int[] input) { }
         }
 
         static void VerifyMethod(string expectedReadableMethodName, bool exists = true)
@@ -56,6 +64,18 @@ namespace Bddify.Tests.Scanner.StepText
         public void TheMethodWithUnderscoreAndLowerCaseWordsIsSeparatedAndCaseIsRetained()
         {
             VerifyMethod("with lower case underscored method name");
+        }
+
+        [Test]
+        public void TheMethodWithArrayArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
+        {
+            VerifyMethod("When step is run with array arguments without provided text 1, 2, 3, 4, 5");
+        }
+
+        [Test]
+        public void TheMethodWithArrayArgumentWithProvidedTextUsesArrayToFormatTheTextTemplate()
+        {
+            VerifyMethod("With the following inputs 1, 2, 3, 4, 5");
         }
 
         [Test]

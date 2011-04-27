@@ -33,58 +33,40 @@ namespace Bddify.Scanners
                 {
                     var methodName = NetToString.FromName(method.Name);
 
-                    if (matcher.IsMethodOfInterest(method.Name))
+                    if (!matcher.IsMethodOfInterest(method.Name)) 
+                        continue;
+
+                    foundMethods.Add(method);
+
+                    var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
+                    object[] inputs = null;
+                    var stepMethodName  = methodName;
+
+                    if (argAttributes == null || argAttributes.Length == 0)
                     {
-                        foundMethods.Add(method);
+                        // creating the method itself
+                        yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+                        continue;
+                    }
 
-                        var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                        object[] inputs = null;
-                        var stepMethodName  = methodName;
-
-                        if (argAttributes == null || argAttributes.Length == 0)
+                    foreach (var argAttribute in argAttributes)
+                    {
+                        stepMethodName = methodName;
+                        inputs = argAttribute.InputArguments;
+                        if (inputs != null && inputs.Length > 0)
                         {
-                            // creating the method itself
+                            if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
+                                stepMethodName += " " + string.Join(", ", inputs.FlattenArrays());
+                            else
+                                stepMethodName = string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
+
                             yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
-                            continue;
-                        }
-
-                        foreach (var argAttribute in argAttributes)
-                        {
-                            stepMethodName = methodName;
-                            inputs = argAttribute.InputArguments;
-                            if (inputs != null && inputs.Length > 0)
-                            {
-                                if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
-                                    stepMethodName += " " + string.Join(", ", FlattenArray(inputs));
-                                else
-                                    stepMethodName = string.Format(argAttribute.StepTextTemplate, argAttribute.InputArguments);
-
-                                yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
-                            }
                         }
                     }
                 }
             }
 
             yield break;
-        }
-
-        private static IEnumerable<string> FlattenArray(object[] inputs)
-        {
-            var stringOffArray = new List<string>();
-            foreach (var input in inputs)
-            {
-                var inputArray = input as Array;
-                if(inputArray != null)
-                {
-                    var temp = (from object arrElement in inputArray select arrElement.ToString()).ToList();
-                    stringOffArray.Add(string.Join(", ", temp));
-                }
-                else
-                    stringOffArray.Add(input.ToString());
-            }
-
-            return stringOffArray;
         }
     }
 }

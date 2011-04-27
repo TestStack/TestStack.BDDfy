@@ -38,12 +38,13 @@ namespace Bddify.Scanners
 
                 foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
                 {
-                    var methodName = readableMethodName + " " + string.Join(", ", runStepWithArgsAttribute.InputArguments);
+                    var inputArguments = runStepWithArgsAttribute.InputArguments;
+                    var methodName = readableMethodName + " " + string.Join(", ", inputArguments.FlattenArrays());
 
                     if(!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
-                        methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, runStepWithArgsAttribute.InputArguments);
+                        methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, inputArguments.FlattenArrays());
 
-                    var executionStep = new ExecutionStep(methodInfo, runStepWithArgsAttribute.InputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder);
+                    var executionStep = new ExecutionStep(methodInfo, inputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
                 }
             }
