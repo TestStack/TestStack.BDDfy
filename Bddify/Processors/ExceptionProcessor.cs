@@ -45,6 +45,7 @@ namespace Bddify.Processors
             BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
         }
 
+        //ToDo: this is rather hacky and has to be fixed
         private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
         {
             try
