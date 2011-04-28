@@ -38,9 +38,16 @@
     <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHolderWithdrawsCash.cs.pp" />
     <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\Atm.cs.pp" />
     <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\CardHasBeenDisabled.cs.pp" />
+    <None Include="Bddify.Samples.Bowling\Bddify.Samples.Bowling.nuspec" />
+    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\AllSpares.cs.pp" />
+    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\Game.cs.pp" />
+    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs.pp" />
+    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\ScoreCalculationAlternativeForms.cs.pp" />
     <None Include="Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec" />
     <None Include="Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec" />
-    <None Include="Bddify\Bddify.nuspec" />
+    <None Include="Bddify\Bddify.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Bddify.Samples.AssemblyRunner\content\Run.cs.pp" />
@@ -68,13 +75,17 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bddify.Samples.Bowling\content\Credit.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify\Bddify.nuspec
 $(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec
 $(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec
 $(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec
-$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec</PostBuildEvent>
+$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec
+$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.Bowling\Bddify.Samples.Bowling.nuspec</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
