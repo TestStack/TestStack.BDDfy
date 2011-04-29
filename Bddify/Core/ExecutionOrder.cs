@@ -7,6 +7,7 @@
         Transition = 3,
         ConsequentTransition = 4,
         Assertion = 5,
-        ConsequentAssertion = 6
+        ConsequentAssertion = 6,
+        TearDown = 7
     }
 }

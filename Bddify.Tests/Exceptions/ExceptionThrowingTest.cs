@@ -16,25 +16,26 @@ namespace Bddify.Tests.Exceptions
         private static bool _thenShouldThrow;
         Scenario _scenario;
 
-        [Given]
-        public void Given()
+        void Given()
         {
             if (_givenShouldThrow)
                 throw new T();
         }
 
-        [When]
-        public void When()
+        void When()
         {
             if(_whenShouldThrow)
                 throw new T();
         }
 
-        [Then]
-        public void Then()
+        void Then()
         {
             if (_thenShouldThrow)
                 throw new T();
+        }
+
+        void Dispose()
+        {
         }
 
         public void Execute(bool givenShouldThrow = false, bool whenShouldThrow = false, bool thenShouldThrow = false)
@@ -84,6 +85,14 @@ namespace Bddify.Tests.Exceptions
             get
             {
                 return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+            }
+        }
+
+        public ExecutionStep DisposeStep
+        {
+            get
+            {
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Dispose));
             }
         }
 

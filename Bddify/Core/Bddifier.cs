@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Bddify.Processors;
 
 namespace Bddify.Core
 {
@@ -21,9 +22,17 @@ namespace Bddify.Core
         {
             _story = _scanner.Scan(_storyType);
 
-            //run processors in the right order regardless of the order they are provided to the Bddifer
-            foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
-                processor.Process(_story);
+            try
+            {
+                //run processors in the right order regardless of the order they are provided to the Bddifer
+                foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
+                    processor.Process(_story);
+            }
+            finally
+            {
+                var disposer = new Disposer();
+                disposer.Process(_story);
+            }
         }
 
         private Story _story;

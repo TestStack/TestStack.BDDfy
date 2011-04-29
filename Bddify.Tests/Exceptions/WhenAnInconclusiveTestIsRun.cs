@@ -20,6 +20,11 @@ namespace Bddify.Tests.Exceptions
             {
                 Assert.Inconclusive();
             }
+
+            public void TearDownThis()
+            {
+                
+            }
         }
 
         Bddifier _bddifier;
@@ -57,6 +62,13 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
+        ExecutionStep DisposeStep
+        {
+            get
+            {
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.TearDownThis));
+            }
+        }
 
         [SetUp]
         public void InconclusiveExceptionSetup()
@@ -107,6 +119,12 @@ namespace Bddify.Tests.Exceptions
         public void ThenStoryResultReturnsInconclusive()
         {
             Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+        }
+
+        [Test]
+        public void ThenDisposeMethodIsExecuted()
+        {
+            Assert.That(DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
         }
     }
 }

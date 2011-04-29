@@ -40,5 +40,11 @@ namespace Bddify.Tests.Exceptions.NotImplementedException
         {
             Assert.That(Sut.Story.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
         }
+
+        [Test]
+        public void ThenDisposeMethodIsExecuted()
+        {
+            Assert.That(Sut.DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+        }
     }
 }

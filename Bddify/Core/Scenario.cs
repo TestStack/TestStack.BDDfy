@@ -42,5 +42,42 @@ namespace Bddify.Core
                 return (StepExecutionResult)Steps.Max(s => (int)s.Result);
             }
         }
+
+        public StepExecutionResult ExecuteStep(ExecutionStep executionStep)
+        {
+            try
+            {
+                executionStep.Method.Invoke(Object, executionStep.InputArguments);
+                executionStep.Result = StepExecutionResult.Passed;
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException == null)
+                    throw;
+
+                if (ex.InnerException is NotImplementedException)
+                {
+                    executionStep.Result = StepExecutionResult.NotImplemented;
+                    executionStep.Exception = ex.InnerException;
+                }
+                else if (IsInconclusive(ex.InnerException))
+                {
+                    executionStep.Result = StepExecutionResult.Inconclusive;
+                    executionStep.Exception = ex.InnerException;
+                }
+                else
+                {
+                    executionStep.Exception = ex.InnerException;
+                    executionStep.Result = StepExecutionResult.Failed;
+                }
+            }
+
+            return executionStep.Result;
+        }
+
+        private static bool IsInconclusive(Exception exception)
+        {
+            return exception.GetType().Name.Contains("InconclusiveException");
+        }
     }
 }

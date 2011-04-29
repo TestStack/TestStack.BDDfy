@@ -41,5 +41,11 @@ namespace Bddify.Tests.Exceptions.OtherExceptions
         {
             Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
         }
+
+        [Test]
+        public void ThenDisposeMethodIsExecuted()
+        {
+            Assert.That(Sut.DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+        }
     }
 }

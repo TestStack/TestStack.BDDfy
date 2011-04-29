@@ -8,5 +8,6 @@
         Report = 4,
         AfterReport = 5,
         ProcessExceptions = 6,
+        Finally = 7,
     }
 }

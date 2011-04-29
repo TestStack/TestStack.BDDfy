@@ -1,0 +1,48 @@
+using System;
+using System.Linq;
+using Bddify.Core;
+
+namespace Bddify.Processors
+{
+    public class Disposer : IProcessor
+    {
+        public ProcessType ProcessType
+        {
+            get { return ProcessType.Finally; }
+        }
+
+        public void Process(Story story)
+        {
+            try
+            {
+                foreach (var scenario in story.Scenarios)
+                {
+                    Dispose(scenario);
+                }
+            }
+            finally
+            {
+                var disposable = story as IDisposable;
+                if(disposable != null)
+                    disposable.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Runs all the dispose methods in the scenario
+        /// </summary>
+        /// <param name="scenario"></param>
+        private static void Dispose(Scenario scenario)
+        {
+            var disposeSteps = scenario
+                .Steps
+                .Where(s => s.ExecutionOrder == ExecutionOrder.TearDown && s.Result == StepExecutionResult.NotExecuted);
+            
+            foreach (var disposeStep in disposeSteps)
+            {
+                scenario.ExecuteStep(disposeStep);
+            }
+        }
+
+    }
+}
