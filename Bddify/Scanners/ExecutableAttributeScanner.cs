@@ -39,10 +39,13 @@ namespace Bddify.Scanners
                 foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
                 {
                     var inputArguments = runStepWithArgsAttribute.InputArguments;
-                    var methodName = readableMethodName + " " + string.Join(", ", inputArguments.FlattenArrays());
+                    var flatInput = inputArguments.FlattenArrays();
+                    var methodName = readableMethodName + " " + string.Join(", ", flatInput);
 
-                    if(!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
-                        methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, inputArguments.FlattenArrays());
+                    if (!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
+                        methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, flatInput);
+                    else if (!string.IsNullOrEmpty(executableAttribute.StepText))
+                        methodName = string.Format(executableAttribute.StepText, flatInput);
 
                     var executionStep = new ExecutionStep(methodInfo, inputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder);
                     steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));

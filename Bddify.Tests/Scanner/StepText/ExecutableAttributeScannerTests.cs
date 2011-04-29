@@ -33,6 +33,15 @@ namespace Bddify.Tests.Scanner.StepText
             [When]
             [RunStepWithArgs(new[] { 1, 2, 3, 4, 5 }, StepTextTemplate = "With the following inputs {0}")]
             public void WhenStepIsRunWithArrayArgumentsWithProvidedText(int[] input) { }
+
+            [When(StepText = "Running step with arg {0}, {1} and {2} using exec attribute template")]
+            [RunStepWithArgs(1, 2, 3)]
+            public void RunningStepWithArgsUsingExecAttributeTemplate(int input1, int input2, int input3){}
+
+            [When(StepText = "Running step with arg {0}, {1} and {2} when template is provided by exec attribute and RunStepWithArgs attribute")]
+            [RunStepWithArgs(1, 2, 3)]
+            [RunStepWithArgs(4, 5, 6, StepTextTemplate = "The template provided on RunStepWithArgs overrides all the others {0}, {1}, {2}")]
+            public void RunningStepWithArgsUsingExecAttributeTemplateAndRunStepWithArgsTemplate(int input1, int input2, int input3){}
         }
 
         static void VerifyMethod(string expectedReadableMethodName, bool exists = true)
@@ -90,6 +99,20 @@ namespace Bddify.Tests.Scanner.StepText
         {
             VerifyMethod("Step is run with arguments with provided text 1, 2, 3", false);
             VerifyMethod("Step is run with arguments with provided text 3, 4, 5", false);
+        }
+
+        [Test]
+        public void TheMethodWithArgumentWithTextProvidedOnTheExecutableAttributeUsesExecutableAttributeTemplate()
+        {
+            VerifyMethod("Running step with arg 1, 2 and 3 using exec attribute template");
+        }
+
+        [Test]
+        public void RunStepWithArgsTemplateOverrideAllOtherTemplates()
+        {
+            VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute and RunStepWithArgs attribute");
+            VerifyMethod("Running step with args using exec attribute template and run step with args template 1, 2, 3", false);
+            VerifyMethod("The template provided on RunStepWithArgs overrides all the others 4, 5, 6");
         }
     }
 }
