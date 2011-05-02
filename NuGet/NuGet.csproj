@@ -55,13 +55,9 @@
     <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreAdded.cs.pp" />
     <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreMultiplied.cs.pp" />
     <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreSubtracted.cs.pp" />
-    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\AtmAndCardSamples\AtmAndCardSystem.cs.pp" />
-    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeFailingTest.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeIncompleteTest.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\AtmAndCardSamples\AtmAndCardSystem.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\AtmAndCardSamples\CardIsDisabledInconclusiveTest.cs.pp" />
     <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\CalculatorCanDoFourMainMathFunctions.cs.pp" />
     <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreAdded.cs.pp" />
     <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreDevided.cs.pp" />
