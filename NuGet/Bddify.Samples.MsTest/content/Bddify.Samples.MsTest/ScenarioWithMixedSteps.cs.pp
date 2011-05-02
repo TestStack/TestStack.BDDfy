@@ -6,10 +6,11 @@ using System;
 using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace $rootnamespace$.Bddify.Samples.MsTest
 {
+	[TestClass]
     public class ScenarioWithMixedSteps
     {
 		// This is matched using naming convention; because the method name starts with 'When'
@@ -48,7 +49,7 @@ namespace $rootnamespace$.Bddify.Samples.MsTest
             throw new Exception("This method should not be returned");
         }
 
-        [Test]
+        [TestMethod]
         public void Execute()
         {
             this.Bddify();

@@ -44,6 +44,7 @@
     <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs.pp" />
     <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\ScoreCalculationAlternativeForms.cs.pp" />
     <None Include="Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec" />
+    <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\ScenarioWithMixedSteps.cs.pp" />
     <None Include="Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec" />
     <None Include="Bddify\Bddify.nuspec">
       <SubType>Designer</SubType>
@@ -58,11 +59,6 @@
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeFailingTest.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeIncompleteTest.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\CalculatorCanDoFourMainMathFunctions.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreAdded.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreDevided.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreMultiplied.cs.pp" />
-    <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\CalculatorStory\WhenTwoNumbersAreSubtracted.cs.pp" />
     <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\FailingTestWithScenarioArguments.cs.pp" />
     <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\ScenarioWithMixedSteps.cs.pp" />
     <None Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\SomeFailingTest.cs.pp" />
@@ -73,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bddify.Samples.Bowling\content\Credit.txt" />
+    <Content Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\ReadMe.txt" />
+    <Content Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

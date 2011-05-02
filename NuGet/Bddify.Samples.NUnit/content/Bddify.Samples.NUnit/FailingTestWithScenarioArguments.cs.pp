@@ -1,3 +1,10 @@
+// This is a class that represents one Scenario type. This scenario is decorated with RunScenarioWithArgs attribute.
+// There is also a method called RunScenarioWithArgs that has the same number of arguments as provided on the RunScenarioWithArgs attributes.
+// Bddify creates three scenarios from this type, that one per RunScenarioWithArgs instance. Two of these scenarios will succeed; 
+// but one of them will fail.
+// Again it is worth mentioning that this is not to be considered as a "how to do BDD" sample; this is merely to show you how bddify deals with
+// RunScenarioWithArgs and failing scenarios.
+
 using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
