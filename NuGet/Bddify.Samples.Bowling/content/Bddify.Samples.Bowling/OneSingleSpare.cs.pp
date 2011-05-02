@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// This class serves as a scenario for ScoreCalculationAlternativeForms story.
+
+using System.Collections.Generic;
 using Bddify.Core;
 using NUnit.Framework;
 

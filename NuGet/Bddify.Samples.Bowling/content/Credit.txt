@@ -1,1 +1,0 @@
-This example has been borrowed from SpecFlow's Bowling Kata sample.
