@@ -9,7 +9,8 @@ Bddify uses quite a few conventions to make it frictionless to use. For your con
 ##Finding steps
 Bddify scans your bddified classes for steps. Currently it has two ways of finding a step: using attributes and using method name conventions.
 
-Bddify runs your steps in the following order:
+Bddify runs your steps in the following order: SetupState, ConsecutiveSetupState, Transition, ConsecutiveTransition, Assertion, ConsecutiveAssertion and TearDown. 
+Some of these steps are reported in the console and html reports and some of them are not. Please read below for further information.
 
 ###Attributes:
 Bddify looks for a custom attribute called ExecutableAttribute on your method. To make it easier to use, ExecutableAttribute has a few subclasses that you can use:
@@ -28,3 +29,7 @@ bddify uses some conventions to find methods that should be turned into steps. H
  - starting with "And" is considered as an asserting method (reported).
  - starting with "Dispose" is considered as a finally method which is run after all the other steps (not reported).
  - starting with "TearDown" is considered as a finally method which is run after all the other steps (not reported).
+
+##Usage
+All you need to do to bddify a class is to call 'this.Bddify();' from an executable path. This usually lives in a test method with only one line which is 'this.Bddify();'.
+You may download some of the samples to see how bddify works.
