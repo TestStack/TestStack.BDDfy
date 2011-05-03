@@ -58,13 +58,13 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndGiven1IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[1], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven1), ExecutionOrder.ConsequentSetupState);
+            AssertStep(_steps[1], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven1), ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
         public void AndGiven2IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[2], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven2), ExecutionOrder.ConsequentSetupState);
+            AssertStep(_steps[2], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven2), ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
@@ -76,13 +76,13 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndWhen1IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[4], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen1), ExecutionOrder.ConsequentTransition);
+            AssertStep(_steps[4], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen1), ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
         public void AndWhen2IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[5], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen2), ExecutionOrder.ConsequentTransition);
+            AssertStep(_steps[5], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen2), ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
@@ -94,13 +94,13 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndThenIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[7], Helpers.GetMethodInfo(_typeWithoutAttribute.AndThen), ExecutionOrder.ConsequentAssertion, true);
+            AssertStep(_steps[7], Helpers.GetMethodInfo(_typeWithoutAttribute.AndThen), ExecutionOrder.ConsecutiveAssertion, true);
         }
 
         [Test]
         public void AndSomethingIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[8], Helpers.GetMethodInfo(_typeWithoutAttribute.AndSomething), ExecutionOrder.ConsequentAssertion, true);
+            AssertStep(_steps[8], Helpers.GetMethodInfo(_typeWithoutAttribute.AndSomething), ExecutionOrder.ConsecutiveAssertion, true);
         }
 
         [Test]

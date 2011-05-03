@@ -3,11 +3,11 @@
     public enum ExecutionOrder
     {
         SetupState = 1,
-        ConsequentSetupState = 2,
+        ConsecutiveSetupState = 2,
         Transition = 3,
-        ConsequentTransition = 4,
+        ConsecutiveTransition = 4,
         Assertion = 5,
-        ConsequentAssertion = 6,
+        ConsecutiveAssertion = 6,
         TearDown = 7
     }
 }

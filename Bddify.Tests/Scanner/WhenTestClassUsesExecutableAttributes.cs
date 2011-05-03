@@ -111,7 +111,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndGivenIsFoundAsConsequtiveSetupState()
         {
-            Assert.That(AndGivenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsequentSetupState));
+            Assert.That(AndGivenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
         }
 
         [Test]
@@ -161,9 +161,9 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void AndWhenIsFoundAsConsequentTransition()
+        public void AndWhenIsFoundAsConsecutiveTransition()
         {
-            Assert.That(AndWhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsequentTransition));
+            Assert.That(AndWhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
         }
 
         [Test]
@@ -225,9 +225,9 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void AndThenIsFoundAndConsequentAssertingStep()
+        public void AndThenIsFoundAndConsecutiveAssertingStep()
         {
-            Assert.That(AndThenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsequentAssertion));
+            Assert.That(AndThenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
         }
 
         [Test]

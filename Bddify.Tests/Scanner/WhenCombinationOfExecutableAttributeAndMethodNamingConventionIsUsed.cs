@@ -79,7 +79,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void StepScannerPriorityIsConsidered()
         {
-            VerifyStepAndItsProperties(_sut.ThenThisMethodIsFoundAsAnGivenStepNotThenStep, ExecutionOrder.ConsequentSetupState);
+            VerifyStepAndItsProperties(_sut.ThenThisMethodIsFoundAsAnGivenStepNotThenStep, ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void LegacyTransitionStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.LegacyTransitionMethod, ExecutionOrder.ConsequentTransition);
+            VerifyStepAndItsProperties(_sut.LegacyTransitionMethod, ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndThenStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsequentAssertion);
+            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsecutiveAssertion);
         }
 
         [Test]
@@ -113,9 +113,9 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void LegacyConsequentAssertionStepIsScanned()
+        public void LegacyConsecutiveAssertionStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.TestThatSomethingIsWrong, ExecutionOrder.ConsequentAssertion);
+            VerifyStepAndItsProperties(_sut.TestThatSomethingIsWrong, ExecutionOrder.ConsecutiveAssertion);
         }
 
         void VerifyStepAndItsProperties(Action stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
