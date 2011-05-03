@@ -6,7 +6,7 @@ namespace Bddify.Core
 {
     public class NetToString
     {
-        static Func<string, string> FromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
+        static readonly Func<string, string> FromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
         static string FromPascalCase(string name)
         {
             var chars = name.Aggregate(
@@ -26,11 +26,16 @@ namespace Bddify.Core
                         }
 
                         var lastCharacterInTheList = list[list.Count - 1];
-                        if(char.IsLower(lastCharacterInTheList) && !char.IsLower(currentChar))
-                            list.Add(' ');
-
-                        if(char.IsDigit(lastCharacterInTheList) && char.IsLetter(currentChar))
-                            list.Add(' ');
+                        if (lastCharacterInTheList != ' ')
+                        {
+                            if(char.IsDigit(lastCharacterInTheList))
+                            {
+                                if (char.IsLetter(currentChar))
+                                    list.Add(' ');
+                            }
+                            else if (!char.IsLower(currentChar))
+                                list.Add(' ');
+                        }
 
                         list.Add(char.ToLower(currentChar));
 

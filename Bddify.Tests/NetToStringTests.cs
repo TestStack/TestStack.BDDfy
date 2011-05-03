@@ -46,5 +46,13 @@ namespace Bddify.Tests
                 NetToString.Convert("MixedUnderscoredAndPascal_case_Input_String_IsTurned_into_sentence"),
                 Is.EqualTo("Mixed underscored and pascal case input string is turned into sentence"));
         }
+
+        [Test]
+        public void OnLetterWordInTheBeginningOfStringIsTurnedIntoAWord()
+        {
+            Assert.That(
+                NetToString.Convert("XIsFirstPlayer"),
+                Is.EqualTo("X is first player"));
+        }
     }
 }
