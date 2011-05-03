@@ -23,6 +23,7 @@ namespace $rootnamespace$.Bddify.Samples.Atm
             _atm.RequestMoney(_card, 20);
         }
 
+		// I am using StepText here to be able to print ATM; otherwise it would print that out as 'atm'
         [Then(StepText = "Then the ATM should dispense $20")]
         void ThenTheAtmShouldDispense20()
         {

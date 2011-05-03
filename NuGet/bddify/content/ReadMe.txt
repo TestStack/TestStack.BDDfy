@@ -1,0 +1,30 @@
+﻿Bddify is a simple BDD framework for .Net developers.
+
+If this is the first time you are using bddify you may want to check out some of the samples on NuGet. 
+Just search NuGet for bddify and you will see a list of bddify samples. You may install one or more samples to see how the framework works.
+Each sample installs required packages (including bddify, NUnit, RazorEngine and so on).
+
+Bddify uses quite a few conventions to make it frictionless to use. For your convenience, I will try to provide a quick tutorial below:
+
+##Finding steps
+Bddify scans your bddified classes for steps. Currently it has two ways of finding a step: using attributes and using method name conventions.
+
+Bddify runs your steps in the following order:
+
+###Attributes:
+Bddify looks for a custom attribute called ExecutableAttribute on your method. To make it easier to use, ExecutableAttribute has a few subclasses that you can use:
+You may apply Given, AndGiven, When, AndWhen, Then, and AndThen attributes on any method you want to make available to bddify.
+
+###Method name matching:
+bddify uses some conventions to find methods that should be turned into steps. Here is the current conventions. The method name:
+
+ - ending with "Context" is considered as a setup method (not reported).
+ - "Setup" is considered as as setup method  (not reported). 
+ - starting with "Given" is considered as a setup method (reported). 
+ - starting with "AndGiven" is considered as a setup method that runs after Context, Setup and Given steps (reported).
+ - starting with "When" is considered as a transition method  (reported). 
+ - starting with "AndWhen" is considered as a transition method that runs after When steps (reported).
+ - starting with "Then" is considered as an asserting method (reported).
+ - starting with "And" is considered as an asserting method (reported).
+ - starting with "Dispose" is considered as a finally method which is run after all the other steps (not reported).
+ - starting with "TearDown" is considered as a finally method which is run after all the other steps (not reported).

@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace $rootnamespace$.Bddify.Samples.Bowling
 {
 	// You set a class as a story by decorating it with 'Story' attribute
-	// Each story can have one or more scenarios (though bddify will not crash if you do not provide any scenarios either)
+	// Each story can have zero or more scenarios
 	// You indicate story's scenarios using WithScenario attribute
     [Story(
         AsA = "As a player",

@@ -68,9 +68,12 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\ReadMe.txt" />
     <Content Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\ReadMe.txt" />
     <Content Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\ReadMe.txt" />
     <Content Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
+    <Content Include="Bddify\content\ReadMe.txt" />
+    <Content Include="Bddify\lib\Bddify.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
