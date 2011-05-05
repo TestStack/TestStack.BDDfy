@@ -17,9 +17,8 @@ namespace Bddify.Scanners
         public virtual Story Scan(Type storyType)
         {
             var scenarios = GetScenarios(storyType);
-            var narrative = GetStoryNarrative(storyType);
-            
-            return narrative != null ? new Story(narrative, storyType, scenarios) : new Story(null, null, scenarios);
+            var metaData = GetStoryMetaData(storyType);
+            return new Story(metaData, scenarios);
         }
 
         private IEnumerable<Scenario> GetScenarios(Type storyType)
@@ -27,7 +26,7 @@ namespace Bddify.Scanners
             return _scenarioScanner.Scan(storyType).ToList();
         }
 
-        StoryNarrative GetStoryNarrative(Type storyType)
+        StoryMetaData GetStoryMetaData(Type storyType)
         {
             var storyAttribute = GetStoryAttribute(storyType);
             if(storyAttribute == null)
@@ -37,7 +36,7 @@ namespace Bddify.Scanners
             if (string.IsNullOrEmpty(title))
                 title = NetToString.Convert(storyType.Name);
 
-            return new StoryNarrative(title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
+            return new StoryMetaData(storyType, title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
         }
 
         internal StoryAttribute GetStoryAttribute(Type storyType)

@@ -44,17 +44,17 @@ namespace Bddify.Tests.Story
         [Test]
         public void ThenStoryTypeIsSetOnStory()
         {
-            Assert.That(_story.Type, Is.EqualTo(typeof(StoryDouble)));
+            Assert.That(_story.MetaData.Type, Is.EqualTo(typeof(StoryDouble)));
         }
 
         [Test]
         public void ThenStoryNarrativeIsSetOnStory()
         {
             var narrative = (StoryAttribute)typeof(StoryDouble).GetCustomAttributes(typeof(StoryAttribute), false)[0];
-            Assert.That(_story.Narrative, Is.Not.Null);
-            Assert.That(_story.Narrative.AsA, Is.EqualTo(narrative.AsA));
-            Assert.That(_story.Narrative.IWant, Is.EqualTo(narrative.IWant));
-            Assert.That(_story.Narrative.SoThat, Is.EqualTo(narrative.SoThat));
+            Assert.That(_story.MetaData, Is.Not.Null);
+            Assert.That(_story.MetaData.AsA, Is.EqualTo(narrative.AsA));
+            Assert.That(_story.MetaData.IWant, Is.EqualTo(narrative.IWant));
+            Assert.That(_story.MetaData.SoThat, Is.EqualTo(narrative.SoThat));
         }
     }
 }

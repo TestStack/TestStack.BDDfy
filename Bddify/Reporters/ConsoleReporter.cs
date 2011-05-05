@@ -56,17 +56,17 @@ namespace Bddify.Reporters
 
         private static void ReportStoryHeader(Story story)
         {
-            if (story.Type == null)
+            if (story.MetaData == null || story.MetaData.Type == null)
                 return;
 
-            if(story.Type == _lastStoryType)
+            if(story.MetaData.Type == _lastStoryType)
                 return; // we have already reported on this story
 
-            _lastStoryType = story.Type;
-            Console.WriteLine("Story: " + story.Narrative.Title);
-            Console.WriteLine("\t" + story.Narrative.AsA);
-            Console.WriteLine("\t" + story.Narrative.IWant);
-            Console.WriteLine("\t" + story.Narrative.SoThat);
+            _lastStoryType = story.MetaData.Type;
+            Console.WriteLine("Story: " + story.MetaData.Title);
+            Console.WriteLine("\t" + story.MetaData.AsA);
+            Console.WriteLine("\t" + story.MetaData.IWant);
+            Console.WriteLine("\t" + story.MetaData.SoThat);
         }
 
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)

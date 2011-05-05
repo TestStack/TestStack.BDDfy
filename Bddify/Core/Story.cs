@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,15 +5,13 @@ namespace Bddify.Core
 {
     public class Story
     {
-        public Story(StoryNarrative narrative, Type storyType, IEnumerable<Scenario> scenarios)
+        public Story(StoryMetaData metaData, IEnumerable<Scenario> scenarios)
         {
-            Narrative = narrative;
-            Type = storyType;
+            MetaData = metaData;
             Scenarios = scenarios.OrderBy(s => s.ScenarioText).ToList();
         }
 
-        public StoryNarrative Narrative { get; private set; }
-        public Type Type { get; private set; }
+        public StoryMetaData MetaData { get; private set; }
         public IEnumerable<Scenario> Scenarios { get; private set; }
 
         public StepExecutionResult Result

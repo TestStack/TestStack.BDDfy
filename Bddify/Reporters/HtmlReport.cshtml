@@ -338,12 +338,12 @@
 						      <tr class="namespace">
                     <td />
 							      <td class="summaryLable">Namespaces</td>
-							      <td>@Model.Where(b => b.Type == null).SelectMany(s => s.Scenarios).GroupBy(b => b.Object.GetType().Namespace).Count()</td>
+							      <td>@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.Object.GetType().Namespace).Count()</td>
 						      </tr>
 						      <tr class="story">
                     <td />
 							      <td class="summaryLable">Stories</td>
-							      <td>@Model.Where(b => b.Type != null).Count()</td>
+							      <td>@Model.Where(b => b.MetaData != null).Count()</td>
 						      </tr>
 						      <tr>
                     <td class="result Passed"></td>
@@ -398,13 +398,13 @@
 					<tbody>
           @{
             var groupedByNamespace = from story in Model
-                                     where story.Type == null
+                                     where story.MetaData == null
                                      group story by story.Scenarios.First().Object.GetType().Namespace into g
                                      select g;
 
             var groupedByStories = from story in Model
-                                   where story.Type != null
-                                   group story by story.Type.Name into g
+                                   where story.MetaData != null
+                                   group story by story.MetaData.Type.Name into g
                                    select g;
 
             var groupedScenarios = groupedByStories.Union(groupedByNamespace);
@@ -413,18 +413,18 @@
             {
               var story = scenarioGroup.First();
               var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
-              var headerClass = story.Type == null ? "namespace" : "story";
+              var headerClass = story.MetaData == null ? "namespace" : "story";
           		<tr class="@headerClass">
 								<td colspan="5">
                   <table class="@headerClass">
                     <tr>
-                    @if (story.Type == null)
+                    @if (story.MetaData == null)
                     {
                       <td>Namespace: @story.Scenarios.First().Object.GetType().Namespace</td>
                     }
                     else
                     {
-                      <td>Story: @story.Narrative.Title</td>
+                      <td>Story: @story.MetaData.Title</td>
                     }
                       <td class="namespaceResultSummary">
 
@@ -463,14 +463,14 @@
                 </td>
 							</tr>
             
-                  if (story.Type != null && !string.IsNullOrEmpty(story.Narrative.AsA))
+                  if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
                   { 
             <tr class="story">
               <td colspan="5">
                 <ul class="storyNarrative">
-                  <li>@story.Narrative.AsA </li>
-                  <li>@story.Narrative.IWant </li>
-                  <li>@story.Narrative.SoThat</li>
+                  <li>@story.MetaData.AsA </li>
+                  <li>@story.MetaData.IWant </li>
+                  <li>@story.MetaData.SoThat</li>
                 </ul>
               </td>                                    
             </tr>

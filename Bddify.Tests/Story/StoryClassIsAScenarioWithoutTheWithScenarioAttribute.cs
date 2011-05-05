@@ -36,7 +36,7 @@ namespace Bddify.Tests.Story
 
         void ThenStoryIsReturnedAsAStory()
         {
-            Assert.That(_story.Type, Is.EqualTo(typeof(StoryAsScenario)));
+            Assert.That(_story.MetaData.Type, Is.EqualTo(typeof(StoryAsScenario)));
         }
 
         [AndThen(StepText = "  and as a scenario")]
@@ -50,10 +50,10 @@ namespace Bddify.Tests.Story
         void andTheNarrativeIsReturnedAsExpected()
         {
             var expectedNarrative = (StoryAttribute)typeof(StoryAsScenario).GetCustomAttributes(typeof(StoryAttribute), false).First();
-            Assert.That(_story.Narrative, Is.Not.Null);
-            Assert.That(_story.Narrative.AsA, Is.EqualTo(expectedNarrative.AsA));
-            Assert.That(_story.Narrative.IWant, Is.EqualTo(expectedNarrative.IWant));
-            Assert.That(_story.Narrative.SoThat, Is.EqualTo(expectedNarrative.SoThat));
+            Assert.That(_story.MetaData, Is.Not.Null);
+            Assert.That(_story.MetaData.AsA, Is.EqualTo(expectedNarrative.AsA));
+            Assert.That(_story.MetaData.IWant, Is.EqualTo(expectedNarrative.IWant));
+            Assert.That(_story.MetaData.SoThat, Is.EqualTo(expectedNarrative.SoThat));
         }
 
         [Test]
