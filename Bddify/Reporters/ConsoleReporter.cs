@@ -9,7 +9,6 @@ namespace Bddify.Reporters
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
-        private static Type _lastStoryType;
 
         public ProcessType ProcessType
         {
@@ -59,10 +58,6 @@ namespace Bddify.Reporters
             if (story.MetaData == null || story.MetaData.Type == null)
                 return;
 
-            if(story.MetaData.Type == _lastStoryType)
-                return; // we have already reported on this story
-
-            _lastStoryType = story.MetaData.Type;
             Console.WriteLine("Story: " + story.MetaData.Title);
             Console.WriteLine("\t" + story.MetaData.AsA);
             Console.WriteLine("\t" + story.MetaData.IWant);

@@ -343,7 +343,7 @@
 						      <tr class="story">
                     <td />
 							      <td class="summaryLable">Stories</td>
-							      <td>@Model.Where(b => b.MetaData != null).Count()</td>
+							      <td>@Model.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count()</td>
 						      </tr>
 						      <tr>
                     <td class="result Passed"></td>
