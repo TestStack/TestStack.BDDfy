@@ -22,14 +22,14 @@ namespace Bddify.Core
             HtmlReporter.GenerateHtmlReport();
         }
 
-        public static void Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        public static Story Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
-            testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport).Run();
+            return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport).Run();
         }
 
-        public static void Bddify(this object testObject, Action assertInconclusive, bool htmlReport = true, bool consoleReport = true)
+        public static Story Bddify(this object testObject, Action assertInconclusive, bool htmlReport = true, bool consoleReport = true)
         {
-            testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport);
+            return testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport);
         }
 
         public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)

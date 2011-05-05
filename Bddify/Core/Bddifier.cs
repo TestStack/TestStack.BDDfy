@@ -18,7 +18,7 @@ namespace Bddify.Core
             _scanner = scanner;
         }
 
-        public void Run()
+        public Story Run()
         {
             _story = _scanner.Scan(_storyType);
 
@@ -33,6 +33,8 @@ namespace Bddify.Core
                 var disposer = new Disposer();
                 disposer.Process(_story);
             }
+
+            return _story;
         }
 
         private Story _story;

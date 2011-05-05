@@ -74,7 +74,7 @@ namespace Bddify.Tests.RunScenarioWithArgs
             var testObject = new ScenarioWithArgs();
             var bddifier = testObject.LazyBddify();
 
-            Assert.Throws<AssertionException>(bddifier.Run);
+            Assert.Throws<AssertionException>(() => bddifier.Run());
             _scenarios = bddifier.Story.Scenarios.ToList();
         }
 

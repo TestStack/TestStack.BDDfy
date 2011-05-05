@@ -18,11 +18,16 @@ namespace Bddify.Scanners
         {
             var storyAttribute = GetStoryAttribute(storyType);
 
-            if(storyAttribute == null)
+            if(storyAttribute == null )
                 return HandleScenario(storyType);
-            
+
+            var scenarioTypesForThisStory = GetScenariosFromAttribute(storyType).ToList();
+            // no scenario specified for story; so consider the story itself as a scenario
+            if (scenarioTypesForThisStory.Count == 0)
+                return HandleScenario(storyType);
+
             var scenarios = new List<Scenario>();
-            var scenarioTypesForThisStory = GetScenarioTypes(storyType);
+
             foreach (var scenarioType in scenarioTypesForThisStory)
                 scenarios.AddRange(HandleScenario(scenarioType));
 
@@ -81,7 +86,7 @@ namespace Bddify.Scanners
             }
         }
 
-        private static IEnumerable<Type> GetScenarioTypes(Type storyType)
+        private static IEnumerable<Type> GetScenariosFromAttribute(Type storyType)
         {
             return storyType.GetCustomAttributes(typeof(WithScenarioAttribute), false)
                 .Cast<WithScenarioAttribute>()
