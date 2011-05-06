@@ -98,11 +98,21 @@
 			  margin:5px;
 			  padding:5px;
 			}
+
 			#testResult p 
 			{
 			    font-weight: bold;
 			    color: #2B547D;
 			    font-size: 12pt;
+			}
+
+			#testResult span
+			{
+			    color: #2B547D;
+			    margin-left:5px;
+			    margin-top:20px;
+			    margin-bottom:20px;
+			    font-size: 10pt;
 			}
 			
 			#testResult>table
@@ -392,7 +402,6 @@
         }
 
         <p>Assembly: '@assemblyName'</p>
-        <p>Tested at: @DateTime.Now</p>
 
 				<table>
 					<tbody>
@@ -524,6 +533,8 @@
             }
 					</tbody>
 				</table>
+
+        <p><span>Tested at: @DateTime.Now</span></p>
 			</div>
 		</div>
 
