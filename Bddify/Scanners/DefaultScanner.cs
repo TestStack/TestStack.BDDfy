@@ -32,18 +32,7 @@ namespace Bddify.Scanners
             if(storyAttribute == null)
                 return ScanAssemblyForStoryMetaData(storyType);
 
-            var title = GetTitle(storyType, storyAttribute);
-
-            return new StoryMetaData(storyType, title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
-        }
-
-        private static string GetTitle(Type storyType, StoryAttribute storyAttribute)
-        {
-            var title = storyAttribute.Title;
-            if (string.IsNullOrEmpty(title))
-                title = NetToString.Convert(storyType.Name);
-
-            return title;
+            return new StoryMetaData(storyType, storyAttribute);
         }
 
         StoryMetaData ScanAssemblyForStoryMetaData(Type scenarioType)
@@ -57,10 +46,7 @@ namespace Bddify.Scanners
 
                 var withScenariosAttributes = (WithScenarioAttribute[])candidateStoryType.GetCustomAttributes(typeof(WithScenarioAttribute), false);
                 if (withScenariosAttributes.Any(a => a.ScenarioType == scenarioType))
-                {
-                    var title = GetTitle(candidateStoryType, storyAttribute);
-                    return new StoryMetaData(candidateStoryType, title, storyAttribute.AsA, storyAttribute.IWant, storyAttribute.SoThat);
-                }
+                    return new StoryMetaData(candidateStoryType, storyAttribute);
             }
 
             return null;
