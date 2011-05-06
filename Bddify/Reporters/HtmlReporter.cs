@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Bddify.Core;
 using RazorEngine;
+using RazorEngine.Templating;
 
 namespace Bddify.Reporters
 {
@@ -30,7 +32,34 @@ namespace Bddify.Reporters
 
         internal static void GenerateHtmlReport()
         {
-            var report = Razor.Parse(HtmlTemplate.Value, Stories);
+            string report;
+            const string error = "There was an error compiling the template";
+
+            try
+            {
+                report = Razor.Parse(HtmlTemplate.Value, Stories);
+            }
+            catch (TemplateCompilationException compilationException)
+            {
+                if (compilationException.Errors.Count > 0)
+                {
+                    var compilerError = compilationException.Errors.First();
+                    var reportBuilder = new StringBuilder();
+                    reportBuilder.AppendLine(error);
+                    reportBuilder.AppendLine("Line No: " + compilerError.Line);
+                    reportBuilder.AppendLine("Message: " + compilerError.ErrorText);
+                    report = reportBuilder.ToString();
+                }
+                else
+                {
+                    report = error + " :: " + compilationException.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                report = ex.Message;
+            }
+
             File.WriteAllText(FileName, report);
         }
 
