@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Bddify.Scanners.GwtAttributes;
+using NUnit.Framework;
 
 namespace $rootnamespace$.Bddify.Samples.Atm
 {
@@ -8,7 +9,7 @@ namespace $rootnamespace$.Bddify.Samples.Atm
         private Atm _atm;
 
 		// You can override step text using executable attributes
-		[Give(StepText = "Given the account balance is $10")]
+		[Given(StepText = "Given the account balance is $10")]
         void GivenTheAccountBalanceIs10()
         {
             _card = new Card(true, 10);
@@ -40,7 +41,7 @@ namespace $rootnamespace$.Bddify.Samples.Atm
             Assert.That(_atm.Message, Is.EqualTo(DisplayMessage.InsufficientFunds));
         }
 
-		[AndThen("And the account balance should be $20")]
+		[AndThen(StepText = "And the account balance should be $20")]
         void AndTheAccountBalanceShouldBe20()
         {
             Assert.That(_card.AccountBalance, Is.EqualTo(10));

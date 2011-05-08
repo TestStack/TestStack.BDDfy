@@ -46,6 +46,20 @@
     <None Include="Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\ScenarioWithMixedSteps.cs.pp" />
     <None Include="Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\CatsGame.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\DiagonalWin.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\Game.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\Helpers.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWin.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheBottom.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheMiddle.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\OWins.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\TicTacToeStory.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheLeft.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheMiddle.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheRight.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\WhenXAndOPlayTheirFirstMoves.cs.pp" />
+    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\XWins.cs.pp" />
     <None Include="Bddify\Bddify.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -78,8 +92,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify\Bddify.nuspec
-$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec
-$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec
+$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.TicTacToe\Bddify.Samples.TicTacToe.nuspec
 $(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec
 $(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec
 $(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify.Samples.Bowling\Bddify.Samples.Bowling.nuspec</PostBuildEvent>
