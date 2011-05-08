@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Bddify.Core;
 using System.Linq;
 
@@ -31,7 +32,7 @@ namespace Bddify.Scanners
                 // e.g. a method starting with AndGiven matches against both AndGiven and And
                 foreach (var method in methodsToScan.Except(foundMethods))
                 {
-                    var methodName = NetToString.Convert(method.Name);
+                    var methodName = CleanupTheStepText(NetToString.Convert(method.Name));
 
                     if (!matcher.IsMethodOfInterest(method.Name)) 
                         continue;
@@ -40,7 +41,7 @@ namespace Bddify.Scanners
 
                     var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                     object[] inputs = null;
-                    var stepMethodName  = methodName;
+                    var stepMethodName = methodName;
 
                     if (argAttributes == null || argAttributes.Length == 0)
                     {
@@ -51,12 +52,11 @@ namespace Bddify.Scanners
 
                     foreach (var argAttribute in argAttributes)
                     {
-                        stepMethodName = methodName;
                         inputs = argAttribute.InputArguments;
                         if (inputs != null && inputs.Length > 0)
                         {
                             if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
-                                stepMethodName += " " + string.Join(", ", inputs.FlattenArrays());
+                                stepMethodName = methodName + " " + string.Join(", ", inputs.FlattenArrays());
                             else
                                 stepMethodName = string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
 
@@ -67,6 +67,16 @@ namespace Bddify.Scanners
             }
 
             yield break;
+        }
+
+        static string CleanupTheStepText(string stepText)
+        {
+            // ToDo: replace 'and given' and 'and when' with 'and'
+            //if (stepText.StartsWith("and given ", StringComparison.OrdinalIgnoreCase) ||
+            //    stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
+            //    return "and ";
+
+            return stepText;
         }
     }
 }

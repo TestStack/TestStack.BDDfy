@@ -15,13 +15,18 @@ namespace Bddify.Core
             bool shouldReport = true)
         {
             Method = method;
-            ReadableMethodName = readableMethodName;
             Asserts = asserts;
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
             Result = StepExecutionResult.NotExecuted;
             InputArguments = inputArgs;
             Id = Guid.NewGuid();
+            ReadableMethodName = readableMethodName;
+
+            if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||
+                executionOrder == ExecutionOrder.ConsecutiveSetupState ||
+                executionOrder == ExecutionOrder.ConsecutiveTransition)
+                ReadableMethodName = "  " + ReadableMethodName; // add two spaces in the front for indentation.
         }
 
         public Guid Id { get; private set; }
