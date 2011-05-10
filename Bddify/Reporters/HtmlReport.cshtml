@@ -498,7 +498,7 @@
                   @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                   {
                     string stepClass = string.Empty;
-                    string result = step.ReadableMethodName;
+                    string result = step.ReadableMethodName.Replace(" ", "&nbsp;");
                     var rowSpan = 1;
                     if (step.Exception != null)
                     {

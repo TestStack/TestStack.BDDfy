@@ -39,7 +39,7 @@ namespace Bddify.Tests.Story
             Assert.That(_story.MetaData.Type, Is.EqualTo(typeof(StoryAsScenario)));
         }
 
-        [AndThen(StepText = "  and as a scenario")]
+        [AndThen(StepText = "and as a scenario")]
         void andAsAScenario()
         {
             Assert.That(_story.Scenarios.Count(), Is.EqualTo(1));

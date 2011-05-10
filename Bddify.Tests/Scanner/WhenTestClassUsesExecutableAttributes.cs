@@ -97,7 +97,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void GivenStepTextIsFetchedFromMethodName()
         {
-            Assert.That(GivenStep.ReadableMethodName, Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
+            Assert.That(GivenStep.ReadableMethodName.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
         }
 
         ExecutionStep AndGivenStep
@@ -123,7 +123,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndGivenStepTextIsFetchedFromMethodName()
         {
-            Assert.That(AndGivenStep.ReadableMethodName, Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven)));
+            Assert.That(AndGivenStep.ReadableMethodName.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven)));
         }
 
         ExecutionStep WhenStep
@@ -169,7 +169,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndWhenStepTextIsFetchedFromMethodName()
         {
-            Assert.That(AndWhenStep.ReadableMethodName, Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
+            Assert.That(AndWhenStep.ReadableMethodName.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
         }
 
         [Test]
@@ -239,7 +239,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndThenStepTextIsFetchedFromExecutableAttribute()
         {
-            Assert.That(AndThenStep.ReadableMethodName, Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
+            Assert.That(AndThenStep.ReadableMethodName.Trim(), Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
         }
     }
 }
