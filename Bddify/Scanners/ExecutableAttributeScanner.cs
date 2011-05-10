@@ -10,7 +10,7 @@ namespace Bddify.Scanners
     {
         public int Priority
         {
-            get { return 1; }
+            get { return 10; }
         }
 
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)

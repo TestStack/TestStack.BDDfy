@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using Bddify.Core;
 using System.Linq;
 
@@ -18,7 +17,7 @@ namespace Bddify.Scanners
 
         public int Priority
         {
-            get { return 2; }
+            get { return 20; }
         }
 
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)

@@ -22,6 +22,12 @@ namespace Bddify.Core
             HtmlReporter.GenerateHtmlReport();
         }
 
+        public static Story Bddify(this object testObject, IScanForSteps stepScanner, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        {
+            var scanner = new DefaultScanner(new ScanForScenarios(new[]{stepScanner}));
+            return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, scanner).Run();
+        }
+
         public static Story Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
             return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport).Run();
@@ -32,7 +38,7 @@ namespace Bddify.Core
             return testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport);
         }
 
-        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, IScanner scanner = null)
         {
             var processors = new List<IProcessor> {new TestRunner()};
 
@@ -50,14 +56,15 @@ namespace Bddify.Core
                 processors.Add(exceptionProcessor);
             }
 
-            var scanner = new DefaultScanner(
-                new ScanForScenarios(
-                    new IScanForSteps[]
-                        {
-                            new DefaultScanForStepsByMethodName(),
-                            new ExecutableAttributeScanner()
-                        }));
-            return new Bddifier(testObject, scanner, processors);
+            var storyScanner = scanner ?? new DefaultScanner(
+                                                   new ScanForScenarios(
+                                                       new IScanForSteps[]
+                                                           {
+                                                               new DefaultScanForStepsByMethodName(),
+                                                               new ExecutableAttributeScanner()
+                                                           }));
+
+            return new Bddifier(testObject, storyScanner, processors);
         }
     }
 }
