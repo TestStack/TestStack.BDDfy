@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Bddify.Core;
-using Bddify.Scanners;
 using NUnit.Framework;
 using System.Linq;
 
@@ -15,7 +14,7 @@ namespace Bddify.Tests.FluentStepScanner
         public void Setup()
         {
             var scanner = ScenarioToBeScannerUsingFluentScanner.GetScanner();
-            _steps = ((IScanForSteps)scanner).Scan(typeof(ScenarioToBeScannerUsingFluentScanner));
+            _steps = scanner.Scan(typeof(ScenarioToBeScannerUsingFluentScanner));
         }
 
         [Test]

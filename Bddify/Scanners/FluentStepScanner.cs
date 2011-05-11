@@ -103,7 +103,7 @@ namespace Bddify.Scanners
             return this;
         }
 
-        IScanForSteps ITearDown<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
+        IScanForSteps IFluentScanner<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
         {
             AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
             return this;
@@ -147,7 +147,7 @@ namespace Bddify.Scanners
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
     }
 
-    public interface ITearDown<TScenario>
+    public interface IFluentScanner<TScenario> : IScanForSteps
     {
         IScanForSteps TearDownWith(Expression<Action<TScenario>> tearDownStep);
     }
@@ -156,14 +156,14 @@ namespace Bddify.Scanners
     {
     }
 
-    public interface IGiven<TScenario> : ITearDown<TScenario>
+    public interface IGiven<TScenario> : IFluentScanner<TScenario>
     {
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
     }
 
-    public interface IThen<TScenario> : ITearDown<TScenario>
+    public interface IThen<TScenario> : IFluentScanner<TScenario>
     {
         IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate = null);
     }
@@ -172,7 +172,7 @@ namespace Bddify.Scanners
     {
     }
 
-    public interface IWhen<TScenario> : ITearDown<TScenario>
+    public interface IWhen<TScenario> : IFluentScanner<TScenario>
     {
         IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
