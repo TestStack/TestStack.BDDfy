@@ -22,23 +22,23 @@ namespace Bddify.Core
             HtmlReporter.GenerateHtmlReport();
         }
 
-        public static Story Bddify(this object testObject, IScanForSteps stepScanner, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        public static Story Bddify(this object testObject, IScanForSteps stepScanner, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null)
         {
-            var scanner = new DefaultScanner(new ScanForScenarios(new[]{stepScanner}));
+            var scanner = new DefaultScanner(new ScanForScenarios(new[]{stepScanner}, scenarioTextTemplate));
             return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, scanner).Run();
         }
 
-        public static Story Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        public static Story Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null)
         {
-            return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport).Run();
+            return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, null, scenarioTextTemplate).Run();
         }
 
-        public static Story Bddify(this object testObject, Action assertInconclusive, bool htmlReport = true, bool consoleReport = true)
+        public static Story Bddify(this object testObject, Action assertInconclusive, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null)
         {
-            return testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport);
+            return testObject.Bddify(new ExceptionProcessor(assertInconclusive), htmlReport, consoleReport, scenarioTextTemplate: scenarioTextTemplate);
         }
 
-        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, IScanner scanner = null)
+        public static Bddifier LazyBddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, IScanner scanner = null, string scenarioTextTemplate = null)
         {
             var processors = new List<IProcessor> {new TestRunner()};
 
@@ -62,7 +62,8 @@ namespace Bddify.Core
                                                            {
                                                                new DefaultScanForStepsByMethodName(),
                                                                new ExecutableAttributeScanner()
-                                                           }));
+                                                           },
+                                                       scenarioTextTemplate));
 
             return new Bddifier(testObject, storyScanner, processors);
         }

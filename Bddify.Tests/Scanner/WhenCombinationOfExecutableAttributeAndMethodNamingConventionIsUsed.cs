@@ -71,6 +71,12 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
+        public void ScenarioTextIsSetUsingClassName()
+        {
+            Assert.That(_scenario.ScenarioText, Is.EqualTo("Scenario with mixed steps"));    
+        }
+
+        [Test]
         public void GivenStepIsScanned()
         {
             VerifyStepAndItsProperties(_sut.Given, ExecutionOrder.SetupState);

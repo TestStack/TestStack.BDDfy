@@ -8,10 +8,12 @@ namespace Bddify.Scanners
     public class ScanForScenarios : IScanForScenarios
     {
         private readonly IEnumerable<IScanForSteps> _stepScanners;
+        private readonly string _scenarioTextTemplate;
 
-        public ScanForScenarios(IEnumerable<IScanForSteps> stepScanners)
+        public ScanForScenarios(IEnumerable<IScanForSteps> stepScanners, string scenarioTextTemplate = null)
         {
             _stepScanners = stepScanners;
+            _scenarioTextTemplate = scenarioTextTemplate;
         }
 
         public IEnumerable<Scenario> Scan(Type storyType)
@@ -57,9 +59,14 @@ namespace Bddify.Scanners
 
         protected virtual Scenario GetScenario(Type scenarioType, object[] argsSet = null)
         {
-            var scenarioText = GetScenarioText(scenarioType);
+            var scenarioText = _scenarioTextTemplate ?? GetScenarioText(scenarioType);
             if (argsSet != null)
-                scenarioText += " " + string.Join(", ", argsSet);
+            {
+                if (string.IsNullOrEmpty(_scenarioTextTemplate))
+                    scenarioText += " " + string.Join(", ", argsSet);
+                else
+                    scenarioText = string.Format(_scenarioTextTemplate, argsSet);
+            }
 
             object testObject = Activator.CreateInstance(scenarioType);
 
