@@ -25,7 +25,7 @@ namespace Bddify.Scanners
             return _steps;
         }
 
-        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder)
+        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
         {
             var methodInfo = GetMethodInfo(stepAction);
             var readableMethodName = NetToString.Convert(methodInfo.Name);
@@ -36,7 +36,7 @@ namespace Bddify.Scanners
             else
                 readableMethodName = readableMethodName + " " + string.Join(", ", inputArguments);
 
-            _steps.Add(new ExecutionStep(methodInfo, methodArguments, readableMethodName, asserts, executionOrder));
+            _steps.Add(new ExecutionStep(methodInfo, methodArguments, readableMethodName, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
@@ -103,6 +103,12 @@ namespace Bddify.Scanners
             return this;
         }
 
+        IScanForSteps ITearDown<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
+        {
+            AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
+            return this;
+        }
+
         private static MethodInfo GetMethodInfo(Expression<Action<TScenario>> stepAction)
         {
             var methodCall = (MethodCallExpression)stepAction.Body;
@@ -141,18 +147,23 @@ namespace Bddify.Scanners
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
     }
 
+    public interface ITearDown<TScenario>
+    {
+        IScanForSteps TearDownWith(Expression<Action<TScenario>> tearDownStep);
+    }
+
     public interface IAndGiven<TScenario> : IGiven<TScenario>
     {
     }
 
-    public interface IGiven<TScenario> 
+    public interface IGiven<TScenario> : ITearDown<TScenario>
     {
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
     }
 
-    public interface IThen<TScenario> 
+    public interface IThen<TScenario> : ITearDown<TScenario>
     {
         IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate = null);
     }
@@ -161,7 +172,7 @@ namespace Bddify.Scanners
     {
     }
 
-    public interface IWhen<TScenario> 
+    public interface IWhen<TScenario> : ITearDown<TScenario>
     {
         IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);

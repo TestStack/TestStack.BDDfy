@@ -9,7 +9,7 @@ namespace Bddify.Tests.FluentStepScanner
     public class WhenStepsAreScannedUsingFluentStepScanner
     {
         private IEnumerable<ExecutionStep> _steps;
-        private ScenarioToBeScannerUsingFluentScanner _dummyInstance = new ScenarioToBeScannerUsingFluentScanner();
+        private readonly ScenarioToBeScannerUsingFluentScanner _dummyInstance = new ScenarioToBeScannerUsingFluentScanner();
 
         [SetUp]
         public void Setup()
@@ -21,7 +21,7 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void IndicatedStepsAreReturned()
         {
-            Assert.That(_steps.Count(), Is.EqualTo(8));
+            Assert.That(_steps.Count(), Is.EqualTo(9));
         }
 
         ExecutionStep GivenSomeStateStep
@@ -258,6 +258,32 @@ namespace Bddify.Tests.FluentStepScanner
         public void AndIncorrectAttributeWouldNotMatterStep_HasCorrectReadableMethodName()
         {
             Assert.That(AndIncorrectAttributeWouldNotMatterStep.ReadableMethodName.Trim(), Is.EqualTo("And incorrect attribute would not matter"));
+        }
+
+        ExecutionStep TearDownStep
+        {
+            get
+            {
+                return _steps.Single(s => s.Method == Helpers.GetMethodInfo(_dummyInstance.Dispose));
+            }
+        }
+
+        [Test]
+        public void TearDownStep_IsAConsecutiveAssertingStep()
+        {
+            Assert.That(TearDownStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.TearDown));
+        }
+
+        [Test]
+        public void TearDownStep_DoesAssert()
+        {
+            Assert.IsFalse(TearDownStep.Asserts);
+        }
+
+        [Test]
+        public void TearDownStep_DoesNotReports()
+        {
+            Assert.IsFalse(TearDownStep.ShouldReport);        
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />
     <Compile Include="FluentStepScanner\ScenarioToBeScannerUsingFluentScanner.cs" />
+    <Compile Include="FluentStepScanner\WhenBddifyAScenarioUsingFluentApi.cs" />
     <Compile Include="FluentStepScanner\WhenStepsAreScannedUsingFluentStepScanner.cs" />
     <Compile Include="NetToStringTests.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />

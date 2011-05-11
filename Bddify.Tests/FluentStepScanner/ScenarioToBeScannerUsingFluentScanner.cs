@@ -1,8 +1,10 @@
-﻿using Bddify.Scanners;
+﻿using Bddify.Core;
+using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
 
 namespace Bddify.Tests.FluentStepScanner
 {
+    [Story]
     class ScenarioToBeScannerUsingFluentScanner
     {
         public void GivenSomeState(int input1, int input2)
@@ -23,7 +25,6 @@ namespace Bddify.Tests.FluentStepScanner
 
         public void AndThenSomethingElseHappens()
         {
-
         }
 
         public void ThenTheFollowingAssertionsShouldBeCorrect()
@@ -32,6 +33,9 @@ namespace Bddify.Tests.FluentStepScanner
         [When]
         public void AndIncorrectAttributeWouldNotMatter()
         { }
+
+        public void Dispose()
+        {}
 
         public static IScanForSteps GetScanner()
         {
@@ -43,7 +47,8 @@ namespace Bddify.Tests.FluentStepScanner
                 .And(s => s.AndThenSomethingElseHappens(), "Overriding step name without arguments")
                 .And(s => s.WhenSomethingHappens("other input"), "step used with {0} for the second time")
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
-                .And(s => s.AndIncorrectAttributeWouldNotMatter());
+                .And(s => s.AndIncorrectAttributeWouldNotMatter())
+                .TearDownWith(s => s.Dispose());
         }
     }
 }
