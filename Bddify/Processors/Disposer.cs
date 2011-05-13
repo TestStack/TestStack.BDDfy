@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Bddify.Core;
 
@@ -13,18 +12,9 @@ namespace Bddify.Processors
 
         public void Process(Story story)
         {
-            try
+            foreach (var scenario in story.Scenarios)
             {
-                foreach (var scenario in story.Scenarios)
-                {
-                    Dispose(scenario);
-                }
-            }
-            finally
-            {
-                var disposable = story as IDisposable;
-                if(disposable != null)
-                    disposable.Dispose();
+                Dispose(scenario);
             }
         }
 

@@ -34,7 +34,7 @@ namespace Bddify.Tests.Exceptions
                 throw new T();
         }
 
-        void Dispose()
+        void TearDown()
         {
         }
 
@@ -88,11 +88,11 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        public ExecutionStep DisposeStep
+        public ExecutionStep TearDownStep
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Dispose));
+                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TearDown));
             }
         }
 

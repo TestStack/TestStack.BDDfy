@@ -27,7 +27,6 @@ bddify uses some conventions to find methods that should be turned into steps. H
  - starting with "AndWhen" is considered as a transition method that runs after When steps (reported).
  - starting with "Then" is considered as an asserting method (reported).
  - starting with "And" is considered as an asserting method (reported).
- - starting with "Dispose" is considered as a finally method which is run after all the other steps (not reported).
  - starting with "TearDown" is considered as a finally method which is run after all the other steps (not reported).
 
 ##Usage

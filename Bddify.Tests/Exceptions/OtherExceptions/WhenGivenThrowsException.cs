@@ -43,9 +43,9 @@ namespace Bddify.Tests.Exceptions.OtherExceptions
         }
 
         [Test]
-        public void ThenDisposeMethodIsExecuted()
+        public void ThenTearDownMethodIsExecuted()
         {
-            Assert.That(Sut.DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(Sut.TearDownStep.Result, Is.EqualTo(StepExecutionResult.Passed));
         }
     }
 }

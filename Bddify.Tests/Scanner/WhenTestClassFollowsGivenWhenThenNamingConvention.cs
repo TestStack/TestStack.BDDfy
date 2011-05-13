@@ -23,7 +23,6 @@ namespace Bddify.Tests.Scanner
             public void AndGiven1() { }
             public void AndGiven2() { }
             public void Then(){}
-            public void Dispose(){}
             public void TearDown(){}
         }
 
@@ -37,8 +36,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AllMethodsFollowingTheNamingConventionAreReturnedAsSteps()
         {
-            // AndSomething 
-            Assert.That(_steps.Count, Is.EqualTo(11));
+            Assert.That(_steps.Count, Is.EqualTo(10));
         }
 
         private static void AssertStep(ExecutionStep step, MethodInfo methodInfo, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
@@ -104,15 +102,9 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void DisposeMethodIsReturnedInTheCorrectSpot()
-        {
-            AssertStep(_steps[9], Helpers.GetMethodInfo(_typeWithoutAttribute.Dispose), ExecutionOrder.TearDown, asserts:false, shouldReport:false);
-        }
-
-        [Test]
         public void TearDownMethodIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[10], Helpers.GetMethodInfo(_typeWithoutAttribute.TearDown), ExecutionOrder.TearDown, asserts:false, shouldReport:false);
+            AssertStep(_steps[9], Helpers.GetMethodInfo(_typeWithoutAttribute.TearDown), ExecutionOrder.TearDown, asserts:false, shouldReport:false);
         }
     }
 }

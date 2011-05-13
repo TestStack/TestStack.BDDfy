@@ -70,9 +70,9 @@ namespace Bddify.Tests.Disposer
             _story = bddifier.Story;
         } 
 
-        void ThenAllInstancesOfScenarioCreatedByBddifyAreDisposedOfRegardlessOfExceptionsInSteps()
+        void ThenScenariosAreNotDisposedByBddifyBecauseTheyShouldBeThereForHtmlReport()
         {
-            Assert.That(_story.Scenarios.All(s => ((DisposableScenario)s.Object).Disposed), Is.True);
+            Assert.That(_story.Scenarios.All(s => ((DisposableScenario)s.Object).Disposed), Is.False);
         }
 
         void AndTheScenarioCreatedByTestingFrameworkIsNotDisposedOf()
