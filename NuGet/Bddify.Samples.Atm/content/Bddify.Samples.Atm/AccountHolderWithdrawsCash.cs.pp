@@ -18,9 +18,21 @@ namespace $rootnamespace$.Bddify.Samples.Atm
     public class AccountHolderWithdrawsCash
     {
         [Test]
-        public void Execute()
+        public void CardHasBeenDisabled()
         {
-            this.Bddify();
+            new CardHasBeenDisabled().Bddify();
+        }
+
+        [Test]
+        public void AccountHasInsufficientFund()
+        {
+            new AccountHasInsufficientFund().Bddify();
+        }
+
+        [Test]
+        public void AccountHasSufficientFunds()
+        {
+            new AccountHasSufficientFunds().Bddify();
         }
     }
 }

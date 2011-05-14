@@ -20,12 +20,12 @@ namespace $rootnamespace$.Bddify.Samples.Atm
 
         void ThenTheAtmShouldRetainTheCard()
         {
-            Assert.That(_subject.CardIsRetained, Is.True);
+            Assert.IsTrue(_subject.CardIsRetained);
         }
 
         void AndTheAtmShouldSayTheCardHasBeenRetained()
         {
-            Assert.That(_subject.Message, Is.EqualTo(DisplayMessage.CardIsRetained));
+            Assert.AreEqual(_subject.Message, DisplayMessage.CardIsRetained);
         }
     }
 }

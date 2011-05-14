@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace $rootnamespace$.Bddify.Samples.TicTacToe
 {
-    public class DiagonalWin : GameInProgress
+    public class DiagonalWin : GameUnderTest
     {
         [RunStepWithArgs(
                 new[] { X, O, O },
@@ -17,7 +17,7 @@ namespace $rootnamespace$.Bddify.Samples.TicTacToe
 
         void ThenTheWinnerShouldBeO()
         {
-            Assert.That(Game.Winner, Is.EqualTo(O));
+            Assert.AreEqual(Game.Winner, O);
         }
     }
 }

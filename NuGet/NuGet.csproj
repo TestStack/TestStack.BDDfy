@@ -89,6 +89,9 @@
     <Content Include="Bddify\content\Bddify.ReadMe.txt" />
     <Content Include="Bddify\lib\Bddify.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AtmStoryWithFluentScanner.cs.pp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)NuGet\NuGet.exe pack $(SolutionDir)NuGet\Bddify\Bddify.nuspec

@@ -1,6 +1,5 @@
 ﻿// This class serves as a scenario for ScoreCalculationAlternativeForms story.
 
-using Bddify.Core;
 using NUnit.Framework;
 
 namespace $rootnamespace$.Bddify.Samples.Bowling
@@ -30,7 +29,7 @@ namespace $rootnamespace$.Bddify.Samples.Bowling
 
         void ThenMyTotalScoreShouldBe110()
         {
-            Assert.That(_game.Score, Is.EqualTo(110));
+            Assert.AreEqual(_game.Score, 110);
         }
     }
 }

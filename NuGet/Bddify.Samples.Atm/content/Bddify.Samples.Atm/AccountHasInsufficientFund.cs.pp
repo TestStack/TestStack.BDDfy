@@ -33,23 +33,23 @@ namespace $rootnamespace$.Bddify.Samples.Atm
 
         void ThenTheAtmShouldNotDispenseAnyMoney()
         {
-            Assert.That(_atm.DispenseValue, Is.EqualTo(0));
+            Assert.AreEqual(_atm.DispenseValue, 0);
         }
 
         void AndTheAtmShouldSayThereAreInsufficientFunds()
         {
-            Assert.That(_atm.Message, Is.EqualTo(DisplayMessage.InsufficientFunds));
+            Assert.AreEqual(_atm.Message, DisplayMessage.InsufficientFunds);
         }
 
 		[AndThen(StepText = "And the account balance should be $20")]
         void AndTheAccountBalanceShouldBe20()
         {
-            Assert.That(_card.AccountBalance, Is.EqualTo(10));
+            Assert.AreEqual(_card.AccountBalance, 10);
         }
 
         void AndTheCardShouldBeReturned()
         {
-            Assert.That(_atm.CardIsRetained, Is.False);
+            Assert.IsFalse(_atm.CardIsRetained);
         }
     }
 }
