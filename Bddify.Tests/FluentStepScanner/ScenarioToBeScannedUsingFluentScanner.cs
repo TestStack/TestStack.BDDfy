@@ -5,14 +5,40 @@ using Bddify.Scanners.GwtAttributes;
 namespace Bddify.Tests.FluentStepScanner
 {
     [Story]
-    class ScenarioToBeScannerUsingFluentScanner
+    class ScenarioToBeScannedUsingFluentScanner
     {
+        private string[] _input1;
+        private int[] _input2;
+        private int _input3;
+
+        public int Input3
+        {
+            get { return _input3; }
+        }
+
+        public int[] Input2
+        {
+            get { return _input2; }
+        }
+
+        public string[] Input1
+        {
+            get { return _input1; }
+        }
+
         public void GivenSomeState(int input1, int input2)
         {
         }
 
         public void WhenSomeStateUsesIncompatibleNamingConvention()
         {
+        }
+
+        public void AndAMethodTakesArrayInputs(string[] input1, int[] input2, int input3)
+        {
+            _input1 = input1;
+            _input2 = input2;
+            _input3 = input3;
         }
 
         [Then]
@@ -39,9 +65,10 @@ namespace Bddify.Tests.FluentStepScanner
 
         public static IScanForSteps GetScanner()
         {
-            return new FluentStepScanner<ScenarioToBeScannerUsingFluentScanner>()
+            return new FluentStepScanner<ScenarioToBeScannedUsingFluentScanner>()
                 .Given(s => s.GivenSomeState(1, 2))
                 .And(s => s.WhenSomeStateUsesIncompatibleNamingConvention())
+                .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))
                 .And(s => s.AndSomeStateWithIncorrectAttribute())
                 .When(s => s.WhenSomethingHappens("some input here"))
                 .And(s => s.AndThenSomethingElseHappens(), "Overriding step name without arguments")
