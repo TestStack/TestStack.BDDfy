@@ -8,19 +8,19 @@ namespace Bddify.Tests.FluentStepScanner
     public class WhenStepsAreScannedUsingFluentStepScanner
     {
         private IEnumerable<ExecutionStep> _steps;
-        private readonly ScenarioToBeScannerUsingFluentScanner _dummyInstance = new ScenarioToBeScannerUsingFluentScanner();
+        private readonly ScenarioToBeScannedUsingFluentScanner _dummyInstance = new ScenarioToBeScannedUsingFluentScanner();
 
         [SetUp]
         public void Setup()
         {
-            var scanner = ScenarioToBeScannerUsingFluentScanner.GetScanner();
-            _steps = scanner.Scan(typeof(ScenarioToBeScannerUsingFluentScanner));
+            var scanner = ScenarioToBeScannedUsingFluentScanner.GetScanner();
+            _steps = scanner.Scan(typeof(ScenarioToBeScannedUsingFluentScanner));
         }
 
         [Test]
         public void IndicatedStepsAreReturned()
         {
-            Assert.That(_steps.Count(), Is.EqualTo(9));
+            Assert.That(_steps.Count(), Is.EqualTo(10));
         }
 
         ExecutionStep GivenSomeStateStep
@@ -98,6 +98,64 @@ namespace Bddify.Tests.FluentStepScanner
         {
             Assert.That(WhenSomeStateUsesIncompatibleNamingConventionStep.ReadableMethodName.Trim(), Is.EqualTo("When some state uses incompatible naming convention"));
         }
+
+        ExecutionStep AndAMethodTakesArrayInputsStep
+        {
+            get
+            {
+                return _steps.Single(s => s.Method.Name == "AndAMethodTakesArrayInputs");
+            }
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_StringArrayArgumentsAreSet()
+        {
+            var stringArrayInputs = AndAMethodTakesArrayInputsStep.InputArguments[0] as string[];
+            Assert.That(stringArrayInputs, Is.Not.Null);
+            Assert.AreEqual(stringArrayInputs[0], "1");
+            Assert.AreEqual(stringArrayInputs[1], "2");
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_IntArrayArgumentsAreSet()
+        {
+            var intArrayInputs = AndAMethodTakesArrayInputsStep.InputArguments[1] as int[];
+            Assert.That(intArrayInputs, Is.Not.Null);
+            Assert.AreEqual(intArrayInputs[0], 3);
+            Assert.AreEqual(intArrayInputs[1], 4);
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_IntArgumentIsSet()
+        {
+            var intInput = (int)AndAMethodTakesArrayInputsStep.InputArguments[2];
+            Assert.AreEqual(intInput, 5);
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_IsAConsecutiveSetupMethod()
+        {
+            Assert.That(AndAMethodTakesArrayInputsStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_DoesNotAssert()
+        {
+            Assert.IsFalse(AndAMethodTakesArrayInputsStep.Asserts);
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_Reports()
+        {
+            Assert.IsTrue(AndAMethodTakesArrayInputsStep.ShouldReport);
+        }
+
+        [Test]
+        public void AndAMethodTakesArrayInputs_HasCorrectReadableMethodName()
+        {
+            Assert.That(AndAMethodTakesArrayInputsStep.ReadableMethodName.Trim(), Is.EqualTo("And a method takes array inputs 1, 2, 3, 4, 5"));
+        }
+
 
         ExecutionStep WhenSomethingHappensTransitionStep
         {

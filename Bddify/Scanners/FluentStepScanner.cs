@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -118,7 +119,37 @@ namespace Bddify.Scanners
         private static object[] GetMethodArguments(Expression<Action<TScenario>> stepAction)
         {
             var methodCall = (MethodCallExpression)stepAction.Body;
-            return methodCall.Arguments.Select(a => ((ConstantExpression)a).Value).ToArray();
+            var arguments = new List<object>();
+            foreach (var expression in methodCall.Arguments)
+            {
+                var constArg = expression as ConstantExpression;
+                if(constArg != null)
+                {
+                    arguments.Add(constArg.Value);
+                    continue;
+                }
+
+                var arrayArg = expression as NewArrayExpression;
+                if (arrayArg != null)
+                {
+                    arguments.Add(GetMethodArrayArgument(arrayArg));
+                    continue;
+                }
+            }
+            return arguments.ToArray();
+        }
+
+        private static object GetMethodArrayArgument(NewArrayExpression arrayExpression)
+        {
+            var arrayElements = new ArrayList();
+            Type type = arrayExpression.Type.GetElementType();
+            foreach (var arrayElementExpression in arrayExpression.Expressions)
+            {
+                var arrayElement = ((ConstantExpression)arrayElementExpression).Value;
+                arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type));
+            }
+
+            return arrayElements.ToArray(type);
         }
 
         [DebuggerHidden]
