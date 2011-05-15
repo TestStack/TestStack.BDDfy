@@ -87,8 +87,8 @@ namespace Bddify.Tests.RunScenarioWithArgs
         [Test]
         public void ThenEachScenarioTakesAUniqueTestObjectInstance()
         {
-            Assert.IsFalse(ReferenceEquals(_scenarios[0].Object, _scenarios[1].Object));
-            Assert.IsFalse(ReferenceEquals(_scenarios[1].Object, _scenarios[2].Object));
+            Assert.IsFalse(ReferenceEquals(_scenarios[0].TestObject, _scenarios[1].TestObject));
+            Assert.IsFalse(ReferenceEquals(_scenarios[1].TestObject, _scenarios[2].TestObject));
         }
     }
 }

@@ -123,7 +123,16 @@ namespace Bddify.Scanners
             foreach (var expression in methodCall.Arguments)
             {
                 var constArg = expression as ConstantExpression;
-                if(constArg != null)
+                if (constArg == null)
+                {
+                    var memberExpression = expression as MemberExpression;
+                    if (memberExpression != null)
+                    {
+                        constArg = memberExpression.Expression as ConstantExpression;
+                    }
+                }
+
+                if (constArg != null)
                 {
                     arguments.Add(constArg.Value);
                     continue;

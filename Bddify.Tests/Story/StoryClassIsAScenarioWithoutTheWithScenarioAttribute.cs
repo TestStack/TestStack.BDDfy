@@ -44,7 +44,7 @@ namespace Bddify.Tests.Story
         {
             Assert.That(_story.Scenarios.Count(), Is.EqualTo(1));
             var scenario = _story.Scenarios.First();
-            Assert.That(scenario.Object.GetType(), Is.EqualTo(typeof(StoryAsScenario)));
+            Assert.That(scenario.TestObject.GetType(), Is.EqualTo(typeof(StoryAsScenario)));
         }
 
         void andTheNarrativeIsReturnedAsExpected()

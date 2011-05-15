@@ -23,8 +23,8 @@ namespace Bddify.Processors
             {
                 if (scenario.ArgsSet != null)
                 {
-                    var argSetterMethod = scenario.Object.GetType().GetMethod(_runScenarioWithArgsMethodName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                    argSetterMethod.Invoke(scenario.Object, scenario.ArgsSet);
+                    var argSetterMethod = scenario.TestObject.GetType().GetMethod(_runScenarioWithArgsMethodName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                    argSetterMethod.Invoke(scenario.TestObject, scenario.ArgsSet);
                 }
 
                 foreach (var executionStep in scenario.Steps)

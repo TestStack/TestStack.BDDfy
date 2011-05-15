@@ -72,7 +72,7 @@ namespace Bddify.Tests.Disposer
 
         void ThenScenariosAreNotDisposedByBddifyBecauseTheyShouldBeThereForHtmlReport()
         {
-            Assert.That(_story.Scenarios.All(s => ((DisposableScenario)s.Object).Disposed), Is.False);
+            Assert.That(_story.Scenarios.All(s => ((DisposableScenario)s.TestObject).Disposed), Is.False);
         }
 
         void AndTheScenarioCreatedByTestingFrameworkIsNotDisposedOf()

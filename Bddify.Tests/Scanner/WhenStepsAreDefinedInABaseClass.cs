@@ -34,7 +34,7 @@ namespace Bddify.Tests.Scanner
         {
             get
             {
-                return (TheSubClass)Scenario.Object;
+                return (TheSubClass)Scenario.TestObject;
             }
         }
 

@@ -348,7 +348,7 @@
 						      <tr class="namespace">
                     <td />
 							      <td class="summaryLable">Namespaces</td>
-							      <td>@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.Object.GetType().Namespace).Count()</td>
+							      <td>@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count()</td>
 						      </tr>
 						      <tr class="story">
                     <td />
@@ -394,7 +394,7 @@
             var scenario = Model.SelectMany(s => s.Scenarios).FirstOrDefault();
             if (scenario != null)
             {
-              var codeBase = scenario.Object.GetType().Assembly.CodeBase;
+              var codeBase = scenario.TestObject.GetType().Assembly.CodeBase;
               var uri = new UriBuilder(codeBase);
               assemblyName = Uri.UnescapeDataString(uri.Path);
             }
@@ -408,7 +408,7 @@
           @{
             var groupedByNamespace = from story in Model
                                      where story.MetaData == null
-                                     group story by story.Scenarios.First().Object.GetType().Namespace into g
+                                     group story by story.Scenarios.First().TestObject.GetType().Namespace into g
                                      select g;
 
             var groupedByStories = from story in Model
@@ -429,7 +429,7 @@
                     <tr>
                     @if (story.MetaData == null)
                     {
-                      <td>Namespace: @story.Scenarios.First().Object.GetType().Namespace</td>
+                      <td>Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</td>
                     }
                     else
                     {

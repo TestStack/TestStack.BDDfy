@@ -6,9 +6,9 @@ namespace Bddify.Core
 {
     public class Scenario
     {
-        public Scenario(object testClass, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet = null)
+        public Scenario(object testObject, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet = null)
         {
-            Object = testClass;
+            TestObject = testObject;
             _steps = steps.OrderBy(o => o.ExecutionOrder).ToList();
             Id = Guid.NewGuid();
 
@@ -18,7 +18,7 @@ namespace Bddify.Core
 
         public string ScenarioText { get; private set; }
         public TimeSpan Duration { get; set; }
-        public object Object { get; set; }
+        public object TestObject { get; set; }
         public Guid Id { get; private set; }
         private object[] _argsSet;
         public object[] ArgsSet
@@ -47,7 +47,7 @@ namespace Bddify.Core
         {
             try
             {
-                executionStep.Method.Invoke(Object, executionStep.InputArguments);
+                executionStep.Method.Invoke(TestObject, executionStep.InputArguments);
                 executionStep.Result = StepExecutionResult.Passed;
             }
             catch (Exception ex)

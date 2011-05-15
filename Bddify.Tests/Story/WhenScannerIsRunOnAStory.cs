@@ -25,19 +25,19 @@ namespace Bddify.Tests.Story
         [Test]
         public void ThenStoryScenarioTypesAreFound()
         {
-            Assert.That(_story.Scenarios.GroupBy(s => s.Object.GetType()).Count(), Is.EqualTo(2));
+            Assert.That(_story.Scenarios.GroupBy(s => s.TestObject.GetType()).Count(), Is.EqualTo(2));
         }
 
         [Test]
         public void ThenStoryItselfIsNotReturnedAsAScenario()
         {
-            Assert.That(_story.Scenarios.Any(s => s.Object.GetType() == typeof(StoryDouble)), Is.False);
+            Assert.That(_story.Scenarios.Any(s => s.TestObject.GetType() == typeof(StoryDouble)), Is.False);
         }
 
         [Test]
         public void ThenRunScenarioWithArgsReturnsOneScenarioPerAttribute()
         {
-            var scenariosWithArgs = _story.Scenarios.Where(s => s.Object.GetType() == typeof(ScenarioInStoryWithArgs));
+            var scenariosWithArgs = _story.Scenarios.Where(s => s.TestObject.GetType() == typeof(ScenarioInStoryWithArgs));
             Assert.That(scenariosWithArgs.Count(), Is.EqualTo(2));
         }
 

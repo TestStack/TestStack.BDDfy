@@ -34,7 +34,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return (InconclusiveTestClass)_scenario.Object;
+                return (InconclusiveTestClass)_scenario.TestObject;
             }
         }
 

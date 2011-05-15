@@ -30,7 +30,7 @@ namespace Bddify.Tests.MsTest.Exceptions
         {
             get
             {
-                return (InconclusiveTestClass)_scenario.Object;
+                return (InconclusiveTestClass)_scenario.TestObject;
             }
         }
 
