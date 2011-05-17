@@ -1,3 +1,4 @@
+using Bddify.Scanners;
 using NUnit.Framework;
 using Bddify.Core;
 using System.Linq;
@@ -6,36 +7,42 @@ namespace Bddify.Tests.FluentStepScanner
 {
     public class WhenBddifyAScenarioUsingFluentApi
     {
-        readonly ScenarioToBeScannedUsingFluentScanner _scenarioInstance = new ScenarioToBeScannedUsingFluentScanner();
-        private Core.Story _story;
+        int[] _inputs;
+        int[] _results;
 
-        [SetUp]
-        public void Setup()
+        public void GivenSomeInputs(int[] inputs)
         {
-            _story = _scenarioInstance.Bddify(ScenarioToBeScannedUsingFluentScanner.GetScanner());
+            _inputs = inputs;
+            _results = new int[inputs.Length];
+        }
+
+        public void WhenScenarioIsBddifiedUsingFluentStepScanner()
+        {
+            for (int i = 0; i < _inputs.Length; i++)
+            {
+                _results[i] = _inputs[i] * 2;
+            }
+        }
+
+        public void ThenScenarioIsOnlyInstantiatedOnce()
+        {
+            for (int i = 0; i < _inputs.Length; i++)
+            {
+                Assert.That(_results[i], Is.EqualTo(_inputs[i] * 2));
+            }
         }
 
         [Test]
-        public void ThenTheStoryShouldBePickedUp()
+        public void EnteringArgumentsInline()
         {
-            Assert.That(_story.MetaData, Is.Not.Null);
-            Assert.That(_story.MetaData.Type, Is.EqualTo(typeof(ScenarioToBeScannedUsingFluentScanner)));
+            var scanner = new FluentStepScanner<WhenBddifyAScenarioUsingFluentApi>()
+                .Given(x => x.GivenSomeInputs(new[] { 1, 2 }))
+                .When(x => x.WhenScenarioIsBddifiedUsingFluentStepScanner())
+                .Then(x => x.ThenScenarioIsOnlyInstantiatedOnce());
+
+            this.Bddify(scanner);
         }
 
-        [Test]
-        public void ThenTheScenarioShouldBeSetCorrectly()
-        {
-            Assert.That(_story.Scenarios.Count(), Is.EqualTo(1));
-            Assert.That(_story.Scenarios.First().TestObject.GetType(), Is.EqualTo(typeof(ScenarioToBeScannedUsingFluentScanner)));
-        }
 
-        [Test]
-        public void ThenTheArrayArgumentsArePassedInProperly()
-        {
-            var instance = (ScenarioToBeScannedUsingFluentScanner)_story.Scenarios.First().TestObject;
-            Assert.True(instance.Input1.SequenceEqual(new[] {"1", "2"}));
-            Assert.True(instance.Input2.SequenceEqual(new[] {3, 4}));
-            Assert.That(instance.Input3, Is.EqualTo(5));
-        }
     }
 }

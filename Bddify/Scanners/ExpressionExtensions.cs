@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -25,15 +26,15 @@ namespace Bddify.Scanners
         {
             foreach (var arg in methodCallExpression.Arguments)
             {
-                foreach (var constant in RecursiveExtractConstants(arg))
+                foreach (var constant in ExtractConstants(arg))
                     yield return constant;
             }
 
-            foreach (var constant in RecursiveExtractConstants(methodCallExpression.Object))
+            foreach (var constant in ExtractConstants(methodCallExpression.Object))
                 yield return constant;
         }
 
-        private static IEnumerable<object> RecursiveExtractConstants(Expression expression)
+        private static IEnumerable<object> ExtractConstants(Expression expression)
         {
             if (expression == null || expression is ParameterExpression)
                 return new object[0];
@@ -59,25 +60,38 @@ namespace Bddify.Scanners
 
         private static IEnumerable<object> ExtractConstants(UnaryExpression unaryExpression)
         {
-            return RecursiveExtractConstants(unaryExpression.Operand);
+            return ExtractConstants(unaryExpression.Operand);
         }
 
         private static IEnumerable<object> ExtractConstants(NewArrayExpression newArrayExpression)
         {
-            yield return newArrayExpression.Expressions.SelectMany(x => ExtractConstants((ConstantExpression)x)).ToArray();
+            //yield return newArrayExpression.Expressions.SelectMany(x => ExtractConstants((ConstantExpression)x)).ToArray();
+            var arrayElements = new ArrayList();
+            Type type = newArrayExpression.Type.GetElementType();
+            foreach (var arrayElementExpression in newArrayExpression.Expressions)
+            {
+                var arrayElement = ((ConstantExpression)arrayElementExpression).Value;
+                arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type));
+            }
+
+            yield return arrayElements.ToArray(type);
+
         }
 
         private static IEnumerable<object> ExtractConstants(ConstantExpression constantExpression)
         {
             if (constantExpression.Value is Expression)
             {
-                foreach (var constant in RecursiveExtractConstants((Expression)constantExpression.Value))
+                foreach (var constant in ExtractConstants((Expression)constantExpression.Value))
                 {
                     yield return constant;
                 }
             }
             else
-                yield return constantExpression.Value;
+            {
+                if(constantExpression.Type == typeof(string) || constantExpression.Type.IsPrimitive)
+                    yield return constantExpression.Value;
+            }
         }
 
         private static IEnumerable<object> ExtractConstants(MemberExpression memberExpression)

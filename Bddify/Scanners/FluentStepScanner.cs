@@ -29,16 +29,19 @@ namespace Bddify.Scanners
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
         {
             var methodInfo = GetMethodInfo(stepAction);
-            var inputArguments = stepAction.ExtractConstants().ToArray().FlattenArrays();
+            var inputArguments = stepAction.ExtractConstants().ToArray();
+            var flatInputArray = inputArguments.FlattenArrays();
             var readableMethodName = NetToString.Convert(methodInfo.Name);
             if (!string.IsNullOrEmpty(stepTextTemplate))
-                readableMethodName = string.Format(stepTextTemplate, inputArguments);
+                readableMethodName = string.Format(stepTextTemplate, flatInputArray);
             else
-                readableMethodName = readableMethodName + " " + string.Join(", ", inputArguments);
+                readableMethodName = readableMethodName + " " + string.Join(", ", flatInputArray);
 
             readableMethodName = readableMethodName.Trim();
-
-            _steps.Add(new ExecutionStep(o => stepAction.Compile()((TScenario)o), readableMethodName, asserts, executionOrder, reports));
+            // ToDo: the expression tree compiled action creates a new object every time! should give it a go later
+            //var action = stepAction.Compile();
+            //_steps.Add(new ExecutionStep(o => action((TScenario)o), readableMethodName, asserts, executionOrder, reports));
+            _steps.Add(new ExecutionStep(methodInfo, inputArguments, readableMethodName, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
