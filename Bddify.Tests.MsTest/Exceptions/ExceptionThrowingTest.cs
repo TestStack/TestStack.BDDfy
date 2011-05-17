@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters;
@@ -62,11 +63,16 @@ namespace Bddify.Tests.MsTest.Exceptions
             }
         }
 
+        private ExecutionStep GetStep(MethodInfo stepMethod)
+        {
+            return _scenario.Steps.Single(s => s.ReadableMethodName == NetToString.Convert(stepMethod.Name));
+        }
+
         public ExecutionStep GivenStep
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
+                return GetStep(Helpers.GetMethodInfo(Given));
             }
         }
 
@@ -74,7 +80,7 @@ namespace Bddify.Tests.MsTest.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
+                return GetStep(Helpers.GetMethodInfo(When));
             }
         }
 
@@ -82,7 +88,7 @@ namespace Bddify.Tests.MsTest.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+                return GetStep(Helpers.GetMethodInfo(Then));
             }
         }
 

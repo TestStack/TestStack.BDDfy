@@ -43,11 +43,12 @@ namespace Bddify.Core
             }
         }
 
+        // ToDo: this method does not really belong to this class
         public StepExecutionResult ExecuteStep(ExecutionStep executionStep)
         {
             try
             {
-                executionStep.Method.Invoke(TestObject, executionStep.InputArguments);
+                executionStep.Execute(TestObject);
                 executionStep.Result = StepExecutionResult.Passed;
             }
             catch (Exception ex)

@@ -64,19 +64,23 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
+        private ExecutionStep GetStep(string readableName)
+        {
+            return _scenario.Steps.First(s => s.ReadableMethodName == readableName);
+        }
+
         public ExecutionStep GivenStep
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Given));
+                return GetStep("Given");
             }
         }
 
         public ExecutionStep WhenStep
         {
-            get
-            {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(When));
+            get {
+                return GetStep("When");
             }
         }
 
@@ -84,7 +88,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(Then));
+                return GetStep("Then");
             }
         }
 
@@ -92,7 +96,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TearDown));
+                return GetStep("Tear down");
             }
         }
 

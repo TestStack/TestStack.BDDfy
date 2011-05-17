@@ -30,7 +30,7 @@ namespace Bddify.Tests.FluentStepScanner
         {
         }
 
-        public void WhenSomeStateUsesIncompatibleNamingConvention()
+        public void WhenSomeStepUsesIncompatibleNamingConvention()
         {
         }
 
@@ -67,7 +67,7 @@ namespace Bddify.Tests.FluentStepScanner
         {
             return new FluentStepScanner<ScenarioToBeScannedUsingFluentScanner>()
                 .Given(s => s.GivenSomeState(1, 2))
-                .And(s => s.WhenSomeStateUsesIncompatibleNamingConvention())
+                .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
                 .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))
                 .And(s => s.AndSomeStateWithIncorrectAttribute())
                 .When(s => s.WhenSomethingHappens("some input here"))

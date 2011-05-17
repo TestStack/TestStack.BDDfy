@@ -55,6 +55,7 @@
     <Compile Include="FluentStepScanner\WhenBddifyAScenarioUsingFluentApi.cs" />
     <Compile Include="FluentStepScanner\WhenStepsAreScannedUsingFluentStepScanner.cs" />
     <Compile Include="NetToStringTests.cs" />
+    <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />

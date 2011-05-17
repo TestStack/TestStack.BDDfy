@@ -27,14 +27,8 @@ namespace Bddify.Tests.FluentStepScanner
         {
             get
             {
-                return _steps.Single(s => s.Method.Name == "GivenSomeState");
+                return _steps.Single(s => s.ReadableMethodName == "Given some state 1, 2");
             }
-        }
-
-        [Test]
-        public void GivenSomeState_StepHasTheCorrectArguments()
-        {
-            Assert.True(GivenSomeStateStep.InputArguments.SequenceEqual(new object[] {1, 2}));
         }
 
         [Test]
@@ -55,81 +49,38 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(GivenSomeStateStep.ShouldReport);        
         }
 
-        [Test]
-        public void GivenSomeState_StepHasCorrectReadableMethodName()
-        {
-            Assert.That(GivenSomeStateStep.ReadableMethodName, Is.EqualTo("Given some state 1, 2"));
-        }
-
-        ExecutionStep WhenSomeStateUsesIncompatibleNamingConventionStep
+        ExecutionStep WhenSomeStepUsesIncompatibleNamingConventionStep
         {
             get
             {
-                return _steps.Single(s => s.Method == Helpers.GetMethodInfo(_dummyInstance.WhenSomeStateUsesIncompatibleNamingConvention));
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "When some step uses incompatible naming convention");
             }
         }
 
         [Test]
-        public void WhenSomeStateUsesIncompatibleNamingConvention_HasTheCorrectArguments()
+        public void WhenSomeStepUsesIncompatibleNamingConvention_IsAConsecutiveSetupMethod()
         {
-            Assert.IsEmpty(WhenSomeStateUsesIncompatibleNamingConventionStep.InputArguments);
+            Assert.That(WhenSomeStepUsesIncompatibleNamingConventionStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
         }
 
         [Test]
-        public void WhenSomeStateUsesIncompatibleNamingConvention_IsAConsecutiveSetupMethod()
+        public void WhenSomeStepUsesIncompatibleNamingConvention_DoesNotAssert()
         {
-            Assert.That(WhenSomeStateUsesIncompatibleNamingConventionStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+            Assert.IsFalse(WhenSomeStepUsesIncompatibleNamingConventionStep.Asserts);
         }
 
         [Test]
-        public void WhenSomeStateUsesIncompatibleNamingConvention_DoesNotAssert()
+        public void WhenSomeStepUsesIncompatibleNamingConvention_Reports()
         {
-            Assert.IsFalse(WhenSomeStateUsesIncompatibleNamingConventionStep.Asserts);
-        }
-
-        [Test]
-        public void WhenSomeStateUsesIncompatibleNamingConvention_Reports()
-        {
-            Assert.IsTrue(WhenSomeStateUsesIncompatibleNamingConventionStep.ShouldReport);        
-        }
-
-        [Test]
-        public void WhenSomeStateUsesIncompatibleNamingConvention_HasCorrectReadableMethodName()
-        {
-            Assert.That(WhenSomeStateUsesIncompatibleNamingConventionStep.ReadableMethodName.Trim(), Is.EqualTo("When some state uses incompatible naming convention"));
+            Assert.IsTrue(WhenSomeStepUsesIncompatibleNamingConventionStep.ShouldReport);        
         }
 
         ExecutionStep AndAMethodTakesArrayInputsStep
         {
             get
             {
-                return _steps.Single(s => s.Method.Name == "AndAMethodTakesArrayInputs");
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "And a method takes array inputs 1, 2, 3, 4, 5");
             }
-        }
-
-        [Test]
-        public void AndAMethodTakesArrayInputs_StringArrayArgumentsAreSet()
-        {
-            var stringArrayInputs = AndAMethodTakesArrayInputsStep.InputArguments[0] as string[];
-            Assert.That(stringArrayInputs, Is.Not.Null);
-            Assert.AreEqual(stringArrayInputs[0], "1");
-            Assert.AreEqual(stringArrayInputs[1], "2");
-        }
-
-        [Test]
-        public void AndAMethodTakesArrayInputs_IntArrayArgumentsAreSet()
-        {
-            var intArrayInputs = AndAMethodTakesArrayInputsStep.InputArguments[1] as int[];
-            Assert.That(intArrayInputs, Is.Not.Null);
-            Assert.AreEqual(intArrayInputs[0], 3);
-            Assert.AreEqual(intArrayInputs[1], 4);
-        }
-
-        [Test]
-        public void AndAMethodTakesArrayInputs_IntArgumentIsSet()
-        {
-            var intInput = (int)AndAMethodTakesArrayInputsStep.InputArguments[2];
-            Assert.AreEqual(intInput, 5);
         }
 
         [Test]
@@ -150,18 +101,11 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(AndAMethodTakesArrayInputsStep.ShouldReport);
         }
 
-        [Test]
-        public void AndAMethodTakesArrayInputs_HasCorrectReadableMethodName()
-        {
-            Assert.That(AndAMethodTakesArrayInputsStep.ReadableMethodName.Trim(), Is.EqualTo("And a method takes array inputs 1, 2, 3, 4, 5"));
-        }
-
-
         ExecutionStep WhenSomethingHappensTransitionStep
         {
             get
             {
-                return _steps.Single(s => s.Method.Name == "WhenSomethingHappens" && s.InputArguments.Count() == 1 && (string) s.InputArguments[0] == "some input here");
+                return _steps.Single(s => s.ReadableMethodName == "When something happens some input here");
             }
         }
 
@@ -183,17 +127,11 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(WhenSomethingHappensTransitionStep.ShouldReport);        
         }
 
-        [Test]
-        public void WhenSomethingHappensTransitionStep_HasCorrectReadableMethodName()
-        {
-            Assert.That(WhenSomethingHappensTransitionStep.ReadableMethodName.Trim(), Is.EqualTo("When something happens some input here"));
-        }
-
         ExecutionStep WhenSomethingHappensConsecutiveTransitionStep
         {
             get
             {
-                return _steps.Single(s => s.Method.Name == "WhenSomethingHappens" && s.InputArguments.Count() == 1 && (string) s.InputArguments[0] == "other input");
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "step used with other input for the second time");
             }
         }
 
@@ -215,17 +153,11 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(WhenSomethingHappensConsecutiveTransitionStep.ShouldReport);        
         }
 
-        [Test]
-        public void WhenSomethingHappensConsecutiveTransitionStep_HasCorrectReadableMethodName()
-        {
-            Assert.That(WhenSomethingHappensConsecutiveTransitionStep.ReadableMethodName.Trim(), Is.EqualTo("step used with other input for the second time"));
-        }
-
         ExecutionStep AndThenSomethingElseHappensStep
         {
             get
             {
-                return _steps.Single(s => s.Method == Helpers.GetMethodInfo(_dummyInstance.AndThenSomethingElseHappens));
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "Overriding step name without arguments");
             }
         }
 
@@ -247,17 +179,11 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(AndThenSomethingElseHappensStep.ShouldReport);        
         }
 
-        [Test]
-        public void AndThenSomethingElseHappensStep_HasCorrectReadableMethodName()
-        {
-            Assert.That(AndThenSomethingElseHappensStep.ReadableMethodName.Trim(), Is.EqualTo("Overriding step name without arguments"));
-        }
-
         ExecutionStep ThenTheFollowingAssertionsShouldBeCorrectStep
         {
             get
             {
-                return _steps.Single(s => s.Method == Helpers.GetMethodInfo(_dummyInstance.ThenTheFollowingAssertionsShouldBeCorrect));
+                return _steps.Single(s => s.ReadableMethodName == "Then the following assertions should be correct");
             }
         }
 
@@ -279,17 +205,11 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(ThenTheFollowingAssertionsShouldBeCorrectStep.ShouldReport);        
         }
 
-        [Test]
-        public void ThenTheFollowingAssertionsShouldBeCorrectStep_HasCorrectReadableMethodName()
-        {
-            Assert.That(ThenTheFollowingAssertionsShouldBeCorrectStep.ReadableMethodName.Trim(), Is.EqualTo("Then the following assertions should be correct"));
-        }
-
         ExecutionStep AndIncorrectAttributeWouldNotMatterStep
         {
             get
             {
-                return _steps.Single(s => s.Method == Helpers.GetMethodInfo(_dummyInstance.AndIncorrectAttributeWouldNotMatter));
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "And incorrect attribute would not matter");
             }
         }
 
@@ -311,17 +231,11 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.ShouldReport);        
         }
 
-        [Test]
-        public void AndIncorrectAttributeWouldNotMatterStep_HasCorrectReadableMethodName()
-        {
-            Assert.That(AndIncorrectAttributeWouldNotMatterStep.ReadableMethodName.Trim(), Is.EqualTo("And incorrect attribute would not matter"));
-        }
-
         ExecutionStep TearDownStep
         {
             get
             {
-                return _steps.Single(s => s.Method == Helpers.GetMethodInfo(_dummyInstance.Dispose));
+                return _steps.Single(s => s.ReadableMethodName == "Dispose");
             }
         }
 

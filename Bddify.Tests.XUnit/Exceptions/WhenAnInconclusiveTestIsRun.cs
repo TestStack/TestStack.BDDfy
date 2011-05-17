@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 using Bddify.Core;
 using Bddify.Processors;
 using Xunit;
@@ -43,11 +44,16 @@ namespace Bddify.Tests.MsTest.Exceptions
             }
         }
 
+        private ExecutionStep GetStep(MethodInfo stepMethod)
+        {
+            return _scenario.Steps.Single(s => s.ReadableMethodName == NetToString.Convert(stepMethod.Name));
+        }
+
         ExecutionStep GivenStep
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.GivenA_classUnderTest));
+                return GetStep(Helpers.GetMethodInfo(TestClass.GivenA_classUnderTest));
             }
         }
 
@@ -55,7 +61,7 @@ namespace Bddify.Tests.MsTest.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
+                return GetStep(Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
             }
         }
 
@@ -63,7 +69,7 @@ namespace Bddify.Tests.MsTest.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
+                return GetStep(Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
             }
         }
 

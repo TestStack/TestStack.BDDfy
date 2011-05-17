@@ -39,9 +39,9 @@ namespace Bddify.Tests.Scanner
             Assert.That(_steps.Count, Is.EqualTo(10));
         }
 
-        private static void AssertStep(ExecutionStep step, MethodInfo methodInfo, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
+        private static void AssertStep(ExecutionStep step, string readableMethodName, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            Assert.That(step.Method, Is.EqualTo(methodInfo));
+            Assert.That(step.ReadableMethodName.Trim(), Is.EqualTo(readableMethodName));
             Assert.That(step.Asserts, Is.EqualTo(asserts));
             Assert.That(step.ExecutionOrder, Is.EqualTo(order));
             Assert.That(step.ShouldReport, Is.EqualTo(shouldReport));
@@ -50,61 +50,61 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void GivenIsReturnedFirst()
         {
-            AssertStep(_steps[0], Helpers.GetMethodInfo(_typeWithoutAttribute.Given), ExecutionOrder.SetupState);
+            AssertStep(_steps[0], "Given", ExecutionOrder.SetupState);
         }
 
         [Test]
         public void AndGiven1IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[1], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven1), ExecutionOrder.ConsecutiveSetupState);
+            AssertStep(_steps[1], "And given 1", ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
         public void AndGiven2IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[2], Helpers.GetMethodInfo(_typeWithoutAttribute.AndGiven2), ExecutionOrder.ConsecutiveSetupState);
+            AssertStep(_steps[2], "And given 2", ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
         public void WhenIsReturnedAfterGivens()
         {
-            AssertStep(_steps[3], Helpers.GetMethodInfo(_typeWithoutAttribute.When), ExecutionOrder.Transition);
+            AssertStep(_steps[3], "When", ExecutionOrder.Transition);
         }
 
         [Test]
         public void AndWhen1IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[4], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen1), ExecutionOrder.ConsecutiveTransition);
+            AssertStep(_steps[4], "And when 1", ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
         public void AndWhen2IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[5], Helpers.GetMethodInfo(_typeWithoutAttribute.AndWhen2), ExecutionOrder.ConsecutiveTransition);
+            AssertStep(_steps[5], "And when 2", ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
         public void ThenIsReturnedAfterWhens()
         {
-            AssertStep(_steps[6], Helpers.GetMethodInfo(_typeWithoutAttribute.Then), ExecutionOrder.Assertion, true);
+            AssertStep(_steps[6], "Then", ExecutionOrder.Assertion, true);
         }
 
         [Test]
         public void AndThenIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[7], Helpers.GetMethodInfo(_typeWithoutAttribute.AndThen), ExecutionOrder.ConsecutiveAssertion, true);
+            AssertStep(_steps[7], "And then", ExecutionOrder.ConsecutiveAssertion, true);
         }
 
         [Test]
         public void AndSomethingIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[8], Helpers.GetMethodInfo(_typeWithoutAttribute.AndSomething), ExecutionOrder.ConsecutiveAssertion, true);
+            AssertStep(_steps[8], "And something", ExecutionOrder.ConsecutiveAssertion, true);
         }
 
         [Test]
         public void TearDownMethodIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[9], Helpers.GetMethodInfo(_typeWithoutAttribute.TearDown), ExecutionOrder.TearDown, asserts:false, shouldReport:false);
+            AssertStep(_steps[9], "Tear down", ExecutionOrder.TearDown, asserts:false, shouldReport:false);
         }
     }
 }

@@ -29,15 +29,16 @@ namespace Bddify.Scanners
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
         {
             var methodInfo = GetMethodInfo(stepAction);
+            var inputArguments = stepAction.ExtractConstants().ToArray().FlattenArrays();
             var readableMethodName = NetToString.Convert(methodInfo.Name);
-            var methodArguments = GetMethodArguments(stepAction);
-            var inputArguments = methodArguments.FlattenArrays();
             if (!string.IsNullOrEmpty(stepTextTemplate))
                 readableMethodName = string.Format(stepTextTemplate, inputArguments);
             else
                 readableMethodName = readableMethodName + " " + string.Join(", ", inputArguments);
 
-            _steps.Add(new ExecutionStep(methodInfo, methodArguments, readableMethodName, asserts, executionOrder, reports));
+            readableMethodName = readableMethodName.Trim();
+
+            _steps.Add(new ExecutionStep(o => stepAction.Compile()((TScenario)o), readableMethodName, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
@@ -116,50 +117,50 @@ namespace Bddify.Scanners
             return methodCall.Method;
         }
 
-        private static object[] GetMethodArguments(Expression<Action<TScenario>> stepAction)
-        {
-            var methodCall = (MethodCallExpression)stepAction.Body;
-            var arguments = new List<object>();
-            foreach (var expression in methodCall.Arguments)
-            {
-                var constArg = expression as ConstantExpression;
-                if (constArg == null)
-                {
-                    var memberExpression = expression as MemberExpression;
-                    if (memberExpression != null)
-                    {
-                        constArg = memberExpression.Expression as ConstantExpression;
-                    }
-                }
+        //private static object[] GetMethodArguments(Expression<Action<TScenario>> stepAction)
+        //{
+        //    var methodCall = (MethodCallExpression)stepAction.Body;
+        //    var arguments = new List<object>();
+        //    foreach (var expression in methodCall.Arguments)
+        //    {
+        //        var constArg = expression as ConstantExpression;
+        //        if (constArg == null)
+        //        {
+        //            var memberExpression = expression as MemberExpression;
+        //            if (memberExpression != null)
+        //            {
+        //                constArg = memberExpression.Expression as ConstantExpression;
+        //            }
+        //        }
 
-                if (constArg != null)
-                {
-                    arguments.Add(constArg.Value);
-                    continue;
-                }
+        //        if (constArg != null)
+        //        {
+        //            arguments.Add(constArg.Value);
+        //            continue;
+        //        }
 
-                var arrayArg = expression as NewArrayExpression;
-                if (arrayArg != null)
-                {
-                    arguments.Add(GetMethodArrayArgument(arrayArg));
-                    continue;
-                }
-            }
-            return arguments.ToArray();
-        }
+        //        var arrayArg = expression as NewArrayExpression;
+        //        if (arrayArg != null)
+        //        {
+        //            arguments.Add(GetMethodArrayArgument(arrayArg));
+        //            continue;
+        //        }
+        //    }
+        //    return arguments.ToArray();
+        //}
 
-        private static object GetMethodArrayArgument(NewArrayExpression arrayExpression)
-        {
-            var arrayElements = new ArrayList();
-            Type type = arrayExpression.Type.GetElementType();
-            foreach (var arrayElementExpression in arrayExpression.Expressions)
-            {
-                var arrayElement = ((ConstantExpression)arrayElementExpression).Value;
-                arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type));
-            }
+        //private static object GetMethodArrayArgument(NewArrayExpression arrayExpression)
+        //{
+        //    var arrayElements = new ArrayList();
+        //    Type type = arrayExpression.Type.GetElementType();
+        //    foreach (var arrayElementExpression in arrayExpression.Expressions)
+        //    {
+        //        var arrayElement = ((ConstantExpression)arrayElementExpression).Value;
+        //        arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type));
+        //    }
 
-            return arrayElements.ToArray(type);
-        }
+        //    return arrayElements.ToArray(type);
+        //}
 
         [DebuggerHidden]
         public override bool Equals(object obj)

@@ -42,7 +42,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.GivenAClassUnderTest));
+                return _scenario.Steps.Single(s => s.ReadableMethodName == "Given a class under test");
             }
         }
 
@@ -50,7 +50,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.WhenInconclusiveExceptionIsThrownInOneOfTheMethods));
+                return _scenario.Steps.Single(s => s.ReadableMethodName == "When inconclusive exception is thrown in one of the methods");
             }
         }
 
@@ -58,7 +58,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.ThenTheContextIsFlaggedAsInconclusive));
+                return _scenario.Steps.Single(s => s.ReadableMethodName == "Then the context is flagged as inconclusive");
             }
         }
 
@@ -66,7 +66,7 @@ namespace Bddify.Tests.Exceptions
         {
             get
             {
-                return _scenario.Steps.First(s => s.Method == Helpers.GetMethodInfo(TestClass.TearDownThis));
+                return _scenario.Steps.Single(s => s.ReadableMethodName == "Tear down this");
             }
         }
 

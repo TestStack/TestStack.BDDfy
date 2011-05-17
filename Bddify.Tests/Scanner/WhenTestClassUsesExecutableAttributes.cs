@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.GwtAttributes;
@@ -17,7 +16,7 @@ namespace Bddify.Tests.Scanner
         private class TypeWithAttribute
         {
             public const string MethodTextForWhenSomethingHappens = "When Something Happens";
-            public const string MethodTextForAndThen = "The text for the and then part";
+            public const string MethodTextForAndThen = "The text for the AndThen part";
 
             [Then]
             [RunStepWithArgs(1, 2)]
@@ -27,9 +26,9 @@ namespace Bddify.Tests.Scanner
             public void ThenIShouldNotBeReturnedBecauseIDoNotHaveAttributes() { }
 
             [When(StepText = MethodTextForWhenSomethingHappens)]
-            public void When() { }
+            public void WhenStep() { }
 
-            public void WhenNoAttributeIsProvided() { }
+            public void WhenStep_NoAttributeIsProvided() { }
 
             [Given]
             public void Given() { }
@@ -47,7 +46,7 @@ namespace Bddify.Tests.Scanner
         }
 
         [SetUp]
-        public void WhenTestClassHasAttributes()
+        public void WhenStep_TestClassHasAttributes()
         {
             _typeWithAttribute = new TypeWithAttribute();
             _steps = new ExecutableAttributeScanner().Scan(typeof(TypeWithAttribute)).ToList();
@@ -64,38 +63,28 @@ namespace Bddify.Tests.Scanner
             Assert.That(_steps.Count, Is.EqualTo(7));
         }
 
-        IEnumerable<ExecutionStep> GetStepsByMethodInfo(MethodInfo stepMethod)
-        {
-            return _steps.Where(s => s.Method == stepMethod);
-        }
-
-        ExecutionStep GetStepByMethodInfo(MethodInfo stepMethod)
-        {
-            return _steps.Single(s => s.Method == stepMethod);
-        }
-
         ExecutionStep GivenStep
         {
             get
             {
-                return GetStepByMethodInfo(Helpers.GetMethodInfo(_typeWithAttribute.Given));
+                return _steps.Single(s => s.ReadableMethodName == "Given");
             }
         }
 
         [Test]
-        public void GivenStepIsFoundAsSetupState()
+        public void GivenStep_IsFoundAsSetupState()
         {
             Assert.That(GivenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
         }
 
         [Test]
-        public void GivenStepDoesNotAssert()
+        public void GivenStep_DoesNotAssert()
         {
             Assert.IsFalse(GivenStep.Asserts);
         }
 
         [Test]
-        public void GivenStepTextIsFetchedFromMethodName()
+        public void GivenStep_TextIsFetchedFromMethodName()
         {
             Assert.That(GivenStep.ReadableMethodName.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
         }
@@ -104,7 +93,7 @@ namespace Bddify.Tests.Scanner
         {
             get
             {
-                return GetStepByMethodInfo(Helpers.GetMethodInfo(_typeWithAttribute.SomeOtherPartOfTheGiven));
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "Some other part of the given");
             }
         }
 
@@ -130,52 +119,52 @@ namespace Bddify.Tests.Scanner
         {
             get
             {
-                return GetStepByMethodInfo(Helpers.GetMethodInfo(_typeWithAttribute.When));
+                return _steps.Single(s => s.ReadableMethodName == TypeWithAttribute.MethodTextForWhenSomethingHappens);
             }
         }
 
         [Test]
-        public void WhenIsFoundAsTransitionStep()
+        public void WhenStep_IsFoundAsTransitionStep()
         {
             Assert.That(WhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Transition));
         }
 
         [Test]
-        public void WhenStepTextIsFetchedFromExecutableAttribute()
+        public void WhenStep_StepTextIsFetchedFromExecutableAttribute()
         {
             Assert.That(WhenStep.ReadableMethodName, Is.EqualTo(TypeWithAttribute.MethodTextForWhenSomethingHappens));
         }
 
         [Test]
-        public void WhenStepDoesNotAssert()
+        public void WhenStep_StepDoesNotAssert()
         {
             Assert.IsFalse(WhenStep.Asserts);
         }
 
-        ExecutionStep AndWhenStep
+        ExecutionStep TheOtherPartOfWhenStep
         {
             get
             {
-                return GetStepByMethodInfo(Helpers.GetMethodInfo(_typeWithAttribute.TheOtherPartOfWhen));
+                return _steps.Single(s => s.ReadableMethodName.Trim() == "The other part of when");
             }
         }
 
         [Test]
-        public void AndWhenIsFoundAsConsecutiveTransition()
+        public void TheOtherPartOfWhenStep_IsFoundAsConsecutiveTransition()
         {
-            Assert.That(AndWhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+            Assert.That(TheOtherPartOfWhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
         }
 
         [Test]
-        public void AndWhenStepTextIsFetchedFromMethodName()
+        public void TheOtherPartOfWhenStep_StepTextIsFetchedFromMethodName()
         {
-            Assert.That(AndWhenStep.ReadableMethodName.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
+            Assert.That(TheOtherPartOfWhenStep.ReadableMethodName.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
         }
 
         [Test]
-        public void AndWhenStepDoesNotAssert()
+        public void TheOtherPartOfWhenStep_StepDoesNotAssert()
         {
-            Assert.IsFalse(AndWhenStep.Asserts);
+            Assert.IsFalse(TheOtherPartOfWhenStep.Asserts);
         }
 
         [Test]
@@ -185,32 +174,23 @@ namespace Bddify.Tests.Scanner
             Assert.IsTrue(steps.All(s => s.ExecutionOrder == ExecutionOrder.Assertion));
         }
 
-        [Test]
-        public void ThenStepsAreProvidedWithCorrectArguments()
-        {
-            var steps = ThenSteps.ToList();
-            Assert.IsTrue(steps.All(s => s.InputArguments != null && s.InputArguments.Length == 2));
-            Assert.IsTrue(steps.All(s => s.InputArguments.SequenceEqual(new object[] {1, 2}) || s.InputArguments.SequenceEqual(new object[] {3, 4})));
-        }
-
         IEnumerable<ExecutionStep> ThenSteps
         {
             get
             {
-                var methodInfo = _typeWithAttribute.GetType().GetMethod("Then", new[] { typeof(int), typeof(int) });
-                return GetStepsByMethodInfo(methodInfo);
+                return _steps.Where(s => s.ReadableMethodName == "Then 1, 2" || s.ReadableMethodName == "Then 3, 4");
             }
         }
 
         [Test]
-        public void ThenStepsDoAssert()
+        public void ThenSteps_DoAssert()
         {
             var steps = ThenSteps.ToList();
             Assert.True(steps.All(s => s.Asserts));
         }
 
         [Test]        
-        public void ThenStepTextIsFetchedFromMethodNamePostfixedWithArguments()
+        public void ThenSteps_StepTextIsFetchedFromMethodNamePostfixedWithArguments()
         {
             var steps = ThenSteps.ToList();
             Assert.IsTrue(steps.All(s => s.ReadableMethodName.EndsWith(" 1, 2") || s.ReadableMethodName.EndsWith(" 3, 4")));
@@ -220,24 +200,24 @@ namespace Bddify.Tests.Scanner
         {
             get
             {
-                return GetStepByMethodInfo(Helpers.GetMethodInfo(_typeWithAttribute.AndThen));
+                return _steps.Single(s => s.ReadableMethodName.Trim() == TypeWithAttribute.MethodTextForAndThen);
             }
         }
 
         [Test]
-        public void AndThenIsFoundAndConsecutiveAssertingStep()
+        public void AndThenStep_IsFoundAndConsecutiveAssertingStep()
         {
             Assert.That(AndThenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
         }
 
         [Test]
-        public void AndThenStepAsserts()
+        public void AndThenStep_Asserts()
         {
             Assert.IsTrue(AndThenStep.Asserts);
         }
 
         [Test]
-        public void AndThenStepTextIsFetchedFromExecutableAttribute()
+        public void AndThenStep_StepTextIsFetchedFromExecutableAttribute()
         {
             Assert.That(AndThenStep.ReadableMethodName.Trim(), Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
         }
