@@ -32,44 +32,21 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Bddify.Samples.AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\Bddify.Samples.AssemblyRunner\Run.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\Bddify.Samples.AssemblyRunner\SomeIncompleteTest.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\Bddify.Samples.AssemblyRunner\WhenTwoNumbersAreAdded.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\Bddify.Samples.AssemblyRunner\WhenTwoNumbersAreMultiplied.cs.pp" />
+    <None Include="Bddify.Samples.AssemblyRunner\content\Bddify.Samples.AssemblyRunner\WhenTwoNumbersAreSubtracted.cs.pp" />
     <None Include="Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec" />
-    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHasInsufficientFund.cs.pp" />
-    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHasSufficientFunds.cs.pp" />
-    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHolderWithdrawsCash.cs.pp" />
-    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\Atm.cs.pp" />
-    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\CardHasBeenDisabled.cs.pp" />
     <None Include="Bddify.Samples.Bowling\Bddify.Samples.Bowling.nuspec" />
-    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\AllSpares.cs.pp" />
-    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\Game.cs.pp" />
-    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs.pp" />
-    <None Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\ScoreCalculationAlternativeForms.cs.pp" />
     <None Include="Bddify.Samples.MsTest\Bddify.Samples.MsTest.nuspec" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\ScenarioWithMixedSteps.cs.pp" />
     <None Include="Bddify.Samples.NUnit\Bddify.Samples.NUnit.nuspec" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\CatsGame.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\DiagonalWin.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\Game.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\Helpers.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWin.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheBottom.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheMiddle.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\OWins.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\TicTacToeStory.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheLeft.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheMiddle.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheRight.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\WhenXAndOPlayTheirFirstMoves.cs.pp" />
-    <None Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\XWins.cs.pp" />
     <None Include="Bddify\Bddify.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bddify.Samples.AssemblyRunner\content\Run.cs.pp" />
-    <None Include="Bddify.Samples.AssemblyRunner\content\SomeIncompleteTest.cs.pp" />
-    <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreAdded.cs.pp" />
-    <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreMultiplied.cs.pp" />
-    <None Include="Bddify.Samples.AssemblyRunner\content\WhenTwoNumbersAreSubtracted.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeFailingTest.cs.pp" />
     <None Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\SomeIncompleteTest.cs.pp" />
@@ -86,11 +63,48 @@
     <Content Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\ReadMe.txt" />
     <Content Include="Bddify.Samples.MsTest\content\Bddify.Samples.MsTest\ReadMe.txt" />
     <Content Include="Bddify.Samples.NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
+    <Content Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\ReadMe.txt" />
     <Content Include="Bddify\content\Bddify.ReadMe.txt" />
     <Content Include="Bddify\lib\Bddify.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AtmStoryWithFluentScanner.cs.pp" />
+    <Compile Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHasInsufficientFund.cs" />
+    <Compile Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHasSufficientFunds.cs" />
+    <Compile Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AccountHolderWithdrawsCash.cs" />
+    <Compile Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\Atm.cs" />
+    <Compile Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\AtmStoryWithFluentScanner.cs" />
+    <Compile Include="Bddify.Samples.Atm\content\Bddify.Samples.Atm\CardHasBeenDisabled.cs" />
+    <Compile Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\AllSpares.cs" />
+    <Compile Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\Game.cs" />
+    <Compile Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs" />
+    <Compile Include="Bddify.Samples.Bowling\content\Bddify.Samples.Bowling\ScoreCalculationAlternativeForms.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\CatsGame.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\DiagonalWin.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\Game.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\Helpers.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWin.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheBottom.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheMiddle.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\OWins.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\TicTacToeStory.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\TicTacToeStoryWithFluentScanner.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheLeft.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheMiddle.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheRight.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\WhenXAndOPlayTheirFirstMoves.cs" />
+    <Compile Include="Bddify.Samples.TicTacToe\content\Bddify.Samples.TicTacToe\XWins.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.7.10213, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bddify\Bddify.csproj">
+      <Project>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</Project>
+      <Name>Bddify</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

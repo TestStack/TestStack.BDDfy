@@ -1,10 +1,10 @@
-﻿// This class serves as a scenario for ScoreCalculationAlternativeForms story.
+// This class serves as a scenario for ScoreCalculationAlternativeForms story.
 
 using System.Collections.Generic;
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.Bowling
+namespace Bddify.Samples.Bowling
 {
     public class OneSingleSpare
     {

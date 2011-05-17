@@ -1,6 +1,6 @@
 using System;
 
-namespace $rootnamespace$.Bddify.Samples.Atm
+namespace Bddify.Samples.Atm
 {
     public class Atm
     {

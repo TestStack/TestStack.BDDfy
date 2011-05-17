@@ -1,7 +1,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.TicTacToe
+namespace Bddify.Samples.TicTacToe
 {
     public class HorizontalWinInTheMiddle : GameUnderTest
     {

@@ -1,8 +1,7 @@
 using Bddify.Core;
 using Bddify.Scanners.GwtAttributes;
-using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.TicTacToe
+namespace Bddify.Samples.TicTacToe
 {
     public class WhenXAndOPlayTheirFirstMoves : NewGame
     {

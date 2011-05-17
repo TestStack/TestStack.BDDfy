@@ -1,10 +1,8 @@
-// This class shows you how you can use the fluent step scanner to mix your story and scenarios into one class
-
 using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.Atm
+namespace Bddify.Samples.Atm
 {
     [Story(
         Title = "Account holder withdraws cash",

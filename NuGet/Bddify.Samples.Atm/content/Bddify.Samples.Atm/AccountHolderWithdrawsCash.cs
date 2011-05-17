@@ -3,7 +3,7 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.Atm
+namespace Bddify.Samples.Atm
 {
 	// You set a class as a story by decorating it with 'Story' attribute
 	// Each story can have zero or more scenarios

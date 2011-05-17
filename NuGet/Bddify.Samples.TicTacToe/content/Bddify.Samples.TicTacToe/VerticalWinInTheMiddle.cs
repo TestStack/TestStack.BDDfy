@@ -1,23 +1,18 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.TicTacToe
+namespace Bddify.Samples.TicTacToe
 {
-    public class XWins : GameUnderTest
+    public class VerticalWinInTheMiddle : GameUnderTest
     {
         [RunStepWithArgs(
                 new[] { X, X, O },
-                new[] { X, X, O },
-                new[] { O, O, N },
+                new[] { O, X, O },
+                new[] { O, X, X },
                 StepTextTemplate = BoardStateTemplate)]
         void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdRow)
         {
             Game = new Game(firstRow, secondRow, thirdRow);
-        }
-
-        void WhenXPlaysInTheBottomRight()
-        {
-            Game.PlayAt(2, 2);
         }
 
         void ThenTheWinnerShouldBeX()

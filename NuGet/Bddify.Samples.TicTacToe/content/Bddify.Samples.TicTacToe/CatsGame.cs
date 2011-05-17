@@ -1,23 +1,23 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.TicTacToe
+namespace Bddify.Samples.TicTacToe
 {
-    public class VerticalWinInTheMiddle : GameUnderTest
+    public class CatsGame : GameUnderTest
     {
         [RunStepWithArgs(
+                new[] { X, O, X },
+                new[] { O, O, X },
                 new[] { X, X, O },
-                new[] { O, X, O },
-                new[] { O, X, X },
                 StepTextTemplate = BoardStateTemplate)]
         void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdRow)
         {
             Game = new Game(firstRow, secondRow, thirdRow);
         }
 
-        void ThenTheWinnerShouldBeX()
+        void ThenItShouldBeACatsGame()
         {
-            Assert.AreEqual(Game.Winner, X);
+            Assert.IsTrue(Game.Winner == null);
         }
     }
 }

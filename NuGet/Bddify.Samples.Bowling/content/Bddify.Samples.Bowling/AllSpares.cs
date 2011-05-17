@@ -1,8 +1,8 @@
-﻿// This class serves as a scenario for ScoreCalculationAlternativeForms story.
+// This class serves as a scenario for ScoreCalculationAlternativeForms story.
 
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.Bowling
+namespace Bddify.Samples.Bowling
 {
     public class AllSpares
     {

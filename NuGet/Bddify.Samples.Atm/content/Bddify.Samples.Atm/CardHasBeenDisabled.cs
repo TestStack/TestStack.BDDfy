@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.Atm
+namespace Bddify.Samples.Atm
 {
     public class CardHasBeenDisabled
     {

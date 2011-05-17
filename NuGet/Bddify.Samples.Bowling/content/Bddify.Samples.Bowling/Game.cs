@@ -1,6 +1,6 @@
-﻿// Imported direcly from SpecFlow example
+// Imported direcly from SpecFlow example
 
-namespace $rootnamespace$.Bddify.Samples.Bowling
+namespace Bddify.Samples.Bowling
 {
     public class Game
     {

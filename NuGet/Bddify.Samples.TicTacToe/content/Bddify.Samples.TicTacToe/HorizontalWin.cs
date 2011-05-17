@@ -1,14 +1,14 @@
 using Bddify.Core;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.TicTacToe
+namespace Bddify.Samples.TicTacToe
 {
-    public class VerticalWinInTheLeft : GameUnderTest
+    public class HorizontalWin : GameUnderTest
     {
         [RunStepWithArgs(
+                new[] { X, X, X },
                 new[] { X, O, O },
-                new[] { X, O, X },
-                new[] { X, X, O },
+                new[] { O, O, X },
                 StepTextTemplate = BoardStateTemplate)]
         void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdRow)
         {

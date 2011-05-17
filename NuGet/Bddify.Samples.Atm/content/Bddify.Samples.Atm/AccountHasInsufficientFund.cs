@@ -1,7 +1,7 @@
-﻿using Bddify.Scanners.GwtAttributes;
+using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;
 
-namespace $rootnamespace$.Bddify.Samples.Atm
+namespace Bddify.Samples.Atm
 {
     public class AccountHasInsufficientFund
     {
@@ -17,7 +17,6 @@ namespace $rootnamespace$.Bddify.Samples.Atm
 
         void AndGivenTheCardIsValid()
         {
-
         }
 
         void AndGivenTheMachineContainsEnoughMoney()
