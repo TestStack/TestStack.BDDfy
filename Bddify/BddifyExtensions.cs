@@ -39,7 +39,7 @@ namespace Bddify
         {
             IScanner scanner = null;
 
-            if (stepScanners != null)
+            if (stepScanners != null && stepScanners.Length > 0)
                 scanner = new DefaultScanner(new ScanForScenarios(stepScanners, scenarioTextTemplate));
 
             return testObject.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, scanner).Run();
