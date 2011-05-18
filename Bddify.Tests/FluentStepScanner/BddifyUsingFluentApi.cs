@@ -8,7 +8,7 @@ namespace Bddify.Tests.FluentStepScanner
     (AsA = "As a programmer",
     IWant = "I want to be able to use fluent api to scan for steps",
     SoThat = "So that I can be in full control of what is passed in")]
-    public class WhenBddifyAScenarioUsingFluentApi
+    public class BddifyUsingFluentApi
     {
         private string[] _arrayInput1;
         private int[] _arrayInput2;
