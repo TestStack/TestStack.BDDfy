@@ -1,5 +1,4 @@
 using Bddify.Core;
-using Bddify.Scanners;
 using NUnit.Framework;
 
 
@@ -36,22 +35,13 @@ namespace Bddify.Samples.TicTacToe
             Game.PlayAt(row, column);
         }
 
-        static FluentStepScanner<TicTacToeStoryWithFluentScanner> Scanner
-        {
-            get
-            {
-                return new FluentStepScanner<TicTacToeStoryWithFluentScanner>();
-            }
-        }
-
         [Test]
         public void CatsGame()
         {
-            var scanner = 
-                Scanner
+            this.Scan()
                     .Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
-                    .Then(s => s.ThenItShouldBeACatsGame());
-            this.Bddify(scanner, scenarioTextTemplate: "Cat's game");
+                    .Then(s => s.ThenItShouldBeACatsGame())
+                .Bddify("Cat's game");
         }
 
         [Test]
@@ -76,10 +66,26 @@ namespace Bddify.Samples.TicTacToe
         public void VerticalWinInTheLeft() { }
 
         [Test]
-        public void VerticalWinInTheMiddle() { }
+        public void VerticalWinInTheMiddle()
+        {
+            AssertWinningScenario(
+                new[] { X, X, O },
+                new[] { O, X, O },
+                new[] { O, X, X },
+                X,
+                "Vertical win in the middle");
+        }
         
         [Test]
-        public void VerticalWinInTheRight() { }
+        public void VerticalWinInTheRight()
+        {
+            AssertWinningScenario(
+                new[] { X, O, X },
+                new[] { O, O, X },
+                new[] { O, X, X }, 
+                X, 
+                "Vertical win in the right");
+        }
 
         [Test]
         public void OWins() { }
@@ -100,11 +106,10 @@ namespace Bddify.Samples.TicTacToe
 
         void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner, string scenarioTitle)
         {
-            var scanner =
-                Scanner
-                    .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
-                    .Then(s => ThenTheWinnerShouldBe(expectedWinner));
-            this.Bddify(scanner, scenarioTextTemplate: scenarioTitle);
+            this.Scan()
+                .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
+                .Then(s => ThenTheWinnerShouldBe(expectedWinner))
+                .Bddify(scenarioTitle);
         }
     }
 }        

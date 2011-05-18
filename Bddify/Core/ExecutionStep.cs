@@ -43,9 +43,9 @@ namespace Bddify.Core
             ExecutionOrder executionOrder,
             bool shouldReport = true) : this(readableMethodName, asserts, executionOrder, shouldReport)
         {
-            StepAction = testObject => stepMethod.Invoke(testObject, stepMethodInputArguments);
             _stepMethod = stepMethod;
             _inputArguments = stepMethodInputArguments;
+            StepAction = testObject => stepMethod.Invoke(testObject, _inputArguments);
         }
 
         // these two variables are kept only for equality comparison

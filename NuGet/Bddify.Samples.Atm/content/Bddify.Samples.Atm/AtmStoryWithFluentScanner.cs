@@ -1,5 +1,4 @@
 using Bddify.Core;
-using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Samples.Atm
@@ -72,44 +71,41 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            var scanner =
-                new FluentStepScanner<AtmStoryWithFluentScanner>()
-                    .Given(s => s.GivenTheAccountBalanceIs(10), GivenTheAccountBalanceIsTitleTemplate)
-                        .And(s => s.AndTheCardIsValid())
-                        .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
-                    .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
-                    .Then(s => s.TheAtmShouldDispense(0), "Then the ATM should not dispense")
-                        .And(s => s.AndTheAtmShouldSayThereAreInsufficientFunds())
-                        .And(s => s.AndTheAccountBalanceShouldBe(10))
-                        .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate);
-            this.Bddify(scanner, scenarioTextTemplate: "Account has insufficient fund");
+            this.Scan()
+                .Given(s => s.GivenTheAccountBalanceIs(10), GivenTheAccountBalanceIsTitleTemplate)
+                    .And(s => s.AndTheCardIsValid())
+                    .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
+                .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
+                .Then(s => s.TheAtmShouldDispense(0), "Then the ATM should not dispense")
+                    .And(s => s.AndTheAtmShouldSayThereAreInsufficientFunds())
+                    .And(s => s.AndTheAccountBalanceShouldBe(10))
+                    .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
+                .Bddify("Account has insufficient fund");
         }
 
         [Test]
         public void AccountHasSufficientFund()
         {
-            var scanner =
-                new FluentStepScanner<AtmStoryWithFluentScanner>()
-                    .Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
-                        .And(s => s.AndTheCardIsValid())
-                        .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
-                    .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
-                    .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
-                        .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
-                        .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate);
-            this.Bddify(scanner, scenarioTextTemplate: "Account has sufficient fund");
+           this.Scan()
+                .Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
+                    .And(s => s.AndTheCardIsValid())
+                    .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
+                .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
+                .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
+                    .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
+                    .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
+                .Bddify("Account has sufficient fund");
         }
 
         [Test]
         public void CardHasBeenDisabled()
         {
-            var scanner =
-                new FluentStepScanner<AtmStoryWithFluentScanner>()
-                    .Given(s => s.GivenTheCardIsDisabled())
-                    .When(s => s.WhenTheAccountHolderRequests(20))
-                    .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
-                        .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained());
-            this.Bddify(scanner, scenarioTextTemplate: "Card has been disabled");
+            this.Scan()
+                .Given(s => s.GivenTheCardIsDisabled())
+                .When(s => s.WhenTheAccountHolderRequests(20))
+                .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
+                    .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
+                .Bddify("Card has been disabled");
         }
     }
 }

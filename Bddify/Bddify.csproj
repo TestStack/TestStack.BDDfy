@@ -43,7 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\BddifyExtensions.cs" />
+    <Compile Include="BddifyExtensions.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IExceptionProcessor.cs" />
     <Compile Include="Core\Scenario.cs" />
@@ -55,6 +55,7 @@
     <Compile Include="Core\WithScenarioAttribute.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
+    <Compile Include="ScannerExtensions.cs" />
     <Compile Include="Scanners\DefaultScanForStepsByMethodName.cs" />
     <Compile Include="Scanners\ExpressionExtensions.cs" />
     <Compile Include="Scanners\FluentStepScanner.cs" />

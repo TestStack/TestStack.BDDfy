@@ -1,7 +1,4 @@
-using Bddify.Scanners;
 using NUnit.Framework;
-using Bddify.Core;
-using System.Linq;
 
 namespace Bddify.Tests.FluentStepScanner
 {
@@ -35,14 +32,11 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void EnteringArgumentsInline()
         {
-            var scanner = new FluentStepScanner<WhenBddifyAScenarioUsingFluentApi>()
+            this.Scan()
                 .Given(x => x.GivenSomeInputs(new[] { 1, 2 }))
                 .When(x => x.WhenScenarioIsBddifiedUsingFluentStepScanner())
-                .Then(x => x.ThenScenarioIsOnlyInstantiatedOnce());
-
-            this.Bddify(scanner);
+                .Then(x => x.ThenScenarioIsOnlyInstantiatedOnce())
+                .Bddify();
         }
-
-
     }
 }

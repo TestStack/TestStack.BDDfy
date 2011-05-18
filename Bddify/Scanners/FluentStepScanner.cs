@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -9,9 +8,15 @@ using Bddify.Core;
 
 namespace Bddify.Scanners
 {
-    public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>, IScanForSteps
+    public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
+        private readonly object _testObject;
+
+        public FluentStepScanner(object testObject)
+        {
+            _testObject = testObject;
+        }
 
         int IScanForSteps.Priority
         {
@@ -120,50 +125,10 @@ namespace Bddify.Scanners
             return methodCall.Method;
         }
 
-        //private static object[] GetMethodArguments(Expression<Action<TScenario>> stepAction)
-        //{
-        //    var methodCall = (MethodCallExpression)stepAction.Body;
-        //    var arguments = new List<object>();
-        //    foreach (var expression in methodCall.Arguments)
-        //    {
-        //        var constArg = expression as ConstantExpression;
-        //        if (constArg == null)
-        //        {
-        //            var memberExpression = expression as MemberExpression;
-        //            if (memberExpression != null)
-        //            {
-        //                constArg = memberExpression.Expression as ConstantExpression;
-        //            }
-        //        }
-
-        //        if (constArg != null)
-        //        {
-        //            arguments.Add(constArg.Value);
-        //            continue;
-        //        }
-
-        //        var arrayArg = expression as NewArrayExpression;
-        //        if (arrayArg != null)
-        //        {
-        //            arguments.Add(GetMethodArrayArgument(arrayArg));
-        //            continue;
-        //        }
-        //    }
-        //    return arguments.ToArray();
-        //}
-
-        //private static object GetMethodArrayArgument(NewArrayExpression arrayExpression)
-        //{
-        //    var arrayElements = new ArrayList();
-        //    Type type = arrayExpression.Type.GetElementType();
-        //    foreach (var arrayElementExpression in arrayExpression.Expressions)
-        //    {
-        //        var arrayElement = ((ConstantExpression)arrayElementExpression).Value;
-        //        arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type));
-        //    }
-
-        //    return arrayElements.ToArray(type);
-        //}
+        public Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        {
+            return _testObject.Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
+        }
 
         [DebuggerHidden]
         public override bool Equals(object obj)
@@ -194,6 +159,7 @@ namespace Bddify.Scanners
     public interface IFluentScanner<TScenario> : IScanForSteps
     {
         IScanForSteps TearDownWith(Expression<Action<TScenario>> tearDownStep);
+        Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true);
     }
 
     public interface IAndGiven<TScenario> : IGiven<TScenario>
