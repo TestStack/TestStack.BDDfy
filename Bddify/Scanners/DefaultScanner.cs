@@ -35,19 +35,34 @@ namespace Bddify.Scanners
             return new StoryMetaData(storyType, storyAttribute);
         }
 
+        static Dictionary<Type, StoryMetaData> _scenarioToStoryMapper;
+        static readonly object MapperSyncRoot = new object();
+
         StoryMetaData ScanAssemblyForStoryMetaData(Type scenarioType)
         {
-            var assembly = scenarioType.Assembly;
-            foreach (var candidateStoryType in assembly.GetTypes())
+            lock (MapperSyncRoot)
             {
-                var storyAttribute = GetStoryAttribute(candidateStoryType);
-                if(storyAttribute == null)
-                    continue;
+                if (_scenarioToStoryMapper == null)
+                {
+                    _scenarioToStoryMapper = new Dictionary<Type, StoryMetaData>();
 
-                var withScenariosAttributes = (WithScenarioAttribute[])candidateStoryType.GetCustomAttributes(typeof(WithScenarioAttribute), false);
-                if (withScenariosAttributes.Any(a => a.ScenarioType == scenarioType))
-                    return new StoryMetaData(candidateStoryType, storyAttribute);
+                    var assembly = scenarioType.Assembly;
+                    foreach (var candidateStoryType in assembly.GetTypes())
+                    {
+                        var storyAttribute = GetStoryAttribute(candidateStoryType);
+                        if (storyAttribute == null)
+                            continue;
+
+                        var withScenariosAttributes = (WithScenarioAttribute[])candidateStoryType.GetCustomAttributes(typeof(WithScenarioAttribute), false);
+                        foreach (var withScenarioAttribute in withScenariosAttributes)
+                            _scenarioToStoryMapper.Add(withScenarioAttribute.ScenarioType, new StoryMetaData(candidateStoryType, storyAttribute));
+                    }
+                }
             }
+
+            StoryMetaData storyType;
+            if (_scenarioToStoryMapper.TryGetValue(scenarioType, out storyType))
+                return storyType;
 
             return null;
         }
