@@ -42,9 +42,6 @@
     <None Include="MsTest\Bddify.Samples.MsTest.nuspec" />
     <None Include="MsTest\content\Bddify.Samples.MsTest\ScenarioWithMixedSteps.cs.pp" />
     <None Include="NUnit\Bddify.Samples.NUnit.nuspec" />
-    <None Include="Bddify\Bddify.nuspec">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
@@ -64,8 +61,6 @@
     <Content Include="MsTest\content\Bddify.Samples.MsTest\ReadMe.txt" />
     <Content Include="NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
     <Content Include="TicTacToe\content\Bddify.Samples.TicTacToe\ReadMe.txt" />
-    <Content Include="Bddify\content\Bddify.ReadMe.txt" />
-    <Content Include="Bddify\lib\Bddify.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Atm\content\Bddify.Samples.Atm\AccountHasInsufficientFund.cs" />
@@ -108,11 +103,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)Bddify.Samples\NuGet.exe pack $(SolutionDir)Bddify.Samples\Bddify\Bddify.nuspec
-$(SolutionDir)Bddify.Samples\NuGet.exe pack $(SolutionDir)Bddify.Samples\TicTacToe\Bddify.Samples.TicTacToe.nuspec
-$(SolutionDir)Bddify.Samples\NuGet.exe pack $(SolutionDir)Bddify.Samples\AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec
-$(SolutionDir)Bddify.Samples\NuGet.exe pack $(SolutionDir)Bddify.Samples\Atm\Bddify.Samples.Atm.nuspec
-$(SolutionDir)Bddify.Samples\NuGet.exe pack $(SolutionDir)Bddify.Samples\Bowling\Bddify.Samples.Bowling.nuspec</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\TicTacToe\Bddify.Samples.TicTacToe.nuspec
+$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec
+$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\Atm\Bddify.Samples.Atm.nuspec
+$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\Bowling\Bddify.Samples.Bowling.nuspec</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

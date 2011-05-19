@@ -92,11 +92,17 @@
     <EmbeddedResource Include="Reporters\HtmlReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NuGet\Bddify.nuspec" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NuGet\content\Bddify.ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath)  $(SolutionDir)Bddify.Samples\bddify\lib</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath)  $(SolutionDir)Bddify\NuGet\lib
+$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify\NuGet\Bddify.nuspec
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
