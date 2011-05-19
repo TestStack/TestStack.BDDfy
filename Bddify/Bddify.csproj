@@ -55,7 +55,6 @@
     <Compile Include="Core\WithScenarioAttribute.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="ScannerExtensions.cs" />
     <Compile Include="Scanners\DefaultScanForStepsByMethodName.cs" />
     <Compile Include="Scanners\ExpressionExtensions.cs" />
     <Compile Include="Scanners\FluentStepScanner.cs" />
