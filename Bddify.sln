@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests.MsTest", "Bddi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests.XUnit", "Bddify.Tests.XUnit\Bddify.Tests.XUnit.csproj", "{C46C2B71-EE10-4C66-8691-AB2392123C6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet", "NuGet\NuGet.csproj", "{9D14B03B-9514-4DD8-9D4B-914A10D7EB59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Samples", "Bddify.Samples\Bddify.Samples.csproj", "{9D14B03B-9514-4DD8-9D4B-914A10D7EB59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
