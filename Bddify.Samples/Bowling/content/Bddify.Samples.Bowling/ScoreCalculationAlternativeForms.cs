@@ -19,7 +19,7 @@ namespace Bddify.Samples.Bowling
         [Test]
         public void Execute()
         {
-            this.Bddify();
+            typeof(ScoreCalculationAlternativeForms).Bddify();
         }
     }
 }

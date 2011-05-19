@@ -15,7 +15,6 @@ namespace Bddify.Tests.RunScenarioWithArgs
         {
             ArgSet1,
             ArgSet2,
-            ArgSet3,
         }
 
         [RunScenarioWithArgs(ArgsNumber.ArgSet1, 1, 2, 3)]
@@ -71,8 +70,7 @@ namespace Bddify.Tests.RunScenarioWithArgs
         [SetUp]
         public void Setup()
         {
-            var testObject = new ScenarioWithArgs();
-            var bddifier = testObject.LazyBddify();
+            var bddifier = typeof(ScenarioWithArgs).LazyBddify();
 
             Assert.Throws<AssertionException>(() => bddifier.Run());
             _scenarios = bddifier.Story.Scenarios.ToList();

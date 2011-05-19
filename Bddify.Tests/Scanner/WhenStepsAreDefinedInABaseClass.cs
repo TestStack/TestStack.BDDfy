@@ -24,10 +24,7 @@ namespace Bddify.Tests.Scanner
 
         void Context()
         {
-            var scenario = new TheSubClass();
-            var bddifier = scenario.LazyBddify();
-            bddifier.Run();
-            _story = bddifier.Story;
+            _story = typeof(TheSubClass).Bddify();
         }
 
         TheSubClass Subject
@@ -65,7 +62,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void Execute()
         {
-            this.Bddify();
+            typeof(WhenStepsAreDefinedInABaseClass).Bddify();
         }
     }
 }

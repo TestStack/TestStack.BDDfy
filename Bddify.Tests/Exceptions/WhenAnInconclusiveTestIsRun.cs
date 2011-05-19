@@ -30,14 +30,6 @@ namespace Bddify.Tests.Exceptions
         Bddifier _bddifier;
         private Scenario _scenario;
 
-        InconclusiveTestClass TestClass
-        {
-            get
-            {
-                return (InconclusiveTestClass)_scenario.TestObject;
-            }
-        }
-
         ExecutionStep GivenStep
         {
             get
@@ -73,8 +65,7 @@ namespace Bddify.Tests.Exceptions
         [SetUp]
         public void InconclusiveExceptionSetup()
         {
-            var testClass = new InconclusiveTestClass();
-            _bddifier = testClass.LazyBddify();
+            _bddifier = typeof(InconclusiveTestClass).LazyBddify();
             Assert.Throws<InconclusiveException>(() => _bddifier.Run());
             _scenario = _bddifier.Story.Scenarios.First();
         }

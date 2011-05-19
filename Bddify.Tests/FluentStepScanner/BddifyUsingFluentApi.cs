@@ -1,5 +1,6 @@
 using System;
 using Bddify.Core;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Tests.FluentStepScanner
@@ -39,16 +40,6 @@ namespace Bddify.Tests.FluentStepScanner
             Assert.That(_arrayInput2, Is.EqualTo(expectedInput2));
         }
 
-        [Test]
-        public void CallingIncorrectBddifyOverloadShouldThrowException()
-        {
-            Assert.Throws<InvalidOperationException>(() =>
-                this.Scan()
-                .Given(x => x.GivenPrimitiveInputs("1", 2))
-                .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
-                .Bddify(scenarioTextTemplate: "using scenarioTextTemplate calls into an incorrect overload"));
-        }
-
         string _primitiveInput1Field = "1";
         int _primitiveInput2Field = 2;
 
@@ -64,7 +55,8 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void PassingPrimitiveArgumentsInline()
         {
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenPrimitiveInputs("1", 2), "Given inline input arguments {0} and {1}")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
                 .Bddify("Passing primitive arguments inline");
@@ -76,7 +68,8 @@ namespace Bddify.Tests.FluentStepScanner
             var input1 = "1";
             var input2 = 2;
 
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenPrimitiveInputs(input1, input2), "Given input arguments {0} and {1} are passed in using varialbles")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
                 .Bddify("Passing primitive arguments using variables");
@@ -85,7 +78,8 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void PassingPrimitiveArgumentsUsingFields()
         {
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenPrimitiveInputs(_primitiveInput1Field, _primitiveInput2Field), "Given input arguments {0} and {1} are passed in using fields")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
                 .Bddify("Passing primitive arguments using fields");
@@ -94,7 +88,8 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void PassingPrimitiveArgumentsUsingProperties()
         {
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenPrimitiveInputs(PrimitiveInput1Property, PrimitiveInput2Property), "Given input arguments {0} and {1} are passed in using properties")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
                 .Bddify("Passing primitive arguments using properties");
@@ -103,7 +98,8 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void PassingArrayArgumentsInline()
         {
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenArrayInputs(new[] { "1", "2" }, new[] { 3, 4 }), "Given inline array input arguments")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", "2" }, new[] { 3, 4 }))
                 .Bddify("Passing array arguments inline");
@@ -115,7 +111,8 @@ namespace Bddify.Tests.FluentStepScanner
             var input1 = new[] {"1", "2"};
             var input2 = new[] {3, 4};
 
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenArrayInputs(input1, input2), "Given array input arguments {0} and {1} are passed in using variables")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", "2" }, new[] { 3, 4 }))
                 .Bddify("Passing array arguments using variables");
@@ -124,7 +121,8 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void PassingArrayArgumentsUsingFields()
         {
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenArrayInputs(_arrayInput1Field, _arrayInput2Field), "Given array input arguments {0} and {1} are passed in using fields")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", "2" }, new[] { 3, 4 }))
                 .Bddify("Passing array arguments using fields");
@@ -133,7 +131,8 @@ namespace Bddify.Tests.FluentStepScanner
         [Test]
         public void PassingArrayArgumentsUsingProperties()
         {
-            this.Scan()
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
                 .Given(x => x.GivenArrayInputs(ArrayInput1Property, ArrayInput2Property), "Given array input arguments {0} and {1} are passed in using properties")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", "2" }, new[] { 3, 4 }))
                 .Bddify("Passing array arguments using properties");

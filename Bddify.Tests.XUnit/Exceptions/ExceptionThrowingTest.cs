@@ -44,7 +44,7 @@ namespace Bddify.Tests.MsTest.Exceptions
             _thenShouldThrow = thenShouldThrow;
 
             var bddify = new Bddifier(
-                this,
+                typeof(ExceptionThrowingTest<T>),
                 new DefaultScanner(new ScanForScenarios(new[] {new DefaultScanForStepsByMethodName()})),
                 new IProcessor[]
                     {

@@ -68,8 +68,7 @@ namespace Bddify.Tests.MsTest.Exceptions
         [TestInitialize]
         public void InconclusiveExceptionSetup()
         {
-            var testClass = new InconclusiveTestClass();
-            _bddifier = testClass.LazyBddify();
+            _bddifier = typeof(InconclusiveTestClass).LazyBddify();
 
             try
             {

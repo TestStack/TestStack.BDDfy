@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Bddify.Core;
 
 namespace Bddify.Tests
 {
@@ -12,8 +11,7 @@ namespace Bddify.Tests
         [Test]
         public void ThenNoExeptionIsThrown()
         {
-            var scenario = new ScenarioWithNoSteps();
-            scenario.Bddify();
+            typeof(ScenarioWithNoSteps).Bddify();
         }
     }
 }

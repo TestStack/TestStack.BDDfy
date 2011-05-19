@@ -20,19 +20,19 @@ namespace Bddify.Samples.Atm
         [Test]
         public void CardHasBeenDisabled()
         {
-            new CardHasBeenDisabled().Bddify();
+            typeof(CardHasBeenDisabled).Bddify();
         }
 
         [Test]
         public void AccountHasInsufficientFund()
         {
-            new AccountHasInsufficientFund().Bddify();
+            typeof(AccountHasInsufficientFund).Bddify();
         }
 
         [Test]
         public void AccountHasSufficientFunds()
         {
-            new AccountHasSufficientFunds().Bddify();
+            typeof(AccountHasSufficientFunds).Bddify();
         }
     }
 }

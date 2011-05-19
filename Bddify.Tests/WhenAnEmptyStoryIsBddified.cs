@@ -14,7 +14,7 @@ namespace Bddify.Tests
         [IgnoreStep] // this is ignore here because this story is a scenario and having this as a step causes stackoverflow as bddify tries to invoke bddify in an endless loop
         public void ThenNoExeptionIsThrown()
         {
-            this.Bddify();
+            typeof(WhenAnEmptyStoryIsBddified).Bddify();
         }
     }
 }

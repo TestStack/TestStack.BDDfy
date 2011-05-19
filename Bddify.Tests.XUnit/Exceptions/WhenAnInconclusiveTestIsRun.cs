@@ -30,8 +30,7 @@ namespace Bddify.Tests.MsTest.Exceptions
 
         public WhenAnInconclusiveTestIsRun()
         {
-            var testClass = new InconclusiveTestClass();
-            _bddifier = testClass.LazyBddify();
+            _bddifier = typeof(InconclusiveTestClass).LazyBddify();
             Assert.Throws(typeof(InconclusiveException), () => _bddifier.Run());
             _scenario = _bddifier.Story.Scenarios.First();
         }

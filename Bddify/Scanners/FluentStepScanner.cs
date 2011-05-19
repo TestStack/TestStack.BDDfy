@@ -9,13 +9,13 @@ using Bddify.Core;
 namespace Bddify.Scanners
 {
     public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
+        where TScenario:class, new()
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
-        private readonly object _testObject;
 
-        public FluentStepScanner(object testObject)
+        public static FluentStepScanner<TScenario> Scan()
         {
-            _testObject = testObject;
+            return new FluentStepScanner<TScenario>();
         }
 
         int IScanForSteps.Priority
@@ -127,7 +127,7 @@ namespace Bddify.Scanners
 
         public Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
-            return _testObject.Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
+            return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
         }
 
         [DebuggerHidden]

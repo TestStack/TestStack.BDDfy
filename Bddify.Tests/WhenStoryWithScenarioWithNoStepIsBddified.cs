@@ -19,8 +19,7 @@ namespace Bddify.Tests
         [Test]
         public void ThenNoExceptionIsThrown()
         {
-            var story = new StoryWithOneEmptyScenario();
-            story.Bddify();
+            typeof(StoryWithOneEmptyScenario).Bddify();
         }
     }
 }

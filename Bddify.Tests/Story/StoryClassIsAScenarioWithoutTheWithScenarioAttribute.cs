@@ -8,7 +8,6 @@ namespace Bddify.Tests.Story
 {
     public class StoryClassIsAScenarioWithoutTheWithScenarioAttribute
     {
-        private StoryAsScenario _storyClass;
         private Core.Story _story;
 
         [Story(
@@ -26,12 +25,11 @@ namespace Bddify.Tests.Story
         [Given(StepText = "Give a story without WithScenarioAttribute")]
         void GivenAStoryWithoutWithScenarioAttribute()
         {
-            _storyClass = new StoryAsScenario();
         }
 
         void WhenTheStoryIsBddified()
         {
-            _story = _storyClass.Bddify();
+            _story = typeof(StoryAsScenario).Bddify();
         }
 
         void ThenStoryIsReturnedAsAStory()
@@ -59,7 +57,7 @@ namespace Bddify.Tests.Story
         [Test]
         public void Execute()
         {
-            this.Bddify();
+            typeof(StoryClassIsAScenarioWithoutTheWithScenarioAttribute).Bddify();
         }
     }
 }

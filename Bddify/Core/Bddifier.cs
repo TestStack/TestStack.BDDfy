@@ -11,10 +11,10 @@ namespace Bddify.Core
         private readonly Type _storyType;
         private readonly IScanner _scanner;
 
-        public Bddifier(object testObject, IScanner scanner, IEnumerable<IProcessor> processors)
+        public Bddifier(Type testType, IScanner scanner, IEnumerable<IProcessor> processors)
         {
             _processors = processors;
-            _storyType = testObject.GetType();
+            _storyType = testType;
             _scanner = scanner;
         }
 

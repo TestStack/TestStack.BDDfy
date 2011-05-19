@@ -1,4 +1,5 @@
 using Bddify.Core;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 
@@ -38,7 +39,8 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void CatsGame()
         {
-            this.Scan()
+            FluentStepScanner<TicTacToeStoryWithFluentScanner>
+                .Scan()
                     .Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
                     .Then(s => s.ThenItShouldBeACatsGame())
                 .Bddify("Cat's game");
@@ -106,7 +108,8 @@ namespace Bddify.Samples.TicTacToe
 
         void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner, string scenarioTitle)
         {
-            this.Scan()
+            FluentStepScanner<TicTacToeStoryWithFluentScanner>
+                .Scan()
                 .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
                 .Then(s => ThenTheWinnerShouldBe(expectedWinner))
                 .Bddify(scenarioTitle);

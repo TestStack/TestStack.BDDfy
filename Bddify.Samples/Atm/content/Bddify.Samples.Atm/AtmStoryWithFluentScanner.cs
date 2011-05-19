@@ -1,4 +1,5 @@
 using Bddify.Core;
+using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Samples.Atm
@@ -71,7 +72,8 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            this.Scan()
+            FluentStepScanner<AtmStoryWithFluentScanner>
+                .Scan()
                 .Given(s => s.GivenTheAccountBalanceIs(10), GivenTheAccountBalanceIsTitleTemplate)
                     .And(s => s.AndTheCardIsValid())
                     .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
@@ -86,7 +88,8 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasSufficientFund()
         {
-           this.Scan()
+           FluentStepScanner<AtmStoryWithFluentScanner>
+               .Scan()
                 .Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
                     .And(s => s.AndTheCardIsValid())
                     .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
@@ -100,7 +103,8 @@ namespace Bddify.Samples.Atm
         [Test]
         public void CardHasBeenDisabled()
         {
-            this.Scan()
+            FluentStepScanner<AtmStoryWithFluentScanner>
+                .Scan()
                 .Given(s => s.GivenTheCardIsDisabled())
                 .When(s => s.WhenTheAccountHolderRequests(20))
                 .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
