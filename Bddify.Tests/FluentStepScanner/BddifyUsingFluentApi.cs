@@ -1,14 +1,15 @@
-using System;
+using System.Reflection;
 using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Bddify.Tests.FluentStepScanner
 {
     [Story
-    (AsA = "As a programmer",
-    IWant = "I want to be able to use fluent api to scan for steps",
-    SoThat = "So that I can be in full control of what is passed in")]
+        (AsA = "As a programmer",
+        IWant = "I want to be able to use fluent api to scan for steps",
+        SoThat = "So that I can be in full control of what is passed in")]
     public class BddifyUsingFluentApi
     {
         private string[] _arrayInput1;
@@ -136,6 +137,35 @@ namespace Bddify.Tests.FluentStepScanner
                 .Given(x => x.GivenArrayInputs(ArrayInput1Property, ArrayInput2Property), "Given array input arguments {0} and {1} are passed in using properties")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", "2" }, new[] { 3, 4 }))
                 .Bddify("Passing array arguments using properties");
+        }
+
+        [Test]
+        public void WhenTitleIsNotProvidedItIsFetchedFromMethodName()
+        {
+            var story = 
+                FluentStepScanner<BddifyUsingFluentApi>
+                    .Scan()
+                    .Given(x => x.GivenPrimitiveInputs("1", 2))
+                    .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
+                    .Bddify();
+
+            var scenario = story.Scenarios.First();
+            Assert.That(scenario.ScenarioText, Is.EqualTo(NetToString.Convert(MethodBase.GetCurrentMethod().Name)));
+        }
+
+        [Test]
+        public void WhenTitleIsProvidedItIsUsedAsIs()
+        {
+            const string dummyTitle = "some dummy title; blah blah $#^";
+            var story = 
+                FluentStepScanner<BddifyUsingFluentApi>
+                    .Scan()
+                    .Given(x => x.GivenPrimitiveInputs("1", 2))
+                    .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
+                    .Bddify(dummyTitle);
+
+            var scenario = story.Scenarios.First();
+            Assert.That(scenario.ScenarioText, Is.EqualTo(dummyTitle));
         }
     }
 }

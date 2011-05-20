@@ -127,7 +127,24 @@ namespace Bddify.Scanners
 
         public Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
+            if (title == null)
+                title = GetTitleFromMethodName();
+
             return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
+        }
+
+        private string GetTitleFromMethodName()
+        {
+            var trace = new StackTrace();
+            var frames = trace.GetFrames();
+            if(frames == null)
+                return null;
+
+            var initiatingFrame = frames.Reverse().FirstOrDefault(s => s.GetMethod().DeclaringType == typeof(TScenario));
+            if (initiatingFrame == null)
+                return null;
+
+            return NetToString.Convert(initiatingFrame.GetMethod().Name);
         }
 
         [DebuggerHidden]

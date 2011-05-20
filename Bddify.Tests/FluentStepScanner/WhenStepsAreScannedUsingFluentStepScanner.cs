@@ -8,7 +8,6 @@ namespace Bddify.Tests.FluentStepScanner
     public class WhenStepsAreScannedUsingFluentStepScanner
     {
         private IEnumerable<ExecutionStep> _steps;
-        private readonly ScenarioToBeScannedUsingFluentScanner _dummyInstance = new ScenarioToBeScannedUsingFluentScanner();
 
         [SetUp]
         public void Setup()
