@@ -1,5 +1,4 @@
 using Bddify.Core;
-using Bddify.Scanners;
 using NUnit.Framework;
 
 namespace Bddify.Tests
@@ -11,8 +10,7 @@ namespace Bddify.Tests
     public class WhenAnEmptyStoryIsBddified
     {
         [Test]
-        [IgnoreStep] // this is ignore here because this story is a scenario and having this as a step causes stackoverflow as bddify tries to invoke bddify in an endless loop
-        public void ThenNoExeptionIsThrown()
+        public void NoExeptionIsThrown()
         {
             typeof(WhenAnEmptyStoryIsBddified).Bddify();
         }

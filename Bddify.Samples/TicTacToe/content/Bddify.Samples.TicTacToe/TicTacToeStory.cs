@@ -7,17 +7,6 @@ namespace Bddify.Samples.TicTacToe
         AsA = "As a player",
         IWant = "I want to have a tic tac toe game",
         SoThat = "So that I can waste some time!")]
-    [WithScenario(typeof(WhenXAndOPlayTheirFirstMoves))]
-    [WithScenario(typeof(HorizontalWin))]
-    [WithScenario(typeof(HorizontalWinInTheBottom))]
-    [WithScenario(typeof(HorizontalWinInTheMiddle))]
-    [WithScenario(typeof(VerticalWinInTheLeft))]
-    [WithScenario(typeof(VerticalWinInTheMiddle))]
-    [WithScenario(typeof(VerticalWinInTheRight))]
-    [WithScenario(typeof(OWins))]
-    [WithScenario(typeof(XWins))]
-    [WithScenario(typeof(CatsGame))]
-    [WithScenario(typeof(DiagonalWin))]
     public class TicTacToeStory
     {
         [Test]

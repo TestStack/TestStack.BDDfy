@@ -1,6 +1,6 @@
 namespace Bddify.Tests.Story
 {
-    public class FirstScenario
+    public class DummyScenario
     {
         void WhenScenarioIsDecoratedWithStory()
         {

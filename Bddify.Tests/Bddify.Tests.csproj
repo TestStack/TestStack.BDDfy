@@ -61,7 +61,7 @@
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Scanner\WhenScenarioIsRunWithArguments.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
-    <Compile Include="Story\FirstScenario.cs" />
+    <Compile Include="Story\DummyScenario.cs" />
     <Compile Include="Story\ScenarioInStoryWithArgs.cs" />
     <Compile Include="Story\StoryDouble.cs" />
     <Compile Include="Helpers.cs" />
@@ -74,17 +74,13 @@
     <Compile Include="Exceptions\OtherExceptions\WhenThenThrowsException.cs" />
     <Compile Include="Exceptions\OtherExceptions\WhenWhenThrowsException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Story\WhenScannerIsRunOnAStory.cs" />
     <Compile Include="Scanner\WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen.cs" />
     <Compile Include="Scanner\WhenTestClassFollowsGivenWhenThenNamingConvention.cs" />
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
     <Compile Include="RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
-    <Compile Include="Story\WhenScenarioContainsMultipleSteps.cs" />
     <Compile Include="Story\StoryClassIsAScenarioWithoutTheWithScenarioAttribute.cs" />
-    <Compile Include="Story\ScenarioOfAStoryIsBddifiedDirectly.cs" />
     <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
-    <Compile Include="WhenStoryWithScenarioWithNoStepIsBddified.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bddify\Bddify.csproj">

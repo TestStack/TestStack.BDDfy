@@ -52,7 +52,6 @@
     <Compile Include="Core\Story.cs" />
     <Compile Include="Core\StoryAttribute.cs" />
     <Compile Include="Core\StoryMetaData.cs" />
-    <Compile Include="Core\WithScenarioAttribute.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
     <Compile Include="Scanners\DefaultScanForStepsByMethodName.cs" />

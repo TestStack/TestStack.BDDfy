@@ -6,6 +6,6 @@ namespace Bddify.Scanners
 {
     public interface IScanForScenarios
     {
-        IEnumerable<Scenario> Scan(Type storyType);
+        IEnumerable<Scenario> Scan(Type scenarioType);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Bddify.Core;
 
@@ -14,62 +15,50 @@ namespace Bddify.Scanners
             _scenarioScanner = scenarioScanner;
         }
 
-        public virtual Story Scan(Type storyType)
+        public virtual Story Scan(Type scenarioType)
         {
-            var scenarios = GetScenarios(storyType);
-            var metaData = GetStoryMetaData(storyType);
+            var scenarios = GetScenarios(scenarioType);
+            var metaData = GetStoryMetaData(scenarioType);
             return new Story(metaData, scenarios);
         }
 
-        private IEnumerable<Scenario> GetScenarios(Type storyType)
+        private IEnumerable<Scenario> GetScenarios(Type scenarioType)
         {
-            return _scenarioScanner.Scan(storyType).ToList();
+            return _scenarioScanner.Scan(scenarioType).ToList();
         }
 
-        StoryMetaData GetStoryMetaData(Type storyType)
+        StoryMetaData GetStoryMetaData(Type scenarioType)
         {
-            var storyAttribute = GetStoryAttribute(storyType);
+            var storyAttribute = GetStoryAttribute(scenarioType);
             if(storyAttribute == null)
-                return ScanAssemblyForStoryMetaData(storyType);
+                return GetStoryMetaDataByWalkingUpTheCallStack(scenarioType);
 
-            return new StoryMetaData(storyType, storyAttribute);
+            return new StoryMetaData(scenarioType, storyAttribute);
         }
 
-        static Dictionary<Type, StoryMetaData> _scenarioToStoryMapper;
-        static readonly object MapperSyncRoot = new object();
-
-        StoryMetaData ScanAssemblyForStoryMetaData(Type scenarioType)
+        StoryMetaData GetStoryMetaDataByWalkingUpTheCallStack(Type scenarioType)
         {
-            lock (MapperSyncRoot)
-            {
-                if (_scenarioToStoryMapper == null)
-                {
-                    _scenarioToStoryMapper = new Dictionary<Type, StoryMetaData>();
+            var stackTrace = new StackTrace();
+            var frames = stackTrace.GetFrames();
+            if(frames == null)
+                return null;
 
-                    var assembly = scenarioType.Assembly;
-                    foreach (var candidateStoryType in assembly.GetTypes())
-                    {
-                        var storyAttribute = GetStoryAttribute(candidateStoryType);
-                        if (storyAttribute == null)
-                            continue;
+            // This is assuming scenario and story live in the same assembly
+            var firstFrame = frames.Reverse().FirstOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
+            if(firstFrame == null)
+                return null;
 
-                        var withScenariosAttributes = (WithScenarioAttribute[])candidateStoryType.GetCustomAttributes(typeof(WithScenarioAttribute), false);
-                        foreach (var withScenarioAttribute in withScenariosAttributes)
-                            _scenarioToStoryMapper.Add(withScenarioAttribute.ScenarioType, new StoryMetaData(candidateStoryType, storyAttribute));
-                    }
-                }
-            }
+            var candidateStoryType = firstFrame.GetMethod().DeclaringType;
+            var storyAttribute = GetStoryAttribute(candidateStoryType);
+            if(storyAttribute == null)
+                return null;
 
-            StoryMetaData storyType;
-            if (_scenarioToStoryMapper.TryGetValue(scenarioType, out storyType))
-                return storyType;
-
-            return null;
+            return new StoryMetaData(candidateStoryType, storyAttribute);
         }
 
-        internal StoryAttribute GetStoryAttribute(Type storyType)
+        internal StoryAttribute GetStoryAttribute(Type scenarioType)
         {
-            return (StoryAttribute)storyType.GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
+            return (StoryAttribute)scenarioType.GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
         }
     }
 }

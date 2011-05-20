@@ -16,27 +16,7 @@ namespace Bddify.Scanners
             _scenarioTextTemplate = scenarioTextTemplate;
         }
 
-        public IEnumerable<Scenario> Scan(Type storyType)
-        {
-            var storyAttribute = GetStoryAttribute(storyType);
-
-            if(storyAttribute == null )
-                return HandleScenario(storyType);
-
-            var scenarioTypesForThisStory = GetScenariosFromAttribute(storyType).ToList();
-            // no scenario specified for story; so consider the story itself as a scenario
-            if (scenarioTypesForThisStory.Count == 0)
-                return HandleScenario(storyType);
-
-            var scenarios = new List<Scenario>();
-
-            foreach (var scenarioType in scenarioTypesForThisStory)
-                scenarios.AddRange(HandleScenario(scenarioType));
-
-            return scenarios;
-        }
-
-        private IEnumerable<Scenario> HandleScenario(Type scenarioType)
+        public IEnumerable<Scenario> Scan(Type scenarioType)
         {
             var argsSet = GetArgsSets(scenarioType);
             if (argsSet.Any())
@@ -91,18 +71,6 @@ namespace Bddify.Scanners
                     yield return step;
                 }
             }
-        }
-
-        private static IEnumerable<Type> GetScenariosFromAttribute(Type storyType)
-        {
-            return storyType.GetCustomAttributes(typeof(WithScenarioAttribute), false)
-                .Cast<WithScenarioAttribute>()
-                .Select(a => a.ScenarioType);
-        }
-
-        internal StoryAttribute GetStoryAttribute(Type storyType)
-        {
-            return (StoryAttribute)storyType.GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
         }
     }
 }
