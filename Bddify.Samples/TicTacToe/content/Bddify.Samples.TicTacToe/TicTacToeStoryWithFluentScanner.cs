@@ -74,8 +74,7 @@ namespace Bddify.Samples.TicTacToe
                 new[] { X, X, O },
                 new[] { O, X, O },
                 new[] { O, X, X },
-                X,
-                "Vertical win in the middle");
+                X);
         }
         
         [Test]
@@ -84,9 +83,8 @@ namespace Bddify.Samples.TicTacToe
             AssertWinningScenario(
                 new[] { X, O, X },
                 new[] { O, O, X },
-                new[] { O, X, X }, 
-                X, 
-                "Vertical win in the right");
+                new[] { O, X, X },
+                X);
         }
 
         [Test]
@@ -102,17 +100,16 @@ namespace Bddify.Samples.TicTacToe
                 new[] { X, O, O }, 
                 new[] { X, O, X }, 
                 new[] { O, X, N }, 
-                O, 
-                "Diagonal Win");
+                O);
         }
 
-        void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner, string scenarioTitle)
+        void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
         {
             FluentStepScanner<TicTacToeStoryWithFluentScanner>
                 .Scan()
                 .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
                 .Then(s => ThenTheWinnerShouldBe(expectedWinner))
-                .Bddify(scenarioTitle);
+                .Bddify();
         }
     }
 }        

@@ -82,7 +82,7 @@ namespace Bddify.Samples.Atm
                     .And(s => s.AndTheAtmShouldSayThereAreInsufficientFunds())
                     .And(s => s.AndTheAccountBalanceShouldBe(10))
                     .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
-                .Bddify("Account has insufficient fund");
+                .Bddify();
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace Bddify.Samples.Atm
                 .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
                     .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
                     .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
-                .Bddify("Account has sufficient fund");
+                .Bddify();
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Bddify.Samples.Atm
                 .When(s => s.WhenTheAccountHolderRequests(20))
                 .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
                     .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
-                .Bddify("Card has been disabled");
+                .Bddify();
         }
     }
 }
