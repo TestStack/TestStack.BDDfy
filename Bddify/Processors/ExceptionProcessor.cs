@@ -23,8 +23,6 @@ namespace Bddify.Processors
                 if(ExcludedAssemblies.Any(ex => assembly.GetName().FullName.StartsWith(ex)))
                     continue;
 
-                File.AppendAllText("d:\\ExceptionProcessor.txt", assembly.GetName().FullName + Environment.NewLine);
-
                 foreach (var inconclusiveExceptionType in GetTypesSafely(assembly))
                 {
                     if (inconclusiveExceptionType.Name.Contains("Inconclusive") &&
