@@ -11,6 +11,23 @@ namespace Bddify.Samples.TicTacToe
         SoThat = "So that I can waste some time!")]
     public class TicTacToeStoryWithFluentScanner : NewGame
     {
+        public class Cell
+        {
+            public Cell(int row, int col)
+            {
+                Row = row;
+                Col = col;
+            }
+
+            public int Row { get; set; }
+            public int Col { get; set; }
+
+            public override string ToString()
+            {
+                return string.Format("({0}, {1})", Row, Col);
+            }
+        }
+
         public void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdrow)
         {
             Game = new Game(firstRow, secondRow, thirdrow);
@@ -31,9 +48,12 @@ namespace Bddify.Samples.TicTacToe
             Assert.AreEqual(Game.Winner, null);
         }
 
-        public void WhenTheGameIsPlayedAtTheFollowingRowAndColumn(int row, int column)
+        public void WhenTheGameIsPlayedAt(params Cell[] cells)
         {
-            Game.PlayAt(row, column);
+            foreach (var cell in cells)
+            {
+                Game.PlayAt(cell.Row, cell.Col);
+            }
         }
 
         [Test]
@@ -49,23 +69,55 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void WhenXAndOPlayTheirFirstMoves()
         {
-            
+            var firstMove = new Cell(0, 0);
+            var secondMove = new Cell(2, 2);
+            FluentStepScanner<TicTacToeStoryWithFluentScanner>
+                .Scan()
+                .Given(s => s.GivenANewGame())
+                .When(s => s.WhenTheGameIsPlayedAt(firstMove, secondMove), "When X and O play on {0}")
+                .Then(s => s.ThenTheBoardStateShouldBe(new[] { X, N, N }, new[] { N, N, N }, new[] { N, N, O }))
+                .Bddify();
         }
 
         [Test]
         public void HorizontalWin()
         {
-
+            AssertWinningScenario(
+                new[] { X, X, X },
+                new[] { X, O, O },
+                new[] { O, O, X },
+                X);
         }
 
+        [Test]
         public void HorizontalWinInTheBottom()
-        { }
+        {
+            AssertWinningScenario(
+                new[] { X, X, N },
+                new[] { X, O, X },
+                new[] { O, O, O },
+                O);
+        }
 
         [Test]
-        public void HorizontalWinInTheMiddle() { }
- 
+        public void HorizontalWinInTheMiddle()
+        {
+            AssertWinningScenario(
+                new[] { X, O, O },
+                new[] { X, X, X },
+                new[] { O, O, X },
+                X);
+        }
+
         [Test]
-        public void VerticalWinInTheLeft() { }
+        public void VerticalWinInTheLeft()
+        {
+            AssertWinningScenario(
+                new[] { X, O, O },
+                new[] { X, O, X },
+                new[] { X, X, O },
+                X);
+        }
 
         [Test]
         public void VerticalWinInTheMiddle()
@@ -76,7 +128,7 @@ namespace Bddify.Samples.TicTacToe
                 new[] { O, X, X },
                 X);
         }
-        
+
         [Test]
         public void VerticalWinInTheRight()
         {
@@ -88,18 +140,36 @@ namespace Bddify.Samples.TicTacToe
         }
 
         [Test]
-        public void OWins() { }
-        
+        public void OWins()
+        {
+            var cell = new Cell(2, 0);
+            FluentStepScanner<TicTacToeStoryWithFluentScanner>
+                .Scan()
+                .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, O, N }, new[] { N, N, N }))
+                .When(s => s.WhenTheGameIsPlayedAt(cell))
+                .Then(s => s.ThenTheWinnerShouldBe(O))
+                .Bddify();
+        }
+
         [Test]
-        public void XWins() { }
-        
+        public void XWins()
+        {
+            var cell = new Cell(2, 2);
+            FluentStepScanner<TicTacToeStoryWithFluentScanner>
+                .Scan()
+                .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, X, O }, new[] { O, O, N }))
+                .When(s => s.WhenTheGameIsPlayedAt(cell))
+                .Then(s => s.ThenTheWinnerShouldBe(X))
+                .Bddify();
+        }
+
         [Test]
         public void DiagonalWin()
         {
             AssertWinningScenario(
-                new[] { X, O, O }, 
-                new[] { X, O, X }, 
-                new[] { O, X, N }, 
+                new[] { X, O, O },
+                new[] { X, O, X },
+                new[] { O, X, N },
                 O);
         }
 
@@ -112,4 +182,4 @@ namespace Bddify.Samples.TicTacToe
                 .Bddify();
         }
     }
-}        
+}
