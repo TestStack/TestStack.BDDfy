@@ -69,12 +69,10 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void WhenXAndOPlayTheirFirstMoves()
         {
-            var firstMove = new Cell(0, 0);
-            var secondMove = new Cell(2, 2);
             FluentStepScanner<TicTacToeStoryWithFluentScanner>
                 .Scan()
                 .Given(s => s.GivenANewGame())
-                .When(s => s.WhenTheGameIsPlayedAt(firstMove, secondMove), "When X and O play on {0}")
+                .When(s => s.WhenTheGameIsPlayedAt(new Cell(0, 0), new Cell(2, 2)), "When X and O play on {0}")
                 .Then(s => s.ThenTheBoardStateShouldBe(new[] { X, N, N }, new[] { N, N, N }, new[] { N, N, O }))
                 .Bddify();
         }
@@ -154,11 +152,10 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void XWins()
         {
-            var cell = new Cell(2, 2);
             FluentStepScanner<TicTacToeStoryWithFluentScanner>
                 .Scan()
                 .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, X, O }, new[] { O, O, N }))
-                .When(s => s.WhenTheGameIsPlayedAt(cell))
+                .When(s => s.WhenTheGameIsPlayedAt(new Cell(2, 2)))
                 .Then(s => s.ThenTheWinnerShouldBe(X))
                 .Bddify();
         }

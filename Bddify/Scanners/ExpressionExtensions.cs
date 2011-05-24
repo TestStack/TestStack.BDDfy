@@ -23,18 +23,6 @@ namespace Bddify.Scanners
             return ExtractConstants(methodCallExpression);
         }
 
-        private static IEnumerable<object> ExtractConstants(MethodCallExpression methodCallExpression)
-        {
-            foreach (var arg in methodCallExpression.Arguments)
-            {
-                foreach (var constant in ExtractConstants(arg))
-                    yield return constant;
-            }
-
-            foreach (var constant in ExtractConstants(methodCallExpression.Object))
-                yield return constant;
-        }
-
         private static IEnumerable<object> ExtractConstants(Expression expression)
         {
             if (expression == null || expression is ParameterExpression)
@@ -42,25 +30,38 @@ namespace Bddify.Scanners
 
             var memberExpression = expression as MemberExpression;
             if (memberExpression != null)
-                return ExtractConstants(memberExpression).ToArray();
+                return ExtractConstants(memberExpression);
 
             var constantExpression = expression as ConstantExpression;
             if (constantExpression != null)
-                return ExtractConstants(constantExpression).ToArray();
+                return ExtractConstants(constantExpression);
 
             var newArrayExpression = expression as NewArrayExpression;
             if (newArrayExpression != null)
-                return ExtractConstants(newArrayExpression).ToArray();
+                return ExtractConstants(newArrayExpression);
 
             var newExpression = expression as NewExpression;
             if (newExpression != null)
-                return ExtractConstants(newExpression).ToArray();
+                return ExtractConstants(newExpression);
 
             var unaryExpression = expression as UnaryExpression;
             if (unaryExpression != null)
-                return ExtractConstants(unaryExpression).ToArray();
+                return ExtractConstants(unaryExpression);
 
             throw new InvalidOperationException("Could not fetch the arguments from the provided exception. This may be a bug so please report it");
+        }
+
+        private static IEnumerable<object> ExtractConstants(MethodCallExpression methodCallExpression)
+        {
+            var constants = new List<object>();
+            foreach (var arg in methodCallExpression.Arguments)
+            {
+                constants.AddRange(ExtractConstants(arg));
+            }
+
+            constants.AddRange(ExtractConstants(methodCallExpression.Object));
+
+            return constants;
         }
 
         private static IEnumerable<object> ExtractConstants(UnaryExpression unaryExpression)
@@ -70,14 +71,13 @@ namespace Bddify.Scanners
 
         private static IEnumerable<object> ExtractConstants(NewExpression newExpression)
         {
-            throw new NotImplementedException();
-            //var arguments = new List<object>();
-            //foreach (var argumentExpression in newExpression.Arguments)
-            //{
-            //    arguments.Add(ExtractConstants(argumentExpression));
-            //}
+            var arguments = new List<object>();
+            foreach (var argumentExpression in newExpression.Arguments)
+            {
+                arguments.AddRange(ExtractConstants(argumentExpression));
+            }
 
-            //yield return newExpression.Constructor.Invoke(arguments.ToArray());
+            yield return newExpression.Constructor.Invoke(arguments.ToArray());
         }
 
         private static IEnumerable<object> ExtractConstants(NewArrayExpression newArrayExpression)
@@ -99,7 +99,7 @@ namespace Bddify.Scanners
                 if (arrayElementExpression is ConstantExpression)
                     arrayElement = ((ConstantExpression)arrayElementExpression).Value;
                 else
-                    arrayElement = ExtractConstants(arrayElementExpression);
+                    arrayElement = ExtractConstants(arrayElementExpression).ToArray();
 
                 if (arrayElement is object[])
                 {
@@ -127,30 +127,34 @@ namespace Bddify.Scanners
 
         private static IEnumerable<object> ExtractConstants(ConstantExpression constantExpression)
         {
+            var constants = new List<object>();
+
             if (constantExpression.Value is Expression)
             {
-                foreach (var constant in ExtractConstants((Expression)constantExpression.Value))
-                {
-                    yield return constant;
-                }
+                constants.AddRange(ExtractConstants((Expression) constantExpression.Value));
             }
             else
             {
                 if(constantExpression.Type == typeof(string) || constantExpression.Type.IsPrimitive)
-                    yield return constantExpression.Value;
+                    constants.Add(constantExpression.Value);
             }
+
+            return constants;
         }
 
         private static IEnumerable<object> ExtractConstants(MemberExpression memberExpression)
         {
+            var constants = new List<object>();
             var constExpression = (ConstantExpression)memberExpression.Expression;
             var type = constExpression.Type;
             var member = type.GetMember(memberExpression.Member.Name, MemberTypes.Field | MemberTypes.Property, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static).Single();
 
             if (member.MemberType == MemberTypes.Field)
-                yield return ((FieldInfo)member).GetValue(constExpression.Value);
+                constants.Add(((FieldInfo)member).GetValue(constExpression.Value));
             else
-                yield return ((PropertyInfo)member).GetGetMethod(true).Invoke(constExpression.Value, null);
+                constants.Add(((PropertyInfo)member).GetGetMethod(true).Invoke(constExpression.Value, null));
+
+            return constants;
         }
     }
 }
