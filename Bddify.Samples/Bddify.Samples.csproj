@@ -73,7 +73,6 @@
     <Compile Include="Bowling\content\Bddify.Samples.Bowling\AllSpares.cs" />
     <Compile Include="Bowling\content\Bddify.Samples.Bowling\Game.cs" />
     <Compile Include="Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs" />
-    <Compile Include="Bowling\content\Bddify.Samples.Bowling\ScoreCalculationAlternativeForms.cs" />
     <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\CatsGame.cs" />
     <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\DiagonalWin.cs" />
     <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\Game.cs" />
