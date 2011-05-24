@@ -1,12 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Bddify.Scanners
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     public static class ExpressionExtensions
     {
         public static IEnumerable<object> ExtractConstants<T>(this Expression<Action<T>> expression)
@@ -65,7 +66,6 @@ namespace Bddify.Scanners
 
         private static IEnumerable<object> ExtractConstants(NewArrayExpression newArrayExpression)
         {
-            //yield return newArrayExpression.Expressions.SelectMany(x => ExtractConstants((ConstantExpression)x)).ToArray();
             var arrayElements = new ArrayList();
             Type type = newArrayExpression.Type.GetElementType();
             foreach (var arrayElementExpression in newArrayExpression.Expressions)

@@ -140,7 +140,7 @@ namespace Bddify.Scanners
             if(frames == null)
                 return null;
 
-            var initiatingFrame = frames.Reverse().FirstOrDefault(s => s.GetMethod().DeclaringType == typeof(TScenario));
+            var initiatingFrame = frames.LastOrDefault(s => s.GetMethod().DeclaringType == typeof(TScenario));
             if (initiatingFrame == null)
                 return null;
 
