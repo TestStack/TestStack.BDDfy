@@ -113,7 +113,7 @@ namespace Bddify.Scanners
             return this;
         }
 
-        IScanForSteps IFluentScanner<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
+        IFluentScanner<TScenario> IFluentScanner<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
         {
             AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
             return this;
@@ -175,7 +175,7 @@ namespace Bddify.Scanners
 
     public interface IFluentScanner<TScenario> : IScanForSteps
     {
-        IScanForSteps TearDownWith(Expression<Action<TScenario>> tearDownStep);
+        IFluentScanner<TScenario> TearDownWith(Expression<Action<TScenario>> tearDownStep);
         Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true);
     }
 
