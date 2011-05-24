@@ -42,6 +42,7 @@
     <None Include="MsTest\Bddify.Samples.MsTest.nuspec" />
     <None Include="MsTest\content\Bddify.Samples.MsTest\ScenarioWithMixedSteps.cs.pp" />
     <None Include="NUnit\Bddify.Samples.NUnit.nuspec" />
+    <None Include="TicTacToe\Bddify.Samples.TicTacToe.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
