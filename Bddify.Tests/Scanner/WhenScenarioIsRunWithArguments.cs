@@ -16,7 +16,7 @@ namespace Bddify.Tests.Scanner
 
         private static List<Scenario> ScanScenario(string scenarioTextTemplate = null)
         {
-            return new ScanForScenarios(new[] {new DefaultScanForStepsByMethodName()}, scenarioTextTemplate).Scan(typeof(ScenarioWithArgs)).ToList();
+            return new ScanForScenarios(new[] {new DefaultMethodNameStepScanner()}, scenarioTextTemplate).Scan(typeof(ScenarioWithArgs)).ToList();
         }
 
         [Test]

@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Bddify.Scanners
 {
-    public class ScanForStepsByMethodName : IScanForSteps
+    public class MethodNameStepScanner : IScanForSteps
     {
         private readonly MethodNameMatcher[] _matchers;
 
-        public ScanForStepsByMethodName(MethodNameMatcher[] matchers)
+        public MethodNameStepScanner(MethodNameMatcher[] matchers)
         {
             _matchers = matchers;
         }

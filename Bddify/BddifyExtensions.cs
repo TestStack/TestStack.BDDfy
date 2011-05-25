@@ -28,8 +28,8 @@ namespace Bddify
                 new ScanForScenarios(
                     new IScanForSteps[]
                     {
-                        new DefaultScanForStepsByMethodName(),
-                        new ExecutableAttributeScanner()
+                        new DefaultMethodNameStepScanner(),
+                        new ExecutableAttributeStepScanner()
                     },
                     scenarioTextTemplate));
         }

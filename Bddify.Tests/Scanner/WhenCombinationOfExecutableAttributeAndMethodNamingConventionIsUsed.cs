@@ -65,8 +65,8 @@ namespace Bddify.Tests.Scanner
                 new ScanForScenarios(
                     new IScanForSteps[]
                         {
-                            new DefaultScanForStepsByMethodName(), 
-                            new ExecutableAttributeScanner()
+                            new DefaultMethodNameStepScanner(), 
+                            new ExecutableAttributeStepScanner()
                         }).Scan(typeof(ScenarioWithMixedSteps)).Single();          
         }
 

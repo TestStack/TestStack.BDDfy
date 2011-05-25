@@ -3,9 +3,9 @@ using Bddify.Core;
 
 namespace Bddify.Scanners
 {
-    public class DefaultScanForStepsByMethodName : ScanForStepsByMethodName
+    public class DefaultMethodNameStepScanner : MethodNameStepScanner
     {
-        public DefaultScanForStepsByMethodName()
+        public DefaultMethodNameStepScanner()
             : base(new[]
             {
                 new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.SetupState, shouldReport:false),

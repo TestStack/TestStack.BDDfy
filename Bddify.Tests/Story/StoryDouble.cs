@@ -14,7 +14,7 @@ namespace Bddify.Tests.Story
         [Test]
         public void ScanningAScenarioWithArgsFromAStoryClass()
         {
-            var scanner = new DefaultScanner(new ScanForScenarios(new[] { new DefaultScanForStepsByMethodName() }));
+            var scanner = new DefaultScanner(new ScanForScenarios(new[] { new DefaultMethodNameStepScanner() }));
             var story = scanner.Scan(typeof(ScenarioInStoryWithArgs));
 
             Assert.That(story.MetaData, Is.Not.Null);
@@ -26,7 +26,7 @@ namespace Bddify.Tests.Story
         [Test]
         public void ScanningAScenarioWithoutArgsFromAStoryClass()
         {
-            var scanner = new DefaultScanner(new ScanForScenarios(new[] { new DefaultScanForStepsByMethodName() }));
+            var scanner = new DefaultScanner(new ScanForScenarios(new[] { new DefaultMethodNameStepScanner() }));
             var story = scanner.Scan(typeof(DummyScenario));
 
             Assert.That(story.MetaData, Is.Not.Null);

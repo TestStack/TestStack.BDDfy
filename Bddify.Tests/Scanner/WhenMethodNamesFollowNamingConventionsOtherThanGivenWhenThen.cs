@@ -21,7 +21,7 @@ namespace Bddify.Tests.Scanner
             var assertMatcher = new MethodNameMatcher(s => s.StartsWith("Assert", StringComparison.Ordinal), true, ExecutionOrder.Assertion);
             var andAssertMatcher = new MethodNameMatcher(s => s.StartsWith("AndAssert", StringComparison.Ordinal), true, ExecutionOrder.ConsecutiveAssertion);
             var methodNameMatchers = new[] { assertMatcher, andAssertMatcher, specEndMatcher, specStartMatcher, setupMethod };
-            var scanner = new ScanForStepsByMethodName(methodNameMatchers);
+            var scanner = new MethodNameStepScanner(methodNameMatchers);
             _steps = scanner.Scan(typeof(ScenarioClass)).ToList();
             _scenario = new ScenarioClass();
         }

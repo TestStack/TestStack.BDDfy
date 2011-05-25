@@ -55,7 +55,8 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Scanners\DefaultScanForStepsByMethodName.cs" />
+    <Compile Include="Scanners\DefaultMethodNameStepScanner.cs" />
+    <Compile Include="Scanners\ExecutableAttributeStepScanner.cs" />
     <Compile Include="Scanners\ExpressionExtensions.cs" />
     <Compile Include="Scanners\FluentStepScanner.cs" />
     <Compile Include="Scanners\GwtAttributes\AndGivenAttribute.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Scanners\ExecutableAttribute.cs" />
-    <Compile Include="Scanners\ExecutableAttributeScanner.cs" />
     <Compile Include="Reporters\HtmlReporter.cs" />
     <Compile Include="Core\NetToString.cs" />
     <Compile Include="Core\ProcessType.cs" />
@@ -82,8 +82,8 @@
     <Compile Include="Scanners\IScanForScenarios.cs" />
     <Compile Include="Scanners\IScanForSteps.cs" />
     <Compile Include="Scanners\MethodNameMatcher.cs" />
+    <Compile Include="Scanners\MethodNameStepScanner.cs" />
     <Compile Include="Scanners\ScanForScenarios.cs" />
-    <Compile Include="Scanners\ScanForStepsByMethodName.cs" />
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Core\RunStepWithArgsAttribute.cs" />
   </ItemGroup>

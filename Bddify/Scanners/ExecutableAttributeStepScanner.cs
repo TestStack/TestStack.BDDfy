@@ -6,7 +6,7 @@ using Bddify.Core;
 
 namespace Bddify.Scanners
 {
-    public class ExecutableAttributeScanner : IScanForSteps
+    public class ExecutableAttributeStepScanner : IScanForSteps
     {
         public int Priority
         {

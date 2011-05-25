@@ -49,7 +49,7 @@ namespace Bddify.Tests.Scanner
         public void WhenStep_TestClassHasAttributes()
         {
             _typeWithAttribute = new TypeWithAttribute();
-            _steps = new ExecutableAttributeScanner().Scan(typeof(TypeWithAttribute)).ToList();
+            _steps = new ExecutableAttributeStepScanner().Scan(typeof(TypeWithAttribute)).ToList();
         }
 
         private static string GetStepTextFromMethodName(Action methodInfoAction)
