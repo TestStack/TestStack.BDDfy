@@ -28,5 +28,11 @@ namespace Bddify.Samples.Bowling
         {
             Assert.AreEqual(_game.Score, 29);
         }
+
+        [Test]
+        public void Execute()
+        {
+            typeof(OneSingleSpare).Bddify();
+        }
     }
 }
