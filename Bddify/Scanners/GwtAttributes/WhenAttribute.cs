@@ -1,6 +1,6 @@
 ﻿namespace Bddify.Scanners.GwtAttributes
 {
-    public class WhenAttribute : GwtExectuableAttribute
+    public class WhenAttribute : ExecutableAttribute
     {
         public WhenAttribute() : base(Core.ExecutionOrder.Transition) { }
     }

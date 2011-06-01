@@ -75,7 +75,6 @@
     <Compile Include="Core\IProcessor.cs" />
     <Compile Include="Core\IScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scanners\GwtAttributes\GwtExectuableAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\ThenAttribute.cs" />
     <Compile Include="Scanners\GwtAttributes\WhenAttribute.cs" />
     <Compile Include="Scanners\IgnoreStepAttribute.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace Bddify.Scanners.GwtAttributes
 {
-    public class AndGivenAttribute : GwtExectuableAttribute
+    public class AndGivenAttribute : ExecutableAttribute
     {
         public AndGivenAttribute() : base(Core.ExecutionOrder.ConsecutiveSetupState) { }
     }

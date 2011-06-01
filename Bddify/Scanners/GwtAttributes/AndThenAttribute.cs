@@ -1,6 +1,6 @@
 namespace Bddify.Scanners.GwtAttributes
 {
-    public class AndThenAttribute : GwtExectuableAttribute
+    public class AndThenAttribute : ExecutableAttribute
     {
         public AndThenAttribute() : base(Core.ExecutionOrder.ConsecutiveAssertion)
         {
