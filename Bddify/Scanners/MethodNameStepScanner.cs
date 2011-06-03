@@ -70,10 +70,11 @@ namespace Bddify.Scanners
 
         static string CleanupTheStepText(string stepText)
         {
-            // ToDo: replace 'and given' and 'and when' with 'and'
-            //if (stepText.StartsWith("and given ", StringComparison.OrdinalIgnoreCase) ||
-            //    stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
-            //    return "and ";
+            if (stepText.StartsWith("and given ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and ".Length, "given ".Length);
+
+            if(stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and ".Length, "when ".Length);
 
             return stepText;
         }

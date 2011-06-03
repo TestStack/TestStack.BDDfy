@@ -56,13 +56,13 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndGiven1IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[1], "And given 1", ExecutionOrder.ConsecutiveSetupState);
+            AssertStep(_steps[1], "And 1", ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
         public void AndGiven2IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[2], "And given 2", ExecutionOrder.ConsecutiveSetupState);
+            AssertStep(_steps[2], "And 2", ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Test]
@@ -74,13 +74,13 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void AndWhen1IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[4], "And when 1", ExecutionOrder.ConsecutiveTransition);
+            AssertStep(_steps[4], "And 1", ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
         public void AndWhen2IsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[5], "And when 2", ExecutionOrder.ConsecutiveTransition);
+            AssertStep(_steps[5], "And 2", ExecutionOrder.ConsecutiveTransition);
         }
 
         [Test]
