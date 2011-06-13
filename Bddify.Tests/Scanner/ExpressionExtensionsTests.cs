@@ -91,7 +91,7 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void MethodWithNoArguments()
+        public void NoArguments()
         {
             var arguments = GetArguments(x => x.MethodWithoutArguments());
             Assert.That(arguments.Length, Is.EqualTo(0));
@@ -105,14 +105,14 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void MethodWithInputArgumentsPassedInline()
+        public void InputArgumentsPassedInline()
         {
             var arguments = GetArguments(x => x.MethodWithInputs(1, "2"));
             AssertReturnedArguments(arguments, 1, "2");
         }
 
         [Test]
-        public void MethodWithInputArgumentsProvidedUsingVariables()
+        public void InputArgumentsProvidedUsingVariables()
         {
             int input1 = 1;
             const string input2 = "2";
@@ -121,41 +121,41 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void MethodWithInputArgumentsProvidedUsingFields()
+        public void InputArgumentsProvidedUsingFields()
         {
             var arguments = GetArguments(x => x.MethodWithInputs(_input1, ConstInput2));
             AssertReturnedArguments(arguments, _input1, ConstInput2);
         }
 
         [Test]
-        public void MethodWithInputArgumentsProvidedUsingProperty()
+        public void InputArgumentsProvidedUsingProperty()
         {
             var arguments = GetArguments(x => x.MethodWithInputs(Input1, Input2));
             AssertReturnedArguments(arguments, Input1, Input2);
         }
         
         [Test]
-        public void MethodWithInputArgumentsProvidedUsingInheritedFields()
+        public void InputArgumentsProvidedUsingInheritedFields()
         {
             var arguments = GetArguments(x => x.MethodWithInputs(InheritedInput1, InheritedInput2));
             AssertReturnedArguments(arguments, InheritedInput1, InheritedInput2);
         }
         
         [Test]
-        public void MethodWithInputArgumentsProvidedUsingMethodCallThrowsException()
+        public void InputArgumentsProvidedUsingMethodCallThrowsException()
         {
             Assert.Throws<InvalidOperationException>(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test"))));
         }
 
         [Test]
-        public void MethodWithArrayInputsArgumentsProvidedInline()
+        public void ArrayInputsArgumentsProvidedInline()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(new[] { 1, 2 }, new[] { "3", "4" }));
             AssertReturnedArguments(arguments, new[] {1, 2}, new[] {"3", "4"});
         }
 
         [Test]
-        public void MethodWithArrayInputArgumentsProvidedUsingVariables()
+        public void ArrayInputArgumentsProvidedUsingVariables()
         {
             var input1 = new[] {1, 2};
             var input2 = new[] {"3", "4"};
@@ -164,21 +164,21 @@ namespace Bddify.Tests.Scanner
         }
 
         [Test]
-        public void MethodWithArrayInputArgumentsProvidedUsingFields()
+        public void ArrayInputArgumentsProvidedUsingFields()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(_arrayInput1, _arrayInput2));
             AssertReturnedArguments(arguments, _arrayInput1, _arrayInput2);
         }
 
         [Test]
-        public void MethodWithArrayInputArgumentsProvidedUsingProperty()
+        public void ArrayInputArgumentsProvidedUsingProperty()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(ArrayInput1, ArrayInput2));
             AssertReturnedArguments(arguments, ArrayInput1, ArrayInput2);
         }
 
         [Test]
-        public void MethodWithArrayInputArgumentsProvidedUsingInheritedProperty()
+        public void ArrayInputArgumentsProvidedUsingInheritedProperty()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2));
             AssertReturnedArguments(arguments, InheritedArrayInput1, InheritedArrayInput2);
