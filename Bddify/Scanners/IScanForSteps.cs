@@ -30,14 +30,22 @@ namespace Bddify.Scanners
                 var inputArray = input as Array;
                 if(inputArray != null)
                 {
-                    var temp = (from object arrElement in inputArray select arrElement.ToString()).ToList();
+                    var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToList();
                     stringOffArray.Add(string.Join(", ", temp));
                 }
                 else
-                    stringOffArray.Add(input.ToString());
+                    stringOffArray.Add(GetSafeString(input));
             }
 
             return stringOffArray.ToArray();
+        }
+
+        static string GetSafeString(object input)
+        {
+            if (input == null)
+                return "'null'";
+
+            return input.ToString();
         }
     }
 }

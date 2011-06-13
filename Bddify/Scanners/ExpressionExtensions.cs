@@ -131,11 +131,14 @@ namespace Bddify.Scanners
 
             if (constantExpression.Value is Expression)
             {
-                constants.AddRange(ExtractConstants((Expression) constantExpression.Value));
+                constants.AddRange(ExtractConstants((Expression)constantExpression.Value));
             }
             else
             {
-                if(constantExpression.Type == typeof(string) || constantExpression.Type.IsPrimitive)
+                if (constantExpression.Type == typeof(string) ||
+                    constantExpression.Type.IsPrimitive ||
+                    constantExpression.Type.IsEnum ||
+                    constantExpression.Value == null)
                     constants.Add(constantExpression.Value);
             }
 
