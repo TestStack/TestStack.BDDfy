@@ -91,10 +91,10 @@ namespace Bddify.Scanners
 
         private static IEnumerable<object> ExtractNonConvertibleArrayConstants(NewArrayExpression newArrayExpression, Type type)
         {
-            dynamic arrayElements = Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
+            var arrayElements = new ArrayList();
             foreach (var arrayElementExpression in newArrayExpression.Expressions)
             {
-                dynamic arrayElement;
+                object arrayElement;
 
                 if (arrayElementExpression is ConstantExpression)
                     arrayElement = ((ConstantExpression)arrayElementExpression).Value;
@@ -103,14 +103,14 @@ namespace Bddify.Scanners
 
                 if (arrayElement is object[])
                 {
-                    foreach (dynamic item in (object[])arrayElement)
+                    foreach (var item in (object[])arrayElement)
                         arrayElements.Add(item);
                 }
                 else
                     arrayElements.Add(arrayElement);
             }
 
-            yield return arrayElements.ToArray();
+            yield return arrayElements.ToArray(type);
         }
 
         private static IEnumerable<object> ExtractConvertibleTypeArrayConstants(NewArrayExpression newArrayExpression, Type type)
