@@ -42,7 +42,7 @@ namespace Bddify.Core
                         return list;
                     });
 
-            var result = string.Join("", chars);
+            var result = new string(chars.ToArray());
             return result.Replace(" i ", " I "); // I is an exception
         }
 

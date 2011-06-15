@@ -43,7 +43,10 @@ namespace Bddify.Scanners
             if (argsSet != null)
             {
                 if (string.IsNullOrEmpty(_scenarioTextTemplate))
-                    scenarioText += " " + string.Join(", ", argsSet);
+                {
+                    var argsSetString = argsSet.Select(a => a.ToString()).ToArray();
+                    scenarioText += " " + string.Join(", ", argsSetString);
+                }
                 else
                     scenarioText = string.Format(_scenarioTextTemplate, argsSet);
             }
