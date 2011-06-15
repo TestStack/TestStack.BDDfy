@@ -30,7 +30,7 @@ namespace Bddify.Scanners
                 var inputArray = input as Array;
                 if(inputArray != null)
                 {
-                    var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToList();
+                    var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToArray();
                     stringOffArray.Add(string.Join(", ", temp));
                 }
                 else
