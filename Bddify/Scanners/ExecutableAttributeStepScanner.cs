@@ -15,7 +15,7 @@ namespace Bddify.Scanners
 
         public IEnumerable<ExecutionStep> Scan(Type scenarioType)
         {
-            var steps = new List<Tuple<ExecutableAttribute, ExecutionStep>>();
+            var steps = new List<ExecutionStep>();
             foreach (var methodInfo in scenarioType.GetMethodsOfInterest())
             {
                 var executableAttribute = (ExecutableAttribute)methodInfo.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
@@ -32,7 +32,7 @@ namespace Bddify.Scanners
                 if (runStepWithArgsAttributes == null || runStepWithArgsAttributes.Length == 0)
                 {
                     var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
-                    steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
+                    steps.Add(executionStep);
                     continue;
                 }
 
@@ -48,11 +48,11 @@ namespace Bddify.Scanners
                         methodName = string.Format(executableAttribute.StepText, flatInput);
 
                     var executionStep = new ExecutionStep(methodInfo, inputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder);
-                    steps.Add(new Tuple<ExecutableAttribute, ExecutionStep>(executableAttribute, executionStep));
+                    steps.Add(executionStep);
                 }
             }
 
-            return steps.Select(s => s.Item2).ToList();
+            return steps;
         }
 
         private static bool IsAssertingByAttribute(MethodInfo method)
