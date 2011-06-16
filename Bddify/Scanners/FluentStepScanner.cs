@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -13,7 +14,7 @@ namespace Bddify.Scanners
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
 
-        public static FluentStepScanner<TScenario> Scan()
+        public static IInitialStep<TScenario> Scan()
         {
             return new FluentStepScanner<TScenario>();
         }
@@ -31,7 +32,7 @@ namespace Bddify.Scanners
             return _steps;
         }
 
-        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
+        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
         {
             var methodInfo = GetMethodInfo(stepAction);
             var inputArguments = stepAction.ExtractConstants().ToArray();
@@ -101,12 +102,6 @@ namespace Bddify.Scanners
             return this;
         }
 
-        IThen<TScenario> IInitialStep<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
-        {
-            AddThenStep(thenStep, stepTextTemplate);
-            return this;
-        }
-
         IAndThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate)
         {
             AddStep(andThenStep, stepTextTemplate, true, ExecutionOrder.ConsecutiveAssertion);
@@ -133,6 +128,13 @@ namespace Bddify.Scanners
             return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
         }
 
+#if NET35
+        public Story Bddify()
+        {
+            return Bddify(null);
+        }
+#endif
+
         private string GetTitleFromMethodName()
         {
             var trace = new StackTrace();
@@ -147,36 +149,38 @@ namespace Bddify.Scanners
             return NetToString.Convert(initiatingFrame.GetMethod().Name);
         }
 
-        [DebuggerHidden]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
 
-        [DebuggerHidden]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
-        [DebuggerHidden]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
             return base.ToString();
         }
     }
 
-    internal interface IInitialStep<TScenario>
+    public interface IInitialStep<TScenario>
     {
         IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null);
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
-        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
     }
 
     public interface IFluentScanner<TScenario> : IScanForSteps
     {
         IFluentScanner<TScenario> TearDownWith(Expression<Action<TScenario>> tearDownStep);
         Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true);
+#if NET35
+        Story Bddify();
+#endif
     }
 
     public interface IAndGiven<TScenario> : IGiven<TScenario>
