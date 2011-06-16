@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>bddify.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RazorEngine, Version=2.1.4039.23635, Culture=neutral, PublicKeyToken=1f722ed313f51831, processorArchitecture=MSIL">
@@ -90,6 +96,7 @@
     <EmbeddedResource Include="Reporters\HtmlReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bddify.snk" />
     <None Include="NuGet\Bddify.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
