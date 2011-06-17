@@ -103,10 +103,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\TicTacToe\Bddify.Samples.TicTacToe.nuspec
-$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec
-$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\Atm\Bddify.Samples.Atm.nuspec
-$(SolutionDir)Dependencies\NuGet.exe pack $(SolutionDir)Bddify.Samples\Bowling\Bddify.Samples.Bowling.nuspec</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
