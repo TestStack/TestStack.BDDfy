@@ -9,7 +9,7 @@ namespace Bddify.Tests.Exceptions.OtherExceptions
         [SetUp]
         public void SetupContext()
         {
-            Assert.Throws<Exception>(() => Sut.Execute(givenShouldThrow:true));
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Given));
         }
 
         [Test]

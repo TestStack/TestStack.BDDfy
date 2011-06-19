@@ -1,5 +1,6 @@
 using Bddify.Core;
 using Bddify.Processors;
+using Bddify.Tests.Exceptions;
 using Bddify.Tests.Exceptions.NotImplementedException;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace Bddify.Tests.MsTest.Exceptions.NotImplementedException
     {
         public WhenThenThrowsNotImplementedException()
         {
-            Assert.Throws(typeof(InconclusiveException), () => Sut.Execute(thenShouldThrow: true));
+            Assert.Throws(typeof(InconclusiveException), () => Sut.Execute(ThrowingMethod.Then));
         }
 
         [Fact]

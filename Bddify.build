@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project DefaultTargets="Release" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
-  <Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
   <!-- Main build entry file (extends development builds)-->
   <PropertyGroup>
     <!--
@@ -10,10 +9,10 @@
     -->
     <BuildPath Condition="$(BuildPath)==''">$(MSBuildProjectDirectory)\Build</BuildPath>
     <Configuration Condition="$(Configuration)==''">Release</Configuration>
-    <BuildFramework>NET35</BuildFramework>
+    <BuildFramework></BuildFramework>
 
     <PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\_Package</PackageDirectory>
-    <Version Condition="$(Version)==''">0.0.0.0</Version>
+    <Version Condition="$(Version)==''">0.5.1.0</Version>
     <AllowPartiallyTrustedCallers Condition="$(AllowPartiallyTrustedCallers)==''">true</AllowPartiallyTrustedCallers>
     <!--
       Derived configuration properties
@@ -42,15 +41,32 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(BuildFramework)=='WP7'">
+    <BuildTargets>Windows Phone 7</BuildTargets>
+    <BuildConstants>SILVERLIGHT;SL3;WINDOWS_PHONE</BuildConstants>
+    <PackageName>$(ProjectName)-$(Version)-WP7</PackageName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="$(BuildFramework)=='SL4'">
+    <BuildTargets>Silverlight 4.0</BuildTargets>
+    <BuildConstants>SILVERLIGHT;SL4</BuildConstants>
+    <PackageName>$(ProjectName)-$(Version)-SL4</PackageName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+  </PropertyGroup>
+
   <!-- 
    Solution redirects. Every VS project normally knows how to support these targets
     -->
   <Target Name="Build">
-    <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);TargetFrameworkVersion=$(TargetFrameworkVersion);TargetFrameworkProfile=$(TargetFrameworkProfile)"/>
+    <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=$(Configuration)$(BuildFramework);BuildConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);TargetFrameworkVersion=$(TargetFrameworkVersion);TargetFrameworkProfile=$(TargetFrameworkProfile)"/>
   </Target>
 
   <Target Name="Clean">
-    <MSBuild Projects="$(ProjectName).sln" Targets="Clean" Properties="Configuration=$(Configuration);BuildConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);TargetFrameworkVersion=$(TargetFrameworkVersion)" />
+    <MSBuild Projects="$(ProjectName).sln" Targets="Clean" Properties="Configuration=$(Configuration)$(BuildFramework);BuildConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);TargetFrameworkVersion=$(TargetFrameworkVersion)" />
 
     <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include"/>

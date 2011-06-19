@@ -9,6 +9,14 @@ using System.Linq;
 
 namespace Bddify.Tests.Exceptions
 {
+    public enum ThrowingMethod
+    {
+        None,
+        Given,
+        When,
+        Then
+    }
+
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
         private static bool _givenShouldThrow;
@@ -38,11 +46,26 @@ namespace Bddify.Tests.Exceptions
         {
         }
 
-        public void Execute(bool givenShouldThrow = false, bool whenShouldThrow = false, bool thenShouldThrow = false)
+        public void Execute(ThrowingMethod methodToThrow)
         {
-            _givenShouldThrow = givenShouldThrow;
-            _whenShouldThrow = whenShouldThrow;
-            _thenShouldThrow = thenShouldThrow;
+            _givenShouldThrow = false;
+            _whenShouldThrow = false;
+            _thenShouldThrow = false;
+
+            switch (methodToThrow)
+            {
+                case ThrowingMethod.Given:
+                    _givenShouldThrow = true;
+                    break;
+
+                case ThrowingMethod.When:
+                    _whenShouldThrow = true;
+                    break;
+
+                case ThrowingMethod.Then:
+                    _thenShouldThrow = true;
+                    break;
+            }
 
             var bddify = new Bddifier(
                 typeof(ExceptionThrowingTest<T>),

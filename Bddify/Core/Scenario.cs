@@ -6,7 +6,18 @@ namespace Bddify.Core
 {
     public class Scenario
     {
+#if NET35
+        public Scenario(object testObject, IEnumerable<ExecutionStep> steps, string scenarioText)
+            :this(testObject, steps, scenarioText, null)
+        {
+        }
+#endif
+
+#if !NET35
         public Scenario(object testObject, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet = null)
+#else
+        public Scenario(object testObject, IEnumerable<ExecutionStep> steps, string scenarioText, object[] argsSet)
+#endif
         {
             TestObject = testObject;
             _steps = steps.OrderBy(o => o.ExecutionOrder).ToList();

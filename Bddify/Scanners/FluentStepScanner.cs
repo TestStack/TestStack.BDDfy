@@ -32,7 +32,71 @@ namespace Bddify.Scanners
             return _steps;
         }
 
+#if NET35
+        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder)
+        {
+            AddStep(stepAction, stepTextTemplate, asserts, executionOrder, true);
+        }
+
+        public IWhen<TScenario> When(Expression<Action<TScenario>> whenStep)
+        {
+            AddWhenStep(whenStep, null);
+            return this;
+        }
+
+        public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep)
+        {
+            return Given(givenStep, null);
+        }
+
+        IWhen<TScenario> IGiven<TScenario>.When(Expression<Action<TScenario>> whenStep)
+        {
+            return When(whenStep);
+        }
+
+        IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep)
+        {
+            AddThenStep(thenStep, null);
+            return this;
+        }
+
+        IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep)
+        {
+            AddThenStep(thenStep, null);
+            return this;
+        }
+
+        IAndThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep)
+        {
+            return ((IThen<TScenario>)this).And(andThenStep, null);
+        }
+
+        IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep)
+        {
+            return ((IWhen<TScenario>)this).And(andWhenStep, null);
+        }
+
+        IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep)
+        {
+            return ((IGiven<TScenario>)this).And(andGivenStep, null);
+        }
+
+        public Story Bddify(string title)
+        {
+            return Bddify(title, null, true, true, true);
+        }
+
+        public Story Bddify()
+        {
+            return Bddify(null);
+        }
+#endif
+
+#if !NET35
         public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
+#else
+        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports)
+#endif
         {
             var methodInfo = GetMethodInfo(stepAction);
             var inputArguments = stepAction.ExtractConstants().ToArray();
@@ -50,7 +114,11 @@ namespace Bddify.Scanners
             _steps.Add(new ExecutionStep(methodInfo, inputArguments, readableMethodName, asserts, executionOrder, reports));
         }
 
+#if !NET35
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
+#else
+        public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate)
+#endif
         {
             AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
             return this;
@@ -62,7 +130,11 @@ namespace Bddify.Scanners
             return this;
         }
 
+#if !NET35
         private void AddWhenStep(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null)
+#else
+        private void AddWhenStep(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
+#endif
         {
             AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
         }
@@ -91,7 +163,11 @@ namespace Bddify.Scanners
             return this;
         }
 
+#if !NET35
         private void AddThenStep(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null)
+#else
+        private void AddThenStep(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
+#endif
         {
             AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
         }
@@ -120,20 +196,17 @@ namespace Bddify.Scanners
             return methodCall.Method;
         }
 
+#if !NET35
         public Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+#else
+        public Story Bddify(string title, IExceptionProcessor exceptionProcessor, bool handleExceptions, bool htmlReport, bool consoleReport)
+#endif
         {
             if (title == null)
                 title = GetTitleFromMethodName();
 
             return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
         }
-
-#if NET35
-        public Story Bddify()
-        {
-            return Bddify(null);
-        }
-#endif
 
         private string GetTitleFromMethodName()
         {
@@ -170,15 +243,25 @@ namespace Bddify.Scanners
 
     public interface IInitialStep<TScenario>
     {
+#if !NET35
         IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null);
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
+#else
+        IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate);
+        IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep);
+        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate);
+        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep);
+#endif
     }
 
     public interface IFluentScanner<TScenario> : IScanForSteps
     {
         IFluentScanner<TScenario> TearDownWith(Expression<Action<TScenario>> tearDownStep);
+#if !NET35
         Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true);
-#if NET35
+#else
+        Story Bddify(string title, IExceptionProcessor exceptionProcessor, bool handleExceptions, bool htmlReport, bool consoleReport);
+        Story Bddify(string title);
         Story Bddify();
 #endif
     }
@@ -189,14 +272,28 @@ namespace Bddify.Scanners
 
     public interface IGiven<TScenario> : IFluentScanner<TScenario>
     {
+#if !NET35        
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
+#else
+        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate);
+        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep);
+        IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate);
+        IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep);
+        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate);
+        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep);
+#endif
     }
 
     public interface IThen<TScenario> : IFluentScanner<TScenario>
     {
+#if !NET35
         IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate = null);
+#else
+        IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate);
+        IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep);
+#endif
     }
 
     public interface IAndThen<TScenario> : IThen<TScenario>
@@ -205,8 +302,15 @@ namespace Bddify.Scanners
 
     public interface IWhen<TScenario> : IFluentScanner<TScenario>
     {
+#if !NET35
         IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
+#else
+        IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate);
+        IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep);
+        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate);
+        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep);
+#endif
     }
 
     public interface IAndWhen<TScenario> : IWhen<TScenario>

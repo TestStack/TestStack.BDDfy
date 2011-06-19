@@ -5,8 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Bddify.Core;
+#if !NET35
 using RazorEngine;
 using RazorEngine.Templating;
+#endif
 
 namespace Bddify.Reporters
 {
@@ -32,6 +34,7 @@ namespace Bddify.Reporters
 
         internal static void GenerateHtmlReport()
         {
+#if !NET35
             string report;
             const string error = "There was an error compiling the template";
 
@@ -61,6 +64,7 @@ namespace Bddify.Reporters
             }
 
             File.WriteAllText(FileName, report);
+#endif
         }
 
         public void Process(Story story)
@@ -68,7 +72,9 @@ namespace Bddify.Reporters
             Stories.Add(story);
         }
 
+#if !NET35
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
+#endif
         private static readonly string FileName = Path.Combine(AssemblyDirectory, "bddify.html");
 
         static string GetHtmlTemplate()

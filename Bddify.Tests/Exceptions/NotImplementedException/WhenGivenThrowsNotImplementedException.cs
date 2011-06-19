@@ -8,7 +8,7 @@ namespace Bddify.Tests.Exceptions.NotImplementedException
         [SetUp]
         public void SetupContext()
         {
-            Assert.Throws<InconclusiveException>(() => Sut.Execute(givenShouldThrow:true));
+            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethod.Given));
         }
 
         [Test]

@@ -1,4 +1,5 @@
 using Bddify.Core;
+using Bddify.Tests.Exceptions;
 using Bddify.Tests.Exceptions.NotImplementedException;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,7 +13,7 @@ namespace Bddify.Tests.MsTest.Exceptions.NotImplementedException
         {
             try
             {
-                Sut.Execute(whenShouldThrow: true);
+                Sut.Execute(ThrowingMethod.When);
             }
             catch (AssertInconclusiveException)
             {

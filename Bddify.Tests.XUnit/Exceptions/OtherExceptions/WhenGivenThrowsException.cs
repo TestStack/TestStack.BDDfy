@@ -1,5 +1,6 @@
 using System;
 using Bddify.Core;
+using Bddify.Tests.Exceptions;
 using Bddify.Tests.Exceptions.OtherExceptions;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace Bddify.Tests.MsTest.Exceptions.OtherExceptions
     {
         public WhenGivenThrowsException()
         {
-            Assert.Throws(typeof(Exception), () => Sut.Execute(givenShouldThrow: true));
+            Assert.Throws(typeof(Exception), () => Sut.Execute(ThrowingMethod.Given));
         }
 
         [Fact]

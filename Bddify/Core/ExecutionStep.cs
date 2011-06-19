@@ -10,7 +10,7 @@ namespace Bddify.Core
             string readableMethodName, 
             bool asserts, 
             ExecutionOrder executionOrder,
-            bool shouldReport = true)
+            bool shouldReport)
         {
             Asserts = asserts;
             ExecutionOrder = executionOrder;
@@ -26,22 +26,12 @@ namespace Bddify.Core
         }
 
         public ExecutionStep(
-            Action<object> stepAction, 
-            string readableMethodName, 
-            bool asserts, 
-            ExecutionOrder executionOrder,
-            bool shouldReport = true) : this(readableMethodName, asserts, executionOrder, shouldReport)
-        {
-            StepAction = stepAction;
-        }
-
-        public ExecutionStep(
             MethodInfo stepMethod,
             object[] stepMethodInputArguments,
             string readableMethodName, 
             bool asserts, 
             ExecutionOrder executionOrder,
-            bool shouldReport = true) : this(readableMethodName, asserts, executionOrder, shouldReport)
+            bool shouldReport) : this(readableMethodName, asserts, executionOrder, shouldReport)
         {
             _stepMethod = stepMethod;
             _inputArguments = stepMethodInputArguments;

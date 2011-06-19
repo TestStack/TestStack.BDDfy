@@ -5,12 +5,7 @@ namespace Bddify.Processors
 {
     public class TestRunner : IProcessor
     {
-        private readonly string _runScenarioWithArgsMethodName;
-
-        public TestRunner(string runScenarioWithArgsMethodName = "RunScenarioWithArgs")
-        {
-            _runScenarioWithArgsMethodName = runScenarioWithArgsMethodName;
-        }
+        const string RunScenarioWithArgsMethodName = "RunScenarioWithArgs";
 
         public ProcessType ProcessType
         {
@@ -23,7 +18,7 @@ namespace Bddify.Processors
             {
                 if (scenario.ArgsSet != null)
                 {
-                    var argSetterMethod = scenario.TestObject.GetType().GetMethod(_runScenarioWithArgsMethodName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                    var argSetterMethod = scenario.TestObject.GetType().GetMethod(RunScenarioWithArgsMethodName, BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                     argSetterMethod.Invoke(scenario.TestObject, scenario.ArgsSet);
                 }
 

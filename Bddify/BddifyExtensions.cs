@@ -11,6 +11,7 @@ namespace Bddify
 {
     public static class BddifyExtensions
     {
+#if !NET35
         public static void Bddify(this Assembly assmebly, Predicate<Type> shouldBddify, bool htmlReport = true, bool consoleReport = true)
         {
             foreach (var testType in assmebly.GetTypes().Where(t => shouldBddify(t)))
@@ -21,20 +22,49 @@ namespace Bddify
 
             HtmlReporter.GenerateHtmlReport();
         }
-
-        static IScanner GetDefaultScanner(string scenarioTextTemplate = null)
+#else
+        public static void Bddify(this Assembly assmebly, Predicate<Type> shouldBddify, bool htmlReport, bool consoleReport)
         {
+            foreach (var testType in assmebly.GetTypes().Where(t => shouldBddify(t)))
+            {
+                // should not handle exceptions in this case
+                testType.Bddify(null, true, htmlReport, consoleReport, null);
+            }
+
+            HtmlReporter.GenerateHtmlReport();
+        }
+
+        public static Story Bddify(this Type testType)
+        {
+            return Bddify(testType, null, true, false, true, null);
+        }
+
+        public static Bddifier LazyBddify(this Type testType)
+        {
+            return LazyBddify(testType, null, true, false, true, null);
+        }
+#endif
+
+#if !NET35
+        static IScanner GetDefaultScanner(string scenarioTextTemplate = null)
+#else
+        static IScanner GetDefaultScanner()
+#endif
+    {
             return new DefaultScanner(
                 new ScanForScenarios(
                     new IScanForSteps[]
                     {
                         new DefaultMethodNameStepScanner(),
                         new ExecutableAttributeStepScanner()
-                    },
-                    scenarioTextTemplate));
+                    }));
         }
 
+#if !NET35
         public static Story Bddify(this Type testType, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
+#else
+        public static Story Bddify(this Type testType, IExceptionProcessor exceptionProcessor, bool handleExceptions, bool htmlReport, bool consoleReport, string scenarioTextTemplate, params IScanForSteps[] stepScanners)
+#endif
         {
             IScanner scanner = null;
 
@@ -44,7 +74,11 @@ namespace Bddify
             return testType.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, scanner).Run();
         }
 
+#if !NET35
         public static Bddifier LazyBddify(this Type testType, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, IScanner scanner = null)
+#else
+        public static Bddifier LazyBddify(this Type testType, IExceptionProcessor exceptionProcessor, bool handleExceptions, bool htmlReport, bool consoleReport, IScanner scanner)
+#endif
         {
             if(typeof(IScanForSteps).IsAssignableFrom(testType))
                 throw new InvalidOperationException("You are calling a wrong overload of bddify. The method you are calling should be called on the test object; not on a scanner.");

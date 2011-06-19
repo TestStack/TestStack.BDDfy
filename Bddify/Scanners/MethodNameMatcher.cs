@@ -5,7 +5,7 @@ namespace Bddify.Scanners
 {
     public class MethodNameMatcher
     {
-        public MethodNameMatcher(Predicate<string> isMethodOfInterest, bool asserts, ExecutionOrder executionOrder, bool shouldReport = true)
+        public MethodNameMatcher(Predicate<string> isMethodOfInterest, bool asserts, ExecutionOrder executionOrder, bool shouldReport)
         {
             IsMethodOfInterest = isMethodOfInterest;
             Asserts = asserts;

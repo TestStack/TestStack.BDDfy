@@ -31,7 +31,7 @@ namespace Bddify.Scanners
                 var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                 if (runStepWithArgsAttributes == null || runStepWithArgsAttributes.Length == 0)
                 {
-                    var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder);
+                    var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
                     steps.Add(executionStep);
                     continue;
                 }
@@ -47,7 +47,7 @@ namespace Bddify.Scanners
                     else if (!string.IsNullOrEmpty(executableAttribute.StepText))
                         methodName = string.Format(executableAttribute.StepText, flatInput);
 
-                    var executionStep = new ExecutionStep(methodInfo, inputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder);
+                    var executionStep = new ExecutionStep(methodInfo, inputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
                     steps.Add(executionStep);
                 }
             }

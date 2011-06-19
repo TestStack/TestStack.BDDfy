@@ -1,5 +1,6 @@
 using System;
 using Bddify.Core;
+using Bddify.Tests.Exceptions;
 using Bddify.Tests.Exceptions.OtherExceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +14,7 @@ namespace Bddify.Tests.MsTest.Exceptions.OtherExceptions
         {
             try
             {
-                Sut.Execute(givenShouldThrow: true);
+                Sut.Execute(ThrowingMethod.Given);
             }
             catch (Exception)
             {
