@@ -17,8 +17,10 @@ namespace Bddify.Processors
         {
         }
 
+#if !SILVERLIGHT
         protected InconclusiveException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
+#endif
     }
 }
