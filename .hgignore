@@ -8,3 +8,4 @@ glob:*.suo
 glob:*.exe
 glob:*.dll
 glob:*.csproj.user
+glob:Build/*
