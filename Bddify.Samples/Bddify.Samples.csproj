@@ -54,18 +54,18 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Atm\content\Bddify.Samples.Atm\ReadMe.txt" />
+    <Content Include="Atm\ReadMe.txt" />
     <Content Include="Bowling\content\Bddify.Samples.Bowling\ReadMe.txt" />
     <Content Include="NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
     <Content Include="TicTacToe\content\Bddify.Samples.TicTacToe\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Atm\content\Bddify.Samples.Atm\AccountHasInsufficientFund.cs" />
-    <Compile Include="Atm\content\Bddify.Samples.Atm\AccountHasSufficientFunds.cs" />
-    <Compile Include="Atm\content\Bddify.Samples.Atm\AccountHolderWithdrawsCash.cs" />
-    <Compile Include="Atm\content\Bddify.Samples.Atm\Atm.cs" />
-    <Compile Include="Atm\content\Bddify.Samples.Atm\AtmStoryWithFluentScanner.cs" />
-    <Compile Include="Atm\content\Bddify.Samples.Atm\CardHasBeenDisabled.cs" />
+    <Compile Include="Atm\AccountHasInsufficientFund.cs" />
+    <Compile Include="Atm\AccountHasSufficientFunds.cs" />
+    <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
+    <Compile Include="Atm\Atm.cs" />
+    <Compile Include="Atm\AtmStoryWithFluentScanner.cs" />
+    <Compile Include="Atm\CardHasBeenDisabled.cs" />
     <Compile Include="Bowling\content\Bddify.Samples.Bowling\AllSpares.cs" />
     <Compile Include="Bowling\content\Bddify.Samples.Bowling\Game.cs" />
     <Compile Include="Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs" />
