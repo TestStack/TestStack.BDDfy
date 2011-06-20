@@ -1,3 +1,4 @@
+using System;
 using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
@@ -26,6 +27,11 @@ namespace Bddify.Samples.TicTacToe
             {
                 return string.Format("({0}, {1})", Row, Col);
             }
+        }
+
+        public TicTacToeStoryWithFluentScanner()
+        {
+            Console.WriteLine("hello I am being instantiated");
         }
 
         public void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdrow)

@@ -38,6 +38,16 @@ namespace Bddify.Core
             StepAction = testObject => stepMethod.Invoke(testObject, _inputArguments);
         }
 
+        public ExecutionStep(
+            Action<object> stepAction,
+            string readableMethodName, 
+            bool asserts, 
+            ExecutionOrder executionOrder,
+            bool shouldReport) : this(readableMethodName, asserts, executionOrder, shouldReport)
+        {
+            StepAction = stepAction;
+        }
+
         // these two variables are kept only for equality comparison
         readonly object[] _inputArguments;
         readonly MethodInfo _stepMethod;

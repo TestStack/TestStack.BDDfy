@@ -71,11 +71,7 @@ namespace Bddify.Reporters
         }
 #endif
 
-#if !NET35
         void ReportOnStep(ExecutionStep step, bool reportOnException = false)
-#else
-        void ReportOnStep(ExecutionStep step, bool reportOnException)
-#endif
         {
             var message =
                 string.Format
