@@ -181,7 +181,7 @@ namespace Bddify.Samples.TicTacToe
             FluentStepScanner<TicTacToeStoryWithFluentScanner>
                 .Scan()
                 .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
-                .Then(s => ThenTheWinnerShouldBe(expectedWinner))
+                .Then(s => s.ThenTheWinnerShouldBe(expectedWinner))
                 .Bddify();
         }
     }
