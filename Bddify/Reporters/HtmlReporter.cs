@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Bddify.Core;
-#if !NET35
+#if !(NET35 || SILVERLIGHT)
 using RazorEngine;
 using RazorEngine.Templating;
 #endif
@@ -21,6 +21,16 @@ namespace Bddify.Reporters
             get { return ProcessType.Report; }
         }
 
+        public void Process(Story story)
+        {
+            Stories.Add(story);
+        }
+
+#if NET35 || SILVERLIGHT
+        internal static void GenerateHtmlReport()
+        {
+        }
+#else
         static HtmlReporter()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
@@ -34,7 +44,6 @@ namespace Bddify.Reporters
 
         internal static void GenerateHtmlReport()
         {
-#if !NET35
             string report;
             const string error = "There was an error compiling the template";
 
@@ -64,17 +73,9 @@ namespace Bddify.Reporters
             }
 
             File.WriteAllText(FileName, report);
-#endif
         }
 
-        public void Process(Story story)
-        {
-            Stories.Add(story);
-        }
-
-#if !NET35
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
-#endif
         private static readonly string FileName = Path.Combine(AssemblyDirectory, "bddify.html");
 
         static string GetHtmlTemplate()
@@ -100,5 +101,6 @@ namespace Bddify.Reporters
                 return Path.GetDirectoryName(path);
             }
         }
+#endif
     }
 }

@@ -17,6 +17,7 @@ namespace Bddify.Processors
     
         static ExceptionProcessor()
         {
+#if !SILVERLIGHT
             var exceptionType = typeof(Exception);
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
@@ -39,6 +40,7 @@ namespace Bddify.Processors
                     }
                 }
             }
+#endif
 
             BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
         }
