@@ -10,3 +10,4 @@ glob:*.dll
 glob:*.csproj.user
 glob:Build/*
 glob:TestResult.xml
+glob:Bddify.sln.docstates
