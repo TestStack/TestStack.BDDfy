@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
@@ -24,6 +25,17 @@ namespace Bddify.Tests.FluentStepScanner
         private int _primitiveInput2;
         private string _primitiveInput1;
         private SomeEnumForTesting _enumInput;
+        private Action _action;
+
+        public void GivenAnAction(Action actionInput)
+        {
+            _action = actionInput;    
+        }
+
+        public void ThenCallingTheActionThrows<T>() where T : Exception
+        {
+            Assert.Throws<T>(() => _action());
+        }
 
         public void GivenPrimitiveInputs(string input1, int input2)
         {
@@ -294,6 +306,31 @@ namespace Bddify.Tests.FluentStepScanner
 
             var scenario = story.Scenarios.First();
             Assert.That(scenario.ScenarioText, Is.EqualTo(dummyTitle));
+        }
+
+        private void ExceptionThrowingAction()
+        {
+            throw new ApplicationException(); ;
+        }
+
+        [Test]
+        public void CanPassActionToFluentApi()
+        {
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
+                .Given(x => x.GivenAnAction(ExceptionThrowingAction))
+                .Then(x => x.ThenCallingTheActionThrows<ApplicationException>())
+                .Bddify();
+        }
+
+        [Test]
+        public void CanPassActionAndTitleToFluentApi()
+        {
+            FluentStepScanner<BddifyUsingFluentApi>
+                .Scan()
+                .Given(x => x.GivenAnAction(ExceptionThrowingAction), "Given an action that throws AppliationException")
+                .Then(x => x.ThenCallingTheActionThrows<ApplicationException>(), "Then calling the action does throw that exception")
+                .Bddify();
         }
     }
 }

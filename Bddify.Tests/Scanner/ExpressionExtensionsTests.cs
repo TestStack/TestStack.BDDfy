@@ -142,9 +142,9 @@ namespace Bddify.Tests.Scanner
         }
         
         [Test]
-        public void InputArgumentsProvidedUsingMethodCallThrowsException()
+        public void InputArgumentsProvidedUsingMethodCallDoesNotThrow()
         {
-            Assert.Throws<InvalidOperationException>(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test"))));
+            Assert.DoesNotThrow(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test"))));
         }
 
         [Test]
