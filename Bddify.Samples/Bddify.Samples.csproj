@@ -39,23 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="AssemblyRunner\Bddify.Samples.AssemblyRunner.nuspec" />
-    <None Include="AssemblyRunner\content\Bddify.Samples.AssemblyRunner\Run.cs.pp" />
-    <None Include="AssemblyRunner\content\Bddify.Samples.AssemblyRunner\SomeIncompleteTest.cs.pp" />
-    <None Include="AssemblyRunner\content\Bddify.Samples.AssemblyRunner\WhenTwoNumbersAreAdded.cs.pp" />
-    <None Include="AssemblyRunner\content\Bddify.Samples.AssemblyRunner\WhenTwoNumbersAreMultiplied.cs.pp" />
-    <None Include="AssemblyRunner\content\Bddify.Samples.AssemblyRunner\WhenTwoNumbersAreSubtracted.cs.pp" />
     <None Include="Atm\Bddify.Samples.Atm.nuspec" />
     <None Include="Bowling\Bddify.Samples.Bowling.nuspec" />
-    <None Include="MsTest\Bddify.Samples.MsTest.nuspec" />
-    <None Include="MsTest\content\Bddify.Samples.MsTest\ScenarioWithMixedSteps.cs.pp" />
     <None Include="NUnit\Bddify.Samples.NUnit.nuspec" />
     <None Include="TicTacToe\Bddify.Samples.TicTacToe.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MsTest\content\Bddify.Samples.MsTest\FailingTestWithScenarioArguments.cs.pp" />
-    <None Include="MsTest\content\Bddify.Samples.MsTest\SomeFailingTest.cs.pp" />
-    <None Include="MsTest\content\Bddify.Samples.MsTest\SomeIncompleteTest.cs.pp" />
     <None Include="NUnit\content\Bddify.Samples.NUnit\FailingTestWithScenarioArguments.cs.pp" />
     <None Include="NUnit\content\Bddify.Samples.NUnit\ScenarioWithMixedSteps.cs.pp" />
     <None Include="NUnit\content\Bddify.Samples.NUnit\SomeFailingTest.cs.pp" />
@@ -67,7 +56,6 @@
   <ItemGroup>
     <Content Include="Atm\content\Bddify.Samples.Atm\ReadMe.txt" />
     <Content Include="Bowling\content\Bddify.Samples.Bowling\ReadMe.txt" />
-    <Content Include="MsTest\content\Bddify.Samples.MsTest\ReadMe.txt" />
     <Content Include="NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
     <Content Include="TicTacToe\content\Bddify.Samples.TicTacToe\ReadMe.txt" />
   </ItemGroup>

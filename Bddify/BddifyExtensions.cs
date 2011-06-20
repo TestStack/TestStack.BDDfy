@@ -1,27 +1,14 @@
 using System;
-using System.Reflection;
 using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Bddify
 {
     public static class BddifyExtensions
     {
-        public static void Bddify(this Assembly assmebly, Predicate<Type> shouldBddify, bool htmlReport = true, bool consoleReport = true)
-        {
-            foreach (var testType in assmebly.GetTypes().Where(t => shouldBddify(t)))
-            {
-                // should not handle exceptions in this case
-                testType.Bddify(null, true, htmlReport, consoleReport, null);
-            }
-
-            HtmlReporter.GenerateHtmlReport();
-        }
-
 #if NET35
         public static Story Bddify(this Type testType)
         {
