@@ -39,10 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Atm\Bddify.Samples.Atm.nuspec" />
-    <None Include="Bowling\Bddify.Samples.Bowling.nuspec" />
     <None Include="NUnit\Bddify.Samples.NUnit.nuspec" />
-    <None Include="TicTacToe\Bddify.Samples.TicTacToe.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NUnit\content\Bddify.Samples.NUnit\FailingTestWithScenarioArguments.cs.pp" />
