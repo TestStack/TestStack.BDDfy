@@ -55,9 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Atm\ReadMe.txt" />
-    <Content Include="Bowling\content\Bddify.Samples.Bowling\ReadMe.txt" />
+    <Content Include="Bowling\ReadMe.txt" />
     <Content Include="NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
-    <Content Include="TicTacToe\content\Bddify.Samples.TicTacToe\ReadMe.txt" />
+    <Content Include="TicTacToe\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Atm\AccountHasInsufficientFund.cs" />
@@ -66,24 +66,24 @@
     <Compile Include="Atm\Atm.cs" />
     <Compile Include="Atm\AtmStoryWithFluentScanner.cs" />
     <Compile Include="Atm\CardHasBeenDisabled.cs" />
-    <Compile Include="Bowling\content\Bddify.Samples.Bowling\AllSpares.cs" />
-    <Compile Include="Bowling\content\Bddify.Samples.Bowling\Game.cs" />
-    <Compile Include="Bowling\content\Bddify.Samples.Bowling\OneSingleSpare.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\CatsGame.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\DiagonalWin.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\Game.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\Helpers.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWin.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheBottom.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\HorizontalWinInTheMiddle.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\OWins.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\TicTacToeStory.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\TicTacToeStoryWithFluentScanner.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheLeft.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheMiddle.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\VerticalWinInTheRight.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\WhenXAndOPlayTheirFirstMoves.cs" />
-    <Compile Include="TicTacToe\content\Bddify.Samples.TicTacToe\XWins.cs" />
+    <Compile Include="Bowling\AllSpares.cs" />
+    <Compile Include="Bowling\Game.cs" />
+    <Compile Include="Bowling\OneSingleSpare.cs" />
+    <Compile Include="TicTacToe\CatsGame.cs" />
+    <Compile Include="TicTacToe\DiagonalWin.cs" />
+    <Compile Include="TicTacToe\Game.cs" />
+    <Compile Include="TicTacToe\Helpers.cs" />
+    <Compile Include="TicTacToe\HorizontalWin.cs" />
+    <Compile Include="TicTacToe\HorizontalWinInTheBottom.cs" />
+    <Compile Include="TicTacToe\HorizontalWinInTheMiddle.cs" />
+    <Compile Include="TicTacToe\OWins.cs" />
+    <Compile Include="TicTacToe\TicTacToeStory.cs" />
+    <Compile Include="TicTacToe\TicTacToeStoryWithFluentScanner.cs" />
+    <Compile Include="TicTacToe\VerticalWinInTheLeft.cs" />
+    <Compile Include="TicTacToe\VerticalWinInTheMiddle.cs" />
+    <Compile Include="TicTacToe\VerticalWinInTheRight.cs" />
+    <Compile Include="TicTacToe\WhenXAndOPlayTheirFirstMoves.cs" />
+    <Compile Include="TicTacToe\XWins.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=2.5.6.10205, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
