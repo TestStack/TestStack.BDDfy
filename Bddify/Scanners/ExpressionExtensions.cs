@@ -91,7 +91,7 @@ namespace Bddify.Scanners
 
         private static IEnumerable<object> ExtractNonConvertibleArrayConstants(NewArrayExpression newArrayExpression, Type type)
         {
-            var arrayElements = new ArrayList();
+            var arrayElements = CreateList(type);
             foreach (var arrayElementExpression in newArrayExpression.Expressions)
             {
                 object arrayElement;
@@ -110,19 +110,30 @@ namespace Bddify.Scanners
                     arrayElements.Add(arrayElement);
             }
 
-            yield return arrayElements.ToArray(type);
+            return ToArray(arrayElements);
+        }
+
+        private static IEnumerable<object> ToArray(IList list)
+        {
+            var toArrayMethod = list.GetType().GetMethod("ToArray");
+            yield return toArrayMethod.Invoke(list, new Type[] { });
+        }
+
+        private static IList CreateList(Type type)
+        {
+            return (IList)typeof(List<>).MakeGenericType(type).GetConstructor(new Type[0]).Invoke(BindingFlags.CreateInstance, null, null, null);
         }
 
         private static IEnumerable<object> ExtractConvertibleTypeArrayConstants(NewArrayExpression newArrayExpression, Type type)
         {
-            var arrayElements = new ArrayList();
+            var arrayElements = CreateList(type);
             foreach (var arrayElementExpression in newArrayExpression.Expressions)
             {
                 var arrayElement = ((ConstantExpression)arrayElementExpression).Value;
-                arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type));
+                arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type, null));
             }
 
-            yield return arrayElements.ToArray(type);
+            yield return ToArray(arrayElements);
         }
 
         private static IEnumerable<object> ExtractConstants(ConstantExpression constantExpression)
