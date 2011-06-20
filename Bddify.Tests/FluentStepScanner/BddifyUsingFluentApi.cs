@@ -310,7 +310,7 @@ namespace Bddify.Tests.FluentStepScanner
 
         private void ExceptionThrowingAction()
         {
-            throw new ApplicationException(); ;
+            throw new ApplicationException();
         }
 
         [Test]
