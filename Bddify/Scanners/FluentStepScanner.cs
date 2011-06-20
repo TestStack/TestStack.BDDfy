@@ -104,9 +104,8 @@ namespace Bddify.Scanners
                 readableMethodName = readableMethodName + " " + string.Join(", ", flatInputArray);
 
             readableMethodName = readableMethodName.Trim();
-            //var action = stepAction.Compile();
-            //_steps.Add(new ExecutionStep(o => action((TScenario)o), readableMethodName, asserts, executionOrder, reports));
-            _steps.Add(new ExecutionStep(methodInfo, inputArguments, readableMethodName, asserts, executionOrder, reports));
+            var action = stepAction.Compile();
+            _steps.Add(new ExecutionStep(o => action((TScenario)o), readableMethodName, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
@@ -182,12 +181,12 @@ namespace Bddify.Scanners
         public Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
         {
             if (title == null)
-                title = GetTitleFromMethodName();
+                title = GetTitleFromMethodNameInStackTrace();
 
             return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
         }
 
-        private string GetTitleFromMethodName()
+        private static string GetTitleFromMethodNameInStackTrace()
         {
             var trace = new StackTrace();
             var frames = trace.GetFrames();

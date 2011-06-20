@@ -48,7 +48,7 @@ namespace Bddify.Scanners
             if (unaryExpression != null)
                 return ExtractConstants(unaryExpression);
 
-            throw new InvalidOperationException("Could not fetch the arguments from the provided expression. This may be a bug so please report it.");
+            return new object[0];
         }
 
         private static IEnumerable<object> ExtractConstants(MethodCallExpression methodCallExpression)
