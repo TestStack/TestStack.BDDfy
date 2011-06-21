@@ -29,11 +29,6 @@ namespace Bddify.Samples.TicTacToe
             }
         }
 
-        public TicTacToeStoryWithFluentScanner()
-        {
-            Console.WriteLine("hello I am being instantiated");
-        }
-
         public void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdrow)
         {
             Game = new Game(firstRow, secondRow, thirdrow);
