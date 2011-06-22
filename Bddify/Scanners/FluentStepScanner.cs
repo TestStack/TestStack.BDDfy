@@ -1,3 +1,4 @@
+#if !SILVERLIGHT
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -281,3 +282,4 @@ namespace Bddify.Scanners
     {
     }
 }
+#endif
