@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="Release" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
+
+  <PropertyGroup>
+    <Version Condition="$(Version)==''">0.0.0.0</Version>
+    <BuildPath>$(MSBuildProjectDirectory)\Build</BuildPath>
+    <ArtifactPath>$(BuildPath)\Library</ArtifactPath>
+    <PackageDefinitionSourcePath>$(MSBuildProjectDirectory)\NuGet</PackageDefinitionSourcePath>
+    <PackageWorkingPath>$(MSBuildProjectDirectory)\PackageBuild</PackageWorkingPath>
+    <ArtifactTemp>$(PackageWorkingPath)\Library</ArtifactTemp>
+    <PackageDefinitionPath>$(PackageWorkingPath)\PackageTemp</PackageDefinitionPath>
+    <NuGetExe>"$(MSBuildProjectDirectory)\Resource\Tool\NuGet\NuGet.exe"</NuGetExe>
+    <BddifyBuild>$(MSBuildProjectDirectory)\Bddify.build</BddifyBuild>
+    <PackageOutput>$(PackageWorkingPath)\Packages</PackageOutput>
+    <ZipPath>$(BuildPath)\_Package</ZipPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BddifySamplesPath>$(MSBuildProjectDirectory)\Bddify.Samples</BddifySamplesPath>
+    <BddifySpecPath>$(PackageDefinitionPath)\Bddify</BddifySpecPath>
+    <BddifySpec>$(BddifySpecPath)\Bddify.nuspec</BddifySpec>
+    <SamplesAtmSpecPath>$(PackageDefinitionPath)\Bddify.Samples.Atm</SamplesAtmSpecPath>
+    <SamplesAtmSpec>$(SamplesAtmSpecPath)\Bddify.Samples.Atm.nuspec</SamplesAtmSpec>
+    <SamplesBowlingSpecPath>$(PackageDefinitionPath)\Bddify.Samples.Bowling</SamplesBowlingSpecPath>
+    <SamplesBowlingSpec>$(SamplesBowlingSpecPath)\Bddify.Samples.Bowling.nuspec</SamplesBowlingSpec>
+    <SamplesTicSpecPath>$(PackageDefinitionPath)\Bddify.Samples.TicTacToe</SamplesTicSpecPath>
+    <SamplesTicSpec>$(SamplesTicSpecPath)\Bddify.Samples.TicTacToe.nuspec</SamplesTicSpec>
+</PropertyGroup>
+
+  <Target Name="Clean">
+    <RemoveDir Directories="$(PackageWorkingPath)" />
+  </Target>
+
+  <Target Name="Prepare">
+    <MakeDir Directories="$(PackageWorkingPath)" ContinueOnError="true" />
+  </Target>
+
+  <Target Name="Net40Build">
+    <MSBuild Projects="$(BddifyBuild)" Properties="Version=$(Version);BuildFramework=" Targets="Release" />
+    <MakeDir Directories="$(ArtifactTemp)\NET40"/>
+    <CreateItem Include="$(ArtifactPath)\*.*">
+      <Output ItemName="Net40Artifact" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(Net40Artifact)" DestinationFolder="$(ArtifactTemp)\NET40" />
+    <Copy SourceFiles="$(ZipPath)\Bddify-$(Version)-NET40.zip" DestinationFolder="$(PackageOutput)" />
+  </Target>
+
+  <Target Name="Net35Build">
+    <MSBuild Projects="$(BddifyBuild)" Properties="Version=$(Version);BuildFramework=NET35" Targets="Release" />
+    <MakeDir Directories="$(ArtifactTemp)\NET35"/>
+    <CreateItem Include="$(ArtifactPath)\*.*">
+      <Output ItemName="Net35Artifact" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(Net35Artifact)" DestinationFolder="$(ArtifactTemp)\NET35" />
+    <Copy SourceFiles="$(ZipPath)\Bddify-$(Version)-NET35.zip" DestinationFolder="$(PackageOutput)" />
+  </Target>
+
+  <Target Name="Sl4Build">
+    <MSBuild Projects="$(BddifyBuild)" Properties="Version=$(Version);BuildFramework=SL4" Targets="Release" />
+    <MakeDir Directories="$(ArtifactTemp)\SL4"/>
+    <CreateItem Include="$(ArtifactPath)\*.*">
+      <Output ItemName="Sl4Artifact" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(Sl4Artifact)" DestinationFolder="$(ArtifactTemp)\SL4" />
+    <Copy SourceFiles="$(ZipPath)\Bddify-$(Version)-SL4.zip" DestinationFolder="$(PackageOutput)" />
+  </Target>
+  
+  <Target Name="Build">
+    <CallTarget Targets="Net40Build" />
+    <CallTarget Targets="Net35Build" />
+    <CallTarget Targets="Sl4Build" />
+  </Target>
+
+  <Target Name="CopyNuspecFiles">
+    <Copy SourceFiles="PackageDefinitionSourcePath" DestinationFolder="$(PackageDefinitionPath)" />
+  </Target>
+  
+  <Target Name="CopyBddifyLibs">
+    <Copy SourceFiles="$(ArtifactTemp)\NET40\Bddify.dll;$(ArtifactTemp)\NET40\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\NET40"  />
+    <Copy SourceFiles="$(ArtifactTemp)\NET35\Bddify.dll;$(ArtifactTemp)\NET35\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\NET35"  />
+    <Copy SourceFiles="$(ArtifactTemp)\SL4\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\SL4"  />
+  </Target>
+
+  <Target Name="CopyBddifyAtmSampleFiles">
+    <Copy SourceFiles="$(BddifySamplesPath)\Atm\AccountHasInsufficientFund.cs;$(BddifySamplesPath)\Atm\AccountHasSufficientFunds.cs;$(BddifySamplesPath)\Atm\AccountHolderWithdrawsCash.cs" 
+          DestinationFolder="$(SamplesAtmSpecPath)\content\Bddify.Samples.Atm"  />
+  </Target>
+
+  <Target Name="CopyBddifyBowlingSampleFiles">
+    <Copy SourceFiles="$(BddifySamplesPath)\Bowling\AllSpares.cs" DestinationFolder="$(SamplesBowlingSpecPath)\content\Bddify.Samples.Bowling"  />
+  </Target>
+
+  <Target Name="CopyBddifyTicSampleFiles">
+    <Copy SourceFiles="$(BddifySamplesPath)\TicTacToe\Game.cs" DestinationFolder="$(SamplesTicSpecPath)\content\Bddify.Samples.TicTacToe"  />
+  </Target>
+
+  <Target Name="Pack">
+    <CreateItem Include="$(PackageDefinitionSourcePath)\**\*.*">
+      <Output ItemName="PackageContent" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(PackageContent)" DestinationFiles="@(PackageContent->'$(PackageDefinitionPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <CreateItem Include="$(BddifySpec);$(SamplesAtmSpec);$(SamplesBowlingSpec);$(SamplesTicSpec);">
+      <Output ItemName="NuGetSpec" TaskParameter="Include"/>
+    </CreateItem>
+    <FileUpdate Files="@(NuGetSpec)" Regex="0\.0\.0\.0" ReplacementText="$(Version)" />
+    <CallTarget Targets="CopyBddifyLibs;CopyBddifyAtmSampleFiles;CopyBddifyBowlingSampleFiles;CopyBddifyTicSampleFiles;" />
+    <MakeDir Directories="$(PackageOutput)" ContinueOnError="true"/>
+    <Exec Command='$(NuGetExe) pack "%(NuGetSpec.FullPath)"' WorkingDirectory="$(PackageOutput)"/>
+  </Target>
+
+  <Target Name="Release" DependsOnTargets="Clean;Prepare;Build;Pack"/>
+  
+</Project>

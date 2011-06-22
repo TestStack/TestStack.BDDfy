@@ -112,10 +112,6 @@
     <Copy SourceFiles="@(licenseFiles)" DestinationFolder="$(LicensePath)" />
   </Target>
 
-  <Target Name="Config">
-    <Message Text="This sub-solution does not need configuration" />
-  </Target>
-
   <Target Name="Test" DependsOnTargets="Build;Copy" Condition="$(TargetFrameworkIdentifier) != 'Silverlight'">
     <CreateItem Include="$(TestPath)\Bddify.Tests.dll;$(TestPath)\Bddify.Samples.dll">
       <Output ItemName="_testFiles" TaskParameter="Include"/>
@@ -123,7 +119,7 @@
     <Exec Command="$(NUnitConsole) @(_testFiles->'&quot;%(FullPath)&quot;', ' ') /nologo /noshadow"></Exec>
   </Target>
 
-  <Target Name="Distrib" DependsOnTargets="Clean;Build;Copy;Config">
+  <Target Name="Distrib" DependsOnTargets="Clean;Build;Copy">
     <MakeDir Directories="$(PackageDirectory)" />
 
     <!-- Archive-->
