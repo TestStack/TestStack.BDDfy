@@ -24,8 +24,8 @@
     <SamplesAtmSpec>$(SamplesAtmSpecPath)\Bddify.Samples.Atm.nuspec</SamplesAtmSpec>
     <SamplesBowlingSpecPath>$(PackageDefinitionPath)\Bddify.Samples.Bowling</SamplesBowlingSpecPath>
     <SamplesBowlingSpec>$(SamplesBowlingSpecPath)\Bddify.Samples.Bowling.nuspec</SamplesBowlingSpec>
-    <SamplesTicSpecPath>$(PackageDefinitionPath)\Bddify.Samples.TicTacToe</SamplesTicSpecPath>
-    <SamplesTicSpec>$(SamplesTicSpecPath)\Bddify.Samples.TicTacToe.nuspec</SamplesTicSpec>
+    <SamplesTicTacToeSpecPath>$(PackageDefinitionPath)\Bddify.Samples.TicTacToe</SamplesTicTacToeSpecPath>
+    <SamplesTicSpec>$(SamplesTicTacToeSpecPath)\Bddify.Samples.TicTacToe.nuspec</SamplesTicSpec>
 </PropertyGroup>
 
   <Target Name="Clean">
@@ -83,16 +83,24 @@
   </Target>
 
   <Target Name="CopyBddifyAtmSampleFiles">
-    <Copy SourceFiles="$(BddifySamplesPath)\Atm\AccountHasInsufficientFund.cs;$(BddifySamplesPath)\Atm\AccountHasSufficientFunds.cs;$(BddifySamplesPath)\Atm\AccountHolderWithdrawsCash.cs" 
-          DestinationFolder="$(SamplesAtmSpecPath)\content\Bddify.Samples.Atm"  />
+    <CreateItem Include="$(BddifySamplesPath)\Atm\*.*">
+      <Output ItemName="AtmSampleFile" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(AtmSampleFile)" DestinationFiles="@(AtmSampleFile->'$(SamplesAtmSpecPath)\content\Bddify.Samples.Atm\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="CopyBddifyBowlingSampleFiles">
-    <Copy SourceFiles="$(BddifySamplesPath)\Bowling\AllSpares.cs" DestinationFolder="$(SamplesBowlingSpecPath)\content\Bddify.Samples.Bowling"  />
+    <CreateItem Include="$(BddifySamplesPath)\Bowling\*.*">
+      <Output ItemName="BowlingSampleFile" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(BowlingSampleFile)" DestinationFiles="@(BowlingSampleFile->'$(SamplesBowlingSpecPath)\content\Bddify.Samples.Bowling\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="CopyBddifyTicSampleFiles">
-    <Copy SourceFiles="$(BddifySamplesPath)\TicTacToe\Game.cs" DestinationFolder="$(SamplesTicSpecPath)\content\Bddify.Samples.TicTacToe"  />
+    <CreateItem Include="$(BddifySamplesPath)\TicTacToe\*.*">
+      <Output ItemName="TicSampleFile" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(TicSampleFile)" DestinationFiles="@(TicSampleFile->'$(SamplesTicTacToeSpecPath)\content\Bddify.Samples.TicTacToe\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="Pack">

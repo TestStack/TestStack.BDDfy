@@ -19,19 +19,31 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bddify.Tests.MsTest", "Bddify.Tests.MsTest\Bddify.Tests.MsTest.csproj", "{9C328349-F7BD-49F1-B7A8-EA09AF135D2A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{AA269083-ED8A-406E-AB02-8F80B7B74A26}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet\Bddify.nuspec = NuGet\Bddify.nuspec
-		NuGet\Bddify.ReadMe.txt = NuGet\Bddify.ReadMe.txt
-		NuGet\Bddify.Samples.Atm.nuspec = NuGet\Bddify.Samples.Atm.nuspec
-		NuGet\Bddify.Samples.Bowling.nuspec = NuGet\Bddify.Samples.Bowling.nuspec
-		NuGet\Bddify.Samples.TicTacToe.nuspec = NuGet\Bddify.Samples.TicTacToe.nuspec
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bddify", "Bddify", "{302859D2-2B1B-44DC-8498-81E588921CBD}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Bddify\Bddify.nuspec = NuGet\Bddify\Bddify.nuspec
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B5264F7-5047-4DFF-B84B-D73865DB61A1}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Bddify\content\Bddify.ReadMe.txt = NuGet\Bddify\content\Bddify.ReadMe.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bddify.Samples.Atm", "Bddify.Samples.Atm", "{E8753E3B-8534-4C10-B83F-DEEC483B68B4}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec = NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bddify.Samples.Bowling", "Bddify.Samples.Bowling", "{F43AD39C-AD8D-4370-B6EB-D2F2FB94B913}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Bddify.Samples.Bowling\Bddify.Samples.Bowling.nuspec = NuGet\Bddify.Samples.Bowling\Bddify.Samples.Bowling.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bddify.Samples.TicTacToe", "Bddify.Samples.TicTacToe", "{4C6BABE2-350D-4881-B6B6-50D9F82D9FBE}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Bddify.Samples.TicTacToe\Bddify.Samples.TicTacToe.nuspec = NuGet\Bddify.Samples.TicTacToe\Bddify.Samples.TicTacToe.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +157,8 @@ Global
 		{AA269083-ED8A-406E-AB02-8F80B7B74A26} = {8F515887-AAB5-4873-8BE9-5AB10685EBCB}
 		{302859D2-2B1B-44DC-8498-81E588921CBD} = {AA269083-ED8A-406E-AB02-8F80B7B74A26}
 		{E8753E3B-8534-4C10-B83F-DEEC483B68B4} = {AA269083-ED8A-406E-AB02-8F80B7B74A26}
+		{F43AD39C-AD8D-4370-B6EB-D2F2FB94B913} = {AA269083-ED8A-406E-AB02-8F80B7B74A26}
+		{4C6BABE2-350D-4881-B6B6-50D9F82D9FBE} = {AA269083-ED8A-406E-AB02-8F80B7B74A26}
 		{8B5264F7-5047-4DFF-B84B-D73865DB61A1} = {302859D2-2B1B-44DC-8498-81E588921CBD}
 	EndGlobalSection
 EndGlobal
