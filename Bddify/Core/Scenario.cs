@@ -60,22 +60,22 @@ namespace Bddify.Core
             }
             catch (Exception ex)
             {
-                if (ex.InnerException == null)
-                    throw;
+                // ToDo: more thought should be put into this. Is it safe to get the exception?
+                var exception = ex.InnerException ?? ex;
 
-                if (ex.InnerException is NotImplementedException)
+                if (exception is NotImplementedException)
                 {
                     executionStep.Result = StepExecutionResult.NotImplemented;
-                    executionStep.Exception = ex.InnerException;
+                    executionStep.Exception = exception;
                 }
-                else if (IsInconclusive(ex.InnerException))
+                else if (IsInconclusive(exception))
                 {
                     executionStep.Result = StepExecutionResult.Inconclusive;
-                    executionStep.Exception = ex.InnerException;
+                    executionStep.Exception = exception;
                 }
                 else
                 {
-                    executionStep.Exception = ex.InnerException;
+                    executionStep.Exception = exception;
                     executionStep.Result = StepExecutionResult.Failed;
                 }
             }
