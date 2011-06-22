@@ -17,16 +17,6 @@ namespace Bddify.Reporters
 
         public void Process(Story story)
         {
-            var reporterRegistry
-                = new Dictionary<StepExecutionResult, Action<ExecutionStep>>
-                          {
-                              {StepExecutionResult.Passed, s => ReportOnStep(s)},
-                              {StepExecutionResult.Failed, s => ReportOnStep(s, true)},
-                              {StepExecutionResult.Inconclusive, s => ReportOnStep(s)},
-                              {StepExecutionResult.NotImplemented, s => ReportOnStep(s, true)},
-                              {StepExecutionResult.NotExecuted, s => ReportOnStep(s)}
-                          };
-
             ReportStoryHeader(story);
 
             var allSteps = story.Scenarios.SelectMany(s => s.Steps);
@@ -40,7 +30,7 @@ namespace Bddify.Reporters
                 if (scenario.Steps.Any())
                 {
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                        reporterRegistry[step.Result](step);
+                        ReportOnStep(scenario, step);
                 }
             }
 
@@ -71,7 +61,7 @@ namespace Bddify.Reporters
         }
 #endif
 
-        void ReportOnStep(ExecutionStep step, bool reportOnException = false)
+        void ReportOnStep(Scenario scenario, ExecutionStep step)
         {
             var message =
                 string.Format
@@ -79,7 +69,11 @@ namespace Bddify.Reporters
                     step.ReadableMethodName.PadRight(_longestStepSentence + 5),
                     NetToString.Convert(step.Result.ToString()));
 
-            if(reportOnException)
+            // if all the steps have passed, there is no reason to make noise
+            if (scenario.Result == StepExecutionResult.Passed)
+                message = "\t" + step.ReadableMethodName;
+
+            if(step.Exception != null)
             {
                 _exceptions.Add(step.Exception);
 
