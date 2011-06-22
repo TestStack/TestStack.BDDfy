@@ -54,13 +54,6 @@ namespace Bddify.Reporters
             Console.WriteLine("\t" + story.MetaData.SoThat);
         }
 
-#if NET35
-        void ReportOnStep(ExecutionStep step)
-        {
-            ReportOnStep(step, false);
-        }
-#endif
-
         void ReportOnStep(Scenario scenario, ExecutionStep step)
         {
             var message =
