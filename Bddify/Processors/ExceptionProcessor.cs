@@ -81,9 +81,11 @@ namespace Bddify.Processors
         // http://weblogs.asp.net/fmarguerie/archive/2008/01/02/rethrowing-exceptions-and-preserving-the-full-call-stack-trace.aspx
         private static void PreserveStackTrace(Exception exception)
         {
+#if !SILVERLIGHT
             MethodInfo preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
               BindingFlags.Instance | BindingFlags.NonPublic);
             preserveStackTrace.Invoke(exception, null);
+#endif
         }
 
         public void Process(Story story)
