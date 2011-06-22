@@ -1,10 +1,5 @@
 using System;
 using Bddify.Core;
-using Bddify.Processors;
-using Bddify.Reporters;
-using Bddify.Scanners;
-using Bddify.Scanners.GwtAttributes;
-using NUnit.Framework;
 using System.Linq;
 
 namespace Bddify.Tests.Exceptions
@@ -67,15 +62,7 @@ namespace Bddify.Tests.Exceptions
                     break;
             }
 
-            var bddify = new Bddifier(
-                typeof(ExceptionThrowingTest<T>),
-                new DefaultScanner(new ScanForScenarios(new[] {new DefaultMethodNameStepScanner()})),
-                new IProcessor[]
-                    {
-                        new TestRunner(), 
-                        new ConsoleReporter(),
-                        new ExceptionProcessor(),
-                    });
+            var bddify = typeof(ExceptionThrowingTest<T>).LazyBddify();
             try
             {
                 bddify.Run();
