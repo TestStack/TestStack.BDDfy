@@ -1,7 +1,6 @@
 #if !SILVERLIGHT
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -11,7 +10,7 @@ using Bddify.Core;
 namespace Bddify.Scanners
 {
     public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
-        where TScenario:class, new()
+        where TScenario : class, new()
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
 
@@ -27,7 +26,7 @@ namespace Bddify.Scanners
 
         IEnumerable<ExecutionStep> IScanForSteps.Scan(Type scenarioType)
         {
-            if(scenarioType != typeof(TScenario))
+            if (scenarioType != typeof(TScenario))
                 throw new InvalidOperationException("FluentStepScanner is setup to scan " + typeof(TScenario).Name + " but is being asked to scan " + scenarioType.Name);
 
             return _steps;
@@ -98,7 +97,7 @@ namespace Bddify.Scanners
         }
 #endif
 
-        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
+        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true)
         {
             var methodInfo = GetMethodInfo(stepAction);
             var inputArguments = stepAction.ExtractConstants().ToArray();
@@ -204,7 +203,7 @@ namespace Bddify.Scanners
         {
             var trace = new StackTrace();
             var frames = trace.GetFrames();
-            if(frames == null)
+            if (frames == null)
                 return null;
 
             var initiatingFrame = frames.LastOrDefault(s => s.GetMethod().DeclaringType == typeof(TScenario));
@@ -212,24 +211,6 @@ namespace Bddify.Scanners
                 return null;
 
             return NetToString.Convert(initiatingFrame.GetMethod().Name);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 
