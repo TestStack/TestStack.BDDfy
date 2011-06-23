@@ -1,6 +1,4 @@
 using System;
-using Bddify.Core;
-using NUnit.Framework;
 
 namespace Bddify.Tests.Exceptions.OtherExceptions
 {

@@ -6,46 +6,98 @@ namespace Bddify.Tests.Exceptions.OtherExceptions
 {
     public class WhenGivenThrowsException : OtherExceptionBase
     {
-        [SetUp]
-        public void SetupContext()
+        private void ExecuteUsingReflectingScanners()
         {
-            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Given));
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Given, false));
+        }
+
+        private void ExecuteUsingFluentScanners()
+        {
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Given, true));
         }
 
         [Test]
-        public void GivenShouldBeReportedAsFailed()
+        public void GivenShouldBeReportedAsFailedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Failed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertGivenStepResult(StepExecutionResult.Failed);
         }
 
         [Test]
-        public void WhenShouldNotBeExecuted()
+        public void WhenShouldNotBeExecutedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertWhenStepResult(StepExecutionResult.NotExecuted);
         }
 
         [Test]
-        public void ThenShouldNotBeExecuted()
+        public void ThenShouldNotBeExecutedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotExecuted));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertThenStepResult(StepExecutionResult.NotExecuted);
         }
 
         [Test]
-        public void ThenScenarioResultReturnsFailed()
+        public void ScenarioResultReturnsFailedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertScenarioResult(StepExecutionResult.Failed);
         }
 
         [Test]
-        public void ThenStoryResultReturnsFailed()
+        public void StoryResultReturnsFailedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertStoryResult(StepExecutionResult.Failed);
         }
 
         [Test]
-        public void ThenTearDownMethodIsExecuted()
+        public void TearDownMethodIsExecutedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.TearDownStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertTearDownMethodIsExecuted();
+        }
+
+        [Test]
+        public void GivenShouldBeReportedAsFailedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanners();
+            Sut.AssertGivenStepResult(StepExecutionResult.Failed);
+        }
+
+        [Test]
+        public void WhenShouldNotBeExecutedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanners();
+            Sut.AssertWhenStepResult(StepExecutionResult.NotExecuted);
+        }
+
+        [Test]
+        public void ThenShouldNotBeExecutedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanners();
+            Sut.AssertThenStepResult(StepExecutionResult.NotExecuted);
+        }
+
+        [Test]
+        public void ScenarioResultReturnsFailedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanners();
+            Sut.AssertScenarioResult(StepExecutionResult.Failed);
+        }
+
+        [Test]
+        public void StoryResultReturnsFailedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanners();
+            Sut.AssertStoryResult(StepExecutionResult.Failed);
+        }
+
+        [Test]
+        public void TearDownMethodIsExecutedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanners();
+            Sut.AssertTearDownMethodIsExecuted();
         }
     }
 }

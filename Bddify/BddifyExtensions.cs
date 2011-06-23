@@ -14,10 +14,10 @@ namespace Bddify
         {
             return Bddify(testType, null, true, false, true, null);
         }
-
+        
         public static Bddifier LazyBddify(this Type testType)
         {
-            return LazyBddify(testType, null, true, false, true, null);
+            return LazyBddify(testType, false, null, true, true, null);
         }
 #endif
 
@@ -43,10 +43,20 @@ namespace Bddify
             if (stepScanners != null && stepScanners.Length > 0)
                 scanner = new DefaultScanner(new ScanForScenarios(stepScanners, scenarioTextTemplate));
 
-            return testType.LazyBddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, scanner).Run();
+            return testType.LazyBddify(true, exceptionProcessor, handleExceptions, consoleReport, scanner).Run();
         }
 
-        public static Bddifier LazyBddify(this Type testType, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, IScanner scanner = null)
+        public static Bddifier LazyBddify(this Type testType, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
+        {
+            IScanner scanner = null;
+
+            if (stepScanners != null && stepScanners.Length > 0)
+                scanner = new DefaultScanner(new ScanForScenarios(stepScanners, scenarioTextTemplate));
+
+            return testType.LazyBddify(true, scanner:scanner);
+        }
+
+        public static Bddifier LazyBddify(this Type testType, bool htmlReport, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool consoleReport = true, IScanner scanner = null)
         {
             if(typeof(IScanForSteps).IsAssignableFrom(testType))
                 throw new InvalidOperationException("You are calling a wrong overload of bddify. The method you are calling should be called on the test object; not on a scanner.");

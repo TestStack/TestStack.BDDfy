@@ -5,46 +5,98 @@ namespace Bddify.Tests.Exceptions.NotImplementedException
 {
     public class WhenThenThrowsNotImplementedException : NotImplementedExceptionBase
     {
-        [SetUp]
-        public void SetupContext()
+        private void ExecuteUsingReflectingScanners()
         {
-            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethod.Then));
+            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethod.Then, false));
+        }
+
+        private void ExecuteUsingFluentScanner()
+        {
+            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethod.Then, true));
         }
 
         [Test]
-        public void GivenIsReportedAsSuccessful()
+        public void GivenIsReportedAsSuccessfulWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertGivenStepResult(StepExecutionResult.Passed);
         }
 
         [Test]
-        public void WhenIsReportedAsSuccessful()
+        public void WhenIsReportedAsSuccessfulWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertWhenStepResult(StepExecutionResult.Passed);
         }
 
         [Test]
-        public void ThenIsReportedAsNotImplemeneted()
+        public void ThenIsReportedAsNotImplemenetedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertThenStepResult(StepExecutionResult.NotImplemented);
         }
 
         [Test]
-        public void ThenScenarioResultReturnsNoImplemented()
+        public void ScenarioResultReturnsNoImplementedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertScenarioResult(StepExecutionResult.NotImplemented);
         }
 
         [Test]
-        public void ThenStoryResultReturnsNoImplemented()
+        public void StoryResultReturnsNoImplementedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.Story.Result, Is.EqualTo(StepExecutionResult.NotImplemented));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertStoryResult(StepExecutionResult.NotImplemented);
         }
 
         [Test]
-        public void ThenTearDownMethodIsExecuted()
+        public void TearDownMethodIsExecutedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.TearDownStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertTearDownMethodIsExecuted();
+        }
+
+        [Test]
+        public void GivenIsReportedAsSuccessfulWhenUsingFluentScanner()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertGivenStepResult(StepExecutionResult.Passed);
+        }
+
+        [Test]
+        public void WhenIsReportedAsSuccessfulWhenUsingFluentScanner()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertWhenStepResult(StepExecutionResult.Passed);
+        }
+
+        [Test]
+        public void ThenIsReportedAsNotImplemenetedWhenUsingFluentScanner()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertThenStepResult(StepExecutionResult.NotImplemented);
+        }
+
+        [Test]
+        public void ScenarioResultReturnsNoImplementedWhenUsingFluentScanner()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertScenarioResult(StepExecutionResult.NotImplemented);
+        }
+
+        [Test]
+        public void StoryResultReturnsNoImplementedWhenUsingFluentScanner()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertStoryResult(StepExecutionResult.NotImplemented);
+        }
+
+        [Test]
+        public void TearDownMethodIsExecutedWhenUsingFluentScanner()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertTearDownMethodIsExecuted();
         }
     }
 }

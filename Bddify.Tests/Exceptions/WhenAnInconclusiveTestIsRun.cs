@@ -101,19 +101,19 @@ namespace Bddify.Tests.Exceptions
         }
 
         [Test]
-        public void ThenScenarioResultReturnsInconclusive()
+        public void ScenarioResultReturnsInconclusive()
         {
             Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
         }
 
         [Test]
-        public void ThenStoryResultReturnsInconclusive()
+        public void StoryResultReturnsInconclusive()
         {
             Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
         }
 
         [Test]
-        public void ThenTearDownMethodIsExecuted()
+        public void TearDownMethodIsExecuted()
         {
             Assert.That(DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
         }

@@ -6,46 +6,98 @@ namespace Bddify.Tests.Exceptions.OtherExceptions
 {
     public class WhenThenThrowsException : OtherExceptionBase
     {
-        [SetUp]
-        public void SetupContext()
+        private void ExecuteUsingReflectingScanners()
         {
-            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Then));
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Then, false));
+        }
+
+        private void ExecuteUsingFluentScanner()
+        {
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.Then, true));
         }
 
         [Test]
-        public void GivenIsReportedAsSuccessful()
+        public void GivenIsReportedAsSuccessfulWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.GivenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertGivenStepResult(StepExecutionResult.Passed);
         }
 
         [Test]
-        public void WhenIsReportedAsSuccessful()
+        public void WhenIsReportedAsSuccessfulWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertWhenStepResult(StepExecutionResult.Passed);
         }
 
         [Test]
-        public void ThenIsReportedAsFailed()
+        public void ThenIsReportedAsFailedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.ThenStep.Result, Is.EqualTo(StepExecutionResult.Failed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertThenStepResult(StepExecutionResult.Failed);
         }
 
         [Test]
-        public void ThenScenarioResultReturnsFailed()
+        public void ScenarioResultReturnsFailedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertScenarioResult(StepExecutionResult.Failed);
         }
 
         [Test]
-        public void ThenStoryResultReturnsFailed()
+        public void StoryResultReturnsFailedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.Scenario.Result, Is.EqualTo(StepExecutionResult.Failed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertStoryResult(StepExecutionResult.Failed);
         }
 
         [Test]
-        public void ThenTearDownMethodIsExecuted()
+        public void TearDownMethodIsExecutedWhenUsingReflectingScanners()
         {
-            Assert.That(Sut.TearDownStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            ExecuteUsingReflectingScanners();
+            Sut.AssertTearDownMethodIsExecuted();
+        }
+
+        [Test]
+        public void GivenIsReportedAsSuccessfulWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertGivenStepResult(StepExecutionResult.Passed);
+        }
+
+        [Test]
+        public void WhenIsReportedAsSuccessfulWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertWhenStepResult(StepExecutionResult.Passed);
+        }
+
+        [Test]
+        public void ThenIsReportedAsFailedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertThenStepResult(StepExecutionResult.Failed);
+        }
+
+        [Test]
+        public void ScenarioResultReturnsFailedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertScenarioResult(StepExecutionResult.Failed);
+        }
+
+        [Test]
+        public void StoryResultReturnsFailedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertStoryResult(StepExecutionResult.Failed);
+        }
+
+        [Test]
+        public void TearDownMethodIsExecutedWhenUsingFluentScanners()
+        {
+            ExecuteUsingFluentScanner();
+            Sut.AssertTearDownMethodIsExecuted();
         }
     }
 }

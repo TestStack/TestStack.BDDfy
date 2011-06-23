@@ -91,6 +91,11 @@ namespace Bddify.Scanners
         {
             return Bddify(null);
         }
+
+        public Bddifier LazyBddify()
+        {
+            return LazyBddify(null);
+        }
 #endif
 
         public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports=true)
@@ -187,6 +192,14 @@ namespace Bddify.Scanners
             return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
         }
 
+        public Bddifier LazyBddify(string title = null)
+        {
+            if (title == null)
+                title = GetTitleFromMethodNameInStackTrace();
+
+            return typeof(TScenario).LazyBddify(title, this);
+        }
+
         private static string GetTitleFromMethodNameInStackTrace()
         {
             var trace = new StackTrace();
@@ -234,7 +247,9 @@ namespace Bddify.Scanners
     {
         IFluentScanner<TScenario> TearDownWith(Expression<Action<TScenario>> tearDownStep);
         Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true);
+        Bddifier LazyBddify(string title = null);
 #if NET35
+        Bddifier LazyBddify();
         Story Bddify(string title);
         Story Bddify();
 #endif

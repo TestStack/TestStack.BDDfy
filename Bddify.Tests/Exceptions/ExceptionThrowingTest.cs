@@ -1,6 +1,8 @@
 using System;
 using Bddify.Core;
 using System.Linq;
+using Bddify.Scanners;
+using NUnit.Framework;
 
 namespace Bddify.Tests.Exceptions
 {
@@ -41,7 +43,45 @@ namespace Bddify.Tests.Exceptions
         {
         }
 
-        public void Execute(ThrowingMethod methodToThrow)
+        public void Execute(ThrowingMethod methodToThrow, bool useFluentScanner)
+        {
+            SetThrowingStep(methodToThrow);
+
+            Bddifier bddify;
+
+            if (useFluentScanner)
+                bddify = FluentScannerBddifier();
+            else
+                bddify = ReflectingScannersBddifier();
+
+            try
+            {
+                bddify.Run();
+            }
+            finally
+            {
+                Story = bddify.Story;
+                _scenario = bddify.Story.Scenarios.First();
+            }
+        }
+
+        private Bddifier FluentScannerBddifier()
+        {
+            return FluentStepScanner<ExceptionThrowingTest<T>>
+                        .Scan()
+                        .Given(s => s.Given())
+                        .When(s => s.When())
+                        .Then(s => s.Then())
+                        .TearDownWith(s => s.TearDown())
+                        .LazyBddify();
+        }
+
+        private Bddifier ReflectingScannersBddifier()
+        {
+            return typeof(ExceptionThrowingTest<T>).LazyBddify();
+        }
+
+        private void SetThrowingStep(ThrowingMethod methodToThrow)
         {
             _givenShouldThrow = false;
             _whenShouldThrow = false;
@@ -61,17 +101,6 @@ namespace Bddify.Tests.Exceptions
                     _thenShouldThrow = true;
                     break;
             }
-
-            var bddify = typeof(ExceptionThrowingTest<T>).LazyBddify();
-            try
-            {
-                bddify.Run();
-            }
-            finally 
-            {
-                Story = bddify.Story;
-                _scenario = bddify.Story.Scenarios.First();
-            }
         }
 
         private ExecutionStep GetStep(string readableName)
@@ -79,7 +108,7 @@ namespace Bddify.Tests.Exceptions
             return _scenario.Steps.First(s => s.ReadableMethodName == readableName);
         }
 
-        public ExecutionStep GivenStep
+        ExecutionStep GivenStep
         {
             get
             {
@@ -87,14 +116,14 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        public ExecutionStep WhenStep
+        ExecutionStep WhenStep
         {
             get {
                 return GetStep("When");
             }
         }
 
-        public ExecutionStep ThenStep
+        ExecutionStep ThenStep
         {
             get
             {
@@ -102,7 +131,7 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        public ExecutionStep TearDownStep
+        ExecutionStep TearDownStep
         {
             get
             {
@@ -110,7 +139,7 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        public Scenario Scenario
+        Scenario Scenario
         {
             get
             {
@@ -118,6 +147,36 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        public Core.Story Story { get; private set; }
+        Core.Story Story { get; set; }
+ 
+        public void AssertTearDownMethodIsExecuted()
+        {
+            Assert.That(TearDownStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+        }
+
+        public void AssertGivenStepResult(StepExecutionResult result)
+        {
+            Assert.That(GivenStep.Result, Is.EqualTo(result));
+        }
+
+        public void AssertWhenStepResult(StepExecutionResult result)
+        {
+            Assert.That(WhenStep.Result, Is.EqualTo(result));
+        }
+
+        public void AssertThenStepResult(StepExecutionResult result)
+        {
+            Assert.That(ThenStep.Result, Is.EqualTo(result));
+        }
+
+        public void AssertScenarioResult(StepExecutionResult result)
+        {
+            Assert.That(Scenario.Result, Is.EqualTo(result));
+        }
+
+        public void AssertStoryResult(StepExecutionResult result)
+        {
+            Assert.That(Story.Result, Is.EqualTo(result));
+        }
     }
 }
