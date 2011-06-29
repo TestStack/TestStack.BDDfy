@@ -1,6 +1,4 @@
-﻿using System.CodeDom.Compiler;
-
-namespace Bddify.Scanners.GwtAttributes
+﻿namespace Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
 {
     public class AndWhenAttribute : ExecutableAttribute
     {

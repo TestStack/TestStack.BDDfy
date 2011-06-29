@@ -1,5 +1,7 @@
 using Bddify.Core;
 using Bddify.Scanners;
+using Bddify.Scanners.ScenarioScanners;
+using Bddify.Scanners.StepScanners.MethodName;
 using NUnit.Framework;
 using System.Linq;
 

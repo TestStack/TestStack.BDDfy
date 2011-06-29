@@ -1,7 +1,7 @@
 ﻿using System;
 using Bddify.Core;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.StepScanners.ExecutableAttribute
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ExecutableAttribute : Attribute

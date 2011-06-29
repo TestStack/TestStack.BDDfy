@@ -1,7 +1,7 @@
 using System;
 using Bddify.Core;
 using System.Linq;
-using Bddify.Scanners;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 
 namespace Bddify.Tests.Exceptions

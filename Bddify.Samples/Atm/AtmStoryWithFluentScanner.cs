@@ -1,5 +1,5 @@
 using Bddify.Core;
-using Bddify.Scanners;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 
 namespace Bddify.Samples.Atm
@@ -9,6 +9,7 @@ namespace Bddify.Samples.Atm
         AsA = "As an Account Holder",
         IWant = "I want to withdraw cash from an ATM",
         SoThat = "So that I can get money when the bank is closed")]
+    [TestFixture]
     public class AtmStoryWithFluentScanner
     {
         private const string GivenTheAccountBalanceIsTitleTemplate = "Given the account balance is ${0}";

@@ -1,7 +1,7 @@
 ﻿using System;
 using Bddify.Core;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.StepScanners.MethodName
 {
     public class MethodNameMatcher
     {

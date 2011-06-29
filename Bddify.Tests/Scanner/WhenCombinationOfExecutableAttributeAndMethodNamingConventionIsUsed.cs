@@ -1,7 +1,10 @@
 using System;
 using Bddify.Core;
-using Bddify.Scanners;
-using Bddify.Scanners.GwtAttributes;
+using Bddify.Scanners.ScenarioScanners;
+using Bddify.Scanners.StepScanners;
+using Bddify.Scanners.StepScanners.ExecutableAttribute;
+using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
+using Bddify.Scanners.StepScanners.MethodName;
 using NUnit.Framework;
 using System.Linq;
 

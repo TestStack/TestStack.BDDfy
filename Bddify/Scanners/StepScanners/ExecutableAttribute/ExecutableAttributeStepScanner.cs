@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Bddify.Core;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.StepScanners.ExecutableAttribute
 {
     public class ExecutableAttributeStepScanner : IScanForSteps
     {
@@ -29,7 +29,7 @@ namespace Bddify.Scanners
                 var stepAsserts = IsAssertingByAttribute(methodInfo);
 
                 var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                if (runStepWithArgsAttributes == null || runStepWithArgsAttributes.Length == 0)
+                if (runStepWithArgsAttributes.Length == 0)
                 {
                     var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
                     steps.Add(executionStep);

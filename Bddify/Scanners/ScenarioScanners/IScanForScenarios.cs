@@ -1,6 +1,6 @@
 using Bddify.Core;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.ScenarioScanners
 {
     public interface IScanForScenarios
     {

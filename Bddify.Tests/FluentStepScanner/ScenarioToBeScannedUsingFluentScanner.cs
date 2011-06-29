@@ -1,6 +1,7 @@
 ﻿using Bddify.Core;
-using Bddify.Scanners;
-using Bddify.Scanners.GwtAttributes;
+using Bddify.Scanners.StepScanners;
+using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
+using Bddify.Scanners.StepScanners.Fluent;
 
 namespace Bddify.Tests.FluentStepScanner
 {

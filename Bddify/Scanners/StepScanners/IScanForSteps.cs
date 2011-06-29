@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Bddify.Core;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.StepScanners
 {
     public interface IScanForSteps
     {

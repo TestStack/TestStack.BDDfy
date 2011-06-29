@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
-using Bddify.Scanners;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 using System.Linq;
 

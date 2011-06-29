@@ -1,4 +1,4 @@
-﻿namespace Bddify.Scanners.GwtAttributes
+﻿namespace Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
 {
     public class WhenAttribute : ExecutableAttribute
     {

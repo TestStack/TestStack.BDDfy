@@ -1,5 +1,5 @@
 using Bddify.Core;
-using Bddify.Scanners.GwtAttributes;
+using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 
 namespace Bddify.Samples.TicTacToe
 {

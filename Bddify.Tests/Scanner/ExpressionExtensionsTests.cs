@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using Bddify.Scanners;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 using System.Linq;
 

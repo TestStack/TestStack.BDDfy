@@ -7,16 +7,8 @@ using System.Reflection;
 using System.Linq;
 using Bddify.Core;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.StepScanners.Fluent
 {
-    public static class FluentStepScannerExtensions
-    {
-        public static IInitialStep<TScenario> Scan<TScenario>(this TScenario testObject) where TScenario : class, new()
-        {
-            return new FluentStepScanner<TScenario>(testObject);
-        }
-    }
-
     public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class, new()
     {
@@ -222,70 +214,6 @@ namespace Bddify.Scanners
 
             return NetToString.Convert(initiatingFrame.GetMethod().Name);
         }
-    }
-
-    public interface IInitialStep<TScenario>
-    {
-        IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null);
-        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
-#if NET35
-        IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep);
-        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep);
-#endif
-    }
-
-    public interface IFluentScanner<TScenario> : IScanForSteps
-    {
-        IFluentScanner<TScenario> TearDownWith(Expression<Action<TScenario>> tearDownStep);
-        Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true);
-        Bddifier LazyBddify(string title = null);
-#if NET35
-        Bddifier LazyBddify();
-        Story Bddify(string title);
-        Story Bddify();
-#endif
-    }
-
-    public interface IAndGiven<TScenario> : IGiven<TScenario>
-    {
-    }
-
-    public interface IGiven<TScenario> : IFluentScanner<TScenario>
-    {
-        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
-        IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate = null);
-        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
-#if NET35
-        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep);
-        IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep);
-        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep);
-#endif
-    }
-
-    public interface IThen<TScenario> : IFluentScanner<TScenario>
-    {
-        IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate = null);
-#if NET35
-        IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep);
-#endif
-    }
-
-    public interface IAndThen<TScenario> : IThen<TScenario>
-    {
-    }
-
-    public interface IWhen<TScenario> : IFluentScanner<TScenario>
-    {
-        IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate = null);
-        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
-#if NET35
-        IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep);
-        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep);
-#endif
-    }
-
-    public interface IAndWhen<TScenario> : IWhen<TScenario>
-    {
     }
 }
 #endif

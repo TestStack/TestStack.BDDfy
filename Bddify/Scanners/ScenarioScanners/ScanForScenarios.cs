@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
+using Bddify.Scanners.StepScanners;
 
-namespace Bddify.Scanners
+namespace Bddify.Scanners.ScenarioScanners
 {
     public class ScanForScenarios : IScanForScenarios
     {

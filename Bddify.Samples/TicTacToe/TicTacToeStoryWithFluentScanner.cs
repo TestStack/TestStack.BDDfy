@@ -1,5 +1,5 @@
 using Bddify.Core;
-using Bddify.Scanners;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 
 

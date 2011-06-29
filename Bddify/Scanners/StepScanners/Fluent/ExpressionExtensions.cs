@@ -1,13 +1,13 @@
 
-namespace Bddify.Scanners
-{
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using System.Reflection;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
+namespace Bddify.Scanners.StepScanners.Fluent
+{
     public static class ExpressionExtensions
     {
         public static IEnumerable<object> ExtractConstants<T>(this Expression<Action<T>> expression)

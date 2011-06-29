@@ -4,6 +4,10 @@ using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
 using System.Collections.Generic;
+using Bddify.Scanners.ScenarioScanners;
+using Bddify.Scanners.StepScanners;
+using Bddify.Scanners.StepScanners.ExecutableAttribute;
+using Bddify.Scanners.StepScanners.MethodName;
 
 namespace Bddify
 {

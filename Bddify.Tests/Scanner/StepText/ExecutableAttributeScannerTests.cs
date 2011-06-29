@@ -1,7 +1,8 @@
 using System.Linq;
 using Bddify.Core;
 using Bddify.Scanners;
-using Bddify.Scanners.GwtAttributes;
+using Bddify.Scanners.StepScanners.ExecutableAttribute;
+using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 using NUnit.Framework;
 
 namespace Bddify.Tests.Scanner.StepText
