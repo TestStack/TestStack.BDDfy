@@ -47,7 +47,7 @@ namespace Bddify.Tests.Scanner.StepText
         static void VerifyMethod(string expectedReadableMethodName, bool exists = true)
         {
             var scanner = new ExecutableAttributeStepScanner();
-            var steps = scanner.Scan(typeof(ScenarioWithVaryingStepTexts)).ToList();
+            var steps = scanner.Scan(new ScenarioWithVaryingStepTexts()).ToList();
             var theStep = steps.Where(s => s.ReadableMethodName == expectedReadableMethodName);
 
             if (exists)

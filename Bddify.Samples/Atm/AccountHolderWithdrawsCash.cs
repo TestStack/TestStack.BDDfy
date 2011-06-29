@@ -12,24 +12,25 @@ namespace Bddify.Samples.Atm
         AsA = "As an Account Holder",
         IWant = "I want to withdraw cash from an ATM",
         SoThat = "So that I can get money when the bank is closed")]
+    [TestFixture]
     public class AccountHolderWithdrawsCash
     {
         [Test]
         public void CardHasBeenDisabled()
         {
-            typeof(CardHasBeenDisabled).Bddify();
+            new CardHasBeenDisabled().Bddify();
         }
 
         [Test]
         public void AccountHasInsufficientFund()
         {
-            typeof(AccountHasInsufficientFund).Bddify();
+            new AccountHasInsufficientFund().Bddify();
         }
 
         [Test]
         public void AccountHasSufficientFunds()
         {
-            typeof(AccountHasSufficientFunds).Bddify();
+            new AccountHasSufficientFunds().Bddify();
         }
     }
 }

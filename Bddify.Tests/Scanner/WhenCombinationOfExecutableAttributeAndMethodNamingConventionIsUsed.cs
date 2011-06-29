@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Bddify.Tests.Scanner
 {
+    [TestFixture]
     public class WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed
     {
         private Scenario _scenario;
@@ -67,7 +68,7 @@ namespace Bddify.Tests.Scanner
                         {
                             new DefaultMethodNameStepScanner(), 
                             new ExecutableAttributeStepScanner()
-                        }).Scan(typeof(ScenarioWithMixedSteps)).Single();          
+                        }).Scan(_sut);          
         }
 
         [Test]

@@ -1,4 +1,3 @@
-using System;
 using Bddify.Core;
 using Bddify.Scanners.GwtAttributes;
 using NUnit.Framework;
@@ -6,6 +5,7 @@ using System.Linq;
 
 namespace Bddify.Tests.Story
 {
+    [TestFixture]
     public class StoryClassIsAScenarioWithoutTheWithScenarioAttribute
     {
         private Core.Story _story;
@@ -29,7 +29,7 @@ namespace Bddify.Tests.Story
 
         void WhenTheStoryIsBddified()
         {
-            _story = typeof(StoryAsScenario).Bddify();
+            _story = new StoryAsScenario().Bddify();
         }
 
         void ThenStoryIsReturnedAsAStory()
@@ -57,7 +57,7 @@ namespace Bddify.Tests.Story
         [Test]
         public void Execute()
         {
-            typeof(StoryClassIsAScenarioWithoutTheWithScenarioAttribute).Bddify();
+            this.Bddify();
         }
     }
 }

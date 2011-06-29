@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Bddify.Tests.Scanner
 {
+    [TestFixture]
     public class WhenStepsAreDefinedInABaseClass
     {
         private Core.Story _story;
@@ -24,15 +25,7 @@ namespace Bddify.Tests.Scanner
 
         void Context()
         {
-            _story = typeof(TheSubClass).Bddify();
-        }
-
-        TheSubClass Subject
-        {
-            get
-            {
-                return (TheSubClass)Scenario.TestObject;
-            }
+            _story = new TheSubClass().Bddify();
         }
 
         Scenario Scenario
@@ -62,7 +55,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void Execute()
         {
-            typeof(WhenStepsAreDefinedInABaseClass).Bddify();
+            this.Bddify();
         }
     }
 }

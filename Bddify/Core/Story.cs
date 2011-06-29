@@ -5,7 +5,7 @@ namespace Bddify.Core
 {
     public class Story
     {
-        public Story(StoryMetaData metaData, IEnumerable<Scenario> scenarios)
+        public Story(StoryMetaData metaData, params Scenario[] scenarios)
         {
             MetaData = metaData;
             Scenarios = scenarios.OrderBy(s => s.ScenarioText).ToList();

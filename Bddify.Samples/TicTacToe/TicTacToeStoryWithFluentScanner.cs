@@ -1,4 +1,3 @@
-using System;
 using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
@@ -10,6 +9,7 @@ namespace Bddify.Samples.TicTacToe
         AsA = "As a player",
         IWant = "I want to have a tic tac toe game",
         SoThat = "So that I can waste some time!")]
+    [TestFixture]
     public class TicTacToeStoryWithFluentScanner : NewGame
     {
         public class Cell
@@ -60,18 +60,16 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void CatsGame()
         {
-            FluentStepScanner<TicTacToeStoryWithFluentScanner>
-                .Scan()
-                    .Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
-                    .Then(s => s.ThenItShouldBeACatsGame())
+            this.Scan()
+                .Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
+                .Then(s => s.ThenItShouldBeACatsGame())
                 .Bddify("Cat's game");
         }
 
         [Test]
         public void WhenXAndOPlayTheirFirstMoves()
         {
-            FluentStepScanner<TicTacToeStoryWithFluentScanner>
-                .Scan()
+            this.Scan()
                 .Given(s => s.GivenANewGame())
                 .When(s => s.WhenTheGameIsPlayedAt(new Cell(0, 0), new Cell(2, 2)), "When X and O play on {0}")
                 .Then(s => s.ThenTheBoardStateShouldBe(new[] { X, N, N }, new[] { N, N, N }, new[] { N, N, O }))
@@ -142,8 +140,7 @@ namespace Bddify.Samples.TicTacToe
         public void OWins()
         {
             var cell = new Cell(2, 0);
-            FluentStepScanner<TicTacToeStoryWithFluentScanner>
-                .Scan()
+            this.Scan()
                 .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, O, N }, new[] { N, N, N }))
                 .When(s => s.WhenTheGameIsPlayedAt(cell))
                 .Then(s => s.ThenTheWinnerShouldBe(O))
@@ -153,8 +150,7 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void XWins()
         {
-            FluentStepScanner<TicTacToeStoryWithFluentScanner>
-                .Scan()
+            this.Scan()
                 .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, X, O }, new[] { O, O, N }))
                 .When(s => s.WhenTheGameIsPlayedAt(new Cell(2, 2)))
                 .Then(s => s.ThenTheWinnerShouldBe(X))
@@ -173,10 +169,9 @@ namespace Bddify.Samples.TicTacToe
 
         void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
         {
-            FluentStepScanner<TicTacToeStoryWithFluentScanner>
-                .Scan()
+            this.Scan()
                 .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
-                .Then(s => s.ThenTheWinnerShouldBe(expectedWinner))
+                .Then(s => ThenTheWinnerShouldBe(expectedWinner))
                 .Bddify();
         }
     }

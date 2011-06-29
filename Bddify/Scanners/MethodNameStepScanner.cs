@@ -20,8 +20,9 @@ namespace Bddify.Scanners
             get { return 20; }
         }
 
-        public IEnumerable<ExecutionStep> Scan(Type scenarioType)
+        public IEnumerable<ExecutionStep> Scan(object testObject)
         {
+            var scenarioType = testObject.GetType();
             var methodsToScan = scenarioType.GetMethodsOfInterest();
             var foundMethods = new List<MethodInfo>();
 
@@ -42,7 +43,7 @@ namespace Bddify.Scanners
                     object[] inputs = null;
                     var stepMethodName = methodName;
 
-                    if (argAttributes == null || argAttributes.Length == 0)
+                    if (argAttributes.Length == 0)
                     {
                         // creating the method itself
                         yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);

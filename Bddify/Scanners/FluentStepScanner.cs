@@ -9,14 +9,23 @@ using Bddify.Core;
 
 namespace Bddify.Scanners
 {
+    public static class FluentStepScannerExtensions
+    {
+        public static IInitialStep<TScenario> Scan<TScenario>(this TScenario testObject) where TScenario : class, new()
+        {
+            return new FluentStepScanner<TScenario>(testObject);
+        }
+    }
+
     public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class, new()
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
+        private readonly object _testObject;
 
-        public static IInitialStep<TScenario> Scan()
+        public FluentStepScanner(object testObject)
         {
-            return new FluentStepScanner<TScenario>();
+            _testObject = testObject;
         }
 
         int IScanForSteps.Priority
@@ -24,8 +33,9 @@ namespace Bddify.Scanners
             get { return 0; }
         }
 
-        IEnumerable<ExecutionStep> IScanForSteps.Scan(Type scenarioType)
+        IEnumerable<ExecutionStep> IScanForSteps.Scan(object testObject)
         {
+            var scenarioType = testObject.GetType();
             if (scenarioType != typeof(TScenario))
                 throw new InvalidOperationException("FluentStepScanner is setup to scan " + typeof(TScenario).Name + " but is being asked to scan " + scenarioType.Name);
 
@@ -188,7 +198,7 @@ namespace Bddify.Scanners
             if (title == null)
                 title = GetTitleFromMethodNameInStackTrace();
 
-            return typeof(TScenario).Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
+            return _testObject.Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
         }
 
         public Bddifier LazyBddify(string title = null)
@@ -196,7 +206,7 @@ namespace Bddify.Scanners
             if (title == null)
                 title = GetTitleFromMethodNameInStackTrace();
 
-            return typeof(TScenario).LazyBddify(title, this);
+            return _testObject.LazyBddify(title, this);
         }
 
         private static string GetTitleFromMethodNameInStackTrace()

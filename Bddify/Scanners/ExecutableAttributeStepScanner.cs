@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,8 +12,9 @@ namespace Bddify.Scanners
             get { return 10; }
         }
 
-        public IEnumerable<ExecutionStep> Scan(Type scenarioType)
+        public IEnumerable<ExecutionStep> Scan(object testObject)
         {
+            var scenarioType = testObject.GetType();
             var steps = new List<ExecutionStep>();
             foreach (var methodInfo in scenarioType.GetMethodsOfInterest())
             {

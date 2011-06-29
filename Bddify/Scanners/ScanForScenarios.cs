@@ -21,20 +21,13 @@ namespace Bddify.Scanners
             _scenarioTextTemplate = scenarioTextTemplate;
         }
 
-        public IEnumerable<Scenario> Scan(Type scenarioType)
+        public Scenario Scan(object testObject)
         {
-            var argsSet = GetArgsSets(scenarioType);
-            if (argsSet.Any())
-                return argsSet.Select(a => GetScenario(scenarioType, a));
+            var scenarioType = testObject.GetType();
+            var scenarioText = _scenarioTextTemplate ?? GetScenarioText(scenarioType);
+            var steps = ScanScenarioForSteps(testObject);
 
-            return new[] { GetScenario(scenarioType) };
-        }
-
-        protected virtual IEnumerable<object[]> GetArgsSets(Type scenarioType)
-        {
-            var runWithScenarioAtts = (RunScenarioWithArgsAttribute[])scenarioType.GetCustomAttributes(typeof(RunScenarioWithArgsAttribute), false);
-
-            return runWithScenarioAtts.Select(argSet => argSet.ScenarioArguments).ToList();
+            return new Scenario(testObject, steps, scenarioText);
         }
 
         static string GetScenarioText(Type scenarioType)
@@ -42,39 +35,13 @@ namespace Bddify.Scanners
             return NetToString.Convert(scenarioType.Name);
         }
 
-        protected virtual Scenario GetScenario(Type scenarioType)
-        {
-            return GetScenario(scenarioType, null);
-        }
-
-        protected virtual Scenario GetScenario(Type scenarioType, object[] argsSet)
-        {
-            var scenarioText = _scenarioTextTemplate ?? GetScenarioText(scenarioType);
-            if (argsSet != null)
-            {
-                if (string.IsNullOrEmpty(_scenarioTextTemplate))
-                {
-                    var argsSetString = argsSet.Select(a => a.ToString()).ToArray();
-                    scenarioText += " " + string.Join(", ", argsSetString);
-                }
-                else
-                    scenarioText = string.Format(_scenarioTextTemplate, argsSet);
-            }
-
-            object testObject = Activator.CreateInstance(scenarioType);
-
-            var steps = ScanScenarioForSteps(scenarioType); 
-
-            return new Scenario(testObject, steps, scenarioText, argsSet);
-        }
-
-        private IEnumerable<ExecutionStep> ScanScenarioForSteps(Type scenarioType)
+        private IEnumerable<ExecutionStep> ScanScenarioForSteps(object testObject)
         {
             var steps = new List<ExecutionStep>();
             // scanners are sorted by priority to make sure the higher priority scanners get to scan the scenario first
             foreach (var scanner in _stepScanners.OrderBy(s => s.Priority))
             {
-                foreach (var step in scanner.Scan(scenarioType))
+                foreach (var step in scanner.Scan(testObject))
                 {
                     // if a method has been found by another scanner, ignore it
                     if (steps.Any(s => s.Equals(step))) 

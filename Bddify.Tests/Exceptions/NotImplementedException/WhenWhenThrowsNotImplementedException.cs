@@ -7,12 +7,12 @@ namespace Bddify.Tests.Exceptions.NotImplementedException
     {
         private void ExecuteUsingReflectingScanners()
         {
-            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethod.When, false));
+            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethods.When, false));
         }
 
         private void ExecuteUsingFluentScanner()
         {
-            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethod.When, true));
+            Assert.Throws<InconclusiveException>(() => Sut.Execute(ThrowingMethods.When, true));
         }
 
         [Test]

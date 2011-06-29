@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Reflection;
 using Bddify.Core;
 using Bddify.Scanners;
 using NUnit.Framework;
@@ -7,6 +6,7 @@ using System.Linq;
 
 namespace Bddify.Tests.Scanner
 {
+    [TestFixture]
     public class WhenTestClassFollowsGivenWhenThenNamingConvention
     {
         private List<ExecutionStep> _steps;
@@ -30,7 +30,7 @@ namespace Bddify.Tests.Scanner
         public void Setup()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
-            _steps = new DefaultMethodNameStepScanner().Scan(typeof(TypeWithoutAttribute)).ToList();
+            _steps = new DefaultMethodNameStepScanner().Scan(_typeWithoutAttribute).ToList();
         }
             
         [Test]

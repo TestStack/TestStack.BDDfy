@@ -55,6 +55,7 @@
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Disposer\DisposingScenarios.cs" />
+    <Compile Include="Exceptions\ThrowingMethods.cs" />
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />
     <Compile Include="FluentStepScanner\BddifyUsingFluentApi.cs" />
@@ -65,10 +66,8 @@
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
-    <Compile Include="Scanner\WhenScenarioIsRunWithArguments.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
     <Compile Include="Story\DummyScenario.cs" />
-    <Compile Include="Story\ScenarioInStoryWithArgs.cs" />
     <Compile Include="Story\StoryDouble.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Exceptions\NotImplementedException\WhenGivenThrowsNotImplementedException.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="Scanner\WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen.cs" />
     <Compile Include="Scanner\WhenTestClassFollowsGivenWhenThenNamingConvention.cs" />
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
-    <Compile Include="RunScenarioWithArgs\WhenScenarioIsDecoratedToRunWithArgs.cs" />
     <Compile Include="Story\StoryClassIsAScenarioWithoutTheWithScenarioAttribute.cs" />
     <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />

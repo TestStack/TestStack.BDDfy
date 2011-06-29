@@ -72,8 +72,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            FluentStepScanner<AtmStoryWithFluentScanner>
-                .Scan()
+            this.Scan()
                 .Given(s => s.GivenTheAccountBalanceIs(10), GivenTheAccountBalanceIsTitleTemplate)
                     .And(s => s.AndTheCardIsValid())
                     .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
@@ -88,8 +87,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasSufficientFund()
         {
-           FluentStepScanner<AtmStoryWithFluentScanner>
-               .Scan()
+           this.Scan()
                 .Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
                     .And(s => s.AndTheCardIsValid())
                     .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
@@ -103,8 +101,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void CardHasBeenDisabled()
         {
-            FluentStepScanner<AtmStoryWithFluentScanner>
-                .Scan()
+            this.Scan()
                 .Given(s => s.GivenTheCardIsDisabled())
                 .When(s => s.WhenTheAccountHolderRequests(20))
                 .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")

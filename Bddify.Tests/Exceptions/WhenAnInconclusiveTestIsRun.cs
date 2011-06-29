@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.Exceptions
 {
+    [TestFixture]
     public class WhenAnInconclusiveTestIsRun
     {
         public class InconclusiveTestClass
@@ -65,7 +66,7 @@ namespace Bddify.Tests.Exceptions
         [SetUp]
         public void InconclusiveExceptionSetup()
         {
-            _bddifier = typeof(InconclusiveTestClass).LazyBddify();
+            _bddifier = new InconclusiveTestClass().LazyBddify();
             Assert.Throws<InconclusiveException>(() => _bddifier.Run());
             _scenario = _bddifier.Story.Scenarios.First();
         }

@@ -63,19 +63,19 @@ namespace Bddify.Tests.FluentStepScanner
         public void Dispose()
         {}
 
-        public static IScanForSteps GetScanner()
+        public static IScanForSteps GetScanner(ScenarioToBeScannedUsingFluentScanner testObject)
         {
-            return FluentStepScanner<ScenarioToBeScannedUsingFluentScanner>
+            return testObject
                 .Scan()
                 .Given(s => s.GivenSomeState(1, 2))
-                .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
-                .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))
-                .And(s => s.AndSomeStateWithIncorrectAttribute())
+                    .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
+                    .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))
+                    .And(s => s.AndSomeStateWithIncorrectAttribute())
                 .When(s => s.WhenSomethingHappens("some input here"))
-                .And(s => s.AndThenSomethingElseHappens(), "Overriding step name without arguments")
-                .And(s => s.WhenSomethingHappens("other input"), "step used with {0} for the second time")
+                    .And(s => s.AndThenSomethingElseHappens(), "Overriding step name without arguments")
+                    .And(s => s.WhenSomethingHappens("other input"), "step used with {0} for the second time")
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
-                .And(s => s.AndIncorrectAttributeWouldNotMatter())
+                    .And(s => s.AndIncorrectAttributeWouldNotMatter())
                 .TearDownWith(s => s.Dispose());
         }
     }

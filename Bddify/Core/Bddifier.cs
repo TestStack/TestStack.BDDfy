@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Bddify.Processors;
 
@@ -8,19 +7,19 @@ namespace Bddify.Core
     public class Bddifier
     {
         private readonly IEnumerable<IProcessor> _processors;
-        private readonly Type _storyType;
+        private readonly object _testObject;
         private readonly IScanner _scanner;
 
-        public Bddifier(Type testType, IScanner scanner, IEnumerable<IProcessor> processors)
+        public Bddifier(object testObject, IScanner scanner, IEnumerable<IProcessor> processors)
         {
             _processors = processors;
-            _storyType = testType;
+            _testObject = testObject;
             _scanner = scanner;
         }
 
         public Story Run()
         {
-            _story = _scanner.Scan(_storyType);
+            _story = _scanner.Scan(_testObject);
 
             try
             {

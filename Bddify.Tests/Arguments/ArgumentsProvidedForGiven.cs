@@ -56,7 +56,7 @@ namespace Bddify.Tests.Arguments
         [Test]
         public void Execute()
         {
-            typeof(ArgumentsProvidedForGiven).Bddify();
+            this.Bddify();
         }
     }
 }

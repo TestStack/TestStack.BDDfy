@@ -9,7 +9,7 @@ namespace Bddify.Scanners
     public interface IScanForSteps
     {
         int Priority { get; }
-        IEnumerable<ExecutionStep> Scan(Type scenarioType);
+        IEnumerable<ExecutionStep> Scan(object testObject);
     }
 
     public static class StepScanner

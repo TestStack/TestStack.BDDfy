@@ -8,12 +8,12 @@ namespace Bddify.Tests.Exceptions.OtherExceptions
     {
         private void ExecuteUsingFluentScanner()
         {
-            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.When, true));
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethods.When, true));
         }
 
         private void ExecuteUsingReflectingScanners()
         {
-            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethod.When, false));
+            Assert.Throws<Exception>(() => Sut.Execute(ThrowingMethods.When, false));
         }
 
         [Test]

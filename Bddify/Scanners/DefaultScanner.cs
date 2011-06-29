@@ -15,16 +15,16 @@ namespace Bddify.Scanners
             _scenarioScanner = scenarioScanner;
         }
 
-        public virtual Story Scan(Type scenarioType)
+        public virtual Story Scan(object testObject)
         {
-            var scenarios = GetScenarios(scenarioType);
-            var metaData = GetStoryMetaData(scenarioType);
-            return new Story(metaData, scenarios);
+            var scenario = GetScenario(testObject);
+            var metaData = GetStoryMetaData(testObject.GetType());
+            return new Story(metaData, scenario);
         }
 
-        private IEnumerable<Scenario> GetScenarios(Type scenarioType)
+        private Scenario GetScenario(object testObject)
         {
-            return _scenarioScanner.Scan(scenarioType).ToList();
+            return _scenarioScanner.Scan(testObject);
         }
 
         StoryMetaData GetStoryMetaData(Type scenarioType)

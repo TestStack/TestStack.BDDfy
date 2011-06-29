@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 namespace Bddify.Samples.Bowling
 {
+    [TestFixture]
     public class OneSingleSpare
     {
         private Game _game;
@@ -32,7 +33,7 @@ namespace Bddify.Samples.Bowling
         [Test]
         public void Execute()
         {
-            typeof(OneSingleSpare).Bddify();
+            this.Bddify();
         }
     }
 }

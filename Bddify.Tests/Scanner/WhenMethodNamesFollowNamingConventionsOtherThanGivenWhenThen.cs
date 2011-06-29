@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Bddify.Tests.Scanner
 {
+    [TestFixture]
     public class WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen
     {
         private List<ExecutionStep> _steps;
@@ -22,8 +23,8 @@ namespace Bddify.Tests.Scanner
             var andAssertMatcher = new MethodNameMatcher(s => s.StartsWith("AndAssert", StringComparison.Ordinal), true, ExecutionOrder.ConsecutiveAssertion, true);
             var methodNameMatchers = new[] { assertMatcher, andAssertMatcher, specEndMatcher, specStartMatcher, setupMethod };
             var scanner = new MethodNameStepScanner(methodNameMatchers);
-            _steps = scanner.Scan(typeof(ScenarioClass)).ToList();
             _scenario = new ScenarioClass();
+            _steps = scanner.Scan(_scenario).ToList();
         }
 
         class ScenarioClass

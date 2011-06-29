@@ -27,7 +27,7 @@ namespace Bddify.Tests.Arguments
         [Test]
         public void Execute()
         {
-            typeof(MultipleArgumentsProvidedForTheSameStep).Bddify();
+            this.Bddify();
         }
     }
 }

@@ -2,6 +2,7 @@ using NUnit.Framework;
 
 namespace Bddify.Tests
 {
+    [TestFixture]
     public class WhenAnEmptyScenarioIsBddified
     {
         private class ScenarioWithNoSteps
@@ -11,7 +12,7 @@ namespace Bddify.Tests
         [Test]
         public void ThenNoExeptionIsThrown()
         {
-            typeof(ScenarioWithNoSteps).Bddify();
+            new ScenarioWithNoSteps().Bddify();
         }
     }
 }

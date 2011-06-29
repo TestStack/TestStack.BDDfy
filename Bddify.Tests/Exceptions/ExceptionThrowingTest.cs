@@ -6,14 +6,6 @@ using NUnit.Framework;
 
 namespace Bddify.Tests.Exceptions
 {
-    public enum ThrowingMethod
-    {
-        None,
-        Given,
-        When,
-        Then
-    }
-
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
         private static bool _givenShouldThrow;
@@ -43,7 +35,7 @@ namespace Bddify.Tests.Exceptions
         {
         }
 
-        public void Execute(ThrowingMethod methodToThrow, bool useFluentScanner)
+        public void Execute(ThrowingMethods methodToThrow, bool useFluentScanner)
         {
             SetThrowingStep(methodToThrow);
 
@@ -67,8 +59,7 @@ namespace Bddify.Tests.Exceptions
 
         private Bddifier FluentScannerBddifier()
         {
-            return FluentStepScanner<ExceptionThrowingTest<T>>
-                        .Scan()
+            return this.Scan()
                         .Given(s => s.Given())
                         .When(s => s.When())
                         .Then(s => s.Then())
@@ -78,10 +69,10 @@ namespace Bddify.Tests.Exceptions
 
         private Bddifier ReflectingScannersBddifier()
         {
-            return typeof(ExceptionThrowingTest<T>).LazyBddify();
+            return this.LazyBddify();
         }
 
-        private void SetThrowingStep(ThrowingMethod methodToThrow)
+        private void SetThrowingStep(ThrowingMethods methodToThrow)
         {
             _givenShouldThrow = false;
             _whenShouldThrow = false;
@@ -89,15 +80,15 @@ namespace Bddify.Tests.Exceptions
 
             switch (methodToThrow)
             {
-                case ThrowingMethod.Given:
+                case ThrowingMethods.Given:
                     _givenShouldThrow = true;
                     break;
 
-                case ThrowingMethod.When:
+                case ThrowingMethods.When:
                     _whenShouldThrow = true;
                     break;
 
-                case ThrowingMethod.Then:
+                case ThrowingMethods.Then:
                     _thenShouldThrow = true;
                     break;
             }

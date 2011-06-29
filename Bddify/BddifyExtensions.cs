@@ -10,55 +10,51 @@ namespace Bddify
     public static class BddifyExtensions
     {
 #if NET35
-        public static Story Bddify(this Type testType)
+        public static Story Bddify(this object testObject)
         {
-            return Bddify(testType, null, true, false, true, null);
+            return Bddify(testObject, null, true, false, true, null);
         }
         
-        public static Bddifier LazyBddify(this Type testType)
+        public static Bddifier LazyBddify(this object testObject)
         {
-            return LazyBddify(testType, false, null, true, true, null);
+            return LazyBddify(testObject, false, null, true, true, null);
         }
 #endif
 
-#if !NET35
         static IScanner GetDefaultScanner(string scenarioTextTemplate = null)
-#else
-        static IScanner GetDefaultScanner()
-#endif
-    {
+        {
             return new DefaultScanner(
                 new ScanForScenarios(
                     new IScanForSteps[]
                     {
                         new DefaultMethodNameStepScanner(),
                         new ExecutableAttributeStepScanner()
-                    }));
+                    }, scenarioTextTemplate));
         }
 
-        public static Story Bddify(this Type testType, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
+        public static Story Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
         {
             IScanner scanner = null;
 
             if (stepScanners != null && stepScanners.Length > 0)
                 scanner = new DefaultScanner(new ScanForScenarios(stepScanners, scenarioTextTemplate));
 
-            return testType.LazyBddify(true, exceptionProcessor, handleExceptions, consoleReport, scanner).Run();
+            return testObject.LazyBddify(true, exceptionProcessor, handleExceptions, consoleReport, scanner).Run();
         }
 
-        public static Bddifier LazyBddify(this Type testType, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
+        public static Bddifier LazyBddify(this object testObject, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
         {
             IScanner scanner = null;
 
             if (stepScanners != null && stepScanners.Length > 0)
                 scanner = new DefaultScanner(new ScanForScenarios(stepScanners, scenarioTextTemplate));
 
-            return testType.LazyBddify(true, scanner:scanner);
+            return testObject.LazyBddify(true, scanner:scanner);
         }
 
-        public static Bddifier LazyBddify(this Type testType, bool htmlReport, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool consoleReport = true, IScanner scanner = null)
+        public static Bddifier LazyBddify(this object testObject, bool htmlReport, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool consoleReport = true, IScanner scanner = null)
         {
-            if(typeof(IScanForSteps).IsAssignableFrom(testType))
+            if(typeof(IScanForSteps).IsAssignableFrom(testObject.GetType()))
                 throw new InvalidOperationException("You are calling a wrong overload of bddify. The method you are calling should be called on the test object; not on a scanner.");
 
             var processors = new List<IProcessor> {new TestRunner()};
@@ -79,7 +75,7 @@ namespace Bddify
 
             var storyScanner = scanner ?? GetDefaultScanner();
 
-            return new Bddifier(testType, storyScanner, processors);
+            return new Bddifier(testObject, storyScanner, processors);
         }
     }
 }

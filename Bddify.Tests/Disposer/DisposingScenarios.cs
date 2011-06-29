@@ -1,31 +1,28 @@
 using System;
-using Bddify.Core;
+using Bddify.Tests.Exceptions;
 using NUnit.Framework;
 using System.Linq;
 
 namespace Bddify.Tests.Disposer
 {
+    [TestFixture]
     public class DisposingScenarios
     {
         private DisposableScenario _scenario;
         private Core.Story _story;
+        private ThrowingMethods _throwingMethods;
 
-        [RunScenarioWithArgs(false, false, false)]
-        [RunScenarioWithArgs(true, false, false)]
-        [RunScenarioWithArgs(false, true, false)]
-        [RunScenarioWithArgs(false, false, true)]
-        [RunScenarioWithArgs(true, true, true)]
         class DisposableScenario : IDisposable
         {
-            private bool _givenThrows;
-            private bool _whenThrows;
-            private bool _thenThrows;
+            private readonly bool _givenThrows;
+            private readonly bool _whenThrows;
+            private readonly bool _thenThrows;
 
-            void RunScenarioWithArgs(bool givenThrows, bool whenThrows, bool thenThrows)
+            public DisposableScenario(ThrowingMethods throwingMethods)
             {
-                _givenThrows = givenThrows;
-                _whenThrows = whenThrows;
-                _thenThrows = thenThrows;
+                _givenThrows = (throwingMethods & ThrowingMethods.Given) > 0;
+                _whenThrows = (throwingMethods & ThrowingMethods.When) > 0;
+                _thenThrows = (throwingMethods & ThrowingMethods.Then) > 0;
             }
 
             public void Given()
@@ -33,7 +30,7 @@ namespace Bddify.Tests.Disposer
                 if (_givenThrows)
                     throw new Exception();
             }
-            
+
             public void When()
             {
                 if (_whenThrows)
@@ -45,7 +42,7 @@ namespace Bddify.Tests.Disposer
                 if (_thenThrows)
                     throw new Exception();
             }
-            
+
             public void Dispose() { Disposed = true; }
 
             public bool Disposed { get; set; }
@@ -53,12 +50,12 @@ namespace Bddify.Tests.Disposer
 
         void GivenADisposableScenario()
         {
-            _scenario = new DisposableScenario();
+            _scenario = new DisposableScenario(_throwingMethods);
         }
 
         void WhenScenarioIsBddified()
         {
-            var bddifier = typeof(DisposableScenario).LazyBddify(true);
+            var bddifier = _scenario.LazyBddify(true);
             try
             {
                 bddifier.Run();
@@ -68,7 +65,7 @@ namespace Bddify.Tests.Disposer
                 // there will be an exception but we do not care about it
             }
             _story = bddifier.Story;
-        } 
+        }
 
         void ThenScenariosAreNotDisposedByBddifyBecauseTheyShouldBeThereForHtmlReport()
         {
@@ -81,9 +78,15 @@ namespace Bddify.Tests.Disposer
         }
 
         [Test]
-        public void Execute()
+        [TestCase(ThrowingMethods.None)]
+        [TestCase(ThrowingMethods.Given)]
+        [TestCase(ThrowingMethods.When)]
+        [TestCase(ThrowingMethods.Then)]
+        [TestCase(ThrowingMethods.Given | ThrowingMethods.When | ThrowingMethods.Then)]
+        public void Execute(ThrowingMethods throwingMethods)
         {
-            typeof(DisposingScenarios).Bddify();
+            _throwingMethods = throwingMethods;
+            this.Bddify();
         }
     }
 }
