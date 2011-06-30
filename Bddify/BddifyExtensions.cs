@@ -38,6 +38,9 @@ namespace Bddify
 
         public static Story Bddify(this object testObject, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true, string scenarioTextTemplate = null, params IScanForSteps[] stepScanners)
         {
+            if(testObject is Type)
+                throw new ArgumentException("testObject should be an instance of a test class not its type");
+
             IScanner scanner = null;
 
             if (stepScanners != null && stepScanners.Length > 0)

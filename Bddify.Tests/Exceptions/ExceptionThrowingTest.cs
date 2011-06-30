@@ -59,8 +59,7 @@ namespace Bddify.Tests.Exceptions
 
         private Bddifier FluentScannerBddifier()
         {
-            return this.Scan()
-                        .Given(s => s.Given())
+            return this.Given(s => s.Given())
                         .When(s => s.When())
                         .Then(s => s.Then())
                         .TearDownWith(s => s.TearDown())

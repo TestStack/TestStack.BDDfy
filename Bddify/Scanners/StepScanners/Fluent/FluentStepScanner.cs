@@ -9,13 +9,13 @@ using Bddify.Core;
 
 namespace Bddify.Scanners.StepScanners.Fluent
 {
-    public class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
+    internal class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class, new()
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
         private readonly object _testObject;
 
-        public FluentStepScanner(object testObject)
+        internal FluentStepScanner(object testObject)
         {
             _testObject = testObject;
         }

@@ -60,8 +60,7 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void CatsGame()
         {
-            this.Scan()
-                .Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
+            this.Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
                 .Then(s => s.ThenItShouldBeACatsGame())
                 .Bddify("Cat's game");
         }
@@ -69,8 +68,7 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void WhenXAndOPlayTheirFirstMoves()
         {
-            this.Scan()
-                .Given(s => s.GivenANewGame())
+            this.Given(s => s.GivenANewGame())
                 .When(s => s.WhenTheGameIsPlayedAt(new Cell(0, 0), new Cell(2, 2)), "When X and O play on {0}")
                 .Then(s => s.ThenTheBoardStateShouldBe(new[] { X, N, N }, new[] { N, N, N }, new[] { N, N, O }))
                 .Bddify();
@@ -140,8 +138,7 @@ namespace Bddify.Samples.TicTacToe
         public void OWins()
         {
             var cell = new Cell(2, 0);
-            this.Scan()
-                .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, O, N }, new[] { N, N, N }))
+            this.Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, O, N }, new[] { N, N, N }))
                 .When(s => s.WhenTheGameIsPlayedAt(cell))
                 .Then(s => s.ThenTheWinnerShouldBe(O))
                 .Bddify();
@@ -150,8 +147,7 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void XWins()
         {
-            this.Scan()
-                .Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, X, O }, new[] { O, O, N }))
+            this.Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, X, O }, new[] { O, O, N }))
                 .When(s => s.WhenTheGameIsPlayedAt(new Cell(2, 2)))
                 .Then(s => s.ThenTheWinnerShouldBe(X))
                 .Bddify();
@@ -169,8 +165,7 @@ namespace Bddify.Samples.TicTacToe
 
         void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
         {
-            this.Scan()
-                .Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
+            this.Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
                 .Then(s => ThenTheWinnerShouldBe(expectedWinner))
                 .Bddify();
         }

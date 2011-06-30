@@ -67,7 +67,6 @@ namespace Bddify.Tests.FluentStepScanner
         public static IScanForSteps GetScanner(ScenarioToBeScannedUsingFluentScanner testObject)
         {
             return testObject
-                .Scan()
                 .Given(s => s.GivenSomeState(1, 2))
                     .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
                     .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))

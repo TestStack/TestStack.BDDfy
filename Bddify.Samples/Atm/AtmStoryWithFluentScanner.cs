@@ -73,8 +73,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            this.Scan()
-                .Given(s => s.GivenTheAccountBalanceIs(10), GivenTheAccountBalanceIsTitleTemplate)
+            this.Given(s => s.GivenTheAccountBalanceIs(10), GivenTheAccountBalanceIsTitleTemplate)
                     .And(s => s.AndTheCardIsValid())
                     .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
                 .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
@@ -88,8 +87,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasSufficientFund()
         {
-           this.Scan()
-                .Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
+           this.Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
                     .And(s => s.AndTheCardIsValid())
                     .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
                 .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
@@ -102,8 +100,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void CardHasBeenDisabled()
         {
-            this.Scan()
-                .Given(s => s.GivenTheCardIsDisabled())
+            this.Given(s => s.GivenTheCardIsDisabled())
                 .When(s => s.WhenTheAccountHolderRequests(20))
                 .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
                     .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())

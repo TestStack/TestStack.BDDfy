@@ -12,67 +12,67 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void WhenXAndOPlayTheirFirstMoves()
         {
-            typeof (WhenXAndOPlayTheirFirstMoves).Bddify();
+            new WhenXAndOPlayTheirFirstMoves().Bddify();
         }
 
         [Test]
         public void HorizontalWin()
         {
-            typeof (HorizontalWin).Bddify();
+            new HorizontalWin().Bddify();
         }
 
         [Test]
         public void HorizontalWinInTheBottom()
         {
-            typeof (HorizontalWinInTheBottom).Bddify();
+            new HorizontalWinInTheBottom().Bddify();
         }
 
         [Test]
         public void HorizontalWinInTheMiddle()
         {
-            typeof (HorizontalWinInTheMiddle).Bddify();
+            new HorizontalWinInTheMiddle().Bddify();
         }
 
         [Test]
         public void VerticalWinInTheLeft()
         {
-            typeof (VerticalWinInTheLeft).Bddify();
+            new VerticalWinInTheLeft().Bddify();
         }
 
         [Test]
         public void VerticalWinInTheMiddle()
         {
-            typeof (VerticalWinInTheMiddle).Bddify();
+            new VerticalWinInTheMiddle().Bddify();
         }
 
         [Test]
         public void VerticalWinInTheRight()
         {
-            typeof (VerticalWinInTheRight).Bddify();
+            new VerticalWinInTheRight().Bddify();
         }
 
         [Test]
         public void OWins()
         {
-            typeof (OWins).Bddify();
+            new OWins().Bddify();
         }
 
         [Test]
         public void XWins()
         {
-            typeof (XWins).Bddify();
+            new XWins().Bddify();
         }
 
         [Test]
         public void CatsGame()
         {
-            typeof (CatsGame).Bddify();
+            new CatsGame().Bddify();
         }
 
         [Test]
         public void DiagonalWin()
         {
-            typeof (DiagonalWin).Bddify();
+            new DiagonalWin().Bddify();
         }
     }
 }
