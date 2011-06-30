@@ -32,8 +32,6 @@ namespace Bddify.Scanners.StepScanners.MethodName
                 // e.g. a method starting with AndGiven matches against both AndGiven and And
                 foreach (var method in methodsToScan.Except(foundMethods))
                 {
-                    var methodName = CleanupTheStepText(NetToString.Convert(method.Name));
-
                     if (!matcher.IsMethodOfInterest(method.Name)) 
                         continue;
 
@@ -41,11 +39,13 @@ namespace Bddify.Scanners.StepScanners.MethodName
 
                     var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                     object[] inputs = null;
-                    var stepMethodName = methodName;
+
+                    var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                     if (argAttributes.Length == 0)
                     {
                         // creating the method itself
+                        var stepMethodName = GetStepTitle(method, testObject, null, returnsItsText);
                         yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                         continue;
                     }
@@ -55,11 +55,7 @@ namespace Bddify.Scanners.StepScanners.MethodName
                         inputs = argAttribute.InputArguments;
                         if (inputs != null && inputs.Length > 0)
                         {
-                            if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
-                                stepMethodName = methodName + " " + string.Join(", ", inputs.FlattenArrays());
-                            else
-                                stepMethodName = string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
-
+                            var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
                             yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                         }
                     }
@@ -67,6 +63,43 @@ namespace Bddify.Scanners.StepScanners.MethodName
             }
 
             yield break;
+        }
+
+        private static string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
+        {
+            Func<string> stepTitleFromMethodName = () => GetStepTitleFromMethodName(method, argAttribute);
+
+            if(returnsItsText)
+                return GetStepTitleFromMethod(method, argAttribute, testObject) ?? stepTitleFromMethodName();
+
+            return stepTitleFromMethodName();
+        }
+
+        private static string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
+        {
+            var methodName = CleanupTheStepText(NetToString.Convert(method.Name));
+            object[] inputs = null;
+
+            if (argAttribute != null && argAttribute.InputArguments != null)
+                inputs = argAttribute.InputArguments;
+
+            if (inputs == null)
+                return methodName;
+            
+            if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
+                return methodName + " " + string.Join(", ", inputs.FlattenArrays());
+
+            return string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
+        }
+
+        private static string GetStepTitleFromMethod(MethodInfo method, RunStepWithArgsAttribute argAttribute, object testObject)
+        {
+            object[] inputs = null;
+            if(argAttribute != null && argAttribute.InputArguments != null)
+                inputs = argAttribute.InputArguments;
+
+            var enumerableResult = (IEnumerable<string>)method.Invoke(testObject, inputs);
+            return enumerableResult.FirstOrDefault();
         }
 
         static string CleanupTheStepText(string stepText)

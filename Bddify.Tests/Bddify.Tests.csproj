@@ -67,6 +67,7 @@
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
+    <Compile Include="Scanner\WhenStepsReturnTheirText.cs" />
     <Compile Include="Story\DummyScenario.cs" />
     <Compile Include="Story\StoryDouble.cs" />
     <Compile Include="Helpers.cs" />
