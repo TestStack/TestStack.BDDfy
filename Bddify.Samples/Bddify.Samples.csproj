@@ -39,21 +39,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="NUnit\Bddify.Samples.NUnit.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="NUnit\content\Bddify.Samples.NUnit\FailingTestWithScenarioArguments.cs.pp" />
-    <None Include="NUnit\content\Bddify.Samples.NUnit\ScenarioWithMixedSteps.cs.pp" />
-    <None Include="NUnit\content\Bddify.Samples.NUnit\SomeFailingTest.cs.pp" />
-    <None Include="NUnit\content\Bddify.Samples.NUnit\SomeIncompleteTest.cs.pp" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Atm\ReadMe.txt" />
     <Content Include="Bowling\ReadMe.txt" />
-    <Content Include="NUnit\content\Bddify.Samples.NUnit\ReadMe.txt" />
     <Content Include="TicTacToe\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
