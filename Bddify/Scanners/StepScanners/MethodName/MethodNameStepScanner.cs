@@ -113,7 +113,17 @@ namespace Bddify.Scanners.StepScanners.MethodName
                 inputs = argAttribute.InputArguments;
 
             var enumerableResult = InvokeIEnumerableMethod(method, testObject, inputs);
-            return enumerableResult.FirstOrDefault();
+            try
+            {
+                return enumerableResult.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                var message = string.Format(
+                    "The signature of method '{0}' indicates that it returns its step title; but the code is throwing an exception before a title is returned",
+                    method.Name);
+                throw new StepTitleException(message, ex);
+            }
         }
 
         private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs)
