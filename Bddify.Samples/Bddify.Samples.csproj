@@ -67,19 +67,13 @@
     <Compile Include="Bowling\Game.cs" />
     <Compile Include="Bowling\OneSingleSpare.cs" />
     <Compile Include="TicTacToe\CatsGame.cs" />
-    <Compile Include="TicTacToe\DiagonalWin.cs" />
     <Compile Include="TicTacToe\Game.cs" />
     <Compile Include="TicTacToe\Helpers.cs" />
-    <Compile Include="TicTacToe\HorizontalWin.cs" />
-    <Compile Include="TicTacToe\HorizontalWinInTheBottom.cs" />
-    <Compile Include="TicTacToe\HorizontalWinInTheMiddle.cs" />
     <Compile Include="TicTacToe\OWins.cs" />
     <Compile Include="TicTacToe\TicTacToeStory.cs" />
     <Compile Include="TicTacToe\TicTacToeStoryWithFluentScanner.cs" />
-    <Compile Include="TicTacToe\VerticalWinInTheLeft.cs" />
-    <Compile Include="TicTacToe\VerticalWinInTheMiddle.cs" />
-    <Compile Include="TicTacToe\VerticalWinInTheRight.cs" />
     <Compile Include="TicTacToe\WhenXAndOPlayTheirFirstMoves.cs" />
+    <Compile Include="TicTacToe\WinnerGame.cs" />
     <Compile Include="TicTacToe\XWins.cs" />
   </ItemGroup>
   <ItemGroup>

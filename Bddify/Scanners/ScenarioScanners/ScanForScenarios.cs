@@ -9,26 +9,26 @@ namespace Bddify.Scanners.ScenarioScanners
     public class ScanForScenarios : IScanForScenarios
     {
         private readonly IEnumerable<IScanForSteps> _stepScanners;
-        private readonly string _scenarioTextTemplate;
+        private readonly string _scenarioTitle;
 
         public ScanForScenarios(IEnumerable<IScanForSteps> stepScanners)
             : this(stepScanners, null)
         {
         }
 
-        public ScanForScenarios(IEnumerable<IScanForSteps> stepScanners, string scenarioTextTemplate)
+        public ScanForScenarios(IEnumerable<IScanForSteps> stepScanners, string scenarioTitle)
         {
             _stepScanners = stepScanners;
-            _scenarioTextTemplate = scenarioTextTemplate;
+            _scenarioTitle = scenarioTitle;
         }
 
         public Scenario Scan(object testObject)
         {
             var scenarioType = testObject.GetType();
-            var scenarioText = _scenarioTextTemplate ?? GetScenarioText(scenarioType);
+            var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
             var steps = ScanScenarioForSteps(testObject);
 
-            return new Scenario(testObject, steps, scenarioText);
+            return new Scenario(testObject, steps, scenarioTitle);
         }
 
         static string GetScenarioText(Type scenarioType)

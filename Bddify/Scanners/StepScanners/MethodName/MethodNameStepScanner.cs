@@ -46,7 +46,8 @@ namespace Bddify.Scanners.StepScanners.MethodName
                     {
                         // creating the method itself
                         var stepMethodName = GetStepTitle(method, testObject, null, returnsItsText);
-                        yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+                        var stepAction = GetStepAction(method, inputs, returnsItsText);
+                        yield return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                         continue;
                     }
 
@@ -56,13 +57,26 @@ namespace Bddify.Scanners.StepScanners.MethodName
                         if (inputs != null && inputs.Length > 0)
                         {
                             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
-                            yield return new ExecutionStep(method, inputs, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+                            var stepAction = GetStepAction(method, inputs, returnsItsText);
+                            yield return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
                         }
                     }
                 }
             }
 
             yield break;
+        }
+
+        // ToDo: this method does not belong to this class. I need to do a serious clean up in step scanners
+        private static Action<object> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
+        {
+            if (returnsItsText)
+            {
+                // Note: Count() is a silly trick to enumerate over the method and make sure it returns because it is an IEnumerable method and runs lazily otherwise
+                return o => InvokeIEnumerableMethod(method, o, inputs).Count();
+            }
+
+            return o => method.Invoke(o, inputs);
         }
 
         private static string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
@@ -98,8 +112,13 @@ namespace Bddify.Scanners.StepScanners.MethodName
             if(argAttribute != null && argAttribute.InputArguments != null)
                 inputs = argAttribute.InputArguments;
 
-            var enumerableResult = (IEnumerable<string>)method.Invoke(testObject, inputs);
+            var enumerableResult = InvokeIEnumerableMethod(method, testObject, inputs);
             return enumerableResult.FirstOrDefault();
+        }
+
+        private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs)
+        {
+            return (IEnumerable<string>)method.Invoke(testObject, inputs);
         }
 
         static string CleanupTheStepText(string stepText)

@@ -117,6 +117,7 @@
     <Compile Include="Scanners\StepScanners\MethodName\DefaultMethodNameStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameMatcher.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameStepScanner.cs" />
+    <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reporters\HtmlReport.cshtml" />
