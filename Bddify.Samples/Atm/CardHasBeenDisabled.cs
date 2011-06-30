@@ -25,7 +25,7 @@ namespace Bddify.Samples.Atm
 
         void AndTheAtmShouldSayTheCardHasBeenRetained()
         {
-            Assert.AreEqual(_subject.Message, DisplayMessage.CardIsRetained);
+            Assert.AreEqual(DisplayMessage.CardIsRetained, _subject.Message);
         }
     }
 }

@@ -32,18 +32,18 @@ namespace Bddify.Samples.Atm
 
         void ThenTheAtmShouldNotDispenseAnyMoney()
         {
-            Assert.AreEqual(_atm.DispenseValue, 0);
+            Assert.AreEqual(0, _atm.DispenseValue);
         }
 
         void AndTheAtmShouldSayThereAreInsufficientFunds()
         {
-            Assert.AreEqual(_atm.Message, DisplayMessage.InsufficientFunds);
+            Assert.AreEqual(DisplayMessage.InsufficientFunds, _atm.Message);
         }
 
 		[AndThen(StepText = "And the account balance should be $20")]
         void AndTheAccountBalanceShouldBe20()
         {
-            Assert.AreEqual(_card.AccountBalance, 10);
+            Assert.AreEqual(10, _card.AccountBalance);
         }
 
         void AndTheCardShouldBeReturned()

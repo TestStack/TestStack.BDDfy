@@ -17,7 +17,7 @@ namespace Bddify.Samples.TicTacToe
 
         void ThenItShouldBeACatsGame()
         {
-            Assert.IsTrue(Game.Winner == null);
+            Assert.IsNull(Game.Winner);
         }
     }
 }

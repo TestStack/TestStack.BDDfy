@@ -41,12 +41,12 @@ namespace Bddify.Samples.TicTacToe
 
         public void ThenTheWinnerShouldBe(string expectedWinner)
         {
-            Assert.AreEqual(Game.Winner, expectedWinner);
+            Assert.AreEqual(expectedWinner, Game.Winner);
         }
 
         public void ThenItShouldBeACatsGame()
         {
-            Assert.AreEqual(Game.Winner, null);
+            Assert.IsNull(Game.Winner);
         }
 
         public void WhenTheGameIsPlayedAt(params Cell[] cells)

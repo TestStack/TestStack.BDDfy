@@ -33,7 +33,7 @@ namespace Bddify.Samples.TicTacToe
         IEnumerable<string > ThenTheWinnerShouldBe()
         {
             yield return "Then the winner is " + _expectedWinner;
-            Assert.AreEqual(_expectedWinner, Game.Winner);
+            Assert.AreEqual(Game.Winner, _expectedWinner);
         }
     }
 }

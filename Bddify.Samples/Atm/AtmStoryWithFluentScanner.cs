@@ -47,27 +47,27 @@ namespace Bddify.Samples.Atm
 
         public void TheAtmShouldDispense(int dispensedMoney)
         {
-            Assert.AreEqual(_atm.DispenseValue, dispensedMoney);
+            Assert.AreEqual(dispensedMoney, _atm.DispenseValue);
         }
 
         public void AndTheAccountBalanceShouldBe(int balance)
         {
-            Assert.AreEqual(_card.AccountBalance, balance);
+            Assert.AreEqual(balance, _card.AccountBalance);
         }
 
         public void CardIsRetained(bool cardIsRetained)
         {
-            Assert.AreEqual(_atm.CardIsRetained, cardIsRetained);
+            Assert.AreEqual(cardIsRetained, _atm.CardIsRetained);
         }
 
         void AndTheAtmShouldSayThereAreInsufficientFunds()
         {
-            Assert.AreEqual(_atm.Message, DisplayMessage.InsufficientFunds);
+            Assert.AreEqual(DisplayMessage.InsufficientFunds, _atm.Message);
         }
 
         void AndTheAtmShouldSayTheCardHasBeenRetained()
         {
-            Assert.AreEqual(_atm.Message, DisplayMessage.CardIsRetained);
+            Assert.AreEqual(DisplayMessage.CardIsRetained, _atm.Message);
         }
 
         [Test]

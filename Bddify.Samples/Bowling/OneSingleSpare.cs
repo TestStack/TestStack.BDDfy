@@ -27,7 +27,7 @@ namespace Bddify.Samples.Bowling
 
         void ThenMyTotalScoreShouldBe29()
         {
-            Assert.AreEqual(_game.Score, 29);
+            Assert.AreEqual(29, _game.Score);
         }
 
         [Test]

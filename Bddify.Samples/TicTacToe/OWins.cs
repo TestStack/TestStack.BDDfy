@@ -22,7 +22,7 @@ namespace Bddify.Samples.TicTacToe
 
         void ThenTheWinnerShouldBeO()
         {
-            Assert.AreEqual(Game.Winner, O);
+            Assert.AreEqual(O, Game.Winner);
         }
     }
 }

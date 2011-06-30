@@ -27,12 +27,12 @@ namespace Bddify.Samples.Atm
         [Then(StepText = "Then the ATM should dispense $20")]
         void ThenTheAtmShouldDispense20()
         {
-            Assert.AreEqual(_atm.DispenseValue, 20);
+            Assert.AreEqual(20, _atm.DispenseValue);
         }
 
         void AndTheAccountBalanceShouldBe80()
         {
-            Assert.AreEqual(_card.AccountBalance, 80);
+            Assert.AreEqual(80, _card.AccountBalance);
         }
 
         void AndTheCardShouldBeReturned()

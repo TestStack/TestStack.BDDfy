@@ -30,7 +30,7 @@ namespace Bddify.Samples.Bowling
 
         void ThenMyTotalScoreShouldBe110()
         {
-            Assert.AreEqual(_game.Score, 110);
+            Assert.AreEqual(110, _game.Score);
         }
 
         [Test]
