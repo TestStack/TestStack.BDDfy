@@ -15,16 +15,28 @@ namespace Bddify
             return new FluentStepScanner<TScenario>(testObject);
         }
 
-        public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
+        public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> givenStep, string stepTextTemplate)
             where TScenario: class, new()
         {
             return testObject.Scan().Given(givenStep, stepTextTemplate);
         }
 
-        public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> whenStep, string stepTextTemplate = null)
+        public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> whenStep, string stepTextTemplate)
             where TScenario : class, new()
         {
             return testObject.Scan().When(whenStep, stepTextTemplate);
+        }
+
+        public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> givenStep)
+            where TScenario: class, new()
+        {
+            return testObject.Given(givenStep, null);
+        }
+
+        public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> whenStep)
+            where TScenario : class, new()
+        {
+            return testObject.When(whenStep, null);
         }
     }
 #endif
