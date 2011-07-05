@@ -1,5 +1,4 @@
 using Bddify.Core;
-using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 
 
@@ -75,66 +74,6 @@ namespace Bddify.Samples.TicTacToe
         }
 
         [Test]
-        public void HorizontalWin()
-        {
-            AssertWinningScenario(
-                new[] { X, X, X },
-                new[] { X, O, O },
-                new[] { O, O, X },
-                X);
-        }
-
-        [Test]
-        public void HorizontalWinInTheBottom()
-        {
-            AssertWinningScenario(
-                new[] { X, X, N },
-                new[] { X, O, X },
-                new[] { O, O, O },
-                O);
-        }
-
-        [Test]
-        public void HorizontalWinInTheMiddle()
-        {
-            AssertWinningScenario(
-                new[] { X, O, O },
-                new[] { X, X, X },
-                new[] { O, O, X },
-                X);
-        }
-
-        [Test]
-        public void VerticalWinInTheLeft()
-        {
-            AssertWinningScenario(
-                new[] { X, O, O },
-                new[] { X, O, X },
-                new[] { X, X, O },
-                X);
-        }
-
-        [Test]
-        public void VerticalWinInTheMiddle()
-        {
-            AssertWinningScenario(
-                new[] { X, X, O },
-                new[] { O, X, O },
-                new[] { O, X, X },
-                X);
-        }
-
-        [Test]
-        public void VerticalWinInTheRight()
-        {
-            AssertWinningScenario(
-                new[] { X, O, X },
-                new[] { O, O, X },
-                new[] { O, X, X },
-                X);
-        }
-
-        [Test]
         public void OWins()
         {
             var cell = new Cell(2, 0);
@@ -154,20 +93,46 @@ namespace Bddify.Samples.TicTacToe
         }
 
         [Test]
-        public void DiagonalWin()
-        {
-            AssertWinningScenario(
-                new[] { X, O, O },
-                new[] { X, O, X },
-                new[] { O, X, N },
-                O);
-        }
-
-        void AssertWinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
+        [TestCase(
+            new[] { X, O, O }, 
+            new[] { X, O, X }, 
+            new[] { O, X, N }, 
+            O, "Diagonal win")]
+        [TestCase(
+            new[] { X, O, X }, 
+            new[] { O, O, X }, 
+            new[] { O, X, X }, 
+            X, "Vertical win in the right")]
+        [TestCase(
+            new[] { X, X, O }, 
+            new[] { O, X, O }, 
+            new[] { O, X, X }, 
+            X, "Vertical in in the middle")]
+        [TestCase(
+            new[] { X, O, O },
+            new[] { X, O, X },
+            new[] { X, X, O },
+            X, "Vertical in in the left")]
+        [TestCase(
+            new[] { X, O, O },
+            new[] { X, X, X },
+            new[] { O, O, X },
+            X, "Horizontal win in the middle")]
+        [TestCase(
+            new[] { X, X, N },
+            new[] { X, O, X },
+            new[] { O, O, O },
+            O, "Horizontal in in the bottom")]
+        [TestCase(
+            new[] { X, X, X },
+            new[] { X, O, O },
+            new[] { O, O, X },
+            X, "Horizontal win")]
+        public void WinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner, string scenarioTitle)
         {
             this.Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
                 .Then(s => ThenTheWinnerShouldBe(expectedWinner))
-                .Bddify();
+                .Bddify(scenarioTitle);
         }
     }
 }
