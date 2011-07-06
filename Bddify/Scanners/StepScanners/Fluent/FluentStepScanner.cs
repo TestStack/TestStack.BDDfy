@@ -82,22 +82,17 @@ namespace Bddify.Scanners.StepScanners.Fluent
         {
             return ((IGiven<TScenario>)this).And(andGivenStep, null);
         }
+#endif
 
         public Story Bddify(string title)
         {
-            return Bddify(title, null, true, true, true);
+            return LazyBddify(title).Run();
         }
 
         public Story Bddify()
         {
             return Bddify(null);
         }
-
-        public Bddifier LazyBddify()
-        {
-            return LazyBddify(null);
-        }
-#endif
 
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true)
         {
@@ -185,12 +180,9 @@ namespace Bddify.Scanners.StepScanners.Fluent
             return methodCall.Method;
         }
 
-        public Story Bddify(string title = null, IExceptionProcessor exceptionProcessor = null, bool handleExceptions = true, bool htmlReport = true, bool consoleReport = true)
+        public Bddifier LazyBddify()
         {
-            if (title == null)
-                title = GetTitleFromMethodNameInStackTrace();
-
-            return _testObject.Bddify(exceptionProcessor, handleExceptions, htmlReport, consoleReport, title, this);
+            return LazyBddify(null);
         }
 
         public Bddifier LazyBddify(string title = null)

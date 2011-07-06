@@ -55,7 +55,7 @@ namespace Bddify.Tests.Disposer
 
         void WhenScenarioIsBddified()
         {
-            var bddifier = _scenario.LazyBddify(true);
+            var bddifier = _scenario.LazyBddify();
             try
             {
                 bddifier.Run();
