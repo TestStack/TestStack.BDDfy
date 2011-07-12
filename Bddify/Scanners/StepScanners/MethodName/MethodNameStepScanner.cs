@@ -38,33 +38,29 @@ namespace Bddify.Scanners.StepScanners.MethodName
                     foundMethods.Add(method);
 
                     var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                    object[] inputs = null;
-
                     var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                     if (argAttributes.Length == 0)
                     {
-                        // creating the method itself
-                        var stepMethodName = GetStepTitle(method, testObject, null, returnsItsText);
-                        var stepAction = GetStepAction(method, inputs, returnsItsText);
-                        yield return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+                        yield return GetStep(testObject, matcher, method, returnsItsText);
                         continue;
                     }
 
                     foreach (var argAttribute in argAttributes)
                     {
-                        inputs = argAttribute.InputArguments;
+                        var inputs = argAttribute.InputArguments;
                         if (inputs != null && inputs.Length > 0)
-                        {
-                            var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
-                            var stepAction = GetStepAction(method, inputs, returnsItsText);
-                            yield return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
-                        }
+                            yield return GetStep(testObject, matcher, method, returnsItsText, inputs, argAttribute);
                     }
                 }
             }
+        }
 
-            yield break;
+        private static ExecutionStep GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
+        {
+            var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
+            var stepAction = GetStepAction(method, inputs, returnsItsText);
+            return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
         }
 
         // ToDo: this method does not belong to this class. I need to do a serious clean up in step scanners
