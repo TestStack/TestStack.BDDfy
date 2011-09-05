@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Bddify.Core;
 using Bddify.Scanners.StepScanners;
@@ -44,6 +43,7 @@ namespace Bddify.Scanners.ScenarioScanners
             var scenarioType = testObject.GetType();
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
+                // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
                     var steps = scanner.Scan(methodInfo);
