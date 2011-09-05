@@ -9,50 +9,35 @@ namespace Bddify.Scanners.StepScanners.MethodName
     public class MethodNameStepScanner : IScanForSteps
     {
         private readonly MethodNameMatcher[] _matchers;
+        private readonly object _testObject;
 
-        public MethodNameStepScanner(MethodNameMatcher[] matchers)
+        public MethodNameStepScanner(object testObject, MethodNameMatcher[] matchers)
         {
+            _testObject = testObject;
             _matchers = matchers;
         }
 
-        public int Priority
+        public IEnumerable<ExecutionStep> Scan(MethodInfo method)
         {
-            get { return 20; }
-        }
-
-        public IEnumerable<ExecutionStep> Scan(object testObject)
-        {
-            var scenarioType = testObject.GetType();
-            var methodsToScan = scenarioType.GetMethodsOfInterest();
-            var foundMethods = new List<MethodInfo>();
-
             foreach (var matcher in _matchers)
             {
-                // if a method is already matched we should exclude it because it may match against another criteria too
-                // e.g. a method starting with AndGiven matches against both AndGiven and And
-                foreach (var method in methodsToScan.Except(foundMethods))
+                if (!matcher.IsMethodOfInterest(method.Name)) 
+                    continue;
+
+                var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
+                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
+
+                if (argAttributes.Length == 0)
+                    yield return GetStep(_testObject, matcher, method, returnsItsText);
+
+                foreach (var argAttribute in argAttributes)
                 {
-                    if (!matcher.IsMethodOfInterest(method.Name)) 
-                        continue;
-
-                    foundMethods.Add(method);
-
-                    var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                    var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-
-                    if (argAttributes.Length == 0)
-                    {
-                        yield return GetStep(testObject, matcher, method, returnsItsText);
-                        continue;
-                    }
-
-                    foreach (var argAttribute in argAttributes)
-                    {
-                        var inputs = argAttribute.InputArguments;
-                        if (inputs != null && inputs.Length > 0)
-                            yield return GetStep(testObject, matcher, method, returnsItsText, inputs, argAttribute);
-                    }
+                    var inputs = argAttribute.InputArguments;
+                    if (inputs != null && inputs.Length > 0)
+                        yield return GetStep(_testObject, matcher, method, returnsItsText, inputs, argAttribute);
                 }
+
+                yield break;
             }
         }
 
@@ -61,18 +46,6 @@ namespace Bddify.Scanners.StepScanners.MethodName
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
             return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
-        }
-
-        // ToDo: this method does not belong to this class. I need to do a serious clean up in step scanners
-        private static Action<object> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
-        {
-            if (returnsItsText)
-            {
-                // Note: Count() is a silly trick to enumerate over the method and make sure it returns because it is an IEnumerable method and runs lazily otherwise
-                return o => InvokeIEnumerableMethod(method, o, inputs).Count();
-            }
-
-            return o => method.Invoke(o, inputs);
         }
 
         private static string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
@@ -120,6 +93,17 @@ namespace Bddify.Scanners.StepScanners.MethodName
                     method.Name);
                 throw new StepTitleException(message, ex);
             }
+        }
+
+        static Action<object> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
+        {
+            if (returnsItsText)
+            {
+                // Note: Count() is a silly trick to enumerate over the method and make sure it returns because it is an IEnumerable method and runs lazily otherwise
+                return o => InvokeIEnumerableMethod(method, o, inputs).Count();
+            }
+
+            return o => method.Invoke(o, inputs);
         }
 
         private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs)

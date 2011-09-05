@@ -29,7 +29,7 @@ namespace Bddify.Tests.Scanner
             }
 
             [AndGiven]
-            public void ThenThisMethodIsFoundAsAnGivenStepNotThenStep()
+            public void ThenThisMethodIsFoundAsAGivenStepNotThenStep()
             {}
 
             public void Then()
@@ -66,11 +66,11 @@ namespace Bddify.Tests.Scanner
         {
             _sut = new ScenarioWithMixedSteps();
             _scenario = 
-                new ScanForScenarios(
+                new ScanForScenario(
                     new IScanForSteps[]
                         {
-                            new DefaultMethodNameStepScanner(), 
-                            new ExecutableAttributeStepScanner()
+                            new ExecutableAttributeStepScanner(),
+                            new DefaultMethodNameStepScanner(_sut)
                         }).Scan(_sut);          
         }
 
@@ -86,12 +86,11 @@ namespace Bddify.Tests.Scanner
             VerifyStepAndItsProperties(_sut.Given, ExecutionOrder.SetupState);
         }
 
-        // ToDo: Should fix ExecutionStep to find the duplicate steps
-        //[Test]
-        //public void ExecutableAttributesHaveHigherPriorityThanNamingConventions()
-        //{
-        //    VerifyStepAndItsProperties(_sut.ThenThisMethodIsFoundAsAnGivenStepNotThenStep, ExecutionOrder.ConsecutiveSetupState);
-        //}
+        [Test]
+        public void ExecutableAttributesHaveHigherPriorityThanNamingConventions()
+        {
+            VerifyStepAndItsProperties(_sut.ThenThisMethodIsFoundAsAGivenStepNotThenStep, ExecutionOrder.ConsecutiveSetupState);
+        }
 
         [Test]
         public void WhenStepIsScanned()
@@ -111,12 +110,11 @@ namespace Bddify.Tests.Scanner
             VerifyStepAndItsProperties(_sut.Then, ExecutionOrder.Assertion);
         }
 
-        // ToDo: Should fix ExecutionStep to find the duplicate steps
-        //[Test]
-        //public void AndThenStepIsScanned()
-        //{
-        //    VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsecutiveAssertion);
-        //}
+        [Test]
+        public void AndThenStepIsScanned()
+        {
+            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsecutiveAssertion);
+        }
 
         [Test]
         public void LegacyAssertionStepIsScanned()

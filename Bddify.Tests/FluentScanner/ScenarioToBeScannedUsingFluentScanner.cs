@@ -1,9 +1,11 @@
-﻿using Bddify.Core;
+﻿using System.Linq;
+using Bddify.Core;
 using Bddify.Scanners.StepScanners;
 using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 using Bddify.Scanners.StepScanners.Fluent;
+using System.Collections.Generic;
 
-namespace Bddify.Tests.FluentStepScanner
+namespace Bddify.Tests.FluentScanner
 {
     [Story]
     class ScenarioToBeScannedUsingFluentScanner
@@ -64,9 +66,9 @@ namespace Bddify.Tests.FluentStepScanner
         public void Dispose()
         {}
 
-        public static IScanForSteps GetScanner(ScenarioToBeScannedUsingFluentScanner testObject)
+        public static IEnumerable<ExecutionStep> GetSteps(ScenarioToBeScannedUsingFluentScanner testObject)
         {
-            return testObject
+            var fluentScanner = testObject
                 .Given(s => s.GivenSomeState(1, 2))
                     .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
                     .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))
@@ -77,6 +79,8 @@ namespace Bddify.Tests.FluentStepScanner
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
                     .And(s => s.AndIncorrectAttributeWouldNotMatter())
                 .TearDownWith(s => s.Dispose());
+
+            return fluentScanner.Scan(testObject).Scenarios.SelectMany(s => s.Steps).ToList();
         }
     }
 }

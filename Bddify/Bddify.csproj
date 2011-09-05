@@ -91,8 +91,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Core\RunStepWithArgsAttribute.cs" />
-    <Compile Include="Scanners\ScenarioScanners\IScanForScenarios.cs" />
-    <Compile Include="Scanners\ScenarioScanners\ScanForScenarios.cs" />
+    <Compile Include="Scanners\ScenarioScanners\IScanForScenario.cs" />
+    <Compile Include="Scanners\ScenarioScanners\ScanForScenario.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttribute.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttributeStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\AndGivenAttribute.cs" />
@@ -102,8 +102,9 @@
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ThenAttribute.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\WhenAttribute.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\ExpressionExtensions.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\FluentStepScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\FluentStepScannerExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentScannerExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentScenarioScanner.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IAndGiven.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IAndThen.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IAndWhen.cs" />

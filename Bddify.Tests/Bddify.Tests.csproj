@@ -58,11 +58,18 @@
     <Compile Include="Exceptions\ThrowingMethods.cs" />
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />
-    <Compile Include="FluentStepScanner\BddifyUsingFluentApi.cs" />
-    <Compile Include="FluentStepScanner\ScenarioToBeScannedUsingFluentScanner.cs" />
-    <Compile Include="FluentStepScanner\WhenStepsAreScannedUsingFluentStepScanner.cs" />
+    <Compile Include="FluentScanner\BddifyUsingFluentApi.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FluentScanner\ScenarioToBeScannedUsingFluentScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FluentScanner\WhenStepsAreScannedUsingFluentScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="NetToStringTests.cs" />
     <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
+    <Compile Include="Scanner\StepScannerExtensions.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />

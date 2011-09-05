@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Bddify.Scanners.StepScanners.Fluent
 {
-    public interface IGiven<TScenario> : IFluentScanner<TScenario>
+    public interface IGiven<TScenario>
     {
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate = null);

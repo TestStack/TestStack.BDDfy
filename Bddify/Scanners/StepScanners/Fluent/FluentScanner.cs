@@ -6,32 +6,26 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
 using Bddify.Core;
+using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners.StepScanners.Fluent
 {
-    internal class FluentStepScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
+    internal class FluentScanner<TScenario> : IFluentScanner<TScenario>, IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class, new()
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
         private readonly object _testObject;
+        private string _title;
 
-        internal FluentStepScanner(object testObject)
+        internal FluentScanner(object testObject)
         {
             _testObject = testObject;
         }
 
-        int IScanForSteps.Priority
+        Story IScanner.Scan(object testObject)
         {
-            get { return 0; }
-        }
-
-        IEnumerable<ExecutionStep> IScanForSteps.Scan(object testObject)
-        {
-            var scenarioType = testObject.GetType();
-            if (scenarioType != typeof(TScenario))
-                throw new InvalidOperationException("FluentStepScanner is setup to scan " + typeof(TScenario).Name + " but is being asked to scan " + scenarioType.Name);
-
-            return _steps;
+            var scanner = new DefaultScanner(new FluentScenarioScanner(_steps, _title));
+            return scanner.Scan(testObject);
         }
 
 #if NET35
@@ -185,26 +179,10 @@ namespace Bddify.Scanners.StepScanners.Fluent
             return LazyBddify(null);
         }
 
-        public Bddifier LazyBddify(string title = null)
+        public Bddifier LazyBddify(string title, bool consoleReport = true, bool htmlReport = true)
         {
-            if (title == null)
-                title = GetTitleFromMethodNameInStackTrace();
-
-            return _testObject.LazyBddify(title, this);
-        }
-
-        private static string GetTitleFromMethodNameInStackTrace()
-        {
-            var trace = new StackTrace();
-            var frames = trace.GetFrames();
-            if (frames == null)
-                return null;
-
-            var initiatingFrame = frames.LastOrDefault(s => s.GetMethod().DeclaringType == typeof(TScenario));
-            if (initiatingFrame == null)
-                return null;
-
-            return NetToString.Convert(initiatingFrame.GetMethod().Name);
+            _title = title;
+            return _testObject.LazyBddify(this, consoleReport, htmlReport);
         }
     }
 }

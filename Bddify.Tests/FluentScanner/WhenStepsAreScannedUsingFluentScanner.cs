@@ -2,11 +2,12 @@
 using Bddify.Core;
 using NUnit.Framework;
 using System.Linq;
+using Bddify.Scanners.ScenarioScanners;
 
-namespace Bddify.Tests.FluentStepScanner
+namespace Bddify.Tests.FluentScanner
 {
     [TestFixture]
-    public class WhenStepsAreScannedUsingFluentStepScanner
+    public class WhenStepsAreScannedUsingFluentScanner
     {
         private IEnumerable<ExecutionStep> _steps;
 
@@ -14,8 +15,7 @@ namespace Bddify.Tests.FluentStepScanner
         public void Setup()
         {
             var scenario = new ScenarioToBeScannedUsingFluentScanner();
-            var scanner = ScenarioToBeScannedUsingFluentScanner.GetScanner(scenario);
-            _steps = scanner.Scan(scenario);
+            _steps = ScenarioToBeScannedUsingFluentScanner.GetSteps(scenario);
         }
 
         [Test]

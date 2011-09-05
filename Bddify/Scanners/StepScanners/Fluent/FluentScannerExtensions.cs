@@ -12,7 +12,7 @@ namespace Bddify
     {
         static IInitialStep<TScenario> Scan<TScenario>(this TScenario testObject) where TScenario : class, new()
         {
-            return new FluentStepScanner<TScenario>(testObject);
+            return new FluentScanner<TScenario>(testObject);
         }
 
         public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> givenStep, string stepTextTemplate)

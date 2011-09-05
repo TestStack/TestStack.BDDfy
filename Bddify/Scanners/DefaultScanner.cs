@@ -8,9 +8,9 @@ namespace Bddify.Scanners
 {
     public class DefaultScanner : IScanner
     {
-        private readonly IScanForScenarios _scenarioScanner;
+        private readonly IScanForScenario _scenarioScanner;
 
-        public DefaultScanner(IScanForScenarios scenarioScanner)
+        public DefaultScanner(IScanForScenario scenarioScanner)
         {
             _scenarioScanner = scenarioScanner;
         }

@@ -6,7 +6,7 @@ using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 using System.Linq;
 
-namespace Bddify.Tests.FluentStepScanner
+namespace Bddify.Tests.FluentScanner
 {
     public enum SomeEnumForTesting
     {

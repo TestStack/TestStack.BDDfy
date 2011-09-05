@@ -2,7 +2,7 @@ using Bddify.Core;
 
 namespace Bddify.Scanners.ScenarioScanners
 {
-    public interface IScanForScenarios
+    public interface IScanForScenario
     {
         Scenario Scan(object testObject);
     }

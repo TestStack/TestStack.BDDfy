@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Bddify.Core;
+using System.Reflection;
 
 namespace Bddify.Scanners.StepScanners
 {
     public interface IScanForSteps
     {
-        int Priority { get; }
-        IEnumerable<ExecutionStep> Scan(object testObject);
+        IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod);
     }
 }

@@ -6,6 +6,7 @@ using Bddify.Scanners.StepScanners;
 using Bddify.Scanners.StepScanners.MethodName;
 using NUnit.Framework;
 using System.Linq;
+using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Tests.Scanner
 {
@@ -24,8 +25,8 @@ namespace Bddify.Tests.Scanner
             var assertMatcher = new MethodNameMatcher(s => s.StartsWith("Assert", StringComparison.Ordinal), true, ExecutionOrder.Assertion, true);
             var andAssertMatcher = new MethodNameMatcher(s => s.StartsWith("AndAssert", StringComparison.Ordinal), true, ExecutionOrder.ConsecutiveAssertion, true);
             var methodNameMatchers = new[] { assertMatcher, andAssertMatcher, specEndMatcher, specStartMatcher, setupMethod };
-            var scanner = new MethodNameStepScanner(methodNameMatchers);
             _scenario = new ScenarioClass();
+            var scanner = new MethodNameStepScanner(_scenario, methodNameMatchers);
             _steps = scanner.Scan(_scenario).ToList();
         }
 

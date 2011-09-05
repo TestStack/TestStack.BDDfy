@@ -8,52 +8,37 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
 {
     public class ExecutableAttributeStepScanner : IScanForSteps
     {
-        public int Priority
+        public IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod)
         {
-            get { return 10; }
-        }
+            var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+            if(executableAttribute == null)
+                yield break;
 
-        public IEnumerable<ExecutionStep> Scan(object testObject)
-        {
-            var scenarioType = testObject.GetType();
-            var steps = new List<ExecutionStep>();
-            foreach (var methodInfo in scenarioType.GetMethodsOfInterest())
+            string readableMethodName = executableAttribute.StepText;
+            if(string.IsNullOrEmpty(readableMethodName))
+                readableMethodName = NetToString.Convert(candidateMethod.Name);
+
+            var stepAsserts = IsAssertingByAttribute(candidateMethod);
+
+            var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
+            if (runStepWithArgsAttributes.Length == 0)
             {
-                var executableAttribute = (ExecutableAttribute)methodInfo.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
-                if(executableAttribute == null)
-                    continue;
-
-                string readableMethodName = executableAttribute.StepText;
-                if(string.IsNullOrEmpty(readableMethodName))
-                    readableMethodName = NetToString.Convert(methodInfo.Name);
-
-                var stepAsserts = IsAssertingByAttribute(methodInfo);
-
-                var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                if (runStepWithArgsAttributes.Length == 0)
-                {
-                    var executionStep = new ExecutionStep(GetStepAction(methodInfo), readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
-                    steps.Add(executionStep);
-                    continue;
-                }
-
-                foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
-                {
-                    var inputArguments = runStepWithArgsAttribute.InputArguments;
-                    var flatInput = inputArguments.FlattenArrays();
-                    var methodName = readableMethodName + " " + string.Join(", ", flatInput);
-
-                    if (!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
-                        methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, flatInput);
-                    else if (!string.IsNullOrEmpty(executableAttribute.StepText))
-                        methodName = string.Format(executableAttribute.StepText, flatInput);
-
-                    var executionStep = new ExecutionStep(GetStepAction(methodInfo, inputArguments), methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
-                    steps.Add(executionStep);
-                }
+                yield return new ExecutionStep(GetStepAction(candidateMethod), readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
             }
 
-            return steps;
+            foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
+            {
+                var inputArguments = runStepWithArgsAttribute.InputArguments;
+                var flatInput = inputArguments.FlattenArrays();
+                var methodName = readableMethodName + " " + string.Join(", ", flatInput);
+
+                if (!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
+                    methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, flatInput);
+                else if (!string.IsNullOrEmpty(executableAttribute.StepText))
+                    methodName = string.Format(executableAttribute.StepText, flatInput);
+
+                yield return new ExecutionStep(GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
+            }
         }
 
         static Action<object> GetStepAction(MethodInfo methodinfo, object[] inputArguments = null)

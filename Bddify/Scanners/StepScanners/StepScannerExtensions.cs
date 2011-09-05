@@ -7,14 +7,6 @@ namespace Bddify.Scanners.StepScanners
 {
     internal static class StepScannerExtensions
     {
-        internal static IEnumerable<MethodInfo> GetMethodsOfInterest(this Type scenarioType)
-        {
-            return scenarioType                
-                .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => !m.GetCustomAttributes(typeof(IgnoreStepAttribute), false).Any())
-                .ToList();
-        }
-
         internal static string[] FlattenArrays(this object[] inputs)
         {
             var stringOffArray = new List<string>();

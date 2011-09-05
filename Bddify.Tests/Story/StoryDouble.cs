@@ -17,8 +17,9 @@ namespace Bddify.Tests.Story
         [Test]
         public void ScanningAScenarioWithoutArgsFromAStoryClass()
         {
-            var scanner = new DefaultScanner(new ScanForScenarios(new[] { new DefaultMethodNameStepScanner() }));
-            var story = scanner.Scan(new DummyScenario());
+            var testObject = new DummyScenario();
+            var scanner = new DefaultScanner(new ScanForScenario(new[] { new DefaultMethodNameStepScanner(testObject) }));
+            var story = scanner.Scan(testObject);
 
             Assert.That(story.MetaData, Is.Not.Null);
             Assert.That(story.MetaData.Type, Is.EqualTo(typeof(StoryDouble)));
