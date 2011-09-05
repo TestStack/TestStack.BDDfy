@@ -22,8 +22,6 @@
     <BddifySpec>$(BddifySpecPath)\Bddify.nuspec</BddifySpec>
     <SamplesAtmSpecPath>$(PackageDefinitionPath)\Bddify.Samples.Atm</SamplesAtmSpecPath>
     <SamplesAtmSpec>$(SamplesAtmSpecPath)\Bddify.Samples.Atm.nuspec</SamplesAtmSpec>
-    <SamplesBowlingSpecPath>$(PackageDefinitionPath)\Bddify.Samples.Bowling</SamplesBowlingSpecPath>
-    <SamplesBowlingSpec>$(SamplesBowlingSpecPath)\Bddify.Samples.Bowling.nuspec</SamplesBowlingSpec>
     <SamplesTicTacToeSpecPath>$(PackageDefinitionPath)\Bddify.Samples.TicTacToe</SamplesTicTacToeSpecPath>
     <SamplesTicSpec>$(SamplesTicTacToeSpecPath)\Bddify.Samples.TicTacToe.nuspec</SamplesTicSpec>
 </PropertyGroup>
@@ -89,13 +87,6 @@
     <Copy SourceFiles="@(AtmSampleFile)" DestinationFiles="@(AtmSampleFile->'$(SamplesAtmSpecPath)\content\Bddify.Samples.Atm\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
-  <Target Name="CopyBddifyBowlingSampleFiles">
-    <CreateItem Include="$(BddifySamplesPath)\Bowling\*.*">
-      <Output ItemName="BowlingSampleFile" TaskParameter="Include"/>
-    </CreateItem>
-    <Copy SourceFiles="@(BowlingSampleFile)" DestinationFiles="@(BowlingSampleFile->'$(SamplesBowlingSpecPath)\content\Bddify.Samples.Bowling\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
-
   <Target Name="CopyBddifyTicSampleFiles">
     <CreateItem Include="$(BddifySamplesPath)\TicTacToe\*.*">
       <Output ItemName="TicSampleFile" TaskParameter="Include"/>
@@ -108,11 +99,11 @@
       <Output ItemName="PackageContent" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(PackageContent)" DestinationFiles="@(PackageContent->'$(PackageDefinitionPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <CreateItem Include="$(BddifySpec);$(SamplesAtmSpec);$(SamplesBowlingSpec);$(SamplesTicSpec);">
+    <CreateItem Include="$(BddifySpec);$(SamplesAtmSpec);$(SamplesTicSpec);">
       <Output ItemName="NuGetSpec" TaskParameter="Include"/>
     </CreateItem>
     <FileUpdate Files="@(NuGetSpec)" Regex="0\.0\.0\.0" ReplacementText="$(Version)" />
-    <CallTarget Targets="CopyBddifyLibs;CopyBddifyAtmSampleFiles;CopyBddifyBowlingSampleFiles;CopyBddifyTicSampleFiles;" />
+    <CallTarget Targets="CopyBddifyLibs;CopyBddifyAtmSampleFiles;CopyBddifyTicSampleFiles;" />
     <MakeDir Directories="$(PackageOutput)" ContinueOnError="true"/>
     <Exec Command='$(NuGetExe) pack "%(NuGetSpec.FullPath)"' WorkingDirectory="$(PackageOutput)"/>
   </Target>

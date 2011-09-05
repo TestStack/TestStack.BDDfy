@@ -43,16 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Atm\ReadMe.txt" />
-    <Content Include="Bowling\ReadMe.txt" />
     <Content Include="TicTacToe\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Atm\AccountHasInsufficientFund.cs" />
     <Compile Include="Atm\Atm.cs" />
     <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
-    <Compile Include="Bowling\AllSpares.cs" />
-    <Compile Include="Bowling\Game.cs" />
-    <Compile Include="Bowling\OneSingleSpare.cs" />
     <Compile Include="TicTacToe\Game.cs" />
     <Compile Include="TicTacToe\Helpers.cs" />
     <Compile Include="TicTacToe\TicTacToe.cs" />
