@@ -1,7 +1,6 @@
 #if !SILVERLIGHT
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
@@ -10,7 +9,7 @@ using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners.StepScanners.Fluent
 {
-    internal class FluentScanner<TScenario> : IFluentScanner<TScenario>, IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
+    internal class FluentScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class, new()
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();

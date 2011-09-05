@@ -7,13 +7,11 @@ namespace Bddify.Core
     public class Bddifier
     {
         private readonly IEnumerable<IProcessor> _processors;
-        private readonly object _testObject;
         private readonly IScanner _scanner;
 
-        public Bddifier(object testObject, IScanner scanner, IEnumerable<IProcessor> processors)
+        public Bddifier(IScanner scanner, IEnumerable<IProcessor> processors)
         {
             _processors = processors;
-            _testObject = testObject;
             _scanner = scanner;
         }
 

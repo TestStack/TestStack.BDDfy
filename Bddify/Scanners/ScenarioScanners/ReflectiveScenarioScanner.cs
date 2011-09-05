@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Bddify.Core;
 using Bddify.Scanners.StepScanners;
@@ -12,12 +13,12 @@ namespace Bddify.Scanners.ScenarioScanners
         private readonly IEnumerable<IStepScanner> _stepScanners;
         private readonly string _scenarioTitle;
 
-        public ReflectiveScenarioScanner(IEnumerable<IStepScanner> stepScanners)
-            : this(stepScanners, null)
+        public ReflectiveScenarioScanner(params IStepScanner[] stepScanners)
+            : this(null, stepScanners)
         {
         }
 
-        public ReflectiveScenarioScanner(IEnumerable<IStepScanner> stepScanners, string scenarioTitle)
+        public ReflectiveScenarioScanner(string scenarioTitle, params IStepScanner[] stepScanners)
         {
             _stepScanners = stepScanners;
             _scenarioTitle = scenarioTitle;

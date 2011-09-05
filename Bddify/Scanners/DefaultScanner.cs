@@ -1,15 +1,16 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using Bddify.Core;
 using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners
 {
-    public class DefaultScanner : IScanner
+    public sealed class DefaultScanner : IScanner
     {
         private readonly IScenarioScanner _scenarioScanner;
-        private object _testObject;
+        private readonly object _testObject;
 
         public DefaultScanner(object testObject, IScenarioScanner scenarioScanner)
         {
@@ -17,10 +18,11 @@ namespace Bddify.Scanners
             _testObject = testObject;
         }
 
-        public virtual Story Scan()
+        public Story Scan()
         {
             var scenario = GetScenario(_testObject);
             var metaData = GetStoryMetaData(_testObject.GetType());
+            Trace.WriteLine("Title from method name >>> " + FluentScenarioScanner.GetTitleFromMethodNameInStackTrace(_testObject) ?? "NULL");
             return new Story(metaData, scenario);
         }
 
@@ -43,17 +45,33 @@ namespace Bddify.Scanners
             var stackTrace = new StackTrace();
             var frames = stackTrace.GetFrames();
             if(frames == null)
+            {
+                Trace.WriteLine(">>>>> Frames is null");
                 return null;
+            }
 
             // This is assuming scenario and story live in the same assembly
-            var firstFrame = frames.Reverse().FirstOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
+            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
             if(firstFrame == null)
+            {
+                Trace.WriteLine("<StackTrace>");
+                foreach (var stackFrame in frames)
+                {
+                    MethodBase methodBase = stackFrame.GetMethod();
+                    Trace.WriteLine(methodBase.DeclaringType + "::" + methodBase.Name);
+                }
+
+                Trace.WriteLine("</StackTrace>");
                 return null;
+            }
 
             var candidateStoryType = firstFrame.GetMethod().DeclaringType;
             var storyAttribute = GetStoryAttribute(candidateStoryType);
             if(storyAttribute == null)
+            {
+                Trace.WriteLine(">>>>> StoryAttribute is null");
                 return null;
+            }
 
             return new StoryMetaData(candidateStoryType, storyAttribute);
         }

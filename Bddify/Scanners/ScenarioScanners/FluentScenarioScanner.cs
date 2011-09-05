@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Bddify.Scanners.ScenarioScanners;
 using Bddify.Core;
 using System.Diagnostics;
 
-namespace Bddify.Scanners.StepScanners.Fluent
+namespace Bddify.Scanners.ScenarioScanners
 {
     public class FluentScenarioScanner : IScenarioScanner
     {
-        private string _title;
-        private IEnumerable<ExecutionStep> _steps;
+        private readonly string _title;
+        private readonly IEnumerable<ExecutionStep> _steps;
 
         public FluentScenarioScanner(IEnumerable<ExecutionStep> steps, string title = null)
         {
@@ -25,7 +22,7 @@ namespace Bddify.Scanners.StepScanners.Fluent
             return new Scenario(testObject, _steps, scenarioText);
         }
 
-        private static string GetTitleFromMethodNameInStackTrace(object testObject)
+        internal static string GetTitleFromMethodNameInStackTrace(object testObject)
         {
             var trace = new StackTrace();
             var frames = trace.GetFrames();

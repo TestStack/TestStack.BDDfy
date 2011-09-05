@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Bddify.Core
+﻿namespace Bddify.Core
 {
     public interface IHasScanner
     {

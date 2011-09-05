@@ -1,11 +1,9 @@
-using System;
 using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
 using System.Collections.Generic;
 using Bddify.Scanners.ScenarioScanners;
-using Bddify.Scanners.StepScanners;
 using Bddify.Scanners.StepScanners.ExecutableAttribute;
 using Bddify.Scanners.StepScanners.MethodName;
 
@@ -18,11 +16,9 @@ namespace Bddify
             return new DefaultScanner(
                 testObject,
                 new ReflectiveScenarioScanner(
-                    new IStepScanner[]
-                    {
-                        new ExecutableAttributeStepScanner(),
-                        new DefaultMethodNameStepScanner(testObject)
-                    }, scenarioTitle));
+                    scenarioTitle, 
+                    new ExecutableAttributeStepScanner(), 
+                    new DefaultMethodNameStepScanner(testObject)));
         }
 
         public static Story Bddify(this object testObject)
@@ -30,7 +26,7 @@ namespace Bddify
             return Bddify(testObject, null);
         }
 
-        public static Story Bddify(this object testObject, string scenarioTitle = null)
+        public static Story Bddify(this object testObject, string scenarioTitle)
         {
             return testObject.LazyBddify(scenarioTitle).Run();
         }
@@ -63,7 +59,7 @@ namespace Bddify
 
             var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle);
 
-            return new Bddifier(testObject, storyScanner, processors);
+            return new Bddifier(storyScanner, processors);
         }
     }
 }
