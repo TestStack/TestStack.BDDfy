@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -31,7 +32,7 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
                 var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])methodInfo.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
                 if (runStepWithArgsAttributes.Length == 0)
                 {
-                    var executionStep = new ExecutionStep(methodInfo, null, readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
+                    var executionStep = new ExecutionStep(GetStepAction(methodInfo), readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
                     steps.Add(executionStep);
                     continue;
                 }
@@ -47,12 +48,17 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
                     else if (!string.IsNullOrEmpty(executableAttribute.StepText))
                         methodName = string.Format(executableAttribute.StepText, flatInput);
 
-                    var executionStep = new ExecutionStep(methodInfo, inputArguments, methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
+                    var executionStep = new ExecutionStep(GetStepAction(methodInfo, inputArguments), methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
                     steps.Add(executionStep);
                 }
             }
 
             return steps;
+        }
+
+        static Action<object> GetStepAction(MethodInfo methodinfo, object[] inputArguments = null)
+        {
+            return o => methodinfo.Invoke(o, inputArguments);
         }
 
         private static bool IsAssertingByAttribute(MethodInfo method)

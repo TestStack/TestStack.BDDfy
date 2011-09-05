@@ -26,19 +26,6 @@ namespace Bddify.Core
         }
 
         public ExecutionStep(
-            MethodInfo stepMethod,
-            object[] stepMethodInputArguments,
-            string readableMethodName, 
-            bool asserts, 
-            ExecutionOrder executionOrder,
-            bool shouldReport) : this(readableMethodName, asserts, executionOrder, shouldReport)
-        {
-            _stepMethod = stepMethod;
-            _inputArguments = stepMethodInputArguments;
-            StepAction = testObject => stepMethod.Invoke(testObject, _inputArguments);
-        }
-
-        public ExecutionStep(
             Action<object> stepAction,
             string readableMethodName, 
             bool asserts, 
@@ -47,10 +34,6 @@ namespace Bddify.Core
         {
             StepAction = stepAction;
         }
-
-        // these two variables are kept only for equality comparison
-        readonly object[] _inputArguments;
-        readonly MethodInfo _stepMethod;
 
         public Guid Id { get; private set; }
         Action<object> StepAction { get; set; }
@@ -76,21 +59,7 @@ namespace Bddify.Core
 
             var step = (ExecutionStep)obj;
 
-            // this step is created using Action instead of MethodInfo + Input Arguments
-            // so we do not quite care about their equality, and there is no way to find out if they are equal or not
-            if (_stepMethod == null)
-                return false;
-
-            if (_stepMethod != step._stepMethod)
-                return false;
-
-            if (_inputArguments == null)
-                return step._inputArguments == null;
-
-            if (step._inputArguments == null)
-                return false;
-
-            return _inputArguments.SequenceEqual(step._inputArguments);
+            return string.Equals(ReadableMethodName, step.ReadableMethodName);
         }
 
         public override int GetHashCode()
