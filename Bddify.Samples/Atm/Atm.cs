@@ -1,5 +1,3 @@
-using System;
-
 namespace Bddify.Samples.Atm
 {
     public class Atm

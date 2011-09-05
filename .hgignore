@@ -12,3 +12,5 @@ glob:Build/*
 glob:TestResult.xml
 glob:Bddify.sln.docstates
 glob:PackageBuild/*
+glob:future features.one
+glob:icon.png

@@ -9,9 +9,9 @@ namespace Bddify.Samples.TicTacToe
         IWant = "I want to have a tic tac toe game",
         SoThat = "So that I can waste some time!")]
     [TestFixture]
-    public class TicTacToeStoryWithFluentScanner : NewGame
+    public class TicTacToe : NewGame
     {
-        public class Cell
+        class Cell
         {
             public Cell(int row, int col)
             {
@@ -28,27 +28,27 @@ namespace Bddify.Samples.TicTacToe
             }
         }
 
-        public void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdrow)
+        void GivenTheFollowingBoard(string[] firstRow, string[] secondRow, string[] thirdrow)
         {
             Game = new Game(firstRow, secondRow, thirdrow);
         }
 
-        public void ThenTheBoardStateShouldBe(string[] firstRow, string[] secondRow, string[] thirdrow)
+        void ThenTheBoardStateShouldBe(string[] firstRow, string[] secondRow, string[] thirdrow)
         {
             Game.VerifyBoardState(firstRow, secondRow, thirdrow);
         }
 
-        public void ThenTheWinnerShouldBe(string expectedWinner)
+        void ThenTheWinnerShouldBe(string expectedWinner)
         {
             Assert.AreEqual(expectedWinner, Game.Winner);
         }
 
-        public void ThenItShouldBeACatsGame()
+        void ThenItShouldBeACatsGame()
         {
             Assert.IsNull(Game.Winner);
         }
 
-        public void WhenTheGameIsPlayedAt(params Cell[] cells)
+        void WhenTheGameIsPlayedAt(params Cell[] cells)
         {
             foreach (var cell in cells)
             {
@@ -86,53 +86,21 @@ namespace Bddify.Samples.TicTacToe
         [Test]
         public void XWins()
         {
-            this.Given(s => s.GivenTheFollowingBoard(new[] { X, X, O }, new[] { X, X, O }, new[] { O, O, N }))
-                .When(s => s.WhenTheGameIsPlayedAt(new Cell(2, 2)))
-                .Then(s => s.ThenTheWinnerShouldBe(X))
-                .Bddify();
+            // This is implemented like this to show you the possibilities
+            new XWins().Bddify();
         }
 
         [Test]
-        [TestCase(
-            new[] { X, O, O }, 
-            new[] { X, O, X }, 
-            new[] { O, X, N }, 
-            O, "Diagonal win")]
-        [TestCase(
-            new[] { X, O, X }, 
-            new[] { O, O, X }, 
-            new[] { O, X, X }, 
-            X, "Vertical win in the right")]
-        [TestCase(
-            new[] { X, X, O }, 
-            new[] { O, X, O }, 
-            new[] { O, X, X }, 
-            X, "Vertical in in the middle")]
-        [TestCase(
-            new[] { X, O, O },
-            new[] { X, O, X },
-            new[] { X, X, O },
-            X, "Vertical in in the left")]
-        [TestCase(
-            new[] { X, O, O },
-            new[] { X, X, X },
-            new[] { O, O, X },
-            X, "Horizontal win in the middle")]
-        [TestCase(
-            new[] { X, X, N },
-            new[] { X, O, X },
-            new[] { O, O, O },
-            O, "Horizontal in in the bottom")]
-        [TestCase(
-            new[] { X, X, X },
-            new[] { X, O, O },
-            new[] { O, O, X },
-            X, "Horizontal win")]
-        public void WinningScenario(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner, string scenarioTitle)
+        [TestCase("Vertical win in the right", new[] { X, O, X }, new[] { O, O, X }, new[] { O, X, X }, X)]
+        [TestCase("Vertical win in the middle", new[] { N, X, O }, new[] { O, X, O }, new[] { O, X, X }, X)]
+        [TestCase("Diagonal win", new[] { X, O, O }, new[] { X, O, X }, new[] { O, X, N }, O)]
+        [TestCase("Horizontal win in the bottom", new[] { X, X, N }, new[] { X, O, X }, new[] { O, O, O }, O)]
+        [TestCase("Horizontal win in the middle", new[] { X, O, O }, new[] { X, X, X }, new[] { O, O, X }, X)]
+        [TestCase("Vertical win in the left", new[] { X, O, O }, new[] { X, O, X }, new[] { X, X, O }, X)]
+        [TestCase("Horizontal win", new[] { X, X, X }, new[] { X, O, O }, new[] { O, O, X }, X)]
+        public void WinnerGame(string title, string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
         {
-            this.Given(s => s.GivenTheFollowingBoard(firstRow, secondRow, thirdRow), BoardStateTemplate)
-                .Then(s => ThenTheWinnerShouldBe(expectedWinner))
-                .Bddify(scenarioTitle);
+            new WinnerGame(firstRow, secondRow, thirdRow, expectedWinner).Bddify(title);
         }
     }
 }
