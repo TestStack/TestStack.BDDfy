@@ -15,17 +15,20 @@ namespace Bddify.Scanners.StepScanners.Fluent
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
         private readonly object _testObject;
-        private string _title;
+
+        object IHasScanner.TestObject
+        {
+            get { return _testObject; }
+        }
 
         internal FluentScanner(object testObject)
         {
             _testObject = testObject;
         }
 
-        Story IScanner.Scan(object testObject)
+        IScanner IHasScanner.GetScanner(string scenarioTitle)
         {
-            var scanner = new DefaultScanner(new FluentScenarioScanner(_steps, _title));
-            return scanner.Scan(testObject);
+            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle));
         }
 
 #if NET35
@@ -77,16 +80,6 @@ namespace Bddify.Scanners.StepScanners.Fluent
             return ((IGiven<TScenario>)this).And(andGivenStep, null);
         }
 #endif
-
-        public Story Bddify(string title)
-        {
-            return LazyBddify(title).Run();
-        }
-
-        public Story Bddify()
-        {
-            return Bddify(null);
-        }
 
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true)
         {
@@ -172,17 +165,6 @@ namespace Bddify.Scanners.StepScanners.Fluent
         {
             var methodCall = (MethodCallExpression)stepAction.Body;
             return methodCall.Method;
-        }
-
-        public Bddifier LazyBddify()
-        {
-            return LazyBddify(null);
-        }
-
-        public Bddifier LazyBddify(string title, bool consoleReport = true, bool htmlReport = true)
-        {
-            _title = title;
-            return _testObject.LazyBddify(this, consoleReport, htmlReport);
         }
     }
 }

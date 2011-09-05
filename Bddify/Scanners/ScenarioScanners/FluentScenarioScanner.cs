@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Bddify.Scanners.StepScanners.Fluent
 {
-    class FluentScenarioScanner : IScanForScenario
+    public class FluentScenarioScanner : IScenarioScanner
     {
         private string _title;
         private IEnumerable<ExecutionStep> _steps;

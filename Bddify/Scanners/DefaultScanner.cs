@@ -8,17 +8,19 @@ namespace Bddify.Scanners
 {
     public class DefaultScanner : IScanner
     {
-        private readonly IScanForScenario _scenarioScanner;
+        private readonly IScenarioScanner _scenarioScanner;
+        private object _testObject;
 
-        public DefaultScanner(IScanForScenario scenarioScanner)
+        public DefaultScanner(object testObject, IScenarioScanner scenarioScanner)
         {
             _scenarioScanner = scenarioScanner;
+            _testObject = testObject;
         }
 
-        public virtual Story Scan(object testObject)
+        public virtual Story Scan()
         {
-            var scenario = GetScenario(testObject);
-            var metaData = GetStoryMetaData(testObject.GetType());
+            var scenario = GetScenario(_testObject);
+            var metaData = GetStoryMetaData(_testObject.GetType());
             return new Story(metaData, scenario);
         }
 

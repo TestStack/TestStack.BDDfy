@@ -80,7 +80,7 @@ namespace Bddify.Tests.FluentScanner
                     .And(s => s.AndIncorrectAttributeWouldNotMatter())
                 .TearDownWith(s => s.Dispose());
 
-            return fluentScanner.Scan(testObject).Scenarios.SelectMany(s => s.Steps).ToList();
+            return fluentScanner.GetScanner(null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
         }
     }
 }

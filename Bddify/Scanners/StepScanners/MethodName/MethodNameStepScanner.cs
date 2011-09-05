@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Bddify.Scanners.StepScanners.MethodName
 {
-    public class MethodNameStepScanner : IScanForSteps
+    public class MethodNameStepScanner : IStepScanner
     {
         private readonly MethodNameMatcher[] _matchers;
         private readonly object _testObject;

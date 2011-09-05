@@ -14,16 +14,33 @@ namespace Bddify.Reporters
 {
     public class HtmlReporter : IProcessor
     {
-        static readonly List<Story> Stories = new List<Story>();
+        static readonly Dictionary<string, List<Story>> Stories = new Dictionary<string, List<Story>>();
+        static readonly object _syncRoot = new object();
+        private string _htmlReportName;
 
         public ProcessType ProcessType
         {
             get { return ProcessType.Report; }
         }
 
+        public HtmlReporter() : this(null)
+        {
+        }
+
+        public HtmlReporter(string htmlReportName)
+        {
+            _htmlReportName = htmlReportName ?? "bddify";
+        }
+
         public void Process(Story story)
         {
-            Stories.Add(story);
+            lock (_syncRoot)
+            {
+                if (!Stories.ContainsKey(_htmlReportName))
+                    Stories[_htmlReportName] = new List<Story>();
+
+                Stories[_htmlReportName].Add(story);
+            }
         }
 
 #if NET35 || SILVERLIGHT
@@ -47,36 +64,42 @@ namespace Bddify.Reporters
             string report;
             const string error = "There was an error compiling the template";
 
-            try
+            foreach (var file in Stories.Keys)
             {
-                report = Razor.Parse(HtmlTemplate.Value, Stories);
-            }
-            catch (TemplateCompilationException compilationException)
-            {
-                if (compilationException.Errors.Count > 0)
-                {
-                    var compilerError = compilationException.Errors.First();
-                    var reportBuilder = new StringBuilder();
-                    reportBuilder.AppendLine(error);
-                    reportBuilder.AppendLine("Line No: " + compilerError.Line);
-                    reportBuilder.AppendLine("Message: " + compilerError.ErrorText);
-                    report = reportBuilder.ToString();
-                }
-                else
-                {
-                    report = error + " :: " + compilationException.Message;
-                }
-            }
-            catch (Exception ex)
-            {
-                report = ex.Message;
-            }
+                var storiesInFile = Stories[file];
+                var reportfileName = file + ".html";
+                var fileName = Path.Combine(AssemblyDirectory, reportfileName);
 
-            File.WriteAllText(FileName, report);
+                try
+                {
+                    report = Razor.Parse(HtmlTemplate.Value, storiesInFile);
+                }
+                catch (TemplateCompilationException compilationException)
+                {
+                    if (compilationException.Errors.Count > 0)
+                    {
+                        var compilerError = compilationException.Errors.First();
+                        var reportBuilder = new StringBuilder();
+                        reportBuilder.AppendLine(error);
+                        reportBuilder.AppendLine("Line No: " + compilerError.Line);
+                        reportBuilder.AppendLine("Message: " + compilerError.ErrorText);
+                        report = reportBuilder.ToString();
+                    }
+                    else
+                    {
+                        report = error + " :: " + compilationException.Message;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    report = ex.Message;
+                }
+
+                File.WriteAllText(fileName, report);
+            }
         }
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
-        private static readonly string FileName = Path.Combine(AssemblyDirectory, "bddify.html");
 
         static string GetHtmlTemplate()
         {

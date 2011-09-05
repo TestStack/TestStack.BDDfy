@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Bddify.Scanners.StepScanners
 {
-    public interface IScanForSteps
+    public interface IStepScanner
     {
         IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod);
     }

@@ -7,17 +7,17 @@ using System.Reflection;
 
 namespace Bddify.Scanners.ScenarioScanners
 {
-    public class ScanForScenario : IScanForScenario
+    public class ReflectiveScenarioScanner : IScenarioScanner
     {
-        private readonly IEnumerable<IScanForSteps> _stepScanners;
+        private readonly IEnumerable<IStepScanner> _stepScanners;
         private readonly string _scenarioTitle;
 
-        public ScanForScenario(IEnumerable<IScanForSteps> stepScanners)
+        public ReflectiveScenarioScanner(IEnumerable<IStepScanner> stepScanners)
             : this(stepScanners, null)
         {
         }
 
-        public ScanForScenario(IEnumerable<IScanForSteps> stepScanners, string scenarioTitle)
+        public ReflectiveScenarioScanner(IEnumerable<IStepScanner> stepScanners, string scenarioTitle)
         {
             _stepScanners = stepScanners;
             _scenarioTitle = scenarioTitle;

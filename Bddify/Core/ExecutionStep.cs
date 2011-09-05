@@ -48,23 +48,5 @@ namespace Bddify.Core
         {
             StepAction(testObject);
         }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null) 
-                return false;
-
-            if (GetType() != obj.GetType()) 
-                return false;
-
-            var step = (ExecutionStep)obj;
-
-            return string.Equals(ReadableMethodName, step.ReadableMethodName);
-        }
-
-        public override int GetHashCode()
-        {
-            return ReadableMethodName.GetHashCode();
-        }
     }
 }

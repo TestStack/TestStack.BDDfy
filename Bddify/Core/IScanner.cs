@@ -2,6 +2,6 @@
 {
     public interface IScanner
     {
-        Story Scan(object testObject);
+        Story Scan();
     }
 }

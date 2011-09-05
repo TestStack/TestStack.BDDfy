@@ -6,7 +6,7 @@ using Bddify.Core;
 
 namespace Bddify.Scanners.StepScanners.ExecutableAttribute
 {
-    public class ExecutableAttributeStepScanner : IScanForSteps
+    public class ExecutableAttributeStepScanner : IStepScanner
     {
         public IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod)
         {

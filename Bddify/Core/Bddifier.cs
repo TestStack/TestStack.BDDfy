@@ -19,7 +19,7 @@ namespace Bddify.Core
 
         public Story Run()
         {
-            _story = _scanner.Scan(_testObject);
+            _story = _scanner.Scan();
 
             try
             {

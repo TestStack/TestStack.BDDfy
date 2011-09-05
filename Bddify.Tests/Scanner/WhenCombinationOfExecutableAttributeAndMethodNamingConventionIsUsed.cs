@@ -66,8 +66,8 @@ namespace Bddify.Tests.Scanner
         {
             _sut = new ScenarioWithMixedSteps();
             _scenario = 
-                new ScanForScenario(
-                    new IScanForSteps[]
+                new ReflectiveScenarioScanner(
+                    new IStepScanner[]
                         {
                             new ExecutableAttributeStepScanner(),
                             new DefaultMethodNameStepScanner(_sut)

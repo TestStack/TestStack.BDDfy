@@ -2,6 +2,7 @@ using System;
 using Bddify.Tests.Exceptions;
 using NUnit.Framework;
 using System.Linq;
+using Bddify;
 
 namespace Bddify.Tests.Disposer
 {
