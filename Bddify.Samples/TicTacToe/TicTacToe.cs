@@ -100,7 +100,7 @@ namespace Bddify.Samples.TicTacToe
         [TestCase("Horizontal win", new[] { X, X, X }, new[] { X, O, O }, new[] { O, O, X }, X)]
         public void WinnerGame(string title, string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
         {
-            new WinnerGame(firstRow, secondRow, thirdRow, expectedWinner).Bddify(title);
+            new WinnerGame(firstRow, secondRow, thirdRow, expectedWinner).Bddify<TicTacToe>(title);
         }
     }
 }

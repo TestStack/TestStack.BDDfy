@@ -66,7 +66,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            new AccountHasInsufficientFund().Bddify(htmlReportName:"ATM");
+            new AccountHasInsufficientFund().Bddify<AccountHolderWithdrawsCash>(htmlReportName:"ATM");
         }
 
         [Test]

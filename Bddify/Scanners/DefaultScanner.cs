@@ -1,13 +1,12 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using Bddify.Core;
 using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners
 {
-    public sealed class DefaultScanner : IScanner
+    public class DefaultScanner : IScanner
     {
         private readonly IScenarioScanner _scenarioScanner;
         private readonly object _testObject;
@@ -20,65 +19,59 @@ namespace Bddify.Scanners
 
         public Story Scan()
         {
-            var scenario = GetScenario(_testObject);
-            var metaData = GetStoryMetaData(_testObject.GetType());
-            Trace.WriteLine("Title from method name >>> " + FluentScenarioScanner.GetTitleFromMethodNameInStackTrace(_testObject) ?? "NULL");
+            var scenario = GetScenario();
+            var metaData = GetStoryMetaDataFromScenario() ?? GetStoryMetaData();
+
             return new Story(metaData, scenario);
         }
 
-        private Scenario GetScenario(object testObject)
+        private Scenario GetScenario()
         {
-            return _scenarioScanner.Scan(testObject);
+            return _scenarioScanner.Scan(_testObject);
         }
 
-        StoryMetaData GetStoryMetaData(Type scenarioType)
+        StoryMetaData GetStoryMetaDataFromScenario()
         {
+            var scenarioType = _testObject.GetType();
             var storyAttribute = GetStoryAttribute(scenarioType);
             if(storyAttribute == null)
-                return GetStoryMetaDataByWalkingUpTheCallStack(scenarioType);
+                return null;
 
             return new StoryMetaData(scenarioType, storyAttribute);
         }
 
-        StoryMetaData GetStoryMetaDataByWalkingUpTheCallStack(Type scenarioType)
+        StoryMetaData GetStoryMetaData()
         {
-            var stackTrace = new StackTrace();
-            var frames = stackTrace.GetFrames();
-            if(frames == null)
-            {
-                Trace.WriteLine(">>>>> Frames is null");
+            var candidateStoryType = GetCandidateStory();
+            if(candidateStoryType == null)
                 return null;
-            }
 
-            // This is assuming scenario and story live in the same assembly
-            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
-            if(firstFrame == null)
-            {
-                Trace.WriteLine("<StackTrace>");
-                foreach (var stackFrame in frames)
-                {
-                    MethodBase methodBase = stackFrame.GetMethod();
-                    Trace.WriteLine(methodBase.DeclaringType + "::" + methodBase.Name);
-                }
-
-                Trace.WriteLine("</StackTrace>");
-                return null;
-            }
-
-            var candidateStoryType = firstFrame.GetMethod().DeclaringType;
             var storyAttribute = GetStoryAttribute(candidateStoryType);
             if(storyAttribute == null)
-            {
-                Trace.WriteLine(">>>>> StoryAttribute is null");
                 return null;
-            }
 
             return new StoryMetaData(candidateStoryType, storyAttribute);
         }
 
-        internal StoryAttribute GetStoryAttribute(Type scenarioType)
+        protected virtual Type GetCandidateStory()
         {
-            return (StoryAttribute)scenarioType.GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
+            var stackTrace = new StackTrace();
+            var frames = stackTrace.GetFrames();
+            if (frames == null)
+                return null;
+
+            var scenarioType = _testObject.GetType();
+            // This is assuming scenario and story live in the same assembly
+            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
+            if (firstFrame == null)
+                return null;
+
+            return firstFrame.GetMethod().DeclaringType;
+        }
+
+        static StoryAttribute GetStoryAttribute(Type candidateStoryType)
+        {
+            return (StoryAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
         }
     }
 }
