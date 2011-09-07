@@ -12,7 +12,7 @@ namespace Bddify
 {
     public static class BddifyExtensions
     {
-        static IScanner GetDefaultScanner(object testObject, string scenarioTitle = null, Type storyType = null)
+        static IScanner GetDefaultScanner(object testObject, string scenarioTitle = null)
         {
             var reflectiveScenarioScanner = GetReflectiveScenarioScanner(scenarioTitle, testObject);
 
@@ -52,28 +52,7 @@ namespace Bddify
 
         public static Bddifier LazyBddify(this object testObject, string scenarioTitle = null, bool consoleReport = true, bool htmlReport = true, string htmlReportName = null)
         {
-            IScanner scanner = null;
-            var hasScanner = testObject as IHasScanner;
-
-            if (hasScanner != null)
-            {
-                scanner = hasScanner.GetScanner(scenarioTitle);
-                testObject = hasScanner.TestObject;
-            }
-
-            var processors = new List<IProcessor> { new TestRunner() };
-
-            if (consoleReport)
-                processors.Add(new ConsoleReporter());
-
-            if (htmlReport)
-                processors.Add(new HtmlReporter(htmlReportName));
-
-            processors.Add(new ExceptionProcessor());
-
-            var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle);
-
-            return new Bddifier(storyScanner, processors);
+            return InternalLazyBddify(testObject, scenarioTitle, consoleReport, htmlReport, htmlReportName, GetDefaultScanner);
         }
 
         public static Story Bddify<TStory>(this object testObject)
@@ -97,6 +76,17 @@ namespace Bddify
         public static Bddifier LazyBddify<TStory>(this object testObject, string scenarioTitle = null, bool consoleReport = true, bool htmlReport = true, string htmlReportName = null)
             where TStory : class
         {
+            return InternalLazyBddify(testObject, scenarioTitle, consoleReport, htmlReport, htmlReportName, GetDefaultScanner<TStory>);
+        }
+
+        static Bddifier InternalLazyBddify(
+            object testObject, 
+            string scenarioTitle, 
+            bool consoleReport, 
+            bool htmlReport, 
+            string htmlReportName, 
+            Func<object, string, IScanner> getDefaultScanner)
+        {
             IScanner scanner = null;
             var hasScanner = testObject as IHasScanner;
 
@@ -116,7 +106,7 @@ namespace Bddify
 
             processors.Add(new ExceptionProcessor());
 
-            var storyScanner = scanner ?? GetDefaultScanner<TStory>(testObject, scenarioTitle);
+            var storyScanner = scanner ?? getDefaultScanner(testObject, scenarioTitle);
 
             return new Bddifier(storyScanner, processors);
         }
