@@ -15,16 +15,12 @@ namespace Bddify.Reporters
     public class HtmlReporter : IProcessor
     {
         static readonly Dictionary<string, List<Story>> Stories = new Dictionary<string, List<Story>>();
-        static readonly object _syncRoot = new object();
-        private string _htmlReportName;
+        static readonly object SyncRoot = new object();
+        private readonly string _htmlReportName;
 
         public ProcessType ProcessType
         {
             get { return ProcessType.Report; }
-        }
-
-        public HtmlReporter() : this(null)
-        {
         }
 
         public HtmlReporter(string htmlReportName)
@@ -34,7 +30,7 @@ namespace Bddify.Reporters
 
         public void Process(Story story)
         {
-            lock (_syncRoot)
+            lock (SyncRoot)
             {
                 if (!Stories.ContainsKey(_htmlReportName))
                     Stories[_htmlReportName] = new List<Story>();
@@ -59,17 +55,19 @@ namespace Bddify.Reporters
             GenerateHtmlReport();
         }
 
-        internal static void GenerateHtmlReport()
+        private static void GenerateHtmlReport()
         {
-            string report;
             const string error = "There was an error compiling the template";
+            var cssFullFileName = Path.Combine(AssemblyDirectory, "bddify.css");
+            File.WriteAllText(cssFullFileName, CssFile.Value);
 
             foreach (var file in Stories.Keys)
             {
                 var storiesInFile = Stories[file];
-                var reportfileName = file + ".html";
-                var fileName = Path.Combine(AssemblyDirectory, reportfileName);
+                var htmlFileName = file + ".html";
+                var htmlFullFileName = Path.Combine(AssemblyDirectory, htmlFileName);
 
+                string report;
                 try
                 {
                     report = Razor.Parse(HtmlTemplate.Value, storiesInFile);
@@ -95,22 +93,23 @@ namespace Bddify.Reporters
                     report = ex.Message;
                 }
 
-                File.WriteAllText(fileName, report);
+                File.WriteAllText(htmlFullFileName, report);
             }
         }
 
-        static readonly Lazy<string> HtmlTemplate = new Lazy<string>(GetHtmlTemplate);
+        static readonly Lazy<string> HtmlTemplate = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.HtmlReport.cshtml"));
+        static readonly Lazy<string> CssFile = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.bddify.css"));
 
-        static string GetHtmlTemplate()
+        static string GetEmbeddedFileResource(string fileResourceName)
         {
-            string htmlTemplate;
-            var templateResourceStream = typeof(HtmlReporter).Assembly.GetManifestResourceStream("Bddify.Reporters.HtmlReport.cshtml");
+            string fileContent;
+            var templateResourceStream = typeof(HtmlReporter).Assembly.GetManifestResourceStream(fileResourceName);
             using (var sr = new StreamReader(templateResourceStream))
             {
-                htmlTemplate = sr.ReadToEnd();
+                fileContent = sr.ReadToEnd();
             }
 
-            return htmlTemplate;
+            return fileContent;
         }
 
         // http://stackoverflow.com/questions/52797/c-how-do-i-get-the-path-of-the-assembly-the-code-is-in#answer-283917
