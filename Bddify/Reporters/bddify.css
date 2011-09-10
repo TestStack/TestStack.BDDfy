@@ -22,7 +22,7 @@ li
 	height:100%;
 }
 			
-#header
+header
 {
 	vertical-align:middle;
 	padding:10px;
@@ -32,7 +32,7 @@ li
     height: 57px;
 }
 			
-#footer
+footer
 {
 	color:#fff;
 	background-repeat: repeat-x;
@@ -40,14 +40,18 @@ li
 	padding-bottom:15px;
 	margin-top:20px;
 	text-align:center;
+	position:fixed;
+	bottom:0px;
+	display:block;
+	width:100%;
 }
 			
-#footer a
+footer a
 {
 	color:#fff;
 }
 			
-#footer a:hover
+footer a:hover
 {
 	color:#3865C6;
 }
