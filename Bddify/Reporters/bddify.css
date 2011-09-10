@@ -83,7 +83,7 @@ footer a:hover
 			
 .summary
 {
-    margin:5px;
+    margin:0 5px;
     padding:5px;
     display:inline-block;
 }
@@ -98,10 +98,10 @@ footer a:hover
     padding:0 5px;
 }
 
-.summary h3
+h3
 {
 	color: #2B547D;
-	margin:0px;
+	margin:5px;
 	margin-top:10px;
 }		
 
@@ -116,6 +116,7 @@ footer a:hover
     display: inline-block;
     width:200px;
     padding:0 10px;
+    margin:5px 0 0 0;
 }
 
 div#generatedAt

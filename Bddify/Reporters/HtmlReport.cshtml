@@ -60,14 +60,12 @@
             var scenario = Model.SelectMany(s => s.Scenarios).FirstOrDefault();
             if (scenario != null)
             {
-              var codeBase = scenario.TestObject.GetType().Assembly.CodeBase;
-              var uri = new UriBuilder(codeBase);
-              assemblyName = Uri.UnescapeDataString(uri.Path);
+              assemblyName = scenario.TestObject.GetType().Assembly.GetName().Name;
             }
           }
         }
 
-        <p>Assembly: '@assemblyName'</p>
+        <h3>Assembly: '@assemblyName'</h3>
 
 				<table>
 					<tbody>
