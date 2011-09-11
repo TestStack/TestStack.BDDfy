@@ -10,6 +10,12 @@
 	min-height:700px;
 }
 
+ul
+{
+    padding:0 10px;
+	border: 1px solid #f0f0f0;
+}
+
 li
 {
     list-style-type: none;
@@ -154,36 +160,6 @@ div#generatedAt
 	color:Black;
 }
 			
-table
-{
-	width:100%;
-	padding:5px;
-	border-collapse: collapse;
-}
-			
-tbody
-{
-	text-align:left;
-}
-			
-td 
-{
-	padding:5px;
-	border-right: 0;
-	border: 1px solid #f0f0f0;
-}
-
-tr.step td
-{
-    border:0px;
-}
-
-.namespace span.summaryCount:before,
-.story span.summaryCount:before
-{
-    content:"  ";
-}
-
 .Passed
 {
 	background-color: #a9e088;}
@@ -233,107 +209,74 @@ tr.step td
 	/*
 	background-repeat: no-repeat;	background-position: center center;*/	content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJySURBVDjLpVNLbxJRFO4P8BfwO2Dp0g27VmvSnYkbEzYmLpq6sZP66KIxQmYsUUyb1gYqCZrU2qamVJwOIKaxUKAMD4HyKBQGHAaGx1COcy4P8bHzJt/i3pzvO+c759wJAJgYx7Vl0KjQqdCrmBlAP3jT/Bk/TryiQnv/rWhwuDOM9zjGnYROhUAwLBweRbg3riQza68YMAZjfxMYkK/a2DwVOE3whbIIktwB5bJHUGu0IVesgOcoyK/sJSiMHYoMBbRIDka+S82WAnjkdhcqUgcEFfVWl7xJchsOfX7JshNFES0RQF9YNmYekuPnDSj+aEOh2kc014BcpTUS2Tvw8Hc3CmhHgwI6B3fGYNl4SmIbbjxiCQnJ+WoLphZcEMpIkCk3SUwkeQ603csgFwX0nm9RDj1jqUi6/pBV4YJIrg5ZoakKfCIInkkgNhS4qMqwuvmeQy4KzPhPQgI2q1zrEAHMiLi56IVYvgFTlCpAOWH6sZvc28olbFg3BeQSgeNAkAhg+egVydNP3CQrik7OO4mtyfl9chcbHVhdez0S0H/+GuaqUgtqskJ8EjLVJyeL8oiMCXAysWwVaIt1ZEFndcaZdK4MvR5AutQk5SI5UZAJJh/sk6lgYzvdHhx8CQNl/jBqouaerWRwsj5eEJujSSARx4mekYwNxQRxNbvpxTp/2xzrj3G4SPS7ALX1kZUKlX5gta6QalIXMlkmzBzLVsBosUlz9M6vRRpf5SWrj1q3b/FefxzSBZH0BD2HUwLssgFYolf4WdP236s8/pnuvEoZFl7uMk+X1zj6uVl4ZmKERaOFmzM6mFtM5N+f6X++80/jPghfk2d02wAAAABJRU5ErkJggg==) " ";}
 			
-td.FailedException
+.FailedException
 {
 	font-weight: bold;
 	color: Maroon;
 }
 			
-td.NotImplementedException
+.NotImplementedException
 {
 	font-weight:bold;
 }
 			
-td.InconclusiveException
+.InconclusiveException
 {
 	font-weight:bold;
 }
 			
-tr.scenario
+.scenario
 {
 	cursor:pointer;
 }
 			
-td.scenarioText
+.scenarioText
 {
 	color: #000;
 }
 			
-td.namespaceResultSummary
+.namespaceResultSummary
 {
 	width:20%;
 }
 			
-tr.namespaceResultSummary
+.namespaceResultSummary
 {
 	height:17px;
 }
 			
-th.scenarioHeader
+.scenarioHeader
 {
 	width:250px    
 }
  
-th.resultHeader
+.resultHeader
 {
 	width:100px;
 }
 			
-th.summaryHeader
+.summaryHeader
 {
 	width:100px;    
 }
 			
-th.summaryCount
+.summaryCount
 {
 	width:100px;    
 }
  
-td.duration
+.duration
 {
 	width:100px;
 }
 			
-td.indentation
-{
-	width: 0px;
-	display: none;
-}
-			
-td.result
-{
-	width:150px;
-}
-			
-table.summaryTable
-{
-	width:200px;
-	border-collapse:collapse;
-}
-			
-table.summaryTable td
-{
-	text-align:left;
-}
-			
-tr.assembly
+.assembly
 {
 	background-color:#101010;
 	color:White;
 	height:40px;
 }
 			
-tr.namespace
-{
-	background: #f0f0f0;
-}
-			
-tr.story
-{
-	background: #f0f0f0;
-	margin-bottom:0px;
-}
-      
 ul.storyNarrative
 {
     font-style:italic;
@@ -343,22 +286,19 @@ ul.storyNarrative
     color: #122F4B;
 }
 			
-table.namespace
+.story,
+.namespace
 {
+	background: #f0f0f0;
 	font-weight: bold;
 }
 			
-table.story
-{
-	font-weight: bold;
-}
-			
-tr.step
+.step
 {
 	background-color:#fafafa;
 }
  
-td.result
+.result
 {
     width:10px;
 }

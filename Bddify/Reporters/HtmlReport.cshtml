@@ -67,8 +67,7 @@
 
         <h3>Assembly: '@assemblyName'</h3>
 
-				<table>
-					<tbody>
+				<ul>
           @{
             var groupedByNamespace = from story in Model
                                      where story.MetaData == null
@@ -87,116 +86,65 @@
               var story = scenarioGroup.First();
               var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
               var headerClass = story.MetaData == null ? "namespace" : "story";
-          		<tr class="@headerClass">
-								<td colspan="5">
-                  <table class="@headerClass">
-                    <tr>
-                    @if (story.MetaData == null)
-                    {
-                      <td>Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</td>
-                    }
-                    else
-                    {
-                      <td>Story: @story.MetaData.Title</td>
-                    }
-                      <td class="namespaceResultSummary">
+          <li>
+          	<div class="@headerClass">
+              @if (story.MetaData == null)
+              {
+                <span class="@story.Result">Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</span>
+              }
+              else
+              {
+                <span class="@story.Result">Story: @story.MetaData.Title</span>
+              }
 
-                    @if (story.Scenarios.Any())
-                    {
-                      var fullWidth = 400;
-                      var all = scenariosInGroup.Count();
-                      var failed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Failed);
-                      var failedRatio = (double)failed / all * 100;
-                      var failedVisible = (failedRatio == 0 ? "none" : "");
-                      var passed = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Passed);
-                      var passedRatio = (double)passed / all * 100;
-                      var passedVisible = (passedRatio == 0 ? "none" : "");
-                      var notImplemented = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotImplemented);
-                      var notImplementedRatio = (double)notImplemented / all * 100;
-                      var notImplementedVisible = (notImplementedRatio == 0 ? "none" : "");
-                      var inconclusive = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.Inconclusive);
-                      var inconclusiveRatio = (double)inconclusive / all * 100;
-                      var inconclusiveVisible = (inconclusiveRatio == 0 ? "none" : "");
-                      var notExecuted = scenariosInGroup.Count(r => r.Result == Bddify.Core.StepExecutionResult.NotExecuted);
-                      var notExecutedRatio = (double)notExecuted / all * 100;
-                      var notExecutedVisible = (notExecutedRatio == 0 ? "none" : "");
-                        <table>
-                          <tr class="namespaceResultSummary">
-                            <td class="Failed" style="width:@failedRatio%;display:@failedVisible"></td>
-                            <td class="Passed" style="width:@passedRatio%;display:@passedVisible"></td>
-                            <td class="NotImplemented" style="width:@notImplementedRatio%;display:@notImplementedVisible"></td>
-                            <td class="Inconclusive" style="width:@inconclusiveRatio%;display:@inconclusiveVisible"></td>
-                            <td class="NotExecuted" style="width:@notExecutedRatio%;display:@notExecutedVisible"></td>
-                          </tr>
-                        </table>
-                      }
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-							</tr>
-            
-                  if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
-                  { 
-            <tr class="story">
-              <td colspan="5">
-                <ul class="storyNarrative">
-                  <li>@story.MetaData.AsA </li>
-                  <li>@story.MetaData.IWant </li>
-                  <li>@story.MetaData.SoThat</li>
-                </ul>
-              </td>                                    
-            </tr>
-                  }
+              @if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
+              { 
+              <ul class="storyNarrative">
+                <li>@story.MetaData.AsA </li>
+                <li>@story.MetaData.IWant </li>
+                <li>@story.MetaData.SoThat</li>
+              </ul>
+              }
+						</div>
 
-                  foreach (var scenario in scenariosInGroup)
-                  { 
-              <tr class="scenario" onclick="toggle('@scenario.Id');">
-								<td class="result @scenario.Result"></td>
-								<td class="scenarioText" colspan="3">@scenario.ScenarioText</td>
-							</tr>
-							<tr class="step" id="@scenario.Id" style="display:none">
-                <td class="result" />
-                <td colspan="3" style="padding:0px">
-                  <table>
-                  @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+              @foreach (var scenario in scenariosInGroup)
+              { 
+              <div class="scenario" onclick="toggle('@scenario.Id');">
+								<span class="scenarioText @scenario.Result">@scenario.ScenarioText</span>
+                
+							  <ul class="step" id="@scenario.Id" style="display:none">
+                @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                {
+                  string stepClass = string.Empty;
+                  string result = step.ReadableMethodName.Replace(" ", "&nbsp;");
+                  if (step.Exception != null)
                   {
-                    string stepClass = string.Empty;
-                    string result = step.ReadableMethodName.Replace(" ", "&nbsp;");
-                    var rowSpan = 1;
-                    if (step.Exception != null)
+                    stepClass = step.Result + "Exception";
+
+                    if (!string.IsNullOrEmpty(step.Exception.Message))
                     {
-                      stepClass = step.Result + "Exception";
-                      rowSpan = 2;
-
-                      if (!string.IsNullOrEmpty(step.Exception.Message))
-                      {
-                        result += " [Exception Message: '" + step.Exception.Message + "']";
-                      }
+                      result += " [Exception Message: '" + step.Exception.Message + "']";
                     }
-                    <tr class="step" onclick="toggle('@step.Id');">
-    									<td rowspan="@rowSpan" class="result @step.Result"></td>
-										  <td class="indentation"></td>
-										  <td colspan="2" class="@stepClass">@result</td>
-                    </tr>
+                  }
+                  <li class="step @step.Result @stepClass" onclick="toggle('@step.Id');">
+										<span>@result</span>
 
-                                          if (step.Exception != null)
-                                          {
-									  <tr class="step" id="@step.Id">
-    									<td></td>
-										  <td colspan="2" class="indentation"></td>
-										  <td class="@stepClass"><code>@step.Exception.StackTrace</code></td>
-									  </tr>
-                                          }
-                  }
-                  </table>                                    
-                </td>
-		  				</tr>
-                  }
+                    @if (step.Exception != null)
+                    {
+									    <div class="step @stepClass" id="@step.Id">
+										    <code>@step.Exception.StackTrace</code>
+                      </div>
+                    }
+
+									</li>
+                }
+		  				  </ul>
+						  </div>
+              }
+            </li>
+              }
             }
-            }
-					</tbody>
-				</table>
+				</ul>
 
         <p><span>Tested at: @DateTime.Now</span></p>
 			</div>
