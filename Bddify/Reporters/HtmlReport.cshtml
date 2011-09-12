@@ -14,7 +14,19 @@
 			</header>
 
 			<section class="summary">
-        <h3>Summary</h3>
+        @{
+          string assemblyName = string.Empty;
+          if (Model.Count > 0)
+          {
+            var scenario = Model.SelectMany(s => s.Scenarios).FirstOrDefault();
+            if (scenario != null)
+            {
+              assemblyName = scenario.TestObject.GetType().Assembly.GetName().Name;
+            }
+          }
+        }
+
+        <h3>Assembly: '@assemblyName'</h3>
           
         @{
           var scenarios = Model.SelectMany(s => s.Scenarios).ToList();
@@ -53,20 +65,6 @@
       </section>
 
 			<div id="testResult">
-        @{
-          string assemblyName = string.Empty;
-          if (Model.Count > 0)
-          {
-            var scenario = Model.SelectMany(s => s.Scenarios).FirstOrDefault();
-            if (scenario != null)
-            {
-              assemblyName = scenario.TestObject.GetType().Assembly.GetName().Name;
-            }
-          }
-        }
-
-        <h3>Assembly: '@assemblyName'</h3>
-
 				<ul class="testResult">
           @{
             var groupedByNamespace = from story in Model
@@ -86,30 +84,31 @@
               var story = scenarioGroup.First();
               var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
           <li>
-          	<div class="story @story.Result">
+            <div class="story @story.Result">
+          	  <div class="storyMetaData">
               @if (story.MetaData == null)
               {
-                <span class="namespace">Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</span>
+                <span class="namespaceName">Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</span>
               }
               else
               {
-                <span class="story">Story: @story.MetaData.Title</span>
+                <span class="storyTitle">Story: @story.MetaData.Title</span>
               }
 
               @if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
               { 
-              <ul class="storyNarrative">
-                <li>@story.MetaData.AsA </li>
-                <li>@story.MetaData.IWant </li>
-                <li>@story.MetaData.SoThat</li>
-              </ul>
+                <ul class="storyNarrative">
+                  <li>@story.MetaData.AsA </li>
+                  <li>@story.MetaData.IWant </li>
+                  <li>@story.MetaData.SoThat</li>
+                </ul>
               }
-						</div>
+              </div>
 
               @foreach (var scenario in scenariosInGroup)
               { 
               <div class="scenario @scenario.Result" onclick="toggle('@scenario.Id');">
-								<span class="scenarioText">@scenario.ScenarioText</span>
+								<span class="scenarioTitle">@scenario.ScenarioText</span>
                 
 							  <ul class="steps" id="@scenario.Id" style="display:none">
                 @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
@@ -140,6 +139,7 @@
 		  				  </ul>
 						  </div>
               }
+						  </div>
             </li>
               }
             }

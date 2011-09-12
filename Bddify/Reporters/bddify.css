@@ -7,7 +7,7 @@
 	font-size: 10pt;
 	margin: 0;
 	padding: 0;
-	min-height:700px;
+    padding-bottom:40px;
 }
 
 ul
@@ -20,7 +20,6 @@ ul
 li
 {
     list-style-type: none;
-    line-height:100%;
 }
 			
 #main
@@ -97,7 +96,6 @@ footer a:hover
 
 .summary li
 {
-    height:20px;
     padding:0px 5px;
 }
 
@@ -191,20 +189,39 @@ div.InconclusiveException
 	font-weight:bold;
 }
 
+#testResult .story
+{
+    background-color:#f0f0f0;
+    padding:5px;
+    padding-bottom:0px;
+    border:1px solid #d0d0d0;
+}
+
+.storyMetaData
+{
+    padding:5px 0px;
+    display:inline;
+}
+
 .scenario
 {
     border:none;
-    margin:2px 0px;
+    margin:0px;
 	cursor:pointer;
 	padding:3px 15px;
 }
 		
 div.scenario:nth-child(2n+1)
 {
-    background-color:#f0f1ff;
+    background-color:#e0e1ff;
+}
+		
+div.scenario:nth-child(2n)
+{
+    background-color:#fff;
 }
 	
-.scenarioText
+.scenarioTitle
 {
 	color: #000;
 }
@@ -225,7 +242,7 @@ ul.storyNarrative
     color: #122F4B;
 }
 
-.steps
+ul.steps
 {
     border:none;
     padding-left:10px;
@@ -238,14 +255,10 @@ ul.storyNarrative
     padding-left:10px;
 }
 			
-.story,
-.namespace
+.story div.summaryLabel,
+.storyTitle,
+.namespace div.summaryLabel,
+.namespaceName
 {
-	background: #f0f0f0;
 	font-weight: bold;
-}
-
-div.story
-{
-    padding:5px 0px;
 }
