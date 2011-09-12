@@ -22,31 +22,31 @@
 
 				<ul class="resultSummary">
 					<li class="namespace">
-						<span class="summaryLabel">Namespaces</span>
+						<div class="summaryLabel">Namespaces</div>
 						<span class="summaryCount">@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count()</span>
 					</li>
 					<li class="story">
-						<span class="summaryLabel">Stories</span>
+						<div class="summaryLabel">Stories</div>
 						<span class="summaryCount">@Model.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count()</span>
 					</li>
 					<li class="Passed">
-            <span class="summaryLabel">Passed</span>
+            <div class="summaryLabel">Passed</div>
 						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</span>
 					</li>
 					<li class="Failed">
-						<span class="summaryLabel">Failed</span>
+						<div class="summaryLabel">Failed</div>
 						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</span>
 					</li>
 					<li class="Inconclusive">
-						<span class="summaryLabel">Inconclusive</span>
+						<div class="summaryLabel">Inconclusive</div>
 						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</span>
 					</li>
 					<li class="NotImplemented">
-						<span class="summaryLabel">Not Implemented</span>
+						<div class="summaryLabel">Not Implemented</div>
 						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</span>
   				</li>
 					<li class="NotExecuted">
-						<span class="summaryLabel">Not Executed</span>
+						<div class="summaryLabel">Not Executed</div>
 						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</span>
 					</li>
 				</ul>
@@ -109,8 +109,8 @@
 
               @foreach (var scenario in scenariosInGroup)
               { 
-              <div class="scenario" onclick="toggle('@scenario.Id');">
-								<span class="scenarioText @scenario.Result">@scenario.ScenarioText</span>
+              <div class="scenario @scenario.Result" onclick="toggle('@scenario.Id');">
+								<span class="scenarioText">@scenario.ScenarioText</span>
                 
 							  <ul class="step" id="@scenario.Id" style="display:none">
                 @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
