@@ -14,7 +14,6 @@ ul
 {
     padding:0;
     margin:5px;
-	border: 1px solid #f0f0f0;
 }
 
 li
@@ -90,7 +89,6 @@ footer a:hover
 .summary
 {
     margin:0 5px;
-    padding:5px;
     display:inline-block;
 }
 
@@ -109,13 +107,20 @@ h3
 .summaryLabel
 {
     float:left;
-    width:120px;
+    width:140px;
 }
 
 .resultSummary
 {
     display: inline-block;
-    width:200px;
+    width:220px;
+    border:1px solid #d0d0d0;
+}
+
+.namespace div.summary,
+.story div.summary
+{
+    margin-left:25px;
 }
 
 div#generatedAt
@@ -132,7 +137,6 @@ div#generatedAt
 			
 #testResult
 {
-	margin:5px;
 	padding:5px;
 }
 
@@ -208,7 +212,7 @@ div.InconclusiveException
     border:none;
     margin:0px;
 	cursor:pointer;
-	padding:3px 15px;
+	padding:2px 8px;
 }
 		
 div.scenario:nth-child(2n+1)

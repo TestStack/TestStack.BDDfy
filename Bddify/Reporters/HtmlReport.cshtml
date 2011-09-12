@@ -34,32 +34,46 @@
 
 				<ul class="resultSummary">
 					<li class="namespace">
-						<div class="summaryLabel">Namespaces</div>
-						<span class="summaryCount">@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count()</span>
+            <div class="summary">
+						  <div class="summaryLabel">Namespaces</div>
+						  <span class="summaryCount">@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count()</span>
+            </div>
 					</li>
 					<li class="story">
-						<div class="summaryLabel">Stories</div>
-						<span class="summaryCount">@Model.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count()</span>
+            <div class="summary">
+						  <div class="summaryLabel">Stories</div>
+						  <span class="summaryCount">@Model.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count()</span>
+            </div>
 					</li>
 					<li class="Passed">
-            <div class="summaryLabel">Passed</div>
-						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</span>
+            <div class="summary">
+              <div class="summaryLabel">Passed</div>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</span>
+            </div>
 					</li>
 					<li class="Failed">
-						<div class="summaryLabel">Failed</div>
-						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</span>
+            <div class="summary">
+						  <div class="summaryLabel">Failed</div>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</span>
+            </div>
 					</li>
 					<li class="Inconclusive">
-						<div class="summaryLabel">Inconclusive</div>
-						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</span>
+            <div class="summary">
+						  <div class="summaryLabel">Inconclusive</div>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</span>
+            </div>
 					</li>
 					<li class="NotImplemented">
-						<div class="summaryLabel">Not Implemented</div>
-						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</span>
+            <div class="summary">
+						  <div class="summaryLabel">Not Implemented</div>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</span>
+            </div>
   				</li>
 					<li class="NotExecuted">
-						<div class="summaryLabel">Not Executed</div>
-						<span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</span>
+            <div class="summary">
+						  <div class="summaryLabel">Not Executed</div>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</span>
+            </div>
 					</li>
 				</ul>
       </section>
