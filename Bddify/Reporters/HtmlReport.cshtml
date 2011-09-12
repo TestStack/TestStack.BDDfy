@@ -67,7 +67,7 @@
 
         <h3>Assembly: '@assemblyName'</h3>
 
-				<ul>
+				<ul class="testResult">
           @{
             var groupedByNamespace = from story in Model
                                      where story.MetaData == null
@@ -85,16 +85,15 @@
             {
               var story = scenarioGroup.First();
               var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
-              var headerClass = story.MetaData == null ? "namespace" : "story";
           <li>
-          	<div class="@headerClass">
+          	<div class="story @story.Result">
               @if (story.MetaData == null)
               {
-                <span class="@story.Result">Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</span>
+                <span class="namespace">Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</span>
               }
               else
               {
-                <span class="@story.Result">Story: @story.MetaData.Title</span>
+                <span class="story">Story: @story.MetaData.Title</span>
               }
 
               @if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
@@ -112,11 +111,11 @@
               <div class="scenario @scenario.Result" onclick="toggle('@scenario.Id');">
 								<span class="scenarioText">@scenario.ScenarioText</span>
                 
-							  <ul class="step" id="@scenario.Id" style="display:none">
+							  <ul class="steps" id="@scenario.Id" style="display:none">
                 @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                 {
                   string stepClass = string.Empty;
-                  string result = step.ReadableMethodName.Replace(" ", "&nbsp;");
+                  string result = step.ReadableMethodName;
                   if (step.Exception != null)
                   {
                     stepClass = step.Result + "Exception";
@@ -126,7 +125,7 @@
                       result += " [Exception Message: '" + step.Exception.Message + "']";
                     }
                   }
-                  <li class="step @step.Result @stepClass" onclick="toggle('@step.Id');">
+                  <li class="step @step.Result @stepClass @step.ExecutionOrder" onclick="toggle('@step.Id');">
 										<span>@result</span>
 
                     @if (step.Exception != null)
