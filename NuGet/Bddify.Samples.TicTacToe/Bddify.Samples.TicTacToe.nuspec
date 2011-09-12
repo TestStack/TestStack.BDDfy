@@ -10,7 +10,7 @@
     <description>Bddify.Samples.TicTacToe package is a small sample that shows how you could implement the common BDD sample, Tic Tac Toe game, using bddify.</description>
     <projectUrl>https://code.google.com/p/bddify/</projectUrl>
     <dependencies>
-      <dependency id="Bddify" version="0.7" />
+      <dependency id="Bddify" version="0.7.1" />
       <dependency id="nunit" version="2.5" />
     </dependencies>
   </metadata>
