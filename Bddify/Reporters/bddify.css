@@ -12,8 +12,11 @@
 
 ul
 {
-    padding:0;
+    padding:5px;
     margin:5px;
+    border:1px solid #d0d0d0;
+    background-color:#f0f0f0;
+    border-radius:10px;
 }
 
 li
@@ -114,7 +117,6 @@ h3
 {
     display: inline-block;
     width:220px;
-    border:1px solid #d0d0d0;
 }
 
 .namespace div.summary,
@@ -193,14 +195,6 @@ div.InconclusiveException
 	font-weight:bold;
 }
 
-#testResult .story
-{
-    background-color:#f0f0f0;
-    padding:5px;
-    padding-bottom:0px;
-    border:1px solid #d0d0d0;
-}
-
 .storyMetaData
 {
     padding:5px 0px;
@@ -244,11 +238,11 @@ ul.storyNarrative
     margin: 0px;
     padding: 5px 40px;
     color: #122F4B;
+    border:none;
 }
 
 ul.steps
 {
-    border:none;
     padding-left:10px;
 }
 
