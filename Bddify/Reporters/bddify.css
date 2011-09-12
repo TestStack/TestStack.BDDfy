@@ -204,6 +204,7 @@ div.InconclusiveException
 .scenario
 {
     border:none;
+    border-radius:5px;
     margin:0px;
 	cursor:pointer;
 	padding:2px 8px;
