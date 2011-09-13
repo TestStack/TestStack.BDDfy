@@ -1,6 +1,5 @@
 ﻿body
 {
-	min-width:900px;
 	max-width:100%;
 	background-color:#fff;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -249,6 +248,7 @@ ul.storyNarrative
 ul.steps
 {
     padding-left:10px;
+    background-color:#f9f9f9;
 }
 
 .step.ConsecutiveSetupState span,
