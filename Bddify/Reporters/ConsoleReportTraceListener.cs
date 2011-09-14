@@ -1,21 +1,34 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Bddify.Core;
 
 namespace Bddify.Reporters
 {
-    public class ConsoleReporter : IProcessor
+    public class ConsoleReportTraceListener : TraceListener
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
 
-        public ProcessType ProcessType
+        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
         {
-            get { return ProcessType.Report; }
+            var story = data as Story;
+            if(story != null)
+                TraceStory(story);
         }
 
-        public void Process(Story story)
+        public override void Write(string message)
+        {
+            Console.Write(message);
+        }
+
+        public override void WriteLine(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        private void TraceStory(Story story)
         {
             ReportStoryHeader(story);
 
@@ -35,23 +48,18 @@ namespace Bddify.Reporters
             }
 
             ReportExceptions();
-
-            ReportStoryFooter(story);
         }
 
-        private static void ReportStoryFooter(Story story)
-        {
-        }
-
-        private static void ReportStoryHeader(Story story)
+        static void ReportStoryHeader(Story story)
         {
             if (story.MetaData == null || story.MetaData.Type == null)
                 return;
 
-            Console.WriteLine("Story: " + story.MetaData.Title);
+            Console.WriteLine("Story : " + story.MetaData.Title);
             Console.WriteLine("\t" + story.MetaData.AsA);
             Console.WriteLine("\t" + story.MetaData.IWant);
             Console.WriteLine("\t" + story.MetaData.SoThat);
+            Console.WriteLine(string.Empty);
         }
 
         void ReportOnStep(Scenario scenario, ExecutionStep step)
@@ -66,7 +74,7 @@ namespace Bddify.Reporters
             if (scenario.Result == StepExecutionResult.Passed)
                 message = "\t" + step.ReadableMethodName;
 
-            if(step.Exception != null)
+            if (step.Exception != null)
             {
                 _exceptions.Add(step.Exception);
 
@@ -77,49 +85,30 @@ namespace Bddify.Reporters
                     message += string.Format("{0}", exceptionReference);
             }
 
-#if !SILVERLIGHT
-            if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            else if (step.Result == StepExecutionResult.Failed)
-                Console.ForegroundColor = ConsoleColor.Red;
-            else if (step.Result == StepExecutionResult.NotExecuted)
-                Console.ForegroundColor = ConsoleColor.Gray;
-#endif
-            
             Console.WriteLine(message);
-#if !SILVERLIGHT
-            Console.ForegroundColor = ConsoleColor.White;
-#endif
         }
 
         void ReportExceptions()
         {
-            Console.WriteLine();
             if (_exceptions.Count == 0)
                 return;
 
-            Console.Write("Exceptions:");
+            Console.WriteLine("Exceptions:");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                Console.WriteLine();
-                Console.Write(string.Format("  {0}. ", index + 1));
-                
+                Console.WriteLine(string.Format("  {0}. ", index + 1));
+
                 if (!string.IsNullOrEmpty(exception.Message))
                     Console.WriteLine(FlattenExceptionMessage(exception.Message));
-                else
-                    Console.WriteLine();
-                    
+
                 Console.WriteLine(exception.StackTrace);
             }
-
-            Console.WriteLine();
         }
 
         static string FlattenExceptionMessage(string message)
         {
-            // ToDo: if gets complex will change it with a regex
             return message
                 .Replace("\t", " ") // replace tab with one space
                 .Replace(Environment.NewLine, ", ") // replace new line with one space
@@ -130,10 +119,6 @@ namespace Bddify.Reporters
 
         static void Report(Scenario scenario)
         {
-#if !SILVERLIGHT
-            Console.ForegroundColor = ConsoleColor.White;
-#endif
-            Console.WriteLine();
             Console.WriteLine("Scenario: " + scenario.ScenarioText);
         }
     }

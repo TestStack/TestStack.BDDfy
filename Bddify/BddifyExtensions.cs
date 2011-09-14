@@ -45,14 +45,14 @@ namespace Bddify
             return testObject.LazyBddify(scenarioTitle).Run();
         }
 
-        public static Story Bddify(this object testObject, string scenarioTitle = null, string htmlReportName = null)
+        public static Story Bddify(this object testObject, string scenarioTitle = null, string reportCategory = null)
         {
-            return testObject.LazyBddify(scenarioTitle, htmlReportName:htmlReportName).Run();
+            return testObject.LazyBddify(scenarioTitle, reportCategory).Run();
         }
 
-        public static Bddifier LazyBddify(this object testObject, string scenarioTitle = null, bool consoleReport = true, bool htmlReport = true, string htmlReportName = null)
+        public static Bddifier LazyBddify(this object testObject, string scenarioTitle = null, string reportCategory = null)
         {
-            return InternalLazyBddify(testObject, scenarioTitle, consoleReport, htmlReport, htmlReportName, GetDefaultScanner);
+            return InternalLazyBddify(testObject, scenarioTitle, reportCategory, GetDefaultScanner);
         }
 
         public static Story Bddify<TStory>(this object testObject)
@@ -67,24 +67,22 @@ namespace Bddify
             return testObject.LazyBddify<TStory>(scenarioTitle).Run();
         }
 
-        public static Story Bddify<TStory>(this object testObject, string scenarioTitle = null, string htmlReportName = null)
+        public static Story Bddify<TStory>(this object testObject, string scenarioTitle = null, string reportCategory = null)
             where TStory : class
         {
-            return testObject.LazyBddify<TStory>(scenarioTitle, htmlReportName:htmlReportName).Run();
+            return testObject.LazyBddify<TStory>(scenarioTitle, reportCategory).Run();
         }
 
-        public static Bddifier LazyBddify<TStory>(this object testObject, string scenarioTitle = null, bool consoleReport = true, bool htmlReport = true, string htmlReportName = null)
+        public static Bddifier LazyBddify<TStory>(this object testObject, string scenarioTitle = null, string reportCategory = null)
             where TStory : class
         {
-            return InternalLazyBddify(testObject, scenarioTitle, consoleReport, htmlReport, htmlReportName, GetDefaultScanner<TStory>);
+            return InternalLazyBddify(testObject, scenarioTitle, reportCategory, GetDefaultScanner<TStory>);
         }
 
         static Bddifier InternalLazyBddify(
             object testObject, 
             string scenarioTitle, 
-            bool consoleReport, 
-            bool htmlReport, 
-            string htmlReportName, 
+            string reportCategory, 
             Func<object, string, IScanner> getDefaultScanner)
         {
             IScanner scanner = null;
@@ -96,15 +94,12 @@ namespace Bddify
                 testObject = hasScanner.TestObject;
             }
 
-            var processors = new List<IProcessor> { new TestRunner() };
-
-            if (consoleReport)
-                processors.Add(new ConsoleReporter());
-
-            if (htmlReport)
-                processors.Add(new HtmlReporter(htmlReportName));
-
-            processors.Add(new ExceptionProcessor());
+            var processors = new List<IProcessor>
+                                 {
+                                     new TestRunner(),
+                                     new StoryReporter(reportCategory),
+                                     new ExceptionProcessor()
+                                 };
 
             var storyScanner = scanner ?? getDefaultScanner(testObject, scenarioTitle);
 

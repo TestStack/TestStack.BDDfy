@@ -79,10 +79,12 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Reporters\ConsoleReporter.cs" />
+    <Compile Include="Reporters\HtmlReportTraceListener.cs" />
+    <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
+    <Compile Include="Reporters\ConsoleReportTraceListener.cs" />
+    <Compile Include="Reporters\TraceId.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
-    <Compile Include="Reporters\HtmlReporter.cs" />
     <Compile Include="Core\NetToString.cs" />
     <Compile Include="Core\ProcessType.cs" />
     <Compile Include="Core\StepExecutionResult.cs" />

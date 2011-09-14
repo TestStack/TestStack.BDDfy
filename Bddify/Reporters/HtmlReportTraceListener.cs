@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,58 +13,55 @@ using RazorEngine.Templating;
 
 namespace Bddify.Reporters
 {
-    public class HtmlReporter : IProcessor
+    public class HtmlReportTraceListener : TraceListener
     {
         static readonly Dictionary<string, List<Story>> Stories = new Dictionary<string, List<Story>>();
         static readonly object SyncRoot = new object();
-        private readonly string _htmlReportName;
+        private readonly string _reportName;
 
-        public ProcessType ProcessType
-        {
-            get { return ProcessType.Report; }
-        }
-
-        public HtmlReporter(string htmlReportName)
-        {
-            _htmlReportName = htmlReportName ?? "bddify";
-        }
-
-        public void Process(Story story)
-        {
-            lock (SyncRoot)
-            {
-                if (!Stories.ContainsKey(_htmlReportName))
-                    Stories[_htmlReportName] = new List<Story>();
-
-                Stories[_htmlReportName].Add(story);
-            }
-        }
-
-#if NET35 || SILVERLIGHT
-        internal static void GenerateHtmlReport()
-        {
-        }
-#else
-        static HtmlReporter()
+        static HtmlReportTraceListener()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
         }
 
-        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
+        public HtmlReportTraceListener() : this(null)
         {
-            // run this only once when the appdomain is unloading, that is when the last test is run
-            GenerateHtmlReport();
         }
 
-        private static void GenerateHtmlReport()
+        public HtmlReportTraceListener(string reportName)
+        {
+            _reportName = reportName ?? "bddify";
+        }
+
+        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
+        {
+            var story = data as Story;
+            if (story == null)
+                return;
+
+            lock (SyncRoot)
+            {
+                if (!Stories.ContainsKey(_reportName))
+                    Stories[_reportName] = new List<Story>();
+
+                Stories[_reportName].Add(story);
+            }
+        }
+
+        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
+        {
+            GenerateHtmlReport(Stories);
+        }
+
+        private static void GenerateHtmlReport(Dictionary<string, List<Story>> stories)
         {
             const string error = "There was an error compiling the template";
             var cssFullFileName = Path.Combine(AssemblyDirectory, "bddify.css");
             File.WriteAllText(cssFullFileName, CssFile.Value);
 
-            foreach (var file in Stories.Keys)
+            foreach (var file in stories.Keys)
             {
-                var storiesInFile = Stories[file];
+                var storiesInFile = stories[file];
                 var htmlFileName = file + ".html";
                 var htmlFullFileName = Path.Combine(AssemblyDirectory, htmlFileName);
 
@@ -103,7 +101,7 @@ namespace Bddify.Reporters
         static string GetEmbeddedFileResource(string fileResourceName)
         {
             string fileContent;
-            var templateResourceStream = typeof(HtmlReporter).Assembly.GetManifestResourceStream(fileResourceName);
+            var templateResourceStream = typeof(HtmlReportTraceListener).Assembly.GetManifestResourceStream(fileResourceName);
             using (var sr = new StreamReader(templateResourceStream))
             {
                 fileContent = sr.ReadToEnd();
@@ -113,7 +111,7 @@ namespace Bddify.Reporters
         }
 
         // http://stackoverflow.com/questions/52797/c-how-do-i-get-the-path-of-the-assembly-the-code-is-in#answer-283917
-        static public string AssemblyDirectory
+        static string AssemblyDirectory
         {
             get
             {
@@ -123,6 +121,33 @@ namespace Bddify.Reporters
                 return Path.GetDirectoryName(path);
             }
         }
-#endif
+
+        public override void WriteLine(object o)
+        {
+            Console.WriteLine("WriteLine");
+            base.WriteLine(o);
+        }
+
+        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, params object[] data)
+        {
+            Console.WriteLine("Tracedata");
+            base.TraceData(eventCache, source, eventType, id, data);
+        }
+
+        public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string message)
+        {
+            Console.WriteLine(message);
+            base.TraceEvent(eventCache, source, eventType, id, message);
+        }
+
+        public override void Write(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        public override void WriteLine(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }
