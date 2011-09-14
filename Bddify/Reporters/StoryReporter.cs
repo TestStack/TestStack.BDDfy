@@ -6,7 +6,7 @@ namespace Bddify.Reporters
     public class StoryReporter : IProcessor
     {
         private readonly string _reportFileName;
-        static readonly TraceSource TraceSource = new TraceSource("Reporter");
+        static readonly TraceSource TraceSource = new TraceSource("Bddify.Reporter");
 
         static StoryReporter()
         {
