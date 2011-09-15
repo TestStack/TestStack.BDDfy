@@ -102,11 +102,11 @@
           	  <div class="storyMetaData">
               @if (story.MetaData == null)
               {
-                <span class="namespaceName">Namespace: @story.Scenarios.First().TestObject.GetType().Namespace</span>
+                <div class="namespaceName">@story.Scenarios.First().TestObject.GetType().Namespace</div>
               }
               else
               {
-                <span class="storyTitle">Story: @story.MetaData.Title</span>
+                <div class="storyTitle">@story.MetaData.Title</div>
               }
 
               @if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
@@ -119,42 +119,44 @@
               }
               </div>
 
-              @foreach (var scenario in scenariosInGroup)
-              { 
-              <div class="scenario @scenario.Result" onclick="toggle('@scenario.Id');">
-								<span class="scenarioTitle">@scenario.ScenarioText</span>
+              <div class="scenarios">
+                @foreach (var scenario in scenariosInGroup)
+                { 
+                <div class="scenario @scenario.Result" onclick="toggle('@scenario.Id');">
+								  <div class="scenarioTitle">@scenario.ScenarioText</div>
                 
-							  <ul class="steps" id="@scenario.Id" style="display:none">
-                @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                {
-                  string stepClass = string.Empty;
-                  string result = step.ReadableMethodName;
-                  if (step.Exception != null)
+							    <ul class="steps" id="@scenario.Id" style="display:none">
+                  @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                   {
-                    stepClass = step.Result + "Exception";
-
-                    if (!string.IsNullOrEmpty(step.Exception.Message))
+                    string stepClass = string.Empty;
+                    string result = step.ReadableMethodName;
+                    if (step.Exception != null)
                     {
-                      result += " [Exception Message: '" + step.Exception.Message + "']";
+                      stepClass = step.Result + "Exception";
+
+                      if (!string.IsNullOrEmpty(step.Exception.Message))
+                      {
+                        result += " [Exception Message: '" + step.Exception.Message + "']";
+                      }
                     }
+                    <li class="step @step.Result @stepClass @step.ExecutionOrder" onclick="toggle('@step.Id');">
+										  <span>@result</span>
+
+                      @if (step.Exception != null)
+                      {
+									      <div class="step @stepClass" id="@step.Id">
+										      <code>@step.Exception.StackTrace</code>
+                        </div>
+                      }
+
+									  </li>
                   }
-                  <li class="step @step.Result @stepClass @step.ExecutionOrder" onclick="toggle('@step.Id');">
-										<span>@result</span>
-
-                    @if (step.Exception != null)
-                    {
-									    <div class="step @stepClass" id="@step.Id">
-										    <code>@step.Exception.StackTrace</code>
-                      </div>
-                    }
-
-									</li>
+		  				    </ul>
+						    </div>
                 }
-		  				  </ul>
-						  </div>
-              }
-						  </div>
-            </li>
+              </div>
+						</div>
+          </li>
               }
             }
 				</ul>
