@@ -10,9 +10,13 @@ namespace Bddify.Reporters
 
         static StoryReporter()
         {
-            TraceSource.Switch = new SourceSwitch("default", "Information");
-            TraceSource.Listeners.Add(new ConsoleReportTraceListener());
-            TraceSource.Listeners.Add(new HtmlReportTraceListener());
+            if (TraceSource.Listeners.Count == 0 ||
+                (TraceSource.Listeners.Count == 1 && TraceSource.Listeners[0].GetType() == typeof(DefaultTraceListener)))
+            {
+                TraceSource.Switch = new SourceSwitch("default", "Information");
+                TraceSource.Listeners.Add(new ConsoleReportTraceListener());
+                TraceSource.Listeners.Add(new HtmlReportTraceListener());
+            }
         }
 
         public StoryReporter(string reportFileName)
