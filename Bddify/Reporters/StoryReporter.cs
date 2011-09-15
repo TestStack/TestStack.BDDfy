@@ -14,7 +14,7 @@ namespace Bddify.Reporters
                 (TraceSource.Listeners.Count == 1 && TraceSource.Listeners[0].GetType() == typeof(DefaultTraceListener)))
             {
                 TraceSource.Switch = new SourceSwitch("default", "Information");
-                TraceSource.Listeners.Add(new ConsoleReportTraceListener());
+                TraceSource.Listeners.Add(new GranualarReportTraceListener());
                 TraceSource.Listeners.Add(new HtmlReportTraceListener());
             }
         }

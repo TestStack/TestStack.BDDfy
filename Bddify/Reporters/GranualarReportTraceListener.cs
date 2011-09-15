@@ -6,10 +6,11 @@ using Bddify.Core;
 
 namespace Bddify.Reporters
 {
-    public class ConsoleReportTraceListener : TraceListener
+    public class GranualarReportTraceListener : TraceListener
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
+        private static readonly TraceSource TraceSouce = new TraceSource("Bddify.Reporter.Granualar");
 
         public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
         {
@@ -21,11 +22,13 @@ namespace Bddify.Reporters
         public override void Write(string message)
         {
             Console.Write(message);
+            TraceSouce.TraceInformation(message);
         }
 
         public override void WriteLine(string message)
         {
             Console.WriteLine(message);
+            TraceSouce.TraceInformation(message);
         }
 
         private void TraceStory(Story story)
@@ -50,16 +53,16 @@ namespace Bddify.Reporters
             ReportExceptions();
         }
 
-        static void ReportStoryHeader(Story story)
+        void ReportStoryHeader(Story story)
         {
             if (story.MetaData == null || story.MetaData.Type == null)
                 return;
 
-            Console.WriteLine("Story : " + story.MetaData.Title);
-            Console.WriteLine("\t" + story.MetaData.AsA);
-            Console.WriteLine("\t" + story.MetaData.IWant);
-            Console.WriteLine("\t" + story.MetaData.SoThat);
-            Console.WriteLine(string.Empty);
+            WriteLine("Story : " + story.MetaData.Title);
+            WriteLine("\t" + story.MetaData.AsA);
+            WriteLine("\t" + story.MetaData.IWant);
+            WriteLine("\t" + story.MetaData.SoThat);
+            WriteLine(string.Empty);
         }
 
         void ReportOnStep(Scenario scenario, ExecutionStep step)
@@ -85,7 +88,7 @@ namespace Bddify.Reporters
                     message += string.Format("{0}", exceptionReference);
             }
 
-            Console.WriteLine(message);
+            WriteLine(message);
         }
 
         void ReportExceptions()
@@ -93,17 +96,17 @@ namespace Bddify.Reporters
             if (_exceptions.Count == 0)
                 return;
 
-            Console.WriteLine("Exceptions:");
+            WriteLine("Exceptions:");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                Console.WriteLine(string.Format("  {0}. ", index + 1));
+                WriteLine(string.Format("  {0}. ", index + 1));
 
                 if (!string.IsNullOrEmpty(exception.Message))
-                    Console.WriteLine(FlattenExceptionMessage(exception.Message));
+                    WriteLine(FlattenExceptionMessage(exception.Message));
 
-                Console.WriteLine(exception.StackTrace);
+                WriteLine(exception.StackTrace);
             }
         }
 
@@ -117,9 +120,9 @@ namespace Bddify.Reporters
                 .TrimEnd(','); // chop any , from the end
         }
 
-        static void Report(Scenario scenario)
+        void Report(Scenario scenario)
         {
-            Console.WriteLine("Scenario: " + scenario.ScenarioText);
+            WriteLine("Scenario: " + scenario.ScenarioText);
         }
     }
 }
