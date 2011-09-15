@@ -1,3 +1,4 @@
+#if !(NET35 || SILVERLIGHT)
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,10 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Bddify.Core;
-#if !(NET35 || SILVERLIGHT)
 using RazorEngine;
 using RazorEngine.Templating;
-#endif
 
 namespace Bddify.Reporters
 {
@@ -122,32 +121,13 @@ namespace Bddify.Reporters
             }
         }
 
-        public override void WriteLine(object o)
-        {
-            Console.WriteLine("WriteLine");
-            base.WriteLine(o);
-        }
-
-        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, params object[] data)
-        {
-            Console.WriteLine("Tracedata");
-            base.TraceData(eventCache, source, eventType, id, data);
-        }
-
-        public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string message)
-        {
-            Console.WriteLine(message);
-            base.TraceEvent(eventCache, source, eventType, id, message);
-        }
-
         public override void Write(string message)
         {
-            Console.WriteLine(message);
         }
 
         public override void WriteLine(string message)
         {
-            Console.WriteLine(message);
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if !(SILVERLIGHT)
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -126,3 +127,4 @@ namespace Bddify.Reporters
         }
     }
 }
+#endif

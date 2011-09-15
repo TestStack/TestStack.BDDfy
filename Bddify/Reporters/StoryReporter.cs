@@ -6,6 +6,7 @@ namespace Bddify.Reporters
     public class StoryReporter : IProcessor
     {
         private readonly string _reportFileName;
+#if !(SILVERLIGHT)
         static readonly TraceSource TraceSource = new TraceSource("Bddify.Reporter");
 
         static StoryReporter()
@@ -15,9 +16,13 @@ namespace Bddify.Reporters
             {
                 TraceSource.Switch = new SourceSwitch("default", "Information");
                 TraceSource.Listeners.Add(new GranualarReportTraceListener());
+
+#if !(NET35)
                 TraceSource.Listeners.Add(new HtmlReportTraceListener());
+#endif
             }
         }
+#endif
 
         public StoryReporter(string reportFileName)
         {
@@ -32,7 +37,9 @@ namespace Bddify.Reporters
 
         public void Process(Story story)
         {
+#if !SILVERLIGHT
             TraceSource.TraceData(TraceEventType.Information, (int)TraceId.Story, story);
+#endif
         }
     }
 }
