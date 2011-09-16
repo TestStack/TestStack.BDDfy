@@ -7,25 +7,23 @@ namespace Bddify.Reporters
     {
         private readonly string _reportFileName;
 #if !(SILVERLIGHT)
-        static readonly TraceSource TraceSource = new TraceSource("Bddify.Reporter");
-
-        static StoryReporter()
-        {
-            if (TraceSource.Listeners.Count == 0 ||
-                (TraceSource.Listeners.Count == 1 && TraceSource.Listeners[0].GetType() == typeof(DefaultTraceListener)))
-            {
-                TraceSource.Switch = new SourceSwitch("default", "Information");
-                TraceSource.Listeners.Add(new GranualarReportTraceListener());
-
-#if !(NET35)
-                TraceSource.Listeners.Add(new HtmlReportTraceListener());
-#endif
-            }
-        }
+        readonly TraceSource _traceSource = new TraceSource("Bddify.Reporter");
 #endif
 
         public StoryReporter(string reportFileName)
         {
+#if !(SILVERLIGHT)
+            if (_traceSource.Listeners.Count == 0 ||
+                (_traceSource.Listeners.Count == 1 && _traceSource.Listeners[0].GetType() == typeof(DefaultTraceListener)))
+            {
+                _traceSource.Switch = new SourceSwitch("default", "Information");
+                _traceSource.Listeners.Add(new GranualarReportTraceListener());
+
+#if !(NET35)
+                _traceSource.Listeners.Add(new HtmlReportTraceListener());
+#endif
+            }
+#endif
             // ToDo: should somehow pass this on to the listeners
             _reportFileName = reportFileName;
         }
@@ -38,7 +36,7 @@ namespace Bddify.Reporters
         public void Process(Story story)
         {
 #if !SILVERLIGHT
-            TraceSource.TraceData(TraceEventType.Information, (int)TraceId.Story, story);
+            _traceSource.TraceData(TraceEventType.Information, (int)TraceId.Story, story);
 #endif
         }
     }
