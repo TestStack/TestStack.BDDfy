@@ -225,7 +225,7 @@ div.story
 	content: "Story: ";
 }
 
-.namespaceName:before
+.namespaceName
 {
 	display:inline;
 }
