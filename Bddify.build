@@ -31,13 +31,13 @@
   <!--Default-->
   <PropertyGroup Condition="$(BuildFramework)=='' or $(BuildFramework)=='NET40'">
     <PackageName>$(ProjectName)-$(Version)-NET40</PackageName>
-    <BuildConstants>NET40</BuildConstants>
+    <BuildConstants>NET40;TRACE</BuildConstants>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(BuildFramework)=='NET35'">
     <PackageName>$(ProjectName)-$(Version)-NET35</PackageName>
-    <BuildConstants>NET35</BuildConstants>
+    <BuildConstants>NET35;TRACE</BuildConstants>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
 
