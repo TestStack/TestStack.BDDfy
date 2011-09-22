@@ -6,7 +6,7 @@ namespace Bddify.Tests.Scanner
     [TestFixture]
     public class PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions
     {
-        // It has to end with context to fulfil the convention; after compilation this property will be get_Givenblahblah
+        // It has to end with context to fulfil the convention; after compilation this property will be get_GivenblahblahContext
         protected int GivenThePropertyNameFulfillsTheConventionsContext
         {
             get { throw new InvalidOperationException("This should not have been called"); }
