@@ -60,9 +60,17 @@ namespace Bddify.Scanners.ScenarioScanners
 
         public static IEnumerable<MethodInfo> GetMethodsOfInterest(Type scenarioType)
         {
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            var properties = scenarioType.GetProperties(bindingFlags);
+            var getMethods = properties.Select(p => p.GetGetMethod(true));
+            var setMethods = properties.Select(p => p.GetSetMethod(true));
+            var allPropertyMethods = getMethods.Union(setMethods);
+
             return scenarioType
-                .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(m => !m.GetCustomAttributes(typeof(IgnoreStepAttribute), false).Any())
+                .GetMethods(bindingFlags)
+                .Where(m => !m.GetCustomAttributes(typeof(IgnoreStepAttribute), false).Any()) // it is not decorated with IgnoreStep
+                .Except(allPropertyMethods) // properties cannot be steps; only methods
                 .ToList();
         }
     }
