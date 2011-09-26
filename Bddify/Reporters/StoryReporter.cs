@@ -5,12 +5,11 @@ namespace Bddify.Reporters
 {
     public class StoryReporter : IProcessor
     {
-        private readonly string _reportFileName;
 #if !(SILVERLIGHT)
         readonly TraceSource _traceSource = new TraceSource("Bddify.Reporter");
 #endif
 
-        public StoryReporter(string reportFileName)
+        public StoryReporter()
         {
 #if !(SILVERLIGHT)
             if (_traceSource.Listeners.Count == 0 ||
@@ -20,12 +19,10 @@ namespace Bddify.Reporters
                 _traceSource.Listeners.Add(new ConsoleReportTraceListener());
 
 #if !(NET35)
-                _traceSource.Listeners.Add(new HtmlReportTraceListener(reportFileName));
+                _traceSource.Listeners.Add(new HtmlReportTraceListener());
 #endif
             }
 #endif
-            // ToDo: should somehow pass this on to the listeners
-            _reportFileName = reportFileName;
         }
 
         public ProcessType ProcessType

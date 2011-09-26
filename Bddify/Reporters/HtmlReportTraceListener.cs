@@ -16,16 +16,10 @@ namespace Bddify.Reporters
     {
         static readonly Dictionary<string, List<Story>> Stories = new Dictionary<string, List<Story>>();
         static readonly object SyncRoot = new object();
-        private readonly string _reportName;
 
         static HtmlReportTraceListener()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
-        }
-
-        public HtmlReportTraceListener(string reportName)
-        {
-            _reportName = reportName ?? "bddify";
         }
 
         public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
@@ -36,10 +30,10 @@ namespace Bddify.Reporters
 
             lock (SyncRoot)
             {
-                if (!Stories.ContainsKey(_reportName))
-                    Stories[_reportName] = new List<Story>();
+                if (!Stories.ContainsKey(story.Category))
+                    Stories[story.Category] = new List<Story>();
 
-                Stories[_reportName].Add(story);
+                Stories[story.Category].Add(story);
             }
         }
 

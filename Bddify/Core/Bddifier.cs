@@ -7,17 +7,20 @@ namespace Bddify.Core
     public class Bddifier
     {
         private readonly IEnumerable<IProcessor> _processors;
+        private readonly string _storyCategory;
         private readonly IScanner _scanner;
 
-        public Bddifier(IScanner scanner, IEnumerable<IProcessor> processors)
+        public Bddifier(string storyCategory, IScanner scanner, IEnumerable<IProcessor> processors)
         {
             _processors = processors;
+            _storyCategory = storyCategory ?? "bddify";
             _scanner = scanner;
         }
 
         public Story Run()
         {
             _story = _scanner.Scan();
+            _story.Category = _storyCategory;
 
             try
             {

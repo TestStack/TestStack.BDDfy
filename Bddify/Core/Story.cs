@@ -12,6 +12,7 @@ namespace Bddify.Core
         }
 
         public StoryMetaData MetaData { get; private set; }
+        public string Category { get; set; }
         public IEnumerable<Scenario> Scenarios { get; private set; }
 
         public StepExecutionResult Result

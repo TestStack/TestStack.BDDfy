@@ -66,7 +66,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            new AccountHasInsufficientFund().Bddify<AccountHolderWithdrawsCash>(reportCategory:"ATM");
+            new AccountHasInsufficientFund().Bddify<AccountHolderWithdrawsCash>(storyCategory:"ATM");
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Bddify.Samples.Atm
                 .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
                     .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
                     .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
-                .Bddify(reportCategory: "ATM");
+                .Bddify(storyCategory: "ATM");
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Bddify.Samples.Atm
                 .When(s => s.WhenTheAccountHolderRequests(20))
                 .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
                     .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
-                .Bddify(reportCategory: "ATM");
+                .Bddify(storyCategory: "ATM");
         }
     }
 }
