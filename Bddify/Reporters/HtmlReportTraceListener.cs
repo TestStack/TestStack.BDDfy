@@ -46,7 +46,9 @@ namespace Bddify.Reporters
         {
             const string error = "There was an error compiling the template";
             var cssFullFileName = Path.Combine(AssemblyDirectory, "bddify.css");
-            File.WriteAllText(cssFullFileName, CssFile.Value);
+            // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
+            if(!File.Exists(cssFullFileName))
+                File.WriteAllText(cssFullFileName, CssFile.Value);
 
             foreach (var file in stories.Keys)
             {
