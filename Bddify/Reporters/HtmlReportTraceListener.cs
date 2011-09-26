@@ -12,7 +12,7 @@ using RazorEngine.Templating;
 
 namespace Bddify.Reporters
 {
-    public class HtmlReportTraceListener : TraceListener
+    public class HtmlReportTraceListener : TextWriterTraceListener
     {
         static readonly Dictionary<string, List<Story>> Stories = new Dictionary<string, List<Story>>();
         static readonly object SyncRoot = new object();
@@ -21,10 +21,6 @@ namespace Bddify.Reporters
         static HtmlReportTraceListener()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
-        }
-
-        public HtmlReportTraceListener() : this(null)
-        {
         }
 
         public HtmlReportTraceListener(string reportName)

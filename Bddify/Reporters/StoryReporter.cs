@@ -20,7 +20,7 @@ namespace Bddify.Reporters
                 _traceSource.Listeners.Add(new ConsoleReportTraceListener());
 
 #if !(NET35)
-                _traceSource.Listeners.Add(new HtmlReportTraceListener());
+                _traceSource.Listeners.Add(new HtmlReportTraceListener(reportFileName));
 #endif
             }
 #endif

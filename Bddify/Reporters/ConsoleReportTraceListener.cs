@@ -6,7 +6,7 @@ using Bddify.Core;
 
 namespace Bddify.Reporters
 {
-    public class ConsoleReportTraceListener : TraceListener
+    public class ConsoleReportTraceListener : TextWriterTraceListener
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
@@ -130,16 +130,8 @@ namespace Bddify.Reporters
         public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
         {
             var story = data as Story;
-            if(story != null)
+            if (story != null)
                 Process(story);
-        }
-
-        public override void Write(string message)
-        {
-        }
-
-        public override void WriteLine(string message)
-        {
         }
     }
 }
