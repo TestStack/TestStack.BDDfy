@@ -82,7 +82,7 @@
     <Compile Include="Reporters\HtmlReportTraceListener.cs" />
     <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
-    <Compile Include="Reporters\GranualarReportTraceListener.cs" />
+    <Compile Include="Reporters\ConsoleReportTraceListener.cs" />
     <Compile Include="Reporters\TraceId.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Core\NetToString.cs" />

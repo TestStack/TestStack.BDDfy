@@ -1,4 +1,3 @@
-#if !(SILVERLIGHT)
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,32 +6,12 @@ using Bddify.Core;
 
 namespace Bddify.Reporters
 {
-    public class GranualarReportTraceListener : TraceListener
+    public class ConsoleReportTraceListener : TraceListener
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
-        private static readonly TraceSource TraceSouce = new TraceSource("Bddify.Reporter.Granualar");
 
-        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
-        {
-            var story = data as Story;
-            if(story != null)
-                TraceStory(story);
-        }
-
-        public override void Write(string message)
-        {
-            Console.Write(message);
-            TraceSouce.TraceInformation(message);
-        }
-
-        public override void WriteLine(string message)
-        {
-            Console.WriteLine(message);
-            TraceSouce.TraceInformation(message);
-        }
-
-        private void TraceStory(Story story)
+        void Process(Story story)
         {
             ReportStoryHeader(story);
 
@@ -54,16 +33,15 @@ namespace Bddify.Reporters
             ReportExceptions();
         }
 
-        void ReportStoryHeader(Story story)
+        private static void ReportStoryHeader(Story story)
         {
             if (story.MetaData == null || story.MetaData.Type == null)
                 return;
 
-            WriteLine("Story : " + story.MetaData.Title);
-            WriteLine("\t" + story.MetaData.AsA);
-            WriteLine("\t" + story.MetaData.IWant);
-            WriteLine("\t" + story.MetaData.SoThat);
-            WriteLine(string.Empty);
+            Console.WriteLine("Story: " + story.MetaData.Title);
+            Console.WriteLine("\t" + story.MetaData.AsA);
+            Console.WriteLine("\t" + story.MetaData.IWant);
+            Console.WriteLine("\t" + story.MetaData.SoThat);
         }
 
         void ReportOnStep(Scenario scenario, ExecutionStep step)
@@ -89,30 +67,49 @@ namespace Bddify.Reporters
                     message += string.Format("{0}", exceptionReference);
             }
 
-            WriteLine(message);
+#if !SILVERLIGHT
+            if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            else if (step.Result == StepExecutionResult.Failed)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else if (step.Result == StepExecutionResult.NotExecuted)
+                Console.ForegroundColor = ConsoleColor.Gray;
+#endif
+
+            Console.WriteLine(message);
+#if !SILVERLIGHT
+            Console.ForegroundColor = ConsoleColor.White;
+#endif
         }
 
         void ReportExceptions()
         {
+            Console.WriteLine();
             if (_exceptions.Count == 0)
                 return;
 
-            WriteLine("Exceptions:");
+            Console.Write("Exceptions:");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                WriteLine(string.Format("  {0}. ", index + 1));
+                Console.WriteLine();
+                Console.Write(string.Format("  {0}. ", index + 1));
 
                 if (!string.IsNullOrEmpty(exception.Message))
-                    WriteLine(FlattenExceptionMessage(exception.Message));
+                    Console.WriteLine(FlattenExceptionMessage(exception.Message));
+                else
+                    Console.WriteLine();
 
-                WriteLine(exception.StackTrace);
+                Console.WriteLine(exception.StackTrace);
             }
+
+            Console.WriteLine();
         }
 
         static string FlattenExceptionMessage(string message)
         {
+            // ToDo: if gets complex will change it with a regex
             return message
                 .Replace("\t", " ") // replace tab with one space
                 .Replace(Environment.NewLine, ", ") // replace new line with one space
@@ -121,10 +118,28 @@ namespace Bddify.Reporters
                 .TrimEnd(','); // chop any , from the end
         }
 
-        void Report(Scenario scenario)
+        static void Report(Scenario scenario)
         {
-            WriteLine("Scenario: " + scenario.ScenarioText);
+#if !SILVERLIGHT
+            Console.ForegroundColor = ConsoleColor.White;
+#endif
+            Console.WriteLine();
+            Console.WriteLine("Scenario: " + scenario.ScenarioText);
+        }
+
+        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
+        {
+            var story = data as Story;
+            if(story != null)
+                Process(story);
+        }
+
+        public override void Write(string message)
+        {
+        }
+
+        public override void WriteLine(string message)
+        {
         }
     }
 }
-#endif

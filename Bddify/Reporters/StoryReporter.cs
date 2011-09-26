@@ -17,7 +17,7 @@ namespace Bddify.Reporters
                 (_traceSource.Listeners.Count == 1 && _traceSource.Listeners[0].GetType() == typeof(DefaultTraceListener)))
             {
                 _traceSource.Switch = new SourceSwitch("default", "Information");
-                _traceSource.Listeners.Add(new GranualarReportTraceListener());
+                _traceSource.Listeners.Add(new ConsoleReportTraceListener());
 
 #if !(NET35)
                 _traceSource.Listeners.Add(new HtmlReportTraceListener());
