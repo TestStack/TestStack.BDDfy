@@ -222,7 +222,7 @@ div.story
 
 .namespaceName:before
 {
-	content: "Story: ";
+	content: "Namespace: ";
 }
 
 .namespaceName

@@ -116,14 +116,6 @@ namespace Bddify.Reporters
                 return Path.GetDirectoryName(path);
             }
         }
-
-        public override void Write(string message)
-        {
-        }
-
-        public override void WriteLine(string message)
-        {
-        }
     }
 }
 #endif
