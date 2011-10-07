@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bddify.Samples.TicTacToe</id>
-    <version>0.8</version>
+    <version>0.9</version>
     <title>Tic Tac Toe game - a small BDD sample done using bddify</title>
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>
@@ -10,7 +10,7 @@
     <description>Bddify.Samples.TicTacToe package is a small sample that shows how you could implement the common BDD sample, Tic Tac Toe game, using bddify.</description>
     <projectUrl>https://code.google.com/p/bddify/</projectUrl>
     <dependencies>
-      <dependency id="Bddify" version="0.8" />
+      <dependency id="Bddify" version="0.9" />
       <dependency id="nunit" version="2.5" />
     </dependencies>
   </metadata>
