@@ -18,7 +18,7 @@ namespace Bddify.Reporters
 
             var allSteps = story.Scenarios.SelectMany(s => s.Steps);
             if (allSteps.Any())
-                _longestStepSentence = allSteps.Max(s => s.ReadableMethodName.Length);
+                _longestStepSentence = allSteps.Max(s => PrefixWithSpaceIfRequired(s).Length);
 
             foreach (var scenario in story.Scenarios)
             {
@@ -45,17 +45,30 @@ namespace Bddify.Reporters
             Console.WriteLine("\t" + story.MetaData.SoThat);
         }
 
+        static string PrefixWithSpaceIfRequired(ExecutionStep step)
+        {
+            var stepTitle = step.ReadableMethodName;
+            var executionOrder = step.ExecutionOrder;
+
+            if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||
+                executionOrder == ExecutionOrder.ConsecutiveSetupState ||
+                executionOrder == ExecutionOrder.ConsecutiveTransition)
+                stepTitle = "  " + stepTitle; // add two spaces in the front for indentation.
+
+            return stepTitle;
+        }
+
         void ReportOnStep(Scenario scenario, ExecutionStep step)
         {
             var message =
                 string.Format
                     ("\t{0}  [{1}] ",
-                    step.ReadableMethodName.PadRight(_longestStepSentence + 5),
+                    PrefixWithSpaceIfRequired(step).PadRight(_longestStepSentence + 5),
                     NetToString.Convert(step.Result.ToString()));
 
             // if all the steps have passed, there is no reason to make noise
             if (scenario.Result == StepExecutionResult.Passed)
-                message = "\t" + step.ReadableMethodName;
+                message = "\t" + PrefixWithSpaceIfRequired(step);
 
             if (step.Exception != null)
             {

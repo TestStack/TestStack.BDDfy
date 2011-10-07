@@ -132,7 +132,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName == "  When something happens");
+                return _steps.Single(s => s.ReadableMethodName == "When something happens");
             }
         }
 

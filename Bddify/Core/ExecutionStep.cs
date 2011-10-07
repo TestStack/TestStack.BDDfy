@@ -1,12 +1,11 @@
 using System;
-using System.Linq;
-using System.Reflection;
 
 namespace Bddify.Core
 {
     public class ExecutionStep
     {
         public ExecutionStep(
+            Action<object> stepAction,
             string readableMethodName, 
             bool asserts, 
             ExecutionOrder executionOrder,
@@ -18,20 +17,6 @@ namespace Bddify.Core
             Result = StepExecutionResult.NotExecuted;
             Id = Guid.NewGuid();
             ReadableMethodName = readableMethodName;
-
-            if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||
-                executionOrder == ExecutionOrder.ConsecutiveSetupState ||
-                executionOrder == ExecutionOrder.ConsecutiveTransition)
-                ReadableMethodName = "  " + ReadableMethodName; // add two spaces in the front for indentation.
-        }
-
-        public ExecutionStep(
-            Action<object> stepAction,
-            string readableMethodName, 
-            bool asserts, 
-            ExecutionOrder executionOrder,
-            bool shouldReport) : this(readableMethodName, asserts, executionOrder, shouldReport)
-        {
             StepAction = stepAction;
         }
 
