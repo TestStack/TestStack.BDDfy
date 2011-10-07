@@ -29,7 +29,6 @@ namespace Bddify.Scanners.StepScanners.Fluent
         {
             return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle));
         }
-
 #if NET35
         public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder)
         {
@@ -38,7 +37,7 @@ namespace Bddify.Scanners.StepScanners.Fluent
 
         public IWhen<TScenario> When(Expression<Action<TScenario>> whenStep)
         {
-            AddWhenStep(whenStep, null);
+            AddStep(whenStep, null, false, ExecutionOrder.Transition);
             return this;
         }
 
@@ -54,13 +53,13 @@ namespace Bddify.Scanners.StepScanners.Fluent
 
         IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep)
         {
-            AddThenStep(thenStep, null);
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion);
             return this;
         }
 
         IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep)
         {
-            AddThenStep(thenStep, null);
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion);
             return this;
         }
 
