@@ -8,6 +8,10 @@ namespace Bddify.Scanners.StepScanners.Fluent
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
+
+        IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle);
+        IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, bool includeInputsInStepTitle);
+        IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle);
 #if NET35
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep);
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep);

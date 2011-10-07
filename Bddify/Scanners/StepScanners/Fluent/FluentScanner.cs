@@ -80,15 +80,21 @@ namespace Bddify.Scanners.StepScanners.Fluent
         }
 #endif
 
-        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true)
+        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
         {
             var methodInfo = GetMethodInfo(stepAction);
-            var inputArguments = stepAction.ExtractConstants().ToArray();
+            var inputArguments = new object[0];
+            if(includeInputsInStepTitle)
+            {
+                inputArguments = stepAction.ExtractConstants().ToArray();
+            }
+
             var flatInputArray = inputArguments.FlattenArrays();
             var readableMethodName = NetToString.Convert(methodInfo.Name);
+
             if (!string.IsNullOrEmpty(stepTextTemplate))
                 readableMethodName = string.Format(stepTextTemplate, flatInputArray);
-            else
+            else if (includeInputsInStepTitle)
                 readableMethodName = readableMethodName + " " + string.Join(", ", flatInputArray);
 
             readableMethodName = readableMethodName.Trim();
@@ -104,13 +110,44 @@ namespace Bddify.Scanners.StepScanners.Fluent
 
         IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
         {
-            AddWhenStep(whenStep, stepTextTemplate);
+            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
             return this;
         }
 
-        private void AddWhenStep(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null)
+        IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Action<TScenario>> givenStep, bool includeInputsInStepTitle)
         {
-            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
+            AddStep(givenStep, null, false, ExecutionOrder.SetupState, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(whenStep, null, false,ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(andGivenStep, null, false, ExecutionOrder.ConsecutiveSetupState, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle:includeInputsInStepTitle);
+            return this;
+        }
+
+        IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(andWhenStep, null, false, ExecutionOrder.ConsecutiveTransition, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle:includeInputsInStepTitle);
+            return this;
         }
 
         IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate)
@@ -119,9 +156,21 @@ namespace Bddify.Scanners.StepScanners.Fluent
             return this;
         }
 
+        IAndThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(andThenStep, null, true, ExecutionOrder.ConsecutiveAssertion, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
         IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
         {
-            AddThenStep(thenStep, stepTextTemplate);
+            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
+            return this;
+        }
+
+        IWhen<TScenario> IGiven<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
         }
 
@@ -133,18 +182,13 @@ namespace Bddify.Scanners.StepScanners.Fluent
 
         IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
         {
-            AddThenStep(thenStep, stepTextTemplate);
-            return this;
-        }
-
-        private void AddThenStep(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null)
-        {
             AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
+            return this;
         }
 
         IWhen<TScenario> IGiven<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
         {
-            AddWhenStep(whenStep, stepTextTemplate);
+            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
             return this;
         }
 

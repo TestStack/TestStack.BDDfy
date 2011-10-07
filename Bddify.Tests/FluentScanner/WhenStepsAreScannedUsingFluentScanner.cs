@@ -21,7 +21,7 @@ namespace Bddify.Tests.FluentScanner
         [Test]
         public void IndicatedStepsAreReturned()
         {
-            Assert.That(_steps.Count(), Is.EqualTo(10));
+            Assert.That(_steps.Count(), Is.EqualTo(11));
         }
 
         ExecutionStep GivenSomeStateStep
@@ -126,6 +126,32 @@ namespace Bddify.Tests.FluentScanner
         public void WhenSomethingHappensTransitionStep_Reports()
         {
             Assert.IsTrue(WhenSomethingHappensTransitionStep.ShouldReport);        
+        }
+
+        ExecutionStep WhenSomethingHappensTransitionStepIgnoringInputInStepTitle
+        {
+            get
+            {
+                return _steps.Single(s => s.ReadableMethodName == "  When something happens");
+            }
+        }
+
+        [Test]
+        public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_IsAConsecutiveTransitionStep()
+        {
+            Assert.That(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+        }
+
+        [Test]
+        public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_DoesNotAssert()
+        {
+            Assert.IsFalse(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.Asserts);
+        }
+
+        [Test]
+        public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_Reports()
+        {
+            Assert.IsTrue(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ShouldReport);        
         }
 
         ExecutionStep WhenSomethingHappensConsecutiveTransitionStep

@@ -53,7 +53,7 @@ namespace Bddify.Samples.Atm
             Assert.AreEqual(balance, _card.AccountBalance);
         }
 
-        public void CardIsRetained(bool cardIsRetained)
+        public void ThenCardIsRetained(bool cardIsRetained)
         {
             Assert.AreEqual(cardIsRetained, _atm.CardIsRetained);
         }
@@ -78,7 +78,7 @@ namespace Bddify.Samples.Atm
                 .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
                 .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
                     .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
-                    .And(s => s.CardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
+                    .And(s => s.ThenCardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
                 .Bddify(storyCategory: "ATM");
         }
 
@@ -87,7 +87,7 @@ namespace Bddify.Samples.Atm
         {
             this.Given(s => s.GivenTheCardIsDisabled())
                 .When(s => s.WhenTheAccountHolderRequests(20))
-                .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
+                .Then(s => s.ThenCardIsRetained(true), false) // in here I am telling the fluent API that I do not want it to include the input arguments in the step title
                     .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
                 .Bddify(storyCategory: "ATM");
         }

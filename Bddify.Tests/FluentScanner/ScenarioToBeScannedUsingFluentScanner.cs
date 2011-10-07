@@ -76,6 +76,7 @@ namespace Bddify.Tests.FluentScanner
                 .When(s => s.WhenSomethingHappens("some input here"))
                     .And(s => s.AndThenSomethingElseHappens(), "Overriding step name without arguments")
                     .And(s => s.WhenSomethingHappens("other input"), "step used with {0} for the second time")
+                    .And(s => s.WhenSomethingHappens("other input"), false)
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
                     .And(s => s.AndIncorrectAttributeWouldNotMatter())
                 .TearDownWith(s => s.Dispose());
