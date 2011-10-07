@@ -71,7 +71,7 @@ namespace Bddify.Scanners
 
         static StoryAttribute GetStoryAttribute(Type candidateStoryType)
         {
-            return (StoryAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryAttribute), false).FirstOrDefault();
+            return (StoryAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryAttribute), true).FirstOrDefault();
         }
     }
 }
