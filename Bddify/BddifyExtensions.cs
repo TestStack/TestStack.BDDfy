@@ -35,16 +35,34 @@ namespace Bddify
                 new DefaultMethodNameStepScanner(testObject));
         }
 
+        /// <summary>
+        /// Extension method to Bddify an object instance.
+        /// </summary>
+        /// <param name="testObject">The test object representing a scenario.</param>
+        /// <returns></returns>
         public static Story Bddify(this object testObject)
         {
             return Bddify(testObject, null);
         }
 
+        /// <summary>
+        /// Extension method to Bddify an object instance.
+        /// </summary>
+        /// <param name="testObject">The test object representing a scenario.</param>
+        /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
+        /// <returns></returns>
         public static Story Bddify(this object testObject, string scenarioTitle)
         {
             return testObject.LazyBddify(scenarioTitle).Run();
         }
 
+        /// <summary>
+        /// Extension method to Bddify an object instance.
+        /// </summary>
+        /// <param name="testObject">The test object representing a scenario.</param>
+        /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
+        /// <param name="storyCategory">Used for filename in Html reports. Has no effect on console reports.</param>
+        /// <returns></returns>
         public static Story Bddify(this object testObject, string scenarioTitle = null, string storyCategory = null)
         {
             return testObject.LazyBddify(scenarioTitle, storyCategory).Run();
@@ -55,18 +73,39 @@ namespace Bddify
             return InternalLazyBddify(testObject, scenarioTitle, storyCategory, GetDefaultScanner);
         }
 
+        /// <summary>
+        /// Extension method to Bddify an object instance.
+        /// </summary>
+        /// <typeparam name="TStory">The type representing the story.</typeparam>
+        /// <param name="testObject">The test object representing a scenario.</param>
+        /// <returns></returns>
         public static Story Bddify<TStory>(this object testObject)
             where TStory : class
         {
             return Bddify<TStory>(testObject, null);
         }
 
+        /// <summary>
+        /// Extension method to Bddify an object instance.
+        /// </summary>
+        /// <typeparam name="TStory">The type representing the story.</typeparam>
+        /// <param name="testObject">The test object representing a scenario.</param>
+        /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
+        /// <returns></returns>
         public static Story Bddify<TStory>(this object testObject, string scenarioTitle)
             where TStory : class
         {
             return testObject.LazyBddify<TStory>(scenarioTitle).Run();
         }
 
+        /// <summary>
+        /// Extension method to Bddify an object instance.
+        /// </summary>
+        /// <typeparam name="TStory">The type representing the story.</typeparam>
+        /// <param name="testObject">The test object representing a scenario.</param>
+        /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
+        /// <param name="storyCategory">Used for filename in Html reports. Has no effect on console reports.</param>
+        /// <returns></returns>
         public static Story Bddify<TStory>(this object testObject, string scenarioTitle = null, string storyCategory = null)
             where TStory : class
         {

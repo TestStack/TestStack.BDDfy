@@ -9,6 +9,33 @@ using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners.StepScanners.Fluent
 {
+    /// <summary>
+    /// Provides an alternative method of implementing stories and scenarios.
+    /// </summary>
+    /// <remarks>
+    /// Reflecting scanners run in a pipeline which means you can mix and match their
+    /// usage in your scenario; however, when you use FluentStepScanner, bddify does not
+    /// use other scanners which means method names and attributes are ignored for
+    /// scanning methods. You are in full control of what steps you want
+    /// run and in what order.
+    /// </remarks>
+    /// <typeparam name="TScenario"></typeparam>
+    /// <example>
+    /// <code>
+    /// [Test]
+    /// public void AccountHasSufficientFund()
+    /// {
+    ///     this.Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
+    ///             .And(s => s.AndTheCardIsValid())
+    ///             .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
+    ///         .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
+    ///         .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
+    ///             .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
+    ///             .And(s => s.ThenCardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
+    ///         .Bddify(storyCategory: "ATM");
+    /// }
+    /// </code>
+    /// </example>
     internal class FluentScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class, new()
     {

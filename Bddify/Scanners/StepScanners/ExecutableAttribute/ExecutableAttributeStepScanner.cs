@@ -6,6 +6,24 @@ using Bddify.Core;
 
 namespace Bddify.Scanners.StepScanners.ExecutableAttribute
 {
+    /// <summary>
+    /// Uses reflection to scan scenario class for steps by looking for
+    /// ExecutableAttribute on methods
+    /// </summary>
+    /// <remarks>
+    /// You can use attributes either when your method name does not comply with the
+    /// conventions or when you want to provide a step text that reflection would not be
+    /// able to create for you. You can override step text using executable attributes.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// [Given(StepText = "Given the account balance is $10")]
+    /// void GivenTheAccountBalanceIs10()
+    /// {
+    ///    _card = new Card(true, 10);
+    /// }
+    /// </code>
+    /// </example>
     public class ExecutableAttributeStepScanner : IStepScanner
     {
         public IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod)

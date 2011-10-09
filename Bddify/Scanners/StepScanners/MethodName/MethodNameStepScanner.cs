@@ -6,6 +6,35 @@ using System.Linq;
 
 namespace Bddify.Scanners.StepScanners.MethodName
 {
+    /// <summary>
+    /// Uses reflection to scan a scenario class for steps using method name conventions
+    /// </summary>
+    /// <remarks>
+    /// Method names starting with the following words are considered as steps and are
+    /// reported: 
+    /// <list type="bullet">
+    /// <item>
+    /// <description><i>Given: </i>setup step </description></item>
+    /// <item>
+    /// <description><i>AndGiven: </i>setup step running after 'Given' steps
+    /// </description></item>
+    /// <item>
+    /// <description><i>When: </i>state transition step </description></item>
+    /// <item>
+    /// <description><i>AndWhen: </i>state transition step running after 'When' steps
+    /// </description></item>
+    /// <item>
+    /// <description><i>Then: </i>asserting step </description></item>
+    /// <item>
+    /// <description><i>And: </i>asserting step running after 'Then' steps
+    /// </description></item></list>
+    /// <para>A method ending with <i>Context </i>is considered as a setup method (not
+    /// reported). </para>
+    /// <para>A method starting with <i>Setup </i>is considered as a setup method (not
+    /// reported). </para>
+    /// <para>A method starting with <i>TearDown </i>is considered as a finally method
+    /// which is run after all the other steps (not reported). </para>
+    /// </remarks>
     public class MethodNameStepScanner : IStepScanner
     {
         private readonly MethodNameMatcher[] _matchers;
