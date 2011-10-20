@@ -51,7 +51,7 @@ namespace Bddify.Scanners.StepScanners
             return flatArray.ToArray();
         }
 
-        static object GetSafeString(object input)
+        static string GetSafeString(object input)
         {
             if (input == null)
                 return "'null'";

@@ -124,7 +124,10 @@ namespace Bddify.Scanners.StepScanners.MethodName
                 return methodName;
             
             if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
-                return methodName + " " + string.Join(", ", inputs.FlattenArrays());
+            {
+                var stringFlatInputs = inputs.FlattenArrays().Select(i => i.ToString()).ToArray();
+                return methodName + " " + string.Join(", ", stringFlatInputs);
+            }
 
             return string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
         }

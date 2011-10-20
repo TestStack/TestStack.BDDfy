@@ -73,7 +73,8 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
             {
                 var inputArguments = runStepWithArgsAttribute.InputArguments;
                 var flatInput = inputArguments.FlattenArrays();
-                var methodName = stepTitle + " " + string.Join(", ", flatInput);
+                var stringFlatInputs = flatInput.Select(i => i.ToString()).ToArray();
+                var methodName = stepTitle + " " + string.Join(", ", stringFlatInputs);
 
                 if (!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
                     methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, flatInput);

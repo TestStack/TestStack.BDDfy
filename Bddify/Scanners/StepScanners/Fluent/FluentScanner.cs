@@ -146,7 +146,10 @@ namespace Bddify.Scanners.StepScanners.Fluent
             if (!string.IsNullOrEmpty(stepTextTemplate))
                 stepTitle = string.Format(stepTextTemplate, flatInputArray);
             else if (includeInputsInStepTitle)
-                stepTitle = stepTitle + " " + string.Join(", ", flatInputArray);
+            {
+                var stringFlatInputs = flatInputArray.Select(i => i.ToString()).ToArray();
+                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+            }
 
             stepTitle = stepTitle.Trim();
             var action = stepAction.Compile();
