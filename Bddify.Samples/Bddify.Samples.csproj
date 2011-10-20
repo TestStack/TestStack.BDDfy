@@ -42,10 +42,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Atm\ReadMe.txt" />
-    <Content Include="TicTacToe\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Atm\AccountHasInsufficientFund.cs" />
     <Compile Include="Atm\Atm.cs" />
     <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
