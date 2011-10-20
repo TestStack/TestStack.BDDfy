@@ -93,9 +93,9 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        private ExecutionStep GetStep(string readableName)
+        private ExecutionStep GetStep(string stepTitle)
         {
-            return _scenario.Steps.First(s => s.ReadableMethodName == readableName);
+            return _scenario.Steps.First(s => s.StepTitle == stepTitle);
         }
 
         ExecutionStep GivenStep

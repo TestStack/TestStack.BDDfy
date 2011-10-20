@@ -35,21 +35,21 @@ namespace Bddify.Tests.Scanner.StepText
             [RunStepWithArgs(new[] { 1, 2, 3, 4, 5 }, StepTextTemplate = "With the following inputs {0}")]
             public void WhenStepIsRunWithArrayArgumentsWithProvidedText(int[] input) { }
 
-            [When(StepText = "Running step with arg {0}, {1} and {2} using exec attribute template")]
+            [When(StepTitle = "Running step with arg {0}, {1} and {2} using exec attribute template")]
             [RunStepWithArgs(1, 2, 3)]
             public void RunningStepWithArgsUsingExecAttributeTemplate(int input1, int input2, int input3){}
 
-            [When(StepText = "Running step with arg {0}, {1} and {2} when template is provided by exec attribute and RunStepWithArgs attribute")]
+            [When(StepTitle = "Running step with arg {0}, {1} and {2} when template is provided by exec attribute and RunStepWithArgs attribute")]
             [RunStepWithArgs(1, 2, 3)]
             [RunStepWithArgs(4, 5, 6, StepTextTemplate = "The template provided on RunStepWithArgs overrides all the others {0}, {1}, {2}")]
             public void RunningStepWithArgsUsingExecAttributeTemplateAndRunStepWithArgsTemplate(int input1, int input2, int input3){}
         }
 
-        static void VerifyMethod(string expectedReadableMethodName, bool exists = true)
+        static void VerifyMethod(string expectedStepTitle, bool exists = true)
         {
             var scanner = new ExecutableAttributeStepScanner();
             var steps = scanner.Scan(new ScenarioWithVaryingStepTexts()).ToList();
-            var theStep = steps.Where(s => s.ReadableMethodName == expectedReadableMethodName);
+            var theStep = steps.Where(s => s.StepTitle == expectedStepTitle);
 
             if (exists)
                 Assert.That(theStep.Count(), Is.EqualTo(1));

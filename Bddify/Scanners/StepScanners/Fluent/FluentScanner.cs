@@ -116,16 +116,16 @@ namespace Bddify.Scanners.StepScanners.Fluent
             }
 
             var flatInputArray = inputArguments.FlattenArrays();
-            var readableMethodName = NetToString.Convert(methodInfo.Name);
+            var stepTitle = NetToString.Convert(methodInfo.Name);
 
             if (!string.IsNullOrEmpty(stepTextTemplate))
-                readableMethodName = string.Format(stepTextTemplate, flatInputArray);
+                stepTitle = string.Format(stepTextTemplate, flatInputArray);
             else if (includeInputsInStepTitle)
-                readableMethodName = readableMethodName + " " + string.Join(", ", flatInputArray);
+                stepTitle = stepTitle + " " + string.Join(", ", flatInputArray);
 
-            readableMethodName = readableMethodName.Trim();
+            stepTitle = stepTitle.Trim();
             var action = stepAction.Compile();
-            _steps.Add(new ExecutionStep(o => action((TScenario)o), readableMethodName, asserts, executionOrder, reports));
+            _steps.Add(new ExecutionStep(o => action((TScenario)o), stepTitle, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)

@@ -17,7 +17,7 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
     /// </remarks>
     /// <example>
     /// <code>
-    /// [Given(StepText = "Given the account balance is $10")]
+    /// [Given(StepTitle = "Given the account balance is $10")]
     /// void GivenTheAccountBalanceIs10()
     /// {
     ///    _card = new Card(true, 10);
@@ -32,28 +32,28 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
             if(executableAttribute == null)
                 yield break;
 
-            string readableMethodName = executableAttribute.StepText;
-            if(string.IsNullOrEmpty(readableMethodName))
-                readableMethodName = NetToString.Convert(candidateMethod.Name);
+            string stepTitle = executableAttribute.StepTitle;
+            if(string.IsNullOrEmpty(stepTitle))
+                stepTitle = NetToString.Convert(candidateMethod.Name);
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
 
             var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
             if (runStepWithArgsAttributes.Length == 0)
             {
-                yield return new ExecutionStep(GetStepAction(candidateMethod), readableMethodName, stepAsserts, executableAttribute.ExecutionOrder, true);
+                yield return new ExecutionStep(GetStepAction(candidateMethod), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
             }
 
             foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
             {
                 var inputArguments = runStepWithArgsAttribute.InputArguments;
                 var flatInput = inputArguments.FlattenArrays();
-                var methodName = readableMethodName + " " + string.Join(", ", flatInput);
+                var methodName = stepTitle + " " + string.Join(", ", flatInput);
 
                 if (!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
                     methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, flatInput);
-                else if (!string.IsNullOrEmpty(executableAttribute.StepText))
-                    methodName = string.Format(executableAttribute.StepText, flatInput);
+                else if (!string.IsNullOrEmpty(executableAttribute.StepTitle))
+                    methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return new ExecutionStep(GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
             }

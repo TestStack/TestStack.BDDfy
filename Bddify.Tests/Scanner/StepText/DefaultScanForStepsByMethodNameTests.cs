@@ -36,12 +36,12 @@ namespace Bddify.Tests.Scanner.StepText
             }
         }
 
-        static void VerifyMethod(string expectedReadableMethodName, bool exists = true)
+        static void VerifyMethod(string expectedStepTitle, bool exists = true)
         {
             var testObject = new ScenarioWithVaryingStepTexts();
             var scanner = new DefaultMethodNameStepScanner(testObject);
             var steps = scanner.Scan(testObject).ToList();
-            var theStep = steps.Where(s => s.ReadableMethodName == expectedReadableMethodName);
+            var theStep = steps.Where(s => s.StepTitle == expectedStepTitle);
             
             if(exists)
                 Assert.That(theStep.Count(), Is.EqualTo(1));

@@ -2,7 +2,6 @@
 using Bddify.Core;
 using NUnit.Framework;
 using System.Linq;
-using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Tests.FluentScanner
 {
@@ -21,14 +20,14 @@ namespace Bddify.Tests.FluentScanner
         [Test]
         public void IndicatedStepsAreReturned()
         {
-            Assert.That(_steps.Count(), Is.EqualTo(11));
+            Assert.That(_steps.Count(), Is.EqualTo(12));
         }
 
         ExecutionStep GivenSomeStateStep
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName == "Given some state 1, 2");
+                return _steps.Single(s => s.StepTitle == "Given some state 1, 2");
             }
         }
 
@@ -54,7 +53,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName.Trim() == "When some step uses incompatible naming convention");
+                return _steps.Single(s => s.StepTitle.Trim() == "When some step uses incompatible naming convention");
             }
         }
 
@@ -80,7 +79,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName.Trim() == "And a method takes array inputs 1, 2, 3, 4, 5");
+                return _steps.Single(s => s.StepTitle.Trim() == "And a method takes array inputs 1, 2, 3, 4, 5");
             }
         }
 
@@ -106,7 +105,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName == "When something happens some input here");
+                return _steps.Single(s => s.StepTitle == "When something happens some input here");
             }
         }
 
@@ -132,7 +131,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName == "When something happens");
+                return _steps.Single(s => s.StepTitle == "When something happens");
             }
         }
 
@@ -158,7 +157,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName.Trim() == "step used with other input for the second time");
+                return _steps.Single(s => s.StepTitle.Trim() == "step used with other input for the second time");
             }
         }
 
@@ -184,7 +183,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName.Trim() == "Overriding step name without arguments");
+                return _steps.Single(s => s.StepTitle.Trim() == "Overriding step name without arguments");
             }
         }
 
@@ -210,7 +209,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName == "Then the following assertions should be correct");
+                return _steps.Single(s => s.StepTitle == "Then the following assertions should be correct");
             }
         }
 
@@ -236,7 +235,7 @@ namespace Bddify.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName.Trim() == "And incorrect attribute would not matter");
+                return _steps.Single(s => s.StepTitle.Trim() == "And incorrect attribute would not matter");
             }
         }
 
@@ -258,11 +257,25 @@ namespace Bddify.Tests.FluentScanner
             Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.ShouldReport);        
         }
 
+        ExecutionStep AndInputsAreFormattedPropertlyInTheTitle
+        {
+            get
+            {
+                return _steps.Single(s => s.StepTitle.Trim() == "The provided date is Oct 20 2011");
+            }
+        }
+
+        [Test]
+        public void AndInputsAreFormattedPropertlyInTheTitle_IsAConsecutiveAssertingStep()
+        {
+            Assert.That(AndInputsAreFormattedPropertlyInTheTitle.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
+        }
+
         ExecutionStep TearDownStep
         {
             get
             {
-                return _steps.Single(s => s.ReadableMethodName == "Dispose");
+                return _steps.Single(s => s.StepTitle == "Dispose");
             }
         }
 

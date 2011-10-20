@@ -47,7 +47,7 @@ namespace Bddify.Reporters
 
         static string PrefixWithSpaceIfRequired(ExecutionStep step)
         {
-            var stepTitle = step.ReadableMethodName;
+            var stepTitle = step.StepTitle;
             var executionOrder = step.ExecutionOrder;
 
             if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||

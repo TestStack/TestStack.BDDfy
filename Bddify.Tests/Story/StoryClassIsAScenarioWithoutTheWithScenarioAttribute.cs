@@ -16,13 +16,13 @@ namespace Bddify.Tests.Story
             SoThat = "So that single scenario stories do not have to separate into two classes")]
         public class StoryAsScenario
         {
-            [Then(StepText = "See?! I am a normal scenario even though I have been decorated with StoryAttribute")]
+            [Then(StepTitle = "See?! I am a normal scenario even though I have been decorated with StoryAttribute")]
             void SeeIAmAScenario()
             {
             }
         }
 
-        [Given(StepText = "Give a story without WithScenarioAttribute")]
+        [Given(StepTitle = "Give a story without WithScenarioAttribute")]
         void GivenAStoryWithoutWithScenarioAttribute()
         {
         }
@@ -37,7 +37,7 @@ namespace Bddify.Tests.Story
             Assert.That(_story.MetaData.Type, Is.EqualTo(typeof(StoryAsScenario)));
         }
 
-        [AndThen(StepText = "and as a scenario")]
+        [AndThen(StepTitle = "and as a scenario")]
         void andAsAScenario()
         {
             Assert.That(_story.Scenarios.Count(), Is.EqualTo(1));

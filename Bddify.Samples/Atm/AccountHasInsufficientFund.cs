@@ -9,7 +9,7 @@ namespace Bddify.Samples.Atm
         private Atm _atm;
 
 		// You can override step text using executable attributes
-		[Given(StepText = "Given the account balance is $10")]
+		[Given(StepTitle = "Given the account balance is $10")]
         void GivenTheAccountBalanceIs10()
         {
             _card = new Card(true, 10);
@@ -24,7 +24,7 @@ namespace Bddify.Samples.Atm
             _atm = new Atm(100);
         }
 
-		[When(StepText = "When the account holder requests $20")]
+		[When(StepTitle = "When the account holder requests $20")]
         void WhenTheAccountHolderRequests20()
         {
             _atm.RequestMoney(_card, 20);
@@ -40,7 +40,7 @@ namespace Bddify.Samples.Atm
             Assert.AreEqual(DisplayMessage.InsufficientFunds, _atm.Message);
         }
 
-		[AndThen(StepText = "And the account balance should be $20")]
+		[AndThen(StepTitle = "And the account balance should be $20")]
         void AndTheAccountBalanceShouldBe20()
         {
             Assert.AreEqual(10, _card.AccountBalance);

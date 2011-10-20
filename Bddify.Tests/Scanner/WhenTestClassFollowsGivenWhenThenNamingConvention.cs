@@ -41,9 +41,9 @@ namespace Bddify.Tests.Scanner
             Assert.That(_steps.Count, Is.EqualTo(10));
         }
 
-        private static void AssertStep(ExecutionStep step, string readableMethodName, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
+        private static void AssertStep(ExecutionStep step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            Assert.That(step.ReadableMethodName.Trim(), Is.EqualTo(readableMethodName));
+            Assert.That(step.StepTitle.Trim(), Is.EqualTo(stepTitle));
             Assert.That(step.Asserts, Is.EqualTo(asserts));
             Assert.That(step.ExecutionOrder, Is.EqualTo(order));
             Assert.That(step.ShouldReport, Is.EqualTo(shouldReport));

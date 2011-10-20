@@ -41,7 +41,7 @@ namespace Bddify.Tests.Scanner
         [RunStepWithArgs("ThenInTheBaseClass")]
         void ThenTheFollowingStepFromBaseClassIsScanned(string stepName)
         {
-            Assert.That(Scenario.Steps.Count(s=> s.ReadableMethodName == NetToString.Convert(stepName)), Is.EqualTo(1));
+            Assert.That(Scenario.Steps.Count(s=> s.StepTitle == NetToString.Convert(stepName)), Is.EqualTo(1));
         }
 
         [RunStepWithArgs("GivenInTheSubClass")]
@@ -49,7 +49,7 @@ namespace Bddify.Tests.Scanner
         [RunStepWithArgs("ThenInTheSubClass")]
         void ThenTheFollowingStepFromSubClassScanned(string stepName)
         {
-            Assert.That(Scenario.Steps.Count(s => s.ReadableMethodName == NetToString.Convert(stepName)), Is.EqualTo(1));
+            Assert.That(Scenario.Steps.Count(s => s.StepTitle == NetToString.Convert(stepName)), Is.EqualTo(1));
         }
 
         [Test]

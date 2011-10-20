@@ -6,7 +6,7 @@ namespace Bddify.Core
     {
         public ExecutionStep(
             Action<object> stepAction,
-            string readableMethodName, 
+            string stepTitle, 
             bool asserts, 
             ExecutionOrder executionOrder,
             bool shouldReport)
@@ -16,7 +16,7 @@ namespace Bddify.Core
             ShouldReport = shouldReport;
             Result = StepExecutionResult.NotExecuted;
             Id = Guid.NewGuid();
-            ReadableMethodName = readableMethodName;
+            StepTitle = stepTitle;
             StepAction = stepAction;
         }
 
@@ -24,7 +24,7 @@ namespace Bddify.Core
         Action<object> StepAction { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
-        public string ReadableMethodName { get; private set; }
+        public string StepTitle { get; private set; }
         public StepExecutionResult Result { get; set; }
         public Exception Exception { get; set; }
         public ExecutionOrder ExecutionOrder { get; private set; }

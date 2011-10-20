@@ -129,7 +129,7 @@
                   @foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                   {
                     string stepClass = string.Empty;
-                    string result = step.ReadableMethodName;
+                    string result = step.StepTitle;
                     var reportException = step.Exception != null && step.Result == Bddify.Core.StepExecutionResult.Failed;
                     if (reportException)
                     {

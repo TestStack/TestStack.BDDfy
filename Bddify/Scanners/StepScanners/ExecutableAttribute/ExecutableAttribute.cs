@@ -13,6 +13,6 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
 
         public ExecutionOrder ExecutionOrder { get; private set; }
         public bool Asserts { get; set; }
-        public string StepText { get; set; }
+        public string StepTitle { get; set; }
     }
 }
