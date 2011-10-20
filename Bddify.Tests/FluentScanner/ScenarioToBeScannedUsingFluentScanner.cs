@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 using Bddify.Core;
 using Bddify.Scanners.StepScanners;
 using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
@@ -56,6 +58,10 @@ namespace Bddify.Tests.FluentScanner
         {
         }
 
+        public void ThenTitleFormatingWorksToo(DateTime date)
+        {
+        }
+
         public void ThenTheFollowingAssertionsShouldBeCorrect()
         { }
 
@@ -68,6 +74,8 @@ namespace Bddify.Tests.FluentScanner
 
         public static IEnumerable<ExecutionStep> GetSteps(ScenarioToBeScannedUsingFluentScanner testObject)
         {
+            var inputDate = DateTime.Parse("2011-10-20", new CultureInfo("en-AU"));
+
             var fluentScanner = testObject
                 .Given(s => s.GivenSomeState(1, 2))
                     .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
@@ -79,6 +87,7 @@ namespace Bddify.Tests.FluentScanner
                     .And(s => s.WhenSomethingHappens("other input"), false)
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
                     .And(s => s.AndIncorrectAttributeWouldNotMatter())
+                    .And(s => s.ThenTitleFormatingWorksToo(inputDate), "The provided date is {0:MMM d yyyy}")
                 .TearDownWith(s => s.Dispose());
 
             return fluentScanner.GetScanner(null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();

@@ -21,10 +21,22 @@ namespace Bddify
             return testObject.Scan().Given(givenStep, stepTextTemplate);
         }
 
+        public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> givenStep, bool includeInputsInStepTitle)
+            where TScenario: class, new()
+        {
+            return testObject.Scan().Given(givenStep, includeInputsInStepTitle);
+        }
+
         public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> whenStep, string stepTextTemplate)
             where TScenario : class, new()
         {
             return testObject.Scan().When(whenStep, stepTextTemplate);
+        }
+
+        public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
+            where TScenario : class, new()
+        {
+            return testObject.Scan().When(whenStep, includeInputsInStepTitle);
         }
 
         public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> givenStep)

@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Bddify.Scanners.StepScanners
 {
     internal static class StepScannerExtensions
     {
-        internal static string[] FlattenArrays(this object[] inputs)
+        internal static object[] FlattenArrays(this object[] inputs)
         {
-            var stringOffArray = new List<string>();
+            var flatArray = new List<object>();
             foreach (var input in inputs)
             {
                 var inputArray = input as Array;
                 if (inputArray != null)
                 {
                     var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToArray();
-                    stringOffArray.Add(string.Join(", ", temp));
+                    flatArray.Add(string.Join(", ", temp));
                 }
+                else if (input == null)
+                    flatArray.Add("'null'");
                 else
-                    stringOffArray.Add(GetSafeString(input));
+                    flatArray.Add(input);
             }
 
-            return stringOffArray.ToArray();
+            return flatArray.ToArray();
         }
 
-        static string GetSafeString(object input)
+        static object GetSafeString(object input)
         {
             if (input == null)
                 return "'null'";
