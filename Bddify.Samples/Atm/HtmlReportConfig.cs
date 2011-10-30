@@ -23,14 +23,47 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System;
+using Bddify.Configuration;
 
-namespace Bddify.Configuration
+namespace Bddify.Samples.Atm
 {
-    public class ConfigurationException : ApplicationException
+    public class HtmlReportConfig : DefaultHtmlReportConfiguration
     {
-        public ConfigurationException(string message) : base(message)
+        public override bool Configures(Core.Story story)
         {
+            return story.MetaData.Type.Namespace != null && story.MetaData.Type.Namespace.EndsWith("Atm");
+        }
+
+        public override int Priority
+        {
+            get
+            {
+                return 1;
+            }
+        }
+
+        public override string OutputFileName
+        {
+            get
+            {
+                return "Havij.html";
+            }
+        }
+
+        public override string ReportHeader
+        {
+            get
+            {
+                return "ATM Solutions";
+            }
+        }
+
+        public override string ReportDescription
+        {
+            get
+            {
+                return "A reliable solution for your offline banking needs";
+            }
         }
     }
 }

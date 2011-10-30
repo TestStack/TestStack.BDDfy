@@ -64,20 +64,38 @@ namespace Bddify.Reporters
             GenerateHtmlReport();
         }
 
+        static IDictionary<IHtmlReportConfiguration, List<Story>> StoriesByConfig
+        {
+            get
+            {
+                var dic = new Dictionary<Type, Tuple<IHtmlReportConfiguration, List<Story>>>();
+                foreach (var story in Stories)
+                {
+                    var config = ConfigurationFactory.Get<IHtmlReportConfiguration>(story);
+                    var configType = config.GetType();
+                    if(!dic.ContainsKey(configType))
+                        dic[configType] = new Tuple<IHtmlReportConfiguration, List<Story>>(config, new List<Story>());
+                
+                    dic[configType].Item2.Add(story);
+                }
+
+                return dic.ToDictionary(tuple => tuple.Value.Item1, tuple => tuple.Value.Item2);
+            }
+        }
+
         private static void GenerateHtmlReport()
         {
             const string error = "There was an error compiling the template";
-            var htmlReportConfigurations = ConfigurationFactory.GetConfigurations<IHtmlReportConfiguration>();
-            foreach (var config in htmlReportConfigurations)
+            
+            foreach (var config in StoriesByConfig)
             {
-                var cssFullFileName = Path.Combine(config.OutputPath, "bddify.css");
+                var cssFullFileName = Path.Combine(config.Key.OutputPath, "bddify.css");
                 // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
                 if (!File.Exists(cssFullFileName))
                     File.WriteAllText(cssFullFileName, CssFile.Value);
 
-                var storiesInFile = Stories.Where(s => config.Configures(s));
-                var htmlFullFileName = Path.Combine(config.OutputPath, config.OutputFileName);
-                var viewModel = new HtmlReportViewModel(config, storiesInFile);
+                var htmlFullFileName = Path.Combine(config.Key.OutputPath, config.Key.OutputFileName);
+                var viewModel = new HtmlReportViewModel(config.Key, config.Value);
                 string report;
 
                 try

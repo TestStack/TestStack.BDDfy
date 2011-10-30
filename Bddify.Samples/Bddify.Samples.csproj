@@ -45,6 +45,7 @@
     <Compile Include="Atm\AccountHasInsufficientFund.cs" />
     <Compile Include="Atm\Atm.cs" />
     <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
+    <Compile Include="Atm\HtmlReportConfig.cs" />
     <Compile Include="TicTacToe\Game.cs" />
     <Compile Include="TicTacToe\Helpers.cs" />
     <Compile Include="TicTacToe\TicTacToe.cs" />

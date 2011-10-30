@@ -65,7 +65,7 @@ namespace Bddify.Samples.TicTacToe
 
         void ThenTheWinnerShouldBe(string expectedWinner)
         {
-            Assert.AreEqual(expectedWinner, Game.Winner);
+            Assert.AreEqual(Game.Winner, expectedWinner);
         }
 
         void ThenItShouldBeACatsGame()
