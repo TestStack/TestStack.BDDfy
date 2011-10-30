@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Bddify.Core
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -46,31 +47,31 @@
 					<li class="Passed">
             <div class="summary">
               <div class="summaryLabel">Passed</div>
-						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Passed)</span>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == StepExecutionResult.Passed)</span>
             </div>
 					</li>
 					<li class="Failed">
             <div class="summary">
 						  <div class="summaryLabel">Failed</div>
-						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Failed)</span>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == StepExecutionResult.Failed)</span>
             </div>
 					</li>
 					<li class="Inconclusive">
             <div class="summary">
 						  <div class="summaryLabel">Inconclusive</div>
-						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.Inconclusive)</span>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive)</span>
             </div>
 					</li>
 					<li class="NotImplemented">
             <div class="summary">
 						  <div class="summaryLabel">Not Implemented</div>
-						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotImplemented)</span>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented)</span>
             </div>
   				</li>
 					<li class="NotExecuted">
             <div class="summary">
 						  <div class="summaryLabel">Not Executed</div>
-						  <span class="summaryCount">@scenarios.Count(b => b.Result == Bddify.Core.StepExecutionResult.NotExecuted)</span>
+						  <span class="summaryCount">@scenarios.Count(b => b.Result == StepExecutionResult.NotExecuted)</span>
             </div>
 					</li>
 				</ul>
@@ -95,8 +96,9 @@
             {
               var story = scenarioGroup.First();
               var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
+              var storyResult = (StepExecutionResult)scenariosInGroup.Max(s => (int)s.Result); 
           <li>
-            <div class="story @story.Result">
+            <div class="story @storyResult">
           	  <div class="storyMetaData">
               @if (story.MetaData == null)
               {
@@ -128,7 +130,7 @@
                   {
                     string stepClass = string.Empty;
                     string result = step.StepTitle;
-                    var reportException = step.Exception != null && step.Result == Bddify.Core.StepExecutionResult.Failed;
+                    var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
                     if (reportException)
                     {
                       stepClass = step.Result + "Exception";
