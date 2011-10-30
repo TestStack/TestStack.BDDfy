@@ -9,16 +9,16 @@
 	<body>
 		<div id="main">
 			<header>
-				<div id="bddifyTitle">bddify</div>
-				<div id="bddifyDescription">A simple BDD framework for .Net developers</div>
+				<div id="bddifyTitle">@Model.Configuration.ReportHeader</div>
+				<div id="bddifyDescription">@Model.Configuration.ReportDescription</div>
 			</header>
 
 			<section class="summary">
         @{
           string assemblyName = string.Empty;
-          if (Model.Count > 0)
+          if (Model.Stories.Count() > 0)
           {
-            var scenario = Model.SelectMany(s => s.Scenarios).FirstOrDefault();
+            var scenario = Model.Stories.SelectMany(s => s.Scenarios).FirstOrDefault();
             if (scenario != null)
             {
               assemblyName = scenario.TestObject.GetType().Assembly.GetName().Name;
@@ -28,21 +28,19 @@
 
         <h3>Assembly: '@assemblyName'</h3>
           
-        @{
-          var scenarios = Model.SelectMany(s => s.Scenarios).ToList();
-          }
+        @{ var scenarios = Model.Stories.SelectMany(s => s.Scenarios).ToList(); }
 
 				<ul class="resultSummary">
 					<li class="namespace">
             <div class="summary">
 						  <div class="summaryLabel">Namespaces</div>
-						  <span class="summaryCount">@Model.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count()</span>
+						  <span class="summaryCount">@Model.Stories.Where(b => b.MetaData == null).SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count()</span>
             </div>
 					</li>
 					<li class="story">
             <div class="summary">
 						  <div class="summaryLabel">Stories</div>
-						  <span class="summaryCount">@Model.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count()</span>
+						  <span class="summaryCount">@Model.Stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count()</span>
             </div>
 					</li>
 					<li class="Passed">
@@ -81,12 +79,12 @@
 			<div id="testResult">
 				<ul class="testResult">
           @{
-            var groupedByNamespace = from story in Model
+            var groupedByNamespace = from story in Model.Stories
                                      where story.MetaData == null
                                      group story by story.Scenarios.First().TestObject.GetType().Namespace into g
                                      select g;
 
-            var groupedByStories = from story in Model
+            var groupedByStories = from story in Model.Stories
                                    where story.MetaData != null
                                    group story by story.MetaData.Type.Name into g
                                    select g;
