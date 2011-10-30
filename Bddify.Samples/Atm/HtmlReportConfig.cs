@@ -46,7 +46,7 @@ namespace Bddify.Samples.Atm
         {
             get
             {
-                return "Havij.html";
+                return "ATM.html";
             }
         }
 
