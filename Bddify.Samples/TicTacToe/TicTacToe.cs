@@ -86,7 +86,7 @@ namespace Bddify.Samples.TicTacToe
         {
             this.Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
                 .Then(s => s.ThenItShouldBeACatsGame())
-                .Bddify("Cat's game");
+                .Bddify<Atm.Atm>("Cat's game");
         }
 
         [Test]

@@ -77,9 +77,9 @@ namespace Bddify.Scanners.StepScanners.Fluent
             _testObject = testObject;
         }
 
-        IScanner IHasScanner.GetScanner(string scenarioTitle)
+        IScanner IHasScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle));
+            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
 #if NET35
         public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder)

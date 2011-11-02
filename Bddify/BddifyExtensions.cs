@@ -37,19 +37,11 @@ namespace Bddify
 {
     public static class BddifyExtensions
     {
-        static IScanner GetDefaultScanner(object testObject, string scenarioTitle = null)
+        static IScanner GetDefaultScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
         {
             var reflectiveScenarioScanner = GetReflectiveScenarioScanner(scenarioTitle, testObject);
 
-            return  new DefaultScanner(testObject, reflectiveScenarioScanner);
-        }
-
-        static IScanner GetDefaultScanner<TStory>(object testObject, string scenarioTitle = null)
-            where TStory : class
-        {
-            var reflectiveScenarioScanner = GetReflectiveScenarioScanner(scenarioTitle, testObject);
-
-            return  new DefaultScanner<TStory>(testObject, reflectiveScenarioScanner);
+            return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
         }
 
         private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle, object testObject)
@@ -95,7 +87,7 @@ namespace Bddify
 
         public static Bddifier LazyBddify(this object testObject, string scenarioTitle = null, string storyCategory = null)
         {
-            return InternalLazyBddify(testObject, scenarioTitle, storyCategory, GetDefaultScanner);
+            return InternalLazyBddify(testObject, scenarioTitle, storyCategory);
         }
 
         /// <summary>
@@ -140,21 +132,21 @@ namespace Bddify
         public static Bddifier LazyBddify<TStory>(this object testObject, string scenarioTitle = null, string storyCategory = null)
             where TStory : class
         {
-            return InternalLazyBddify(testObject, scenarioTitle, storyCategory, GetDefaultScanner<TStory>);
+            return InternalLazyBddify(testObject, scenarioTitle, storyCategory, typeof(TStory));
         }
 
         static Bddifier InternalLazyBddify(
             object testObject, 
             string scenarioTitle, 
-            string storyCategory, 
-            Func<object, string, IScanner> getDefaultScanner)
+            string storyCategory,
+            Type explicitStoryType = null)
         {
             IScanner scanner = null;
             var hasScanner = testObject as IHasScanner;
 
             if (hasScanner != null)
             {
-                scanner = hasScanner.GetScanner(scenarioTitle);
+                scanner = hasScanner.GetScanner(scenarioTitle, explicitStoryType);
                 testObject = hasScanner.TestObject;
             }
 
@@ -165,7 +157,7 @@ namespace Bddify
                                      new ExceptionProcessor()
                                  };
 
-            var storyScanner = scanner ?? getDefaultScanner(testObject, scenarioTitle);
+            var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle, explicitStoryType);
 
             return new Bddifier(storyCategory, storyScanner, processors);
         }

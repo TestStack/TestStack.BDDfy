@@ -33,11 +33,13 @@ namespace Bddify.Scanners
 {
     public class DefaultScanner : IScanner
     {
+        private readonly Type _explicitStoryType;
         private readonly IScenarioScanner _scenarioScanner;
         private readonly object _testObject;
 
-        public DefaultScanner(object testObject, IScenarioScanner scenarioScanner)
+        public DefaultScanner(object testObject, IScenarioScanner scenarioScanner, Type explicitStoryType = null)
         {
+            _explicitStoryType = explicitStoryType;
             _scenarioScanner = scenarioScanner;
             _testObject = testObject;
         }
@@ -45,7 +47,7 @@ namespace Bddify.Scanners
         public Story Scan()
         {
             var scenario = GetScenario();
-            var metaData = GetStoryMetaDataFromScenario() ?? GetStoryMetaData();
+            var metaData = GetStoryMetaData() ?? GetStoryMetaDataFromScenario();
 
             return new Story(metaData, scenario);
         }
@@ -80,6 +82,9 @@ namespace Bddify.Scanners
 
         protected virtual Type GetCandidateStory()
         {
+            if (_explicitStoryType != null)
+                return _explicitStoryType;
+
             var stackTrace = new StackTrace();
             var frames = stackTrace.GetFrames();
             if (frames == null)

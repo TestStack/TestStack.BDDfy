@@ -76,7 +76,10 @@
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
     <Compile Include="Scanner\WhenStepsReturnTheirText.cs" />
+    <Compile Include="Story\StoryCanBeSpecifiedInReflectiveMode.cs" />
     <Compile Include="Story\DummyScenario.cs" />
+    <Compile Include="Story\SharedStoryNotion.cs" />
+    <Compile Include="Story\StoryCanBeSpecifiedInFluentMode.cs" />
     <Compile Include="Story\StoryClassBase.cs" />
     <Compile Include="Story\StoryDouble.cs" />
     <Compile Include="Helpers.cs" />
@@ -92,7 +95,7 @@
     <Compile Include="Scanner\WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen.cs" />
     <Compile Include="Scanner\WhenTestClassFollowsGivenWhenThenNamingConvention.cs" />
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
-    <Compile Include="Story\StoryClassIsAScenarioWithoutTheWithScenarioAttribute.cs" />
+    <Compile Include="Story\StoryClassAndScenarioClassAreTheSame.cs" />
     <Compile Include="Story\StorySubclass.cs" />
     <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />

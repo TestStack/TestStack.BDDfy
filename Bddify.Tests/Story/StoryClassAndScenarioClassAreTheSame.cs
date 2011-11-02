@@ -6,7 +6,7 @@ using System.Linq;
 namespace Bddify.Tests.Story
 {
     [TestFixture]
-    public class StoryClassIsAScenarioWithoutTheWithScenarioAttribute
+    public class StoryClassAndScenarioClassAreTheSame
     {
         private Core.Story _story;
 
@@ -20,11 +20,6 @@ namespace Bddify.Tests.Story
             void SeeIAmAScenario()
             {
             }
-        }
-
-        [Given(StepTitle = "Give a story without WithScenarioAttribute")]
-        void GivenAStoryWithoutWithScenarioAttribute()
-        {
         }
 
         void WhenTheStoryIsBddified()
