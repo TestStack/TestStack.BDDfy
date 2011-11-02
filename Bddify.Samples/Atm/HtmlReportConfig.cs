@@ -27,6 +27,9 @@ using Bddify.Configuration;
 
 namespace Bddify.Samples.Atm
 {
+    /// <summary>
+    /// This overrides the default html report setting
+    /// </summary>
     public class HtmlReportConfig : DefaultHtmlReportConfiguration
     {
         public override bool Configures(Core.Story story)
@@ -42,6 +45,9 @@ namespace Bddify.Samples.Atm
             }
         }
 
+        /// <summary>
+        /// Change the output file name
+        /// </summary>
         public override string OutputFileName
         {
             get
@@ -50,6 +56,9 @@ namespace Bddify.Samples.Atm
             }
         }
 
+        /// <summary>
+        /// Change the report header to your project
+        /// </summary>
         public override string ReportHeader
         {
             get
@@ -58,6 +67,9 @@ namespace Bddify.Samples.Atm
             }
         }
 
+        /// <summary>
+        /// Change the report description
+        /// </summary>
         public override string ReportDescription
         {
             get

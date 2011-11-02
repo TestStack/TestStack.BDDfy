@@ -27,7 +27,7 @@ using System;
 
 namespace Bddify.Configuration
 {
-    public class ConfigurationException : ApplicationException
+    public class ConfigurationException : Exception
     {
         public ConfigurationException(string message) : base(message)
         {

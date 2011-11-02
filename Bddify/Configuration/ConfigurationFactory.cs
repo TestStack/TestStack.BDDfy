@@ -34,14 +34,19 @@ namespace Bddify.Configuration
     public class ConfigurationFactory
     {
         // cache configurations for performance reason
-        private static Lazy<IEnumerable<IConfiguration>> _configurations = new Lazy<IEnumerable<IConfiguration>>(GetConfigurations);
+        private static IEnumerable<IConfiguration> _configurations;
+
+        static ConfigurationFactory()
+        {
+            _configurations = GetConfigurations();
+        }
 
         static Assembly _testAssembly;
 
         public static T Get<T>(Story story) where T:IConfiguration
         {
             _testAssembly = story.MetaData.Type.Assembly;
-            return _configurations.Value.OfType<T>().First(c => c.Configures(story));
+            return _configurations.OfType<T>().First(c => c.Configures(story));
         }
 
         public static IEnumerable<IConfiguration> GetConfigurations()
