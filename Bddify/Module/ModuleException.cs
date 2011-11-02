@@ -25,11 +25,11 @@
 
 using System;
 
-namespace Bddify.Configuration
+namespace Bddify.Module
 {
-    public class ConfigurationException : Exception
+    public class ModuleException : Exception
     {
-        public ConfigurationException(string message) : base(message)
+        public ModuleException(string message) : base(message)
         {
         }
     }

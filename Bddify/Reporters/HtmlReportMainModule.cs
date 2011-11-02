@@ -26,37 +26,29 @@
 #if !(NET35 || SILVERLIGHT)
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
-using Bddify.Configuration;
 using Bddify.Core;
+using Bddify.Module;
 using RazorEngine;
 using RazorEngine.Templating;
 
 namespace Bddify.Reporters
 {
-    public class HtmlReportTraceListener : TextWriterTraceListener
+    public class HtmlReportMainModule : DefaultModule, IReportModule
     {
         static readonly List<Story> Stories = new List<Story>();
-        static readonly object SyncRoot = new object();
 
-        static HtmlReportTraceListener()
+        static HtmlReportMainModule()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
         }
 
-        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
+        public virtual void Report(Story story)
         {
-            var story = data as Story;
-            if (story == null)
-                return;
-
-            lock (SyncRoot)
-            {
-                Stories.Add(story);
-            }
+            Stories.Add(story);
         }
 
         static void CurrentDomain_DomainUnload(object sender, EventArgs e)
@@ -64,17 +56,17 @@ namespace Bddify.Reporters
             GenerateHtmlReport();
         }
 
-        static IDictionary<IHtmlReportConfiguration, List<Story>> StoriesByConfig
+        static IDictionary<IHtmlReportConfigurationModule, List<Story>> StoriesByConfig
         {
             get
             {
-                var dic = new Dictionary<Type, Tuple<IHtmlReportConfiguration, List<Story>>>();
+                var dic = new Dictionary<Type, Tuple<IHtmlReportConfigurationModule, List<Story>>>();
                 foreach (var story in Stories)
                 {
-                    var config = ConfigurationFactory.Get<IHtmlReportConfiguration>(story);
+                    var config = ModuleFactory.Get<IHtmlReportConfigurationModule>(story);
                     var configType = config.GetType();
                     if(!dic.ContainsKey(configType))
-                        dic[configType] = new Tuple<IHtmlReportConfiguration, List<Story>>(config, new List<Story>());
+                        dic[configType] = new Tuple<IHtmlReportConfigurationModule, List<Story>>(config, new List<Story>());
                 
                     dic[configType].Item2.Add(story);
                 }
@@ -133,7 +125,7 @@ namespace Bddify.Reporters
         static string GetEmbeddedFileResource(string fileResourceName)
         {
             string fileContent;
-            var templateResourceStream = typeof(HtmlReportTraceListener).Assembly.GetManifestResourceStream(fileResourceName);
+            var templateResourceStream = typeof(HtmlReportMainModule).Assembly.GetManifestResourceStream(fileResourceName);
             using (var sr = new StreamReader(templateResourceStream))
             {
                 fileContent = sr.ReadToEnd();

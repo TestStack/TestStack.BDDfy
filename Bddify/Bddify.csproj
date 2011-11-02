@@ -69,11 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BddifyExtensions.cs" />
-    <Compile Include="Configuration\ConfigurationException.cs" />
-    <Compile Include="Configuration\ConfigurationFactory.cs" />
-    <Compile Include="Configuration\DefaultHtmlReportConfiguration.cs" />
-    <Compile Include="Configuration\IHtmlReportConfiguration.cs" />
-    <Compile Include="Configuration\IConfiguration.cs" />
+    <Compile Include="Module\DefaultModule.cs" />
+    <Compile Include="Module\ModuleException.cs" />
+    <Compile Include="Module\ModuleFactory.cs" />
+    <Compile Include="Reporters\DefaultHtmlReportConfigurationModule.cs" />
+    <Compile Include="Reporters\IHtmlReportConfigurationModule.cs" />
+    <Compile Include="Module\IModule.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IExceptionProcessor.cs" />
     <Compile Include="Core\IHasScanner.cs" />
@@ -84,8 +85,9 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Reporters\HtmlReportTraceListener.cs" />
+    <Compile Include="Reporters\HtmlReportMainModule.cs" />
     <Compile Include="Reporters\HtmlReportViewModel.cs" />
+    <Compile Include="Reporters\IReportModule.cs" />
     <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Reporters\ConsoleReportTraceListener.cs" />

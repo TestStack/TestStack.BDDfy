@@ -23,16 +23,16 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using Bddify.Configuration;
+using Bddify.Reporters;
 
 namespace Bddify.Samples.Atm
 {
     /// <summary>
     /// This overrides the default html report setting
     /// </summary>
-    public class HtmlReportConfig : DefaultHtmlReportConfiguration
+    public class HtmlReportConfig : DefaultHtmlReportConfigurationModule
     {
-        public override bool Configures(Core.Story story)
+        public override bool RunsOn(Core.Story story)
         {
             return story.MetaData.Type.Namespace != null && story.MetaData.Type.Namespace.EndsWith("Atm");
         }

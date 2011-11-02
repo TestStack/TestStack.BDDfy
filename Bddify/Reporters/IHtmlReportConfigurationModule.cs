@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2011, Mehdi Khalili
+// Copyright (C) 2011, Mehdi Khalili
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without
@@ -23,13 +23,15 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using Bddify.Core;
+using Bddify.Module;
 
-namespace Bddify.Configuration
+namespace Bddify.Reporters
 {
-    public interface IConfiguration
+    public interface IHtmlReportConfigurationModule : IModule
     {
-        bool Configures(Story story);
-        int Priority { get; }
+        string ReportHeader { get; }
+        string ReportDescription { get; }
+        string OutputPath { get; }
+        string OutputFileName { get; }
     }
 }

@@ -23,21 +23,20 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#if !SILVERLIGHT
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Bddify.Core;
+using Bddify.Module;
 
 namespace Bddify.Reporters
 {
-    public class ConsoleReportTraceListener : TextWriterTraceListener
+    public class ConsoleReportTraceListener : DefaultModule, IReportModule
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
 
-        void Process(Story story)
+        public void Report(Story story)
         {
             ReportStoryHeader(story);
 
@@ -159,13 +158,5 @@ namespace Bddify.Reporters
             Console.WriteLine();
             Console.WriteLine("Scenario: " + scenario.ScenarioText);
         }
-
-        public override void TraceData(TraceEventCache eventCache, string source, TraceEventType eventType, int id, object data)
-        {
-            var story = data as Story;
-            if (story != null)
-                Process(story);
-        }
     }
 }
-#endif

@@ -29,42 +29,40 @@ using System.Linq;
 using System.Reflection;
 using Bddify.Core;
 
-namespace Bddify.Configuration
+namespace Bddify.Module
 {
-    public class ConfigurationFactory
+    public class ModuleFactory
     {
-        // cache configurations for performance reason
-        private static IEnumerable<IConfiguration> _configurations;
+        // cache modules for performance reason
+        private static readonly IEnumerable<IModule> Modules;
 
-        static ConfigurationFactory()
+        static ModuleFactory()
         {
-            _configurations = GetConfigurations();
+            Modules = GetModules();
         }
 
-        static Assembly _testAssembly;
-
-        public static T Get<T>(Story story) where T:IConfiguration
+        public static T Get<T>(Story story) where T:IModule
         {
-            _testAssembly = story.MetaData.Type.Assembly;
-            return _configurations.OfType<T>().First(c => c.Configures(story));
+            return Modules.OfType<T>().First(c => c.RunsOn(story));
         }
 
-        public static IEnumerable<IConfiguration> GetConfigurations()
+        public static IEnumerable<T> GetMany<T>(Story story) where T:IModule
         {
-            // the configs in the test assembly
-            var configsInTheTestAssembly = GetConfigurations(_testAssembly.GetTypes());
-                
-            // the default configs from the bddify assembly
-            var defaultConfigsFromBddify = GetConfigurations(typeof(ConfigurationFactory).Assembly.GetTypes());
-
-            return configsInTheTestAssembly.Union(defaultConfigsFromBddify).OrderBy(c => c.Priority);
+            return Modules.OfType<T>().Where(c => c.RunsOn(story));
         }
 
-        private static IEnumerable<IConfiguration> GetConfigurations(IEnumerable<Type> types)
+        private static IEnumerable<IModule> GetModules()
+        {
+            var types = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.FullName.StartsWith("System")).SelectMany(a => a.GetTypes());
+
+            return GetModules(types).OrderBy(c => c.Priority);
+        }
+
+        private static IEnumerable<IModule> GetModules(IEnumerable<Type> types)
         {
             return from type in types
-                    where type.IsClass && !type.IsAbstract && typeof(IConfiguration).IsAssignableFrom(type) // the configs in the test assembly
-                    select (IConfiguration)Activator.CreateInstance(type);
+                    where type.IsClass && !type.IsAbstract && typeof(IModule).IsAssignableFrom(type) // the configs in the test assembly
+                    select (IModule)Activator.CreateInstance(type);
         }
     }
 }
