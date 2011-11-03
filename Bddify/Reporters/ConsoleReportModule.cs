@@ -31,7 +31,7 @@ using Bddify.Module;
 
 namespace Bddify.Reporters
 {
-    public class ConsoleReportTraceListener : DefaultModule, IReportModule
+    public class ConsoleReportModule : DefaultModule, IReportModule
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
@@ -105,6 +105,7 @@ namespace Bddify.Reporters
                     message += string.Format("{0}", exceptionReference);
             }
 
+#if !SILVERLIGHT
             if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
                 Console.ForegroundColor = ConsoleColor.Yellow;
             else if (step.Result == StepExecutionResult.Failed)
@@ -114,6 +115,9 @@ namespace Bddify.Reporters
 
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.White;
+#else
+            Console.WriteLine(message);
+#endif
         }
 
         void ReportExceptions()
@@ -154,7 +158,9 @@ namespace Bddify.Reporters
 
         static void Report(Scenario scenario)
         {
+#if !SILVERLIGHT
             Console.ForegroundColor = ConsoleColor.White;
+#endif
             Console.WriteLine();
             Console.WriteLine("Scenario: " + scenario.ScenarioText);
         }

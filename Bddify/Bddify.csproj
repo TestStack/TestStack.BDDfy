@@ -40,7 +40,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNET35|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET35</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Optimize>true</Optimize>
@@ -90,7 +90,7 @@
     <Compile Include="Reporters\IReportModule.cs" />
     <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
-    <Compile Include="Reporters\ConsoleReportTraceListener.cs" />
+    <Compile Include="Reporters\ConsoleReportModule.cs" />
     <Compile Include="Reporters\TraceId.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Core\NetToString.cs" />
