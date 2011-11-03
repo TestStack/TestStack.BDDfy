@@ -48,6 +48,7 @@
     <Compile Include="Atm\HtmlReportConfig.cs" />
     <Compile Include="TicTacToe\Game.cs" />
     <Compile Include="TicTacToe\Helpers.cs" />
+    <Compile Include="TicTacToe\CustomTextReporter.cs" />
     <Compile Include="TicTacToe\TicTacToe.cs" />
     <Compile Include="TicTacToe\WinnerGame.cs" />
     <Compile Include="TicTacToe\XWins.cs" />
