@@ -54,12 +54,24 @@ namespace Bddify.Module
         private static IEnumerable<IModule> GetModules()
         {
 #if !SILVERLIGHT
-            var types = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.FullName.StartsWith("System")).SelectMany(a => a.GetTypes());
+            var types = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.FullName.StartsWith("System")).SelectMany(GetTypesSafely);
             return GetModules(types).OrderBy(c => c.Priority);
 #else
             // ToDo: need to fix this
             yield break;
 #endif
+        }
+
+        private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                return ex.Types.Where(x => x != null);
+            }
         }
 
         private static IEnumerable<IModule> GetModules(IEnumerable<Type> types)
