@@ -82,6 +82,7 @@ namespace Bddify.Reporters
             AddLine("</header>", 3);
 
             AddLine("<section class=\"summary\">", 3);
+            //AddLine("<p><input type=\"button\" value=\"Expand All\" id=\"expandAll\"><input type=\"button\" value=\"Collapse All\" id=\"collapseAll\"></p>", 4);
             AddLine(string.Format("<h3>Assembly: '{0}'</h3>", _viewModel.AssemblyName), 4);
             AddLine("<ul class=\"resultSummary\">", 4);
 
@@ -157,16 +158,52 @@ namespace Bddify.Reporters
 
             AddStoryMetaDataAndNarrative(story);
 
+            AddLine("<div class=\"scenarios\">", 7);
             foreach (var scenario in scenariosInGroup)
             {
-                AddLine(string.Format("<div class=\"{0}\" onclick=\"toggle('{1}');\">", scenario.Result, scenario.Id), 7);
-                AddLine(string.Format("<div class=\"scenarioTitle\">{0}</div>", scenario.ScenarioText), 8);
+                AddScenario(scenario);
 
-                AddLine("</div>", 7);       // End of scenario div
             }
+            AddLine("</div>", 7);       // End of scenarios div
 
             AddLine("</div>", 6);       // End of story div
             AddLine("</li>", 5);
+        }
+
+        private void AddScenario(Scenario scenario)
+        {
+            AddLine(string.Format("<div class=\"scenario {0}\" onclick=\"toggle('{1}');\">", scenario.Result, scenario.Id), 8);
+            AddLine(string.Format("<div class=\"scenarioTitle\">{0}</div>", scenario.ScenarioText), 9);
+
+            AddLine(string.Format("<ul class=\"steps\" id=\"{0}\" style=\"display:none\">", scenario.Id), 10);
+
+            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+            {
+                string stepClass = string.Empty;
+                string result = step.StepTitle;
+                var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
+                if (reportException)
+                {
+                    stepClass = step.Result + "Exception";
+                    if (!string.IsNullOrEmpty(step.Exception.Message))
+                    {
+                        result += " [Exception Message: '" + step.Exception.Message + "']";
+                    }
+                }
+                AddLine(string.Format("<li class=\"step {0} {1} {2}\" onclick=\toggle('{3}');\">",step.Result, stepClass, step.ExecutionOrder, step.Id), 11);
+                AddLine(string.Format("<span>{0}</span>", result), 12);
+                if (reportException)
+                {
+                    AddLine(string.Format("<div class=\"step {0}\" id=\"{1}\">",stepClass, step.Id), 12);
+                    AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace), 13);
+                    AddLine("</div>", 12);
+                }
+                AddLine("</li>", 11);
+            }
+
+
+            AddLine("</ul>", 10);
+            AddLine("</div>", 8);       // End of scenario div
         }
 
         private void AddStoryMetaDataAndNarrative(Story story)
