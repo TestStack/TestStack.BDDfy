@@ -27,9 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B52
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bddify.Samples.Atm", "Bddify.Samples.Atm", "{E8753E3B-8534-4C10-B83F-DEEC483B68B4}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec = NuGet\Bddify.Samples.Atm\Bddify.Samples.Atm.nuspec
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bddify.Samples.TicTacToe", "Bddify.Samples.TicTacToe", "{4C6BABE2-350D-4881-B6B6-50D9F82D9FBE}"
 	ProjectSection(SolutionItems) = preProject

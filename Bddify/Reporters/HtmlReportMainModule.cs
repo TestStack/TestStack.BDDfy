@@ -92,7 +92,8 @@ namespace Bddify.Reporters
 
                 try
                 {
-                    report = Razor.Parse(HtmlTemplate.Value, viewModel);
+                    //report = Razor.Parse(HtmlTemplate.Value, viewModel);
+                    report = new HtmlReportBuilder(viewModel).BuildReportHtml();
                 }
                 catch (TemplateCompilationException compilationException)
                 {

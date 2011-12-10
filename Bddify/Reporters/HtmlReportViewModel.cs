@@ -24,6 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
+using System.Linq;
 using Bddify.Core;
 
 namespace Bddify.Reporters
@@ -34,9 +35,97 @@ namespace Bddify.Reporters
         {
             Configuration = configuration;
             Stories = stories;
+            Results = new ResultSummary(stories);
         }
 
         public IHtmlReportConfigurationModule Configuration { get; private set; }
         public IEnumerable<Story> Stories { get; private set; }
+        public ResultSummary Results { get; private set; }
+
+        public string AssemblyName
+        {
+            get
+            {
+                string assemblyName = string.Empty;
+                if (Stories.Count() > 0)
+                {
+                    var scenario = Stories.SelectMany(s => s.Scenarios).FirstOrDefault();
+                    if (scenario != null)
+                    {
+                        assemblyName = scenario.TestObject.GetType().Assembly.GetName().Name;
+                    }
+                }
+                return assemblyName;
+            }
+        }
+
+        public IEnumerable<IGrouping<string, Story>> GroupedScenarios
+        {
+            get
+            {
+
+                var groupedByNamespace = from story in Stories
+                                         where story.MetaData == null
+                                         group story by story.Scenarios.First().TestObject.GetType().Namespace into g
+                                         select g;
+                var groupedByStories = from story in Stories
+                                       where story.MetaData != null
+                                       group story by story.MetaData.Type.Name into g
+                                       select g;
+                return groupedByStories.Union(groupedByNamespace);
+            }
+        }
+    }
+
+
+    public class ResultSummary
+    {
+        readonly IEnumerable<Story> _stories;
+        readonly IEnumerable<Scenario> _scenarios;
+
+        public ResultSummary(IEnumerable<Story> stories)
+        {
+            _stories = stories;
+            _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
+        }
+
+        public int Namespaces
+        {
+            get
+            {
+                return _stories.Where(b => b.MetaData == null)
+                .SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count();
+            }
+        }
+
+        public int Stories
+        {
+            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
+        }
+
+        public int Passed
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Passed); }
+        }
+
+        public int Failed
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Failed); }
+        }
+
+        public int Inconclusive
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
+        }
+
+        public int NotImplemented
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
+        }
+
+        public int NotExecuted
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotExecuted); }
+        }
     }
 }
