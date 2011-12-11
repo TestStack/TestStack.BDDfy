@@ -23,17 +23,13 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#if !(NET35 || SILVERLIGHT)
+#if !(SILVERLIGHT)
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using Bddify.Core;
 using Bddify.Module;
-using RazorEngine;
-using RazorEngine.Templating;
 
 namespace Bddify.Reporters
 {
@@ -77,7 +73,7 @@ namespace Bddify.Reporters
 
         private static void GenerateHtmlReport()
         {
-            const string error = "There was an error compiling the template";
+            const string error = "There was an error compiling the html report: ";
             
             foreach (var config in StoriesByConfig)
             {
@@ -96,35 +92,17 @@ namespace Bddify.Reporters
 
                 try
                 {
-                    //report = Razor.Parse(HtmlTemplate.Value, viewModel);
                     report = new HtmlReportBuilder(viewModel).BuildReportHtml();
-                }
-                catch (TemplateCompilationException compilationException)
-                {
-                    if (compilationException.Errors.Count > 0)
-                    {
-                        var compilerError = compilationException.Errors.First();
-                        var reportBuilder = new StringBuilder();
-                        reportBuilder.AppendLine(error);
-                        reportBuilder.AppendLine("Line No: " + compilerError.Line);
-                        reportBuilder.AppendLine("Message: " + compilerError.ErrorText);
-                        report = reportBuilder.ToString();
-                    }
-                    else
-                    {
-                        report = error + " :: " + compilationException.Message;
-                    }
                 }
                 catch (Exception ex)
                 {
-                    report = ex.Message;
+                    report = error + ex.Message;
                 }
 
                 File.WriteAllText(htmlFullFileName, report);
             }
         }
 
-        static readonly Lazy<string> HtmlTemplate = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.HtmlReport.cshtml"));
         static readonly Lazy<string> CssFile = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.bddify.css"));
         static readonly Lazy<string> JQueryFile = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.jquery-1.7.1.min.js"));
 
