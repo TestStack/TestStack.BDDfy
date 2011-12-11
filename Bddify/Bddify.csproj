@@ -63,6 +63,7 @@
     <Compile Include="Module\DefaultModule.cs" />
     <Compile Include="Module\ModuleException.cs" />
     <Compile Include="Module\ModuleFactory.cs" />
+    <Compile Include="Reporters\LazyFileLoader.cs" />
     <Compile Include="Reporters\HtmlReportBuilder.cs" />
     <Compile Include="Reporters\DefaultHtmlReportConfigurationModule.cs" />
     <Compile Include="Reporters\IHtmlReportConfigurationModule.cs" />
