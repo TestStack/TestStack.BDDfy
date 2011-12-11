@@ -85,6 +85,10 @@ namespace Bddify.Reporters
                 // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
                 if (!File.Exists(cssFullFileName))
                     File.WriteAllText(cssFullFileName, CssFile.Value);
+                var jqueryFullFileName = Path.Combine(config.Key.OutputPath, "jquery-1.7.1.min.js");
+                // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
+                if (!File.Exists(jqueryFullFileName))
+                    File.WriteAllText(jqueryFullFileName, JQueryFile.Value);
 
                 var htmlFullFileName = Path.Combine(config.Key.OutputPath, config.Key.OutputFileName);
                 var viewModel = new HtmlReportViewModel(config.Key, config.Value);
@@ -122,6 +126,7 @@ namespace Bddify.Reporters
 
         static readonly Lazy<string> HtmlTemplate = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.HtmlReport.cshtml"));
         static readonly Lazy<string> CssFile = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.bddify.css"));
+        static readonly Lazy<string> JQueryFile = new Lazy<string>(() => GetEmbeddedFileResource("Bddify.Reporters.jquery-1.7.1.min.js"));
 
         static string GetEmbeddedFileResource(string fileResourceName)
         {

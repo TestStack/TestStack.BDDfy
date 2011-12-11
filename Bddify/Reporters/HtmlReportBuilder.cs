@@ -58,6 +58,7 @@ namespace Bddify.Reporters
             AddLine("<head>", 1);
             AddLine("<meta charset=\"utf-8\"/>", 2);
             AddLine("<link href=\"bddify.css\" rel=\"stylesheet\"/>", 2);
+            AddLine("<script type=\"text/javascript\" src=\"jquery-1.7.1.min.js\"></script>", 2);
             AddLine(string.Format("<title>Bddify Test Result {0}</title>", DateTime.Now.ToShortDateString()), 2);
             AddLine("</head>", 1);
         }
@@ -82,7 +83,7 @@ namespace Bddify.Reporters
             AddLine("</header>", 3);
 
             AddLine("<section class=\"summary\">", 3);
-            //AddLine("<p><input type=\"button\" value=\"Expand All\" id=\"expandAll\"><input type=\"button\" value=\"Collapse All\" id=\"collapseAll\"></p>", 4);
+            AddLine("<p><span id=\"expandAll\" class=\"NotExecuted\">expand all</span> | <span id=\"collapseAll\" class=\"NotExecuted\">collapse all</span></p>", 4);
             AddLine(string.Format("<h3>Assembly: '{0}'</h3>", _viewModel.AssemblyName), 4);
             AddLine("<ul class=\"resultSummary\">", 4);
 
@@ -117,6 +118,14 @@ namespace Bddify.Reporters
         {
             string footer = @"    <footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>
 		<script type='text/javascript'>
+		$(document).ready(function() {
+			$('#expandAll').click(function() {
+				$('.steps').css('display', '');
+			});
+			$('#collapseAll').click(function() {
+				$('.steps').css('display', 'none');
+			});
+		});
 		  function toggle(id) {
 		    var e = document.getElementById(id);
 		    if (e.style.display == 'none') {
@@ -145,6 +154,7 @@ namespace Bddify.Reporters
             AddLine(string.Format("<div class=\"summaryLabel\">{0}</div>", label), 7);
             AddLine(string.Format("<span class=\"summaryCount\">{0}</span>", count), 7);
             AddLine("</div>", 6);
+            AddLine("</li>", 5);
         }
 
         private void AddStory(IGrouping<string, Story> scenarioGroup)
@@ -190,7 +200,7 @@ namespace Bddify.Reporters
                         result += " [Exception Message: '" + step.Exception.Message + "']";
                     }
                 }
-                AddLine(string.Format("<li class=\"step {0} {1} {2}\" onclick=\toggle('{3}');\">",step.Result, stepClass, step.ExecutionOrder, step.Id), 11);
+                AddLine(string.Format("<li class=\"step {0} {1} {2}\" onclick=\"toggle('{3}');\">",step.Result, stepClass, step.ExecutionOrder, step.Id), 11);
                 AddLine(string.Format("<span>{0}</span>", result), 12);
                 if (reportException)
                 {
@@ -217,7 +227,7 @@ namespace Bddify.Reporters
             }
             else
             {
-                AddLine(string.Format("<div class=\"storyTitle\">{0}", story.MetaData.Title), 8);
+                AddLine(string.Format("<div class=\"storyTitle\">{0}</div>", story.MetaData.Title), 8);
             }
 
             if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
@@ -226,7 +236,7 @@ namespace Bddify.Reporters
                 AddLine(string.Format("<li>{0}</li>", story.MetaData.AsA), 9);
                 AddLine(string.Format("<li>{0}</li>", story.MetaData.IWant), 9);
                 AddLine(string.Format("<li>{0}</li>", story.MetaData.SoThat), 9);
-                AddLine("<ul class=\"storyNarrative\">", 8);
+                AddLine("</ul>", 8);
             }
 
 
