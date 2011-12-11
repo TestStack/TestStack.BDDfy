@@ -81,6 +81,7 @@
     <Compile Include="Reporters\HtmlReportMainModule.cs" />
     <Compile Include="Reporters\HtmlReportViewModel.cs" />
     <Compile Include="Reporters\IReportModule.cs" />
+    <Compile Include="Reporters\StoryConfig.cs" />
     <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Reporters\ConsoleReportModule.cs" />

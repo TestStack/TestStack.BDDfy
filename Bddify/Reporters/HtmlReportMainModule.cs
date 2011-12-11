@@ -52,22 +52,22 @@ namespace Bddify.Reporters
             GenerateHtmlReport();
         }
 
-        static IDictionary<IHtmlReportConfigurationModule, List<Story>> StoriesByConfig
+        static IEnumerable<StoryConfig> StoriesByConfig
         {
             get
             {
-                var dic = new Dictionary<Type, Tuple<IHtmlReportConfigurationModule, List<Story>>>();
+                var dic = new Dictionary<Type, StoryConfig>();
                 foreach (var story in Stories)
                 {
                     var config = ModuleFactory.Get<IHtmlReportConfigurationModule>(story);
                     var configType = config.GetType();
-                    if(!dic.ContainsKey(configType))
-                        dic[configType] = new Tuple<IHtmlReportConfigurationModule, List<Story>>(config, new List<Story>());
-                
-                    dic[configType].Item2.Add(story);
+                    if (!dic.ContainsKey(configType))
+                        dic[configType] = new StoryConfig(config, new List<Story>());
+
+                    dic[configType].Stories.Add(story);
                 }
 
-                return dic.ToDictionary(tuple => tuple.Value.Item1, tuple => tuple.Value.Item2);
+                return dic.Values.ToList();
             }
         }
 
@@ -77,17 +77,17 @@ namespace Bddify.Reporters
             
             foreach (var config in StoriesByConfig)
             {
-                var cssFullFileName = Path.Combine(config.Key.OutputPath, "bddify.css");
+                var cssFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.css");
                 // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
                 if (!File.Exists(cssFullFileName))
                     File.WriteAllText(cssFullFileName, LazyFileLoader.CssFile);
 
-                var jqueryFullFileName = Path.Combine(config.Key.OutputPath, "jquery-1.7.1.min.js");
+                var jqueryFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "jquery-1.7.1.min.js");
                 if (!File.Exists(jqueryFullFileName))
                     File.WriteAllText(jqueryFullFileName, LazyFileLoader.JQueryFile);
 
-                var htmlFullFileName = Path.Combine(config.Key.OutputPath, config.Key.OutputFileName);
-                var viewModel = new HtmlReportViewModel(config.Key, config.Value);
+                var htmlFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, config.HtmlReportConfigurationModule.OutputFileName);
+                var viewModel = new HtmlReportViewModel(config.HtmlReportConfigurationModule, config.Stories);
                 string report;
 
                 try
