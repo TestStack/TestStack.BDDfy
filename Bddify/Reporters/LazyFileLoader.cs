@@ -34,7 +34,7 @@ namespace Bddify.Reporters
         static string GetEmbeddedFileResource(string fileResourceName)
         {
             string fileContent;
-            var templateResourceStream = typeof(HtmlReportMainModule).Assembly.GetManifestResourceStream(fileResourceName);
+            var templateResourceStream = typeof(LazyFileLoader).Assembly.GetManifestResourceStream(fileResourceName);
             using (var sr = new StreamReader(templateResourceStream))
             {
                 fileContent = sr.ReadToEnd();
