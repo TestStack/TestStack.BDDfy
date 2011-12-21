@@ -185,13 +185,22 @@ namespace Bddify.Scanners.StepScanners.Fluent
         {
             var constants = new List<object>();
             var constExpression = (ConstantExpression)memberExpression.Expression;
-            var type = constExpression.Type;
-            var member = type.GetMember(memberExpression.Member.Name, MemberTypes.Field | MemberTypes.Property, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static).Single();
+            var valIsConstant = constExpression != null;
+            Type declaringType = memberExpression.Member.DeclaringType;
+            object declaringObject = memberExpression.Member.DeclaringType;
+
+            if (valIsConstant)
+            {
+                declaringType = constExpression.Type;
+                declaringObject = constExpression.Value;
+            }
+
+            var member = declaringType.GetMember(memberExpression.Member.Name, MemberTypes.Field | MemberTypes.Property, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static).Single();
 
             if (member.MemberType == MemberTypes.Field)
-                constants.Add(((FieldInfo)member).GetValue(constExpression.Value));
+                constants.Add(((FieldInfo)member).GetValue(declaringObject));
             else
-                constants.Add(((PropertyInfo)member).GetGetMethod(true).Invoke(constExpression.Value, null));
+                constants.Add(((PropertyInfo)member).GetGetMethod(true).Invoke(declaringObject, null));
 
             return constants;
         }

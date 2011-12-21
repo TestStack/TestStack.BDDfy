@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Bddify.Core;
-using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 using System.Linq;
 
@@ -12,6 +11,12 @@ namespace Bddify.Tests.FluentScanner
     {
         Value1,
         Value2
+    }
+
+    public class SomeClassWithStaticMembers
+    {
+        public static string StringProp { get { return "asdfsadf"; } }
+        public static int IntProp { get { return 1; } }
     }
 
     [Story
@@ -101,6 +106,22 @@ namespace Bddify.Tests.FluentScanner
         {
             this.Given(x => x.GivenPrimitiveInputs("1", 2), "Given inline input arguments {0} and {1}")
                 .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance("1", 2))
+                .Bddify();
+        }
+
+        [Test]
+        public void PassingPublicStaticPrimitiveArguments()
+        {
+            this.Given(x => x.GivenPrimitiveInputs(string.Empty, 2), "Given inline input arguments {0} and {1}")
+                .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(string.Empty, 2))
+                .Bddify();
+        }
+
+        [Test]
+        public void PassingPublicStaticPrimitivePropertyAsArguments()
+        {
+            this.Given(x => x.GivenPrimitiveInputs(SomeClassWithStaticMembers.StringProp, SomeClassWithStaticMembers.IntProp), "Given inline input arguments {0} and {1}")
+                .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(SomeClassWithStaticMembers.StringProp, SomeClassWithStaticMembers.IntProp))
                 .Bddify();
         }
 
