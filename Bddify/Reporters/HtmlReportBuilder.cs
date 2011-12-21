@@ -34,8 +34,8 @@ namespace Bddify.Reporters
     {
         readonly HtmlReportViewModel _viewModel;
         readonly StringBuilder _html;
-        const int _tabIndentation = 2;
-        int _tabCount = 0;
+        const int TabIndentation = 2;
+        int _tabCount;
 
         public HtmlReportBuilder(HtmlReportViewModel viewModel)
         {
@@ -46,84 +46,89 @@ namespace Bddify.Reporters
         public string BuildReportHtml()
         {
             AddLine("<!DOCTYPE html>");
-            OpenTag("<html>");
-
-            Header();
-            Body();
-
-            CloseTag("</html");
+            using(OpenTag("html"))
+            {
+                Header();
+                Body();
+            }
 
             return _html.ToString();
         }
 
         private void Header()
         {
-            OpenTag("<head>");
-            AddLine("<meta charset=\"utf-8\"/>");
-            AddLine("<link href=\"bddify.css\" rel=\"stylesheet\"/>");
-            AddLine("<script type=\"text/javascript\" src=\"jquery-1.7.1.min.js\"></script>");
-            AddLine(string.Format("<title>Bddify Test Result {0}</title>", DateTime.Now.ToShortDateString()));
-            CloseTag("</head>");
+            using(OpenTag("head"))
+            {
+                AddLine("<meta charset='utf-8'/>");
+                AddLine("<link href='bddify.css' rel='stylesheet'/>");
+                AddLine("<script type='text/javascript' src='jquery-1.7.1.min.js'></script>");
+                AddLine(string.Format("<title>Bddify Test Result {0}</title>", DateTime.Now.ToShortDateString()));
+            }
         }
 
         private void Body()
         {
-            OpenTag("<body>");
-            OpenTag("<div id=\"main\">");
+            using(OpenTag("body"))
+            {
+                using(OpenTag("<div id='main'>", "div"))
+                {
+                    ResultSummary();
 
-            BodyHeaderAndResults();
-            ExpandCollapse();
-            BodyStories();
+                    ResultDetails();
+                }
 
-            CloseTag("</div>");     // End div id="main"
-
-            Footer();
-            CloseTag("</body>");
+                Footer();
+            }
         }
 
-        private void BodyHeaderAndResults()
+        private void ResultSummary()
         {
-            OpenTag("<header>");
-            AddLine(string.Format("<div id=\"bddifyTitle\">{0}</div>", _viewModel.Configuration.ReportHeader));
-            AddLine(string.Format("<div id=\"bddifyDescription\">{0}</div>", _viewModel.Configuration.ReportDescription));
-            CloseTag("</header>");
+            using (OpenTag("header"))
+            {
+                AddLine(string.Format("<div id='bddifyTitle'>{0}</div>", _viewModel.Configuration.ReportHeader));
+                AddLine(string.Format("<div id='bddifyDescription'>{0}</div>", _viewModel.Configuration.ReportDescription));
+            }
 
-            OpenTag("<section class=\"summary\">");
-            OpenTag("<ul class=\"resultSummary\">");
-
-            AddResultListItem("namespace", "Namespaces", _viewModel.Results.Namespaces);
-            AddResultListItem("story", "Stories", _viewModel.Results.Stories);
-            AddResultListItem("Passed", "Passed", _viewModel.Results.Passed);
-            AddResultListItem("Failed", "Failed", _viewModel.Results.Failed);
-            AddResultListItem("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
-            AddResultListItem("NotImplemented", "Not Implemented", _viewModel.Results.NotImplemented);
-            AddResultListItem("NotExecuted", "Not Executed", _viewModel.Results.NotExecuted);
-
-            CloseTag("</ul>");
-            CloseTag("</section>");
+            using (OpenTag("<section class='summary'>", "section"))
+            {
+                using (OpenTag("<ul class='resultSummary'>", "ul"))
+                {
+                    AddResultListItem("namespace", "Namespaces", _viewModel.Results.Namespaces);
+                    AddResultListItem("story", "Stories", _viewModel.Results.Stories);
+                    AddResultListItem("Passed", "Passed", _viewModel.Results.Passed);
+                    AddResultListItem("Failed", "Failed", _viewModel.Results.Failed);
+                    AddResultListItem("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
+                    AddResultListItem("NotImplemented", "Not Implemented", _viewModel.Results.NotImplemented);
+                    AddResultListItem("NotExecuted", "Not Executed", _viewModel.Results.NotExecuted);
+                }
+            }
         }
 
         private void ExpandCollapse()
         {
-            OpenTag("<p>");
-            AddLine("<span id=\"expandAll\">expand all</span>");
-            AddLine("<span id=\"collapseAll\" class=\"NotExecuted\">collapse all</span>");
-            CloseTag("</p>");
+            using (OpenTag("<div id='expandCollapse'>", "div"))
+            {
+                AddLine("<a href='#' class='expandAll'>[expand all]</a>");
+                AddLine("<a href='#' class='collapseAll'>[collapse all]</a>");
+            }
         }
 
-        private void BodyStories()
+        private void ResultDetails()
         {
-            OpenTag("<div id=\"testResult\">");
-            OpenTag("<ul class=\"testResult\">");
-
-            foreach (var scenarioGroup in _viewModel.GroupedScenarios)
+            using (OpenTag("<div id='testResult'>", "div"))
             {
-                AddStory(scenarioGroup);
-            }
+                ExpandCollapse();
 
-            CloseTag("</ul>");
-            AddLine(string.Format("<p><span>Tested at: {0}</span></p>", DateTime.Now));
-            CloseTag("</div>");
+                using (OpenTag("<ul class='testResult'>", "ul"))
+                {
+                    foreach (var scenarioGroup in _viewModel.GroupedScenarios)
+                    {
+                        AddStory(scenarioGroup);
+                    }
+                }
+
+                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", DateTime.Now));
+            }
         }
 
         private void Footer()
@@ -131,10 +136,10 @@ namespace Bddify.Reporters
             string footer = @"    <footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>
 		<script type='text/javascript'>
 		$(document).ready(function() {
-			$('#expandAll').click(function() {
+			$('.expandAll').click(function() {
 				$('.steps').css('display', '');
 			});
-			$('#collapseAll').click(function() {
+			$('.collapseAll').click(function() {
 				$('.steps').css('display', 'none');
 			});
 		});
@@ -151,10 +156,18 @@ namespace Bddify.Reporters
             _html.AppendLine(footer);
         }
 
-        private void OpenTag(string tagName)
+        private HtmlReportTag OpenTag(string openingTag, string tagName)
         {
-            AddLine(tagName);
+            AddLine(openingTag);
             _tabCount++;
+            return new HtmlReportTag(tagName, CloseTag);
+        }
+
+        private HtmlReportTag OpenTag(string tagName)
+        {
+            AddLine("<" + tagName + ">");
+            _tabCount++;
+            return new HtmlReportTag(tagName, CloseTag);
         }
 
         private void CloseTag(string tagName)
@@ -165,18 +178,20 @@ namespace Bddify.Reporters
 
         private void AddLine(string line)
         {
-            int tabWidth = _tabCount * _tabIndentation;
+            int tabWidth = _tabCount * TabIndentation;
             _html.AppendLine(string.Empty.PadLeft(tabWidth) + line);
         }
 
         private void AddResultListItem(string cssClass, string label, int count)
         {
-            OpenTag(string.Format("<li class=\"{0}\">", cssClass));
-            OpenTag("<div class=\"summary\">");
-            AddLine(string.Format("<div class=\"summaryLabel\">{0}</div>", label));
-            AddLine(string.Format("<span class=\"summaryCount\">{0}</span>", count));
-            CloseTag("</div>");
-            CloseTag("</li>");
+            using (OpenTag(string.Format("<li class='{0}'>", cssClass), "li"))
+            {
+                using (OpenTag("<div class='summary'>", "div"))
+                {
+                    AddLine(string.Format("<div class='summaryLabel'>{0}</div>", label));
+                    AddLine(string.Format("<span class='summaryCount'>{0}</span>", count));
+                }
+            }
         }
 
         private void AddStory(IGrouping<string, Story> scenarioGroup)
@@ -185,85 +200,104 @@ namespace Bddify.Reporters
             var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
             var storyResult = (StepExecutionResult)scenariosInGroup.Max(s => (int)s.Result);
 
-            OpenTag("<li>");
-            OpenTag(string.Format("<div class=\"story {0}\">", storyResult));
-
-            AddStoryMetaDataAndNarrative(story);
-
-            OpenTag("<div class=\"scenarios\">");
-            foreach (var scenario in scenariosInGroup)
+            using (OpenTag("li"))
             {
-                AddScenario(scenario);
+                using (OpenTag(string.Format("<div class='story {0}'>", storyResult), "div"))
+                {
+                    AddStoryMetaDataAndNarrative(story);
 
+                    using (OpenTag("<div class='scenarios'>", "div"))
+                    {
+                        foreach (var scenario in scenariosInGroup)
+                        {
+                            AddScenario(scenario);
+                        }
+                    }
+                }
             }
-            CloseTag("</div>");       // End of scenarios div
-
-            CloseTag("</div>");       // End of story div
-            CloseTag("</li>");
         }
 
         private void AddScenario(Scenario scenario)
         {
-            OpenTag(string.Format("<div class=\"scenario {0}\" onclick=\"toggle('{1}');\">", scenario.Result, scenario.Id));
-            OpenTag(string.Format("<div class=\"scenarioTitle\">{0}</div>", scenario.ScenarioText));
-
-            OpenTag(string.Format("<ul class=\"steps\" id=\"{0}\" style=\"display:none\">", scenario.Id));
-
-            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+            using (OpenTag(string.Format("<div class='scenario {0}' onclick='toggle(\"{1}\");'>", scenario.Result, scenario.Id), "div"))
             {
-                string stepClass = string.Empty;
-                string result = step.StepTitle;
-                var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
-                if (reportException)
+                AddLine(string.Format("<div class='scenarioTitle'>{0}</div>", scenario.ScenarioText));
+
+                using(OpenTag(string.Format("<ul class='steps' id='{0}' style='display:none'>", scenario.Id), "ul"))
                 {
-                    stepClass = step.Result + "Exception";
-                    if (!string.IsNullOrEmpty(step.Exception.Message))
+                foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                {
+                    string stepClass = string.Empty;
+                    string result = step.StepTitle;
+                    var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
+                    if (reportException)
                     {
-                        result += " [Exception Message: '" + step.Exception.Message + "']";
+                        stepClass = step.Result + "Exception";
+                        if (!string.IsNullOrEmpty(step.Exception.Message))
+                        {
+                            result += " [Exception Message: '" + step.Exception.Message + "']";
+                        }
+                    }
+
+                    using (OpenTag(string.Format("<li class='step {0} {1} {2}' onclick='toggle(\"{3}\");'>", step.Result, stepClass, step.ExecutionOrder, step.Id), "li"))
+                    {
+                        AddLine(string.Format("<span>{0}</span>", result));
+                        if (reportException)
+                        {
+                            using (OpenTag(string.Format("<div class='step {0}' id='{1}'>", stepClass, step.Id), "div"))
+                            {
+                                AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace));
+                            }
+                        }
                     }
                 }
 
-                OpenTag(string.Format("<li class=\"step {0} {1} {2}\" onclick=\"toggle('{3}');\">",step.Result, stepClass, step.ExecutionOrder, step.Id));
-                AddLine(string.Format("<span>{0}</span>", result));
-                if (reportException)
-                {
-                    OpenTag(string.Format("<div class=\"step {0}\" id=\"{1}\">",stepClass, step.Id));
-                    AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace));
-                    CloseTag("</div>");
+
                 }
-                CloseTag("</li>");
             }
-
-
-            CloseTag("</ul>");
-            CloseTag("</div>");       // End of scenario div
         }
 
         private void AddStoryMetaDataAndNarrative(Story story)
         {
-            OpenTag("<div class=\"storyMetaData\">");
-
-            if (story.MetaData == null)
+            using (OpenTag("<div class='storyMetaData'>", "div"))
             {
-                var @namespace = story.Scenarios.First().TestObject.GetType().Namespace;
-                AddLine(string.Format("div class=\"namespaceName\">{0}</div>", @namespace));
+                if (story.MetaData == null)
+                {
+                    var @namespace = story.Scenarios.First().TestObject.GetType().Namespace;
+                    AddLine(string.Format("div class='namespaceName'>{0}</div>", @namespace));
+                }
+                else
+                {
+                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.MetaData.Title));
+                }
+
+                if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
+                {
+                    using (OpenTag("<ul class='storyNarrative'>", "ul"))
+                    {
+                        AddLine(string.Format("<li>{0}</li>", story.MetaData.AsA));
+                        AddLine(string.Format("<li>{0}</li>", story.MetaData.IWant));
+                        AddLine(string.Format("<li>{0}</li>", story.MetaData.SoThat));
+                    }
+                }
             }
-            else
+        }
+
+        class HtmlReportTag : IDisposable
+        {
+            private readonly string _tagName;
+            private readonly Action<string> _closeTagAction;
+
+            public HtmlReportTag(string tagName, Action<string> closeTagAction)
             {
-                AddLine(string.Format("<div class=\"storyTitle\">{0}</div>", story.MetaData.Title));
+                _tagName = "</" + tagName + ">";
+                _closeTagAction = closeTagAction;
             }
 
-            if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
+            public void Dispose()
             {
-                OpenTag("<ul class=\"storyNarrative\">");
-                AddLine(string.Format("<li>{0}</li>", story.MetaData.AsA));
-                AddLine(string.Format("<li>{0}</li>", story.MetaData.IWant));
-                AddLine(string.Format("<li>{0}</li>", story.MetaData.SoThat));
-                CloseTag("</ul>");
+                _closeTagAction(_tagName);
             }
-
-
-            CloseTag("</div>"); // End of storyMetaData div
         }
     }
 }

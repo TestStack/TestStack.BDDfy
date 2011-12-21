@@ -180,6 +180,20 @@ div#generatedAt
 	font-size: 12pt;
 }
 
+#expandCollapse
+{
+    float:right;
+    margin-right:25px;
+}
+
+.expandAll,.collapseAll
+{
+    text-decoration: none;
+    border-bottom-style: dotted;
+    border-bottom-color: #99CCFF;
+    border-bottom-width: 1px;
+}
+
 #testResult span
 {
 	margin-left:5px;
