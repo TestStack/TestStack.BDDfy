@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2011, Mehdi Khalili
+// Copyright (C) 2011, Mehdi Khalili
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without
@@ -23,22 +23,20 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using Bddify.Core;
-using Bddify.Reporters.HtmlReporter;
-
-namespace Bddify.Reporters
+namespace Bddify.Reporters.HtmlReporter
 {
-    public class StoryConfig
+    // ReSharper disable InconsistentNaming
+    public enum HtmlTag
     {
-        public StoryConfig(IHtmlReportConfigurationModule configurationModule, List<Story> stories)
-        {
-            HtmlReportConfigurationModule = configurationModule;
-            Stories = stories;
-        }
-
-        public IHtmlReportConfigurationModule HtmlReportConfigurationModule { get; set; }
-
-        public List<Story> Stories { get; set; }
+        html,
+        head,
+        div,
+        ul,
+        li,
+        p,
+        body,
+        header,
+        section
     }
+    // ReSharper restore InconsistentNaming
 }

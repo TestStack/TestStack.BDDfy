@@ -24,6 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using Bddify.Reporters;
+using Bddify.Reporters.HtmlReporter;
 
 namespace Bddify.Samples.Atm
 {

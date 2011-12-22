@@ -31,7 +31,7 @@ using System.Linq;
 using Bddify.Core;
 using Bddify.Module;
 
-namespace Bddify.Reporters
+namespace Bddify.Reporters.HtmlReporter
 {
     public class HtmlReportMainModule : DefaultModule, IReportModule
     {

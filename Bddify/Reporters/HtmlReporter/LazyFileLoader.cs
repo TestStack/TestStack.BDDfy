@@ -23,22 +23,64 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using Bddify.Core;
-using Bddify.Reporters.HtmlReporter;
+using System.IO;
 
-namespace Bddify.Reporters
+namespace Bddify.Reporters.HtmlReporter
 {
-    public class StoryConfig
+    public static class LazyFileLoader
     {
-        public StoryConfig(IHtmlReportConfigurationModule configurationModule, List<Story> stories)
+        static string _cssFile;
+        static string _jqueryFile;
+        static string _myJsFile;
+
+        public static string BddifyCssFile
         {
-            HtmlReportConfigurationModule = configurationModule;
-            Stories = stories;
+            get
+            {
+                if (_cssFile == null)
+                {
+                    _cssFile = GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.css");
+                }
+
+                return _cssFile;
+            }
         }
 
-        public IHtmlReportConfigurationModule HtmlReportConfigurationModule { get; set; }
+        public static string JQueryFile
+        {
+            get
+            {
+                if (_jqueryFile == null)
+                {
+                    _jqueryFile = GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.jquery-1.7.1.min.js");
+                }
+                return _jqueryFile;
+            }
+        }
 
-        public List<Story> Stories { get; set; }
+        public static string BddifyJsFile
+        {
+            get
+            {
+                if (_myJsFile == null)
+                {
+                    _myJsFile = GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.js");
+                }
+
+                return _myJsFile;
+            }
+        }
+
+        static string GetEmbeddedFileResource(string fileResourceName)
+        {
+            string fileContent;
+            var templateResourceStream = typeof(LazyFileLoader).Assembly.GetManifestResourceStream(fileResourceName);
+            using (var sr = new StreamReader(templateResourceStream))
+            {
+                fileContent = sr.ReadToEnd();
+            }
+
+            return fileContent;
+        }
     }
 }

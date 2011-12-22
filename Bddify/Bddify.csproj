@@ -63,12 +63,12 @@
     <Compile Include="Module\DefaultModule.cs" />
     <Compile Include="Module\ModuleException.cs" />
     <Compile Include="Module\ModuleFactory.cs" />
-    <Compile Include="Reporters\HtmlReportTag.cs" />
-    <Compile Include="Reporters\HtmlTag.cs" />
-    <Compile Include="Reporters\LazyFileLoader.cs" />
-    <Compile Include="Reporters\HtmlReportBuilder.cs" />
-    <Compile Include="Reporters\DefaultHtmlReportConfigurationModule.cs" />
-    <Compile Include="Reporters\IHtmlReportConfigurationModule.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />
+    <Compile Include="Reporters\HtmlReporter\LazyFileLoader.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlReportBuilder.cs" />
+    <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfigurationModule.cs" />
+    <Compile Include="Reporters\HtmlReporter\IHtmlReportConfigurationModule.cs" />
     <Compile Include="Module\IModule.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IExceptionProcessor.cs" />
@@ -80,13 +80,13 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Reporters\HtmlReportMainModule.cs" />
-    <Compile Include="Reporters\HtmlReportViewModel.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlReportMainModule.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlReportViewModel.cs" />
     <Compile Include="Reporters\IReportModule.cs" />
     <Compile Include="Reporters\StoryConfig.cs" />
     <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
-    <Compile Include="Reporters\ConsoleReportModule.cs" />
+    <Compile Include="Reporters\ConsoleReporter\ConsoleReportModule.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Core\NetToString.cs" />
     <Compile Include="Core\ProcessType.cs" />
@@ -131,14 +131,15 @@
     <None Include="bddify.snk" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporters\bddify.css" />
+    <EmbeddedResource Include="Reporters\HtmlReporter\bddify.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporters\jquery-1.7.1.min.js" />
+    <EmbeddedResource Include="Reporters\HtmlReporter\jquery-1.7.1.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporters\bddify.js" />
+    <EmbeddedResource Include="Reporters\HtmlReporter\bddify.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.WindowsPhone.Overrides.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />

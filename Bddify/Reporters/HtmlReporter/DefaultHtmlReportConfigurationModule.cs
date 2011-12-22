@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2011, Mehdi Khalili
+// Copyright (C) 2011, Mehdi Khalili
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without
@@ -23,22 +23,45 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using Bddify.Core;
-using Bddify.Reporters.HtmlReporter;
+using System;
+using System.IO;
+using System.Reflection;
+using Bddify.Module;
 
-namespace Bddify.Reporters
+namespace Bddify.Reporters.HtmlReporter
 {
-    public class StoryConfig
+    public class DefaultHtmlReportConfigurationModule : DefaultModule, IHtmlReportConfigurationModule
     {
-        public StoryConfig(IHtmlReportConfigurationModule configurationModule, List<Story> stories)
+        public virtual string ReportHeader
         {
-            HtmlReportConfigurationModule = configurationModule;
-            Stories = stories;
+            get { return "bddify"; }
         }
 
-        public IHtmlReportConfigurationModule HtmlReportConfigurationModule { get; set; }
+        public virtual string ReportDescription
+        {
+            get { return "A simple BDD framework for .Net developers"; }
+        }
 
-        public List<Story> Stories { get; set; }
+        public virtual string OutputPath
+        {
+            get { return AssemblyDirectory; }
+        }
+
+        public virtual string OutputFileName
+        {
+            get { return "bddify.html"; }
+        }
+
+        // http://stackoverflow.com/questions/52797/c-how-do-i-get-the-path-of-the-assembly-the-code-is-in#answer-283917
+        private static string AssemblyDirectory
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                var uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
     }
 }
