@@ -80,11 +80,15 @@ namespace Bddify.Reporters
                 var cssFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.css");
                 // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
                 if (!File.Exists(cssFullFileName))
-                    File.WriteAllText(cssFullFileName, LazyFileLoader.CssFile);
+                    File.WriteAllText(cssFullFileName, LazyFileLoader.BddifyCssFile);
 
                 var jqueryFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "jquery-1.7.1.min.js");
                 if (!File.Exists(jqueryFullFileName))
                     File.WriteAllText(jqueryFullFileName, LazyFileLoader.JQueryFile);
+
+                var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.js");
+                if (!File.Exists(bddifyJavascriptFileName))
+                    File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
 
                 var htmlFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, config.HtmlReportConfigurationModule.OutputFileName);
                 var viewModel = new HtmlReportViewModel(config.HtmlReportConfigurationModule, config.Stories);

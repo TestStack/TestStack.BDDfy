@@ -62,6 +62,7 @@ namespace Bddify.Reporters
                 AddLine("<meta charset='utf-8'/>");
                 AddLine("<link href='bddify.css' rel='stylesheet'/>");
                 AddLine("<script type='text/javascript' src='jquery-1.7.1.min.js'></script>");
+                AddLine("<script type='text/javascript' src='bddify.js'></script>");
                 AddLine(string.Format("<title>Bddify Test Result {0}</title>", DateTime.Now.ToShortDateString()));
             }
         }
@@ -133,27 +134,7 @@ namespace Bddify.Reporters
 
         private void Footer()
         {
-            string footer = @"    <footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>
-		<script type='text/javascript'>
-		$(document).ready(function() {
-			$('.expandAll').click(function() {
-				$('.steps').css('display', '');
-			});
-			$('.collapseAll').click(function() {
-				$('.steps').css('display', 'none');
-			});
-		});
-		  function toggle(id) {
-		    var e = document.getElementById(id);
-		    if (e.style.display == 'none') {
-		      e.style.display = '';
-		    }
-		    else {
-		      e.style.display = 'none';
-		    }
-		  }
-		</script>";
-            _html.AppendLine(footer);
+            AddLine("<footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>");
         }
 
         private void AddResultListItem(string cssClass, string label, int count)

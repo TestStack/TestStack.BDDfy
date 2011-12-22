@@ -6,8 +6,9 @@ namespace Bddify.Reporters
     {
         static string _cssFile;
         static string _jqueryFile;
+        static string _myJsFile;
 
-        public static string CssFile
+        public static string BddifyCssFile
         {
             get
             {
@@ -15,6 +16,7 @@ namespace Bddify.Reporters
                 {
                     _cssFile = GetEmbeddedFileResource("Bddify.Reporters.bddify.css");
                 }
+
                 return _cssFile;
             }
         }
@@ -28,6 +30,19 @@ namespace Bddify.Reporters
                     _jqueryFile = GetEmbeddedFileResource("Bddify.Reporters.jquery-1.7.1.min.js");
                 }
                 return _jqueryFile;
+            }
+        }
+
+        public static string BddifyJsFile
+        {
+            get
+            {
+                if (_myJsFile == null)
+                {
+                    _myJsFile = GetEmbeddedFileResource("Bddify.Reporters.bddify.js");
+                }
+
+                return _myJsFile;
             }
         }
 
