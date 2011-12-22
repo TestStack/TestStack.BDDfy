@@ -9,8 +9,5 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Bddify is a simple to use and extend BDD framework for .Net developers</description>
 	  <projectUrl>https://code.google.com/p/bddify/</projectUrl>
-    <dependencies>
-      <dependency id="RazorEngine" version="2.1" />
-    </dependencies>
   </metadata>
 </package>

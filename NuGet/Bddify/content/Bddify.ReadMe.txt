@@ -7,7 +7,7 @@ bddify is the simplest BDD framework EVER! To use bddify:
 
 This adds bddify assembly and its dependencies to your test project. Oh, BTW, bddify can work with any and all testing frameworks. In fact, it works even if you are not using any testing framework.
 
-If this is the first time you are using bddify you may want to check out some of the samples on NuGet. Just search NuGet for bddify and you will see a list of bddify samples. You may install one or more samples to see how the framework works. Each sample installs required packages (including bddify, NUnit, RazorEngine and so on).
+If this is the first time you are using bddify you may want to check out some of the samples on NuGet. Just search NuGet for bddify and you will see a list of bddify samples. You may install one or more samples to see how the framework works. Each sample installs required packages (including bddify and NUnit).
 
 ==Quick start==
 Now that you have installed bddify, write your first test (this test is borrowed from ATM sample that you can install using nuget package Bddify.Samples.ATM):
