@@ -174,11 +174,11 @@ namespace Bddify.Reporters
 
         private void AddScenario(Scenario scenario)
         {
-            using (OpenTag(string.Format("<div class='scenario {0}' onclick='toggle(\"{1}\");'>", scenario.Result, scenario.Id), HtmlTag.div))
+            using (OpenTag(string.Format("<div data-toggle-target='{0}' class='canToggle scenario {1}'>", scenario.Id, scenario.Result), HtmlTag.div))
             {
                 AddLine(string.Format("<div class='scenarioTitle'>{0}</div>", scenario.ScenarioText));
 
-                using (OpenTag(string.Format("<ul class='steps' id='{0}' style='display:none'>", scenario.Id), HtmlTag.ul))
+                using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
                 {
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                     {
@@ -194,7 +194,7 @@ namespace Bddify.Reporters
                             }
                         }
 
-                        using (OpenTag(string.Format("<li class='step {0} {1} {2}' onclick='toggle(\"{3}\");'>", step.Result, stepClass, step.ExecutionOrder, step.Id), HtmlTag.li))
+                        using (OpenTag(string.Format("<li class='canToggle step {0} {1} {2}' data-toggle-target='{3}' >", step.Result, stepClass, step.ExecutionOrder, step.Id), HtmlTag.li))
                         {
                             AddLine(string.Format("<span>{0}</span>", result));
                             if (reportException)

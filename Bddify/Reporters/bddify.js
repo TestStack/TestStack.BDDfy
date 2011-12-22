@@ -1,4 +1,12 @@
 ﻿$(function () {
+    $('.canToggle').each(function () {
+        var target = $('#' + $(this).data('toggle-target'));
+        target.hide();
+        $(this).click(function () {
+            target.toggle(200);
+        });
+    });
+
     $('.expandAll').click(function () {
         $('.steps').css('display', '');
     });
@@ -6,13 +14,3 @@
         $('.steps').css('display', 'none');
     });
 });
-
-function toggle(id) {
-    var e = document.getElementById(id);
-    if (e.style.display == 'none') {
-        e.style.display = '';
-    }
-    else {
-        e.style.display = 'none';
-    }
-}
