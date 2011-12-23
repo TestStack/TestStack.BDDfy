@@ -97,16 +97,12 @@ namespace Bddify.Reporters.HtmlReporter
             {
                 AddLine("<h3 class='label'>Summary:</h3>");
 
-                using (OpenTag("<ul class='resultSummary storiesSummary'>", HtmlTag.ul))
-                {
-                    AddSummaryLine("namespace", "Namespaces", _viewModel.Results.Namespaces);
-                    AddSummaryLine("story", "Stories", _viewModel.Results.Stories);
-                }
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
                     AddSummaryLine("Passed", "Passed", _viewModel.Results.Passed);
                     AddSummaryLine("Failed", "Failed", _viewModel.Results.Failed);
                 }
+                
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
                     AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
