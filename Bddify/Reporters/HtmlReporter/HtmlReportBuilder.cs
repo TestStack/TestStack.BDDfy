@@ -48,14 +48,14 @@ namespace Bddify.Reporters.HtmlReporter
             AddLine("<!DOCTYPE html>");
             using(OpenTag(HtmlTag.html))
             {
-                Header();
-                Body();
+                HtmlHead();
+                HtmlBody();
             }
 
             return _html.ToString();
         }
 
-        private void Header()
+        private void HtmlHead()
         {
             using(OpenTag(HtmlTag.head))
             {
@@ -67,14 +67,14 @@ namespace Bddify.Reporters.HtmlReporter
             }
         }
 
-        private void Body()
+        private void HtmlBody()
         {
             using(OpenTag(HtmlTag.body))
             {
                 using(OpenTag("<div id='main'>", HtmlTag.div))
                 {
+                    Header();
                     ResultSummary();
-
                     ResultDetails();
                 }
 
@@ -82,25 +82,45 @@ namespace Bddify.Reporters.HtmlReporter
             }
         }
 
-        private void ResultSummary()
+        private void Header()
         {
             using (OpenTag(HtmlTag.header))
             {
                 AddLine(string.Format("<div id='bddifyTitle'>{0}</div>", _viewModel.Configuration.ReportHeader));
                 AddLine(string.Format("<div id='bddifyDescription'>{0}</div>", _viewModel.Configuration.ReportDescription));
             }
+        }
 
+        private void ResultSummary()
+        {
             using (OpenTag("<section class='summary'>", HtmlTag.section))
             {
+                using (OpenTag("<ul class='resultSummary storiesSummary'>", HtmlTag.ul))
+                {
+                    AddSummaryLine("namespace", "Namespaces", _viewModel.Results.Namespaces);
+                    AddSummaryLine("story", "Stories", _viewModel.Results.Stories);
+                }
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
-                    AddResultListItem("namespace", "Namespaces", _viewModel.Results.Namespaces);
-                    AddResultListItem("story", "Stories", _viewModel.Results.Stories);
-                    AddResultListItem("Passed", "Passed", _viewModel.Results.Passed);
-                    AddResultListItem("Failed", "Failed", _viewModel.Results.Failed);
-                    AddResultListItem("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
-                    AddResultListItem("NotImplemented", "Not Implemented", _viewModel.Results.NotImplemented);
-                    AddResultListItem("NotExecuted", "Not Executed", _viewModel.Results.NotExecuted);
+                    AddSummaryLine("Passed", "Passed", _viewModel.Results.Passed);
+                    AddSummaryLine("Failed", "Failed", _viewModel.Results.Failed);
+                }
+                using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
+                {
+                    AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
+                    AddSummaryLine("NotImplemented", "Not Implemented", _viewModel.Results.NotImplemented);
+                }
+            }
+        }
+
+        private void AddSummaryLine(string cssClass, string label, int count)
+        {
+            using (OpenTag(string.Format("<li class='{0}'>", cssClass), HtmlTag.li))
+            {
+                using (OpenTag("<div class='summaryLine'>", HtmlTag.div))
+                {
+                    AddLine(string.Format("<div class='summaryLabel'>{0}</div>", label));
+                    AddLine(string.Format("<span class='summaryCount'>{0}</span>", count));
                 }
             }
         }
@@ -135,18 +155,6 @@ namespace Bddify.Reporters.HtmlReporter
         private void Footer()
         {
             AddLine("<footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>");
-        }
-
-        private void AddResultListItem(string cssClass, string label, int count)
-        {
-            using (OpenTag(string.Format("<li class='{0}'>", cssClass), HtmlTag.li))
-            {
-                using (OpenTag("<div class='summary'>", HtmlTag.div))
-                {
-                    AddLine(string.Format("<div class='summaryLabel'>{0}</div>", label));
-                    AddLine(string.Format("<span class='summaryCount'>{0}</span>", count));
-                }
-            }
         }
 
         private void AddStory(IGrouping<string, Story> scenarioGroup)

@@ -119,7 +119,17 @@ footer a:hover
 			
 .summary
 {
-    margin:0 5px;
+    margin:10px 5px;
+    display:inline-block;
+}
+
+.storiesSummary
+{
+    padding:10px 0px;
+}
+
+.summaryLine
+{
     display:inline-block;
 }
 
