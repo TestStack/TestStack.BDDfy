@@ -95,6 +95,8 @@ namespace Bddify.Reporters.HtmlReporter
         {
             using (OpenTag("<section class='summary'>", HtmlTag.section))
             {
+                AddLine("<h3 class='label'>Summary:</h3>");
+
                 using (OpenTag("<ul class='resultSummary storiesSummary'>", HtmlTag.ul))
                 {
                     AddSummaryLine("namespace", "Namespaces", _viewModel.Results.Namespaces);
@@ -138,7 +140,12 @@ namespace Bddify.Reporters.HtmlReporter
         {
             using (OpenTag("<div id='testResult'>", HtmlTag.div))
             {
-                ExpandCollapse();
+                using (OpenTag("<div id='detailsHeader'>", HtmlTag.div))
+                {
+                    AddLine("<h3 id='detailsLable'>Details:</h3>");
+
+                    ExpandCollapse();
+                }
 
                 using (OpenTag("<ul class='testResult'>", HtmlTag.ul))
                 {

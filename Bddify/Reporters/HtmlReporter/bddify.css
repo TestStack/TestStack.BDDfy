@@ -125,7 +125,7 @@ footer a:hover
 
 .storiesSummary
 {
-    padding:10px 0px;
+    padding:9px 5px 5px;
 }
 
 .summaryLine
@@ -173,7 +173,7 @@ div#generatedAt
 .testResult
 {
 	color: #2B547D;
-	margin:0;
+	margin:20px 0px;
 	background-color:transparent;
 	border:none;
 }
@@ -181,6 +181,11 @@ div#generatedAt
 #testResult
 {
 	padding:5px;
+}
+
+#detailsLable
+{
+    float:left;
 }
 
 #testResult p 
@@ -193,7 +198,7 @@ div#generatedAt
 #expandCollapse
 {
     float:right;
-    margin-right:25px;
+    margin:15px;
 }
 
 .expandAll,.collapseAll
