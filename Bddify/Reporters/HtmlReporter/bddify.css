@@ -119,13 +119,8 @@ footer a:hover
 			
 .summary
 {
-    margin:10px 5px;
+    margin:10px 5px 0px;
     display:inline-block;
-}
-
-.storiesSummary
-{
-    padding:9px 5px 5px;
 }
 
 .summaryLine
@@ -157,10 +152,9 @@ h3
     width:220px;
 }
 
-.namespace div.summary,
-.story div.summary
+.story div.summaryLine
 {
-    margin-left:25px;
+    margin-left:20px;
 }
 
 div#generatedAt
