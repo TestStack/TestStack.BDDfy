@@ -32,6 +32,6 @@ namespace Bddify.Reporters.HtmlReporter
         string ReportHeader { get; }
         string ReportDescription { get; }
         string OutputPath { get; }
-        string OutputFileName { get; }
+        string OutputFileName { get; set; }
     }
 }

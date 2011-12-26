@@ -67,7 +67,10 @@ namespace Bddify.Reporters.HtmlReporter
                     dic[configType].Stories.Add(story);
                 }
 
-                return dic.Values.ToList();
+                var filteredList = new List<StoryConfig>();
+                dic.Values.ToList()
+                    .ForEach(config => filteredList.Add(ConfigWithUniqueFileName(config, filteredList)));
+                return filteredList;
             }
         }
 
@@ -105,6 +108,28 @@ namespace Bddify.Reporters.HtmlReporter
 
                 File.WriteAllText(htmlFullFileName, report);
             }
+        }
+
+        private static bool OutputFileWouldBeOverwritten(StoryConfig config, List<StoryConfig> filteredList)
+        {
+            return filteredList
+                .SingleOrDefault(x => 
+                    (x.HtmlReportConfigurationModule.OutputPath == config.HtmlReportConfigurationModule.OutputPath) && 
+                    (x.HtmlReportConfigurationModule.OutputFileName == config.HtmlReportConfigurationModule.OutputFileName)) != null;
+        }
+
+        private static StoryConfig ConfigWithUniqueFileName(StoryConfig config, List<StoryConfig> filteredList)
+        {
+            if (OutputFileWouldBeOverwritten(config, filteredList))
+            {
+                config.HtmlReportConfigurationModule.OutputFileName = string.Format("{0}.html", config.GetType());
+                if (OutputFileWouldBeOverwritten(config, filteredList))
+                {
+                    string[] split = config.HtmlReportConfigurationModule.OutputFileName.Split('.');
+                    config.HtmlReportConfigurationModule.OutputFileName = string.Format("{0}{1}.{2}", split[0], Guid.NewGuid().ToString(), split[1]);
+                }
+            }
+            return config;
         }
     }
 }

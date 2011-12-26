@@ -47,9 +47,11 @@ namespace Bddify.Reporters.HtmlReporter
             get { return AssemblyDirectory; }
         }
 
+        private string _outputFileName = "bddify.html";
         public virtual string OutputFileName
         {
-            get { return "bddify.html"; }
+            get { return _outputFileName; }
+            set { _outputFileName = value; }
         }
 
         // http://stackoverflow.com/questions/52797/c-how-do-i-get-the-path-of-the-assembly-the-code-is-in#answer-283917
