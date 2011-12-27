@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bddify</id>
-    <version>0.9.1</version>
+    <version>1.0</version>
     <title>A simple to use and extend BDD framework for .Net programmers</title>
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>

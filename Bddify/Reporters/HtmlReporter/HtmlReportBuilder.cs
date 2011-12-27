@@ -99,14 +99,10 @@ namespace Bddify.Reporters.HtmlReporter
 
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
+                    AddSummaryLine("story", "Stories", _viewModel.Results.Stories);
                     AddSummaryLine("Passed", "Passed", _viewModel.Results.Passed);
-                    AddSummaryLine("Failed", "Failed", _viewModel.Results.Failed);
-                }
-                
-                using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
-                {
                     AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
-                    AddSummaryLine("NotImplemented", "Not Implemented", _viewModel.Results.NotImplemented);
+                    AddSummaryLine("Failed", "Failed", _viewModel.Results.Failed);
                 }
             }
         }
