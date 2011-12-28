@@ -112,10 +112,9 @@ namespace Bddify.Reporters.HtmlReporter
 
         private static bool OutputFileWouldBeOverwritten(StoryConfig config, List<StoryConfig> filteredList)
         {
-            return filteredList
-                .SingleOrDefault(x => 
+            return filteredList.Any(x => 
                     (x.HtmlReportConfigurationModule.OutputPath == config.HtmlReportConfigurationModule.OutputPath) && 
-                    (x.HtmlReportConfigurationModule.OutputFileName == config.HtmlReportConfigurationModule.OutputFileName)) != null;
+                    (x.HtmlReportConfigurationModule.OutputFileName == config.HtmlReportConfigurationModule.OutputFileName));
         }
 
         private static StoryConfig ConfigWithUniqueFileName(StoryConfig config, List<StoryConfig> filteredList)
