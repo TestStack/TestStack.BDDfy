@@ -224,7 +224,7 @@ namespace Bddify.Reporters.HtmlReporter
                 if (story.MetaData == null)
                 {
                     var @namespace = story.Scenarios.First().TestObject.GetType().Namespace;
-                    AddLine(string.Format("div class='namespaceName'>{0}</div>", @namespace));
+                    AddLine(string.Format("<div class='namespaceName'>{0}</div>", @namespace));
                 }
                 else
                 {
