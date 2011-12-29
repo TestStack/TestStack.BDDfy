@@ -91,7 +91,7 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasInsufficientFund()
         {
-            new AccountHasInsufficientFund().Bddify<AccountHolderWithdrawsCash>(storyCategory:"ATM");
+            new AccountHasInsufficientFund().Bddify<AccountHolderWithdrawsCash>();
         }
 
         [Test]
@@ -104,7 +104,7 @@ namespace Bddify.Samples.Atm
                 .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
                     .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
                     .And(s => s.ThenCardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
-                .Bddify(storyCategory: "ATM");
+                .Bddify();
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace Bddify.Samples.Atm
                 .When(s => s.WhenTheAccountHolderRequests(20))
                 .Then(s => s.ThenCardIsRetained(true), false) // in here I am telling the fluent API that I do not want it to include the input arguments in the step title
                     .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
-                .Bddify(storyCategory: "ATM");
+                .Bddify();
         }
     }
 }

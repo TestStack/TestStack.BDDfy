@@ -80,7 +80,7 @@ namespace Bddify
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="storyCategory">Used for filename in Html reports. Has no effect on console reports.</param>
         /// <returns></returns>
-        public static Story Bddify(this object testObject, string scenarioTitle = null, string storyCategory = null)
+        public static Story Bddify(this object testObject, string scenarioTitle, string storyCategory)
         {
             return testObject.LazyBddify(scenarioTitle, storyCategory).Run();
         }
@@ -123,7 +123,7 @@ namespace Bddify
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="storyCategory">Used for filename in Html reports. Has no effect on console reports.</param>
         /// <returns></returns>
-        public static Story Bddify<TStory>(this object testObject, string scenarioTitle = null, string storyCategory = null)
+        public static Story Bddify<TStory>(this object testObject, string scenarioTitle, string storyCategory)
             where TStory : class
         {
             return testObject.LazyBddify<TStory>(scenarioTitle, storyCategory).Run();
