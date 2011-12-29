@@ -8,7 +8,7 @@
     <owners>Mehdi Khalili</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Bddify.Samples.Atm package is a small sample that implements Dan North's BDD example using bddify.</description>
-    <projectUrl>https://code.google.com/p/bddify/</projectUrl>
+    <projectUrl>http://hg.mehdi-khalili.com/bddify/wiki/Home</projectUrl>
     <dependencies>
       <dependency id="Bddify" version="1.0" />
       <dependency id="nunit" version="2.5" />
