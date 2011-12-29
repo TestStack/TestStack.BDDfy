@@ -25,13 +25,14 @@
 
 using System;
 using Bddify.Core;
+using Bddify.Module;
 using Bddify.Processors;
 using Bddify.Reporters;
 using Bddify.Scanners;
 using System.Collections.Generic;
+using Bddify.Scanners.Modules;
 using Bddify.Scanners.ScenarioScanners;
-using Bddify.Scanners.StepScanners.ExecutableAttribute;
-using Bddify.Scanners.StepScanners.MethodName;
+using System.Linq;
 
 namespace Bddify
 {
@@ -46,10 +47,10 @@ namespace Bddify
 
         private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle, object testObject)
         {
-            return new ReflectiveScenarioScanner(
-                scenarioTitle,
-                new ExecutableAttributeStepScanner(),
-                new DefaultMethodNameStepScanner(testObject));
+            var stepScannersModule = ModuleFactory.Get<IStepScannersModule>(null);
+            var stepScanners = stepScannersModule.CreateScanners(testObject).ToArray();
+
+            return new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
         }
 
         /// <summary>
