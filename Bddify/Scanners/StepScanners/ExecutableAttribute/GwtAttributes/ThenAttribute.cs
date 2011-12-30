@@ -27,7 +27,9 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
 {
     public class ThenAttribute : ExecutableAttribute
     {
-        public ThenAttribute() : base(Core.ExecutionOrder.Assertion)
+        public ThenAttribute() : this(null) { }
+
+        public ThenAttribute(string stepTitle) : base(Core.ExecutionOrder.Assertion, stepTitle)
         {
             Asserts = true;
         }

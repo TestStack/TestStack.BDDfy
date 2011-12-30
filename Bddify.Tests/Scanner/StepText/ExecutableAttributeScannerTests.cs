@@ -43,6 +43,15 @@ namespace Bddify.Tests.Scanner.StepText
             [RunStepWithArgs(1, 2, 3)]
             [RunStepWithArgs(4, 5, 6, StepTextTemplate = "The template provided on RunStepWithArgs overrides all the others {0}, {1}, {2}")]
             public void RunningStepWithArgsUsingExecAttributeTemplateAndRunStepWithArgsTemplate(int input1, int input2, int input3){}
+
+            [When("Running step with arg {0}, {1} and {2} using exec attribute(string stepTitle)")]
+            [RunStepWithArgs(1, 2, 3)]
+            public void RunningStepWithArgsUsingExecAttributeConstructorTemplate(int input1, int input2, int input3) { }
+
+            [When("Running step with arg {0}, {1} and {2} when template is provided by exec attribute(string stepTitle) and RunStepWithArgs attribute")]
+            [RunStepWithArgs(1, 2, 3)]
+            [RunStepWithArgs(4, 5, 6, StepTextTemplate = "The template provided on RunStepWithArgs overrides all the others {0}, {1}, {2} attribute(string stepTitle)")]
+            public void RunningStepWithArgsUsingExecAttributeConstructorTemplateAndRunStepWithArgsTemplate(int input1, int input2, int input3) { }
         }
 
         static void VerifyMethod(string expectedStepTitle, bool exists = true)
@@ -114,6 +123,20 @@ namespace Bddify.Tests.Scanner.StepText
             VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute and RunStepWithArgs attribute");
             VerifyMethod("Running step with args using exec attribute template and run step with args template 1, 2, 3", false);
             VerifyMethod("The template provided on RunStepWithArgs overrides all the others 4, 5, 6");
+        }
+
+        [Test]
+        public void TheMethodWithArgumentWithTextProvidedOnTheExecutableAttributeConstructorUsesExecutableAttributeTemplate()
+        {
+            VerifyMethod("Running step with arg 1, 2 and 3 using exec attribute(string stepTitle)");
+        }
+
+        [Test]
+        public void RunStepWithArgsTemplateOverrideAllOtherTemplatesThatUseTheConstructor()
+        {
+            VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute(string stepTitle) and RunStepWithArgs attribute");
+            VerifyMethod("Running step with args using exec attribute template and run step with args template 1, 2, 3", false);
+            VerifyMethod("The template provided on RunStepWithArgs overrides all the others 4, 5, 6 attribute(string stepTitle)");
         }
     }
 }

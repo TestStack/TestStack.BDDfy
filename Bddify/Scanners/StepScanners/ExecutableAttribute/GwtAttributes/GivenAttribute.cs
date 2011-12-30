@@ -27,6 +27,7 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
 {
     public class GivenAttribute : ExecutableAttribute
     {
-        public GivenAttribute() : base(Core.ExecutionOrder.SetupState) { }
+        public GivenAttribute() : this(null) { }
+        public GivenAttribute(string stepTitle) : base(Core.ExecutionOrder.SetupState, stepTitle) { }
     }
 }

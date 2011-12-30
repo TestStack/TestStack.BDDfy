@@ -31,9 +31,10 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ExecutableAttribute : Attribute
     {
-        public ExecutableAttribute(ExecutionOrder order)
+        public ExecutableAttribute(ExecutionOrder order, string stepTitle)
         {
             ExecutionOrder = order;
+            StepTitle = stepTitle;
         }
 
         public ExecutionOrder ExecutionOrder { get; private set; }
