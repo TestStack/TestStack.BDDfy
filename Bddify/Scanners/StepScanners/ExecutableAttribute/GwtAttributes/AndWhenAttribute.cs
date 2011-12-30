@@ -27,6 +27,7 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
 {
     public class AndWhenAttribute : ExecutableAttribute
     {
-        public AndWhenAttribute() : base(Core.ExecutionOrder.ConsecutiveTransition) { }
+        public AndWhenAttribute() : this(null) { }
+        public AndWhenAttribute(string stepTitle) : base(Core.ExecutionOrder.ConsecutiveTransition, stepTitle) { }
     }
 }
