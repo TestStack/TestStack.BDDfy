@@ -52,7 +52,72 @@ namespace Bddify.Reporters.HtmlReporter
             GenerateHtmlReport();
         }
 
-        static IEnumerable<StoryConfig> StoriesByConfig
+        private static void GenerateHtmlReport()
+        {
+            StoriesByConfig.ForEach(config =>
+            {
+                WriteOutScriptFilesFor(config);
+                WriteOutHtmlReportFor(config);
+            });
+        }
+
+        static void WriteOutHtmlReportFor(StoryConfig config)
+        {
+            const string error = "There was an error compiling the html report: ";
+            var htmlFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, config.HtmlReportConfigurationModule.OutputFileName);
+            var viewModel = new HtmlReportViewModel(config.HtmlReportConfigurationModule, config.Stories);
+            string report;
+
+            try
+            {
+                report = new HtmlReportBuilder(viewModel).BuildReportHtml();
+            }
+            catch (Exception ex)
+            {
+                report = error + ex.Message;
+            }
+
+            File.WriteAllText(htmlFullFileName, report);
+        }
+
+        static void WriteOutScriptFilesFor(StoryConfig config)
+        {
+            // create the files only if it does not already exists. This allows devs to overwrite the css file in their test project
+            var bddifyCssFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify-" + LazyFileLoader.AssemblyVersionNumber + ".css");
+            if (!File.Exists(bddifyCssFileName))
+                File.WriteAllText(bddifyCssFileName, LazyFileLoader.BddifyCssFile);
+
+            var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify-" + LazyFileLoader.AssemblyVersionNumber + ".js");
+            if (!File.Exists(bddifyJavascriptFileName))
+                File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
+            
+            var jqueryFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "jquery-1.7.1.min.js");
+            if (!File.Exists(jqueryFileName))
+                File.WriteAllText(jqueryFileName, LazyFileLoader.JQueryFile);
+        }
+
+        private static bool OutputFileWouldBeOverwritten(StoryConfig config, List<StoryConfig> filteredList)
+        {
+            return filteredList.Any(x =>
+                    (x.HtmlReportConfigurationModule.OutputPath == config.HtmlReportConfigurationModule.OutputPath) &&
+                    (x.HtmlReportConfigurationModule.OutputFileName == config.HtmlReportConfigurationModule.OutputFileName));
+        }
+
+        private static StoryConfig ConfigWithUniqueFileName(StoryConfig config, List<StoryConfig> filteredList)
+        {
+            if (OutputFileWouldBeOverwritten(config, filteredList))
+            {
+                config.HtmlReportConfigurationModule.OutputFileName = string.Format("{0}.html", config.GetType());
+                if (OutputFileWouldBeOverwritten(config, filteredList))
+                {
+                    string[] split = config.HtmlReportConfigurationModule.OutputFileName.Split('.');
+                    config.HtmlReportConfigurationModule.OutputFileName = string.Format("{0}{1}.{2}", split[0], Guid.NewGuid().ToString(), split[1]);
+                }
+            }
+            return config;
+        }
+
+        static List<StoryConfig> StoriesByConfig
         {
             get
             {
@@ -74,62 +139,7 @@ namespace Bddify.Reporters.HtmlReporter
             }
         }
 
-        private static void GenerateHtmlReport()
-        {
-            const string error = "There was an error compiling the html report: ";
-            
-            foreach (var config in StoriesByConfig)
-            {
-                var cssFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.css");
-                // create the css file only if it does not already exists. This allows devs to overwrite the css file in their test project
-                if (!File.Exists(cssFullFileName))
-                    File.WriteAllText(cssFullFileName, LazyFileLoader.BddifyCssFile);
 
-                var jqueryFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "jquery-1.7.1.min.js");
-                if (!File.Exists(jqueryFullFileName))
-                    File.WriteAllText(jqueryFullFileName, LazyFileLoader.JQueryFile);
-
-                var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.js");
-                if (!File.Exists(bddifyJavascriptFileName))
-                    File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
-
-                var htmlFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, config.HtmlReportConfigurationModule.OutputFileName);
-                var viewModel = new HtmlReportViewModel(config.HtmlReportConfigurationModule, config.Stories);
-                string report;
-
-                try
-                {
-                    report = new HtmlReportBuilder(viewModel).BuildReportHtml();
-                }
-                catch (Exception ex)
-                {
-                    report = error + ex.Message;
-                }
-
-                File.WriteAllText(htmlFullFileName, report);
-            }
-        }
-
-        private static bool OutputFileWouldBeOverwritten(StoryConfig config, List<StoryConfig> filteredList)
-        {
-            return filteredList.Any(x => 
-                    (x.HtmlReportConfigurationModule.OutputPath == config.HtmlReportConfigurationModule.OutputPath) && 
-                    (x.HtmlReportConfigurationModule.OutputFileName == config.HtmlReportConfigurationModule.OutputFileName));
-        }
-
-        private static StoryConfig ConfigWithUniqueFileName(StoryConfig config, List<StoryConfig> filteredList)
-        {
-            if (OutputFileWouldBeOverwritten(config, filteredList))
-            {
-                config.HtmlReportConfigurationModule.OutputFileName = string.Format("{0}.html", config.GetType());
-                if (OutputFileWouldBeOverwritten(config, filteredList))
-                {
-                    string[] split = config.HtmlReportConfigurationModule.OutputFileName.Split('.');
-                    config.HtmlReportConfigurationModule.OutputFileName = string.Format("{0}{1}.{2}", split[0], Guid.NewGuid().ToString(), split[1]);
-                }
-            }
-            return config;
-        }
     }
 }
 #endif
