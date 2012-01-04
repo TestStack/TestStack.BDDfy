@@ -33,21 +33,7 @@ namespace Bddify.Reporters.HtmlReporter
         static string _cssFile;
         static string _jqueryFile;
         static string _myJsFile;
-        static string _assemblyVersionNumber;
-
-        public static string AssemblyVersionNumber
-        {
-            get
-            {
-                if (_assemblyVersionNumber == null)
-                {
-                    var strings = Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
-                    return string.Format("{0}.{1}", strings[0], strings[1]);
-                }
-
-                return _assemblyVersionNumber;
-            }
-        }
+        static string _bddifyVersionedFileName;
 
         public static string BddifyCssFile
         {
@@ -99,5 +85,18 @@ namespace Bddify.Reporters.HtmlReporter
             return fileContent;
         }
 
+        public static string BddifyVersionedFileName
+        {
+            get
+            {
+                if (_bddifyVersionedFileName == null)
+                {
+                    var strings = Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
+                    _bddifyVersionedFileName = string.Format("Bddify-{0}.{1}", strings[0], strings[1]);
+                }
+
+                return _bddifyVersionedFileName;
+            }
+        }
     }
 }

@@ -83,11 +83,11 @@ namespace Bddify.Reporters.HtmlReporter
         static void WriteOutScriptFilesFor(StoryConfig config)
         {
             // create the files only if it does not already exists. This allows devs to overwrite the css file in their test project
-            var bddifyCssFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify-" + LazyFileLoader.AssemblyVersionNumber + ".css");
+            var bddifyCssFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, LazyFileLoader.BddifyVersionedFileName + ".css");
             if (!File.Exists(bddifyCssFileName))
                 File.WriteAllText(bddifyCssFileName, LazyFileLoader.BddifyCssFile);
 
-            var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify-" + LazyFileLoader.AssemblyVersionNumber + ".js");
+            var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, LazyFileLoader.BddifyVersionedFileName + ".js");
             if (!File.Exists(bddifyJavascriptFileName))
                 File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
             
