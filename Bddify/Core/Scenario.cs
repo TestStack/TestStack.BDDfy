@@ -37,10 +37,10 @@ namespace Bddify.Core
             _steps = steps.OrderBy(o => o.ExecutionOrder).ToList();
             Id = Guid.NewGuid();
 
-            ScenarioText = scenarioText;
+            Title = scenarioText;
         }
 
-        public string ScenarioText { get; private set; }
+        public string Title { get; private set; }
         public TimeSpan Duration { get; set; }
         public object TestObject { get; private set; }
         public Guid Id { get; private set; }

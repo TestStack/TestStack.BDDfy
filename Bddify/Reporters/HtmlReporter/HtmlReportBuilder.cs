@@ -99,10 +99,10 @@ namespace Bddify.Reporters.HtmlReporter
 
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
-                    AddSummaryLine("story", "Stories", _viewModel.Results.Stories);
-                    AddSummaryLine("Passed", "Passed", _viewModel.Results.Passed);
-                    AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Results.Inconclusive);
-                    AddSummaryLine("Failed", "Failed", _viewModel.Results.Failed);
+                    AddSummaryLine("story", "Stories", _viewModel.Summary.Stories);
+                    AddSummaryLine("Passed", "Passed", _viewModel.Summary.Passed);
+                    AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Summary.Inconclusive);
+                    AddSummaryLine("Failed", "Failed", _viewModel.Summary.Failed);
                 }
             }
         }
@@ -141,9 +141,9 @@ namespace Bddify.Reporters.HtmlReporter
 
                 using (OpenTag("<ul class='testResult'>", HtmlTag.ul))
                 {
-                    foreach (var scenarioGroup in _viewModel.GroupedScenarios)
+                    foreach (var story in _viewModel.Stories)
                     {
-                        AddStory(scenarioGroup);
+                        AddStory(story);
                     }
                 }
 
@@ -156,10 +156,9 @@ namespace Bddify.Reporters.HtmlReporter
             AddLine("<footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>");
         }
 
-        private void AddStory(IGrouping<string, Story> scenarioGroup)
+        private void AddStory(Story story)
         {
-            var story = scenarioGroup.First();
-            var scenariosInGroup = scenarioGroup.SelectMany(s => s.Scenarios);
+            var scenariosInGroup = story.Scenarios;
             var storyResult = (StepExecutionResult)scenariosInGroup.Max(s => (int)s.Result);
 
             using (OpenTag(HtmlTag.li))
@@ -183,7 +182,7 @@ namespace Bddify.Reporters.HtmlReporter
         {
             using (OpenTag(string.Format("<div data-toggle-target='{0}' class='canToggle scenario {1}'>", scenario.Id, scenario.Result), HtmlTag.div))
             {
-                AddLine(string.Format("<div class='scenarioTitle'>{0}</div>", scenario.ScenarioText));
+                AddLine(string.Format("<div class='scenarioTitle'>{0}</div>", scenario.Title));
 
                 using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
                 {

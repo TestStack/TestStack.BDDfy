@@ -33,7 +33,7 @@ namespace Bddify.Core
         public Story(StoryMetaData metaData, params Scenario[] scenarios)
         {
             MetaData = metaData;
-            Scenarios = scenarios.OrderBy(s => s.ScenarioText).ToList();
+            Scenarios = scenarios.OrderBy(s => s.Title).ToList();
         }
 
         public StoryMetaData MetaData { get; private set; }

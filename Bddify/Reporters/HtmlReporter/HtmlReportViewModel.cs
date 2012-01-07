@@ -34,98 +34,38 @@ namespace Bddify.Reporters.HtmlReporter
         public HtmlReportViewModel(IHtmlReportConfigurationModule configuration, IEnumerable<Story> stories)
         {
             Configuration = configuration;
-            Stories = stories;
-            Results = new ResultSummary(stories);
+            _stories = stories;
+            Summary = new ResultSummary(stories);
         }
 
         public IHtmlReportConfigurationModule Configuration { get; private set; }
-        public IEnumerable<Story> Stories { get; private set; }
-        public ResultSummary Results { get; private set; }
+        readonly IEnumerable<Story> _stories;
+        public ResultSummary Summary { get; private set; }
 
-        public string AssemblyName
+        public IEnumerable<Story> Stories
         {
             get
             {
-                string assemblyName = string.Empty;
-                if (Stories.Count() > 0)
-                {
-                    var scenario = Stories.SelectMany(s => s.Scenarios).FirstOrDefault();
-                    if (scenario != null)
-                    {
-                        assemblyName = scenario.TestObject.GetType().Assembly.GetName().Name;
-                    }
-                }
-                return assemblyName;
-            }
-        }
-
-        public IEnumerable<IGrouping<string, Story>> GroupedScenarios
-        {
-            get
-            {
-
-                var groupedByNamespace = from story in Stories
+                var groupedByNamespace = from story in _stories
                                          where story.MetaData == null
-                                         group story by story.Scenarios.First().TestObject.GetType().Namespace into g
+                                         let ns = story.Scenarios.First().TestObject.GetType().Namespace
+                                         orderby ns
+                                         group story by ns into g
                                          select g;
-                var groupedByStories = from story in Stories
+
+                var groupedByStories = from story in _stories
                                        where story.MetaData != null
+                                       orderby story.MetaData.Title   // order stories by their title
                                        group story by story.MetaData.Type.Name into g
                                        select g;
-                return groupedByStories.Union(groupedByNamespace);
+
+                var aggregatedStories = from story in groupedByStories.Union(groupedByNamespace)
+                                        select new Story(
+                                            story.First().MetaData, // first story in the group is a representative for the entire group
+                                            story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()); // order scenarios by title
+
+                return aggregatedStories;
             }
-        }
-    }
-
-
-    public class ResultSummary
-    {
-        readonly IEnumerable<Story> _stories;
-        readonly IEnumerable<Scenario> _scenarios;
-
-        public ResultSummary(IEnumerable<Story> stories)
-        {
-            _stories = stories;
-            _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
-        }
-
-        public int Namespaces
-        {
-            get
-            {
-                return _stories.Where(b => b.MetaData == null)
-                .SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count();
-            }
-        }
-
-        public int Stories
-        {
-            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
-        }
-
-        public int Passed
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Passed); }
-        }
-
-        public int Failed
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Failed); }
-        }
-
-        public int Inconclusive
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
-        }
-
-        public int NotImplemented
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
-        }
-
-        public int NotExecuted
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotExecuted); }
         }
     }
 }

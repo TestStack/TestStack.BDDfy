@@ -275,7 +275,7 @@ namespace Bddify.Tests.FluentScanner
                     .Bddify();
 
             var scenario = story.Scenarios.First();
-            Assert.That(scenario.ScenarioText, Is.EqualTo(NetToString.Convert(MethodBase.GetCurrentMethod().Name)));
+            Assert.That(scenario.Title, Is.EqualTo(NetToString.Convert(MethodBase.GetCurrentMethod().Name)));
         }
 
         [Test]
@@ -288,7 +288,7 @@ namespace Bddify.Tests.FluentScanner
                     .Bddify(dummyTitle);
 
             var scenario = story.Scenarios.First();
-            Assert.That(scenario.ScenarioText, Is.EqualTo(dummyTitle));
+            Assert.That(scenario.Title, Is.EqualTo(dummyTitle));
         }
 
         private static void ExceptionThrowingAction()

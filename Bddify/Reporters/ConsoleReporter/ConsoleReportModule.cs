@@ -162,7 +162,7 @@ namespace Bddify.Reporters
             Console.ForegroundColor = ConsoleColor.White;
 #endif
             Console.WriteLine();
-            Console.WriteLine("Scenario: " + scenario.ScenarioText);
+            Console.WriteLine("Scenario: " + scenario.Title);
         }
     }
 }

@@ -82,6 +82,7 @@
     <Compile Include="Processors\Disposer.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportMainModule.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportViewModel.cs" />
+    <Compile Include="Reporters\HtmlReporter\ResultSummary.cs" />
     <Compile Include="Reporters\IReportModule.cs" />
     <Compile Include="Reporters\StoryConfig.cs" />
     <Compile Include="Reporters\StoryReporter.cs" />
