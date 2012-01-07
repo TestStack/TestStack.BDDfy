@@ -98,6 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Core\RunStepWithArgsAttribute.cs" />
+    <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
     <Compile Include="Scanners\Modules\IStepScannersModule.cs" />
     <Compile Include="Scanners\Modules\DefaultStepScannersModule.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
     <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
+    <Compile Include="Scanners\StoryAttributeMetaDataScanner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bddify.snk" />

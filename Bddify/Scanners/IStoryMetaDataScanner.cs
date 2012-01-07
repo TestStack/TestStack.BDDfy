@@ -25,29 +25,11 @@
 
 using System;
 using Bddify.Core;
-using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners
 {
-    public class DefaultScanner : IScanner
+    public interface IStoryMetaDataScanner
     {
-        private readonly Type _explicitStoryType;
-        private readonly IScenarioScanner _scenarioScanner;
-        private readonly object _testObject;
-
-        public DefaultScanner(object testObject, IScenarioScanner scenarioScanner, Type explicitStoryType = null)
-        {
-            _explicitStoryType = explicitStoryType;
-            _scenarioScanner = scenarioScanner;
-            _testObject = testObject;
-        }
-
-        public Story Scan()
-        {
-            var scenario = _scenarioScanner.Scan(_testObject);
-            var metaData = new StoryAttributeMetaDataScanner().Scan(_testObject, _explicitStoryType);
-
-            return new Story(metaData, scenario);
-        }
+        StoryMetaData Scan(object testObject, Type explicityStoryType = null);
     }
 }
