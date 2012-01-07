@@ -99,8 +99,10 @@
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Core\RunStepWithArgsAttribute.cs" />
     <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
+    <Compile Include="Scanners\Modules\DefaultStoryMetaDataScannerModule.cs" />
     <Compile Include="Scanners\Modules\IStepScannersModule.cs" />
     <Compile Include="Scanners\Modules\DefaultStepScannersModule.cs" />
+    <Compile Include="Scanners\Modules\IStoryMetaDataScannerModule.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttribute.cs" />

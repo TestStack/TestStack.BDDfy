@@ -25,6 +25,8 @@
 
 using System;
 using Bddify.Core;
+using Bddify.Module;
+using Bddify.Scanners.Modules;
 using Bddify.Scanners.ScenarioScanners;
 
 namespace Bddify.Scanners
@@ -45,7 +47,8 @@ namespace Bddify.Scanners
         public Story Scan()
         {
             var scenario = _scenarioScanner.Scan(_testObject);
-            var metaData = new StoryAttributeMetaDataScanner().Scan(_testObject, _explicitStoryType);
+            var metaDataScanner = ModuleFactory.Get<IStoryMetaDataScannerModule>(null).GetMetaDataScanner(_testObject);
+            var metaData = metaDataScanner.Scan(_testObject, _explicitStoryType);
 
             return new Story(metaData, scenario);
         }
