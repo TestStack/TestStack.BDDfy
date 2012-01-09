@@ -61,8 +61,14 @@ namespace Bddify.Reporters.HtmlReporter
             {
                 AddLine("<meta charset='utf-8'/>");
                 AddLine(string.Format("<link href='bddify.css' rel='stylesheet'/>"));
+                if(_viewModel.UseCustomStylesheet)
+                    AddLine(string.Format("<link href='bddifyCustom.css' rel='stylesheet'/>"));
+
                 AddLine("<script type='text/javascript' src='jquery-1.7.1.min.js'></script>");
                 AddLine(string.Format("<script type='text/javascript' src='bddify.js'></script>"));
+                if (_viewModel.UseCustomJavascript)
+                    AddLine(string.Format("<link href='bddifyCustom.js' rel='stylesheet'/>"));
+
                 AddLine(string.Format("<title>Bddify Test Result {0}</title>", DateTime.Now.ToShortDateString()));
             }
         }

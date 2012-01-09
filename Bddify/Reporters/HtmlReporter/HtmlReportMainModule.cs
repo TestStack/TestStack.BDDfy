@@ -66,6 +66,7 @@ namespace Bddify.Reporters.HtmlReporter
             const string error = "There was an error compiling the html report: ";
             var htmlFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, config.HtmlReportConfigurationModule.OutputFileName);
             var viewModel = new HtmlReportViewModel(config.HtmlReportConfigurationModule, config.Stories);
+            ShouldTheReportUseCustomization(config, viewModel);
             string report;
 
             try
@@ -78,6 +79,15 @@ namespace Bddify.Reporters.HtmlReporter
             }
 
             File.WriteAllText(htmlFullFileName, report);
+        }
+
+        private static void ShouldTheReportUseCustomization(StoryConfig config, HtmlReportViewModel viewModel)
+        {
+            var customStylesheet = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddifyCustom.css");
+            viewModel.UseCustomStylesheet = File.Exists(customStylesheet);
+
+            var customJavascript = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddifyCustom.js");
+            viewModel.UseCustomJavascript = File.Exists(customJavascript);
         }
 
         static void WriteOutScriptFilesFor(StoryConfig config)

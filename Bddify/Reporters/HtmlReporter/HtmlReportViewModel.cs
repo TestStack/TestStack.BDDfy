@@ -38,6 +38,9 @@ namespace Bddify.Reporters.HtmlReporter
             Summary = new ResultSummary(stories);
         }
 
+        public bool UseCustomStylesheet { get; set; }
+        public bool UseCustomJavascript { get; set; }
+
         public IHtmlReportConfigurationModule Configuration { get; private set; }
         readonly IEnumerable<Story> _stories;
         public ResultSummary Summary { get; private set; }
