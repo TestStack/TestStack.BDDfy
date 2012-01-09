@@ -82,18 +82,14 @@ namespace Bddify.Reporters.HtmlReporter
 
         static void WriteOutScriptFilesFor(StoryConfig config)
         {
-            // create the files only if it does not already exists. This allows devs to overwrite the css file in their test project
-            var bddifyCssFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, LazyFileLoader.BddifyVersionedFileName + ".css");
-            if (!File.Exists(bddifyCssFileName))
-                File.WriteAllText(bddifyCssFileName, LazyFileLoader.BddifyCssFile);
+                var cssFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.css");
+                File.WriteAllText(cssFullFileName, LazyFileLoader.BddifyCssFile);
 
-            var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, LazyFileLoader.BddifyVersionedFileName + ".js");
-            if (!File.Exists(bddifyJavascriptFileName))
-                File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
-            
-            var jqueryFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "jquery-1.7.1.min.js");
-            if (!File.Exists(jqueryFileName))
-                File.WriteAllText(jqueryFileName, LazyFileLoader.JQueryFile);
+                var jqueryFullFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "jquery-1.7.1.min.js");
+                File.WriteAllText(jqueryFullFileName, LazyFileLoader.JQueryFile);
+
+                var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfigurationModule.OutputPath, "bddify.js");
+                File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);        
         }
 
         private static bool OutputFileWouldBeOverwritten(StoryConfig config, List<StoryConfig> filteredList)

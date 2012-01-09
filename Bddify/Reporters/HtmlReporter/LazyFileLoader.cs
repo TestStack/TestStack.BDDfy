@@ -24,27 +24,16 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.IO;
-using System.Reflection;
 
 namespace Bddify.Reporters.HtmlReporter
 {
     public static class LazyFileLoader
     {
-        static string _cssFile;
-        static string _jqueryFile;
-        static string _myJsFile;
-        static string _bddifyVersionedFileName;
-
         public static string BddifyCssFile
         {
             get
             {
-                if (_cssFile == null)
-                {
-                    _cssFile = GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.css");
-                }
-
-                return _cssFile;
+                return GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.css");
             }
         }
 
@@ -52,11 +41,7 @@ namespace Bddify.Reporters.HtmlReporter
         {
             get
             {
-                if (_jqueryFile == null)
-                {
-                    _jqueryFile = GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.jquery-1.7.1.min.js");
-                }
-                return _jqueryFile;
+                return GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.jquery-1.7.1.min.js");
             }
         }
 
@@ -64,12 +49,7 @@ namespace Bddify.Reporters.HtmlReporter
         {
             get
             {
-                if (_myJsFile == null)
-                {
-                    _myJsFile = GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.js");
-                }
-
-                return _myJsFile;
+                return GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.js");
             }
         }
 
@@ -83,20 +63,6 @@ namespace Bddify.Reporters.HtmlReporter
             }
 
             return fileContent;
-        }
-
-        public static string BddifyVersionedFileName
-        {
-            get
-            {
-                if (_bddifyVersionedFileName == null)
-                {
-                    var strings = Assembly.GetExecutingAssembly().GetName().Version.ToString().Split('.');
-                    _bddifyVersionedFileName = string.Format("Bddify-{0}.{1}", strings[0], strings[1]);
-                }
-
-                return _bddifyVersionedFileName;
-            }
         }
     }
 }
