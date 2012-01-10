@@ -43,6 +43,16 @@ namespace Bddify.Core
             SoThat = storyAttribute.SoThat;
         }
 
+        public StoryMetaData(Type storyType, string asA, string iWant, string soThat, string storyTitle = null)
+        {
+            Title = storyTitle ?? NetToString.Convert(storyType.Name);
+            Type = storyType;
+
+            AsA = asA;
+            IWant = iWant;
+            SoThat = soThat;
+        }
+
         public Type Type { get; private set; }
         public string Title { get; private set; }
         public string AsA { get; private set; }

@@ -58,7 +58,7 @@ li
 	height:100%;
 }
 			
-header, footer
+.header, .footer
 {
     background: #679bdb; /* Old browsers */
     background: -moz-linear-gradient(top, #679bdb 1%, #3b77a5 100%); /* FF3.6+ */
@@ -70,7 +70,7 @@ header, footer
     background: linear-gradient(top, #679bdb 1%,#3b77a5 100%); /* W3C */
 }
 
-header
+.header
 {
 	vertical-align:middle;
 	padding:10px;
@@ -78,7 +78,7 @@ header
     height: 57px;
 }
 			
-footer
+.footer
 {
 	color:#fff;
     height:40px;
@@ -90,12 +90,12 @@ footer
 	width:100%;
 }
 			
-footer a
+.footer a
 {
 	color:#fff;
 }
 			
-footer a:hover
+.footer a:hover
 {
 	color:#3865C6;
 }
@@ -322,8 +322,11 @@ div.scenario:nth-child(2n)
 .scenarioTitle
 {
 	color: #000;
-	position:relative;
-	width:95%;
+}
+	
+.scenarioTitle:before
+{
+	margin-right:5px;
 }
 
 .assembly

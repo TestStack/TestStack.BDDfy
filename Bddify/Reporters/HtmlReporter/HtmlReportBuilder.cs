@@ -90,7 +90,7 @@ namespace Bddify.Reporters.HtmlReporter
 
         private void Header()
         {
-            using (OpenTag(HtmlTag.header))
+            using (OpenTag("<div class='header'>", HtmlTag.div))
             {
                 AddLine(string.Format("<div id='bddifyTitle'>{0}</div>", _viewModel.Configuration.ReportHeader));
                 AddLine(string.Format("<div id='bddifyDescription'>{0}</div>", _viewModel.Configuration.ReportDescription));
@@ -159,7 +159,7 @@ namespace Bddify.Reporters.HtmlReporter
 
         private void Footer()
         {
-            AddLine("<footer>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</footer>");
+            AddLine("<div class='footer'>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</div>");
         }
 
         private void AddStory(Story story)
