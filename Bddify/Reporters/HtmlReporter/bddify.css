@@ -301,8 +301,12 @@ div.story
     -moz-border-radius:5px;
     border-radius:5px;
     margin:0px;
-	cursor:pointer;
 	padding:3px 10px;
+}
+
+.canToggle
+{
+	cursor:pointer;
 }
 		
 div.scenario:nth-child(2n+1)
@@ -318,13 +322,9 @@ div.scenario:nth-child(2n)
 .scenarioTitle
 {
 	color: #000;
-	display:inline;
+	position:relative;
+	width:95%;
 }
-			
-/*.scenarioTitle:before
-{
-    content:"Scenario: ";
-}*/
 
 .assembly
 {
