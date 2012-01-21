@@ -152,7 +152,8 @@ h3
     width:220px;
 }
 
-.story div.summaryLine
+.storySummary div.summaryLine,
+.scenarioSummary div.summaryLine
 {
     margin-left:20px;
 }
@@ -280,7 +281,8 @@ div.story
 	display:inline;
 }
 
-.story div.summaryLabel,
+.storySummary div.summaryLabel,
+.scenarioSummary div.summaryLabel,
 .storyTitle,
 .namespace div.summaryLabel,
 .namespaceName

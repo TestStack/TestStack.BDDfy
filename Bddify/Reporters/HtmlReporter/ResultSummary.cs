@@ -24,6 +24,11 @@ namespace Bddify.Reporters.HtmlReporter
             }
         }
 
+        public int Scenarios
+        {
+            get { return _stories.SelectMany(s => s.Scenarios).Count(); }
+        }
+
         public int Stories
         {
             get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
@@ -42,6 +47,11 @@ namespace Bddify.Reporters.HtmlReporter
         public int Inconclusive
         {
             get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
+        }
+
+        public int NotImplemented
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
         }
     }
 }

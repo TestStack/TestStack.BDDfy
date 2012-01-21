@@ -105,9 +105,11 @@ namespace Bddify.Reporters.HtmlReporter
 
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
-                    AddSummaryLine("story", "Stories", _viewModel.Summary.Stories);
+                    AddSummaryLine("storySummary", "Stories", _viewModel.Summary.Stories);
+                    AddSummaryLine("scenarioSummary", "Scenarios", _viewModel.Summary.Scenarios);
                     AddSummaryLine("Passed", "Passed", _viewModel.Summary.Passed);
                     AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Summary.Inconclusive);
+                    AddSummaryLine("NotImplemented", "Not Implemented", _viewModel.Summary.NotImplemented);
                     AddSummaryLine("Failed", "Failed", _viewModel.Summary.Failed);
                 }
             }
@@ -159,7 +161,7 @@ namespace Bddify.Reporters.HtmlReporter
 
         private void Footer()
         {
-            AddLine("<div class='footer'>Powered by <a href='https://code.google.com/p/bddify/'>bddify</a> framework</div>");
+            AddLine("<div class='footer'>Powered by <a href='http://hg.mehdi-khalili.com/bddify/wiki/Home'>bddify</a> framework</div>");
         }
 
         private void AddStory(Story story)
