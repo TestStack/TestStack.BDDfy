@@ -24,51 +24,21 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
-using System.Linq;
 using Bddify.Core;
 
 namespace Bddify.Reporters.HtmlReporter
 {
-    public class HtmlReportViewModel
+    public class HtmlReportViewModel : FileReportModel
     {
         public HtmlReportViewModel(IHtmlReportConfigurationModule configuration, IEnumerable<Story> stories)
+            : base(stories)
         {
             Configuration = configuration;
-            _stories = stories;
-            Summary = new ResultSummary(stories);
         }
 
         public bool UseCustomStylesheet { get; set; }
         public bool UseCustomJavascript { get; set; }
 
         public IHtmlReportConfigurationModule Configuration { get; private set; }
-        readonly IEnumerable<Story> _stories;
-        public ResultSummary Summary { get; private set; }
-
-        public IEnumerable<Story> Stories
-        {
-            get
-            {
-                var groupedByNamespace = from story in _stories
-                                         where story.MetaData == null
-                                         let ns = story.Scenarios.First().TestObject.GetType().Namespace
-                                         orderby ns
-                                         group story by ns into g
-                                         select g;
-
-                var groupedByStories = from story in _stories
-                                       where story.MetaData != null
-                                       orderby story.MetaData.Title   // order stories by their title
-                                       group story by story.MetaData.Type.Name into g
-                                       select g;
-
-                var aggregatedStories = from story in groupedByStories.Union(groupedByNamespace)
-                                        select new Story(
-                                            story.First().MetaData, // first story in the group is a representative for the entire group
-                                            story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()); // order scenarios by title
-
-                return aggregatedStories;
-            }
-        }
     }
 }

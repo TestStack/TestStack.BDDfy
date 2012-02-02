@@ -130,7 +130,7 @@ namespace Bddify.Reporters.HtmlReporter
                 var dic = new Dictionary<Type, StoryConfig>();
                 foreach (var story in Stories)
                 {
-                    var config = ModuleFactory.Get<IHtmlReportConfigurationModule>(story);
+                    var config = ModuleFactory.GetModule<IHtmlReportConfigurationModule>(story);
                     var configType = config.GetType();
                     if (!dic.ContainsKey(configType))
                         dic[configType] = new StoryConfig(config, new List<Story>());

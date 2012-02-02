@@ -47,7 +47,7 @@ namespace Bddify
 
         private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle, object testObject)
         {
-            var stepScannersModule = ModuleFactory.Get<IStepScannersModule>(null);
+            var stepScannersModule = ModuleFactory.GetModule<IStepScannersModule>(null);
             var stepScanners = stepScannersModule.CreateScanners(testObject).ToArray();
 
             return new ReflectiveScenarioScanner(scenarioTitle, stepScanners);

@@ -2,9 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using Bddify.Core;
-using Bddify.Scanners.StepScanners;
 using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
-using Bddify.Scanners.StepScanners.Fluent;
 using System.Collections.Generic;
 
 namespace Bddify.Tests.FluentScanner

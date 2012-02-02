@@ -23,24 +23,60 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+using System.Collections.Generic;
+using System.Linq;
 using Bddify.Core;
-using Bddify.Module;
 
 namespace Bddify.Reporters
 {
-    public class StoryReporter : IProcessor
+    public class FileReportSummaryModel
     {
-        public ProcessType ProcessType
+        readonly IEnumerable<Story> _stories;
+        readonly IEnumerable<Scenario> _scenarios;
+
+        public FileReportSummaryModel(IEnumerable<Story> stories)
         {
-            get { return ProcessType.Report; }
+            _stories = stories;
+            _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
         }
 
-        public void Process(Story story)
+        public int Namespaces
         {
-#if !SILVERLIGHT
-            foreach (var reporter in ModuleFactory.GetModules<IReportModule>(story))
-                reporter.Report(story);
-#endif
+            get
+            {
+                return _stories.Where(b => b.MetaData == null)
+                    .SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count();
+            }
+        }
+
+        public int Scenarios
+        {
+            get { return _stories.SelectMany(s => s.Scenarios).Count(); }
+        }
+
+        public int Stories
+        {
+            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
+        }
+
+        public int Passed
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Passed); }
+        }
+
+        public int Failed
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Failed); }
+        }
+
+        public int Inconclusive
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
+        }
+
+        public int NotImplemented
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
         }
     }
 }

@@ -23,62 +23,47 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Bddify.Core;
 
-namespace Bddify.Module
+namespace Bddify.Reporters
 {
-    public class ModuleFactory
+    public class FileReportModel
     {
-        // cache modules for performance reason
-        private static readonly IEnumerable<IModule> Modules;
-
-        static ModuleFactory()
+        public FileReportModel(IEnumerable<Story> stories)
         {
-            Modules = GetModules();
+            _stories = stories;
+            Summary = new FileReportSummaryModel(stories);
         }
 
-        public static T GetModule<T>(Story story) where T:IModule
-        {
-            return Modules.OfType<T>().First(c => c.RunsOn(story));
-        }
+        readonly IEnumerable<Story> _stories;
+        public FileReportSummaryModel Summary { get; private set; }
 
-        public static IEnumerable<T> GetModules<T>(Story story) where T:IModule
+        public IEnumerable<Story> Stories
         {
-            return Modules.OfType<T>().Where(c => c.RunsOn(story));
-        }
-
-        private static IEnumerable<IModule> GetModules()
-        {
-#if !SILVERLIGHT
-            var types = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.FullName.StartsWith("System")).SelectMany(GetTypesSafely);
-            return GetModules(types).OrderBy(c => c.Priority);
-#else
-            // ToDo: need to fix this
-            yield break;
-#endif
-        }
-
-        private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
-        {
-            try
+            get
             {
-                return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                return ex.Types.Where(x => x != null);
-            }
-        }
+                var groupedByNamespace = from story in _stories
+                                         where story.MetaData == null
+                                         let ns = story.Scenarios.First().TestObject.GetType().Namespace
+                                         orderby ns
+                                         group story by ns into g
+                                         select g;
 
-        private static IEnumerable<IModule> GetModules(IEnumerable<Type> types)
-        {
-            return from type in types
-                    where type.IsClass && !type.IsAbstract && typeof(IModule).IsAssignableFrom(type) // the configs in the test assembly
-                    select (IModule)Activator.CreateInstance(type);
+                var groupedByStories = from story in _stories
+                                       where story.MetaData != null
+                                       orderby story.MetaData.Title   // order stories by their title
+                                       group story by story.MetaData.Type.Name into g
+                                       select g;
+
+                var aggregatedStories = from story in groupedByStories.Union(groupedByNamespace)
+                                        select new Story(
+                                            story.First().MetaData, // first story in the group is a representative for the entire group
+                                            story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()); // order scenarios by title
+
+                return aggregatedStories;
+            }
         }
     }
 }
