@@ -100,24 +100,20 @@ namespace Bddify.Reporters.MarkDownReporter
 
             foreach (var story in viewModel.Stories)
             {
-                report.AppendLine(string.Format("##Story: {0}", story.MetaData.Title));
-                report.AppendLine(string.Format(" - **{0}**", story.MetaData.AsA));
-                report.AppendLine(string.Format(" - **{0}**", story.MetaData.IWant));
-                report.AppendLine(string.Format(" - **{0}**", story.MetaData.SoThat));
+                report.AppendLine(string.Format("## Story: {0}", story.MetaData.Title));
+                report.AppendLine(string.Format(" **{0}**  ", story.MetaData.AsA));
+                report.AppendLine(string.Format(" **{0}**  ", story.MetaData.IWant));
+                report.AppendLine(string.Format(" **{0}**  ", story.MetaData.SoThat));
+                report.AppendLine(); // separator
 
                 foreach (var scenario in story.Scenarios)
                 {
-                    report.AppendLine(string.Format("###{0}", scenario.Title));
+                    report.AppendLine(string.Format("### {0}", scenario.Title));
 
                     foreach (var step in scenario.Steps)
-                    {
-                        if (step.ExecutionOrder == ExecutionOrder.ConsecutiveAssertion ||
-                            step.ExecutionOrder == ExecutionOrder.ConsecutiveSetupState ||
-                            step.ExecutionOrder == ExecutionOrder.ConsecutiveTransition)
-                            report.AppendLine("   -   " + step.StepTitle);
-                        else
-                            report.AppendLine("   - " + step.StepTitle);
-                    }
+                        report.AppendLine("  " + step.StepTitle + "  ");
+
+                    report.AppendLine(); // separator
                 }
             }
 
