@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bddify.Samples.Atm</id>
-    <version>1.16</version>
+    <version>1.2</version>
     <title>ATM BDD sample done using bddify</title>
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>
@@ -10,7 +10,7 @@
     <description>Bddify.Samples.Atm package is a small sample that implements Dan North's BDD example using bddify.</description>
     <projectUrl>http://hg.mehdi-khalili.com/bddify/wiki/Home</projectUrl>
     <dependencies>
-      <dependency id="Bddify" version="1.17" />
+      <dependency id="Bddify" version="1.2" />
       <dependency id="nunit" version="2.5" />
     </dependencies>
   </metadata>
