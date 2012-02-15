@@ -43,47 +43,47 @@ namespace Bddify.Samples.Atm
         private Card _card;
         private Atm _atm;
 
-        public void GivenTheAccountBalanceIs(int balance)
+        public void Given_the_Account_Balance_is(int balance)
         {
             _card = new Card(true, balance);
         }
 
-        public void GivenTheCardIsDisabled()
+        public void Given_the_Card_is_disabled()
         {
             _card = new Card(false, 100);
             _atm = new Atm(100);
         }
 
-        public void AndTheCardIsValid()
+        public void And_the_Card_is_valid()
         {
         }
 
-        public void AndTheMachineContains(int atmBalance)
+        public void And_the_machine_contains(int atmBalance)
         {
             _atm = new Atm(atmBalance);
         }
 
-        public void WhenTheAccountHolderRequests(int moneyRequest)
+        public void When_the_Account_Holder_requests(int moneyRequest)
         {
             _atm.RequestMoney(_card, moneyRequest);
         }
 
-        public void TheAtmShouldDispense(int dispensedMoney)
+        public void The_ATM_should_dispense(int dispensedMoney)
         {
             Assert.AreEqual(dispensedMoney, _atm.DispenseValue);
         }
 
-        public void AndTheAccountBalanceShouldBe(int balance)
+        public void And_the_Account_Balance_should_be(int balance)
         {
             Assert.AreEqual(balance, _card.AccountBalance);
         }
 
-        public void ThenCardIsRetained(bool cardIsRetained)
+        public void Then_Card_is_retained(bool cardIsRetained)
         {
             Assert.AreEqual(cardIsRetained, _atm.CardIsRetained);
         }
 
-        void AndTheAtmShouldSayTheCardHasBeenRetained()
+        void And_the_ATM_should_say_the_Card_has_been_retained()
         {
             Assert.AreEqual(DisplayMessage.CardIsRetained, _atm.Message);
         }
@@ -97,23 +97,23 @@ namespace Bddify.Samples.Atm
         [Test]
         public void AccountHasSufficientFund()
         {
-           this.Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
-                    .And(s => s.AndTheCardIsValid())
-                    .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
-                .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
-                .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
-                    .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
-                    .And(s => s.ThenCardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
+           this.Given(s => s.Given_the_Account_Balance_is(100), GivenTheAccountBalanceIsTitleTemplate)
+                    .And(s => s.And_the_Card_is_valid())
+                    .And(s => s.And_the_machine_contains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
+                .When(s => s.When_the_Account_Holder_requests(20), WhenTheAccountHolderRequestsTitleTemplate)
+                .Then(s => s.The_ATM_should_dispense(20), "Then the ATM should dispense $20")
+                    .And(s => s.And_the_Account_Balance_should_be(80), "And the account balance should be $80")
+                    .And(s => s.Then_Card_is_retained(false), AndTheCardShouldBeReturnedTitleTemplate)
                 .Bddify();
         }
 
         [Test]
         public void CardHasBeenDisabled()
         {
-            this.Given(s => s.GivenTheCardIsDisabled())
-                .When(s => s.WhenTheAccountHolderRequests(20))
-                .Then(s => s.ThenCardIsRetained(true), false) // in here I am telling the fluent API that I do not want it to include the input arguments in the step title
-                    .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
+            this.Given(s => s.Given_the_Card_is_disabled())
+                .When(s => s.When_the_Account_Holder_requests(20))
+                .Then(s => s.Then_Card_is_retained(true), false) // in here I am telling the fluent API that I do not want it to include the input arguments in the step title
+                    .And(s => s.And_the_ATM_should_say_the_Card_has_been_retained())
                 .Bddify();
         }
     }

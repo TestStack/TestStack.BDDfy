@@ -40,11 +40,11 @@ namespace Bddify.Tests
         }
 
         [Test]
-        public void MixedUnderscoredAndPascalCaseInputStringIsTurnedIntoSentence()
+        public void UnderscoredInputStringPreservesCasing()
         {
             Assert.That(
-                NetToString.Convert("MixedUnderscoredAndPascal_case_Input_String_IsTurned_into_sentence"),
-                Is.EqualTo("Mixed underscored and pascal case input string is turned into sentence"));
+                NetToString.Convert("Underscored_input_String_is_turned_INTO_sentence"), 
+                Is.EqualTo("Underscored input String is turned INTO sentence"));
         }
 
         [Test]
