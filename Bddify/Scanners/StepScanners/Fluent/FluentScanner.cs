@@ -62,7 +62,7 @@ namespace Bddify.Scanners.StepScanners.Fluent
     /// </code>
     /// </example>
     internal class FluentScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
-        where TScenario : class, new()
+        where TScenario : class
     {
         private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
         private readonly object _testObject;

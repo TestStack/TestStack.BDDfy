@@ -25,9 +25,7 @@
 
 using System;
 using Bddify.Core;
-using Bddify.Processors;
 using Bddify.Scanners;
-using System.Collections.Generic;
 using Bddify.Scanners.ScenarioScanners;
 using System.Linq;
 
