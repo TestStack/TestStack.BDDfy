@@ -63,15 +63,13 @@ namespace Bddify.Scanners.StepScanners.MethodName
     public class MethodNameStepScanner : IStepScanner
     {
         private readonly MethodNameMatcher[] _matchers;
-        private readonly object _testObject;
 
-        public MethodNameStepScanner(object testObject, MethodNameMatcher[] matchers)
+        public MethodNameStepScanner(MethodNameMatcher[] matchers)
         {
-            _testObject = testObject;
             _matchers = matchers;
         }
 
-        public IEnumerable<ExecutionStep> Scan(MethodInfo method)
+        public IEnumerable<ExecutionStep> Scan(object testObject, MethodInfo method)
         {
             foreach (var matcher in _matchers)
             {
@@ -82,13 +80,13 @@ namespace Bddify.Scanners.StepScanners.MethodName
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                 if (argAttributes.Length == 0)
-                    yield return GetStep(_testObject, matcher, method, returnsItsText);
+                    yield return GetStep(testObject, matcher, method, returnsItsText);
 
                 foreach (var argAttribute in argAttributes)
                 {
                     var inputs = argAttribute.InputArguments;
                     if (inputs != null && inputs.Length > 0)
-                        yield return GetStep(_testObject, matcher, method, returnsItsText, inputs, argAttribute);
+                        yield return GetStep(testObject, matcher, method, returnsItsText, inputs, argAttribute);
                 }
 
                 yield break;

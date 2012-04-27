@@ -48,7 +48,7 @@ namespace Bddify.Tests
         }
 
         [Test]
-        public void OnLetterWordInTheBeginningOfStringIsTurnedIntoAWord()
+        public void OneLetterWordInTheBeginningOfStringIsTurnedIntoAWord()
         {
             Assert.That(
                 NetToString.Convert("XIsFirstPlayer"),

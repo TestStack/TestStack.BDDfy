@@ -71,7 +71,7 @@ namespace Bddify.Scanners.ScenarioScanners
                 // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
-                    var steps = scanner.Scan(methodInfo);
+                    var steps = scanner.Scan(testObject, methodInfo);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);

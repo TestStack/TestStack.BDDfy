@@ -25,12 +25,9 @@
 
 using System;
 using Bddify.Core;
-using Bddify.Module;
 using Bddify.Processors;
-using Bddify.Reporters;
 using Bddify.Scanners;
 using System.Collections.Generic;
-using Bddify.Scanners.Modules;
 using Bddify.Scanners.ScenarioScanners;
 using System.Linq;
 
@@ -47,10 +44,7 @@ namespace Bddify
 
         private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle, object testObject)
         {
-            var stepScannersModule = ModuleFactory.GetModule<IStepScannersModule>(null);
-            var stepScanners = stepScannersModule.CreateScanners(testObject).ToArray();
-
-            return new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
+            return new ReflectiveScenarioScanner(scenarioTitle, Configurator.StepScanners().ToArray());
         }
 
         /// <summary>
@@ -151,16 +145,9 @@ namespace Bddify
                 testObject = hasScanner.TestObject;
             }
 
-            var processors = new List<IProcessor>
-                                 {
-                                     new TestRunner(),
-                                     new StoryReporter(),
-                                     new ExceptionProcessor()
-                                 };
-
             var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle, explicitStoryType);
 
-            return new Bddifier(storyCategory, storyScanner, processors);
+            return new Bddifier(storyCategory, storyScanner, Configurator.Processors());
         }
     }
 }

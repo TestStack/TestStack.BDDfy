@@ -31,6 +31,6 @@ namespace Bddify.Scanners.StepScanners
 {
     public interface IStepScanner
     {
-        IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod);
+        IEnumerable<ExecutionStep> Scan(object testObject, MethodInfo candidateMethod);
     }
 }

@@ -51,7 +51,7 @@ namespace Bddify.Scanners.StepScanners.ExecutableAttribute
     /// </example>
     public class ExecutableAttributeStepScanner : IStepScanner
     {
-        public IEnumerable<ExecutionStep> Scan(MethodInfo candidateMethod)
+        public IEnumerable<ExecutionStep> Scan(object testObject, MethodInfo candidateMethod)
         {
             var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if(executableAttribute == null)

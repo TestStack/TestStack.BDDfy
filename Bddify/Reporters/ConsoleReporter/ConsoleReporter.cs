@@ -27,17 +27,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
-using Bddify.Module;
 
-namespace Bddify.Reporters
+namespace Bddify.Reporters.ConsoleReporter
 {
-    public class ConsoleReportModule : DefaultModule, IReportModule
+    public class ConsoleReporter : IProcessor
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
 
-        public void Report(Story story)
+        protected virtual bool RunsOn(Story story)
         {
+            return true;
+        }
+
+        public void Process(Story story)
+        {
+            if (!RunsOn(story))
+                return;
+
             ReportStoryHeader(story);
 
             var allSteps = story.Scenarios.SelectMany(s => s.Steps);
@@ -163,6 +170,11 @@ namespace Bddify.Reporters
 #endif
             Console.WriteLine();
             Console.WriteLine("Scenario: " + scenario.Title);
+        }
+
+        public ProcessType ProcessType
+        {
+            get { return ProcessType.Report; }
         }
     }
 }

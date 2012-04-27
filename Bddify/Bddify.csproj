@@ -60,16 +60,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BddifyExtensions.cs" />
-    <Compile Include="Module\DefaultModule.cs" />
-    <Compile Include="Module\ModuleException.cs" />
-    <Compile Include="Module\ModuleFactory.cs" />
+    <Compile Include="Core\Configurator.cs" />
+    <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />
+    <Compile Include="Reporters\HtmlReporter\IHtmlReportConfigurationModule.cs" />
     <Compile Include="Reporters\HtmlReporter\LazyFileLoader.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportBuilder.cs" />
-    <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfigurationModule.cs" />
-    <Compile Include="Reporters\HtmlReporter\IHtmlReportConfigurationModule.cs" />
-    <Compile Include="Module\IModule.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IExceptionProcessor.cs" />
     <Compile Include="Core\IHasScanner.cs" />
@@ -80,16 +77,14 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlReportMainModule.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlReportProcessor.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportViewModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
-    <Compile Include="Reporters\IReportModule.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />
-    <Compile Include="Reporters\MarkDownReporter\MarkDownReportModule.cs" />
+    <Compile Include="Reporters\MarkDownReporter\MarkDownReportProcessor.cs" />
     <Compile Include="Reporters\StoryConfig.cs" />
-    <Compile Include="Reporters\StoryReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
-    <Compile Include="Reporters\ConsoleReporter\ConsoleReportModule.cs" />
+    <Compile Include="Reporters\ConsoleReporter\ConsoleReporter.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Core\NetToString.cs" />
     <Compile Include="Core\ProcessType.cs" />
@@ -101,10 +96,6 @@
     <Compile Include="Processors\TestRunner.cs" />
     <Compile Include="Core\RunStepWithArgsAttribute.cs" />
     <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
-    <Compile Include="Scanners\Modules\DefaultStoryMetaDataScannerModule.cs" />
-    <Compile Include="Scanners\Modules\IStepScannersModule.cs" />
-    <Compile Include="Scanners\Modules\DefaultStepScannersModule.cs" />
-    <Compile Include="Scanners\Modules\IStoryMetaDataScannerModule.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttribute.cs" />

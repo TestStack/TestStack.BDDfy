@@ -2,17 +2,15 @@
 using System.IO;
 using System.Text;
 using Bddify.Core;
-using Bddify.Module;
-using Bddify.Reporters;
 using System.Linq;
 
 namespace Bddify.Samples.TicTacToe
 {
     /// <summary>
     /// This is a custom reporter that shows you how easily you can create a custom report.
-    /// Just implemented IReportModule and you are done. Everything gets resolved automagically for you
+    /// Just implemented IProcessor and you are done
     /// </summary>
-    public class CustomTextReporter : DefaultModule, IReportModule
+    public class CustomTextReporter : IProcessor
     {
         private static readonly string Path;
 
@@ -43,18 +41,16 @@ namespace Bddify.Samples.TicTacToe
             File.AppendAllText(Path, header);
         }
 
-        public override bool RunsOn(Story story)
+        public void Process(Story story)
         {
             // use this report only for tic tac toe stories
-            return story.MetaData.Type.Name.Contains("TicTacToe");
-        }
+            if (!story.MetaData.Type.Name.Contains("TicTacToe"))
+                return;
 
-        public void Report(Story story)
-        {
             var scenario = story.Scenarios.First();
             var scenarioReport = new StringBuilder();
             scenarioReport.AppendLine(string.Format(" SCENARIO: {0}  ", scenario.Title));
-            
+
             if (scenario.Result != StepExecutionResult.Passed)
             {
                 scenarioReport.Append(string.Format("    {0} : ", scenario.Result));
@@ -70,6 +66,11 @@ namespace Bddify.Samples.TicTacToe
             scenarioReport.AppendLine();
 
             File.AppendAllText(Path, scenarioReport.ToString());
+        }
+
+        public ProcessType ProcessType
+        {
+            get { return ProcessType.Report; }
         }
     }
 }

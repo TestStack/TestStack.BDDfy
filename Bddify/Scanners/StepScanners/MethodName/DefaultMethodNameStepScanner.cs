@@ -30,9 +30,8 @@ namespace Bddify.Scanners.StepScanners.MethodName
 {
     public class DefaultMethodNameStepScanner : MethodNameStepScanner
     {
-        public DefaultMethodNameStepScanner(object testObject)
+        public DefaultMethodNameStepScanner()
             : base(
-                testObject, 
                 new[]
                 {
                     new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.SetupState, false),

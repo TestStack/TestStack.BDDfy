@@ -29,43 +29,50 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Bddify.Core;
-using Bddify.Module;
 
 namespace Bddify.Reporters.MarkDownReporter
 {
     /// <summary>
     /// This is a custom reporter that shows you how easily you can create a custom report.
-    /// Just implemented IReportModule and you are done. Everything gets resolved automagically for you
+    /// Just implement IProcessor and you are done
     /// </summary>
-    public class MarkDownReportModule : DefaultModule, IReportModule
+    public class MarkDownReportProcessor : IProcessor
     {
         private static string OutputDirectory
         {
             get
             {
-                string codeBase = typeof(MarkDownReportModule).Assembly.CodeBase;
+                string codeBase = typeof(MarkDownReportProcessor).Assembly.CodeBase;
                 var uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
             }
         }
 
-        static MarkDownReportModule()
+        static MarkDownReportProcessor()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
         }
 
-        public override bool RunsOn(Story story)
+        public virtual void Process(Story story)
+        {
+            if (!RunsOn(story))
+                return;
+
+            Stories.Add(story);
+        }
+
+        protected virtual bool RunsOn(Story story)
         {
             return true;
         }
-        
-        static readonly List<Story> Stories = new List<Story>();
 
-        public virtual void Report(Story story)
+        public ProcessType ProcessType
         {
-            Stories.Add(story);
+            get { return ProcessType.Report; }
         }
+
+        static readonly List<Story> Stories = new List<Story>();
 
         static void CurrentDomain_DomainUnload(object sender, EventArgs e)
         {

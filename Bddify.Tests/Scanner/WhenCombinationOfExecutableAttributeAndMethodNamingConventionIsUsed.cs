@@ -70,7 +70,7 @@ namespace Bddify.Tests.Scanner
                     new IStepScanner[]
                         {
                             new ExecutableAttributeStepScanner(),
-                            new DefaultMethodNameStepScanner(_sut)
+                            new DefaultMethodNameStepScanner()
                         }).Scan(_sut);          
         }
 

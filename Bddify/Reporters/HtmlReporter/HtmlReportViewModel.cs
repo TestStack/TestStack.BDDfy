@@ -30,7 +30,7 @@ namespace Bddify.Reporters.HtmlReporter
 {
     public class HtmlReportViewModel : FileReportModel
     {
-        public HtmlReportViewModel(IHtmlReportConfigurationModule configuration, IEnumerable<Story> stories)
+        public HtmlReportViewModel(IHtmlReportConfiguration configuration, IEnumerable<Story> stories)
             : base(stories)
         {
             Configuration = configuration;
@@ -39,6 +39,6 @@ namespace Bddify.Reporters.HtmlReporter
         public bool UseCustomStylesheet { get; set; }
         public bool UseCustomJavascript { get; set; }
 
-        public IHtmlReportConfigurationModule Configuration { get; private set; }
+        public IHtmlReportConfiguration Configuration { get; private set; }
     }
 }

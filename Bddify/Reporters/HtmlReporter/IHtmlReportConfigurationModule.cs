@@ -23,15 +23,16 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using Bddify.Module;
+using Bddify.Core;
 
 namespace Bddify.Reporters.HtmlReporter
 {
-    public interface IHtmlReportConfigurationModule : IModule
+    public interface IHtmlReportConfiguration
     {
         string ReportHeader { get; }
         string ReportDescription { get; }
         string OutputPath { get; }
         string OutputFileName { get; set; }
+        bool RunsOn(Story story);
     }
 }

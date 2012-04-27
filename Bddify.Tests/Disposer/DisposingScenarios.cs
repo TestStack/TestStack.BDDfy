@@ -1,18 +1,13 @@
 using System;
+using System.Linq;
 using Bddify.Tests.Exceptions;
 using NUnit.Framework;
-using System.Linq;
-using Bddify;
 
 namespace Bddify.Tests.Disposer
 {
     [TestFixture]
     public class DisposingScenarios
     {
-        private DisposableScenario _scenario;
-        private Core.Story _story;
-        private ThrowingMethods _throwingMethods;
-
         class DisposableScenario : IDisposable
         {
             private readonly bool _givenThrows;
@@ -49,35 +44,6 @@ namespace Bddify.Tests.Disposer
             public bool Disposed { get; set; }
         }
 
-        void GivenADisposableScenario()
-        {
-            _scenario = new DisposableScenario(_throwingMethods);
-        }
-
-        void WhenScenarioIsBddified()
-        {
-            var bddifier = _scenario.LazyBddify();
-            try
-            {
-                bddifier.Run();
-            }
-            catch (Exception)
-            {
-                // there will be an exception but we do not care about it
-            }
-            _story = bddifier.Story;
-        }
-
-        void ThenScenariosAreNotDisposedByBddifyBecauseTheyShouldBeThereForHtmlReport()
-        {
-            Assert.That(_story.Scenarios.All(s => ((DisposableScenario)s.TestObject).Disposed), Is.False);
-        }
-
-        void AndTheScenarioCreatedByTestingFrameworkIsNotDisposedOf()
-        {
-            Assert.That(_scenario.Disposed, Is.False);
-        }
-
         [Test]
         [TestCase(ThrowingMethods.None)]
         [TestCase(ThrowingMethods.Given)]
@@ -86,8 +52,21 @@ namespace Bddify.Tests.Disposer
         [TestCase(ThrowingMethods.Given | ThrowingMethods.When | ThrowingMethods.Then)]
         public void Execute(ThrowingMethods throwingMethods)
         {
-            _throwingMethods = throwingMethods;
-            this.Bddify();
+            var scenario = new DisposableScenario(throwingMethods);
+
+            var bddifier = scenario.LazyBddify();
+            try
+            {
+                bddifier.Run();
+            }
+            catch (Exception)
+            {
+                // there will be an exception but we do not care about it
+            }
+            var story = bddifier.Story;
+
+            Assert.That(story.Scenarios.All(s => ((DisposableScenario)s.TestObject).Disposed), Is.False);
+            Assert.That(scenario.Disposed, Is.False);
         }
     }
 }

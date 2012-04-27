@@ -41,7 +41,7 @@ namespace Bddify.Tests.Scanner
         public void Test()
         {
             var testObject = new TestClassWithStepsReturningTheirText(1, "some input");
-            var steps = new DefaultMethodNameStepScanner(testObject).Scan(testObject).ToList();
+            var steps = new DefaultMethodNameStepScanner().Scan(testObject).ToList();
 
             AssertStep(steps[0], "Given inputs 1 and some input", ExecutionOrder.SetupState);
             AssertStep(steps[1], "When input 2 is applied on 123", ExecutionOrder.Transition);
