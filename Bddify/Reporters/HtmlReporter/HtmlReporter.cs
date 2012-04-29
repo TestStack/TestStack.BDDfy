@@ -23,7 +23,6 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#if !(SILVERLIGHT)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -117,4 +116,3 @@ namespace Bddify.Reporters.HtmlReporter
         }
     }
 }
-#endif

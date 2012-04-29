@@ -104,7 +104,6 @@ namespace Bddify.Reporters.ConsoleReporter
                     message += string.Format("{0}", exceptionReference);
             }
 
-#if !SILVERLIGHT
             if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
                 Console.ForegroundColor = ConsoleColor.Yellow;
             else if (step.Result == StepExecutionResult.Failed)
@@ -114,9 +113,6 @@ namespace Bddify.Reporters.ConsoleReporter
 
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.White;
-#else
-            Console.WriteLine(message);
-#endif
         }
 
         void ReportExceptions()
@@ -157,9 +153,7 @@ namespace Bddify.Reporters.ConsoleReporter
 
         static void Report(Scenario scenario)
         {
-#if !SILVERLIGHT
             Console.ForegroundColor = ConsoleColor.White;
-#endif
             Console.WriteLine();
             Console.WriteLine("Scenario: " + scenario.Title);
         }

@@ -32,7 +32,6 @@ using Bddify.Scanners.StepScanners.Fluent;
 namespace Bddify
 // ReSharper restore CheckNamespace
 {
-#if !SILVERLIGHT
     public static class FluentStepScannerExtensions
     {
         static IInitialStep<TScenario> Scan<TScenario>(this TScenario testObject) where TScenario : class, new()
@@ -76,5 +75,4 @@ namespace Bddify
             return testObject.When(whenStep, null);
         }
     }
-#endif
 }

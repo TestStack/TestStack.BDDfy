@@ -42,11 +42,9 @@ namespace Bddify.Scanners.StepScanners
         {
         }
 
-#if !SILVERLIGHT
         protected StepTitleException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
-#endif
     }
 }

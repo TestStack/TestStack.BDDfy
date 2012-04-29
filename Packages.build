@@ -54,20 +54,9 @@
     <Copy SourceFiles="$(ZipPath)\Bddify-$(Version)-NET35.zip" DestinationFolder="$(PackageOutput)" />
   </Target>
 
-  <Target Name="Sl4Build">
-    <MSBuild Projects="$(BddifyBuild)" Properties="Version=$(Version);BuildFramework=SL4" Targets="Release" />
-    <MakeDir Directories="$(ArtifactTemp)\SL4"/>
-    <CreateItem Include="$(ArtifactPath)\*.*">
-      <Output ItemName="Sl4Artifact" TaskParameter="Include"/>
-    </CreateItem>
-    <Copy SourceFiles="@(Sl4Artifact)" DestinationFolder="$(ArtifactTemp)\SL4" />
-    <Copy SourceFiles="$(ZipPath)\Bddify-$(Version)-SL4.zip" DestinationFolder="$(PackageOutput)" />
-  </Target>
-  
   <Target Name="Build">
     <CallTarget Targets="Net40Build" />
     <CallTarget Targets="Net35Build" />
-    <CallTarget Targets="Sl4Build" />
   </Target>
 
   <Target Name="CopyNuspecFiles">
@@ -77,7 +66,6 @@
   <Target Name="CopyBddifyLibs">
     <Copy SourceFiles="$(ArtifactTemp)\NET40\Bddify.dll;$(ArtifactTemp)\NET40\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\NET40"  />
     <Copy SourceFiles="$(ArtifactTemp)\NET35\Bddify.dll;$(ArtifactTemp)\NET35\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\NET35"  />
-    <Copy SourceFiles="$(ArtifactTemp)\SL4\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\SL4"  />
   </Target>
 
   <Target Name="CopyBddifyAtmSampleFiles">
