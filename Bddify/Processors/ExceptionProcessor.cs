@@ -31,7 +31,7 @@ using Bddify.Core;
 
 namespace Bddify.Processors
 {
-    public class ExceptionProcessor : IExceptionProcessor
+    public class ExceptionProcessor : IProcessor
     {
         private readonly Action _assertInconclusive;
         private static readonly Action BestGuessInconclusiveAssertion;

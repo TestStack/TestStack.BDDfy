@@ -24,20 +24,18 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Linq;
-using System.Collections.Generic;
+using Bddify.Configuration;
 using Bddify.Processors;
 
 namespace Bddify.Core
 {
     public class Bddifier
     {
-        private readonly IEnumerable<IProcessor> _processors;
         private readonly string _storyCategory;
         private readonly IScanner _scanner;
 
-        public Bddifier(string storyCategory, IScanner scanner, IEnumerable<IProcessor> processors)
+        public Bddifier(string storyCategory, IScanner scanner)
         {
-            _processors = processors;
             _storyCategory = storyCategory ?? "bddify";
             _scanner = scanner;
         }
@@ -47,10 +45,11 @@ namespace Bddify.Core
             _story = _scanner.Scan();
             _story.Category = _storyCategory;
 
+            var processors = Factory.Pipeline.GetProcessors(_story);
             try
             {
                 //run processors in the right order regardless of the order they are provided to the Bddifer
-                foreach (var processor in _processors.OrderBy(p => (int)p.ProcessType))
+                foreach (var processor in processors.OrderBy(p => (int)p.ProcessType))
                     processor.Process(_story);
             }
             finally

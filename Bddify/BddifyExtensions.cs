@@ -24,6 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using Bddify.Configuration;
 using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.ScenarioScanners;
@@ -42,7 +43,7 @@ namespace Bddify
 
         private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle, object testObject)
         {
-            return new ReflectiveScenarioScanner(scenarioTitle, Configurator.StepScanners().ToArray());
+            return new ReflectiveScenarioScanner(scenarioTitle, Factory.StepScanners().ToArray());
         }
 
         /// <summary>
@@ -145,7 +146,7 @@ namespace Bddify
 
             var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle, explicitStoryType);
 
-            return new Bddifier(storyCategory, storyScanner, Configurator.Pipeline.Processors);
+            return new Bddifier(storyCategory, storyScanner);
         }
     }
 }

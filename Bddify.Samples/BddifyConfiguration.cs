@@ -1,4 +1,4 @@
-﻿using Bddify.Core;
+﻿using Bddify.Configuration;
 using Bddify.Reporters.HtmlReporter;
 using Bddify.Samples.Atm;
 using Bddify.Samples.TicTacToe;
@@ -12,11 +12,8 @@ namespace Bddify.Samples
         [SetUp]
         public void Config()
         {
-            Configurator.Pipeline
-                .Add(() => new CustomTextReporter())
-                .RunConsoleReportOnlyWhen(s => s.Result == StepExecutionResult.Failed);
-
-            Configurator.HtmlReportConfigurations = new IHtmlReportConfiguration[] {new HtmlReportConfig() };
+            Factory.Pipeline.Add(() => new CustomTextReporter());
+            Factory.HtmlReportConfigurations = new IHtmlReportConfiguration[] {new HtmlReportConfig() };
         }
     }
 }

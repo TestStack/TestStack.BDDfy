@@ -34,18 +34,9 @@ namespace Bddify.Reporters.ConsoleReporter
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
-        readonly Predicate<Story> _runsOn;
-
-        public ConsoleReporter(Predicate<Story> runsOn)
-        {
-            _runsOn = runsOn;
-        }
 
         public void Process(Story story)
         {
-            if (!_runsOn(story))
-                return;
-
             ReportStoryHeader(story);
 
             var allSteps = story.Scenarios.SelectMany(s => s.Steps).ToList();

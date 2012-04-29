@@ -56,15 +56,7 @@ namespace Bddify.Reporters.MarkDownReporter
 
         public virtual void Process(Story story)
         {
-            if (!RunsOn(story))
-                return;
-
             Stories.Add(story);
-        }
-
-        protected virtual bool RunsOn(Story story)
-        {
-            return true;
         }
 
         public ProcessType ProcessType

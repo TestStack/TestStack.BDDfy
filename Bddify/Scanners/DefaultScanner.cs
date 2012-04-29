@@ -24,6 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
+using Bddify.Configuration;
 using Bddify.Core;
 using Bddify.Scanners.ScenarioScanners;
 
@@ -45,7 +46,7 @@ namespace Bddify.Scanners
         public Story Scan()
         {
             var scenario = _scenarioScanner.Scan(_testObject);
-            var metaData = Configurator.StoryMetaDataScanner().Scan(_testObject, _explicitStoryType);
+            var metaData = Factory.StoryMetaDataScanner().Scan(_testObject, _explicitStoryType);
 
             return new Story(metaData, scenario);
         }

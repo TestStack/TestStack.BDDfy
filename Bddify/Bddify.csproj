@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BddifyExtensions.cs" />
-    <Compile Include="Core\Configurator.cs" />
+    <Compile Include="Configuration\ProcessorFactory.cs" />
+    <Compile Include="Configuration\Factory.cs" />
+    <Compile Include="Configuration\Pipeline.cs" />
     <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="Reporters\HtmlReporter\LazyFileLoader.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportBuilder.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
-    <Compile Include="Core\IExceptionProcessor.cs" />
     <Compile Include="Core\IHasScanner.cs" />
     <Compile Include="Core\Scenario.cs" />
     <Compile Include="Core\Bddifier.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlReportProcessor.cs" />
+    <Compile Include="Reporters\HtmlReporter\HtmlReporter.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportViewModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />

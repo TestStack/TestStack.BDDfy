@@ -54,6 +54,7 @@
     <Compile Include="Arguments\ArgumentsProvidedForGiven.cs" />
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
+    <Compile Include="Configuration\FactoryTests.cs" />
     <Compile Include="Disposer\DisposingScenarios.cs" />
     <Compile Include="Exceptions\ThrowingMethods.cs" />
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />

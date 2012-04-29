@@ -28,15 +28,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Bddify.Configuration;
 using Bddify.Core;
 
 namespace Bddify.Reporters.HtmlReporter
 {
-    public class HtmlReportProcessor : IProcessor
+    public class HtmlReporter : IProcessor
     {
         static readonly List<Story> Stories = new List<Story>();
 
-        static HtmlReportProcessor()
+        static HtmlReporter()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
         }
@@ -110,7 +111,7 @@ namespace Bddify.Reporters.HtmlReporter
         {
             get
             {
-                return Configurator.HtmlReportConfigurations
+                return Factory.HtmlReportConfigurations
                     .Select(config => new StoryConfig(config, Stories.Where(config.RunsOn).ToList())).ToList();
             }
         }
