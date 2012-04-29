@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Bddify.Core;
-using Bddify.Processors;
-using Bddify.Reporters.ConsoleReporter;
+﻿using Bddify.Core;
 using Bddify.Reporters.HtmlReporter;
+using Bddify.Samples.Atm;
 using Bddify.Samples.TicTacToe;
 using NUnit.Framework;
 
@@ -14,15 +12,11 @@ namespace Bddify.Samples
         [SetUp]
         public void Config()
         {
-            Configurator.Processors = () =>
-                new List<IProcessor>
-                                 {
-                                     new TestRunner(),
-                                     new ConsoleReporter(),
-                                     new HtmlReportProcessor(),
-                                     new CustomTextReporter(),
-                                     new ExceptionProcessor()
-                                 };
+            Configurator.Pipeline
+                .Add(() => new CustomTextReporter())
+                .RunConsoleReportOnlyWhen(s => s.Result == StepExecutionResult.Failed);
+
+            Configurator.HtmlReportConfigurations = new IHtmlReportConfiguration[] {new HtmlReportConfig() };
         }
     }
 }

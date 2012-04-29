@@ -64,7 +64,7 @@
     <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />
-    <Compile Include="Reporters\HtmlReporter\IHtmlReportConfigurationModule.cs" />
+    <Compile Include="Reporters\HtmlReporter\IHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\HtmlReporter\LazyFileLoader.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportBuilder.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />

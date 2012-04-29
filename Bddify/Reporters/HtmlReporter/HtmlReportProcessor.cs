@@ -48,9 +48,6 @@ namespace Bddify.Reporters.HtmlReporter
 
         public virtual void Process(Story story)
         {
-            if (!RunsOn(story))
-                return;
-
             Stories.Add(story);
         }
 
@@ -113,14 +110,9 @@ namespace Bddify.Reporters.HtmlReporter
         {
             get
             {
-                return Configurator.HtmlReportConfigurations()
+                return Configurator.HtmlReportConfigurations
                     .Select(config => new StoryConfig(config, Stories.Where(config.RunsOn).ToList())).ToList();
             }
-        }
-
-        protected virtual bool RunsOn(Story story)
-        {
-            return true;
         }
     }
 }

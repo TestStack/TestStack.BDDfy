@@ -34,20 +34,21 @@ namespace Bddify.Reporters.ConsoleReporter
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
+        readonly Predicate<Story> _runsOn;
 
-        protected virtual bool RunsOn(Story story)
+        public ConsoleReporter(Predicate<Story> runsOn)
         {
-            return true;
+            _runsOn = runsOn;
         }
 
         public void Process(Story story)
         {
-            if (!RunsOn(story))
+            if (!_runsOn(story))
                 return;
 
             ReportStoryHeader(story);
 
-            var allSteps = story.Scenarios.SelectMany(s => s.Steps);
+            var allSteps = story.Scenarios.SelectMany(s => s.Steps).ToList();
             if (allSteps.Any())
                 _longestStepSentence = allSteps.Max(s => PrefixWithSpaceIfRequired(s).Length);
 

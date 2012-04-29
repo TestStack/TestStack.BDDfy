@@ -145,7 +145,7 @@ namespace Bddify
 
             var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle, explicitStoryType);
 
-            return new Bddifier(storyCategory, storyScanner, Configurator.Processors());
+            return new Bddifier(storyCategory, storyScanner, Configurator.Pipeline.Processors);
         }
     }
 }
