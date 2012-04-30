@@ -13,7 +13,7 @@ namespace Bddify.Samples
         public void Config()
         {
             Factory.Pipeline.Add(() => new CustomTextReporter());
-            Factory.HtmlReportConfigurations = new IHtmlReportConfiguration[] {new HtmlReportConfig() };
+            Factory.Scanner.HtmlReportConfigurations = new IHtmlReportConfiguration[] {new HtmlReportConfig() };
         }
     }
 }

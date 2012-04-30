@@ -36,7 +36,6 @@ namespace Bddify.Configuration
     public static class Factory
     {
         private static readonly Pipeline PipelineFactory = new Pipeline();
-
         public static Pipeline Pipeline 
         {
             get
@@ -45,19 +44,13 @@ namespace Bddify.Configuration
             }
         }
 
-        public static Func<IEnumerable<IStepScanner>> StepScanners = () => 
-                                                                     new IStepScanner[]
-                                                                         {
-                                                                             new ExecutableAttributeStepScanner(), 
-                                                                             new DefaultMethodNameStepScanner()
-                                                                         };
-
-        public static Func<IStoryMetaDataScanner> StoryMetaDataScanner = () => new StoryAttributeMetaDataScanner();
-
-        public static IEnumerable<IHtmlReportConfiguration> HtmlReportConfigurations = 
-            new IHtmlReportConfiguration[]
-                {
-                    new DefaultHtmlReportConfiguration()
-                };
+        private static readonly ScannerConfig ScannerConfig = new ScannerConfig();
+        public static ScannerConfig Scanner
+        {
+            get
+            {
+                return ScannerConfig;
+            }
+        }
     }
 }

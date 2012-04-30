@@ -45,17 +45,18 @@ namespace Bddify.Core
             _story = _scanner.Scan();
             _story.Category = _storyCategory;
 
-            var processors = Factory.Pipeline.GetProcessors(_story);
+            var processors = Factory.Pipeline.GetProcessors(_story).ToList();
+
             try
             {
                 //run processors in the right order regardless of the order they are provided to the Bddifer
-                foreach (var processor in processors.OrderBy(p => (int)p.ProcessType))
+                foreach (var processor in processors.Where(p => p.ProcessType != ProcessType.Finally).OrderBy(p => (int)p.ProcessType))
                     processor.Process(_story);
             }
             finally
             {
-                var disposer = new Disposer();
-                disposer.Process(_story);
+                foreach (var finallyProcessor in processors.Where(p => p.ProcessType == ProcessType.Finally))
+                    finallyProcessor.Process(_story);
             }
 
             return _story;

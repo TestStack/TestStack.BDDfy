@@ -34,16 +34,11 @@ namespace Bddify
 {
     public static class BddifyExtensions
     {
-        static IScanner GetDefaultScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
+        static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
         {
-            var reflectiveScenarioScanner = GetReflectiveScenarioScanner(scenarioTitle);
+            var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, ScannerConfig.StepScanners().ToArray());
 
             return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
-        }
-
-        private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle)
-        {
-            return new ReflectiveScenarioScanner(scenarioTitle, Factory.StepScanners().ToArray());
         }
 
         /// <summary>
@@ -144,7 +139,7 @@ namespace Bddify
                 testObject = hasScanner.TestObject;
             }
 
-            var storyScanner = scanner ?? GetDefaultScanner(testObject, scenarioTitle, explicitStoryType);
+            var storyScanner = scanner ?? GetReflectiveScanner(testObject, scenarioTitle, explicitStoryType);
 
             return new Bddifier(storyCategory, storyScanner);
         }

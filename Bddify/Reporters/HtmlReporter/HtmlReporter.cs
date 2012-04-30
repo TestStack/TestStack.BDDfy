@@ -110,7 +110,7 @@ namespace Bddify.Reporters.HtmlReporter
         {
             get
             {
-                return Factory.HtmlReportConfigurations
+                return Factory.Scanner.HtmlReportConfigurations
                     .Select(config => new StoryConfig(config, Stories.Where(config.RunsOn).ToList())).ToList();
             }
         }

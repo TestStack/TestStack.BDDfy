@@ -63,6 +63,7 @@
     <Compile Include="Configuration\ProcessorFactory.cs" />
     <Compile Include="Configuration\Factory.cs" />
     <Compile Include="Configuration\Pipeline.cs" />
+    <Compile Include="Configuration\ScannerConfig.cs" />
     <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />

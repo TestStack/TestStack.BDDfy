@@ -56,6 +56,8 @@ namespace Bddify.Configuration
 
             yield return new ExceptionProcessor();
 
+            yield return new Disposer();
+
             foreach (var addedProcessor in _addedProcessors)
             {
                 yield return addedProcessor();
