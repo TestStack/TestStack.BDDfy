@@ -32,7 +32,7 @@ namespace Bddify.Reporters.HtmlReporter
         string ReportHeader { get; }
         string ReportDescription { get; }
         string OutputPath { get; }
-        string OutputFileName { get; set; }
+        string OutputFileName { get; }
         bool RunsOn(Story story);
     }
 }

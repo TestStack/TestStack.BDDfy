@@ -25,7 +25,6 @@
 
 using System.Linq;
 using Bddify.Configuration;
-using Bddify.Processors;
 
 namespace Bddify.Core
 {
@@ -45,7 +44,7 @@ namespace Bddify.Core
             _story = _scanner.Scan();
             _story.Category = _storyCategory;
 
-            var processors = Factory.Pipeline.GetProcessors(_story).ToList();
+            var processors = Factory.ProcessorPipeline.GetProcessors(_story).ToList();
 
             try
             {

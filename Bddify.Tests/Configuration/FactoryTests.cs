@@ -14,7 +14,7 @@ namespace Bddify.Tests.Configuration
         [Test]
         public void ReturnsDefaultPipelineByDefault()
         {
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsTrue(processors.Any(p => p is HtmlReporter));
@@ -26,78 +26,78 @@ namespace Bddify.Tests.Configuration
         [Test]
         public void DoesNotReturnConsoleReportWhenItIsDeactivated()
         {
-            Factory.Pipeline.ConsoleReport.Disable();
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            Factory.ProcessorPipeline.ConsoleReport.Disable();
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
             Assert.IsTrue(processors.Any(p => p is HtmlReporter));
             Assert.IsTrue(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Factory.Pipeline.ConsoleReport.Enable();
+            Factory.ProcessorPipeline.ConsoleReport.Enable();
         }
 
         [Test]
         public void DoesNotReturnConsoleReportForExcludedStories()
         {
-            Factory.Pipeline.ConsoleReport.RunsOn(s => s.MetaData != null);
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            Factory.ProcessorPipeline.ConsoleReport.RunsOn(s => s.MetaData != null);
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
-            Factory.Pipeline.ConsoleReport.RunsOn(s => true);
+            Factory.ProcessorPipeline.ConsoleReport.RunsOn(s => true);
         }
 
         [Test]
         public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
         {
-            Factory.Pipeline.HtmlReport.Disable();
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            Factory.ProcessorPipeline.HtmlReport.Disable();
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsFalse(processors.Any(p => p is HtmlReporter));
             Assert.IsTrue(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Factory.Pipeline.HtmlReport.Enable();
+            Factory.ProcessorPipeline.HtmlReport.Enable();
         }
 
         [Test]
         public void DoesNotReturnTestRunnerWhenItIsDeactivated()
         {
-            Factory.Pipeline.TestRunner.Disable();
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            Factory.ProcessorPipeline.TestRunner.Disable();
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsFalse(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is HtmlReporter));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Factory.Pipeline.TestRunner.Enable();
+            Factory.ProcessorPipeline.TestRunner.Enable();
         }
 
         [Test]
         public void DoesNotReturnHtmlReporterForExcludedStories()
         {
-            Factory.Pipeline.HtmlReport.RunsOn(s => s.MetaData != null);
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            Factory.ProcessorPipeline.HtmlReport.RunsOn(s => s.MetaData != null);
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsFalse(processors.Any(p => p is HtmlReporter));
-            Factory.Pipeline.HtmlReport.RunsOn(s => true);
+            Factory.ProcessorPipeline.HtmlReport.RunsOn(s => true);
         }
 
         [Test]
         public void ReturnsMarkdownReporterWhenItIsActivated()
         {
-            Factory.Pipeline.MarkdownReport.Enable();
-            var processors = Factory.Pipeline.GetProcessors(new Core.Story(null)).ToList();
+            Factory.ProcessorPipeline.MarkdownReport.Enable();
+            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is MarkDownReporter));
-            Factory.Pipeline.MarkdownReport.Disable();
+            Factory.ProcessorPipeline.MarkdownReport.Disable();
         }
 
         [Test]
         public void CanAddCustomProcessor()
         {
             var processors = Factory
-                .Pipeline
+                .ProcessorPipeline
                 .Add(() => new CustomProcessor())
                 .GetProcessors(new Core.Story(null)).ToList();
 

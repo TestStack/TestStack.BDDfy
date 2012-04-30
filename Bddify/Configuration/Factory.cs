@@ -23,33 +23,25 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System;
-using System.Collections.Generic;
-using Bddify.Reporters.HtmlReporter;
-using Bddify.Scanners;
-using Bddify.Scanners.StepScanners;
-using Bddify.Scanners.StepScanners.ExecutableAttribute;
-using Bddify.Scanners.StepScanners.MethodName;
-
 namespace Bddify.Configuration
 {
     public static class Factory
     {
-        private static readonly Pipeline PipelineFactory = new Pipeline();
-        public static Pipeline Pipeline 
+        private static readonly ProcessorPipeline ProcessorPipelineFactory = new ProcessorPipeline();
+        public static ProcessorPipeline ProcessorPipeline 
         {
             get
             {
-                return PipelineFactory;
+                return ProcessorPipelineFactory;
             }
         }
 
-        private static readonly ScannerConfig ScannerConfig = new ScannerConfig();
-        public static ScannerConfig Scanner
+        private static readonly ScannerPipeline ScannerPipelineFactory = new ScannerPipeline();
+        public static ScannerPipeline ScannerPipeline
         {
             get
             {
-                return ScannerConfig;
+                return ScannerPipelineFactory;
             }
         }
     }

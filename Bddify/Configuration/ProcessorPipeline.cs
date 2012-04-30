@@ -34,7 +34,7 @@ using Bddify.Reporters.MarkDownReporter;
 
 namespace Bddify.Configuration
 {
-    public class Pipeline
+    public class ProcessorPipeline
     {
         IEnumerable<IProcessor> _GetProcessors(Story story)
         {
@@ -70,15 +70,15 @@ namespace Bddify.Configuration
         private readonly ProcessorFactory _consoleReportFactory = new ProcessorFactory(() => new ConsoleReporter());
         public ProcessorFactory ConsoleReport { get { return _consoleReportFactory; } }
 
-        private readonly ProcessorFactory _htmlReportFactory = new ProcessorFactory(() => new HtmlReporter());
-        public ProcessorFactory HtmlReport { get { return _htmlReportFactory; } }
+        private readonly HtmlReportFactory _htmlReportFactory = new HtmlReportFactory(() => new HtmlReporter());
+        public HtmlReportFactory HtmlReport { get { return _htmlReportFactory; } }
 
         private readonly ProcessorFactory _markdownFactory = new ProcessorFactory(() => new MarkDownReporter(), false);
         public ProcessorFactory MarkdownReport { get { return _markdownFactory; } }
 
         readonly List<Func<IProcessor>> _addedProcessors = new List<Func<IProcessor>>();
 
-        public Pipeline Add(Func<IProcessor> processorFactory)
+        public ProcessorPipeline Add(Func<IProcessor> processorFactory)
         {
             _addedProcessors.Add(processorFactory);
             return this;

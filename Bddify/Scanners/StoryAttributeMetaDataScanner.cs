@@ -32,9 +32,9 @@ namespace Bddify.Scanners
 {
     public class StoryAttributeMetaDataScanner : IStoryMetaDataScanner
     {
-        public virtual StoryMetaData Scan(object testObject, Type explicityStoryType = null)
+        public virtual StoryMetaData Scan(object testObject, Type explicitStoryType = null)
         {
-            return GetStoryMetaData(testObject, explicityStoryType) ?? GetStoryMetaDataFromScenario(testObject);
+            return GetStoryMetaData(testObject, explicitStoryType) ?? GetStoryMetaDataFromScenario(testObject);
         }
 
         static StoryMetaData GetStoryMetaDataFromScenario(object testObject)

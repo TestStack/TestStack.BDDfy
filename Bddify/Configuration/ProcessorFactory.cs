@@ -28,43 +28,14 @@ using Bddify.Core;
 
 namespace Bddify.Configuration
 {
-    public class ProcessorFactory
+    public class ProcessorFactory : ComponentFactory<IProcessor, Story>
     {
-        private bool _active = true;
-        private Predicate<Story> _runsOn = story => true;
-        readonly Func<IProcessor> _factory; 
-        internal ProcessorFactory(Func<IProcessor> factory)
+        internal ProcessorFactory(Func<IProcessor> factory) : base(factory)
         {
-            _factory = factory;
         }
 
-        internal ProcessorFactory(Func<IProcessor> factory, bool active)
+        internal ProcessorFactory(Func<IProcessor> factory, bool active) : base(factory, active)
         {
-            _factory = factory;
-            _active = active;
-        }
-
-        public void Disable()
-        {
-            _active = false;
-        }
-
-        public void Enable()
-        {
-            _active = true;
-        }
-
-        public IProcessor ConstructFor(Story story)
-        {
-            if (!_active || !_runsOn(story))
-                return null;
-            
-            return _factory();
-        }
-
-        public void RunsOn(Predicate<Story> runOn)
-        {
-            _runsOn = runOn;
         }
     }
 }

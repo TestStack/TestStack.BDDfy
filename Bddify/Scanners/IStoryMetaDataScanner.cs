@@ -30,6 +30,6 @@ namespace Bddify.Scanners
 {
     public interface IStoryMetaDataScanner
     {
-        StoryMetaData Scan(object testObject, Type explicityStoryType = null);
+        StoryMetaData Scan(object testObject, Type explicitStoryType = null);
     }
 }

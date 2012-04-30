@@ -36,7 +36,8 @@ namespace Bddify
     {
         static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
         {
-            var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, ScannerConfig.StepScanners().ToArray());
+            var stepScanners = Factory.ScannerPipeline.GetStepScanners(testObject).ToArray();
+            var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
 
             return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
         }
