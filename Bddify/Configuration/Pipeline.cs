@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
 using Bddify.Processors;
-using Bddify.Reporters.HtmlReporter;
 
 namespace Bddify.Configuration
 {
@@ -11,12 +10,21 @@ namespace Bddify.Configuration
     {
         IEnumerable<IProcessor> _GetProcessors(Story story)
         {
-            yield return new TestRunner();
-            yield return new HtmlReporter();
+            var runner = Factory.TestRunner.ConstructFor(story);
+            if (runner != null)
+                yield return runner;
+
+            var htmlReporter = Factory.HtmlReport.ConstructFor(story);
+            if (htmlReporter != null)
+                yield return htmlReporter;
 
             var consoleReporter = Factory.ConsoleReport.ConstructFor(story);
             if (consoleReporter != null)
                 yield return consoleReporter;
+
+            var markdownReporter = Factory.MarkdownReport.ConstructFor(story);
+            if (markdownReporter != null)
+                yield return markdownReporter;
 
             yield return new ExceptionProcessor();
 

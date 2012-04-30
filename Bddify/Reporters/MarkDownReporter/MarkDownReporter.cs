@@ -35,20 +35,20 @@ namespace Bddify.Reporters.MarkDownReporter
     /// This is a custom reporter that shows you how easily you can create a custom report.
     /// Just implement IProcessor and you are done
     /// </summary>
-    public class MarkDownReportProcessor : IProcessor
+    public class MarkDownReporter : IProcessor
     {
         private static string OutputDirectory
         {
             get
             {
-                string codeBase = typeof(MarkDownReportProcessor).Assembly.CodeBase;
+                string codeBase = typeof(MarkDownReporter).Assembly.CodeBase;
                 var uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
             }
         }
 
-        static MarkDownReportProcessor()
+        static MarkDownReporter()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
         }

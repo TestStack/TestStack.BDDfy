@@ -82,7 +82,7 @@
     <Compile Include="Reporters\HtmlReporter\HtmlReportViewModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />
-    <Compile Include="Reporters\MarkDownReporter\MarkDownReportProcessor.cs" />
+    <Compile Include="Reporters\MarkDownReporter\MarkDownReporter.cs" />
     <Compile Include="Reporters\StoryConfig.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Reporters\ConsoleReporter\ConsoleReporter.cs" />

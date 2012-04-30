@@ -13,6 +13,12 @@ namespace Bddify.Configuration
             _factory = factory;
         }
 
+        internal ProcessorFactory(Func<IProcessor> factory, bool active)
+        {
+            _factory = factory;
+            _active = active;
+        }
+
         public void Disable()
         {
             _active = false;

@@ -51,7 +51,7 @@ namespace Bddify.Samples.TicTacToe
             var scenarioReport = new StringBuilder();
             scenarioReport.AppendLine(string.Format(" SCENARIO: {0}  ", scenario.Title));
 
-            if (scenario.Result != StepExecutionResult.Passed)
+            if (scenario.Result != StepExecutionResult.Passed && scenario.Steps.Any(s => s.Exception != null))
             {
                 scenarioReport.Append(string.Format("    {0} : ", scenario.Result));
                 scenarioReport.AppendLine(scenario.Steps.First(s => s.Result == scenario.Result).Exception.Message);
