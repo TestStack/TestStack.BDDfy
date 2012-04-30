@@ -36,12 +36,12 @@ namespace Bddify
     {
         static IScanner GetDefaultScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
         {
-            var reflectiveScenarioScanner = GetReflectiveScenarioScanner(scenarioTitle, testObject);
+            var reflectiveScenarioScanner = GetReflectiveScenarioScanner(scenarioTitle);
 
             return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
         }
 
-        private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle, object testObject)
+        private static ReflectiveScenarioScanner GetReflectiveScenarioScanner(string scenarioTitle)
         {
             return new ReflectiveScenarioScanner(scenarioTitle, Factory.StepScanners().ToArray());
         }
