@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bddify Project - http://hg.mehdi-khalili.com/bddify/wiki/Home")]
 [assembly: AssemblyProduct("Bddify")]
-[assembly: AssemblyCopyright("Copyright © 2011 Mehdi Khalili")]
+[assembly: AssemblyCopyright("Copyright © 2011-2012 Mehdi Khalili")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("1.20")]
-[assembly: AssemblyFileVersion("1.20")]
+[assembly: AssemblyVersion("2.0")]
+[assembly: AssemblyFileVersion("2.0")]

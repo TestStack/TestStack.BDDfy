@@ -20,10 +20,8 @@
     <BddifySamplesPath>$(MSBuildProjectDirectory)\Bddify.Samples</BddifySamplesPath>
     <BddifySpecPath>$(PackageDefinitionPath)\Bddify</BddifySpecPath>
     <BddifySpec>$(BddifySpecPath)\Bddify.nuspec</BddifySpec>
-    <SamplesAtmSpecPath>$(PackageDefinitionPath)\Bddify.Samples.Atm</SamplesAtmSpecPath>
-    <SamplesAtmSpec>$(SamplesAtmSpecPath)\Bddify.Samples.Atm.nuspec</SamplesAtmSpec>
-    <SamplesTicTacToeSpecPath>$(PackageDefinitionPath)\Bddify.Samples.TicTacToe</SamplesTicTacToeSpecPath>
-    <SamplesTicSpec>$(SamplesTicTacToeSpecPath)\Bddify.Samples.TicTacToe.nuspec</SamplesTicSpec>
+    <SamplesSpecPath>$(PackageDefinitionPath)\Bddify.Samples</SamplesSpecPath>
+    <SamplesSpec>$(SamplesSpecPath)\Bddify.Samples.nuspec</SamplesSpec>
 </PropertyGroup>
 
   <Target Name="Clean">
@@ -68,18 +66,11 @@
     <Copy SourceFiles="$(ArtifactTemp)\NET35\Bddify.dll;$(ArtifactTemp)\NET35\Bddify.dll" DestinationFolder="$(BddifySpecPath)\lib\NET35"  />
   </Target>
 
-  <Target Name="CopyBddifyAtmSampleFiles">
-    <CreateItem Include="$(BddifySamplesPath)\Atm\*.*">
-      <Output ItemName="AtmSampleFile" TaskParameter="Include"/>
+  <Target Name="CopyBddifySampleFiles">
+    <CreateItem Include="$(BddifySamplesPath)\**\*.cs">
+      <Output ItemName="SampleFile" TaskParameter="Include"/>
     </CreateItem>
-    <Copy SourceFiles="@(AtmSampleFile)" DestinationFiles="@(AtmSampleFile->'$(SamplesAtmSpecPath)\content\Bddify.Samples.Atm\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
-
-  <Target Name="CopyBddifyTicSampleFiles">
-    <CreateItem Include="$(BddifySamplesPath)\TicTacToe\*.*">
-      <Output ItemName="TicSampleFile" TaskParameter="Include"/>
-    </CreateItem>
-    <Copy SourceFiles="@(TicSampleFile)" DestinationFiles="@(TicSampleFile->'$(SamplesTicTacToeSpecPath)\content\Bddify.Samples.TicTacToe\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(SampleFile)" DestinationFiles="@(SampleFile->'$(SamplesSpecPath)\content\Bddify.Samples\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
   <Target Name="Pack">
@@ -87,11 +78,11 @@
       <Output ItemName="PackageContent" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(PackageContent)" DestinationFiles="@(PackageContent->'$(PackageDefinitionPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <CreateItem Include="$(BddifySpec);$(SamplesAtmSpec);$(SamplesTicSpec);">
+    <CreateItem Include="$(BddifySpec);$(SamplesSpec);">
       <Output ItemName="NuGetSpec" TaskParameter="Include"/>
     </CreateItem>
     <FileUpdate Files="@(NuGetSpec)" Regex="0\.0\.0\.0" ReplacementText="$(Version)" />
-    <CallTarget Targets="CopyBddifyLibs;CopyBddifyAtmSampleFiles;CopyBddifyTicSampleFiles;" />
+    <CallTarget Targets="CopyBddifyLibs;CopyBddifySampleFiles;" />
     <MakeDir Directories="$(PackageOutput)" ContinueOnError="true"/>
     <Exec Command='$(NuGetExe) pack "%(NuGetSpec.FullPath)"' WorkingDirectory="$(PackageOutput)"/>
   </Target>
