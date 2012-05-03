@@ -4,6 +4,7 @@ using System.Linq;
 using Bddify.Core;
 using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 using System.Collections.Generic;
+using Bddify.Scanners.StepScanners.Fluent;
 
 namespace Bddify.Tests.FluentScanner
 {

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Bddify.Configuration;
 using Bddify.Processors;
-using Bddify.Reporters.ConsoleReporter;
 using NUnit.Framework;
 
 namespace Bddify.Tests.Configuration

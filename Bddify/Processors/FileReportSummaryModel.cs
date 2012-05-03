@@ -23,46 +23,60 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using Bddify.Core;
 
-namespace Bddify.Reporters.HtmlReporter
+namespace Bddify.Processors
 {
-    public static class LazyFileLoader
+    public class FileReportSummaryModel
     {
-        public static string BddifyCssFile
+        readonly IEnumerable<Story> _stories;
+        readonly IEnumerable<Scenario> _scenarios;
+
+        public FileReportSummaryModel(IEnumerable<Story> stories)
+        {
+            _stories = stories;
+            _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
+        }
+
+        public int Namespaces
         {
             get
             {
-                return GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.css");
+                return _stories.Where(b => b.MetaData == null)
+                    .SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count();
             }
         }
 
-        public static string JQueryFile
+        public int Scenarios
         {
-            get
-            {
-                return GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.jquery-1.7.1.min.js");
-            }
+            get { return _stories.SelectMany(s => s.Scenarios).Count(); }
         }
 
-        public static string BddifyJsFile
+        public int Stories
         {
-            get
-            {
-                return GetEmbeddedFileResource("Bddify.Reporters.HtmlReporter.bddify.js");
-            }
+            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
         }
 
-        static string GetEmbeddedFileResource(string fileResourceName)
+        public int Passed
         {
-            string fileContent;
-            var templateResourceStream = typeof(LazyFileLoader).Assembly.GetManifestResourceStream(fileResourceName);
-            using (var sr = new StreamReader(templateResourceStream))
-            {
-                fileContent = sr.ReadToEnd();
-            }
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Passed); }
+        }
 
-            return fileContent;
+        public int Failed
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Failed); }
+        }
+
+        public int Inconclusive
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
+        }
+
+        public int NotImplemented
+        {
+            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
         }
     }
 }

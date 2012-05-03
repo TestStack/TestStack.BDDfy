@@ -1,5 +1,5 @@
 ﻿using Bddify.Configuration;
-using Bddify.Reporters.HtmlReporter;
+using Bddify.Processors.HtmlReporter;
 using Bddify.Samples.Atm;
 using Bddify.Samples.TicTacToe;
 using NUnit.Framework;

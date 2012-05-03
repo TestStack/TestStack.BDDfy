@@ -23,24 +23,16 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System;
+using Bddify.Core;
 
-namespace Bddify.Reporters.HtmlReporter
+namespace Bddify.Processors.HtmlReporter
 {
-    class HtmlReportTag : IDisposable
+    public interface IHtmlReportConfiguration
     {
-        private readonly HtmlTag _tagName;
-        private readonly Action<HtmlTag> _closeTagAction;
-
-        public HtmlReportTag(HtmlTag tag, Action<HtmlTag> closeTagAction)
-        {
-            _tagName = tag;
-            _closeTagAction = closeTagAction;
-        }
-
-        public void Dispose()
-        {
-            _closeTagAction(_tagName);
-        }
+        string ReportHeader { get; }
+        string ReportDescription { get; }
+        string OutputPath { get; }
+        string OutputFileName { get; }
+        bool RunsOn(Story story);
     }
 }

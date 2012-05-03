@@ -25,11 +25,10 @@
 
 using System;
 using System.Linq.Expressions;
-using Bddify.Scanners.StepScanners.Fluent;
 
 // ReSharper disable CheckNamespace
 // This is in Bddify namespace to make its usage simpler
-namespace Bddify
+namespace Bddify.Scanners.StepScanners.Fluent
 // ReSharper restore CheckNamespace
 {
     public static class FluentStepScannerExtensions

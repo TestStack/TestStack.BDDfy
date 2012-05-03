@@ -1,9 +1,7 @@
 ﻿using System;
 using Bddify.Configuration;
 using Bddify.Processors;
-using Bddify.Reporters.ConsoleReporter;
-using Bddify.Reporters.HtmlReporter;
-using Bddify.Reporters.MarkDownReporter;
+using Bddify.Processors.HtmlReporter;
 using NUnit.Framework;
 using System.Linq;
 

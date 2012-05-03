@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
 
-namespace Bddify.Reporters
+namespace Bddify.Processors
 {
     public class FileReportModel
     {

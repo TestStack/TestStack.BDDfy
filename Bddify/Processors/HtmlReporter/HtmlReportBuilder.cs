@@ -28,7 +28,7 @@ using System.Linq;
 using System.Text;
 using Bddify.Core;
 
-namespace Bddify.Reporters.HtmlReporter
+namespace Bddify.Processors.HtmlReporter
 {
     public class HtmlReportBuilder
     {

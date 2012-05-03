@@ -29,7 +29,7 @@ using System.IO;
 using Bddify.Core;
 using System.Linq;
 
-namespace Bddify.Reporters.HtmlReporter
+namespace Bddify.Processors.HtmlReporter
 {
     public class HtmlReporter : IBatchProcessor
     {
@@ -65,13 +65,13 @@ namespace Bddify.Reporters.HtmlReporter
         void WriteOutScriptFiles()
         {
             var cssFullFileName = Path.Combine(_configuration.OutputPath, "bddify.css");
-            File.WriteAllText(cssFullFileName, LazyFileLoader.BddifyCssFile);
+            File.WriteAllText(cssFullFileName, HtmlReportResources.bddify_css);
 
             var jqueryFullFileName = Path.Combine(_configuration.OutputPath, "jquery-1.7.1.min.js");
-            File.WriteAllText(jqueryFullFileName, LazyFileLoader.JQueryFile);
+            File.WriteAllText(jqueryFullFileName, HtmlReportResources.jquery_1_7_1_min);
 
             var bddifyJavascriptFileName = Path.Combine(_configuration.OutputPath, "bddify.js");
-            File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
+            File.WriteAllText(bddifyJavascriptFileName, HtmlReportResources.bddify_js);
         }
 
         readonly IHtmlReportConfiguration _configuration;

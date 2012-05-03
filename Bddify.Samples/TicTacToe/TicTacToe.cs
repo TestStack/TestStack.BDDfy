@@ -24,6 +24,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using Bddify.Core;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 
 

@@ -28,8 +28,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
 using Bddify.Processors;
-using Bddify.Reporters.ConsoleReporter;
-using Bddify.Reporters.MarkDownReporter;
 
 namespace Bddify.Configuration
 {

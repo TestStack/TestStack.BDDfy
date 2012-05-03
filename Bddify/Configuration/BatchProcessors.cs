@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
 using Bddify.Processors;
-using Bddify.Reporters.HtmlReporter;
-using Bddify.Reporters.MarkDownReporter;
+using Bddify.Processors.HtmlReporter;
 
 namespace Bddify.Configuration
 {

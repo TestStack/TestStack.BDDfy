@@ -70,13 +70,23 @@
     <Compile Include="Configuration\Scanners.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Core\IBatchProcessor.cs" />
+    <Compile Include="Processors\ConsoleReporter.cs" />
+    <Compile Include="Processors\FileReportModel.cs" />
+    <Compile Include="Processors\FileReportSummaryModel.cs" />
+    <Compile Include="Processors\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReportBuilder.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReporter.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReportResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HtmlReportResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Processors\HtmlReporter\HtmlReportTag.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReportViewModel.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlTag.cs" />
+    <Compile Include="Processors\HtmlReporter\IHtmlReportConfiguration.cs" />
+    <Compile Include="Processors\MarkDownReporter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
-    <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />
-    <Compile Include="Reporters\HtmlReporter\IHtmlReportConfiguration.cs" />
-    <Compile Include="Reporters\HtmlReporter\LazyFileLoader.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlReportBuilder.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IHasScanner.cs" />
     <Compile Include="Core\Scenario.cs" />
@@ -86,13 +96,7 @@
     <Compile Include="Core\StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlReporter.cs" />
-    <Compile Include="Reporters\HtmlReporter\HtmlReportViewModel.cs" />
-    <Compile Include="Reporters\FileReportSummaryModel.cs" />
-    <Compile Include="Reporters\FileReportModel.cs" />
-    <Compile Include="Reporters\MarkDownReporter\MarkDownReporter.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
-    <Compile Include="Reporters\ConsoleReporter\ConsoleReporter.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="Core\NetToString.cs" />
     <Compile Include="Core\ProcessType.cs" />
@@ -139,15 +143,16 @@
     <None Include="bddify.snk" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporters\HtmlReporter\bddify.css" />
+    <Content Include="Processors\HtmlReporter\bddify.css" />
+    <Content Include="Processors\HtmlReporter\bddify.js" />
+    <Content Include="Processors\HtmlReporter\jquery-1.7.1.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporters\HtmlReporter\jquery-1.7.1.min.js" />
+    <EmbeddedResource Include="Processors\HtmlReporter\HtmlReportResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Reporters\HtmlReporter\bddify.js" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.WindowsPhone.Overrides.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />

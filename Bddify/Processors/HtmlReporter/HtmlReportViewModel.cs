@@ -1,4 +1,4 @@
-// Copyright (C) 2011, Mehdi Khalili
+﻿// Copyright (C) 2011, Mehdi Khalili
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without
@@ -23,20 +23,22 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-namespace Bddify.Reporters.HtmlReporter
+using System.Collections.Generic;
+using Bddify.Core;
+
+namespace Bddify.Processors.HtmlReporter
 {
-    // ReSharper disable InconsistentNaming
-    public enum HtmlTag
+    public class HtmlReportViewModel : FileReportModel
     {
-        html,
-        head,
-        div,
-        ul,
-        li,
-        p,
-        body,
-        header,
-        section
+        public HtmlReportViewModel(IHtmlReportConfiguration configuration, IEnumerable<Story> stories)
+            : base(stories)
+        {
+            Configuration = configuration;
+        }
+
+        public bool UseCustomStylesheet { get; set; }
+        public bool UseCustomJavascript { get; set; }
+
+        public IHtmlReportConfiguration Configuration { get; private set; }
     }
-    // ReSharper restore InconsistentNaming
 }

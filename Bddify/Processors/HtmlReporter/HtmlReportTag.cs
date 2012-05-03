@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2011, Mehdi Khalili
+// Copyright (C) 2011, Mehdi Khalili
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without
@@ -23,60 +23,24 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System.Collections.Generic;
-using System.Linq;
-using Bddify.Core;
+using System;
 
-namespace Bddify.Reporters
+namespace Bddify.Processors.HtmlReporter
 {
-    public class FileReportSummaryModel
+    class HtmlReportTag : IDisposable
     {
-        readonly IEnumerable<Story> _stories;
-        readonly IEnumerable<Scenario> _scenarios;
+        private readonly HtmlTag _tagName;
+        private readonly Action<HtmlTag> _closeTagAction;
 
-        public FileReportSummaryModel(IEnumerable<Story> stories)
+        public HtmlReportTag(HtmlTag tag, Action<HtmlTag> closeTagAction)
         {
-            _stories = stories;
-            _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
+            _tagName = tag;
+            _closeTagAction = closeTagAction;
         }
 
-        public int Namespaces
+        public void Dispose()
         {
-            get
-            {
-                return _stories.Where(b => b.MetaData == null)
-                    .SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count();
-            }
-        }
-
-        public int Scenarios
-        {
-            get { return _stories.SelectMany(s => s.Scenarios).Count(); }
-        }
-
-        public int Stories
-        {
-            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
-        }
-
-        public int Passed
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Passed); }
-        }
-
-        public int Failed
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Failed); }
-        }
-
-        public int Inconclusive
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
-        }
-
-        public int NotImplemented
-        {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
+            _closeTagAction(_tagName);
         }
     }
 }

@@ -29,7 +29,7 @@ using System.IO;
 using System.Text;
 using Bddify.Core;
 
-namespace Bddify.Reporters.MarkDownReporter
+namespace Bddify.Processors
 {
     /// <summary>
     /// This is a custom reporter that shows you how easily you can create a custom report.

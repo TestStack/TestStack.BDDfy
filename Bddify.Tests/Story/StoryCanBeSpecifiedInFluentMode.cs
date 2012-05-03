@@ -1,4 +1,5 @@
 ﻿using Bddify.Core;
+using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
 
 namespace Bddify.Tests.Story

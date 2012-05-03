@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 using Bddify.Core;
-using Bddify.Reporters.HtmlReporter;
+using Bddify.Processors.HtmlReporter;
 
 namespace Bddify.Configuration
 {

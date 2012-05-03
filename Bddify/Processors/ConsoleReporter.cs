@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bddify.Core;
 
-namespace Bddify.Reporters.ConsoleReporter
+namespace Bddify.Processors
 {
     public class ConsoleReporter : IProcessor
     {
