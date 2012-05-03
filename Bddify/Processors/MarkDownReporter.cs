@@ -63,7 +63,7 @@ namespace Bddify.Processors
                 report = error + ex.Message;
             }
 
-            var path = Path.Combine(OutputDirectory, "bddify.markdown");
+            var path = Path.Combine(OutputDirectory, "bddify.md");
 
             if (File.Exists(path))
                 File.Delete(path);
