@@ -28,11 +28,11 @@ namespace Bddify.Tests.Configuration
         [Test]
         public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
         {
-            Configurator.BatchProcessors.HtmlReporter.Disable();
+            Configurator.BatchProcessors.HtmlReport.Disable();
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
 
             Assert.IsFalse(processors.Any(p => p is HtmlReporter));
-            Configurator.BatchProcessors.HtmlReporter.Enable();
+            Configurator.BatchProcessors.HtmlReport.Enable();
         }
 
         [Test]

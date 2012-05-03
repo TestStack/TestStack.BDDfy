@@ -14,6 +14,7 @@ namespace Bddify.Samples
         public void Config()
         {
             Configurator.Processors.Add(() => new CustomTextReporter());
+            Configurator.BatchProcessors.MarkDownReport.Enable();
             Configurator.BatchProcessors.Add(new HtmlReporter(new HtmlReportConfig()));
         }
     }

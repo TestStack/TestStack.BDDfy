@@ -10,7 +10,7 @@ namespace Bddify.Configuration
     {
         IEnumerable<IBatchProcessor> _GetProcessors()
         {
-            var htmlReporter = HtmlReporter.ConstructFor(StoryCache.Stories);
+            var htmlReporter = HtmlReport.ConstructFor(StoryCache.Stories);
             if (htmlReporter != null)
                 yield return htmlReporter;
 
@@ -24,8 +24,8 @@ namespace Bddify.Configuration
             }
         }
 
-        private readonly BatchProcessorFactory _htmlReporterFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
-        public BatchProcessorFactory HtmlReporter { get { return _htmlReporterFactory; } }
+        private readonly BatchProcessorFactory _htmlReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
+        public BatchProcessorFactory HtmlReport { get { return _htmlReportFactory; } }
 
         private readonly BatchProcessorFactory _markDownFactory = new BatchProcessorFactory(() => new MarkDownReporter(), false);
         public BatchProcessorFactory MarkDownReport { get { return _markDownFactory; } }
