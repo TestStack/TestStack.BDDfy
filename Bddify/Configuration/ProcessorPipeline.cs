@@ -29,7 +29,6 @@ using System.Linq;
 using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Reporters.ConsoleReporter;
-using Bddify.Reporters.HtmlReporter;
 using Bddify.Reporters.MarkDownReporter;
 
 namespace Bddify.Configuration
@@ -42,19 +41,15 @@ namespace Bddify.Configuration
             if (runner != null)
                 yield return runner;
 
-            var htmlReporter = HtmlReport.ConstructFor(story);
-            if (htmlReporter != null)
-                yield return htmlReporter;
-
             var consoleReporter = ConsoleReport.ConstructFor(story);
             if (consoleReporter != null)
                 yield return consoleReporter;
 
-            var markdownReporter = MarkdownReport.ConstructFor(story);
-            if (markdownReporter != null)
-                yield return markdownReporter;
-
             yield return new ExceptionProcessor();
+
+            var storyCache = StoryCache.ConstructFor(story);
+            if (storyCache != null)
+                yield return storyCache;
 
             yield return new Disposer();
 
@@ -70,11 +65,8 @@ namespace Bddify.Configuration
         private readonly ProcessorFactory _consoleReportFactory = new ProcessorFactory(() => new ConsoleReporter());
         public ProcessorFactory ConsoleReport { get { return _consoleReportFactory; } }
 
-        private readonly HtmlReportFactory _htmlReportFactory = new HtmlReportFactory(() => new HtmlReporter());
-        public HtmlReportFactory HtmlReport { get { return _htmlReportFactory; } }
-
-        private readonly ProcessorFactory _markdownFactory = new ProcessorFactory(() => new MarkDownReporter(), false);
-        public ProcessorFactory MarkdownReport { get { return _markdownFactory; } }
+        private readonly ProcessorFactory _storyCacheFactory = new ProcessorFactory(() => new StoryCache());
+        public ProcessorFactory StoryCache { get { return _storyCacheFactory; } }
 
         readonly List<Func<IProcessor>> _addedProcessors = new List<Func<IProcessor>>();
 

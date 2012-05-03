@@ -23,8 +23,10 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+using System;
 using System.Linq;
 using Bddify.Configuration;
+using Bddify.Processors;
 
 namespace Bddify.Core
 {
@@ -32,6 +34,19 @@ namespace Bddify.Core
     {
         private readonly string _storyCategory;
         private readonly IScanner _scanner;
+
+        static Bddifier()
+        {
+            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
+        }
+
+        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
+        {
+            foreach (var batchProcessor in Factory.BatchProcessors.GetProcessors())
+            {
+                batchProcessor.Process(StoryCache.Stories);
+            }
+        }
 
         public Bddifier(string storyCategory, IScanner scanner)
         {

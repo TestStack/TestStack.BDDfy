@@ -51,7 +51,6 @@ namespace Bddify.Reporters.HtmlReporter
         public virtual string OutputFileName
         {
             get { return _outputFileName; }
-            set { _outputFileName = value; }
         }
 
         public virtual bool RunsOn(Story story)

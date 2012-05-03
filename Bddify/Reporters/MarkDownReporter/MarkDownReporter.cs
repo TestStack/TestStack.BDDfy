@@ -35,7 +35,7 @@ namespace Bddify.Reporters.MarkDownReporter
     /// This is a custom reporter that shows you how easily you can create a custom report.
     /// Just implement IProcessor and you are done
     /// </summary>
-    public class MarkDownReporter : IProcessor
+    public class MarkDownReporter : IBatchProcessor
     {
         private static string OutputDirectory
         {
@@ -48,32 +48,10 @@ namespace Bddify.Reporters.MarkDownReporter
             }
         }
 
-        static MarkDownReporter()
-        {
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
-        }
-
-        public virtual void Process(Story story)
-        {
-            Stories.Add(story);
-        }
-
-        public ProcessType ProcessType
-        {
-            get { return ProcessType.Report; }
-        }
-
-        static readonly List<Story> Stories = new List<Story>();
-
-        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
-        {
-            GenerateMarkDownReport();
-        }
-
-        private static void GenerateMarkDownReport()
+        public void Process(IEnumerable<Story> stories)
         {
             const string error = "There was an error compiling the html report: ";
-            var viewModel = new FileReportModel(Stories);
+            var viewModel = new FileReportModel(stories);
             string report;
 
             try

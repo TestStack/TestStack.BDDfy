@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BddifyExtensions.cs" />
+    <Compile Include="Configuration\BatchProcessorFactory.cs" />
+    <Compile Include="Configuration\BatchProcessors.cs" />
     <Compile Include="Configuration\ComponentFactory.cs" />
     <Compile Include="Configuration\HtmlReportFactory.cs" />
     <Compile Include="Configuration\ProcessorFactory.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="Configuration\ProcessorPipeline.cs" />
     <Compile Include="Configuration\ScannerPipeline.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
+    <Compile Include="Core\IBatchProcessor.cs" />
+    <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="Reporters\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlReportTag.cs" />
     <Compile Include="Reporters\HtmlReporter\HtmlTag.cs" />
@@ -87,7 +91,6 @@
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />
     <Compile Include="Reporters\MarkDownReporter\MarkDownReporter.cs" />
-    <Compile Include="Reporters\StoryConfig.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Reporters\ConsoleReporter\ConsoleReporter.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />

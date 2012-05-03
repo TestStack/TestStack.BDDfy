@@ -26,51 +26,19 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Bddify.Configuration;
 using Bddify.Core;
+using System.Linq;
 
 namespace Bddify.Reporters.HtmlReporter
 {
-    public class HtmlReporter : IProcessor
+    public class HtmlReporter : IBatchProcessor
     {
-        static readonly List<Story> Stories = new List<Story>();
-
-        static HtmlReporter()
-        {
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
-        }
-
-        public ProcessType ProcessType
-        {
-            get { return ProcessType.Report; }
-        }
-
-        public virtual void Process(Story story)
-        {
-            Stories.Add(story);
-        }
-
-        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
-        {
-            GenerateHtmlReport();
-        }
-
-        private static void GenerateHtmlReport()
-        {
-            foreach (var storyConfig in StoriesByConfig)
-            {
-                WriteOutScriptFilesFor(storyConfig);
-                WriteOutHtmlReportFor(storyConfig);
-            }
-        }
-
-        static void WriteOutHtmlReportFor(StoryConfig config)
+        void WriteOutHtmlReport(IEnumerable<Story> stories)
         {
             const string error = "There was an error compiling the html report: ";
-            var htmlFullFileName = Path.Combine(config.HtmlReportConfiguration.OutputPath, config.HtmlReportConfiguration.OutputFileName);
-            var viewModel = new HtmlReportViewModel(config.HtmlReportConfiguration, config.Stories);
-            ShouldTheReportUseCustomization(config, viewModel);
+            var htmlFullFileName = Path.Combine(_configuration.OutputPath, _configuration.OutputFileName);
+            var viewModel = new HtmlReportViewModel(_configuration, stories);
+            ShouldTheReportUseCustomization(viewModel);
             string report;
 
             try
@@ -85,34 +53,40 @@ namespace Bddify.Reporters.HtmlReporter
             File.WriteAllText(htmlFullFileName, report);
         }
 
-        private static void ShouldTheReportUseCustomization(StoryConfig config, HtmlReportViewModel viewModel)
+        private void ShouldTheReportUseCustomization(HtmlReportViewModel viewModel)
         {
-            var customStylesheet = Path.Combine(config.HtmlReportConfiguration.OutputPath, "bddifyCustom.css");
+            var customStylesheet = Path.Combine(_configuration.OutputPath, "bddifyCustom.css");
             viewModel.UseCustomStylesheet = File.Exists(customStylesheet);
 
-            var customJavascript = Path.Combine(config.HtmlReportConfiguration.OutputPath, "bddifyCustom.js");
+            var customJavascript = Path.Combine(_configuration.OutputPath, "bddifyCustom.js");
             viewModel.UseCustomJavascript = File.Exists(customJavascript);
         }
 
-        static void WriteOutScriptFilesFor(StoryConfig config)
+        void WriteOutScriptFiles()
         {
-            var cssFullFileName = Path.Combine(config.HtmlReportConfiguration.OutputPath, "bddify.css");
+            var cssFullFileName = Path.Combine(_configuration.OutputPath, "bddify.css");
             File.WriteAllText(cssFullFileName, LazyFileLoader.BddifyCssFile);
 
-            var jqueryFullFileName = Path.Combine(config.HtmlReportConfiguration.OutputPath, "jquery-1.7.1.min.js");
+            var jqueryFullFileName = Path.Combine(_configuration.OutputPath, "jquery-1.7.1.min.js");
             File.WriteAllText(jqueryFullFileName, LazyFileLoader.JQueryFile);
 
-            var bddifyJavascriptFileName = Path.Combine(config.HtmlReportConfiguration.OutputPath, "bddify.js");
+            var bddifyJavascriptFileName = Path.Combine(_configuration.OutputPath, "bddify.js");
             File.WriteAllText(bddifyJavascriptFileName, LazyFileLoader.BddifyJsFile);
         }
 
-        static IEnumerable<StoryConfig> StoriesByConfig
+        readonly IHtmlReportConfiguration _configuration;
+
+        public HtmlReporter(IHtmlReportConfiguration configuration)
         {
-            get
-            {
-                return Factory.ProcessorPipeline.HtmlReport.Configurations
-                    .Select(config => new StoryConfig(config, Stories.Where(config.RunsOn).ToList())).ToList();
-            }
+            _configuration = configuration;
+        }
+
+        public void Process(IEnumerable<Story> stories)
+        {
+            WriteOutScriptFiles();
+
+            var allowedStories = stories.Where(s => _configuration.RunsOn(s)).ToList();
+            WriteOutHtmlReport(allowedStories);
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿using Bddify.Configuration;
+﻿using System.Linq;
+using Bddify.Configuration;
 using Bddify.Processors;
 using Bddify.Reporters.ConsoleReporter;
-using Bddify.Reporters.HtmlReporter;
-using Bddify.Reporters.MarkDownReporter;
 using NUnit.Framework;
-using System.Linq;
 
 namespace Bddify.Tests.Configuration
 {
-    [TestFixture]
-    public class FactoryTests
+    public class ProcessorPipelineTests
     {
         [Test]
         public void ReturnsDefaultPipelineByDefault()
@@ -17,10 +14,9 @@ namespace Bddify.Tests.Configuration
             var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
-            Assert.IsTrue(processors.Any(p => p is HtmlReporter));
+            Assert.IsTrue(processors.Any(p => p is StoryCache));
             Assert.IsTrue(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Assert.IsFalse(processors.Any(p => p is MarkDownReporter));
         }
 
         [Test]
@@ -30,7 +26,7 @@ namespace Bddify.Tests.Configuration
             var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
-            Assert.IsTrue(processors.Any(p => p is HtmlReporter));
+            Assert.IsTrue(processors.Any(p => p is StoryCache));
             Assert.IsTrue(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
             Factory.ProcessorPipeline.ConsoleReport.Enable();
@@ -47,19 +43,6 @@ namespace Bddify.Tests.Configuration
         }
 
         [Test]
-        public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
-        {
-            Factory.ProcessorPipeline.HtmlReport.Disable();
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
-
-            Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
-            Assert.IsFalse(processors.Any(p => p is HtmlReporter));
-            Assert.IsTrue(processors.Any(p => p is TestRunner));
-            Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Factory.ProcessorPipeline.HtmlReport.Enable();
-        }
-
-        [Test]
         public void DoesNotReturnTestRunnerWhenItIsDeactivated()
         {
             Factory.ProcessorPipeline.TestRunner.Disable();
@@ -67,30 +50,9 @@ namespace Bddify.Tests.Configuration
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsFalse(processors.Any(p => p is TestRunner));
-            Assert.IsTrue(processors.Any(p => p is HtmlReporter));
+            Assert.IsTrue(processors.Any(p => p is StoryCache));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
             Factory.ProcessorPipeline.TestRunner.Enable();
-        }
-
-        [Test]
-        public void DoesNotReturnHtmlReporterForExcludedStories()
-        {
-            Factory.ProcessorPipeline.HtmlReport.RunsOn(s => s.MetaData != null);
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
-
-            Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
-            Assert.IsFalse(processors.Any(p => p is HtmlReporter));
-            Factory.ProcessorPipeline.HtmlReport.RunsOn(s => true);
-        }
-
-        [Test]
-        public void ReturnsMarkdownReporterWhenItIsActivated()
-        {
-            Factory.ProcessorPipeline.MarkdownReport.Enable();
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
-
-            Assert.IsTrue(processors.Any(p => p is MarkDownReporter));
-            Factory.ProcessorPipeline.MarkdownReport.Disable();
         }
 
         [Test]
@@ -102,7 +64,7 @@ namespace Bddify.Tests.Configuration
                 .GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is CustomProcessor));
-            Assert.IsTrue(processors.Any(p => p is HtmlReporter));
+            Assert.IsTrue(processors.Any(p => p is StoryCache));
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
         }
     }
