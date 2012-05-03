@@ -1,4 +1,5 @@
 using System;
+using Bddify.Configuration;
 using Bddify.Core;
 using Bddify.Scanners.ScenarioScanners;
 using Bddify.Scanners.StepScanners;
@@ -130,7 +131,7 @@ namespace Bddify.Tests.Scanner
 
         void VerifyStepAndItsProperties(Action stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.StepTitle.Trim() == NetToString.Convert(Helpers.GetMethodInfo(stepMethodAction).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.StepTitle.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
             Assert.That(matchingSteps.Count(), Is.EqualTo(expectedCount));
             Assert.IsTrue(matchingSteps.All(s => s.ExecutionOrder == expectedOrder));
         }
@@ -138,7 +139,7 @@ namespace Bddify.Tests.Scanner
         [Test]
         public void IgnoredMethodShouldNotBeAddedToSteps()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.StepTitle == NetToString.Convert(Helpers.GetMethodInfo(_sut.ThenIAmNotAStep).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.StepTitle == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(_sut.ThenIAmNotAStep).Name));
             Assert.That(matchingSteps.Count(), Is.EqualTo(0));
         }
     }

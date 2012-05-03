@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bddify.Configuration;
 using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.StepScanners;
@@ -93,7 +94,7 @@ namespace Bddify.Tests.Scanner
 
         void AssertSpecificationStepIsScannedProperly(Action getSpecMethod)
         {
-            var specMethods = _steps.Where(s => s.StepTitle.Trim() == NetToString.Convert( Helpers.GetMethodInfo(getSpecMethod).Name));
+            var specMethods = _steps.Where(s => s.StepTitle.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
             Assert.That(specMethods.Count(), Is.EqualTo(1));
             var specStep = specMethods.First();
             Assert.That(specStep.Asserts, Is.False);

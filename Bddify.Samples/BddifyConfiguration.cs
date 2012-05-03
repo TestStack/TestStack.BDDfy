@@ -1,4 +1,5 @@
 ﻿using Bddify.Configuration;
+using Bddify.Core;
 using Bddify.Processors.HtmlReporter;
 using Bddify.Samples.Atm;
 using Bddify.Samples.TicTacToe;

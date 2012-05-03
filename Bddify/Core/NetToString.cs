@@ -71,7 +71,7 @@ namespace Bddify.Core
             return result.Replace(" i ", " I "); // I is an exception
         }
 
-        public static Func<string, string> Convert = name =>
+        internal static Func<string, string> Convert = name =>
             {
                 if (name.Contains("_"))
                     return FromUnderscoreSeparatedWords(name);

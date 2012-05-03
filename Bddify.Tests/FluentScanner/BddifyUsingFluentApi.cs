@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Bddify.Configuration;
 using Bddify.Core;
 using Bddify.Scanners.StepScanners.Fluent;
 using NUnit.Framework;
@@ -276,7 +277,7 @@ namespace Bddify.Tests.FluentScanner
                     .Bddify();
 
             var scenario = story.Scenarios.First();
-            Assert.That(scenario.Title, Is.EqualTo(NetToString.Convert(MethodBase.GetCurrentMethod().Name)));
+            Assert.That(scenario.Title, Is.EqualTo(Configurator.Scanners.Humanize(MethodBase.GetCurrentMethod().Name)));
         }
 
         [Test]

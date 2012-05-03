@@ -70,7 +70,7 @@
     <Compile Include="FluentScanner\WhenStepsAreScannedUsingFluentScanner.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="NetToStringTests.cs" />
+    <Compile Include="HumanizerTests.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
     <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
     <Compile Include="Scanner\StepScannerExtensions.cs" />

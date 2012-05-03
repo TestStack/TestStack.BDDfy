@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using Bddify.Core;
 using Bddify.Scanners;
 using Bddify.Scanners.StepScanners;
 using Bddify.Scanners.StepScanners.ExecutableAttribute;
@@ -64,5 +65,7 @@ namespace Bddify.Configuration
         }
 
         public Func<IStoryMetaDataScanner> StoryMetaDataScanner = () => new StoryAttributeMetaDataScanner();
+
+        public Func<string, string> Humanize = NetToString.Convert;
     }
 }

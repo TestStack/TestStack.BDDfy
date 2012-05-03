@@ -1,5 +1,6 @@
 ﻿using System;
 using Bddify.Configuration;
+using Bddify.Core;
 using Bddify.Processors;
 using Bddify.Processors.HtmlReporter;
 using NUnit.Framework;

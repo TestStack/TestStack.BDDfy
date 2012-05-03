@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bddify.Configuration;
 using Bddify.Core;
 
 namespace Bddify.Processors
@@ -87,7 +88,7 @@ namespace Bddify.Processors
                 string.Format
                     ("\t{0}  [{1}] ",
                     PrefixWithSpaceIfRequired(step).PadRight(_longestStepSentence + 5),
-                    NetToString.Convert(step.Result.ToString()));
+                    Configurator.Scanners.Humanize(step.Result.ToString()));
 
             // if all the steps have passed, there is no reason to make noise
             if (scenario.Result == StepExecutionResult.Passed)

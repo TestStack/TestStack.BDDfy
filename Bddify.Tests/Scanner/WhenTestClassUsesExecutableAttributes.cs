@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bddify.Configuration;
 using Bddify.Core;
 using Bddify.Scanners.StepScanners.ExecutableAttribute;
 using Bddify.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
@@ -55,7 +56,7 @@ namespace Bddify.Tests.Scanner
 
         private static string GetStepTextFromMethodName(Action methodInfoAction)
         {
-            return NetToString.Convert(Helpers.GetMethodInfo(methodInfoAction).Name);
+            return Configurator.Scanners.Humanize(Helpers.GetMethodInfo(methodInfoAction).Name);
         }
 
         [Test]

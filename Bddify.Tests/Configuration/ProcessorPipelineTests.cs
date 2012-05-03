@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Bddify.Configuration;
+using Bddify.Core;
 using Bddify.Processors;
 using NUnit.Framework;
 
