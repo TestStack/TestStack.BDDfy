@@ -62,10 +62,12 @@ namespace Bddify.Scanners.StepScanners.MethodName
     /// </remarks>
     public class MethodNameStepScanner : IStepScanner
     {
+        private readonly Func<string, string> _stepTextTransformer;
         private readonly MethodNameMatcher[] _matchers;
 
-        public MethodNameStepScanner(MethodNameMatcher[] matchers)
+        public MethodNameStepScanner(Func<string, string> stepTextTransformer, params MethodNameMatcher[] matchers)
         {
+            _stepTextTransformer = stepTextTransformer;
             _matchers = matchers;
         }
 
@@ -93,14 +95,14 @@ namespace Bddify.Scanners.StepScanners.MethodName
             }
         }
 
-        private static ExecutionStep GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
+        private ExecutionStep GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
             return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
         }
 
-        private static string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
+        private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
         {
             Func<string> stepTitleFromMethodName = () => GetStepTitleFromMethodName(method, argAttribute);
 
@@ -110,9 +112,9 @@ namespace Bddify.Scanners.StepScanners.MethodName
             return stepTitleFromMethodName();
         }
 
-        private static string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
+        private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
         {
-            var methodName = CleanupTheStepText(NetToString.Convert(method.Name));
+            var methodName = _stepTextTransformer(NetToString.Convert(method.Name));
             object[] inputs = null;
 
             if (argAttribute != null && argAttribute.InputArguments != null)
@@ -164,17 +166,6 @@ namespace Bddify.Scanners.StepScanners.MethodName
         private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs)
         {
             return (IEnumerable<string>)method.Invoke(testObject, inputs);
-        }
-
-        static string CleanupTheStepText(string stepText)
-        {
-            if (stepText.StartsWith("and given ", StringComparison.OrdinalIgnoreCase))
-                return stepText.Remove("and ".Length, "given ".Length);
-
-            if(stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
-                return stepText.Remove("and ".Length, "when ".Length);
-
-            return stepText;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Bddify.Scanners.StepScanners.MethodName
     {
         public DefaultMethodNameStepScanner()
             : base(
+                CleanupTheStepText,
                 new[]
                 {
                     new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.SetupState, false),
@@ -47,6 +48,17 @@ namespace Bddify.Scanners.StepScanners.MethodName
                     new MethodNameMatcher(s => s.StartsWith("TearDown", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.TearDown, false),
                 })
         {
+        }
+
+        static string CleanupTheStepText(string stepText)
+        {
+            if (stepText.StartsWith("and given ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and ".Length, "given ".Length);
+
+            if (stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and ".Length, "when ".Length);
+
+            return stepText;
         }
     }
 }
