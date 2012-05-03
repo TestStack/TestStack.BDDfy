@@ -28,7 +28,7 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        Bddifier _bddifier;
+        Engine _engine;
         private Scenario _scenario;
 
         ExecutionStep GivenStep
@@ -66,9 +66,9 @@ namespace Bddify.Tests.Exceptions
         [SetUp]
         public void InconclusiveExceptionSetup()
         {
-            _bddifier = new InconclusiveTestClass().LazyBddify();
-            Assert.Throws<InconclusiveException>(() => _bddifier.Run());
-            _scenario = _bddifier.Story.Scenarios.First();
+            _engine = new InconclusiveTestClass().LazyBddify();
+            Assert.Throws<InconclusiveException>(() => _engine.Run());
+            _scenario = _engine.Story.Scenarios.First();
         }
 
         [Test]

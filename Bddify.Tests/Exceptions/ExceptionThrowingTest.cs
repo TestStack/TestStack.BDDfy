@@ -39,7 +39,7 @@ namespace Bddify.Tests.Exceptions
         {
             SetThrowingStep(methodToThrow);
 
-            Bddifier bddify;
+            Engine bddify;
 
             if (useFluentScanner)
                 bddify = FluentScannerBddifier();
@@ -57,7 +57,7 @@ namespace Bddify.Tests.Exceptions
             }
         }
 
-        private Bddifier FluentScannerBddifier()
+        private Engine FluentScannerBddifier()
         {
             return this.Given(s => s.Given())
                         .When(s => s.When())
@@ -66,7 +66,7 @@ namespace Bddify.Tests.Exceptions
                         .LazyBddify();
         }
 
-        private Bddifier ReflectingScannersBddifier()
+        private Engine ReflectingScannersBddifier()
         {
             return this.LazyBddify();
         }

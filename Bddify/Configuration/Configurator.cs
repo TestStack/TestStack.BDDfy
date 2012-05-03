@@ -23,18 +23,16 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System;
-
 namespace Bddify.Configuration
 {
-    public static class Factory
+    public static class Configurator
     {
-        private static readonly ProcessorPipeline ProcessorPipelineFactory = new ProcessorPipeline();
-        public static ProcessorPipeline ProcessorPipeline 
+        private static readonly Processors ProcessorsFactory = new Processors();
+        public static Processors Processors 
         {
             get
             {
-                return ProcessorPipelineFactory;
+                return ProcessorsFactory;
             }
         }
 
@@ -45,12 +43,12 @@ namespace Bddify.Configuration
             { return BatchProcessorFactory; }
         }
 
-        private static readonly ScannerPipeline ScannerPipelineFactory = new ScannerPipeline();
-        public static ScannerPipeline ScannerPipeline
+        private static readonly Scanners ScannersFactory = new Scanners();
+        public static Scanners Scanners
         {
             get
             {
-                return ScannerPipelineFactory;
+                return ScannersFactory;
             }
         }
     }

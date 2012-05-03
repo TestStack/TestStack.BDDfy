@@ -33,7 +33,7 @@ using Bddify.Reporters.MarkDownReporter;
 
 namespace Bddify.Configuration
 {
-    public class ProcessorPipeline
+    public class Processors
     {
         IEnumerable<IProcessor> _GetProcessors(Story story)
         {
@@ -70,7 +70,7 @@ namespace Bddify.Configuration
 
         readonly List<Func<IProcessor>> _addedProcessors = new List<Func<IProcessor>>();
 
-        public ProcessorPipeline Add(Func<IProcessor> processorFactory)
+        public Processors Add(Func<IProcessor> processorFactory)
         {
             _addedProcessors.Add(processorFactory);
             return this;

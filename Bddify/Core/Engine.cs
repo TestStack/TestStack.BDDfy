@@ -30,25 +30,25 @@ using Bddify.Processors;
 
 namespace Bddify.Core
 {
-    public class Bddifier
+    public class Engine
     {
         private readonly string _storyCategory;
         private readonly IScanner _scanner;
 
-        static Bddifier()
+        static Engine()
         {
             AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
         }
 
         static void CurrentDomain_DomainUnload(object sender, EventArgs e)
         {
-            foreach (var batchProcessor in Factory.BatchProcessors.GetProcessors())
+            foreach (var batchProcessor in Configurator.BatchProcessors.GetProcessors())
             {
                 batchProcessor.Process(StoryCache.Stories);
             }
         }
 
-        public Bddifier(string storyCategory, IScanner scanner)
+        public Engine(string storyCategory, IScanner scanner)
         {
             _storyCategory = storyCategory ?? "bddify";
             _scanner = scanner;
@@ -59,7 +59,7 @@ namespace Bddify.Core
             _story = _scanner.Scan();
             _story.Category = _storyCategory;
 
-            var processors = Factory.ProcessorPipeline.GetProcessors(_story).ToList();
+            var processors = Configurator.Processors.GetProcessors(_story).ToList();
 
             try
             {

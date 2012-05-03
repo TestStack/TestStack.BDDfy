@@ -46,7 +46,7 @@ namespace Bddify.Scanners
         public Story Scan()
         {
             var scenario = _scenarioScanner.Scan(_testObject);
-            var metaData = Factory.ScannerPipeline.StoryMetaDataScanner().Scan(_testObject, _explicitStoryType);
+            var metaData = Configurator.Scanners.StoryMetaDataScanner().Scan(_testObject, _explicitStoryType);
 
             return new Story(metaData, scenario);
         }

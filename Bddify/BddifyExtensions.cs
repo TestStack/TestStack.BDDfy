@@ -36,7 +36,7 @@ namespace Bddify
     {
         static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
         {
-            var stepScanners = Factory.ScannerPipeline.GetStepScanners(testObject).ToArray();
+            var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
             var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
 
             return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
@@ -75,7 +75,7 @@ namespace Bddify
             return testObject.LazyBddify(scenarioTitle, storyCategory).Run();
         }
 
-        public static Bddifier LazyBddify(this object testObject, string scenarioTitle = null, string storyCategory = null)
+        public static Engine LazyBddify(this object testObject, string scenarioTitle = null, string storyCategory = null)
         {
             return InternalLazyBddify(testObject, scenarioTitle, storyCategory);
         }
@@ -119,13 +119,13 @@ namespace Bddify
             return testObject.LazyBddify<TStory>(scenarioTitle, storyCategory).Run();
         }
 
-        public static Bddifier LazyBddify<TStory>(this object testObject, string scenarioTitle = null, string storyCategory = null)
+        public static Engine LazyBddify<TStory>(this object testObject, string scenarioTitle = null, string storyCategory = null)
             where TStory : class
         {
             return InternalLazyBddify(testObject, scenarioTitle, storyCategory, typeof(TStory));
         }
 
-        static Bddifier InternalLazyBddify(
+        static Engine InternalLazyBddify(
             object testObject, 
             string scenarioTitle, 
             string storyCategory,
@@ -142,7 +142,7 @@ namespace Bddify
 
             var storyScanner = scanner ?? GetReflectiveScanner(testObject, scenarioTitle, explicitStoryType);
 
-            return new Bddifier(storyCategory, storyScanner);
+            return new Engine(storyCategory, storyScanner);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Bddify.Tests.Configuration
         [Test]
         public void ReturnsDefaultPipelineByDefault()
         {
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
+            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsTrue(processors.Any(p => p is StoryCache));
@@ -22,44 +22,44 @@ namespace Bddify.Tests.Configuration
         [Test]
         public void DoesNotReturnConsoleReportWhenItIsDeactivated()
         {
-            Factory.ProcessorPipeline.ConsoleReport.Disable();
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
+            Configurator.Processors.ConsoleReport.Disable();
+            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
             Assert.IsTrue(processors.Any(p => p is StoryCache));
             Assert.IsTrue(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Factory.ProcessorPipeline.ConsoleReport.Enable();
+            Configurator.Processors.ConsoleReport.Enable();
         }
 
         [Test]
         public void DoesNotReturnConsoleReportForExcludedStories()
         {
-            Factory.ProcessorPipeline.ConsoleReport.RunsOn(s => s.MetaData != null);
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
+            Configurator.Processors.ConsoleReport.RunsOn(s => s.MetaData != null);
+            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
-            Factory.ProcessorPipeline.ConsoleReport.RunsOn(s => true);
+            Configurator.Processors.ConsoleReport.RunsOn(s => true);
         }
 
         [Test]
         public void DoesNotReturnTestRunnerWhenItIsDeactivated()
         {
-            Factory.ProcessorPipeline.TestRunner.Disable();
-            var processors = Factory.ProcessorPipeline.GetProcessors(new Core.Story(null)).ToList();
+            Configurator.Processors.TestRunner.Disable();
+            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsFalse(processors.Any(p => p is TestRunner));
             Assert.IsTrue(processors.Any(p => p is StoryCache));
             Assert.IsTrue(processors.Any(p => p is ExceptionProcessor));
-            Factory.ProcessorPipeline.TestRunner.Enable();
+            Configurator.Processors.TestRunner.Enable();
         }
 
         [Test]
         public void CanAddCustomProcessor()
         {
-            var processors = Factory
-                .ProcessorPipeline
+            var processors = Configurator
+                .Processors
                 .Add(() => new CustomProcessor())
                 .GetProcessors(new Core.Story(null)).ToList();
 

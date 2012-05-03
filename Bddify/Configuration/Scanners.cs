@@ -32,7 +32,7 @@ using Bddify.Scanners.StepScanners.MethodName;
 
 namespace Bddify.Configuration
 {
-    public class ScannerPipeline
+    public class Scanners
     {
         private readonly StepScannerFactory _executableAttributeScanner = new StepScannerFactory(() => new ExecutableAttributeStepScanner());
         public StepScannerFactory ExecutableAttributeScanner { get { return _executableAttributeScanner; } }
@@ -41,7 +41,7 @@ namespace Bddify.Configuration
         public StepScannerFactory DefaultMethodNameStepScanner { get { return _methodNameStepScanner; } }
 
         private readonly List<Func<IStepScanner>> _addedStepScanners = new List<Func<IStepScanner>>();
-        public ScannerPipeline Add(Func<IStepScanner> stepScannerFactory)
+        public Scanners Add(Func<IStepScanner> stepScannerFactory)
         {
             _addedStepScanners.Add(stepScannerFactory);
             return this;

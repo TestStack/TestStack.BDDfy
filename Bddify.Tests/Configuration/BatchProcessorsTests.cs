@@ -15,35 +15,35 @@ namespace Bddify.Tests.Configuration
         [Test]
         public void ReturnsHtmlReporterByDefault()
         {
-            var processors = Factory.BatchProcessors.GetProcessors().ToList();
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
             Assert.IsTrue(processors.Any(p => p is HtmlReporter));
         }
 
         [Test]
         public void DoesNotReturnMarkDownReporterByDefault()
         {
-            var processors = Factory.BatchProcessors.GetProcessors().ToList();
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
             Assert.IsFalse(processors.Any(p => p is MarkDownReporter));
         }
 
         [Test]
         public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
         {
-            Factory.BatchProcessors.HtmlReporter.Disable();
-            var processors = Factory.BatchProcessors.GetProcessors().ToList();
+            Configurator.BatchProcessors.HtmlReporter.Disable();
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
 
             Assert.IsFalse(processors.Any(p => p is HtmlReporter));
-            Factory.BatchProcessors.HtmlReporter.Enable();
+            Configurator.BatchProcessors.HtmlReporter.Enable();
         }
 
         [Test]
         public void ReturnsMarkdownReporterWhenItIsActivated()
         {
-            Factory.BatchProcessors.MarkDownReport.Enable();
-            var processors = Factory.BatchProcessors.GetProcessors().ToList();
+            Configurator.BatchProcessors.MarkDownReport.Enable();
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
 
             Assert.IsTrue(processors.Any(p => p is MarkDownReporter));
-            Factory.BatchProcessors.MarkDownReport.Disable();
+            Configurator.BatchProcessors.MarkDownReport.Disable();
         }
     }
 }

@@ -65,9 +65,9 @@
     <Compile Include="Configuration\ComponentFactory.cs" />
     <Compile Include="Configuration\HtmlReportFactory.cs" />
     <Compile Include="Configuration\ProcessorFactory.cs" />
-    <Compile Include="Configuration\Factory.cs" />
-    <Compile Include="Configuration\ProcessorPipeline.cs" />
-    <Compile Include="Configuration\ScannerPipeline.cs" />
+    <Compile Include="Configuration\Configurator.cs" />
+    <Compile Include="Configuration\Processors.cs" />
+    <Compile Include="Configuration\Scanners.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Core\IBatchProcessor.cs" />
     <Compile Include="Processors\StoryCache.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IHasScanner.cs" />
     <Compile Include="Core\Scenario.cs" />
-    <Compile Include="Core\Bddifier.cs" />
+    <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Story.cs" />
     <Compile Include="Core\StoryAttribute.cs" />
     <Compile Include="Core\StoryMetaData.cs" />

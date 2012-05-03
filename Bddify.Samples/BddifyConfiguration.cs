@@ -12,8 +12,8 @@ namespace Bddify.Samples
         [SetUp]
         public void Config()
         {
-            Factory.ProcessorPipeline.Add(() => new CustomTextReporter());
-            Factory.BatchProcessors.Add(new HtmlReporter(new HtmlReportConfig()));
+            Configurator.Processors.Add(() => new CustomTextReporter());
+            Configurator.BatchProcessors.Add(new HtmlReporter(new HtmlReportConfig()));
         }
     }
 }
