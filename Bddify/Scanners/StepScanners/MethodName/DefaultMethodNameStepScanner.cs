@@ -58,6 +58,12 @@ namespace Bddify.Scanners.StepScanners.MethodName
             if (stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
                 return stepText.Remove("and ".Length, "when ".Length);
 
+            if (stepText.StartsWith("AndGiven ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and".Length, "given".Length);
+
+            if (stepText.StartsWith("AndWhen ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and".Length, "when".Length);
+
             return stepText;
         }
     }
