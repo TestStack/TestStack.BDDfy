@@ -213,12 +213,37 @@ namespace Bddify.Processors.HtmlReporter
                         using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
                         {
                             AddLine(string.Format("<span>{0}</span>", result));
+                            if (step.Inputs != null && step.Inputs.Length > 0)
+                            {
+                                InputTable(step.Inputs);
+                            }
+
                             if (reportException)
                             {
                                 using (OpenTag(string.Format("<div class='step {0}' id='{1}'>", stepClass, step.Id), HtmlTag.div))
                                 {
                                     AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace));
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InputTable(object[] inputs)
+        {
+            using (OpenTag(HtmlTag.table))
+            {
+                foreach (object input in inputs)
+                {
+                    using (OpenTag(HtmlTag.tr))
+                    {
+                        foreach (object obj in (object[])input)
+                        {
+                            using (OpenTag(HtmlTag.td))
+                            {
+                                AddLine(obj.ToString());
                             }
                         }
                     }

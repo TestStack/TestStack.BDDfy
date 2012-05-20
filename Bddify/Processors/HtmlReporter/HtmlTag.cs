@@ -36,7 +36,10 @@ namespace Bddify.Processors.HtmlReporter
         p,
         body,
         header,
-        section
+        section, 
+        table,
+        tr,
+        td
     }
     // ReSharper restore InconsistentNaming
 }

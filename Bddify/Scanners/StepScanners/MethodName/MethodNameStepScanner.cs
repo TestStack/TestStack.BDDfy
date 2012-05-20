@@ -99,7 +99,9 @@ namespace Bddify.Scanners.StepScanners.MethodName
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
-            return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+            var step = new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+            step.Inputs = inputs;
+            return step;
         }
 
         private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
@@ -115,6 +117,9 @@ namespace Bddify.Scanners.StepScanners.MethodName
         private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
         {
             var methodName = _stepTextTransformer(NetToString.Convert(method.Name));
+
+            return methodName;
+
             object[] inputs = null;
 
             if (argAttribute != null && argAttribute.InputArguments != null)

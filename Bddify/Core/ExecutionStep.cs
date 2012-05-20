@@ -53,6 +53,7 @@ namespace Bddify.Core
         public StepExecutionResult Result { get; set; }
         public Exception Exception { get; set; }
         public ExecutionOrder ExecutionOrder { get; private set; }
+        public object[] Inputs { get; set; }
 
         public void Execute(object testObject)
         {
