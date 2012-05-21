@@ -118,7 +118,7 @@ namespace Bddify.Scanners.StepScanners.MethodName
         {
             var methodName = _stepTextTransformer(NetToString.Convert(method.Name));
 
-            return methodName;
+            //return methodName;
 
             object[] inputs = null;
 
