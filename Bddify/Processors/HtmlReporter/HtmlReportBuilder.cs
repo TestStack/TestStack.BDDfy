@@ -197,22 +197,29 @@ namespace Bddify.Processors.HtmlReporter
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                     {
                         string stepClass = string.Empty;
-                        string result = step.StepTitle;
                         var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
-                        if (reportException)
-                        {
-                            stepClass = step.Result + "Exception";
-                            if (!string.IsNullOrEmpty(step.Exception.Message))
-                            {
-                                result += " [Exception Message: '" + step.Exception.Message + "']";
-                            }
-                        }
-
                         string canToggle = reportException ? "canToggle" : string.Empty;
 
                         using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
                         {
-                            AddLine(string.Format("<span>{0}</span>", result));
+                            var titleLines = step.StepTitle.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                            var title = titleLines[0];
+                            if (reportException)
+                            {
+                                stepClass = step.Result + "Exception";
+                                if (!string.IsNullOrEmpty(step.Exception.Message))
+                                {
+                                    title += " [Exception Message: '" + step.Exception.Message + "']";
+                                }
+                            }
+
+                            AddLine(string.Format("<span>{0}</span>", title));
+
+                            for (int i = 1; i < titleLines.Length; i++)
+                            {
+                                AddLine(string.Format("<div class='step-title-extra-lines'>{0}</div>", titleLines[i]));
+                            }
+
                             if (reportException)
                             {
                                 using (OpenTag(string.Format("<div class='step {0}' id='{1}'>", stepClass, step.Id), HtmlTag.div))

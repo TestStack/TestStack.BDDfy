@@ -79,7 +79,7 @@ namespace Bddify.Processors
                 executionOrder == ExecutionOrder.ConsecutiveTransition)
                 stepTitle = "  " + stepTitle; // add two spaces in the front for indentation.
 
-            return stepTitle;
+            return stepTitle.Replace(Environment.NewLine, Environment.NewLine + "\t\t");
         }
 
         void ReportOnStep(Scenario scenario, ExecutionStep step)

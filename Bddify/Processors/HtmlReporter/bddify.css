@@ -364,4 +364,6 @@ ul.steps
     padding-left:10px;
 }
 			
-
+.step-title-extra-lines {
+    padding-left: 50px;
+}
