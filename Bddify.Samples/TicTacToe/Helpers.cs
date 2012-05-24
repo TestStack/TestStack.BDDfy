@@ -37,7 +37,7 @@ namespace Bddify.Samples.TicTacToe
 
     public class GameUnderTest
     {
-        protected const string BoardStateTemplate = "Given the board rows looks like [{0}], [{1}] and [{2}]";
+        protected const string BoardStateTemplate = "Given the board\r\n{0}\r\n{1}\r\n{2}";
 
         protected const string X = Game.X;
         protected const string O = Game.O;

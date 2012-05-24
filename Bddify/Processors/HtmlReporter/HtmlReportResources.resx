@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bddify.css" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="bddify_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>bddify.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="bddify.js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="bddify_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>bddify.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="jquery_1_7_1_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
