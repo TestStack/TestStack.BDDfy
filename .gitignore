@@ -1,0 +1,17 @@
+_ReSharper.*
+bin/
+obj/
+*.user
+*.suo
+*~
+*.swp
+*.orig
+*.nupkg
+*.crunchproject.local.xml
+*.crunchsolution.local.xml
+*.ncrunchsolution
+*.ncrunchproject
+*.cache
+src/packages/*
+PackageBuild/*
+Build/*
