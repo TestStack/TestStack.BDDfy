@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>BDDfy.Samples</id>
+    <version>2.10</version>
+    <title>Two BDD samples done using BDDfy</title>
+    <authors>Mehdi Khalili</authors>
+    <owners>Mehdi Khalili</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>BDDfy.Samples package contains two small samples that showcase BDDfy's API and usage</description>
+    <projectUrl>http://hg.mehdi-khalili.com/BDDfy/wiki/Home</projectUrl>
+    <dependencies>
+      <dependency id="BDDfy" version="2.10" />
+      <dependency id="nunit" version="2.5" />
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BDDfy</RootNamespace>
+    <AssemblyName>BDDfy</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNET35|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET35</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseSL4|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BDDfyExtensions.cs" />
+    <Compile Include="Configuration\BatchProcessorFactory.cs" />
+    <Compile Include="Configuration\BatchProcessors.cs" />
+    <Compile Include="Configuration\ComponentFactory.cs" />
+    <Compile Include="Configuration\HtmlReportFactory.cs" />
+    <Compile Include="Configuration\ProcessorFactory.cs" />
+    <Compile Include="Configuration\Configurator.cs" />
+    <Compile Include="Configuration\Processors.cs" />
+    <Compile Include="Configuration\Scanners.cs" />
+    <Compile Include="Configuration\StepScannerFactory.cs" />
+    <Compile Include="Core\IBatchProcessor.cs" />
+    <Compile Include="Processors\ConsoleReporter.cs" />
+    <Compile Include="Processors\FileReportModel.cs" />
+    <Compile Include="Processors\FileReportSummaryModel.cs" />
+    <Compile Include="Processors\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReportBuilder.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReporter.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReportResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HtmlReportResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Processors\HtmlReporter\HtmlReportTag.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlReportViewModel.cs" />
+    <Compile Include="Processors\HtmlReporter\HtmlTag.cs" />
+    <Compile Include="Processors\HtmlReporter\IHtmlReportConfiguration.cs" />
+    <Compile Include="Processors\MarkDownReporter.cs" />
+    <Compile Include="Processors\StoryCache.cs" />
+    <Compile Include="Core\ExecutionOrder.cs" />
+    <Compile Include="Core\IHasScanner.cs" />
+    <Compile Include="Core\Scenario.cs" />
+    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\Story.cs" />
+    <Compile Include="Core\StoryAttribute.cs" />
+    <Compile Include="Core\StoryMetaData.cs" />
+    <Compile Include="Processors\InconclusiveException.cs" />
+    <Compile Include="Processors\Disposer.cs" />
+    <Compile Include="Processors\ExceptionProcessor.cs" />
+    <Compile Include="Scanners\DefaultScanner.cs" />
+    <Compile Include="Core\NetToString.cs" />
+    <Compile Include="Core\ProcessType.cs" />
+    <Compile Include="Core\StepExecutionResult.cs" />
+    <Compile Include="Core\ExecutionStep.cs" />
+    <Compile Include="Core\IProcessor.cs" />
+    <Compile Include="Core\IScanner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Processors\TestRunner.cs" />
+    <Compile Include="Core\RunStepWithArgsAttribute.cs" />
+    <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
+    <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
+    <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttributeStepScanner.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\AndGivenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\AndThenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\AndWhenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\GivenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ThenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\WhenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\ExpressionExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentScannerExtensions.cs" />
+    <Compile Include="Scanners\ScenarioScanners\FluentScenarioScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IAndGiven.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IAndThen.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IAndWhen.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IGiven.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IInitialStep.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IThen.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IWhen.cs" />
+    <Compile Include="Scanners\StepScanners\IgnoreStepAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\IStepScanner.cs" />
+    <Compile Include="Scanners\StepScanners\MethodName\DefaultMethodNameStepScanner.cs" />
+    <Compile Include="Scanners\StepScanners\MethodName\MethodNameMatcher.cs" />
+    <Compile Include="Scanners\StepScanners\MethodName\MethodNameStepScanner.cs" />
+    <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
+    <Compile Include="Scanners\StoryAttributeMetaDataScanner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BDDfy.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Processors\HtmlReporter\BDDfy.css" />
+    <Content Include="Processors\HtmlReporter\BDDfy.js" />
+    <Content Include="Processors\HtmlReporter\jquery-1.7.1.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Processors\HtmlReporter\HtmlReportResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.WindowsPhone.Overrides.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
