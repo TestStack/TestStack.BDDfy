@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{AA269083
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestStack.BDDfy", "TestStack.BDDfy", "{302859D2-2B1B-44DC-8498-81E588921CBD}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet\BDDfy\TestStack.BDDfy.nuspec = NuGet\BDDfy\TestStack.BDDfy.nuspec
+		NuGet\TestStack.BDDfy\TestStack.BDDfy.nuspec = NuGet\TestStack.BDDfy\TestStack.BDDfy.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B5264F7-5047-4DFF-B84B-D73865DB61A1}"
@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B52
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestStack.BDDfy.Samples", "TestStack.BDDfy.Samples", "{E8753E3B-8534-4C10-B83F-DEEC483B68B4}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet\BDDfy.Samples\TestStack.BDDfy.Samples.nuspec = NuGet\BDDfy.Samples\TestStack.BDDfy.Samples.nuspec
+		NuGet\TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.nuspec = NuGet\TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.BDDfy", "TestStack.BDDfy\TestStack.BDDfy.csproj", "{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}"
