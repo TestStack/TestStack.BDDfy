@@ -1,0 +1,21 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using TestStack.BDDfy.Core;
+using TestStack.BDDfy.Scanners.ScenarioScanners;
+using TestStack.BDDfy.Scanners.StepScanners;
+
+namespace TestStack.BDDfy.Tests.Scanner
+{
+    internal static class StepScannerExtensions
+    {
+        internal static IEnumerable<ExecutionStep> Scan(this IStepScanner scanner, object testObject)
+        {
+            // ToDo: this is rather hacky and is not DRY. Should think of a way to get rid of this
+            return ReflectiveScenarioScanner
+                .GetMethodsOfInterest(testObject.GetType())
+                .SelectMany(x => scanner.Scan(testObject, x))
+                .OrderBy(s => s.ExecutionOrder)
+                .ToList();
+        }
+    }
+}
