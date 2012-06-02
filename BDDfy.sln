@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BDDfy", "BDDfy", "{302859D2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B5264F7-5047-4DFF-B84B-D73865DB61A1}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet\BDDfy\content\BDDfy.readme.txt = NuGet\BDDfy\content\BDDfy.readme.txt
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BDDfy.Samples", "BDDfy.Samples", "{E8753E3B-8534-4C10-B83F-DEEC483B68B4}"
