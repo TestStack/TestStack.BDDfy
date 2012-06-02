@@ -1,4 +1,6 @@
-﻿If you are new to BDD you may want check http://www.mehdi-khalili.com/bdd-to-the-rescue  about BDD. 
+﻿BDDfy is explained on Mehdi Khalili's blog in full details: http://www.mehdi-khalili.com/bddify-in-action/introduction
+
+This is a very short tutorial and quickstart.
 
 BDDfy is the simplest BDD framework EVER! To use BDDfy:
  # Install NuGet if you have not already.
@@ -158,31 +160,3 @@ BDDfy extracts steps titles differently depending on the way steps are found:
 ====When using Fluent API====
 
 ===Scenario title convention===
-
-========
-
-==More info==
-If you want to understand how the framework works and learn about it more please refer to the code project article about the framework at http://www.codeproject.com/KB/library/Introducing_bddify.aspx
-
-==News==
-===2011-09-19: BDDfy V0.8 release===
-This release is about making reports very extensible. Now the reports are published over TraceSource which means you can very simply plug-in your listener and create whatever report suits you. For example, you could write a SQL trace listener that saves the stories and scenarios and their results into database which you can later use! There are two trace sources: one for more instant report; e.g. console report, and one for IO bound reports; e.g. html report. BDDfy currently comes with two listeners out of the box for console and html reports. If you do not include a trace listener in the config file BDDfy falls back to the default listeners and if you specify a listener, your configuration will override the convention.
-
-Changing the reporting model also allowed me to simplify the BDDfy extension method and remove optional parameters for console and html reports.
-
-===2011-09-07: BDDfy V0.7 released===
-This release includes a few bug fixes, some internal cleanup and some love for html report 
-  * Fixed a bug where Method Name scanner would collide with ExecutableAttribute scanner (thanks to Michael Whelan for reporting the issue). In order to fix this bug and to clean up its surrounding classes I made quite a few changes to the way scanners work. If you have extended BDDfy by creating a new scanner, there is a good chance your scanner will not work; that said, it should be very easy to fix it. Feel free to send me your code and I will help fix it.
-  * BDDfy used to (and still does for backward compatibility) guess the Story by walking up the stack trace. This obviously breaks in inlined and tail call methods. Some changes are made and a new set of extension methods have been added to allow you to specify the story. So if you have a story you should call {{{ .BDDfy<YourStoryTypeWithStoryAttributeOnIt> }}}. If you do not specify the story type argument, BDDfy still does its best to find the story; but in some cases it will fail to find the story and will leave it out. This does not crash your tests; but the reports will be skewed as BDDfy cannot associate your scenario with its story.
-  * Removed Bowling sample and cleaned up ATM and TicTacToe samples. The cleaned code reflect the way I am currently using BDDfy in a project; i.e. cleaner and more production like.
-  * Added an ability to specify a custom html report name. You can now classify your behaviors by providing different html report names which will result in different html reports. To do so, you should pass in the custom report name, without the extension, to BDDfy extension method:
-{{{
-[Test]
-public void AccountHasInsufficientFund()
-{
-   new AccountHasInsufficientFund().BDDfy<AccountHolderWithdrawsCash>(htmlReportName:"ATM");
-}
-}}}
-
-===2011-07-03: BDDfy V0.6 released. Quite a few improvements in API and usability ===
-===2011-06-25: BDDfy V0.5.1 released with support for .Net 3.5 (and little support for SL4)===
