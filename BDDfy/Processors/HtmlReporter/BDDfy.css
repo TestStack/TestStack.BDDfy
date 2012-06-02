@@ -367,3 +367,8 @@ ul.steps
 .step-title-extra-lines {
     padding-left: 50px;
 }
+
+input.cbx_toggle
+{
+    float:right;              
+}
