@@ -20,6 +20,8 @@ namespace TestStack.BDDfy.Scanners.StepScanners.MethodName
                     new MethodNameMatcher(s => s.StartsWith("And_When_", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.ConsecutiveTransition, true),
                     new MethodNameMatcher(s => s.StartsWith("Then", StringComparison.OrdinalIgnoreCase), true, ExecutionOrder.Assertion, true),
                     new MethodNameMatcher(s => s.StartsWith("And", StringComparison.OrdinalIgnoreCase), true, ExecutionOrder.ConsecutiveAssertion, true),
+                    new MethodNameMatcher(s => s.StartsWith("AndThen", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.ConsecutiveAssertion, true),
+                    new MethodNameMatcher(s => s.StartsWith("And_Then_", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.ConsecutiveAssertion, true),
                     new MethodNameMatcher(s => s.StartsWith("TearDown", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.TearDown, false),
                 })
         {
@@ -33,11 +35,17 @@ namespace TestStack.BDDfy.Scanners.StepScanners.MethodName
             if (stepText.StartsWith("and when ", StringComparison.OrdinalIgnoreCase))
                 return stepText.Remove("and ".Length, "when ".Length);
 
+            if (stepText.StartsWith("and then ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and ".Length, "then ".Length);
+
             if (stepText.StartsWith("AndGiven ", StringComparison.OrdinalIgnoreCase))
                 return stepText.Remove("and".Length, "given".Length);
 
             if (stepText.StartsWith("AndWhen ", StringComparison.OrdinalIgnoreCase))
                 return stepText.Remove("and".Length, "when".Length);
+
+            if (stepText.StartsWith("AndThen ", StringComparison.OrdinalIgnoreCase))
+                return stepText.Remove("and".Length, "then".Length);
 
             return stepText;
         }
