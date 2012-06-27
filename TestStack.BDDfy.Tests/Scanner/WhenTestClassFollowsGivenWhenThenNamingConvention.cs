@@ -27,6 +27,8 @@ namespace TestStack.BDDfy.Tests.Scanner
             public void ThenSomethingIsTrue(){}
             public void TearDown(){}
             public void And_YET_another_thing(){}
+            public void AndThen_something_else() {}
+            public void And_then_there_was_that_one_time() {}
         }
 
         [SetUp]
@@ -39,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void AllMethodsFollowingTheNamingConventionAreReturnedAsSteps()
         {
-            Assert.That(_steps.Count, Is.EqualTo(12));
+            Assert.That(_steps.Count, Is.EqualTo(14));
         }
 
         private static void AssertStep(ExecutionStep step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
@@ -101,7 +103,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void AndThen_IsReturnedAsAn_AndThen_StepAfterThen()
         {
-            AssertStep(_steps[8], "And then another thing is true", ExecutionOrder.ConsecutiveAssertion, true);
+            AssertStep(_steps[8], "And another thing is true", ExecutionOrder.ConsecutiveAssertion, true);
         }
 
         [Test]
@@ -117,9 +119,21 @@ namespace TestStack.BDDfy.Tests.Scanner
         }
 
         [Test]
+        public void AndThen_IsReturnedAsAn_AndThen_WithUnderscoredMethodName()
+        {
+            AssertStep(_steps[11], "And something else", ExecutionOrder.ConsecutiveAssertion, true);
+        }
+
+        [Test]
+        public void And_Then_IsReturnedAsAn_AndThen_WithUnderscoredMethodName()
+        {
+            AssertStep(_steps[12], "And there was that one time", ExecutionOrder.ConsecutiveAssertion, true);
+        }
+
+        [Test]
         public void TearDownMethodIsReturnedInTheCorrectSpot()
         {
-            AssertStep(_steps[11], "Tear down", ExecutionOrder.TearDown, asserts:false, shouldReport:false);
+            AssertStep(_steps[13], "Tear down", ExecutionOrder.TearDown, asserts:false, shouldReport:false);
         }
     }
 }

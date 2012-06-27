@@ -16,9 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestStack.BDDfy", "TestStac
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B5264F7-5047-4DFF-B84B-D73865DB61A1}"
-	ProjectSection(SolutionItems) = preProject
-		readme.md = readme.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestStack.BDDfy.Samples", "TestStack.BDDfy.Samples", "{E8753E3B-8534-4C10-B83F-DEEC483B68B4}"
 	ProjectSection(SolutionItems) = preProject
