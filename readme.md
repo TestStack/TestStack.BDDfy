@@ -1,19 +1,17 @@
-BDDfy is explained on Mehdi Khalili's blog series in full details which you may find http://www.mehdi-khalili.com/bddify-in-action/introduction
+BDDfy is the simplest BDD framework to use, customize and extend! The framework is explained on Mehdi Khalili's blog series in full details [here] (http://www.mehdi-khalili.com/bddify-in-action/introduction). This is a very short tutorial and quickstart.
 
-This is a very short tutorial and quickstart.
-
-BDDfy is the simplest BDD framework EVER! To use BDDfy:
+To use BDDfy:
 
  - Install NuGet if you have not already.
  - Go to 'Tools', 'Library Package Manager', and click 'Package Manager Console'.
- - In the console, type 'Install-Package BDDfy' and enter.
+ - In the console, type 'Install-Package TestStack.BDDfy' and enter.
 
 This adds BDDfy assembly and its dependencies to your test project. Oh, BTW, BDDfy can work with any and all testing frameworks. In fact, it works even if you are not using any testing framework.
 
 If this is the first time you are using BDDfy you may want to check out some of the samples on NuGet. Just search NuGet for BDDfy and you will see a list of BDDfy samples. You may install one or more samples to see how the framework works. Each sample installs required packages (including BDDfy and NUnit).
 
 ##Quick start
-Now that you have installed BDDfy, write your first test (this test is borrowed from ATM sample that you can install using nuget package BDDfy.Samples.ATM):
+Now that you have installed BDDfy, write your first test (this test is borrowed from ATM sample that you can install using nuget package TestStack.BDDfy.Samples):
 
 	[Story(
     AsA = "As an Account Holder",
