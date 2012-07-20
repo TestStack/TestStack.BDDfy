@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="BDDfy : BDDfy is the simplest BDD framework EVER! " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>BDDfy</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/TestStack/TestStack.BDDfy">View on GitHub</a>
+
+          <h1 id="project_title">BDDfy</h1>
+          <h2 id="project_tagline">BDDfy is the simplest BDD framework EVER! </h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/TestStack/TestStack.BDDfy/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/TestStack/TestStack.BDDfy/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>What's with the name?</h2>
+
+<p>The framework is called BDDfy because it BDDfies (as in turns into BDD) your otherwise traditional unit tests. Oh and BTW it is pronounced B D Defy. With BDDfy it is very simple to turn your AAA tests into a BDD test/behavior. BDDfy can work with any and all testing frameworks. In fact, it works even if you are not using any testing framework.</p>
+
+<p>The framework is explained on Mehdi Khalili's blog series in full details <a href="http://www.mehdi-khalili.com/bddify-in-action/introduction">here</a>.</p>
+
+<h2>How to get going</h2>
+
+<ol>
+<li>Install NuGet if you have not already.</li>
+<li>Go to 'Tools', 'Library Package Manager', and click 'Package Manager Console'.</li>
+<li>In the console, type 'Install-Package TestStack.BDDfy' and enter. </li>
+</ol><p>This adds the BDDfy assembly to your test project. </p>
+
+<p>If this is the first time you are using BDDfy you may want to check out some of the samples on NuGet. Just search NuGet for BDDfy and you will see a list of BDDfy samples. You may install one or more samples to see how the framework works. Each sample installs required packages (including BDDfy and NUnit).</p>
+
+<h2>Highlights</h2>
+
+<ul>
+<li>BDDfy can run with any testing framework. It does not force you to use any particular framework. Actually BDDfy does not force you to use a testing framework at all. You can just apply it on POCO classes even in a console app if that is what you need!</li>
+<li>BDDfy does not need a separate test runner. You can use your runner of choice. For example, if you like NUnit, then you may write your BDDfy tests using NUnit and run them using NUnit console or GUI runner, Resharper or TD.Net and regardless of the runner, you will get the same result. This means it integrates with the tools you know and love instead of adding yet another one on the top of them.</li>
+<li>BDDfy can run standalone scenarios. Although BDDfy supports stories, you do not necessarily have to have or make up a story to use BDDfy. This is useful for developers who work in non-Agile environments but would like to get some decent testing experience.</li>
+<li>You can use underscored or pascal or camel cased method names for your steps.</li>
+<li>You do not have to explain your scenarios or stories or steps in string: BDDfy infers them based on conventions but you can override the conventions if you need full control over what gets printed into console and HTML reports. Conventions galore in BDDfy and pretty much everything has a convention; but it is also very easy to override these conventions.</li>
+<li>BDDfy is very extensible. In fact, BDDfy core barely has any logic in it. It delegates all its responsibilities to its extensions.</li>
+<li>BDDfy learning curve is rather flat. Not only that but it makes learning BDD effortless.</li>
+</ul><h2>Quick start</h2>
+
+<p>Now that you have installed BDDfy, write your first test (this test is borrowed from ATM sample that you can install using nuget package TestStack.BDDfy.Samples):</p>
+
+<pre><code>[Story(
+AsA = "As an Account Holder",
+IWant = "I want to withdraw cash from an ATM",
+SoThat = "So that I can get money when the bank is closed")]
+public class AccountHasInsufficientFund
+{
+    private Card _card;
+    private Atm _atm;
+
+    // You can override step text using executable attributes
+    [Given(StepText = "Given the account balance is $10")]
+    void GivenAccountHasEnoughBalance()
+    {
+        _card = new Card(true, 10);
+    }
+
+    void AndGivenTheCardIsValid()
+    {
+    }
+
+    void AndGivenTheMachineContainsEnoughMoney()
+    {
+        _atm = new Atm(100);
+    }
+
+    void WhenTheAccountHolderRequests20()
+    {
+        _atm.RequestMoney(_card, 20);
+    }
+
+    void ThenTheAtmShouldNotDispenseAnyMoney()
+    {
+        Assert.AreEqual(0, _atm.DispenseValue);
+    }
+
+    void AndTheAtmShouldSayThereAreInsufficientFunds()
+    {
+        Assert.AreEqual(DisplayMessage.InsufficientFunds, _atm.Message);
+    }
+
+    void AndTheCardShouldBeReturned()
+    {
+        Assert.IsFalse(_atm.CardIsRetained);
+    }
+
+    [Test]
+    public void Execute()
+    {
+        this.BDDfy();
+    }
+}
+</code></pre>
+
+<p>And this gives you a report like:</p>
+
+<pre><code>Story: Account holder withdraws cash
+    As an Account Holder
+    I want to withdraw cash from an ATM
+    So that I can get money when the bank is closed
+
+Scenario: Account has insufficient fund
+    Given the account balance is $10
+        And the card is valid
+    When the account holder requests $20
+    Then the atm should not dispense any money
+        And the atm should say there are insufficient funds
+        And the card should be returned
+</code></pre>
+
+<p>This is just the console report. Have a look at your output folder and you should see a nice html report too.</p>
+
+<p>If you want more control you can also use BDDfy's Fluent API. Here is another example done using the Fluent API:</p>
+
+<pre><code>[Test]
+public void CardHasBeenDisabled()
+{
+    this.Given(s =&gt; s.GivenTheCardIsDisabled())
+        .When(s =&gt; s.WhenTheAccountHolderRequests(20))
+        .Then(s =&gt; s.CardIsRetained(true), "Then the ATM should retain the card")
+            .And(s =&gt; s.AndTheAtmShouldSayTheCardHasBeenRetained())
+        .BDDfy(htmlReportName: "ATM");
+}
+</code></pre>
+
+<p>which gives you a report like:</p>
+
+<pre><code>Scenario: Card has been disabled
+    Given the card is disabled
+    When the account holder requests 20
+    Then the ATM should retain the card
+        And the atm should say the card has been retained
+</code></pre>
+
+<h2>How does BDDfy work?</h2>
+
+<p>BDDfy uses quite a few conventions to make it frictionless to use. For your convenience, I will try to provide a quick tutorial below:</p>
+
+<h3>Finding steps</h3>
+
+<p>BDDfy scans your BDDfyed classes for steps. Currently it has three ways of finding a step: </p>
+
+<ul>
+<li>Using attributes </li>
+<li>Using method name conventions </li>
+<li>And using fluent API.</li>
+</ul><p>BDDfy runs your steps in the following order: SetupState, ConsecutiveSetupState, Transition, ConsecutiveTransition, Assertion, ConsecutiveAssertion and TearDown. Some of these steps are reported in the console and html reports and some of them are not. Please read below for further information.</p>
+
+<h3>Attributes</h3>
+
+<p>BDDfy looks for a custom attribute called ExecutableAttribute on your method. To make it easier to use, ExecutableAttribute has a few subclasses that you can use: you may apply Given, AndGiven, When, AndWhen, Then, and AndThen attributes on any method you want to make available to BDDfy.</p>
+
+<h3>Method name convention</h3>
+
+<p>BDDfy uses some conventions to find methods that should be turned into steps. Here is the current conventions. The method name:</p>
+
+<ul>
+<li>ending with "Context" is considered as a setup method (not reported).</li>
+<li>"Setup" is considered as as setup method  (not reported). </li>
+<li>starting with "Given" is considered as a setup method (reported). </li>
+<li>starting with "AndGiven" is considered as a setup method that runs after Context, Setup and Given steps reported).</li>
+<li>starting with "When" is considered as a transition method  (reported). </li>
+<li>starting with "AndWhen" is considered as a transition method that runs after When steps (reported).</li>
+<li>starting with "Then" is considered as an asserting method (reported).</li>
+<li>starting with "And" is considered as an asserting method (reported).</li>
+<li>starting with "TearDown" is considered as a finally method which is run after all the other steps (not reported).</li>
+</ul><p>As you see in the above example you can mix and match the executable attributes and method name conventions to acheive great flexibility and power.</p>
+
+<h3>Fluent API</h3>
+
+<p>Fluent API gives you the absolute power over step selection and their titles. When you use Fluent API for a test, the attributes and method name conventions are ignored for that test. </p>
+
+<p>Please note that you can have some tests using fluent API and some using a combination of attributes and method name conventions. Each .BDDfy() test works in isolation of others.</p>
+
+<h3>Other conventions</h3>
+
+<p>BDDfy prefers convention over configuration; but it also allows you to configure pretty much all the conventions. </p>
+
+<h2>Authors and Contributors</h2>
+
+<p>Mehdi Khalili (<a href="https://github.com/MehdiK" class="user-mention">@MehdiK</a>), Michael Whelan (<a href="https://github.com/mwhelan" class="user-mention">@mwhelan</a>)</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">BDDfy maintained by <a href="https://github.com/TestStack">TestStack</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
