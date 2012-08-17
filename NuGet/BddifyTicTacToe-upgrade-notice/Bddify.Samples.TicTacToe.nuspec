@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <id>Bddify</id>
+    <id>Bddify.Samples.TicTacToe</id>
     <version>3.12</version>
-    <title>A simple to use and extend BDD framework for .Net programmers</title>
+    <title>The old and obsolete sample for BDDfy. The new samples are at TestStack.BDDfy.Samples.</title>
     <authors>Mehdi Khalili</authors>
     <owners>Mehdi Khalili</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>BDDfy is the simplest BDD framework to use and extend</description>
 	  <projectUrl>http://nuget.org/packages/TestStack.BDDfy</projectUrl>
     <dependencies>
-      <dependency id="TestStack.BDDfy" version="3.12" />
+      <dependency id="TestStack.BDDfy.Samples" version="3.10" />
     </dependencies>
   </metadata>
 </package>
