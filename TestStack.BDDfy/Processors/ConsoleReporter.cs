@@ -35,9 +35,13 @@ namespace TestStack.BDDfy.Processors
     {
         readonly List<Exception> _exceptions = new List<Exception>();
         private int _longestStepSentence;
+        
+        public static bool SkipProcessing { get; set; }
 
         public void Process(Story story)
         {
+            if (SkipProcessing) return;
+
             ReportStoryHeader(story);
 
             var allSteps = story.Scenarios.SelectMany(s => s.Steps).ToList();
