@@ -261,7 +261,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
         {
             get
             {
-                return _steps.Single(s => s.StepTitle.Trim() == "The provided date is Oct 20 2011");
+                var formattedTitle = string.Format(
+                    ScenarioToBeScannedUsingFluentScanner.InputDateStepTitleTemplate, 
+                    ScenarioToBeScannedUsingFluentScanner.InputDate);
+
+                return _steps.Single(s => s.StepTitle.Trim() == formattedTitle);
             }
         }
 

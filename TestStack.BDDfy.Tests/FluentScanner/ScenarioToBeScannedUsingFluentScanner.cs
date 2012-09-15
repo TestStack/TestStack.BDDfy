@@ -11,6 +11,9 @@ namespace TestStack.BDDfy.Tests.FluentScanner
     [Story]
     class ScenarioToBeScannedUsingFluentScanner
     {
+        internal const string InputDateStepTitleTemplate = "The provided date is {0:MMM d yyyy}";
+        public static readonly DateTime InputDate = DateTime.Parse("2011-10-20", new CultureInfo("en-AU"));
+
         private string[] _input1;
         private int[] _input2;
         private int _input3;
@@ -73,8 +76,6 @@ namespace TestStack.BDDfy.Tests.FluentScanner
 
         public static IEnumerable<ExecutionStep> GetSteps(ScenarioToBeScannedUsingFluentScanner testObject)
         {
-            var inputDate = DateTime.Parse("2011-10-20", new CultureInfo("en-AU"));
-
             var fluentScanner = testObject
                 .Given(s => s.GivenSomeState(1, 2))
                     .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
@@ -86,7 +87,7 @@ namespace TestStack.BDDfy.Tests.FluentScanner
                     .And(s => s.WhenSomethingHappens("other input"), false)
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
                     .And(s => s.AndIncorrectAttributeWouldNotMatter())
-                    .And(s => s.ThenTitleFormatingWorksToo(inputDate), "The provided date is {0:MMM d yyyy}")
+                    .And(s => s.ThenTitleFormatingWorksToo(InputDate), InputDateStepTitleTemplate)
                 .TearDownWith(s => s.Dispose());
 
             return fluentScanner.GetScanner(null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
