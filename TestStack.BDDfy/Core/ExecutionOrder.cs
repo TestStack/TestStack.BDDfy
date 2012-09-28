@@ -27,12 +27,13 @@ namespace TestStack.BDDfy.Core
 {
     public enum ExecutionOrder
     {
-        SetupState = 1,
-        ConsecutiveSetupState = 2,
-        Transition = 3,
-        ConsecutiveTransition = 4,
-        Assertion = 5,
-        ConsecutiveAssertion = 6,
-        TearDown = 7
+        Initialize = 1,
+        SetupState = 2,
+        ConsecutiveSetupState = 3,
+        Transition = 4,
+        ConsecutiveTransition = 5,
+        Assertion = 6,
+        ConsecutiveAssertion = 7,
+        TearDown = 8
     }
 }
