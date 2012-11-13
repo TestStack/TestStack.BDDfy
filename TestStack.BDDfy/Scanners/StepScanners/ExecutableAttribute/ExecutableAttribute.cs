@@ -40,5 +40,6 @@ namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute
         public ExecutionOrder ExecutionOrder { get; private set; }
         public bool Asserts { get; set; }
         public string StepTitle { get; set; }
+        public int Order { get; set; }
     }
 }

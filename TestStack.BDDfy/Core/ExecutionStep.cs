@@ -53,6 +53,7 @@ namespace TestStack.BDDfy.Core
         public StepExecutionResult Result { get; set; }
         public Exception Exception { get; set; }
         public ExecutionOrder ExecutionOrder { get; private set; }
+        public int ExecutionSubOrder { get; set; }
 
         public void Execute(object testObject)
         {

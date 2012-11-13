@@ -66,7 +66,11 @@ namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute
             var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
             if (runStepWithArgsAttributes.Length == 0)
             {
-                yield return new ExecutionStep(GetStepAction(candidateMethod), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
+                yield return
+                    new ExecutionStep(GetStepAction(candidateMethod), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
+                        {
+                            ExecutionSubOrder = executableAttribute.Order
+                        };
             }
 
             foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
@@ -81,7 +85,12 @@ namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute
                 else if (!string.IsNullOrEmpty(executableAttribute.StepTitle))
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
-                yield return new ExecutionStep(GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts, executableAttribute.ExecutionOrder, true);
+                yield return
+                    new ExecutionStep(GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
+                                      executableAttribute.ExecutionOrder, true)
+                        {
+                            ExecutionSubOrder = executableAttribute.Order
+                        };
             }
         }
 
