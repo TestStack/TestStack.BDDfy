@@ -34,7 +34,7 @@ namespace TestStack.BDDfy.Core
         public Scenario(object testObject, IEnumerable<ExecutionStep> steps, string scenarioText)
         {
             TestObject = testObject;
-            _steps = steps.OrderBy(o => o.ExecutionOrder).ToList();
+            _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
             Id = Guid.NewGuid();
 
             Title = scenarioText;
@@ -46,7 +46,7 @@ namespace TestStack.BDDfy.Core
         public Guid Id { get; private set; }
 
         private readonly List<ExecutionStep> _steps;
-        public IEnumerable<ExecutionStep> Steps
+        public List<ExecutionStep> Steps
         {
             get { return _steps; }
         }

@@ -48,7 +48,7 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
             _scenarioTitle = scenarioTitle;
         }
 
-        public Scenario Scan(object testObject)
+        public virtual Scenario Scan(object testObject)
         {
             var scenarioType = testObject.GetType();
             var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
@@ -62,7 +62,7 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
             return NetToString.Convert(scenarioType.Name);
         }
 
-        private IEnumerable<ExecutionStep> ScanScenarioForSteps(object testObject)
+        protected virtual IEnumerable<ExecutionStep> ScanScenarioForSteps(object testObject)
         {
             var allSteps = new List<ExecutionStep>();
             var scenarioType = testObject.GetType();
@@ -83,7 +83,7 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
             return allSteps;
         }
 
-        public static IEnumerable<MethodInfo> GetMethodsOfInterest(Type scenarioType)
+        public virtual IEnumerable<MethodInfo> GetMethodsOfInterest(Type scenarioType)
         {
             var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
