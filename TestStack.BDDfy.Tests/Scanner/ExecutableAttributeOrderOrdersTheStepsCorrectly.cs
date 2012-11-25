@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 using TestStack.BDDfy.Scanners.ScenarioScanners;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute;
 using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 
 namespace TestStack.BDDfy.Tests.Scanner
@@ -15,13 +11,10 @@ namespace TestStack.BDDfy.Tests.Scanner
     [TestFixture]
     public class ExecutableAttributeOrderOrdersTheStepsCorrectly
     {
-        private TypeWithOrderedAttribute _typeWithAttribute;
         private List<ExecutionStep> _steps;
 
         private class TypeWithOrderedAttribute
         {
-          
-
             [AndThen(Order = 2)]
             public void AndThen2() { }
 
@@ -57,7 +50,6 @@ namespace TestStack.BDDfy.Tests.Scanner
 
             [AndGiven(Order = 2)]
             public void AndGiven2Again() { }
-
 
             [When(Order = 1)]
             public void When1() { }
