@@ -172,6 +172,7 @@ namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
             else
             {
                 if (constantExpression.Type == typeof(string) ||
+					constantExpression.Type == typeof(decimal) ||
                     constantExpression.Type.IsPrimitive ||
                     constantExpression.Type.IsEnum ||
                     constantExpression.Value == null)
