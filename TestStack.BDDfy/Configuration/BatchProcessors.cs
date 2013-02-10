@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Processors.Diagnostics;
 using TestStack.BDDfy.Processors.HtmlReporter;
 
 namespace TestStack.BDDfy.Configuration
@@ -18,6 +19,10 @@ namespace TestStack.BDDfy.Configuration
             if (markDown != null)
                 yield return markDown;
 
+            var diagnostics = DiagnosticsReport.ConstructFor(StoryCache.Stories);
+            if (diagnostics != null)
+                yield return diagnostics;
+
             foreach (var addedProcessor in _addedProcessors)
             {
                 yield return addedProcessor;
@@ -29,6 +34,9 @@ namespace TestStack.BDDfy.Configuration
 
         private readonly BatchProcessorFactory _markDownFactory = new BatchProcessorFactory(() => new MarkDownReporter(), false);
         public BatchProcessorFactory MarkDownReport { get { return _markDownFactory; } }
+
+        private readonly BatchProcessorFactory _diagnosticsFactory = new BatchProcessorFactory(() => new DiagnosticsReporter(), false);
+        public BatchProcessorFactory DiagnosticsReport { get { return _diagnosticsFactory; } }
 
         readonly List<IBatchProcessor> _addedProcessors = new List<IBatchProcessor>();
 

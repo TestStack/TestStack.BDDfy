@@ -14,6 +14,7 @@ namespace TestStack.BDDfy.Samples
         {
             Configurator.Processors.Add(() => new CustomTextReporter());
             Configurator.BatchProcessors.MarkDownReport.Enable();
+            Configurator.BatchProcessors.DiagnosticsReport.Enable();
             Configurator.BatchProcessors.Add(new HtmlReporter(new HtmlReportConfig()));
         }
     }
