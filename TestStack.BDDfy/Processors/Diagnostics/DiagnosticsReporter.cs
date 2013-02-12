@@ -90,7 +90,9 @@ namespace TestStack.BDDfy.Processors.Diagnostics
             }
 
             var serializer = new JavaScriptSerializer();
-            return serializer.Serialize(graph);
+            string json = serializer.Serialize(graph);
+
+            return new JsonFormatter(json).Format();
         }
     }
 }
