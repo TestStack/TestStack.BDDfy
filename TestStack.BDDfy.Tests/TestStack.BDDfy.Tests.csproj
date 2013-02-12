@@ -44,6 +44,11 @@
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.5.0.0\lib\NET40\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.6.10205, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\Resource\Tool\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,6 +77,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
+    <Compile Include="Processors\Diagnostics\DiagnosticsReporterSpecs.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
     <Compile Include="Scanner\ExpressionExtensionsTests.cs" />

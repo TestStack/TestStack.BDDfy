@@ -25,24 +25,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web.Script.Serialization;
 using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Processors.Diagnostics
 {
     public class DiagnosticsReporter : IBatchProcessor
     {
-        private static string OutputDirectory
+        private readonly ISerializer _serializer;
+        private readonly IReportWriter _writer;
+
+        public DiagnosticsReporter() : this(new JsonSerializer(), new FileWriter()) { }
+
+        public DiagnosticsReporter(ISerializer serializer, IReportWriter writer)
         {
-            get
-            {
-                string codeBase = typeof(DiagnosticsReporter).Assembly.CodeBase;
-                var uri = new UriBuilder(codeBase);
-                string path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
-            }
+            _serializer = serializer;
+            _writer = writer;
         }
 
         public void Process(IEnumerable<Story> stories)
@@ -53,21 +51,18 @@ namespace TestStack.BDDfy.Processors.Diagnostics
 
             try
             {
-                report = CreateJson(viewModel);
+                var data = GetDiagnosticData(viewModel);
+                report = _serializer.Serialize(data);
             }
             catch (Exception ex)
             {
                 report = error + ex.Message;
             }
 
-            var path = Path.Combine(OutputDirectory, "Diagnostics.json");
-
-            if (File.Exists(path))
-                File.Delete(path);
-            File.WriteAllText(path, report);
+            _writer.Create(report, "Diagnostics.json");
         }
 
-        public string CreateJson(FileReportModel viewModel)
+        public List<object> GetDiagnosticData(FileReportModel viewModel)
         {
             var graph = new List<object>();
             foreach (var story in viewModel.Stories)
@@ -89,10 +84,7 @@ namespace TestStack.BDDfy.Processors.Diagnostics
                 });
             }
 
-            var serializer = new JavaScriptSerializer();
-            string json = serializer.Serialize(graph);
-
-            return new JsonFormatter(json).Format();
+            return graph;
         }
     }
 }
