@@ -57,6 +57,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDDfyExtensions.cs" />
@@ -71,9 +72,7 @@
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Core\IBatchProcessor.cs" />
     <Compile Include="Processors\ConsoleReporter.cs" />
-    <Compile Include="Processors\Diagnostics\BasicTag.cs" />
     <Compile Include="Processors\Diagnostics\DiagnosticsReporter.cs" />
-    <Compile Include="Processors\Diagnostics\JsonReportBuilder.cs" />
     <Compile Include="Processors\FileReportModel.cs" />
     <Compile Include="Processors\FileReportSummaryModel.cs" />
     <Compile Include="Processors\HtmlReporter\DefaultHtmlReportConfiguration.cs" />

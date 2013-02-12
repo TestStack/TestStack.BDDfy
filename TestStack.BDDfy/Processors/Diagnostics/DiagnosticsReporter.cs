@@ -26,6 +26,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Web.Script.Serialization;
 using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Processors.Diagnostics
@@ -45,13 +47,13 @@ namespace TestStack.BDDfy.Processors.Diagnostics
 
         public void Process(IEnumerable<Story> stories)
         {
-            const string error = "There was an error compiling the html report: ";
+            const string error = "There was an error compiling the json report: ";
             var viewModel = new FileReportModel(stories);
             string report;
 
             try
             {
-                report = new JsonReportBuilder(viewModel).BuildReport();
+                report = CreateJson(viewModel);
             }
             catch (Exception ex)
             {
@@ -63,6 +65,32 @@ namespace TestStack.BDDfy.Processors.Diagnostics
             if (File.Exists(path))
                 File.Delete(path);
             File.WriteAllText(path, report);
+        }
+
+        public string CreateJson(FileReportModel viewModel)
+        {
+            var graph = new List<object>();
+            foreach (var story in viewModel.Stories)
+            {
+                graph.Add(new
+                {
+                    StoryName = story.MetaData.Title,
+                    StoryDuration = story.Scenarios.Sum(x => x.Duration.Milliseconds),
+                    Scenarios = story.Scenarios.Select(scenario => new
+                    {
+                        ScenarioName = scenario.Title,
+                        ScenarioDuration = scenario.Duration.Milliseconds,
+                        Steps = scenario.Steps.Select(step => new
+                        {
+                            StepName = step.StepTitle,
+                            StepDuration = step.Duration.Milliseconds
+                        })
+                    })
+                });
+            }
+
+            var serializer = new JavaScriptSerializer();
+            return serializer.Serialize(graph);
         }
     }
 }
