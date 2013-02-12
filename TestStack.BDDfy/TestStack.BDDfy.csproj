@@ -73,6 +73,7 @@
     <Compile Include="Core\IBatchProcessor.cs" />
     <Compile Include="Processors\ConsoleReporter.cs" />
     <Compile Include="Processors\Diagnostics\DiagnosticsReporter.cs" />
+    <Compile Include="Processors\Diagnostics\JsonFormatter.cs" />
     <Compile Include="Processors\FileReportModel.cs" />
     <Compile Include="Processors\FileReportSummaryModel.cs" />
     <Compile Include="Processors\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
