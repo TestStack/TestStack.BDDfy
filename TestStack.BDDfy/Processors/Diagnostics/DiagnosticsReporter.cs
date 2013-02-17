@@ -25,25 +25,26 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Processors.Diagnostics
 {
     public class DiagnosticsReporter : IBatchProcessor
     {
+        private readonly IDiagnosticsCalculator _calculator;
         private readonly ISerializer _serializer;
         private readonly IReportWriter _writer;
 
-        public DiagnosticsReporter() : this(new JsonSerializer(), new FileWriter()) { }
+        public DiagnosticsReporter() : this(new DiagnosticsCalculator(),  new JsonSerializer(), new FileWriter()) { }
 
-        public DiagnosticsReporter(ISerializer serializer, IReportWriter writer)
+        public DiagnosticsReporter(IDiagnosticsCalculator calculator,  ISerializer serializer, IReportWriter writer)
         {
+            _calculator = calculator;
             _serializer = serializer;
             _writer = writer;
         }
 
-        public void Process(IEnumerable<Story> stories)
+        public void Process(IEnumerable<Core.Story> stories)
         {
             const string error = "There was an error compiling the json report: ";
             var viewModel = new FileReportModel(stories);
@@ -51,7 +52,7 @@ namespace TestStack.BDDfy.Processors.Diagnostics
 
             try
             {
-                var data = GetDiagnosticData(viewModel);
+                var data = _calculator.GetDiagnosticData(viewModel);
                 report = _serializer.Serialize(data);
             }
             catch (Exception ex)
@@ -60,31 +61,6 @@ namespace TestStack.BDDfy.Processors.Diagnostics
             }
 
             _writer.Create(report, "Diagnostics.json");
-        }
-
-        public List<object> GetDiagnosticData(FileReportModel viewModel)
-        {
-            var graph = new List<object>();
-            foreach (var story in viewModel.Stories)
-            {
-                graph.Add(new
-                {
-                    StoryName = story.MetaData.Title,
-                    StoryDuration = story.Scenarios.Sum(x => x.Duration.Milliseconds),
-                    Scenarios = story.Scenarios.Select(scenario => new
-                    {
-                        ScenarioName = scenario.Title,
-                        ScenarioDuration = scenario.Duration.Milliseconds,
-                        Steps = scenario.Steps.Select(step => new
-                        {
-                            StepName = step.StepTitle,
-                            StepDuration = step.Duration.Milliseconds
-                        })
-                    })
-                });
-            }
-
-            return graph;
         }
     }
 }

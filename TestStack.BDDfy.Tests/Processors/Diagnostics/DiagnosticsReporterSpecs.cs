@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
+using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Processors.Diagnostics;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
@@ -10,6 +10,7 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
     [TestFixture]
     public class DiagnosticsReporterSpecs
     {
+        private IDiagnosticsCalculator _calculator;
         private ISerializer _serializer;
         private IReportWriter _writer;
 
@@ -35,11 +36,28 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
             _writer.Received().Create("There was an error compiling the json report: Error occurred.", Arg.Any<string>());
         }
 
+        [Test]
+        public void ShouldGetDiagnosticDataFromStories()
+        {
+            var sut = CreateSut();
+            sut.Process(new List<Core.Story>());
+            _calculator.Received().GetDiagnosticData(Arg.Any<FileReportModel>());
+        }
+
+        [Test]
+        public void ShouldSerializeDiagnosticDataToSpecifiedFormat()
+        {
+            var sut = CreateSut();
+            sut.Process(new List<Core.Story>());
+            _serializer.Received().Serialize(Arg.Any<IList<StoryDiagnostic>>());
+        }
+
         private DiagnosticsReporter CreateSut()
         {
+            _calculator = Substitute.For<IDiagnosticsCalculator>();
             _serializer = Substitute.For<ISerializer>();
             _writer = Substitute.For<IReportWriter>();
-            return new DiagnosticsReporter(_serializer, _writer);
+            return new DiagnosticsReporter(_calculator, _serializer, _writer);
         }
     }
 }

@@ -77,7 +77,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
+    <Compile Include="Processors\Diagnostics\DiagnosticsCalculatorSpecs.cs" />
     <Compile Include="Processors\Diagnostics\DiagnosticsReporterSpecs.cs" />
+    <Compile Include="Processors\Diagnostics\DiagnosticTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
     <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
