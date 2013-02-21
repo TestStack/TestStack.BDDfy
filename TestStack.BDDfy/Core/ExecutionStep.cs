@@ -41,11 +41,10 @@ namespace TestStack.BDDfy.Core
                 sw.Stop();
                 Duration = sw.Elapsed;
             }
-            catch (Exception)
+            finally 
             {
                 sw.Stop();
                 Duration = sw.Elapsed;
-                throw;
             }
         }
     }
