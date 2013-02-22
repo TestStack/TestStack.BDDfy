@@ -2,6 +2,6 @@
 {
     public interface IReportWriter
     {
-        void Create(string reportData, string reportName);
+        void OutputReport(string reportData, string reportName);
     }
 }

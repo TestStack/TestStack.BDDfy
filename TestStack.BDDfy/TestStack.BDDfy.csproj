@@ -96,6 +96,8 @@
     <Compile Include="Processors\HtmlReporter\HtmlTag.cs" />
     <Compile Include="Processors\HtmlReporter\IHtmlReportConfiguration.cs" />
     <Compile Include="Processors\MarkDownReporter.cs" />
+    <Compile Include="Processors\Reports\IReportBuilder.cs" />
+    <Compile Include="Processors\Reports\MarkDown\MarkDownReportBuilder.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IHasScanner.cs" />
@@ -163,6 +165,7 @@
       <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.WindowsPhone.Overrides.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />
