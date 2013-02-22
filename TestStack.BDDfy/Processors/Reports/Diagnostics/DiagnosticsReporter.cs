@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using TestStack.BDDfy.Core;
+using TestStack.BDDfy.Processors.Reports.Writers;
 
-namespace TestStack.BDDfy.Processors.Diagnostics
+namespace TestStack.BDDfy.Processors.Reports.Diagnostics
 {
     public class DiagnosticsReporter : IBatchProcessor
     {
-        private readonly IDiagnosticsCalculator _calculator;
-        private readonly ISerializer _serializer;
+        private readonly IReportBuilder _builder;
         private readonly IReportWriter _writer;
 
-        public DiagnosticsReporter() : this(new DiagnosticsCalculator(),  new JsonSerializer(), new FileWriter()) { }
+        public DiagnosticsReporter() : this(new DiagnosticsReportBuilder(), new FileWriter()) { }
 
-        public DiagnosticsReporter(IDiagnosticsCalculator calculator,  ISerializer serializer, IReportWriter writer)
+        public DiagnosticsReporter(IReportBuilder builder, IReportWriter writer)
         {
-            _calculator = calculator;
-            _serializer = serializer;
+            _builder = builder;
             _writer = writer;
         }
 
@@ -27,8 +26,7 @@ namespace TestStack.BDDfy.Processors.Diagnostics
 
             try
             {
-                var data = _calculator.GetDiagnosticData(viewModel);
-                report = _serializer.Serialize(data);
+                report = _builder.CreateReport(viewModel);
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
-﻿using System.Text;
+using System.Text;
 
-namespace TestStack.BDDfy.Processors.Diagnostics
+namespace TestStack.BDDfy.Processors.Reports.Serializers
 {
     // http://www.limilabs.com/blog/json-net-formatter
     public class JsonFormatter
