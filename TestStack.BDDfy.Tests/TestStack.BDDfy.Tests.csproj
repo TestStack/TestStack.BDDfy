@@ -72,7 +72,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
-    <Compile Include="Processors\Diagnostics\DiagnosticsCalculatorSpecs.cs" />
+    <Compile Include="Processors\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
+    <Compile Include="Processors\Diagnostics\WhenBuildingReportDiagnostics.cs" />
     <Compile Include="Processors\Diagnostics\DiagnosticsReporterSpecs.cs" />
     <Compile Include="Processors\Reports\MarkDown\MarkDownReportBuilderSpecs.cs" />
     <Compile Include="Processors\Reports\MarkDown\MarkDownReporterSpecs.cs" />

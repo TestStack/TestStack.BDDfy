@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Diagnostics;
+using TestStack.BDDfy.Processors.Reports.Diagnostics;
+using TestStack.BDDfy.Processors.Reports.MarkDown;
 using TestStack.BDDfy.Tests.Processors.Reports;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
 {
     [TestFixture]
-    public class DiagnosticsCalculatorSpecs
+    public class WhenBuildingReportDiagnostics
     {
-        private DiagnosticsCalculator _sut;
+        private DiagnosticsReportBuilder _sut;
         private IEnumerable<Core.Story> _stories; 
         private IList<StoryDiagnostic> _result;
             
-        public void GivenADiagnosticsCalculator()
+        public void GivenADiagnosticsReportBuilder()
         {
-            _sut = new DiagnosticsCalculator();
+            _sut = new DiagnosticsReportBuilder();
         }
 
         public void AndGivenTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()

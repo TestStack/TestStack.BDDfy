@@ -1,10 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using TestStack.BDDfy.Processors.Reports.Serializers;
 
-namespace TestStack.BDDfy.Processors.Diagnostics
+namespace TestStack.BDDfy.Processors.Reports.Diagnostics
 {
-    public class DiagnosticsCalculator : IDiagnosticsCalculator
+    public class DiagnosticsReportBuilder : IReportBuilder
     {
+        private readonly ISerializer _serializer;
+
+        public DiagnosticsReportBuilder() : this(new JsonSerializer()) { }
+
+        public DiagnosticsReportBuilder(ISerializer serializer)
+        {
+            _serializer = serializer;
+        }
+
+        public string CreateReport(FileReportModel model)
+        {
+            var graph = GetDiagnosticData(model);
+            return _serializer.Serialize(graph);
+        }
+
         public IList<StoryDiagnostic> GetDiagnosticData(FileReportModel viewModel)
         {
             var graph = new List<StoryDiagnostic>();

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Diagnostics;
 using TestStack.BDDfy.Processors.Reports;
+using TestStack.BDDfy.Processors.Reports.Diagnostics;
+using TestStack.BDDfy.Processors.Reports.Writers;
 
 namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown
 {

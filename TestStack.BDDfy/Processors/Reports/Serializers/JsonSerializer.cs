@@ -1,6 +1,6 @@
-﻿using System.Web.Script.Serialization;
+using System.Web.Script.Serialization;
 
-namespace TestStack.BDDfy.Processors.Diagnostics
+namespace TestStack.BDDfy.Processors.Reports.Serializers
 {
     public class JsonSerializer : ISerializer
     {

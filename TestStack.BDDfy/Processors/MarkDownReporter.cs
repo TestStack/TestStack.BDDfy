@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Processors.Diagnostics;
 using TestStack.BDDfy.Processors.Reports;
+using TestStack.BDDfy.Processors.Reports.Diagnostics;
 using TestStack.BDDfy.Processors.Reports.MarkDown;
+using TestStack.BDDfy.Processors.Reports.Writers;
 
 namespace TestStack.BDDfy.Processors
 {
