@@ -6,16 +6,17 @@ namespace TestStack.BDDfy.Processors.Reports.Writers
 {
     public class FileWriter : IReportWriter
     {
-        public void OutputReport(string reportData, string reportName)
+        public void OutputReport(string reportData, string reportName, string outputDirectory = null)
         {
-            var path = Path.Combine(OutputDirectory, reportName);
+            string directory = outputDirectory ?? GetDefaultOutputDirectory;
+            var path = Path.Combine(directory, reportName);
 
             if (File.Exists(path))
                 File.Delete(path);
             File.WriteAllText(path, reportData);
         }
 
-        private static string OutputDirectory
+        private static string GetDefaultOutputDirectory
         {
             get
             {

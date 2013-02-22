@@ -2,24 +2,30 @@
 using System.Linq;
 using System.Text;
 using TestStack.BDDfy.Core;
+using TestStack.BDDfy.Processors.Reports;
 
 namespace TestStack.BDDfy.Processors.HtmlReporter
 {
-    public class HtmlReportBuilder
+    public class HtmlReportBuilder : IReportBuilder
     {
-        readonly HtmlReportViewModel _viewModel;
+        private HtmlReportViewModel _viewModel;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
         int _tabCount;
 
-        public HtmlReportBuilder(HtmlReportViewModel viewModel)
+        public HtmlReportBuilder() 
         {
-            _viewModel = viewModel;
             _html = new StringBuilder();
         }
 
-        public string BuildReportHtml()
+        string IReportBuilder.CreateReport(FileReportModel model)
         {
+            return CreateReport(model as HtmlReportViewModel);
+        }
+
+        public string CreateReport(HtmlReportViewModel model)
+        {
+            _viewModel = model;
             AddLine("<!DOCTYPE html>");
             using(OpenTag(HtmlTag.html))
             {

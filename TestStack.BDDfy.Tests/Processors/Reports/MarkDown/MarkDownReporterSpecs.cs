@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown
 
             sut.Process(new List<Core.Story>());
 
-            _writer.Received().OutputReport("Report Data", Arg.Any<string>());
+            _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]
@@ -34,7 +34,8 @@ namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown
 
             sut.Process(new List<Core.Story>());
 
-            _writer.Received().OutputReport("There was an error compiling the markdown report: Error occurred.", Arg.Any<string>());
+            _writer.Received().OutputReport("There was an error compiling the markdown report: Error occurred.",
+                                            Arg.Any<string>(), Arg.Any<string>());
         }
 
         private MarkDownReporter CreateSut()
