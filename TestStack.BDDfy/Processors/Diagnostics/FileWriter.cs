@@ -5,7 +5,7 @@ namespace TestStack.BDDfy.Processors.Diagnostics
 {
     public class FileWriter : IReportWriter
     {
-        public void Create(string reportData, string reportName)
+        public void OutputReport(string reportData, string reportName)
         {
             var path = Path.Combine(OutputDirectory, reportName);
 

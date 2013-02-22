@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Processors.Diagnostics
                 report = error + ex.Message;
             }
 
-            _writer.Create(report, "Diagnostics.json");
+            _writer.OutputReport(report, "Diagnostics.json");
         }
     }
 }

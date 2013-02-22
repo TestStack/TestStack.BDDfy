@@ -3,6 +3,7 @@ bin/
 obj/
 *.user
 *.suo
+*.DotSettings
 *~
 *.swp
 *.orig

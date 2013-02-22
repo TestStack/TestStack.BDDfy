@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Processors.Diagnostics;
+using TestStack.BDDfy.Tests.Processors.Reports;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
 {
@@ -19,9 +20,9 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
             _sut = new DiagnosticsCalculator();
         }
 
-        public void AndGivenTwoStoriesEachWithTwoScenariosWithTwoStepsOfFiveMilliseconds()
+        public void AndGivenTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
         {
-            _stories = new DiagnosticTestData().CreateTwoStoriesEachWithTwoScenariosWithTwoStepsOfFiveMilliseconds();
+            _stories = new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds();
         }
 
         public void WhenTheDiagnosticDataIsCalculated()
@@ -34,15 +35,15 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
             Assert.AreEqual(2, _result.Count);
         }
 
-        public void AndThenEachStoryShouldHaveDurationOf20Milliseconds()
+        public void AndThenEachStoryShouldHaveDurationOf30Milliseconds()
         {
-            _result.ToList().ForEach(story => Assert.AreEqual(20, story.Duration));
+            _result.ToList().ForEach(story => Assert.AreEqual(30, story.Duration));
         }
 
         public void AndThenEachScenarioShouldHaveDurationOf10Milliseconds()
         {
-            _result[0].Scenarios.ForEach(scenario => Assert.AreEqual(10, scenario.Duration));
-            _result[1].Scenarios.ForEach(scenario => Assert.AreEqual(10, scenario.Duration));
+            _result[0].Scenarios.ForEach(scenario => Assert.AreEqual(15, scenario.Duration));
+            _result[1].Scenarios.ForEach(scenario => Assert.AreEqual(15, scenario.Duration));
         }
 
         public void AndThenEachStepShouldHaveDurationOf5Milliseconds()
