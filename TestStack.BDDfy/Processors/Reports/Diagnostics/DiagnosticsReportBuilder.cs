@@ -19,7 +19,8 @@ namespace TestStack.BDDfy.Processors.Reports.Diagnostics
         public string CreateReport(FileReportModel model)
         {
             var graph = GetDiagnosticData(model);
-            return _serializer.Serialize(graph);
+            var rootObject = new { Stories = graph };
+            return _serializer.Serialize(rootObject);
         }
 
         public IList<StoryDiagnostic> GetDiagnosticData(FileReportModel viewModel)
