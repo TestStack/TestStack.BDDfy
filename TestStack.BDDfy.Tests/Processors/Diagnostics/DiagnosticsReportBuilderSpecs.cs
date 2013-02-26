@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
-using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Reports.Diagnostics;
-using TestStack.BDDfy.Processors.Reports.Serializers;
+using TestStack.BDDfy.Processors.Reporters;
+using TestStack.BDDfy.Processors.Reporters.Diagnostics;
+using TestStack.BDDfy.Processors.Reporters.Serializers;
 using TestStack.BDDfy.Tests.Processors.Reports;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
@@ -15,14 +14,13 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
         public void ShouldSerializeDiagnosticDataToSpecifiedFormat()
         {
             var serializer = Substitute.For<ISerializer>();
-            var model = new FileReportModel(
-                new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            var testData = new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds();
+            var model = new FileReportModel(testData);
             var sut = new DiagnosticsReportBuilder(serializer);
 
             sut.CreateReport(model);
             
-            serializer.Received().Serialize(Arg.Any<IList<StoryDiagnostic>>());
+            serializer.Received().Serialize(Arg.Any<object>());
         }
-
     }
 }

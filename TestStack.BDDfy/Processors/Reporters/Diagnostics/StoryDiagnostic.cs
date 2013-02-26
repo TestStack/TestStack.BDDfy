@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TestStack.BDDfy.Processors.Reports.Diagnostics
+namespace TestStack.BDDfy.Processors.Reporters.Diagnostics
 {
     public class StoryDiagnostic
     {

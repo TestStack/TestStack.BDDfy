@@ -71,32 +71,32 @@
     <Compile Include="Configuration\Scanners.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Core\IBatchProcessor.cs" />
-    <Compile Include="Processors\ConsoleReporter.cs" />
-    <Compile Include="Processors\Reports\Diagnostics\DiagnosticsReportBuilder.cs" />
-    <Compile Include="Processors\Reports\Diagnostics\DiagnosticsReporter.cs" />
-    <Compile Include="Processors\Reports\Diagnostics\StoryDiagnostic.cs" />
-    <Compile Include="Processors\FileReportModel.cs" />
-    <Compile Include="Processors\FileReportSummaryModel.cs" />
-    <Compile Include="Processors\HtmlReporter\DefaultHtmlReportConfiguration.cs" />
-    <Compile Include="Processors\HtmlReporter\HtmlReportBuilder.cs" />
-    <Compile Include="Processors\HtmlReporter\HtmlReporter.cs" />
-    <Compile Include="Processors\HtmlReporter\HtmlReportResources.Designer.cs">
+    <Compile Include="Processors\Reporters\ConsoleReporter.cs" />
+    <Compile Include="Processors\Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
+    <Compile Include="Processors\Reporters\Diagnostics\DiagnosticsReporter.cs" />
+    <Compile Include="Processors\Reporters\Diagnostics\StoryDiagnostic.cs" />
+    <Compile Include="Processors\Reporters\FileReportModel.cs" />
+    <Compile Include="Processors\Reporters\FileReportSummaryModel.cs" />
+    <Compile Include="Processors\Reporters\Html\DefaultHtmlReportConfiguration.cs" />
+    <Compile Include="Processors\Reporters\Html\HtmlReportBuilder.cs" />
+    <Compile Include="Processors\Reporters\Html\HtmlReporter.cs" />
+    <Compile Include="Processors\Reporters\Html\HtmlReportResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HtmlReportResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Processors\HtmlReporter\HtmlReportTag.cs" />
-    <Compile Include="Processors\HtmlReporter\HtmlReportViewModel.cs" />
-    <Compile Include="Processors\HtmlReporter\HtmlTag.cs" />
-    <Compile Include="Processors\HtmlReporter\IHtmlReportConfiguration.cs" />
-    <Compile Include="Processors\MarkDownReporter.cs" />
-    <Compile Include="Processors\Reports\IReportBuilder.cs" />
-    <Compile Include="Processors\Reports\MarkDown\MarkDownReportBuilder.cs" />
-    <Compile Include="Processors\Reports\Serializers\ISerializer.cs" />
-    <Compile Include="Processors\Reports\Serializers\JsonFormatter.cs" />
-    <Compile Include="Processors\Reports\Serializers\JsonSerializer.cs" />
-    <Compile Include="Processors\Reports\Writers\FileWriter.cs" />
-    <Compile Include="Processors\Reports\Writers\IReportWriter.cs" />
+    <Compile Include="Processors\Reporters\Html\HtmlReportTag.cs" />
+    <Compile Include="Processors\Reporters\Html\HtmlReportViewModel.cs" />
+    <Compile Include="Processors\Reporters\Html\HtmlTag.cs" />
+    <Compile Include="Processors\Reporters\Html\IHtmlReportConfiguration.cs" />
+    <Compile Include="Processors\Reporters\MarkDown\MarkDownReporter.cs" />
+    <Compile Include="Processors\Reporters\IReportBuilder.cs" />
+    <Compile Include="Processors\Reporters\MarkDown\MarkDownReportBuilder.cs" />
+    <Compile Include="Processors\Reporters\Serializers\ISerializer.cs" />
+    <Compile Include="Processors\Reporters\Serializers\JsonFormatter.cs" />
+    <Compile Include="Processors\Reporters\Serializers\JsonSerializer.cs" />
+    <Compile Include="Processors\Reporters\Writers\FileWriter.cs" />
+    <Compile Include="Processors\Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="Core\ExecutionOrder.cs" />
     <Compile Include="Core\IHasScanner.cs" />
@@ -154,12 +154,12 @@
     <None Include="BDDfy.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Processors\HtmlReporter\BDDfy.css" />
-    <Content Include="Processors\HtmlReporter\BDDfy.js" />
-    <Content Include="Processors\HtmlReporter\jquery-1.7.1.min.js" />
+    <Content Include="Processors\Reporters\Html\BDDfy.css" />
+    <Content Include="Processors\Reporters\Html\BDDfy.js" />
+    <Content Include="Processors\Reporters\Html\jquery-1.7.1.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Processors\HtmlReporter\HtmlReportResources.resx">
+    <EmbeddedResource Include="Processors\Reporters\Html\HtmlReportResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

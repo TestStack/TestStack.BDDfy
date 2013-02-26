@@ -1,6 +1,6 @@
 using System.Web.Script.Serialization;
 
-namespace TestStack.BDDfy.Processors.Reports.Serializers
+namespace TestStack.BDDfy.Processors.Reporters.Serializers
 {
     public class JsonSerializer : ISerializer
     {

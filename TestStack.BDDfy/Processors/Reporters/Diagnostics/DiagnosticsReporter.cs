@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Processors.Reports.Writers;
+using TestStack.BDDfy.Processors.Reporters.Writers;
 
-namespace TestStack.BDDfy.Processors.Reports.Diagnostics
+namespace TestStack.BDDfy.Processors.Reporters.Diagnostics
 {
     public class DiagnosticsReporter : IBatchProcessor
     {

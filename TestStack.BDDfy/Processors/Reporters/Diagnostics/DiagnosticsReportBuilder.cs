@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TestStack.BDDfy.Processors.Reports.Serializers;
+using TestStack.BDDfy.Processors.Reporters.Serializers;
 
-namespace TestStack.BDDfy.Processors.Reports.Diagnostics
+namespace TestStack.BDDfy.Processors.Reporters.Diagnostics
 {
     public class DiagnosticsReportBuilder : IReportBuilder
     {

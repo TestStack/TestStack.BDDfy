@@ -1,4 +1,4 @@
-﻿namespace TestStack.BDDfy.Processors.Reports
+﻿namespace TestStack.BDDfy.Processors.Reporters
 {
     public interface IReportBuilder
     {
