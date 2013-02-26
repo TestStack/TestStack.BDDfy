@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.HtmlReporter;
-using TestStack.BDDfy.Processors.Reports.Diagnostics;
+using TestStack.BDDfy.Processors.Reporters.Diagnostics;
+using TestStack.BDDfy.Processors.Reporters.Html;
+using TestStack.BDDfy.Processors.Reporters.MarkDown;
 
 namespace TestStack.BDDfy.Configuration
 {

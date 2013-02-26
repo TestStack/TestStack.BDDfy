@@ -4,7 +4,7 @@ using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Processors
+namespace TestStack.BDDfy.Processors.Reporters
 {
     public class ConsoleReporter : IProcessor
     {

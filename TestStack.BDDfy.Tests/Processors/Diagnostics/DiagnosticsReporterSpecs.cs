@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Reports;
-using TestStack.BDDfy.Processors.Reports.Diagnostics;
-using TestStack.BDDfy.Processors.Reports.Serializers;
-using TestStack.BDDfy.Processors.Reports.Writers;
+using TestStack.BDDfy.Processors.Reporters;
+using TestStack.BDDfy.Processors.Reporters.Diagnostics;
+using TestStack.BDDfy.Processors.Reporters.Writers;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
 {
