@@ -58,6 +58,7 @@
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
     <Compile Include="Configuration\ProcessorPipelineTests.cs" />
     <Compile Include="Disposer\DisposingScenarios.cs" />
+    <Compile Include="Exceptions\OtherExceptions\WhenResolvingExceptionsFromDifferentScanners.cs" />
     <Compile Include="Exceptions\ThrowingMethods.cs" />
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />

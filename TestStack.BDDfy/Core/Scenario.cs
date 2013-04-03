@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace TestStack.BDDfy.Core
 {
@@ -48,7 +49,11 @@ namespace TestStack.BDDfy.Core
             catch (Exception ex)
             {
                 // ToDo: more thought should be put into this. Is it safe to get the exception?
-                var exception = ex.InnerException ?? ex;
+                var exception = ex;
+                if (exception is TargetInvocationException)
+                {
+                    exception = ex.InnerException ?? ex;
+                }
 
                 if (exception is NotImplementedException)
                 {

@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>TestStack.BDDfy</id>
-    <version>3.14</version>
+    <version>3.15</version>
     <title>A simple to use and extend BDD framework for .Net programmers</title>
     <authors>Mehdi Khalili, Michael Whelan</authors>
     <owners>Mehdi Khalili, Michael Whelan</owners>
