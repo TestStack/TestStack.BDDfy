@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace TestStack.BDDfy.Core
 {
@@ -29,10 +30,22 @@ namespace TestStack.BDDfy.Core
         public Exception Exception { get; set; }
         public ExecutionOrder ExecutionOrder { get; private set; }
         public int ExecutionSubOrder { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public void Execute(object testObject)
         {
-            StepAction(testObject);
+            Stopwatch sw = Stopwatch.StartNew();
+            try
+            {
+                StepAction(testObject);
+                sw.Stop();
+                Duration = sw.Elapsed;
+            }
+            finally 
+            {
+                sw.Stop();
+                Duration = sw.Elapsed;
+            }
         }
     }
 }

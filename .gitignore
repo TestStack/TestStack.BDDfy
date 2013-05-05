@@ -3,6 +3,7 @@ bin/
 obj/
 *.user
 *.suo
+*.DotSettings
 *~
 *.swp
 *.orig
@@ -12,7 +13,7 @@ obj/
 *.ncrunchsolution
 *.ncrunchproject
 *.cache
-src/packages/*
+packages/*
 PackageBuild/*
 Build/*
 TestResult.xml
