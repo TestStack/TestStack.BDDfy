@@ -25,8 +25,14 @@
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;</SourceExclusions>
     <ProjectName>$(MSBuildProjectName)</ProjectName>
 
-    <NUnitConsole>"$(MSBuildProjectDirectory)\Resource\Tool\NUnit\nunit-console.exe"</NUnitConsole>
+    <NUnitHome>$(MSBuildProjectDirectory)\Resource\Tool\NUnit\</NUnitHome>
+    <NUnitConsole>$(NUnitHome)nunit-console.exe</NUnitConsole>
+    
   </PropertyGroup>
+
+  <ItemGroup>
+    <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.2.*" />
+  </ItemGroup>
 
   <!--Default-->
   <PropertyGroup Condition="$(BuildFramework)=='' or $(BuildFramework)=='NET40'">
@@ -96,10 +102,13 @@
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build;Copy">
+    <MakeDir Directories="$(NUnitHome)/bin/addins" />
+    <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)/bin/addins" />
+    
     <CreateItem Include="$(TestPath)\TestStack.BDDfy.Tests.dll;$(TestPath)\TestStack.BDDfy.Samples.dll">
       <Output ItemName="_testFiles" TaskParameter="Include"/>
     </CreateItem>
-    <Exec Command="$(NUnitConsole) @(_testFiles->'&quot;%(FullPath)&quot;', ' ') /nologo /noshadow"></Exec>
+    <Exec Command="&quot;$(NUnitConsole)&quot; @(_testFiles->'&quot;%(FullPath)&quot;', ' ') /nologo /noshadow"></Exec>
   </Target>
 
   <Target Name="Distrib" DependsOnTargets="Clean;Build;Copy">
