@@ -101,7 +101,8 @@
     <ItemGroup>
       <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.2.*" />
     </ItemGroup>
-    
+
+    <Exec Command="$(MSBuildProjectDirectory)\.nuget\nuget.exe install &quot;$(MSBuildProjectDirectory)\.nuget\packages.config&quot; -o &quot;$(MSBuildProjectDirectory)\packages&quot;" />
     <MakeDir Directories="$(NUnitHome)addins" />
     <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)addins" />
     
