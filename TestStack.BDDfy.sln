@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20617.1 PREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F515887-AAB5-4873-8BE9-5AB10685EBCB}"
 	ProjectSection(SolutionItems) = preProject
 		go.cmd = go.cmd
@@ -27,6 +29,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.BDDfy.Samples", "TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.csproj", "{9D14B03B-9514-4DD8-9D4B-914A10D7EB59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.BDDfy.Tests", "TestStack.BDDfy.Tests\TestStack.BDDfy.Tests.csproj", "{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7AD952C1-F525-437B-965F-C1400ADA34F0}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
