@@ -9,8 +9,6 @@ obj/
 *.nupkg
 *.crunchproject.local.xml
 *.crunchsolution.local.xml
-*.ncrunchsolution
-*.ncrunchproject
 *.cache
 packages/*
 PackageBuild/*
