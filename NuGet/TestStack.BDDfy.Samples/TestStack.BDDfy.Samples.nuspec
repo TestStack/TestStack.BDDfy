@@ -2,15 +2,15 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>TestStack.BDDfy.Samples</id>
-    <version>3.10</version>
-    <title>Two BDD samples done using BDDfy</title>
+    <version>$version$</version>
+    <title>TestStack.BDDfy.Samples</title>
     <authors>Mehdi Khalili, Michael Whelan</authors>
     <owners>Mehdi Khalili, Michael Whelan</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>contains two small samples that showcase BDDfy's API and usage</description>
+    <description>Contains two small samples that showcase BDDfy's API and usage</description>
     <projectUrl>http://teststack.github.com/TestStack.BDDfy/</projectUrl>
     <dependencies>
-      <dependency id="TestStack.BDDfy" version="3.10" />
+      <dependency id="TestStack.BDDfy" version="$version$" />
       <dependency id="nunit" version="2.5" />
     </dependencies>
   </metadata>
