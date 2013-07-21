@@ -102,8 +102,8 @@
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build;Copy">
-    <MakeDir Directories="$(NUnitHome)/bin/addins" />
-    <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)/bin/addins" />
+    <MakeDir Directories="$(NUnitHome)addins" />
+    <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)addins" />
     
     <CreateItem Include="$(TestPath)\TestStack.BDDfy.Tests.dll;$(TestPath)\TestStack.BDDfy.Samples.dll">
       <Output ItemName="_testFiles" TaskParameter="Include"/>
