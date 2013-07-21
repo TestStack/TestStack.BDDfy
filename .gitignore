@@ -9,10 +9,8 @@ obj/
 *.nupkg
 *.crunchproject.local.xml
 *.crunchsolution.local.xml
-*.ncrunchsolution
-*.ncrunchproject
 *.cache
-src/packages/*
+packages/*
 PackageBuild/*
 Build/*
 TestResult.xml
