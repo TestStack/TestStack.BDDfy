@@ -31,6 +31,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.BDDfy.Tests", "TestStack.BDDfy.Tests\TestStack.BDDfy.Tests.csproj", "{357B22FF-84E9-4AB4-AADF-6B9DBB76FB32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7AD952C1-F525-437B-965F-C1400ADA34F0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E934CAB7-1AA0-4AEC-94AD-BC3D4306212C}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe

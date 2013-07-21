@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
-using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Processors.Reporters;
 using TestStack.BDDfy.Processors.Reporters.MarkDown;
 using TestStack.BDDfy.Processors.Reporters.Writers;
