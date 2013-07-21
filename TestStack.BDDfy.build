@@ -24,15 +24,7 @@
     <LibrarySource>TestStack.BDDfy\bin\$(Configuration)</LibrarySource>
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;</SourceExclusions>
     <ProjectName>$(MSBuildProjectName)</ProjectName>
-
-    <NUnitHome>$(MSBuildProjectDirectory)\Resource\Tool\NUnit\</NUnitHome>
-    <NUnitConsole>$(NUnitHome)nunit-console.exe</NUnitConsole>
-    
   </PropertyGroup>
-
-  <ItemGroup>
-    <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.2.*" />
-  </ItemGroup>
 
   <!--Default-->
   <PropertyGroup Condition="$(BuildFramework)=='' or $(BuildFramework)=='NET40'">
@@ -102,6 +94,14 @@
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build;Copy">
+    <PropertyGroup>
+      <NUnitHome>$(MSBuildProjectDirectory)\packages\NUnit.Runners.2.6.2\tools\</NUnitHome>
+      <NUnitConsole>$(NUnitHome)nunit-console.exe</NUnitConsole>
+    </PropertyGroup>
+    <ItemGroup>
+      <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.2.*" />
+    </ItemGroup>
+    
     <MakeDir Directories="$(NUnitHome)addins" />
     <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)addins" />
     

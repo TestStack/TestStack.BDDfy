@@ -10,7 +10,7 @@
     <PackageWorkingPath>$(MSBuildProjectDirectory)\PackageBuild</PackageWorkingPath>
     <ArtifactTemp>$(PackageWorkingPath)\Library</ArtifactTemp>
     <PackageDefinitionPath>$(PackageWorkingPath)\PackageTemp</PackageDefinitionPath>
-    <NuGetExe>"$(MSBuildProjectDirectory)\Resource\Tool\NuGet\NuGet.exe"</NuGetExe>
+    <NuGetExe>"$(MSBuildProjectDirectory)\.nuget\NuGet.exe"</NuGetExe>
     <BDDfyBuild>$(MSBuildProjectDirectory)\TestStack.BDDfy.build</BDDfyBuild>
     <PackageOutput>$(PackageWorkingPath)\Packages</PackageOutput>
     <ZipPath>$(BuildPath)\_Package</ZipPath>

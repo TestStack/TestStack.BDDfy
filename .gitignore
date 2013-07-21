@@ -12,7 +12,7 @@ obj/
 *.ncrunchsolution
 *.ncrunchproject
 *.cache
-src/packages/*
+packages/*
 PackageBuild/*
 Build/*
 TestResult.xml
