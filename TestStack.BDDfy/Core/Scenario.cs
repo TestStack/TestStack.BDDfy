@@ -17,7 +17,7 @@ namespace TestStack.BDDfy.Core
         }
 
         public string Title { get; private set; }
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Duration { get { return new TimeSpan(_steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; private set; }
         public Guid Id { get; private set; }
 

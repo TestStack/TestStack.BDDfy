@@ -1,4 +1,4 @@
-namespace TestStack.BDDfy.Processors.HtmlReporter
+namespace TestStack.BDDfy.Processors.Reporters.Html
 {
     // ReSharper disable InconsistentNaming
     public enum HtmlTag

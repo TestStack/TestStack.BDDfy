@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Processors.Reporters;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
