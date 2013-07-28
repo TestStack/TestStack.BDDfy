@@ -42,12 +42,12 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
                 AddLine("<meta charset='utf-8'/>");
                 AddLine(string.Format("<link href='BDDfy.css' rel='stylesheet'/>"));
                 if(_viewModel.UseCustomStylesheet)
-                    AddLine(string.Format("<link href='bddifyCustom.css' rel='stylesheet'/>"));
+                    AddLine(string.Format("<link href='BDDfyCustom.css' rel='stylesheet'/>"));
 
                 AddLine("<script type='text/javascript' src='jquery-1.7.1.min.js'></script>");
                 AddLine(string.Format("<script type='text/javascript' src='BDDfy.js'></script>"));
                 if (_viewModel.UseCustomJavascript)
-                    AddLine(string.Format("<link href='bddifyCustom.js' rel='stylesheet'/>"));
+                    AddLine(string.Format("<link href='BDDfyCustom.js' rel='stylesheet'/>"));
 
                 AddLine(string.Format("<title>BDDfy Test Result {0}</title>", DateTime.Now.ToShortDateString()));
             }
@@ -141,7 +141,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
 
         private void Footer()
         {
-            AddLine("<div class='footer'>Powered by <a href='http://hg.mehdi-khalili.com/BDDfy/wiki/Home'>BDDfy</a> framework</div>");
+            AddLine("<div class='footer'>Powered by <a href='http://teststack.github.io/TestStack.BDDfy/'>BDDfy</a> framework</div>");
         }
 
         private void AddStory(Story story)
