@@ -104,12 +104,13 @@ which gives you a report like:
     	Then the ATM should retain the card
       		And the atm should say the card has been retained
 
+This is only the tip of iceberg. Absolutely everything you do with BDDfy is extensible and customizable. 
+You might see full documentation of BDDfy on the [TestStack documentation website](http://docs.teststack.net/bddfy/index.html).
+Oh and while you are there don't forget to checkout other cool projects from [TestStack](http://teststack.net/).
+
 ## Authors 
 * Mehdi Khalili (@MehdiK)
 * Michael Whelan (@mwhelan)
-
-## Documentation
-BDDfy is part of [TestStack](http://teststack.net/) organization. You might see full documentation of BDDfy on the [TestStack documentation website](http://docs.teststack.net/bddfy/index.html).
 
 ## License
 BDDfy is released under the MIT License. See the bundled license.txt file for details.
