@@ -52,10 +52,10 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
 
         private void ShouldTheReportUseCustomization(HtmlReportViewModel viewModel)
         {
-            var customStylesheet = Path.Combine(_configuration.OutputPath, "bddifyCustom.css");
+            var customStylesheet = Path.Combine(_configuration.OutputPath, "BDDfyCustom.css");
             viewModel.UseCustomStylesheet = File.Exists(customStylesheet);
 
-            var customJavascript = Path.Combine(_configuration.OutputPath, "bddifyCustom.js");
+            var customJavascript = Path.Combine(_configuration.OutputPath, "BDDfyCustom.js");
             viewModel.UseCustomJavascript = File.Exists(customJavascript);
         }
 
