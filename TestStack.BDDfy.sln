@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.20617.1 PREVIEW
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F515887-AAB5-4873-8BE9-5AB10685EBCB}"
 	ProjectSection(SolutionItems) = preProject
 		go.cmd = go.cmd
@@ -17,11 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestStack.BDDfy", "TestStac
 		NuGet\TestStack.BDDfy\TestStack.BDDfy.nuspec = NuGet\TestStack.BDDfy\TestStack.BDDfy.nuspec
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8B5264F7-5047-4DFF-B84B-D73865DB61A1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestStack.BDDfy.Samples", "TestStack.BDDfy.Samples", "{E8753E3B-8534-4C10-B83F-DEEC483B68B4}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet\TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.nuspec
+		NuGet\TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.nuspec = NuGet\TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.BDDfy", "TestStack.BDDfy\TestStack.BDDfy.csproj", "{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}"
@@ -78,6 +74,5 @@ Global
 		{AA269083-ED8A-406E-AB02-8F80B7B74A26} = {8F515887-AAB5-4873-8BE9-5AB10685EBCB}
 		{302859D2-2B1B-44DC-8498-81E588921CBD} = {AA269083-ED8A-406E-AB02-8F80B7B74A26}
 		{E8753E3B-8534-4C10-B83F-DEEC483B68B4} = {AA269083-ED8A-406E-AB02-8F80B7B74A26}
-		{8B5264F7-5047-4DFF-B84B-D73865DB61A1} = {302859D2-2B1B-44DC-8498-81E588921CBD}
 	EndGlobalSection
 EndGlobal
