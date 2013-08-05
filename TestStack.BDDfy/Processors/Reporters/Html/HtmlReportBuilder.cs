@@ -141,7 +141,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
 
         private void Footer()
         {
-            AddLine("<div class='footer'>Powered by <a href='http://teststack.github.io/TestStack.BDDfy/'>BDDfy</a> framework</div>");
+            AddLine("<div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>");
         }
 
         private void AddStory(Story story)
