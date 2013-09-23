@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using TestStack.BDDfy.Core;
+using TestStack.BDDfy.Scanners.StepScanners.Fluent;
 
 namespace TestStack.BDDfy.Samples
 {
@@ -26,9 +27,19 @@ namespace TestStack.BDDfy.Samples
         }
 
         [Test]
-        public void Verify()
+        public void BDDfy_with_reflective_API()
         {
             this.BDDfy();
+        }
+
+        [Test]
+        public void BDDfy_with_fluent_API()
+        {
+            this.Given(_ => Given_I_have_not_used_BDDfy_before())
+                .When(_ => WhenIAmIntroducedToTheFramework())
+                .Then(_ => ThenILikeItAndStartUsingIt())
+                .And(_ => AndTheQualityAndMaintainabilityOfMyTestSkyrocket())
+                .BDDfy();
         }
     }
 }
