@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Linq;
+using System.Text;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Samples.TicTacToe
+namespace TestStack.BDDfy.Samples
 {
     /// <summary>
     /// This is a custom reporter that shows you how easily you can create a custom report.

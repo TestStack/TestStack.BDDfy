@@ -49,9 +49,10 @@
     <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
     <Compile Include="Atm\HtmlReportConfig.cs" />
     <Compile Include="BDDfyConfiguration.cs" />
+    <Compile Include="BDDfy_Rocks.cs" />
     <Compile Include="TicTacToe\Game.cs" />
     <Compile Include="TicTacToe\Helpers.cs" />
-    <Compile Include="TicTacToe\CustomTextReporter.cs" />
+    <Compile Include="CustomTextReporter.cs" />
     <Compile Include="TicTacToe\TicTacToe.cs" />
     <Compile Include="TicTacToe\WinnerGame.cs" />
     <Compile Include="TicTacToe\XWins.cs" />
