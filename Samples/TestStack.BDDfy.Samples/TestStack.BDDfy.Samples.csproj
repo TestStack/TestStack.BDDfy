@@ -64,7 +64,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestStack.BDDfy\TestStack.BDDfy.csproj">
+    <ProjectReference Include="..\..\TestStack.BDDfy\TestStack.BDDfy.csproj">
       <Project>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</Project>
       <Name>TestStack.BDDfy</Name>
     </ProjectReference>

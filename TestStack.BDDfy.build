@@ -81,7 +81,7 @@
     <Copy SourceFiles="@(TestFiles)" DestinationFolder="$(TestPath)" />
 
     <!--Sample Tests-->
-    <CreateItem Include="TestStack.BDDfy.Samples\bin\$(Configuration)\*.*">
+    <CreateItem Include="Samples\TestStack.BDDfy.Samples\bin\$(Configuration)\*.*">
       <Output ItemName="SampleFiles" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(TestPath)" />
