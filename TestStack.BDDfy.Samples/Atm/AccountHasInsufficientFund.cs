@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Samples.Atm
         [Test]
         public void Verify()
         {
-            new AccountHasInsufficientFund().BDDfy<AccountHolderWithdrawsCash>();
+            this.BDDfy<AccountHolderWithdrawsCash>();
         }
     }
 }
