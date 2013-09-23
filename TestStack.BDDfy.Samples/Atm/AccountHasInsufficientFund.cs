@@ -50,5 +50,11 @@ namespace TestStack.BDDfy.Samples.Atm
         {
             Assert.IsFalse(_atm.CardIsRetained);
         }
+
+        [Test]
+        public void Verify()
+        {
+            new AccountHasInsufficientFund().BDDfy<AccountHolderWithdrawsCash>();
+        }
     }
 }
