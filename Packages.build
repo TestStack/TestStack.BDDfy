@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <BDDfySamplesPath>$(MSBuildProjectDirectory)\TestStack.BDDfy.Samples</BDDfySamplesPath>
+    <BDDfySamplesPath>$(MSBuildProjectDirectory)\Samples\TestStack.BDDfy.Samples</BDDfySamplesPath>
     <BDDfySpecPath>$(PackageDefinitionPath)\TestStack.BDDfy</BDDfySpecPath>
     <BDDfySpec>$(BDDfySpecPath)\TestStack.BDDfy.nuspec</BDDfySpec>
     <SamplesSpecPath>$(PackageDefinitionPath)\TestStack.BDDfy.Samples</SamplesSpecPath>

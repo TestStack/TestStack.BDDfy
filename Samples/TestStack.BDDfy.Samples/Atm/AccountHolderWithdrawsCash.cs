@@ -65,12 +65,6 @@ namespace TestStack.BDDfy.Samples.Atm
         }
 
         [Test]
-        public void AccountHasInsufficientFund()
-        {
-            new AccountHasInsufficientFund().BDDfy<AccountHolderWithdrawsCash>();
-        }
-
-        [Test]
         public void AccountHasSufficientFund()
         {
            this.Given(s => s.Given_the_Account_Balance_is(100), GivenTheAccountBalanceIsTitleTemplate)
