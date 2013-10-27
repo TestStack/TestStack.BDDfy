@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -42,7 +41,7 @@ namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute
             if (runStepWithArgsAttributes.Length == 0)
             {
                 yield return
-                    new ExecutionStep(GetStepAction(candidateMethod), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
+                    new ExecutionStep(StepActionFactory.GetStepAction(candidateMethod, new object[0]), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -61,17 +60,12 @@ namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return
-                    new ExecutionStep(GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
+                    new ExecutionStep(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
                                       executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
             }
-        }
-
-        static Action<object> GetStepAction(MethodInfo methodinfo, object[] inputArguments = null)
-        {
-            return o => methodinfo.Invoke(o, inputArguments);
         }
 
         private static bool IsAssertingByAttribute(MethodInfo method)

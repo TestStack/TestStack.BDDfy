@@ -135,7 +135,7 @@ namespace TestStack.BDDfy.Scanners.StepScanners.MethodName
                 return o => InvokeIEnumerableMethod(method, o, inputs).Count();
             }
 
-            return o => method.Invoke(o, inputs);
+            return StepActionFactory.GetStepAction(method, inputs);
         }
 
         private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs)
