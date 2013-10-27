@@ -127,7 +127,7 @@ namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
 
             stepTitle = stepTitle.Trim();
             var action = stepAction.Compile();
-            _steps.Add(new ExecutionStep(o => action((TScenario)o), stepTitle, asserts, executionOrder, reports));
+            _steps.Add(new ExecutionStep(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)

@@ -9,5 +9,11 @@ namespace TestStack.BDDfy.Scanners.StepScanners
         {
             return o => method.Invoke(o, inputs);
         }
+
+        public static Action<object> GetStepAction<TScenario>(Action<TScenario> action)
+            where TScenario : class
+        {
+            return o => action((TScenario) o);
+        }
     }
 }
