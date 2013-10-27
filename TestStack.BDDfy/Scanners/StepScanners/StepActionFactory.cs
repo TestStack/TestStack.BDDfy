@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Reflection;
+using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
+using TestStack.BDDfy.Processors;
 
 namespace TestStack.BDDfy.Scanners.StepScanners
 {
@@ -13,12 +17,55 @@ namespace TestStack.BDDfy.Scanners.StepScanners
         public static Action<object> GetStepAction<TScenario>(Action<TScenario> action)
             where TScenario : class
         {
-            return o => Run(() => action((TScenario)o));
+            return o => Run(() =>
+            {
+                action((TScenario) o);
+                return null;
+            });
         }
 
-        private static void Run(Action func)
+        private static void Run(Func<object> func)
         {
-            func();
+            var oldSyncContext = SynchronizationContext.Current;
+            try
+            {
+                var asyncSyncContext = new AsyncTestSyncContext();
+                SetSynchronizationContext(asyncSyncContext);
+                var result = func();
+                var task = result as Task;
+                if (task != null)
+                {
+                    try
+                    {
+                        task.Wait();
+                    }
+                    catch (AggregateException ae)
+                    {
+                        var innerException = ae.InnerException;
+                        ExceptionProcessor.PreserveStackTrace(innerException);
+                        throw innerException;
+                    }
+                }
+                else
+                {
+                    var ex = asyncSyncContext.WaitForCompletion();
+                    if (ex != null)
+                    {
+                        ExceptionProcessor.PreserveStackTrace(ex);
+                        throw ex;
+                    }
+                }
+            }
+            finally
+            {
+                SetSynchronizationContext(oldSyncContext);
+            }
+        }
+
+        [SecuritySafeCritical]
+        static void SetSynchronizationContext(SynchronizationContext context)
+        {
+            SynchronizationContext.SetSynchronizationContext(context);
         }
     }
 }
