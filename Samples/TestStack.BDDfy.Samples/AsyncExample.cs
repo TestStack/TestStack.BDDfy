@@ -31,10 +31,11 @@ namespace TestStack.BDDfy.Samples
         }
 
         [Test]
-        [Explicit]
         public void Run()
         {
-            this.BDDfy();
+            var engine = this.LazyBDDfy();
+            var exception = Assert.Throws<Exception>(() => engine.Run());
+            Assert.AreEqual("Exception in async void method!!", exception.Message);
         }
 
         internal class Sut
