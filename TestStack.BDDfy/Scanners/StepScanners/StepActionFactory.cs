@@ -2,8 +2,11 @@
 using System.Reflection;
 using System.Security;
 using System.Threading;
-using System.Threading.Tasks;
 using TestStack.BDDfy.Processors;
+
+#if !NET35
+using System.Threading.Tasks;
+#endif
 
 namespace TestStack.BDDfy.Scanners.StepScanners
 {
@@ -22,6 +25,19 @@ namespace TestStack.BDDfy.Scanners.StepScanners
                 action((TScenario) o);
                 return null;
             });
+        }
+
+#if NET35
+        private static void Run(Func<object> func)
+        {
+            func();
+        }
+
+#else
+        public static Action<object> GetStepAction<TScenario>(Func<TScenario, Task> action)
+           where TScenario : class
+        {
+            return o => Run(() => action((TScenario)o));
         }
 
         private static void Run(Func<object> func)
@@ -67,5 +83,6 @@ namespace TestStack.BDDfy.Scanners.StepScanners
         {
             SynchronizationContext.SetSynchronizationContext(context);
         }
+#endif
     }
 }

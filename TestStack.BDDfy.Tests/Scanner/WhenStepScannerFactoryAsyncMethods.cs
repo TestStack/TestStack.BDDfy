@@ -10,7 +10,6 @@ namespace TestStack.BDDfy.Tests.Scanner
     public class WhenStepScannerFactoryAsyncMethods
     {
         [Test]
-        [Ignore("This requires overloads to all the fluent methods to capture the task")]
         public void CallingAsyncTaskWhichThrowsIsObservedAndRethrown()
         {
             var stepAction = StepActionFactory.GetStepAction<SomeScenario>(o => AsyncTaskMethod(o));
@@ -21,7 +20,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void CallingAsyncVoidWhichThrowsIsObservedAndRethrown()
         {
-            var stepAction = StepActionFactory.GetStepAction<SomeScenario>(AsyncVoidMethod);
+            var stepAction = StepActionFactory.GetStepAction<SomeScenario>(s=>AsyncVoidMethod(s));
 
             Assert.Throws<ArgumentException>(() => stepAction(new SomeScenario()));
         }

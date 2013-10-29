@@ -22,6 +22,21 @@ namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
             return ExtractConstants(methodCallExpression);
         }
 
+#if !NET35
+        public static IEnumerable<object> ExtractConstants<T>(this Expression<Func<T, System.Threading.Tasks.Task>> expression)
+        {
+            var lambdaExpression = expression as LambdaExpression;
+            if (lambdaExpression == null)
+                throw new InvalidOperationException("Please provide a lambda expression.");
+
+            var methodCallExpression = lambdaExpression.Body as MethodCallExpression;
+            if (methodCallExpression == null)
+                throw new InvalidOperationException("Please provide a *method call* lambda expression.");
+
+            return ExtractConstants(methodCallExpression);
+        }
+#endif
+
         private static IEnumerable<object> ExtractConstants(Expression expression)
         {
             if (expression == null || expression is ParameterExpression)
@@ -146,7 +161,7 @@ namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
             else
             {
                 if (constantExpression.Type == typeof(string) ||
-					constantExpression.Type == typeof(decimal) ||
+                    constantExpression.Type == typeof(decimal) ||
                     constantExpression.Type.IsPrimitive ||
                     constantExpression.Type.IsEnum ||
                     constantExpression.Value == null)

@@ -6,6 +6,10 @@ using System.Linq;
 using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Scanners.ScenarioScanners;
 
+#if !NET35
+using System.Threading.Tasks;
+#endif
+
 namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
 {
     /// <summary>
@@ -102,6 +106,139 @@ namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
         IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep)
         {
             return ((IGiven<TScenario>)this).And(andGivenStep, null);
+        }
+#else
+        IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
+        {
+            AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
+            return this;
+        }
+
+        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, string stepTextTemplate)
+        {
+            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
+            return this;
+        }
+
+        IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(givenStep, null, false, ExecutionOrder.SetupState, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IThen<TScenario> IWhen<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate)
+        {
+            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
+            return this;
+        }
+
+        IAndThen<TScenario> IThen<TScenario>.And(Expression<Func<TScenario, Task>> andThenStep, string stepTextTemplate)
+        {
+            AddStep(andThenStep, stepTextTemplate, true, ExecutionOrder.ConsecutiveAssertion);
+            return this;
+        }
+
+        IAndThen<TScenario> IThen<TScenario>.And(Expression<Func<TScenario, Task>> andThenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(andThenStep, null, true, ExecutionOrder.ConsecutiveAssertion, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Func<TScenario, Task>> andWhenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(andWhenStep, null, false, ExecutionOrder.ConsecutiveTransition, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IThen<TScenario> IWhen<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Func<TScenario, Task>> andGivenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(andGivenStep, null, false, ExecutionOrder.ConsecutiveSetupState, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IThen<TScenario> IGiven<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Func<TScenario, Task>> andGivenStep, string stepTextTemplate)
+        {
+            AddStep(andGivenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveSetupState);
+            return this;
+        }
+
+        IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Func<TScenario, Task>> andWhenStep, string stepTextTemplate)
+        {
+            AddStep(andWhenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveTransition);
+            return this;
+        }
+
+        IThen<TScenario> IGiven<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate)
+        {
+            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
+            return this;
+        }
+
+        IWhen<TScenario> IGiven<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, bool includeInputsInStepTitle)
+        {
+            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
+            return this;
+        }
+
+        IWhen<TScenario> IGiven<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, string stepTextTemplate)
+        {
+            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
+            return this;
+        }
+
+        IFluentScanner<TScenario> IFluentScanner<TScenario>.TearDownWith(Expression<Func<TScenario, Task>> tearDownStep)
+        {
+            AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
+            return this;
+        }
+
+        private void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
+        {
+            var methodInfo = GetMethodInfo(stepAction);
+            var inputArguments = new object[0];
+            if (includeInputsInStepTitle)
+            {
+                inputArguments = stepAction.ExtractConstants().ToArray();
+            }
+
+            var flatInputArray = inputArguments.FlattenArrays();
+            var stepTitle = NetToString.Convert(methodInfo.Name);
+
+            if (!string.IsNullOrEmpty(stepTextTemplate))
+                stepTitle = string.Format(stepTextTemplate, flatInputArray);
+            else if (includeInputsInStepTitle)
+            {
+                var stringFlatInputs = flatInputArray.Select(i => i.ToString()).ToArray();
+                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+            }
+
+            stepTitle = stepTitle.Trim();
+            var action = stepAction.Compile();
+            _steps.Add(new ExecutionStep(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+        }
+
+        private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
+        {
+            var methodCall = (MethodCallExpression)stepAction.Body;
+            return methodCall.Method;
         }
 #endif
 
