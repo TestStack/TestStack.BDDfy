@@ -44,7 +44,7 @@ namespace TestStack.BDDfy.Samples
         public void Process(Story story)
         {
             // use this report only for tic tac toe stories
-            if (!story.MetaData.Type.Name.Contains("TicTacToe"))
+            if (story.MetaData == null || !story.MetaData.Type.Name.Contains("TicTacToe"))
                 return;
 
             var scenario = story.Scenarios.First();

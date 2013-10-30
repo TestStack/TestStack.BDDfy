@@ -43,7 +43,9 @@
    Solution redirects. Every VS project normally knows how to support these targets
     -->
   <Target Name="Build">
-    <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=$(Configuration)$(BuildFramework);DefineConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);TargetFrameworkVersion=$(TargetFrameworkVersion);TargetFrameworkProfile=$(TargetFrameworkProfile)"/>
+    <MSBuild Projects="Samples\TestStack.BDDfy.Samples\TestStack.BDDfy.Samples.csproj" Targets="Build" Properties="Configuration=$(Configuration)$(BuildFramework);DefineConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);nowarn=1685"/>
+    <MSBuild Projects="TestStack.BDDfy.Tests\TestStack.BDDfy.Tests.csproj" Targets="Build" Properties="Configuration=$(Configuration)$(BuildFramework);DefineConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);nowarn=1685"/>
+    <MSBuild Projects="TestStack.BDDfy\TestStack.BDDfy.csproj" Targets="Build" Properties="Configuration=$(Configuration)$(BuildFramework);DefineConstants=$(BuildConstants);MSBuildTargets=$(BuildTargets);TargetFrameworkVersion=$(TargetFrameworkVersion);TargetFrameworkProfile=$(TargetFrameworkProfile)"/>
   </Target>
 
   <Target Name="Clean">

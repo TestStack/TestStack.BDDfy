@@ -121,6 +121,7 @@
     <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
+    <Compile Include="Scanners\StepScanners\AsyncTestSyncContext.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttribute.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttributeStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\AndGivenAttribute.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Scanners\StepScanners\MethodName\DefaultMethodNameStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameMatcher.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameStepScanner.cs" />
+    <Compile Include="Scanners\StepScanners\StepActionFactory.cs" />
     <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
     <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
     <Compile Include="Scanners\StoryAttributeMetaDataScanner.cs" />
