@@ -70,6 +70,7 @@
     <Compile Include="Configuration\Processors.cs" />
     <Compile Include="Configuration\Scanners.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
+    <Compile Include="Configuration\TestRunnerFactory.cs" />
     <Compile Include="Core\IBatchProcessor.cs" />
     <Compile Include="Processors\Reporters\ConsoleReporter.cs" />
     <Compile Include="Processors\Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />

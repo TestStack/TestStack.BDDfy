@@ -33,8 +33,8 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        private readonly ProcessorFactory _testRunnerFactory = new ProcessorFactory(() => new TestRunner());
-        public ProcessorFactory TestRunner { get { return _testRunnerFactory; } }
+        private readonly TestRunnerFactory _testRunnerFactory = new TestRunnerFactory(() => new TestRunner());
+        public TestRunnerFactory TestRunner { get { return _testRunnerFactory; } }
 
         private readonly ProcessorFactory _consoleReportFactory = new ProcessorFactory(() => new ConsoleReporter());
         public ProcessorFactory ConsoleReport { get { return _consoleReportFactory; } }
