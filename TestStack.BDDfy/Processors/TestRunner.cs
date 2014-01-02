@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Processors
                     if (scenario.ExecuteStep(executionStep) == StepExecutionResult.Passed) 
                         continue;
 
-                    if(!executionStep.Asserts)
+                    if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)
                         break;
                 }
             }
