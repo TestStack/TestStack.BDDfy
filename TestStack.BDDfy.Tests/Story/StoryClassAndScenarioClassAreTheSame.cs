@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Tests.Story
         {
             try
             {
-                // we need TestObject for this test so have to disable StoryCache processor for this one test
+                // we need TestObject for this test; so I disable StoryCache processor for this one test
                 BDDfy.Configuration.Configurator.Processors.StoryCache.Disable();
 
                 this.BDDfy();

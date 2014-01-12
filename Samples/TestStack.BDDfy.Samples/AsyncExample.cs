@@ -36,7 +36,7 @@ namespace TestStack.BDDfy.Samples
         {
             try
             {
-                // we need TestObject for this test so have to disable StoryCache processor for this one test
+                // we need TestObject for this test; so I disable StoryCache processor for this one test
                 Configuration.Configurator.Processors.StoryCache.Disable();
                 var engine = this.LazyBDDfy();
                 var exception = Assert.Throws<Exception>(() => engine.Run());
