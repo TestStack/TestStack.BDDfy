@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Processors
     {
         public ProcessType ProcessType
         {
-            get { return ProcessType.Finally; }
+            get { return ProcessType.Disposal; }
         }
 
         public void Process(Story story)

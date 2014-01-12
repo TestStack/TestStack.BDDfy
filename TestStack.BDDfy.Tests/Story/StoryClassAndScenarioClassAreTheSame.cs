@@ -52,7 +52,17 @@ namespace TestStack.BDDfy.Tests.Story
         [Test]
         public void Execute()
         {
-            this.BDDfy();
+            try
+            {
+                // we need TestObject for this test so have to disable StoryCache processor for this one test
+                BDDfy.Configuration.Configurator.Processors.StoryCache.Disable();
+
+                this.BDDfy();
+            }
+            finally
+            {
+                BDDfy.Configuration.Configurator.Processors.StoryCache.Enable();                
+            }
         }
     }
 }

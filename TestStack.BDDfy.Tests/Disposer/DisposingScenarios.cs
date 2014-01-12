@@ -57,11 +57,17 @@ namespace TestStack.BDDfy.Tests.Disposer
             var bddifier = scenario.LazyBDDfy();
             try
             {
+                // we need TestObject for this test so have to disable StoryCache processor for this one test
+                BDDfy.Configuration.Configurator.Processors.StoryCache.Disable();
                 bddifier.Run();
             }
             catch (Exception)
             {
                 // there will be an exception but we do not care about it
+            }
+            finally
+            {
+                BDDfy.Configuration.Configurator.Processors.StoryCache.Enable();                
             }
             var story = bddifier.Story;
 

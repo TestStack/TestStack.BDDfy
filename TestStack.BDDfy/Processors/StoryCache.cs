@@ -14,6 +14,13 @@ namespace TestStack.BDDfy.Processors
 
         public void Process(Story story)
         {
+            foreach (var scenario in story.Scenarios)
+            {
+                scenario.TestObject = null;
+                foreach (var step in scenario.Steps)
+                    step.StepAction = null;
+            }
+
             Cache.Add(story);
         }
 

@@ -38,13 +38,13 @@ namespace TestStack.BDDfy.Core
 
             try
             {
-                //run processors in the right order regardless of the order they are provided to the Bddifer
-                foreach (var processor in processors.Where(p => p.ProcessType != ProcessType.Finally).OrderBy(p => (int)p.ProcessType))
+                //run processors in the right order regardless of the order they are provided to the Bddfier
+                foreach (var processor in processors.Where(p => p.ProcessType < ProcessType.Disposal).OrderBy(p => (int)p.ProcessType))
                     processor.Process(_story);
             }
             finally
             {
-                foreach (var finallyProcessor in processors.Where(p => p.ProcessType == ProcessType.Finally))
+                foreach (var finallyProcessor in processors.Where(p => p.ProcessType >= ProcessType.Disposal).OrderBy(p => (int)p.ProcessType))
                     finallyProcessor.Process(_story);
             }
 
