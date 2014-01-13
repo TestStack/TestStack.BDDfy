@@ -22,7 +22,7 @@ namespace TestStack.BDDfy.Core
         }
 
         public Guid Id { get; private set; }
-        Action<object> StepAction { get; set; }
+        internal Action<object> StepAction { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
         public string StepTitle { get; private set; }

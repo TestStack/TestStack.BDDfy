@@ -34,9 +34,19 @@ namespace TestStack.BDDfy.Samples
         [Test]
         public void Run()
         {
-            var engine = this.LazyBDDfy();
-            var exception = Assert.Throws<Exception>(() => engine.Run());
-            Assert.AreEqual("Exception in async void method!!", exception.Message);
+            try
+            {
+                // we need TestObject for this test; so I disable StoryCache processor for this one test
+                Configuration.Configurator.Processors.StoryCache.Disable();
+                var engine = this.LazyBDDfy();
+                var exception = Assert.Throws<Exception>(() => engine.Run());
+
+                Assert.AreEqual("Exception in async void method!!", exception.Message);
+            }
+            finally
+            {
+                Configuration.Configurator.Processors.StoryCache.Enable();
+            }
         }
 
         internal class Sut
