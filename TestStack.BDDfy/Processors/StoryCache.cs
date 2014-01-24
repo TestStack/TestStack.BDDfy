@@ -16,7 +16,10 @@ namespace TestStack.BDDfy.Processors
         {
             foreach (var scenario in story.Scenarios)
             {
-                scenario.TestObject = null;
+                // ToDo: should uncomment this and find a way to generate file reports with null TestObject.
+                // Currently it fails when there is no story as the namespace is resolved through TestObject
+                // scenario.TestObject = null;
+
                 foreach (var step in scenario.Steps)
                     step.StepAction = null;
             }

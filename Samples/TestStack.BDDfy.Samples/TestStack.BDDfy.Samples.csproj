@@ -51,6 +51,7 @@
     <Compile Include="Atm\HtmlReportConfig.cs" />
     <Compile Include="BDDfyConfiguration.cs" />
     <Compile Include="BDDfy_Rocks.cs" />
+    <Compile Include="CanWorkWithoutAStory.cs" />
     <Compile Include="TicTacToe\Game.cs" />
     <Compile Include="TicTacToe\Helpers.cs" />
     <Compile Include="CustomTextReporter.cs" />
