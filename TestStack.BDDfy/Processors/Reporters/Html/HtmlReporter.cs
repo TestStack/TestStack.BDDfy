@@ -33,7 +33,6 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
 
         void WriteOutHtmlReport(IEnumerable<Story> stories)
         {
-            const string error = "There was an error compiling the html report: ";
             var viewModel = new HtmlReportViewModel(_configuration, stories);
             ShouldTheReportUseCustomization(viewModel);
             string report;
@@ -44,7 +43,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             }
             catch (Exception ex)
             {
-                report = error + ex.Message;
+                report = ex.Message + ex.StackTrace;
             }
 
             _writer.OutputReport(report, _configuration.OutputFileName, _configuration.OutputPath);
