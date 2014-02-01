@@ -122,7 +122,13 @@ h3
 .resultSummary
 {
     display: inline-block;
-    width:220px;
+    width:250px;
+}
+
+.resultSummary li:before 
+{
+    float: left;
+    padding-right: 5px;    
 }
 
 .storySummary div.summaryLine,
