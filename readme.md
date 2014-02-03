@@ -6,7 +6,7 @@ A few quick facts about BDDfy:
  - It can run standalone scenarios. In other words, although BDDfy supports stories, you do not necessarily have to have or make up a story to use it. This is useful for developers who work in non-Agile environments but would like to get some decent testing experience.
  - You can use underscored or pascal or camel cased method names for your steps.
  - You do not have to explain your scenarios or stories or steps in string, but you can if you need full control over what gets printed into console and HTML reports.
- - BDDfy is very extensible: it's core barely has any logic in it and it delegates all it's responsibilities to it's extensions all of which are configurable; e.g. if you don't like the reports it generates, you can write your custom reporter in a few lines of code.
+ - BDDfy is very extensible: the core barely has any logic in it and delegates all its responsibilities to the extensions all of which are configurable; e.g. if you don't like the reports it generates, you can write your custom reporter in a few lines of code.
 
 ## Usage
 To use BDDfy install TestStack.BDDfy nuget package: `Install-Package TestStack.BDDfy`
