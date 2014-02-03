@@ -109,8 +109,8 @@ You might see full documentation of BDDfy on the [TestStack documentation websit
 Oh and while you are there don't forget to checkout other cool projects from [TestStack](http://teststack.net/).
 
 ## Authors 
-* Mehdi Khalili (@MehdiK)
-* Michael Whelan (@mwhelan)
+* [Mehdi Khalili](https://github.com/MehdiK)
+* [Michael Whelan](https://github.com/mwhelan)
 
 ## License
 BDDfy is released under the MIT License. See the bundled license.txt file for details.
