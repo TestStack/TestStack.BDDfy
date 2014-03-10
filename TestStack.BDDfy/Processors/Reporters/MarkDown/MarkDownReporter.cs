@@ -24,7 +24,6 @@ namespace TestStack.BDDfy.Processors.Reporters.MarkDown
 
         public void Process(IEnumerable<Story> stories)
         {
-            const string error = "There was an error compiling the markdown report: ";
             var viewModel = new FileReportModel(stories);
             string report;
 
@@ -34,7 +33,7 @@ namespace TestStack.BDDfy.Processors.Reporters.MarkDown
             }
             catch (Exception ex)
             {
-                report = error + ex.Message;
+                report = ex.Message + ex.StackTrace;
             }
 
             _writer.OutputReport(report, "BDDfy.md");
