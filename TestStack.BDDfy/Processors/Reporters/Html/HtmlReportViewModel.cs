@@ -11,8 +11,8 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             Configuration = configuration;
         }
 
-        public bool UseCustomStylesheet { get; set; }
-        public bool UseCustomJavascript { get; set; }
+        public string CustomStylesheet { get; set; }
+        public string CustomJavascript { get; set; }
 
         public IHtmlReportConfiguration Configuration { get; private set; }
     }

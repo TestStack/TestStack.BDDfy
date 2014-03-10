@@ -11,7 +11,9 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
         p,
         body,
         header,
-        section
+        section,
+        style,
+        script
     }
     // ReSharper restore InconsistentNaming
 }

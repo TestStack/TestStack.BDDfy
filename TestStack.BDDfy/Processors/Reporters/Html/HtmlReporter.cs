@@ -24,17 +24,14 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
 
         public void Process(IEnumerable<Story> stories)
         {
-            WriteOutScriptFiles();
-
             var allowedStories = stories.Where(s => _configuration.RunsOn(s)).ToList();
             WriteOutHtmlReport(allowedStories);
         }
 
-
         void WriteOutHtmlReport(IEnumerable<Story> stories)
         {
             var viewModel = new HtmlReportViewModel(_configuration, stories);
-            ShouldTheReportUseCustomization(viewModel);
+            LoadCustomScripts(viewModel);
             string report;
 
             try
@@ -49,20 +46,15 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             _writer.OutputReport(report, _configuration.OutputFileName, _configuration.OutputPath);
         }
 
-        private void ShouldTheReportUseCustomization(HtmlReportViewModel viewModel)
+        private void LoadCustomScripts(HtmlReportViewModel viewModel)
         {
             var customStylesheet = Path.Combine(_configuration.OutputPath, "BDDfyCustom.css");
-            viewModel.UseCustomStylesheet = File.Exists(customStylesheet);
+            if (File.Exists(customStylesheet))
+                viewModel.CustomStylesheet = File.ReadAllText(customStylesheet);
 
             var customJavascript = Path.Combine(_configuration.OutputPath, "BDDfyCustom.js");
-            viewModel.UseCustomJavascript = File.Exists(customJavascript);
-        }
-
-        void WriteOutScriptFiles()
-        {
-            _writer.OutputReport(HtmlReportResources.BDDfy_css, "BDDfy.css", _configuration.OutputPath);
-            _writer.OutputReport(HtmlReportResources.jquery_1_7_1_min, "jquery-1.7.1.min.js", _configuration.OutputPath);
-            _writer.OutputReport(HtmlReportResources.BDDfy_js, "BDDfy.js", _configuration.OutputPath);
+            if(File.Exists(customJavascript))
+                viewModel.CustomJavascript = File.ReadAllText(customJavascript);
         }
     }
 }

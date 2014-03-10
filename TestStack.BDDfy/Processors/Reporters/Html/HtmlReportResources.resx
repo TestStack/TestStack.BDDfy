@@ -124,7 +124,4 @@
   <data name="BDDfy_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BDDfy.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="jquery_1_7_1_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>jquery-1.7.1.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
 </root>

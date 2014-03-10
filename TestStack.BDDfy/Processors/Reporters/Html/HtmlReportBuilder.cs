@@ -40,14 +40,8 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             using(OpenTag(HtmlTag.head))
             {
                 AddLine("<meta charset='utf-8'/>");
-                AddLine(string.Format("<link href='BDDfy.css' rel='stylesheet'/>"));
-                if(_viewModel.UseCustomStylesheet)
-                    AddLine(string.Format("<link href='BDDfyCustom.css' rel='stylesheet'/>"));
-
-                AddLine("<script type='text/javascript' src='jquery-1.7.1.min.js'></script>");
-                AddLine(string.Format("<script type='text/javascript' src='BDDfy.js'></script>"));
-                if (_viewModel.UseCustomJavascript)
-                    AddLine(string.Format("<link href='BDDfyCustom.js' rel='stylesheet'/>"));
+                EmbedCssFile(HtmlReportResources.BDDfy_css);
+                EmbedCssFile(_viewModel.CustomStylesheet);
 
                 AddLine(string.Format("<title>BDDfy Test Result {0}</title>", DateTime.Now.ToShortDateString()));
             }
@@ -142,11 +136,15 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
         private void Footer()
         {
             AddLine("<div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>");
+            
+            AddLine("<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>");
+            EmbedJavascriptFile(HtmlReportResources.BDDfy_js);
+            EmbedJavascriptFile(_viewModel.CustomJavascript);
         }
 
         private void AddStory(Story story)
         {
-            var scenariosInGroup = story.Scenarios;
+            var scenariosInGroup = story.Scenarios.ToList();
             var storyResult = (StepExecutionResult)scenariosInGroup.Max(s => (int)s.Result);
 
             using (OpenTag(HtmlTag.li))
@@ -264,6 +262,22 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
         {
             int tabWidth = _tabCount * TabIndentation;
             _html.AppendLine(string.Empty.PadLeft(tabWidth) + line);
+        }
+
+        private void EmbedCssFile(string cssContent)
+        {
+            using (OpenTag("<style type='text/css'>", HtmlTag.style))
+            {
+                _html.AppendLine(cssContent);
+            }
+        }
+
+        private void EmbedJavascriptFile(string javascriptContent)
+        {
+            using (OpenTag(HtmlTag.script))
+            {
+                _html.AppendLine(javascriptContent);
+            }
         }
     }
 }
