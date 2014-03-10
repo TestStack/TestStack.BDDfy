@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Tests.Story
     public class StoryCanBeSpecifiedInReflectiveMode
     {
         [Test] 
-        public void Verift()
+        public void Verify()
         {
             var story = this.BDDfy<SharedStoryNotion>();
 

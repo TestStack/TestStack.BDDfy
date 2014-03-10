@@ -99,6 +99,10 @@
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
     <Compile Include="Scanner\WhenStepsReturnTheirText.cs" />
+    <Compile Include="Story\WhenStoryAttibuteMissesDuplicateTextsInProperties.cs" />
+    <Compile Include="Story\WhenStoryAttibuteMissesSoThatTextInSoThatProperty.cs" />
+    <Compile Include="Story\WhenStoryAttibuteMissesIWantTextInIWantProperty.cs" />
+    <Compile Include="Story\WhenStoryAttibuteMissesAsATextInAsAProperty.cs" />
     <Compile Include="Story\StoryCanBeSpecifiedInReflectiveMode.cs" />
     <Compile Include="Story\DummyScenario.cs" />
     <Compile Include="Story\SharedStoryNotion.cs" />
