@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Text;
 
 namespace TestStack.BDDfy.Core
 {
     public class StoryMetaData
     {
-// ReSharper disable InconsistentNaming
-        private const string I_want_prefix = "I want ";
-        private const string So_that_prefix = "So that ";
+        // ReSharper disable InconsistentNaming
+        private const string I_want_prefix = "I want";
+        private const string So_that_prefix = "So that";
+        private const string As_a_prefix = "As a";
         // ReSharper restore InconsistentNaming
 
         public StoryMetaData(Type storyType, StoryAttribute storyAttribute)
@@ -18,9 +20,9 @@ namespace TestStack.BDDfy.Core
             Type = storyType;
             Title = title;
 
-            SetAsA(storyAttribute.AsA);
-            SetIWant(storyAttribute.IWant);
-            SetSoThat(storyAttribute.SoThat);
+            AsA = CleanseProperty(storyAttribute.AsA, As_a_prefix);
+            IWant= CleanseProperty(storyAttribute.IWant, I_want_prefix);
+            SoThat = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
         }
 
         public StoryMetaData(Type storyType, string asA, string iWant, string soThat, string storyTitle = null)
@@ -28,42 +30,23 @@ namespace TestStack.BDDfy.Core
             Title = storyTitle ?? NetToString.Convert(storyType.Name);
             Type = storyType;
 
-            SetAsA(asA);
-            SetIWant(iWant);
-            SetSoThat(soThat);
+            AsA = CleanseProperty(asA, As_a_prefix);
+            IWant = CleanseProperty(iWant, I_want_prefix);
+            SoThat = CleanseProperty(soThat, So_that_prefix);
         }
 
-        void SetAsA(string asA)
+        string CleanseProperty(string text, string prefix)
         {
-            if (string.IsNullOrWhiteSpace(asA))
-                return;
+            var property = new StringBuilder();
 
-            if (!asA.StartsWith("As a", StringComparison.OrdinalIgnoreCase))
-                AsA = "As a ";
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
 
-            AsA += asA;
-        }
+            if (!text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                property.AppendFormat("{0} ", prefix);
 
-        void SetIWant(string iWant)
-        {
-            if (string.IsNullOrWhiteSpace(iWant))
-                return;
-
-            if (!iWant.StartsWith(I_want_prefix, StringComparison.OrdinalIgnoreCase))
-                IWant = I_want_prefix;
-
-            IWant += iWant;
-        }
-
-        void SetSoThat(string soThat)
-        {
-            if(string.IsNullOrWhiteSpace(soThat))
-                return;
-
-            if (!soThat.StartsWith(So_that_prefix, StringComparison.OrdinalIgnoreCase))
-                SoThat = So_that_prefix;
-
-            SoThat += soThat;
+            property.Append(text);
+            return property.ToString();
         }
 
         public Type Type { get; private set; }
