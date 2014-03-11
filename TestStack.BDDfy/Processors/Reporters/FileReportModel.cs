@@ -21,21 +21,24 @@ namespace TestStack.BDDfy.Processors.Reporters
             {
                 var groupedByNamespace = from story in _stories
                                          where story.MetaData == null
-                                         let ns = story.Scenarios.First().TestObject.GetType().Namespace
-                                         orderby ns
-                                         group story by ns into g
+                                         orderby story.Namespace
+                                         group story by story.Namespace into g
                                          select g;
 
                 var groupedByStories = from story in _stories
                                        where story.MetaData != null
-                                       orderby story.MetaData.Title   // order stories by their title
+                                       orderby story.MetaData.Title   
                                        group story by story.MetaData.Type.Name into g
                                        select g;
 
-                var aggregatedStories = from story in groupedByStories.Union(groupedByNamespace)
-                                        select new Story(
-                                            story.First().MetaData, // first story in the group is a representative for the entire group
-                                            story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()); // order scenarios by title
+                var aggregatedStories =
+                    from story in groupedByStories.Union(groupedByNamespace)
+                    select new Story(
+                        story.First().MetaData, // first story in the group is a representative for the entire group
+                        story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()) // order scenarios by title
+                        {
+                            Namespace = story.Key
+                        };
 
                 return aggregatedStories;
             }

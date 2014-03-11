@@ -219,7 +219,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             {
                 if (story.MetaData == null)
                 {
-                    var @namespace = story.Scenarios.First().TestObject.GetType().Namespace;
+                    var @namespace = story.Namespace;
                     AddLine(string.Format("<div class='namespaceName'>{0}</div>", @namespace));
                 }
                 else
