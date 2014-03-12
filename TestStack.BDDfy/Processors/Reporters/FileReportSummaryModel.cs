@@ -19,8 +19,7 @@ namespace TestStack.BDDfy.Processors.Reporters
         {
             get
             {
-                return _stories.Where(b => b.MetaData == null)
-                    .SelectMany(s => s.Scenarios).GroupBy(b => b.TestObject.GetType().Namespace).Count();
+                return _stories.Where(b => b.MetaData == null).GroupBy(s => s.Namespace).Count();
             }
         }
 
