@@ -4,8 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
+using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

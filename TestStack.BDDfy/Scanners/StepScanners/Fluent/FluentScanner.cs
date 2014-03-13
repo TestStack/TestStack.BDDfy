@@ -4,13 +4,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.ScenarioScanners;
 
 #if !NET35
 using System.Threading.Tasks;
 #endif
 
-namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
+namespace TestStack.BDDfy.Scanners
 {
     /// <summary>
     /// Provides an alternative method of implementing stories and scenarios.

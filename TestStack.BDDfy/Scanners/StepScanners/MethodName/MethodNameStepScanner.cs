@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Linq;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.StepScanners.MethodName
+namespace TestStack.BDDfy.Scanners
 {
     /// <summary>
     /// Uses reflection to scan a scenario class for steps using method name conventions

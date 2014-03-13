@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute
+namespace TestStack.BDDfy.Scanners
 {
     /// <summary>
     /// Uses reflection to scan scenario class for steps by looking for

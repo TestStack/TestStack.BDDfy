@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Scanners;
-using TestStack.BDDfy.Scanners.StepScanners;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute;
-using TestStack.BDDfy.Scanners.StepScanners.MethodName;
 
 namespace TestStack.BDDfy.Configuration
 {

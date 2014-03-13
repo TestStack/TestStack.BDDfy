@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners;
 
-namespace TestStack.BDDfy.Scanners.ScenarioScanners
+namespace TestStack.BDDfy.Scanners
 {
     public class ReflectiveScenarioScanner : IScenarioScanner
     {

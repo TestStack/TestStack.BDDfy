@@ -3,7 +3,6 @@ using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Scanners;
-using TestStack.BDDfy.Scanners.ScenarioScanners;
 
 namespace TestStack.BDDfy
 {

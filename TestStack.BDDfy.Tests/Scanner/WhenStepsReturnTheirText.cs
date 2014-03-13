@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.MethodName;
+using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

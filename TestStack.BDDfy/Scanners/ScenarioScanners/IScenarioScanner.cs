@@ -1,6 +1,6 @@
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.ScenarioScanners
+namespace TestStack.BDDfy.Scanners
 {
     public interface IScenarioScanner
     {

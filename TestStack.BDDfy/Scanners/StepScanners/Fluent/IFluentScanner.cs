@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
+namespace TestStack.BDDfy.Scanners
 {
     public interface IFluentScanner<TScenario> : IHasScanner
     {

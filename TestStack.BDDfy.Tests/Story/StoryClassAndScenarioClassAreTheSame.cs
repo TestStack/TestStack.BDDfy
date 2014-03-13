@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System.Linq;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
+using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Story
 {

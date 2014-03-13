@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.Fluent;
+using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Exceptions
 {

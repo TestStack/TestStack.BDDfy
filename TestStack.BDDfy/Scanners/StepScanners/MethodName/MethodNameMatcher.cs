@@ -1,7 +1,7 @@
 ﻿using System;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.StepScanners.MethodName
+namespace TestStack.BDDfy.Scanners
 {
     public class MethodNameMatcher
     {

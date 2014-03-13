@@ -3,7 +3,7 @@ using System.Linq;
 using System.Diagnostics;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.ScenarioScanners
+namespace TestStack.BDDfy.Scanners
 {
     public class FluentScenarioScanner : IScenarioScanner
     {

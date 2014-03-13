@@ -1,4 +1,4 @@
-﻿namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
+﻿namespace TestStack.BDDfy.Scanners
 {
     public class ThenAttribute : ExecutableAttribute
     {
