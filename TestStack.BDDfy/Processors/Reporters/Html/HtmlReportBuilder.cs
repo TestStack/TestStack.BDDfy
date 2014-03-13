@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             {
                 AddLine("<meta charset='utf-8'/>");
                 EmbedCssFile(HtmlReportResources.BDDfy_css);
-                EmbedCssFile(_viewModel.CustomStylesheet);
+                EmbedCssFile(_viewModel.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
 
                 AddLine(string.Format("<title>BDDfy Test Result {0}</title>", DateTime.Now.ToShortDateString()));
             }
@@ -139,7 +139,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             
             AddLine("<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>");
             EmbedJavascriptFile(HtmlReportResources.BDDfy_js);
-            EmbedJavascriptFile(_viewModel.CustomJavascript);
+            EmbedJavascriptFile(_viewModel.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
 
         private void AddStory(Story story)
@@ -264,20 +264,31 @@ namespace TestStack.BDDfy.Processors.Reporters.Html
             _html.AppendLine(string.Empty.PadLeft(tabWidth) + line);
         }
 
-        private void EmbedCssFile(string cssContent)
+        private void EmbedCssFile(string cssContent, string htmlComment = null)
         {
             using (OpenTag("<style type='text/css'>", HtmlTag.style))
             {
+                AddHtmlComment(htmlComment);
                 _html.AppendLine(cssContent);
             }
         }
 
-        private void EmbedJavascriptFile(string javascriptContent)
+        private void EmbedJavascriptFile(string javascriptContent, string htmlComment = null)
         {
             using (OpenTag(HtmlTag.script))
             {
+                AddHtmlComment(htmlComment);
                 _html.AppendLine(javascriptContent);
             }
+        }
+
+        private void AddHtmlComment(string htmlComment)
+        {
+            if (string.IsNullOrWhiteSpace(htmlComment))
+                return;
+
+            _html.AppendFormat("/*{0}*/", htmlComment);
+            _html.AppendLine();
         }
     }
 }

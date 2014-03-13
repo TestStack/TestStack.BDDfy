@@ -124,4 +124,10 @@
   <data name="BDDfy_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BDDfy.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="CustomJavascriptComment" xml:space="preserve">
+    <value>If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report.</value>
+  </data>
+  <data name="CustomStylesheetComment" xml:space="preserve">
+    <value>If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.</value>
+  </data>
 </root>

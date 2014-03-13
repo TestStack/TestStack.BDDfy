@@ -129,5 +129,23 @@ namespace TestStack.BDDfy.Processors.Reporters.Html {
                 return ResourceManager.GetString("BDDfy_js", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report..
+        /// </summary>
+        internal static string CustomJavascriptComment {
+            get {
+                return ResourceManager.GetString("CustomJavascriptComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report..
+        /// </summary>
+        internal static string CustomStylesheetComment {
+            get {
+                return ResourceManager.GetString("CustomStylesheetComment", resourceCulture);
+            }
+        }
     }
 }
