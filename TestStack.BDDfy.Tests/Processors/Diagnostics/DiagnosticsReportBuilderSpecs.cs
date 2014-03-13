@@ -1,8 +1,6 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
-using TestStack.BDDfy.Processors.Reporters;
-using TestStack.BDDfy.Processors.Reporters.Diagnostics;
-using TestStack.BDDfy.Processors.Reporters.Serializers;
+using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Tests.Processors.Reports;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics

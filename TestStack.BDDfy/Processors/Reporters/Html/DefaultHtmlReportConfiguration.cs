@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Processors.Reporters.Html
+namespace TestStack.BDDfy.Processors
 {
     public class DefaultHtmlReportConfiguration : IHtmlReportConfiguration
     {

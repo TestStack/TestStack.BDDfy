@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestStack.BDDfy.Processors.Reporters.Html {
+namespace TestStack.BDDfy.Processors {
     using System;
     
     

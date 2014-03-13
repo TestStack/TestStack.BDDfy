@@ -2,7 +2,7 @@
 using System.Linq;
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Processors.Reporters
+namespace TestStack.BDDfy.Processors
 {
     public class FileReportSummaryModel
     {

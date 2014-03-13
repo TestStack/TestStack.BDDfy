@@ -2,8 +2,6 @@
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Reporters;
-using TestStack.BDDfy.Processors.Reporters.MarkDown;
 using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 
 namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown

@@ -1,6 +1,6 @@
 using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Processors.Reporters.Html
+namespace TestStack.BDDfy.Processors
 {
     public interface IHtmlReportConfiguration
     {

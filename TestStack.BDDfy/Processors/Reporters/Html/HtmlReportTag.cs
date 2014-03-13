@@ -1,6 +1,6 @@
 using System;
 
-namespace TestStack.BDDfy.Processors.Reporters.Html
+namespace TestStack.BDDfy.Processors
 {
     class HtmlReportTag : IDisposable
     {
