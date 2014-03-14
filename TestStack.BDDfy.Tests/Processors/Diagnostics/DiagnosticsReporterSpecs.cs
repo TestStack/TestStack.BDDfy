@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Reporters;
-using TestStack.BDDfy.Processors.Reporters.Diagnostics;
-using TestStack.BDDfy.Processors.Reporters.Writers;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
 {
@@ -21,7 +18,7 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
             var sut = CreateSut();
             _builder.CreateReport(Arg.Any<FileReportModel>()).Returns("Report Data");
 
-            sut.Process(new List<Core.Story>());
+            sut.Process(new List<Story>());
 
             _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
@@ -32,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
             var sut = CreateSut();
             _builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception("Error occurred."); });
 
-            sut.Process(new List<Core.Story>());
+            sut.Process(new List<Story>());
 
             _writer.Received().OutputReport("There was an error compiling the json report: Error occurred.",
                                             Arg.Any<string>(), Arg.Any<string>());

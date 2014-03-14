@@ -1,8 +1,8 @@
-﻿namespace TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes
+﻿namespace TestStack.BDDfy
 {
     public class WhenAttribute : ExecutableAttribute
     {
         public WhenAttribute() : this(null) { }
-        public WhenAttribute(string stepTitle) : base(Core.ExecutionOrder.Transition, stepTitle) { }
+        public WhenAttribute(string stepTitle) : base(ExecutionOrder.Transition, stepTitle) { }
     }
 }

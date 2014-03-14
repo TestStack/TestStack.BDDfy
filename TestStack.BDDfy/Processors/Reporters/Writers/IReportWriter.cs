@@ -1,4 +1,4 @@
-namespace TestStack.BDDfy.Processors.Reporters.Writers
+namespace TestStack.BDDfy.Processors
 {
     public interface IReportWriter
     {

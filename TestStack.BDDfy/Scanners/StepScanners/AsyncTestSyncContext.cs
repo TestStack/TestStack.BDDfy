@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace TestStack.BDDfy.Scanners.StepScanners
+namespace TestStack.BDDfy
 {
     /// <summary>
     /// Implementation from xUnit 2.0

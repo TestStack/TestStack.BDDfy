@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     public interface IHasScanner
     {

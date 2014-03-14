@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Samples
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Processors.Reporters.Html
+namespace TestStack.BDDfy.Processors
 {
     public class HtmlReportBuilder : IReportBuilder
     {

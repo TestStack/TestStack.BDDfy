@@ -1,11 +1,7 @@
-using NUnit.Framework;
 using System.Linq;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
-using TestStack.BDDfy.Scanners.ScenarioScanners;
-using TestStack.BDDfy.Scanners.StepScanners.MethodName;
+using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Story
+namespace TestStack.BDDfy.Tests.Stories
 {
     [Story(
         AsA = "As a good programmer",

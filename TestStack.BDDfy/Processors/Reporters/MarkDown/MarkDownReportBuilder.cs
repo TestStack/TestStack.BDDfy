@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace TestStack.BDDfy.Processors.Reporters.MarkDown
+namespace TestStack.BDDfy.Processors
 {
     public class MarkDownReportBuilder : IReportBuilder
     {

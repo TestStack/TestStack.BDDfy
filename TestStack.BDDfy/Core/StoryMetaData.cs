@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     public class StoryMetaData
     {

@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Tests.Story
+namespace TestStack.BDDfy.Tests.Stories
 {
     [Story]
     public class StoryCanBeSpecifiedInReflectiveMode

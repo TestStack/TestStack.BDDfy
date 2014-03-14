@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Processors.Reporters.Html
+namespace TestStack.BDDfy.Processors
 {
     public class HtmlReportViewModel : FileReportModel
     {
