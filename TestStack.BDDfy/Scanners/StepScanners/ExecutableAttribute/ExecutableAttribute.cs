@@ -1,7 +1,6 @@
 ﻿using System;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ExecutableAttribute : Attribute

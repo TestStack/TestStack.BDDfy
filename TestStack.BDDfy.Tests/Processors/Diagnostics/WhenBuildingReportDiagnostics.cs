@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
     public class WhenBuildingReportDiagnostics
     {
         private DiagnosticsReportBuilder _sut;
-        private IEnumerable<Core.Story> _stories; 
+        private IEnumerable<Story> _stories; 
         private IList<StoryDiagnostic> _result;
             
         public void GivenADiagnosticsReportBuilder()

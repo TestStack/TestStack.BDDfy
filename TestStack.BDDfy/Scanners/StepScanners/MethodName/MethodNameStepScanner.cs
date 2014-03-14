@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     /// <summary>
     /// Uses reflection to scan a scenario class for steps using method name conventions

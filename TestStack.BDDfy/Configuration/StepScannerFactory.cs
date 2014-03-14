@@ -1,5 +1,4 @@
 using System;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Configuration
 {

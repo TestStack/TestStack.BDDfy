@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

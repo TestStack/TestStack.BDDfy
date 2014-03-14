@@ -1,4 +1,4 @@
-﻿namespace TestStack.BDDfy.Core
+﻿namespace TestStack.BDDfy
 {
     public enum ProcessType
     {

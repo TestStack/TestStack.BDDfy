@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Samples.Atm
     /// </summary>
     public class HtmlReportConfig : DefaultHtmlReportConfiguration
     {
-        public override bool RunsOn(Core.Story story)
+        public override bool RunsOn(Story story)
         {
             return story.MetaData.Type.Namespace != null && story.MetaData.Type.Namespace.EndsWith("Atm");
         }

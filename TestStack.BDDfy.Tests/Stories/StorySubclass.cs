@@ -1,10 +1,10 @@
 using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Story
+namespace TestStack.BDDfy.Tests.Stories
 {
     public class StoryAttributeIsInheritedFromBaseClass : StoryClassBase
     {
-        Core.Story _story;
+        Story _story;
 
         [Test]
         public void Verify()

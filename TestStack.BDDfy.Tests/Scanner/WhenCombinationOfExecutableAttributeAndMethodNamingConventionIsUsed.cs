@@ -2,8 +2,6 @@ using System;
 using NUnit.Framework;
 using System.Linq;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

@@ -2,8 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.FluentScanner
 {

@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Exceptions
 {
@@ -132,7 +130,7 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        Core.Story Story { get; set; }
+        Story Story { get; set; }
  
         public void AssertTearDownMethodIsExecuted()
         {

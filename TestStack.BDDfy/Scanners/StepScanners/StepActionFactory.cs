@@ -8,7 +8,7 @@ using TestStack.BDDfy.Processors;
 using System.Threading.Tasks;
 #endif
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     public class StepActionFactory
     {

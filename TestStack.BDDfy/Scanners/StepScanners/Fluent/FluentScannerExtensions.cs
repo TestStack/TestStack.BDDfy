@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 // ReSharper disable CheckNamespace
 // This is in BDDfy namespace to make its usage simpler
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 // ReSharper restore CheckNamespace
 {
     public static class FluentStepScannerExtensions

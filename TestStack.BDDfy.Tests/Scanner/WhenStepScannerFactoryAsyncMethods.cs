@@ -3,7 +3,6 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

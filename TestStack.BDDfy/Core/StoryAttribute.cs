@@ -1,6 +1,6 @@
 using System;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class StoryAttribute : Attribute

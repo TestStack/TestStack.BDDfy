@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         [Test]
         public void ReturnsDefaultPipelineByDefault()
         {
-            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
+            var processors = Configurator.Processors.GetProcessors(new Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsTrue(processors.Any(p => p is StoryCache));
@@ -22,7 +22,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         public void DoesNotReturnConsoleReportWhenItIsDeactivated()
         {
             Configurator.Processors.ConsoleReport.Disable();
-            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
+            var processors = Configurator.Processors.GetProcessors(new Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
             Assert.IsTrue(processors.Any(p => p is StoryCache));
@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         public void DoesNotReturnConsoleReportForExcludedStories()
         {
             Configurator.Processors.ConsoleReport.RunsOn(s => s.MetaData != null);
-            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
+            var processors = Configurator.Processors.GetProcessors(new Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));
             Configurator.Processors.ConsoleReport.RunsOn(s => true);
@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         public void DoesNotReturnTestRunnerWhenItIsDeactivated()
         {
             Configurator.Processors.TestRunner.Disable();
-            var processors = Configurator.Processors.GetProcessors(new Core.Story(null)).ToList();
+            var processors = Configurator.Processors.GetProcessors(new Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is ConsoleReporter));
             Assert.IsFalse(processors.Any(p => p is TestRunner));
@@ -60,7 +60,7 @@ namespace TestStack.BDDfy.Tests.Configuration
             var processors = Configurator
                 .Processors
                 .Add(() => new CustomProcessor())
-                .GetProcessors(new Core.Story(null)).ToList();
+                .GetProcessors(new Story(null)).ToList();
 
             Assert.IsTrue(processors.Any(p => p is CustomProcessor));
             Assert.IsTrue(processors.Any(p => p is StoryCache));

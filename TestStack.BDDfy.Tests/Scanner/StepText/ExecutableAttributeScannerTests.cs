@@ -1,7 +1,5 @@
 using System.Linq;
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Tests.Scanner.StepText
 {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     public interface IFluentScanner<TScenario> : IHasScanner
     {

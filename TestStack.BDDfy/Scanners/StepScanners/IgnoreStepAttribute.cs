@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     /// <summary>
     /// A method attribute used to specify to the ExecutableAttributeStepScanner that it should ignore a method as a step

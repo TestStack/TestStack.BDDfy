@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Processors;
 
 namespace TestStack.BDDfy.Configuration

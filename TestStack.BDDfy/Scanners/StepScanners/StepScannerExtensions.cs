@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     internal static class StepScannerExtensions
     {

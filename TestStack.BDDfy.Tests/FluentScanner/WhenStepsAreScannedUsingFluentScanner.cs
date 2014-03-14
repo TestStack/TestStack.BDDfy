@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using System.Linq;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Tests.FluentScanner
 {

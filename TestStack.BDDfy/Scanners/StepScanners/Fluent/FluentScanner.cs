@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
-using TestStack.BDDfy.Core;
 
 #if !NET35
 using System.Threading.Tasks;
 #endif
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     /// <summary>
     /// Provides an alternative method of implementing stories and scenarios.

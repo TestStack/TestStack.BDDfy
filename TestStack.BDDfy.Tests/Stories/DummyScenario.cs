@@ -1,4 +1,4 @@
-namespace TestStack.BDDfy.Tests.Story
+namespace TestStack.BDDfy.Tests.Stories
 {
     public class DummyScenario
     {

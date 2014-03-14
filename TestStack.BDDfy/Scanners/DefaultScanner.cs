@@ -1,8 +1,7 @@
 using System;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners
+namespace TestStack.BDDfy
 {
     public class DefaultScanner : IScanner
     {

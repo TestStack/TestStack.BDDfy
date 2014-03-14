@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Samples
 {

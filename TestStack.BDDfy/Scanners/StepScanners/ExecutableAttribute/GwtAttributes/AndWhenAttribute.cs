@@ -1,8 +1,8 @@
-﻿namespace TestStack.BDDfy.Scanners
+﻿namespace TestStack.BDDfy
 {
     public class AndWhenAttribute : ExecutableAttribute
     {
         public AndWhenAttribute() : this(null) { }
-        public AndWhenAttribute(string stepTitle) : base(Core.ExecutionOrder.ConsecutiveTransition, stepTitle) { }
+        public AndWhenAttribute(string stepTitle) : base(ExecutionOrder.ConsecutiveTransition, stepTitle) { }
     }
 }

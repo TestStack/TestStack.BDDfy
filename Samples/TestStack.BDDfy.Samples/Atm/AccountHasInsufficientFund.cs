@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Samples.Atm
 {
