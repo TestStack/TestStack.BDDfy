@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Samples.Atm;
 
 namespace TestStack.BDDfy.Samples

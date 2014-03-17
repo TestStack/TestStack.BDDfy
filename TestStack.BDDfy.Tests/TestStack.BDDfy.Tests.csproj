@@ -84,12 +84,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
-    <Compile Include="Processors\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
-    <Compile Include="Processors\Diagnostics\WhenBuildingReportDiagnostics.cs" />
-    <Compile Include="Processors\Diagnostics\DiagnosticsReporterSpecs.cs" />
-    <Compile Include="Processors\Reports\MarkDown\MarkDownReportBuilderSpecs.cs" />
-    <Compile Include="Processors\Reports\MarkDown\MarkDownReporterSpecs.cs" />
-    <Compile Include="Processors\Reports\ReportTestData.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
+    <Compile Include="Reporters\Diagnostics\WhenBuildingReportDiagnostics.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReporterSpecs.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReportBuilderSpecs.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReporterSpecs.cs" />
+    <Compile Include="Reporters\ReportTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
     <Compile Include="Scanner\ExpressionExtensionsTests.cs" />

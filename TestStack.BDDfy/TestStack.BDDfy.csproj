@@ -71,54 +71,54 @@
     <Compile Include="Configuration\Scanners.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Configuration\TestRunnerFactory.cs" />
-    <Compile Include="Core\IBatchProcessor.cs" />
-    <Compile Include="Processors\Reporters\ConsoleReporter.cs" />
-    <Compile Include="Processors\Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
-    <Compile Include="Processors\Reporters\Diagnostics\DiagnosticsReporter.cs" />
-    <Compile Include="Processors\Reporters\Diagnostics\StoryDiagnostic.cs" />
-    <Compile Include="Processors\Reporters\FileReportModel.cs" />
-    <Compile Include="Processors\Reporters\FileReportSummaryModel.cs" />
-    <Compile Include="Processors\Reporters\Html\DefaultHtmlReportConfiguration.cs" />
-    <Compile Include="Processors\Reporters\Html\HtmlReportBuilder.cs" />
-    <Compile Include="Processors\Reporters\Html\HtmlReporter.cs" />
-    <Compile Include="Processors\Reporters\Html\HtmlReportResources.Designer.cs">
+    <Compile Include="IBatchProcessor.cs" />
+    <Compile Include="Reporters\ConsoleReporter.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReporter.cs" />
+    <Compile Include="Reporters\Diagnostics\StoryDiagnostic.cs" />
+    <Compile Include="Reporters\FileReportModel.cs" />
+    <Compile Include="Reporters\FileReportSummaryModel.cs" />
+    <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
+    <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
+    <Compile Include="Reporters\Html\HtmlReporter.cs" />
+    <Compile Include="Reporters\Html\HtmlReportResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HtmlReportResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Processors\Reporters\Html\HtmlReportTag.cs" />
-    <Compile Include="Processors\Reporters\Html\HtmlReportViewModel.cs" />
-    <Compile Include="Processors\Reporters\Html\HtmlTag.cs" />
-    <Compile Include="Processors\Reporters\Html\IHtmlReportConfiguration.cs" />
-    <Compile Include="Processors\Reporters\MarkDown\MarkDownReporter.cs" />
-    <Compile Include="Processors\Reporters\IReportBuilder.cs" />
-    <Compile Include="Processors\Reporters\MarkDown\MarkDownReportBuilder.cs" />
-    <Compile Include="Processors\Reporters\Serializers\ISerializer.cs" />
-    <Compile Include="Processors\Reporters\Serializers\JsonFormatter.cs" />
-    <Compile Include="Processors\Reporters\Serializers\JsonSerializer.cs" />
-    <Compile Include="Processors\Reporters\Writers\FileWriter.cs" />
-    <Compile Include="Processors\Reporters\Writers\IReportWriter.cs" />
+    <Compile Include="Reporters\Html\HtmlReportTag.cs" />
+    <Compile Include="Reporters\Html\HtmlReportViewModel.cs" />
+    <Compile Include="Reporters\Html\HtmlTag.cs" />
+    <Compile Include="Reporters\Html\IHtmlReportConfiguration.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReporter.cs" />
+    <Compile Include="Reporters\IReportBuilder.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReportBuilder.cs" />
+    <Compile Include="Reporters\Serializers\ISerializer.cs" />
+    <Compile Include="Reporters\Serializers\JsonFormatter.cs" />
+    <Compile Include="Reporters\Serializers\JsonSerializer.cs" />
+    <Compile Include="Reporters\Writers\FileWriter.cs" />
+    <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
-    <Compile Include="Core\ExecutionOrder.cs" />
-    <Compile Include="Core\IHasScanner.cs" />
-    <Compile Include="Core\Scenario.cs" />
-    <Compile Include="Core\Engine.cs" />
-    <Compile Include="Core\Story.cs" />
-    <Compile Include="Core\StoryAttribute.cs" />
-    <Compile Include="Core\StoryMetaData.cs" />
+    <Compile Include="ExecutionOrder.cs" />
+    <Compile Include="IHasScanner.cs" />
+    <Compile Include="Scenario.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="Story.cs" />
+    <Compile Include="StoryAttribute.cs" />
+    <Compile Include="StoryMetaData.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
-    <Compile Include="Core\NetToString.cs" />
-    <Compile Include="Core\ProcessType.cs" />
-    <Compile Include="Core\StepExecutionResult.cs" />
-    <Compile Include="Core\ExecutionStep.cs" />
-    <Compile Include="Core\IProcessor.cs" />
-    <Compile Include="Core\IScanner.cs" />
+    <Compile Include="NetToString.cs" />
+    <Compile Include="ProcessType.cs" />
+    <Compile Include="StepExecutionResult.cs" />
+    <Compile Include="ExecutionStep.cs" />
+    <Compile Include="IProcessor.cs" />
+    <Compile Include="IScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\TestRunner.cs" />
-    <Compile Include="Core\RunStepWithArgsAttribute.cs" />
+    <Compile Include="RunStepWithArgsAttribute.cs" />
     <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
@@ -157,11 +157,11 @@
     <None Include="BDDfy.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Processors\Reporters\Html\BDDfy.css" />
-    <Content Include="Processors\Reporters\Html\BDDfy.js" />
+    <Content Include="Reporters\Html\BDDfy.css" />
+    <Content Include="Reporters\Html\BDDfy.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Processors\Reporters\Html\HtmlReportResources.resx">
+    <EmbeddedResource Include="Reporters\Html\HtmlReportResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

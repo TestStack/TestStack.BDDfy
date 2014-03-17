@@ -2,6 +2,8 @@
 using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Reporters.Html;
+using TestStack.BDDfy.Reporters.MarkDown;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {

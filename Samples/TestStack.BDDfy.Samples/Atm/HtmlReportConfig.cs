@@ -1,4 +1,5 @@
 ﻿using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Samples.Atm
 {
