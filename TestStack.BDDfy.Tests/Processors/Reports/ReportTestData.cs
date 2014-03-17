@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Tests.Processors.Reports
 {
     public class ReportTestData
     {
-        public IEnumerable<Core.Story> CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
+        public IEnumerable<Story> CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
         {
             var storyMetaData1 = new StoryMetaData(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
             var storyMetaData2 = new StoryMetaData(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
-            var stories = new List<Core.Story>()
+            var stories = new List<Story>()
             {
-                new Core.Story(storyMetaData1, GetScenarios()),
-                new Core.Story(storyMetaData2, GetScenarios())
+                new Story(storyMetaData1, GetScenarios()),
+                new Story(storyMetaData2, GetScenarios())
             };
 
             return stories;

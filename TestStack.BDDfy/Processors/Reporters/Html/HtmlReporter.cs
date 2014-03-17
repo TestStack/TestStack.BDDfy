@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Processors.Reporters.Writers;
 
-namespace TestStack.BDDfy.Processors.Reporters.Html
+namespace TestStack.BDDfy.Processors
 {
     public class HtmlReporter : IBatchProcessor
     {

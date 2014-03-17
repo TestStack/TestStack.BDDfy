@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
+namespace TestStack.BDDfy
 {
     public static class ExpressionExtensions
     {

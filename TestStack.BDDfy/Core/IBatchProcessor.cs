@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     public interface IBatchProcessor
     {

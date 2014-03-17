@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Processors
 {

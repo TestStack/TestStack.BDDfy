@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
-using TestStack.BDDfy.Processors.Reporters;
-using TestStack.BDDfy.Processors.Reporters.MarkDown;
-using TestStack.BDDfy.Processors.Reporters.Writers;
+using TestStack.BDDfy.Processors;
 
 namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown
 {
@@ -20,7 +18,7 @@ namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown
             var sut = CreateSut();
             _builder.CreateReport(Arg.Any<FileReportModel>()).Returns("Report Data");
 
-            sut.Process(new List<Core.Story>());
+            sut.Process(new List<Story>());
 
             _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
@@ -31,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Processors.Reports.MarkDown
             var sut = CreateSut();
             _builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception("Error occurred."); });
 
-            sut.Process(new List<Core.Story>());
+            sut.Process(new List<Story>());
 
             _writer.Received().OutputReport(
                 Arg.Is<string>(s => s.StartsWith("Error occurred.")), 

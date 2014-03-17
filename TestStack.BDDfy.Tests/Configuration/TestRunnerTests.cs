@@ -2,9 +2,6 @@
 using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
-using TestStack.BDDfy.Scanners.StepScanners.Fluent;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {

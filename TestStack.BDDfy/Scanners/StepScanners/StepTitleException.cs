@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace TestStack.BDDfy.Scanners.StepScanners
+namespace TestStack.BDDfy
 {
     public class StepTitleException : Exception
     {

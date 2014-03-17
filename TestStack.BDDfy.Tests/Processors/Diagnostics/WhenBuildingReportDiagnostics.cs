@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using TestStack.BDDfy.Processors.Reporters;
-using TestStack.BDDfy.Processors.Reporters.Diagnostics;
+using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Tests.Processors.Reports;
 
 namespace TestStack.BDDfy.Tests.Processors.Diagnostics
@@ -11,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Processors.Diagnostics
     public class WhenBuildingReportDiagnostics
     {
         private DiagnosticsReportBuilder _sut;
-        private IEnumerable<Core.Story> _stories; 
+        private IEnumerable<Story> _stories; 
         private IList<StoryDiagnostic> _result;
             
         public void GivenADiagnosticsReportBuilder()

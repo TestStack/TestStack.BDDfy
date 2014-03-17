@@ -1,4 +1,4 @@
-namespace TestStack.BDDfy.Processors.Reporters.Serializers
+namespace TestStack.BDDfy.Processors
 {
     public interface ISerializer
     {

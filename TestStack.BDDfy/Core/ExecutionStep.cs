@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     public class ExecutionStep
     {

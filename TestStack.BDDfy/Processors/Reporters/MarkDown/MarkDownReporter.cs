@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Processors.Reporters.Writers;
 
-namespace TestStack.BDDfy.Processors.Reporters.MarkDown
+namespace TestStack.BDDfy.Processors
 {
     /// <summary>
     /// This is a custom reporter that shows you how easily you can create a custom report.

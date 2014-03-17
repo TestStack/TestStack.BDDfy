@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Processors.Reporters.Writers;
 
-namespace TestStack.BDDfy.Processors.Reporters.Diagnostics
+namespace TestStack.BDDfy.Processors
 {
     public class DiagnosticsReporter : IBatchProcessor
     {
@@ -18,7 +16,7 @@ namespace TestStack.BDDfy.Processors.Reporters.Diagnostics
             _writer = writer;
         }
 
-        public void Process(IEnumerable<Core.Story> stories)
+        public void Process(IEnumerable<Story> stories)
         {
             const string error = "There was an error compiling the json report: ";
             var viewModel = new FileReportModel(stories);

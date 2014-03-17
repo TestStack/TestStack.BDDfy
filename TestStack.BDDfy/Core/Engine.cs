@@ -3,7 +3,7 @@ using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     public class Engine
     {

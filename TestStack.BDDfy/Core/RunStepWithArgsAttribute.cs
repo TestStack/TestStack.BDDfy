@@ -1,6 +1,6 @@
 using System;
 
-namespace TestStack.BDDfy.Core
+namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class RunStepWithArgsAttribute : Attribute

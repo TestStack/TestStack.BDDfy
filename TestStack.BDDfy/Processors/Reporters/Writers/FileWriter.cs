@@ -1,8 +1,7 @@
 using System;
 using System.IO;
-using TestStack.BDDfy.Processors.Reporters.Diagnostics;
 
-namespace TestStack.BDDfy.Processors.Reporters.Writers
+namespace TestStack.BDDfy.Processors
 {
     public class FileWriter : IReportWriter
     {

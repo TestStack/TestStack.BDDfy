@@ -1,8 +1,5 @@
 using System.Linq;
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 
 namespace TestStack.BDDfy.Tests.Scanner.StepText
 {

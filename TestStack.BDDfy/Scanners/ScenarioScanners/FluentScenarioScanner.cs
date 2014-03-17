@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using TestStack.BDDfy.Core;
 
-namespace TestStack.BDDfy.Scanners.ScenarioScanners
+namespace TestStack.BDDfy
 {
     public class FluentScenarioScanner : IScenarioScanner
     {

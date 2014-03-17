@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestStack.BDDfy.Core;
 using TestStack.BDDfy.Processors;
-using TestStack.BDDfy.Processors.Reporters;
 
 namespace TestStack.BDDfy.Configuration
 {
