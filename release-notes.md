@@ -1,5 +1,19 @@
 ###In development
-[Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.18.5...master)
+[Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
+
+###v3.19.1 - 2014-03-17
+####Improvements
+ - [#51](https://github.com/TestStack/TestStack.BDDfy/pull/51) - makes html report self-contained
+ - [#59](https://github.com/TestStack/TestStack.BDDfy/pull/59) - `TestObject` is now set to null in `StoryCache` to release unused objects
+
+####Bugs
+ - [#53](https://github.com/TestStack/TestStack.BDDfy/pull/53) - fixes md report on null story
+ - [#59](https://github.com/TestStack/TestStack.BDDfy/pull/59) - fixes diagnostics report crash: it now resolves the name using the new Namespace if Metadata is null 
+ 
+####New Features
+ - [#54](https://github.com/TestStack/TestStack.BDDfy/pull/54) - allows for avoiding duplicate text in StoryAttribute 
+
+[Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.18.5...v3.19.1)
 
 ###v3.18.5 - 2014-02-03
 ####Improvements
