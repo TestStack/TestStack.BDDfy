@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Processors.Reporters.Html;
+using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Samples.Atm;
-using TestStack.BDDfy.Samples.TicTacToe;
 
 namespace TestStack.BDDfy.Samples
 {

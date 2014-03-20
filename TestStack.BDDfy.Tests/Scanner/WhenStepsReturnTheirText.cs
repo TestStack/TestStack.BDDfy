@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
-using TestStack.BDDfy.Scanners.StepScanners.MethodName;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

@@ -2,7 +2,6 @@ using System;
 using System.Linq.Expressions;
 using NUnit.Framework;
 using System.Linq;
-using TestStack.BDDfy.Scanners.StepScanners.Fluent;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {

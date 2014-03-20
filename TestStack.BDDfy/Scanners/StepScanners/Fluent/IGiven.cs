@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 #endif
 
-namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
+namespace TestStack.BDDfy
 {
     public interface IGiven<TScenario>
     {

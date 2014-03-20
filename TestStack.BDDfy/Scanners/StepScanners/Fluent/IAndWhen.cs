@@ -1,4 +1,4 @@
-﻿namespace TestStack.BDDfy.Scanners.StepScanners.Fluent
+﻿namespace TestStack.BDDfy
 {
     public interface IAndWhen<TScenario> : IWhen<TScenario>
     {

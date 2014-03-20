@@ -84,12 +84,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
-    <Compile Include="Processors\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
-    <Compile Include="Processors\Diagnostics\WhenBuildingReportDiagnostics.cs" />
-    <Compile Include="Processors\Diagnostics\DiagnosticsReporterSpecs.cs" />
-    <Compile Include="Processors\Reports\MarkDown\MarkDownReportBuilderSpecs.cs" />
-    <Compile Include="Processors\Reports\MarkDown\MarkDownReporterSpecs.cs" />
-    <Compile Include="Processors\Reports\ReportTestData.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
+    <Compile Include="Reporters\Diagnostics\WhenBuildingReportDiagnostics.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReporterSpecs.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReportBuilderSpecs.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReporterSpecs.cs" />
+    <Compile Include="Reporters\ReportTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
     <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
@@ -99,16 +99,16 @@
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
     <Compile Include="Scanner\WhenStepsReturnTheirText.cs" />
-    <Compile Include="Story\WhenStoryAttibuteMissesDuplicateTextsInProperties.cs" />
-    <Compile Include="Story\WhenStoryAttibuteMissesSoThatTextInSoThatProperty.cs" />
-    <Compile Include="Story\WhenStoryAttibuteMissesIWantTextInIWantProperty.cs" />
-    <Compile Include="Story\WhenStoryAttibuteMissesAsATextInAsAProperty.cs" />
-    <Compile Include="Story\StoryCanBeSpecifiedInReflectiveMode.cs" />
-    <Compile Include="Story\DummyScenario.cs" />
-    <Compile Include="Story\SharedStoryNotion.cs" />
-    <Compile Include="Story\StoryCanBeSpecifiedInFluentMode.cs" />
-    <Compile Include="Story\StoryClassBase.cs" />
-    <Compile Include="Story\StoryDouble.cs" />
+    <Compile Include="Stories\WhenStoryAttibuteMissesDuplicateTextsInProperties.cs" />
+    <Compile Include="Stories\WhenStoryAttibuteMissesSoThatTextInSoThatProperty.cs" />
+    <Compile Include="Stories\WhenStoryAttibuteMissesIWantTextInIWantProperty.cs" />
+    <Compile Include="Stories\WhenStoryAttibuteMissesAsATextInAsAProperty.cs" />
+    <Compile Include="Stories\StoryCanBeSpecifiedInReflectiveMode.cs" />
+    <Compile Include="Stories\DummyScenario.cs" />
+    <Compile Include="Stories\SharedStoryNotion.cs" />
+    <Compile Include="Stories\StoryCanBeSpecifiedInFluentMode.cs" />
+    <Compile Include="Stories\StoryClassBase.cs" />
+    <Compile Include="Stories\StoryDouble.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Exceptions\NotImplementedException\WhenGivenThrowsNotImplementedException.cs" />
     <Compile Include="Exceptions\NotImplementedException\NotImplementedExceptionBase.cs" />
@@ -122,8 +122,8 @@
     <Compile Include="Scanner\WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen.cs" />
     <Compile Include="Scanner\WhenTestClassFollowsGivenWhenThenNamingConvention.cs" />
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
-    <Compile Include="Story\StoryClassAndScenarioClassAreTheSame.cs" />
-    <Compile Include="Story\StorySubclass.cs" />
+    <Compile Include="Stories\StoryClassAndScenarioClassAreTheSame.cs" />
+    <Compile Include="Stories\StorySubclass.cs" />
     <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
   </ItemGroup>

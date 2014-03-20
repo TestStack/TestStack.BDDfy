@@ -1,6 +1,5 @@
 using System.Linq;
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Tests.Exceptions
 {

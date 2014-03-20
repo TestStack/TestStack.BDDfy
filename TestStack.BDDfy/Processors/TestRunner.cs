@@ -1,6 +1,4 @@
-﻿using TestStack.BDDfy.Core;
-
-namespace TestStack.BDDfy.Processors
+﻿namespace TestStack.BDDfy.Processors
 {
     public class TestRunner : IProcessor
     {

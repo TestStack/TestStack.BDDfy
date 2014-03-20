@@ -1,6 +1,4 @@
-﻿using TestStack.BDDfy.Core;
-
-namespace TestStack.BDDfy.Tests.Configuration
+﻿namespace TestStack.BDDfy.Tests.Configuration
 {
     public class CustomProcessor : IProcessor
     {
@@ -9,7 +7,7 @@ namespace TestStack.BDDfy.Tests.Configuration
             get { return ProcessType.BeforeReport; }
         }
 
-        public void Process(Core.Story story)
+        public void Process(Story story)
         {
         }
     }

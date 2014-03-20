@@ -1,5 +1,4 @@
 ﻿using System;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Configuration
 {

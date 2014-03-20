@@ -1,14 +1,13 @@
 using NUnit.Framework;
 using System.Linq;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Tests.Scanner
 {
     [TestFixture]
     public class WhenStepsAreDefinedInABaseClass
     {
-        private Core.Story _story;
+        private Story _story;
 
         class TheBaseClass
         {

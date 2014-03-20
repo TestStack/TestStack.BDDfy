@@ -1,6 +1,4 @@
 using NUnit.Framework;
-using TestStack.BDDfy.Core;
-
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
     public class XWins : GameUnderTest

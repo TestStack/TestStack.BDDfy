@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using TestStack.BDDfy.Scanners.StepScanners.ExecutableAttribute.GwtAttributes;
 
 namespace TestStack.BDDfy.Samples.Atm
 {

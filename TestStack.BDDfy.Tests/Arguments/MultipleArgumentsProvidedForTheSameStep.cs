@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System.Collections.Generic;
-using TestStack.BDDfy.Core;
 
 namespace TestStack.BDDfy.Tests.Arguments
 {
