@@ -5,12 +5,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		go.cmd = go.cmd
-		Packages.build = Packages.build
-		.nuget\packages.config = .nuget\packages.config
 		readme.md = readme.md
 		release-notes.md = release-notes.md
-		TestStack.BDDfy.build = TestStack.BDDfy.build
 		TestStack.BDDfy.nuspec = TestStack.BDDfy.nuspec
 		TestStack.BDDfy.Samples.nuspec = TestStack.BDDfy.Samples.nuspec
 	EndProjectSection
