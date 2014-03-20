@@ -27,24 +27,24 @@ namespace TestStack.BDDfy
             get { return _steps; }
         }
 
-        public StepExecutionResult Result
+        public Result Result
         {
             get
             {
                 if (!Steps.Any())
-                    return StepExecutionResult.NotExecuted;
+                    return Result.NotExecuted;
 
-                return (StepExecutionResult)Steps.Max(s => (int)s.Result);
+                return (Result)Steps.Max(s => (int)s.Result);
             }
         }
 
         // ToDo: this method does not really belong to this class
-        public StepExecutionResult ExecuteStep(Step step)
+        public Result ExecuteStep(Step step)
         {
             try
             {
                 step.Execute(TestObject);
-                step.Result = StepExecutionResult.Passed;
+                step.Result = Result.Passed;
             }
             catch (Exception ex)
             {
@@ -57,18 +57,18 @@ namespace TestStack.BDDfy
 
                 if (exception is NotImplementedException)
                 {
-                    step.Result = StepExecutionResult.NotImplemented;
+                    step.Result = Result.NotImplemented;
                     step.Exception = exception;
                 }
                 else if (IsInconclusive(exception))
                 {
-                    step.Result = StepExecutionResult.Inconclusive;
+                    step.Result = Result.Inconclusive;
                     step.Exception = exception;
                 }
                 else
                 {
                     step.Exception = exception;
-                    step.Result = StepExecutionResult.Failed;
+                    step.Result = Result.Failed;
                 }
             }
 

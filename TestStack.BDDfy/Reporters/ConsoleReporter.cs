@@ -65,7 +65,7 @@ namespace TestStack.BDDfy.Reporters
                     Configurator.Scanners.Humanize(step.Result.ToString()));
 
             // if all the steps have passed, there is no reason to make noise
-            if (scenario.Result == StepExecutionResult.Passed)
+            if (scenario.Result == Result.Passed)
                 message = "\t" + PrefixWithSpaceIfRequired(step);
 
             if (step.Exception != null)
@@ -79,11 +79,11 @@ namespace TestStack.BDDfy.Reporters
                     message += string.Format("{0}", exceptionReference);
             }
 
-            if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
+            if (step.Result == Result.Inconclusive || step.Result == Result.NotImplemented)
                 Console.ForegroundColor = ConsoleColor.Yellow;
-            else if (step.Result == StepExecutionResult.Failed)
+            else if (step.Result == Result.Failed)
                 Console.ForegroundColor = ConsoleColor.Red;
-            else if (step.Result == StepExecutionResult.NotExecuted)
+            else if (step.Result == Result.NotExecuted)
                 Console.ForegroundColor = ConsoleColor.Gray;
 
             Console.WriteLine(message);

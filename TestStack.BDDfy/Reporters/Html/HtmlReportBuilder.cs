@@ -144,7 +144,7 @@ namespace TestStack.BDDfy.Reporters.Html
         private void AddStory(Story story)
         {
             var scenariosInGroup = story.Scenarios.ToList();
-            var storyResult = (StepExecutionResult)scenariosInGroup.Max(s => (int)s.Result);
+            var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
 
             using (OpenTag(HtmlTag.li))
             {
@@ -174,7 +174,7 @@ namespace TestStack.BDDfy.Reporters.Html
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                     {
                         string stepClass = string.Empty;
-                        var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
+                        var reportException = step.Exception != null && step.Result == Result.Failed;
                         string canToggle = reportException ? "canToggle" : string.Empty;
 
                         using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))

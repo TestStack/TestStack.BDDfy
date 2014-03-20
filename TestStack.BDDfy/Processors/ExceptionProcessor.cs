@@ -91,13 +91,13 @@ namespace TestStack.BDDfy.Processors
 
             var stepWithWorseResult = allSteps.First(s => s.Result == worseResult);
 
-            if (worseResult == StepExecutionResult.Failed || worseResult == StepExecutionResult.Inconclusive)
+            if (worseResult == Result.Failed || worseResult == Result.Inconclusive)
             {
                 PreserveStackTrace(stepWithWorseResult.Exception);
                 throw stepWithWorseResult.Exception;
             }
 
-            if (worseResult == StepExecutionResult.NotImplemented)
+            if (worseResult == Result.NotImplemented)
                 _assertInconclusive();
         }
     }

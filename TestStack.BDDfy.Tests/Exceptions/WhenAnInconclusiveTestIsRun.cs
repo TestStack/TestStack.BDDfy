@@ -73,13 +73,13 @@ namespace TestStack.BDDfy.Tests.Exceptions
         [Test]
         public void ResultIsInconclusive()
         {
-            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
         public void ThenIsFlaggedAsInconclusive()
         {
-            Assert.That(ThenStep.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(ThenStep.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
@@ -91,31 +91,31 @@ namespace TestStack.BDDfy.Tests.Exceptions
         [Test]
         public void GivenIsFlaggedAsSuccessful()
         {
-            Assert.That(GivenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(GivenStep.Result, Is.EqualTo(Result.Passed));
         }
 
         [Test]
         public void WhenIsFlaggedAsSuccessful()
         {
-            Assert.That(WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(WhenStep.Result, Is.EqualTo(Result.Passed));
         }
 
         [Test]
         public void ScenarioResultReturnsInconclusive()
         {
-            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
         public void StoryResultReturnsInconclusive()
         {
-            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
         public void TearDownMethodIsExecuted()
         {
-            Assert.That(DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(DisposeStep.Result, Is.EqualTo(Result.Passed));
         }
     }
 }

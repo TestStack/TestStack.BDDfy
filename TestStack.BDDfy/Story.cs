@@ -27,11 +27,11 @@ namespace TestStack.BDDfy
         public string Category { get; set; }
         public IEnumerable<Scenario> Scenarios { get; private set; }
 
-        public StepExecutionResult Result
+        public Result Result
         {
             get 
             {
-                return (StepExecutionResult)Scenarios.Max(s => (int)s.Result); 
+                return (Result)Scenarios.Max(s => (int)s.Result); 
             }
         }
     }

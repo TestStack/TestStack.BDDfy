@@ -112,7 +112,7 @@
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="NetToString.cs" />
     <Compile Include="ProcessType.cs" />
-    <Compile Include="StepExecutionResult.cs" />
+    <Compile Include="Result.cs" />
     <Compile Include="Step.cs" />
     <Compile Include="IProcessor.cs" />
     <Compile Include="IScanner.cs" />
