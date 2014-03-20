@@ -6,7 +6,7 @@ namespace TestStack.BDDfy
     public class Step
     {
         public Step(
-            Action<object> stepAction,
+            Action<object> action,
             string title, 
             bool asserts, 
             ExecutionOrder executionOrder,
@@ -15,14 +15,14 @@ namespace TestStack.BDDfy
             Asserts = asserts;
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
-            Result = BDDfy.Result.NotExecuted;
+            Result = Result.NotExecuted;
             Id = Guid.NewGuid();
             Title = title;
-            StepAction = stepAction;
+            Action = action;
         }
 
         public Guid Id { get; private set; }
-        internal Action<object> StepAction { get; set; }
+        internal Action<object> Action { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
         public string Title { get; private set; }
@@ -37,7 +37,7 @@ namespace TestStack.BDDfy
             Stopwatch sw = Stopwatch.StartNew();
             try
             {
-                StepAction(testObject);
+                Action(testObject);
                 sw.Stop();
                 Duration = sw.Elapsed;
             }
