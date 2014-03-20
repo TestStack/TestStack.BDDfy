@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Processors
         {
             var disposeSteps = scenario
                 .Steps
-                .Where(s => s.ExecutionOrder == ExecutionOrder.TearDown && s.Result == StepExecutionResult.NotExecuted);
+                .Where(s => s.ExecutionOrder == ExecutionOrder.TearDown && s.Result == Result.NotExecuted);
             
             foreach (var disposeStep in disposeSteps)
             {

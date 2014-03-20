@@ -144,13 +144,13 @@ namespace TestStack.BDDfy.Reporters.Html
         private void AddStory(Story story)
         {
             var scenariosInGroup = story.Scenarios.ToList();
-            var storyResult = (StepExecutionResult)scenariosInGroup.Max(s => (int)s.Result);
+            var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
 
             using (OpenTag(HtmlTag.li))
             {
                 using (OpenTag(string.Format("<div class='story {0}'>", storyResult), HtmlTag.div))
                 {
-                    AddStoryMetaDataAndNarrative(story);
+                    AddStoryMetadataAndNarrative(story);
 
                     using (OpenTag("<div class='scenarios'>", HtmlTag.div))
                     {
@@ -174,12 +174,12 @@ namespace TestStack.BDDfy.Reporters.Html
                     foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                     {
                         string stepClass = string.Empty;
-                        var reportException = step.Exception != null && step.Result == StepExecutionResult.Failed;
+                        var reportException = step.Exception != null && step.Result == Result.Failed;
                         string canToggle = reportException ? "canToggle" : string.Empty;
 
                         using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
                         {
-                            var titleLines = step.StepTitle.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                            var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
                             var title = titleLines[0];
                             if (reportException)
                             {
@@ -210,27 +210,27 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddStoryMetaDataAndNarrative(Story story)
+        private void AddStoryMetadataAndNarrative(Story story)
         {
-            using (OpenTag("<div class='storyMetaData'>", HtmlTag.div))
+            using (OpenTag("<div class='storyMetadata'>", HtmlTag.div))
             {
-                if (story.MetaData == null)
+                if (story.Metadata == null)
                 {
                     var @namespace = story.Namespace;
                     AddLine(string.Format("<div class='namespaceName'>{0}</div>", @namespace));
                 }
                 else
                 {
-                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.MetaData.Title));
+                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.Metadata.Title));
                 }
 
-                if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
+                if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.AsA))
                 {
                     using (OpenTag("<ul class='storyNarrative'>", HtmlTag.ul))
                     {
-                        AddLine(string.Format("<li>{0}</li>", story.MetaData.AsA));
-                        AddLine(string.Format("<li>{0}</li>", story.MetaData.IWant));
-                        AddLine(string.Format("<li>{0}</li>", story.MetaData.SoThat));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.AsA));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.IWant));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.SoThat));
                     }
                 }
             }

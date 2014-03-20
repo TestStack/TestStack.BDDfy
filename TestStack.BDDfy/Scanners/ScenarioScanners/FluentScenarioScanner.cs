@@ -7,9 +7,9 @@ namespace TestStack.BDDfy
     public class FluentScenarioScanner : IScenarioScanner
     {
         private readonly string _title;
-        private readonly IEnumerable<ExecutionStep> _steps;
+        private readonly IEnumerable<Step> _steps;
 
-        public FluentScenarioScanner(IEnumerable<ExecutionStep> steps, string title = null)
+        public FluentScenarioScanner(IEnumerable<Step> steps, string title = null)
         {
             _title = title;
             _steps = steps;

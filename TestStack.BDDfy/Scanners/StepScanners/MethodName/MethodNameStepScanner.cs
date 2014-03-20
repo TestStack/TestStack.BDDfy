@@ -45,7 +45,7 @@ namespace TestStack.BDDfy
             _matchers = matchers;
         }
 
-        public IEnumerable<ExecutionStep> Scan(object testObject, MethodInfo method)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method)
         {
             foreach (var matcher in _matchers)
             {
@@ -69,11 +69,11 @@ namespace TestStack.BDDfy
             }
         }
 
-        private ExecutionStep GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
-            return new ExecutionStep(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+            return new Step(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
         }
 
         private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)

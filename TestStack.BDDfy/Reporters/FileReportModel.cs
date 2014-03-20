@@ -19,21 +19,21 @@ namespace TestStack.BDDfy.Reporters
             get
             {
                 var groupedByNamespace = from story in _stories
-                                         where story.MetaData == null
+                                         where story.Metadata == null
                                          orderby story.Namespace
                                          group story by story.Namespace into g
                                          select g;
 
                 var groupedByStories = from story in _stories
-                                       where story.MetaData != null
-                                       orderby story.MetaData.Title   
-                                       group story by story.MetaData.Type.Name into g
+                                       where story.Metadata != null
+                                       orderby story.Metadata.Title   
+                                       group story by story.Metadata.Type.Name into g
                                        select g;
 
                 var aggregatedStories =
                     from story in groupedByStories.Union(groupedByNamespace)
                     select new Story(
-                        story.First().MetaData, // first story in the group is a representative for the entire group
+                        story.First().Metadata, // first story in the group is a representative for the entire group
                         story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()) // order scenarios by title
                         {
                             Namespace = story.Key

@@ -105,21 +105,21 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Story.cs" />
     <Compile Include="StoryAttribute.cs" />
-    <Compile Include="StoryMetaData.cs" />
+    <Compile Include="Scanners\StoryMetadata.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
     <Compile Include="Scanners\DefaultScanner.cs" />
     <Compile Include="NetToString.cs" />
     <Compile Include="ProcessType.cs" />
-    <Compile Include="StepExecutionResult.cs" />
-    <Compile Include="ExecutionStep.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="Step.cs" />
     <Compile Include="IProcessor.cs" />
     <Compile Include="IScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\TestRunner.cs" />
-    <Compile Include="RunStepWithArgsAttribute.cs" />
-    <Compile Include="Scanners\IStoryMetaDataScanner.cs" />
+    <Compile Include="Scanners\StepScanners\RunStepWithArgsAttribute.cs" />
+    <Compile Include="Scanners\IStoryMetadataScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
     <Compile Include="Scanners\StepScanners\AsyncTestSyncContext.cs" />
@@ -151,7 +151,7 @@
     <Compile Include="Scanners\StepScanners\StepActionFactory.cs" />
     <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
     <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
-    <Compile Include="Scanners\StoryAttributeMetaDataScanner.cs" />
+    <Compile Include="Scanners\StoryAttributeMetadataScanner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />

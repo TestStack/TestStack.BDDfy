@@ -35,9 +35,9 @@ namespace TestStack.BDDfy
             return NetToString.Convert(scenarioType.Name);
         }
 
-        protected virtual IEnumerable<ExecutionStep> ScanScenarioForSteps(object testObject)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject)
         {
-            var allSteps = new List<ExecutionStep>();
+            var allSteps = new List<Step>();
             var scenarioType = testObject.GetType();
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {

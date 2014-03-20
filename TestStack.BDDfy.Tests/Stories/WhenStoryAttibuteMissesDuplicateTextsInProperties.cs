@@ -14,9 +14,9 @@ namespace TestStack.BDDfy.Tests.Stories
         {
             var story = new DummyScenario().BDDfy<WhenStoryAttibuteMissesDuplicateTextsInProperties>();
 
-            Assert.That(story.MetaData.AsA, Is.EqualTo("As a programmer"));
-            Assert.That(story.MetaData.IWant, Is.EqualTo("I want the missing texts to be added to story metadata"));
-            Assert.That(story.MetaData.SoThat, Is.EqualTo("So that I don't have to duplicate it on the string"));
+            Assert.That(story.Metadata.AsA, Is.EqualTo("As a programmer"));
+            Assert.That(story.Metadata.IWant, Is.EqualTo("I want the missing texts to be added to story metadata"));
+            Assert.That(story.Metadata.SoThat, Is.EqualTo("So that I don't have to duplicate it on the string"));
         }
     }
 }

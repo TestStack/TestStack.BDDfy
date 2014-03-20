@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Reporters
         {
             get
             {
-                return _stories.Where(b => b.MetaData == null).GroupBy(s => s.Namespace).Count();
+                return _stories.Where(b => b.Metadata == null).GroupBy(s => s.Namespace).Count();
             }
         }
 
@@ -29,27 +29,27 @@ namespace TestStack.BDDfy.Reporters
 
         public int Stories
         {
-            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
+            get { return _stories.Where(b => b.Metadata != null).GroupBy(b => b.Metadata.Type).Count(); }
         }
 
         public int Passed
         {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Passed); }
+            get { return _scenarios.Count(b => b.Result == Result.Passed); }
         }
 
         public int Failed
         {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Failed); }
+            get { return _scenarios.Count(b => b.Result == Result.Failed); }
         }
 
         public int Inconclusive
         {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.Inconclusive); }
+            get { return _scenarios.Count(b => b.Result == Result.Inconclusive); }
         }
 
         public int NotImplemented
         {
-            get { return _scenarios.Count(b => b.Result == StepExecutionResult.NotImplemented); }
+            get { return _scenarios.Count(b => b.Result == Result.NotImplemented); }
         }
     }
 }

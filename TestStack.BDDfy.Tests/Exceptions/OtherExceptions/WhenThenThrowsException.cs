@@ -19,35 +19,35 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
         public void GivenIsReportedAsSuccessfulWhenUsingReflectingScanners()
         {
             ExecuteUsingReflectingScanners();
-            Sut.AssertGivenStepResult(StepExecutionResult.Passed);
+            Sut.AssertGivenStepResult(Result.Passed);
         }
 
         [Test]
         public void WhenIsReportedAsSuccessfulWhenUsingReflectingScanners()
         {
             ExecuteUsingReflectingScanners();
-            Sut.AssertWhenStepResult(StepExecutionResult.Passed);
+            Sut.AssertWhenStepResult(Result.Passed);
         }
 
         [Test]
         public void ThenIsReportedAsFailedWhenUsingReflectingScanners()
         {
             ExecuteUsingReflectingScanners();
-            Sut.AssertThenStepResult(StepExecutionResult.Failed);
+            Sut.AssertThenStepResult(Result.Failed);
         }
 
         [Test]
         public void ScenarioResultReturnsFailedWhenUsingReflectingScanners()
         {
             ExecuteUsingReflectingScanners();
-            Sut.AssertScenarioResult(StepExecutionResult.Failed);
+            Sut.AssertScenarioResult(Result.Failed);
         }
 
         [Test]
         public void StoryResultReturnsFailedWhenUsingReflectingScanners()
         {
             ExecuteUsingReflectingScanners();
-            Sut.AssertStoryResult(StepExecutionResult.Failed);
+            Sut.AssertStoryResult(Result.Failed);
         }
 
         [Test]
@@ -61,35 +61,35 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
         public void GivenIsReportedAsSuccessfulWhenUsingFluentScanners()
         {
             ExecuteUsingFluentScanner();
-            Sut.AssertGivenStepResult(StepExecutionResult.Passed);
+            Sut.AssertGivenStepResult(Result.Passed);
         }
 
         [Test]
         public void WhenIsReportedAsSuccessfulWhenUsingFluentScanners()
         {
             ExecuteUsingFluentScanner();
-            Sut.AssertWhenStepResult(StepExecutionResult.Passed);
+            Sut.AssertWhenStepResult(Result.Passed);
         }
 
         [Test]
         public void ThenIsReportedAsFailedWhenUsingFluentScanners()
         {
             ExecuteUsingFluentScanner();
-            Sut.AssertThenStepResult(StepExecutionResult.Failed);
+            Sut.AssertThenStepResult(Result.Failed);
         }
 
         [Test]
         public void ScenarioResultReturnsFailedWhenUsingFluentScanners()
         {
             ExecuteUsingFluentScanner();
-            Sut.AssertScenarioResult(StepExecutionResult.Failed);
+            Sut.AssertScenarioResult(Result.Failed);
         }
 
         [Test]
         public void StoryResultReturnsFailedWhenUsingFluentScanners()
         {
             ExecuteUsingFluentScanner();
-            Sut.AssertStoryResult(StepExecutionResult.Failed);
+            Sut.AssertStoryResult(Result.Failed);
         }
 
         [Test]

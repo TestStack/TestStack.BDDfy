@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         [Test]
         public void DoesNotReturnConsoleReportForExcludedStories()
         {
-            Configurator.Processors.ConsoleReport.RunsOn(s => s.MetaData != null);
+            Configurator.Processors.ConsoleReport.RunsOn(s => s.Metadata != null);
             var processors = Configurator.Processors.GetProcessors(new Story(null)).ToList();
 
             Assert.IsFalse(processors.Any(p => p is ConsoleReporter));

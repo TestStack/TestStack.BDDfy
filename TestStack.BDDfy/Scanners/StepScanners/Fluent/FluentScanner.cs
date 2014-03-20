@@ -40,7 +40,7 @@ namespace TestStack.BDDfy
     internal class FluentScanner<TScenario> : IInitialStep<TScenario>, IAndGiven<TScenario>, IAndWhen<TScenario>, IAndThen<TScenario>
         where TScenario : class
     {
-        private readonly List<ExecutionStep> _steps = new List<ExecutionStep>();
+        private readonly List<Step> _steps = new List<Step>();
         private readonly object _testObject;
 
         object IHasScanner.TestObject
@@ -230,7 +230,7 @@ namespace TestStack.BDDfy
 
             stepTitle = stepTitle.Trim();
             var action = stepAction.Compile();
-            _steps.Add(new ExecutionStep(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
         }
 
         private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
@@ -262,7 +262,7 @@ namespace TestStack.BDDfy
 
             stepTitle = stepTitle.Trim();
             var action = stepAction.Compile();
-            _steps.Add(new ExecutionStep(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)

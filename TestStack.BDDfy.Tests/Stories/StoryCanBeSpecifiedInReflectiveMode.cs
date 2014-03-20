@@ -10,8 +10,8 @@ namespace TestStack.BDDfy.Tests.Stories
         {
             var story = this.BDDfy<SharedStoryNotion>();
 
-            Assert.That(story.MetaData, Is.Not.Null);
-            Assert.AreEqual(story.MetaData.Type, typeof(SharedStoryNotion));
+            Assert.That(story.Metadata, Is.Not.Null);
+            Assert.AreEqual(story.Metadata.Type, typeof(SharedStoryNotion));
         }
 
         void WhenStoryIsSpecifiedInReflectiveMode()

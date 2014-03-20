@@ -86,12 +86,12 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        private ExecutionStep GetStep(string stepTitle)
+        private Step GetStep(string stepTitle)
         {
-            return _scenario.Steps.First(s => s.StepTitle == stepTitle);
+            return _scenario.Steps.First(s => s.Title == stepTitle);
         }
 
-        ExecutionStep GivenStep
+        Step GivenStep
         {
             get
             {
@@ -99,14 +99,14 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        ExecutionStep WhenStep
+        Step WhenStep
         {
             get {
                 return GetStep("When");
             }
         }
 
-        ExecutionStep ThenStep
+        Step ThenStep
         {
             get
             {
@@ -114,7 +114,7 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        ExecutionStep TearDownStep
+        Step TearDownStep
         {
             get
             {
@@ -134,30 +134,30 @@ namespace TestStack.BDDfy.Tests.Exceptions
  
         public void AssertTearDownMethodIsExecuted()
         {
-            Assert.That(TearDownStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(TearDownStep.Result, Is.EqualTo(Result.Passed));
         }
 
-        public void AssertGivenStepResult(StepExecutionResult result)
+        public void AssertGivenStepResult(Result result)
         {
             Assert.That(GivenStep.Result, Is.EqualTo(result));
         }
 
-        public void AssertWhenStepResult(StepExecutionResult result)
+        public void AssertWhenStepResult(Result result)
         {
             Assert.That(WhenStep.Result, Is.EqualTo(result));
         }
 
-        public void AssertThenStepResult(StepExecutionResult result)
+        public void AssertThenStepResult(Result result)
         {
             Assert.That(ThenStep.Result, Is.EqualTo(result));
         }
 
-        public void AssertScenarioResult(StepExecutionResult result)
+        public void AssertScenarioResult(Result result)
         {
             Assert.That(Scenario.Result, Is.EqualTo(result));
         }
 
-        public void AssertStoryResult(StepExecutionResult result)
+        public void AssertStoryResult(Result result)
         {
             Assert.That(Story.Result, Is.EqualTo(result));
         }

@@ -34,18 +34,18 @@ namespace TestStack.BDDfy.Reporters
 
         private static void ReportStoryHeader(Story story)
         {
-            if (story.MetaData == null || story.MetaData.Type == null)
+            if (story.Metadata == null || story.Metadata.Type == null)
                 return;
 
-            Console.WriteLine("Story: " + story.MetaData.Title);
-            Console.WriteLine("\t" + story.MetaData.AsA);
-            Console.WriteLine("\t" + story.MetaData.IWant);
-            Console.WriteLine("\t" + story.MetaData.SoThat);
+            Console.WriteLine("Story: " + story.Metadata.Title);
+            Console.WriteLine("\t" + story.Metadata.AsA);
+            Console.WriteLine("\t" + story.Metadata.IWant);
+            Console.WriteLine("\t" + story.Metadata.SoThat);
         }
 
-        static string PrefixWithSpaceIfRequired(ExecutionStep step)
+        static string PrefixWithSpaceIfRequired(Step step)
         {
-            var stepTitle = step.StepTitle;
+            var stepTitle = step.Title;
             var executionOrder = step.ExecutionOrder;
 
             if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||
@@ -56,7 +56,7 @@ namespace TestStack.BDDfy.Reporters
             return stepTitle.Replace(Environment.NewLine, Environment.NewLine + "\t\t");
         }
 
-        void ReportOnStep(Scenario scenario, ExecutionStep step)
+        void ReportOnStep(Scenario scenario, Step step)
         {
             var message =
                 string.Format
@@ -65,7 +65,7 @@ namespace TestStack.BDDfy.Reporters
                     Configurator.Scanners.Humanize(step.Result.ToString()));
 
             // if all the steps have passed, there is no reason to make noise
-            if (scenario.Result == StepExecutionResult.Passed)
+            if (scenario.Result == Result.Passed)
                 message = "\t" + PrefixWithSpaceIfRequired(step);
 
             if (step.Exception != null)
@@ -79,11 +79,11 @@ namespace TestStack.BDDfy.Reporters
                     message += string.Format("{0}", exceptionReference);
             }
 
-            if (step.Result == StepExecutionResult.Inconclusive || step.Result == StepExecutionResult.NotImplemented)
+            if (step.Result == Result.Inconclusive || step.Result == Result.NotImplemented)
                 Console.ForegroundColor = ConsoleColor.Yellow;
-            else if (step.Result == StepExecutionResult.Failed)
+            else if (step.Result == Result.Failed)
                 Console.ForegroundColor = ConsoleColor.Red;
-            else if (step.Result == StepExecutionResult.NotExecuted)
+            else if (step.Result == Result.NotExecuted)
                 Console.ForegroundColor = ConsoleColor.Gray;
 
             Console.WriteLine(message);

@@ -1,6 +1,6 @@
 ﻿namespace TestStack.BDDfy
 {
-    public enum StepExecutionResult
+    public enum Result
     {
         NotExecuted = 0,
         Passed = 1,

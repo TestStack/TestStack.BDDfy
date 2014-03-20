@@ -2,8 +2,8 @@ using System;
 
 namespace TestStack.BDDfy
 {
-    public interface IStoryMetaDataScanner
+    public interface IStoryMetadataScanner
     {
-        StoryMetaData Scan(object testObject, Type explicitStoryType = null);
+        StoryMetadata Scan(object testObject, Type explicitStoryType = null);
     }
 }

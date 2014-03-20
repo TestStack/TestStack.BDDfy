@@ -76,17 +76,17 @@ namespace TestStack.BDDfy.Tests.Configuration
             {
                 Assert.Throws<Exception>(() => testRun.Run());
                 var scenario = testRun.Story.Scenarios.First();
-                Assert.AreEqual(StepExecutionResult.Failed, scenario.Result);
+                Assert.AreEqual(Result.Failed, scenario.Result);
                 var steps = scenario.Steps;
 
                 Assert.AreEqual(4, steps.Count);
-                Assert.AreEqual(StepExecutionResult.Passed, steps[0].Result);
+                Assert.AreEqual(Result.Passed, steps[0].Result);
                 Assert.AreEqual(ExecutionOrder.SetupState, steps[0].ExecutionOrder);
-                Assert.AreEqual(StepExecutionResult.Passed, steps[1].Result);
+                Assert.AreEqual(Result.Passed, steps[1].Result);
                 Assert.AreEqual(ExecutionOrder.Transition, steps[1].ExecutionOrder);
-                Assert.AreEqual(StepExecutionResult.Failed, steps[2].Result);
+                Assert.AreEqual(Result.Failed, steps[2].Result);
                 Assert.AreEqual(ExecutionOrder.Assertion, steps[2].ExecutionOrder);
-                Assert.AreEqual(StepExecutionResult.NotExecuted, steps[3].Result);
+                Assert.AreEqual(Result.NotExecuted, steps[3].Result);
                 Assert.AreEqual(ExecutionOrder.ConsecutiveAssertion, steps[3].ExecutionOrder);
             }
         }
@@ -118,17 +118,17 @@ namespace TestStack.BDDfy.Tests.Configuration
             {
                 Assert.Throws<Exception>(() => testRun.Run());
                 var scenario = testRun.Story.Scenarios.First();
-                Assert.AreEqual(StepExecutionResult.Failed, scenario.Result);
+                Assert.AreEqual(Result.Failed, scenario.Result);
                 var steps = scenario.Steps;
 
                 Assert.AreEqual(4, steps.Count);
-                Assert.AreEqual(StepExecutionResult.Passed, steps[0].Result);
+                Assert.AreEqual(Result.Passed, steps[0].Result);
                 Assert.AreEqual(ExecutionOrder.SetupState, steps[0].ExecutionOrder);
-                Assert.AreEqual(StepExecutionResult.Passed, steps[1].Result);
+                Assert.AreEqual(Result.Passed, steps[1].Result);
                 Assert.AreEqual(ExecutionOrder.Transition, steps[1].ExecutionOrder);
-                Assert.AreEqual(StepExecutionResult.Failed, steps[2].Result);
+                Assert.AreEqual(Result.Failed, steps[2].Result);
                 Assert.AreEqual(ExecutionOrder.Assertion, steps[2].ExecutionOrder);
-                Assert.AreEqual(StepExecutionResult.Passed, steps[3].Result);
+                Assert.AreEqual(Result.Passed, steps[3].Result);
                 Assert.AreEqual(ExecutionOrder.ConsecutiveAssertion, steps[3].ExecutionOrder);
             }
         }

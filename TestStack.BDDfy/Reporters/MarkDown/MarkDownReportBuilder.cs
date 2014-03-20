@@ -10,12 +10,12 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
             foreach (var story in model.Stories)
             {
-                if (story.MetaData != null)
+                if (story.Metadata != null)
                 {
-                    report.AppendLine(string.Format("## Story: {0}", story.MetaData.Title));
-                    report.AppendLine(string.Format(" **{0}**  ", story.MetaData.AsA));
-                    report.AppendLine(string.Format(" **{0}**  ", story.MetaData.IWant));
-                    report.AppendLine(string.Format(" **{0}**  ", story.MetaData.SoThat));
+                    report.AppendLine(string.Format("## Story: {0}", story.Metadata.Title));
+                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.AsA));
+                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.IWant));
+                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.SoThat));
                 }
 
                 report.AppendLine(); // separator
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                     report.AppendLine(string.Format("### {0}", scenario.Title));
 
                     foreach (var step in scenario.Steps)
-                        report.AppendLine("  " + step.StepTitle + "  ");
+                        report.AppendLine("  " + step.Title + "  ");
 
                     report.AppendLine(); // separator
                 }

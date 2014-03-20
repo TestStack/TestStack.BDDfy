@@ -5,9 +5,9 @@ namespace TestStack.BDDfy
 {
     public class Story
     {
-        public Story(StoryMetaData metaData, params Scenario[] scenarios)
+        public Story(StoryMetadata metadata, params Scenario[] scenarios)
         {
-            MetaData = metaData;
+            Metadata = metadata;
             Scenarios = scenarios;
 
             if (scenarios.Length > 0)
@@ -18,7 +18,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public StoryMetaData MetaData { get; private set; }
+        public StoryMetadata Metadata { get; private set; }
         
         /// <summary>
         /// Currently used only when scenario doesn't have a story and we use the namespace instead
@@ -27,11 +27,11 @@ namespace TestStack.BDDfy
         public string Category { get; set; }
         public IEnumerable<Scenario> Scenarios { get; private set; }
 
-        public StepExecutionResult Result
+        public Result Result
         {
             get 
             {
-                return (StepExecutionResult)Scenarios.Max(s => (int)s.Result); 
+                return (Result)Scenarios.Max(s => (int)s.Result); 
             }
         }
     }

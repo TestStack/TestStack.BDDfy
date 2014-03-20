@@ -43,14 +43,14 @@ namespace TestStack.BDDfy.Samples
         public void Process(Story story)
         {
             // use this report only for tic tac toe stories
-            if (story.MetaData == null || !story.MetaData.Type.Name.Contains("TicTacToe"))
+            if (story.Metadata == null || !story.Metadata.Type.Name.Contains("TicTacToe"))
                 return;
 
             var scenario = story.Scenarios.First();
             var scenarioReport = new StringBuilder();
             scenarioReport.AppendLine(string.Format(" SCENARIO: {0}  ", scenario.Title));
 
-            if (scenario.Result != StepExecutionResult.Passed && scenario.Steps.Any(s => s.Exception != null))
+            if (scenario.Result != Result.Passed && scenario.Steps.Any(s => s.Exception != null))
             {
                 scenarioReport.Append(string.Format("    {0} : ", scenario.Result));
                 scenarioReport.AppendLine(scenario.Steps.First(s => s.Result == scenario.Result).Exception.Message);
@@ -59,7 +59,7 @@ namespace TestStack.BDDfy.Samples
             scenarioReport.AppendLine();
 
             foreach (var step in scenario.Steps)
-                scenarioReport.AppendLine(string.Format("   [{1}] {0}", step.StepTitle, step.Result));
+                scenarioReport.AppendLine(string.Format("   [{1}] {0}", step.Title, step.Result));
 
             scenarioReport.AppendLine("--------------------------------------------------------------------------------");
             scenarioReport.AppendLine();

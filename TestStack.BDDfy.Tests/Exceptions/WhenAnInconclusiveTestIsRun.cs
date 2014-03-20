@@ -30,35 +30,35 @@ namespace TestStack.BDDfy.Tests.Exceptions
         Engine _engine;
         private Scenario _scenario;
 
-        ExecutionStep GivenStep
+        Step GivenStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "Given a class under test");
+                return _scenario.Steps.Single(s => s.Title == "Given a class under test");
             }
         }
 
-        ExecutionStep WhenStep
+        Step WhenStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "When inconclusive exception is thrown in one of the methods");
+                return _scenario.Steps.Single(s => s.Title == "When inconclusive exception is thrown in one of the methods");
             }
         }
 
-        ExecutionStep ThenStep
+        Step ThenStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "Then the context is flagged as inconclusive");
+                return _scenario.Steps.Single(s => s.Title == "Then the context is flagged as inconclusive");
             }
         }
 
-        ExecutionStep DisposeStep
+        Step DisposeStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "Tear down this");
+                return _scenario.Steps.Single(s => s.Title == "Tear down this");
             }
         }
 
@@ -73,13 +73,13 @@ namespace TestStack.BDDfy.Tests.Exceptions
         [Test]
         public void ResultIsInconclusive()
         {
-            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
         public void ThenIsFlaggedAsInconclusive()
         {
-            Assert.That(ThenStep.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(ThenStep.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
@@ -91,31 +91,31 @@ namespace TestStack.BDDfy.Tests.Exceptions
         [Test]
         public void GivenIsFlaggedAsSuccessful()
         {
-            Assert.That(GivenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(GivenStep.Result, Is.EqualTo(Result.Passed));
         }
 
         [Test]
         public void WhenIsFlaggedAsSuccessful()
         {
-            Assert.That(WhenStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(WhenStep.Result, Is.EqualTo(Result.Passed));
         }
 
         [Test]
         public void ScenarioResultReturnsInconclusive()
         {
-            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
         public void StoryResultReturnsInconclusive()
         {
-            Assert.That(_scenario.Result, Is.EqualTo(StepExecutionResult.Inconclusive));
+            Assert.That(_scenario.Result, Is.EqualTo(Result.Inconclusive));
         }
 
         [Test]
         public void TearDownMethodIsExecuted()
         {
-            Assert.That(DisposeStep.Result, Is.EqualTo(StepExecutionResult.Passed));
+            Assert.That(DisposeStep.Result, Is.EqualTo(Result.Passed));
         }
     }
 }

@@ -13,7 +13,7 @@
             {
                 foreach (var executionStep in scenario.Steps)
                 {
-                    if (scenario.ExecuteStep(executionStep) == StepExecutionResult.Passed) 
+                    if (scenario.ExecuteStep(executionStep) == Result.Passed) 
                         continue;
 
                     if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)

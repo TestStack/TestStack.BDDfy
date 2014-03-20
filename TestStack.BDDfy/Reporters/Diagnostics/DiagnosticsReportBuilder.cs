@@ -28,8 +28,8 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
             foreach (var story in viewModel.Stories)
             {
                 var name = story.Namespace;
-                if (story.MetaData != null)
-                    name = story.MetaData.Title;
+                if (story.Metadata != null)
+                    name = story.Metadata.Title;
 
                 graph.Add(new StoryDiagnostic
                 {
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
                         Duration = scenario.Duration.Milliseconds,
                         Steps = scenario.Steps.Select(step => new StoryDiagnostic.Step()
                         {
-                            Name = step.StepTitle,
+                            Name = step.Title,
                             Duration = step.Duration.Milliseconds
                         }).ToList()
                     }).ToList()

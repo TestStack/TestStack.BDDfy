@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Tests.Scanner
     [TestFixture]
     public class WhenTestClassFollowsGivenWhenThenNamingConvention
     {
-        private List<ExecutionStep> _steps;
+        private List<Step> _steps;
         private TypeWithoutAttribute _typeWithoutAttribute;
 
         private class TypeWithoutAttribute
@@ -44,9 +44,9 @@ namespace TestStack.BDDfy.Tests.Scanner
             Assert.That(_steps.Count, Is.EqualTo(16));
         }
 
-        private static void AssertStep(ExecutionStep step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
+        private static void AssertStep(Step step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            Assert.That(step.StepTitle.Trim(), Is.EqualTo(stepTitle));
+            Assert.That(step.Title.Trim(), Is.EqualTo(stepTitle));
             Assert.That(step.Asserts, Is.EqualTo(asserts));
             Assert.That(step.ExecutionOrder, Is.EqualTo(order));
             Assert.That(step.ShouldReport, Is.EqualTo(shouldReport));

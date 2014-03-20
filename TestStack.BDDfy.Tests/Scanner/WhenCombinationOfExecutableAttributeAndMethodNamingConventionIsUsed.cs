@@ -125,7 +125,7 @@ namespace TestStack.BDDfy.Tests.Scanner
 
         void VerifyStepAndItsProperties(Action stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.StepTitle.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.Title.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
             Assert.That(matchingSteps.Count(), Is.EqualTo(expectedCount));
             Assert.IsTrue(matchingSteps.All(s => s.ExecutionOrder == expectedOrder));
         }
@@ -133,7 +133,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void IgnoredMethodShouldNotBeAddedToSteps()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.StepTitle == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(_sut.ThenIAmNotAStep).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(_sut.ThenIAmNotAStep).Name));
             Assert.That(matchingSteps.Count(), Is.EqualTo(0));
         }
     }

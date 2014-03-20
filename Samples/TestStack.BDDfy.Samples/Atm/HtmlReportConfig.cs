@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Samples.Atm
     {
         public override bool RunsOn(Story story)
         {
-            return story.MetaData.Type.Namespace != null && story.MetaData.Type.Namespace.EndsWith("Atm");
+            return story.Metadata.Type.Namespace != null && story.Metadata.Type.Namespace.EndsWith("Atm");
         }
 
         /// <summary>

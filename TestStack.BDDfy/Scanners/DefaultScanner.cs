@@ -19,7 +19,7 @@ namespace TestStack.BDDfy
         public Story Scan()
         {
             var scenario = _scenarioScanner.Scan(_testObject);
-            var metaData = Configurator.Scanners.StoryMetaDataScanner().Scan(_testObject, _explicitStoryType);
+            var metaData = Configurator.Scanners.StoryMetadataScanner().Scan(_testObject, _explicitStoryType);
 
             return new Story(metaData, scenario);
         }

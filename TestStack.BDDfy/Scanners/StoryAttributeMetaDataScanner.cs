@@ -4,24 +4,24 @@ using System.Linq;
 
 namespace TestStack.BDDfy
 {
-    public class StoryAttributeMetaDataScanner : IStoryMetaDataScanner
+    public class StoryAttributeMetadataScanner : IStoryMetadataScanner
     {
-        public virtual StoryMetaData Scan(object testObject, Type explicitStoryType = null)
+        public virtual StoryMetadata Scan(object testObject, Type explicitStoryType = null)
         {
-            return GetStoryMetaData(testObject, explicitStoryType) ?? GetStoryMetaDataFromScenario(testObject);
+            return GetStoryMetadata(testObject, explicitStoryType) ?? GetStoryMetadataFromScenario(testObject);
         }
 
-        static StoryMetaData GetStoryMetaDataFromScenario(object testObject)
+        static StoryMetadata GetStoryMetadataFromScenario(object testObject)
         {
             var scenarioType = testObject.GetType();
             var storyAttribute = GetStoryAttribute(scenarioType);
             if (storyAttribute == null)
                 return null;
 
-            return new StoryMetaData(scenarioType, storyAttribute);
+            return new StoryMetadata(scenarioType, storyAttribute);
         }
 
-        StoryMetaData GetStoryMetaData(object testObject, Type explicityStoryType)
+        StoryMetadata GetStoryMetadata(object testObject, Type explicityStoryType)
         {
             var candidateStoryType = GetCandidateStory(testObject, explicityStoryType);
             if (candidateStoryType == null)
@@ -31,7 +31,7 @@ namespace TestStack.BDDfy
             if (storyAttribute == null)
                 return null;
 
-            return new StoryMetaData(candidateStoryType, storyAttribute);
+            return new StoryMetadata(candidateStoryType, storyAttribute);
         }
 
         protected virtual Type GetCandidateStory(object testObject, Type explicitStoryType)

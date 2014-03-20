@@ -7,12 +7,12 @@ namespace TestStack.BDDfy.Tests.Reporters
     {
         public IEnumerable<Story> CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
         {
-            var storyMetaData1 = new StoryMetaData(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetaData2 = new StoryMetaData(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
+            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
+            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
             var stories = new List<Story>()
             {
-                new Story(storyMetaData1, GetScenarios()),
-                new Story(storyMetaData2, GetScenarios())
+                new Story(storyMetadata1, GetScenarios()),
+                new Story(storyMetadata2, GetScenarios())
             };
 
             return stories;
@@ -28,24 +28,24 @@ namespace TestStack.BDDfy.Tests.Reporters
             return scenarios.ToArray();
         }
 
-        private IEnumerable<ExecutionStep> GetHappyExecutionSteps()
+        private IEnumerable<Step> GetHappyExecutionSteps()
         {
-            var steps = new List<ExecutionStep>()
+            var steps = new List<Step>()
             {
-                new ExecutionStep(null, "Given a positive account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new ExecutionStep(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new ExecutionStep(null, "Then money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "Given a positive account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "Then money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
             };
             return steps;
         }
 
-        private IEnumerable<ExecutionStep> GetSadExecutionSteps()
+        private IEnumerable<Step> GetSadExecutionSteps()
         {
-            var steps = new List<ExecutionStep>()
+            var steps = new List<Step>()
             {
-                new ExecutionStep(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new ExecutionStep(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new ExecutionStep(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
             };
             return steps;
         }
