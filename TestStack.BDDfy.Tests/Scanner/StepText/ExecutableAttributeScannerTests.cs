@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Tests.Scanner.StepText
         {
             var scanner = new ExecutableAttributeStepScanner();
             var steps = scanner.Scan(new ScenarioWithVaryingStepTexts()).ToList();
-            var theStep = steps.Where(s => s.StepTitle == expectedStepTitle);
+            var theStep = steps.Where(s => s.Title == expectedStepTitle);
 
             if (exists)
                 Assert.That(theStep.Count(), Is.EqualTo(1));

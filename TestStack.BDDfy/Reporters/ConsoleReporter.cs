@@ -43,9 +43,9 @@ namespace TestStack.BDDfy.Reporters
             Console.WriteLine("\t" + story.MetaData.SoThat);
         }
 
-        static string PrefixWithSpaceIfRequired(ExecutionStep step)
+        static string PrefixWithSpaceIfRequired(Step step)
         {
-            var stepTitle = step.StepTitle;
+            var stepTitle = step.Title;
             var executionOrder = step.ExecutionOrder;
 
             if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||
@@ -56,7 +56,7 @@ namespace TestStack.BDDfy.Reporters
             return stepTitle.Replace(Environment.NewLine, Environment.NewLine + "\t\t");
         }
 
-        void ReportOnStep(Scenario scenario, ExecutionStep step)
+        void ReportOnStep(Scenario scenario, Step step)
         {
             var message =
                 string.Format

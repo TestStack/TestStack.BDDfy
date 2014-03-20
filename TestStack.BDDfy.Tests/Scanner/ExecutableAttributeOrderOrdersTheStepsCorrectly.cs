@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Tests.Scanner
     [TestFixture]
     public class ExecutableAttributeOrderOrdersTheStepsCorrectly
     {
-        private List<ExecutionStep> _steps;
+        private List<Step> _steps;
 
         private class TypeWithOrderedAttribute
         {
@@ -81,117 +81,117 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void Step0IsGiven1()
         {
-            Assert.AreEqual("Given 1", _steps[0].StepTitle);
+            Assert.AreEqual("Given 1", _steps[0].Title);
         }
 
         [Test]
         public void Step1IsGiven3()
         {
-            Assert.AreEqual("Given 3", _steps[1].StepTitle);
+            Assert.AreEqual("Given 3", _steps[1].Title);
         }
 
 
         [Test]
         public void Step2IsAndGivenNeg3()
         {
-            Assert.AreEqual("And given neg 3", _steps[2].StepTitle);
+            Assert.AreEqual("And given neg 3", _steps[2].Title);
         }
 
         [Test]
         public void Step3IsAndGiven0()
         {
-            Assert.AreEqual("And given 0", _steps[3].StepTitle);
+            Assert.AreEqual("And given 0", _steps[3].Title);
         }
 
 
         [Test]
         public void Step4AndGiven2()
         {
-            Assert.AreEqual("And given 2", _steps[4].StepTitle);
+            Assert.AreEqual("And given 2", _steps[4].Title);
         }
 
         [Test]
         public void Step5AndGiven2Again()
         {
-            Assert.AreEqual("And given 2 again", _steps[5].StepTitle);
+            Assert.AreEqual("And given 2 again", _steps[5].Title);
         }
 
         
         [Test]
         public void Step6IsWhen1()
         {
-            Assert.AreEqual("When 1", _steps[6].StepTitle);
+            Assert.AreEqual("When 1", _steps[6].Title);
         }
 
         [Test]
         public void Step7IsWhen3()
         {
-            Assert.AreEqual("When 3", _steps[7].StepTitle);
+            Assert.AreEqual("When 3", _steps[7].Title);
         }
 
 
         [Test]
         public void Step8IsAndWhenNeg3()
         {
-            Assert.AreEqual("And when neg 3", _steps[8].StepTitle);
+            Assert.AreEqual("And when neg 3", _steps[8].Title);
         }
 
         [Test]
         public void Step9IsAndWhen0()
         {
-            Assert.AreEqual("And when 0", _steps[9].StepTitle);
+            Assert.AreEqual("And when 0", _steps[9].Title);
         }
 
 
         [Test]
         public void Step10AndWhen2()
         {
-            Assert.AreEqual("And when 2", _steps[10].StepTitle);
+            Assert.AreEqual("And when 2", _steps[10].Title);
         }
 
         [Test]
         public void Step11AndWhen2Again()
         {
-            Assert.AreEqual("And when 2 again", _steps[11].StepTitle);
+            Assert.AreEqual("And when 2 again", _steps[11].Title);
         }
 
 
         [Test]
         public void Step12IsThen1()
         {
-            Assert.AreEqual("Then 1", _steps[12].StepTitle);
+            Assert.AreEqual("Then 1", _steps[12].Title);
         }
 
         [Test]
         public void Step13IsThen3()
         {
-            Assert.AreEqual("Then 3", _steps[13].StepTitle);
+            Assert.AreEqual("Then 3", _steps[13].Title);
         }
 
 
         [Test]
         public void Step14IsAndThenNeg3()
         {
-            Assert.AreEqual("And then neg 3", _steps[14].StepTitle);
+            Assert.AreEqual("And then neg 3", _steps[14].Title);
         }
 
         [Test]
         public void Step15IsAndThen0()
         {
-            Assert.AreEqual("And then 0", _steps[15].StepTitle);
+            Assert.AreEqual("And then 0", _steps[15].Title);
         }
 
 
         [Test]
         public void Step16AndThen2()
         {
-            Assert.AreEqual("And then 2", _steps[16].StepTitle);
+            Assert.AreEqual("And then 2", _steps[16].Title);
         }
 
         [Test]
         public void Step17AndThen2Again()
         {
-            Assert.AreEqual("And then 2 again", _steps[17].StepTitle);
+            Assert.AreEqual("And then 2 again", _steps[17].Title);
         }
     }
 }

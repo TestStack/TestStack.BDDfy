@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                     report.AppendLine(string.Format("### {0}", scenario.Title));
 
                     foreach (var step in scenario.Steps)
-                        report.AppendLine("  " + step.StepTitle + "  ");
+                        report.AppendLine("  " + step.Title + "  ");
 
                     report.AppendLine(); // separator
                 }

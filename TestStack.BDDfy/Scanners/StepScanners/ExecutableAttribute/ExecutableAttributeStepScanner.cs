@@ -15,7 +15,7 @@ namespace TestStack.BDDfy
     /// </remarks>
     /// <example>
     /// <code>
-    /// [Given(StepTitle = "Given the account balance is $10")]
+    /// [Given(Title = "Given the account balance is $10")]
     /// void GivenTheAccountBalanceIs10()
     /// {
     ///    _card = new Card(true, 10);
@@ -24,7 +24,7 @@ namespace TestStack.BDDfy
     /// </example>
     public class ExecutableAttributeStepScanner : IStepScanner
     {
-        public IEnumerable<ExecutionStep> Scan(object testObject, MethodInfo candidateMethod)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo candidateMethod)
         {
             var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if(executableAttribute == null)
@@ -40,7 +40,7 @@ namespace TestStack.BDDfy
             if (runStepWithArgsAttributes.Length == 0)
             {
                 yield return
-                    new ExecutionStep(StepActionFactory.GetStepAction(candidateMethod, new object[0]), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, new object[0]), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -59,7 +59,7 @@ namespace TestStack.BDDfy
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return
-                    new ExecutionStep(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
                                       executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order

@@ -179,7 +179,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
                         using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
                         {
-                            var titleLines = step.StepTitle.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                            var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
                             var title = titleLines[0];
                             if (reportException)
                             {

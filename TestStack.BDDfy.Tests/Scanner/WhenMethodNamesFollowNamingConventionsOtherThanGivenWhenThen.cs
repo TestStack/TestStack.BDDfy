@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Scanner
     [TestFixture]
     public class WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen
     {
-        private List<ExecutionStep> _steps;
+        private List<Step> _steps;
         ScenarioClass _scenario;
 
         [SetUp]
@@ -67,7 +67,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void TheSetupMethodIsPickedAsNonAsserting()
         {
-            var setupMethod = _steps.Single(s => s.StepTitle == "Setup");
+            var setupMethod = _steps.Single(s => s.Title == "Setup");
             Assert.That(setupMethod.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
             Assert.That(setupMethod.ShouldReport, Is.False);
             Assert.That(setupMethod.Asserts, Is.False);
@@ -83,13 +83,13 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void IncorrectSpecificationStepIsNotAdded()
         {
-            var specMethod = _steps.Where(s => s.StepTitle == "This method specification should not be included");
+            var specMethod = _steps.Where(s => s.Title == "This method specification should not be included");
             Assert.That(specMethod, Is.Empty);
         }
 
         void AssertSpecificationStepIsScannedProperly(Action getSpecMethod)
         {
-            var specMethods = _steps.Where(s => s.StepTitle.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
+            var specMethods = _steps.Where(s => s.Title.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
             Assert.That(specMethods.Count(), Is.EqualTo(1));
             var specStep = specMethods.First();
             Assert.That(specStep.Asserts, Is.False);

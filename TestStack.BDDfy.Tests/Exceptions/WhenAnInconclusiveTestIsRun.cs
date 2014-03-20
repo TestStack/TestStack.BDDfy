@@ -30,35 +30,35 @@ namespace TestStack.BDDfy.Tests.Exceptions
         Engine _engine;
         private Scenario _scenario;
 
-        ExecutionStep GivenStep
+        Step GivenStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "Given a class under test");
+                return _scenario.Steps.Single(s => s.Title == "Given a class under test");
             }
         }
 
-        ExecutionStep WhenStep
+        Step WhenStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "When inconclusive exception is thrown in one of the methods");
+                return _scenario.Steps.Single(s => s.Title == "When inconclusive exception is thrown in one of the methods");
             }
         }
 
-        ExecutionStep ThenStep
+        Step ThenStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "Then the context is flagged as inconclusive");
+                return _scenario.Steps.Single(s => s.Title == "Then the context is flagged as inconclusive");
             }
         }
 
-        ExecutionStep DisposeStep
+        Step DisposeStep
         {
             get
             {
-                return _scenario.Steps.Single(s => s.StepTitle == "Tear down this");
+                return _scenario.Steps.Single(s => s.Title == "Tear down this");
             }
         }
 

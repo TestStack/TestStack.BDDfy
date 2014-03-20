@@ -3,11 +3,11 @@ using System.Diagnostics;
 
 namespace TestStack.BDDfy
 {
-    public class ExecutionStep
+    public class Step
     {
-        public ExecutionStep(
+        public Step(
             Action<object> stepAction,
-            string stepTitle, 
+            string title, 
             bool asserts, 
             ExecutionOrder executionOrder,
             bool shouldReport)
@@ -17,7 +17,7 @@ namespace TestStack.BDDfy
             ShouldReport = shouldReport;
             Result = StepExecutionResult.NotExecuted;
             Id = Guid.NewGuid();
-            StepTitle = stepTitle;
+            Title = title;
             StepAction = stepAction;
         }
 
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy
         internal Action<object> StepAction { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
-        public string StepTitle { get; private set; }
+        public string Title { get; private set; }
         public StepExecutionResult Result { get; set; }
         public Exception Exception { get; set; }
         public ExecutionOrder ExecutionOrder { get; private set; }

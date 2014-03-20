@@ -59,7 +59,7 @@ namespace TestStack.BDDfy.Samples
             scenarioReport.AppendLine();
 
             foreach (var step in scenario.Steps)
-                scenarioReport.AppendLine(string.Format("   [{1}] {0}", step.StepTitle, step.Result));
+                scenarioReport.AppendLine(string.Format("   [{1}] {0}", step.Title, step.Result));
 
             scenarioReport.AppendLine("--------------------------------------------------------------------------------");
             scenarioReport.AppendLine();

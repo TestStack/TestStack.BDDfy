@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Tests.FluentScanner
     [TestFixture]
     public class WhenStepsAreScannedUsingFluentScanner
     {
-        private IEnumerable<ExecutionStep> _steps;
+        private IEnumerable<Step> _steps;
 
         [SetUp]
         public void Setup()
@@ -22,11 +22,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.That(_steps.Count(), Is.EqualTo(12));
         }
 
-        ExecutionStep GivenSomeStateStep
+        Step GivenSomeStateStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle == "Given some state 1, 2");
+                return _steps.Single(s => s.Title == "Given some state 1, 2");
             }
         }
 
@@ -48,11 +48,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(GivenSomeStateStep.ShouldReport);        
         }
 
-        ExecutionStep WhenSomeStepUsesIncompatibleNamingConventionStep
+        Step WhenSomeStepUsesIncompatibleNamingConventionStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle.Trim() == "When some step uses incompatible naming convention");
+                return _steps.Single(s => s.Title.Trim() == "When some step uses incompatible naming convention");
             }
         }
 
@@ -74,11 +74,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(WhenSomeStepUsesIncompatibleNamingConventionStep.ShouldReport);        
         }
 
-        ExecutionStep AndAMethodTakesArrayInputsStep
+        Step AndAMethodTakesArrayInputsStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle.Trim() == "And a method takes array inputs 1, 2, 3, 4, 5");
+                return _steps.Single(s => s.Title.Trim() == "And a method takes array inputs 1, 2, 3, 4, 5");
             }
         }
 
@@ -100,11 +100,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(AndAMethodTakesArrayInputsStep.ShouldReport);
         }
 
-        ExecutionStep WhenSomethingHappensTransitionStep
+        Step WhenSomethingHappensTransitionStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle == "When something happens some input here");
+                return _steps.Single(s => s.Title == "When something happens some input here");
             }
         }
 
@@ -126,11 +126,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(WhenSomethingHappensTransitionStep.ShouldReport);        
         }
 
-        ExecutionStep WhenSomethingHappensTransitionStepIgnoringInputInStepTitle
+        Step WhenSomethingHappensTransitionStepIgnoringInputInStepTitle
         {
             get
             {
-                return _steps.Single(s => s.StepTitle == "When something happens");
+                return _steps.Single(s => s.Title == "When something happens");
             }
         }
 
@@ -152,11 +152,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ShouldReport);        
         }
 
-        ExecutionStep WhenSomethingHappensConsecutiveTransitionStep
+        Step WhenSomethingHappensConsecutiveTransitionStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle.Trim() == "step used with other input for the second time");
+                return _steps.Single(s => s.Title.Trim() == "step used with other input for the second time");
             }
         }
 
@@ -178,11 +178,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(WhenSomethingHappensConsecutiveTransitionStep.ShouldReport);        
         }
 
-        ExecutionStep AndThenSomethingElseHappensStep
+        Step AndThenSomethingElseHappensStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle.Trim() == "Overriding step name without arguments");
+                return _steps.Single(s => s.Title.Trim() == "Overriding step name without arguments");
             }
         }
 
@@ -204,11 +204,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(AndThenSomethingElseHappensStep.ShouldReport);        
         }
 
-        ExecutionStep ThenTheFollowingAssertionsShouldBeCorrectStep
+        Step ThenTheFollowingAssertionsShouldBeCorrectStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle == "Then the following assertions should be correct");
+                return _steps.Single(s => s.Title == "Then the following assertions should be correct");
             }
         }
 
@@ -230,11 +230,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(ThenTheFollowingAssertionsShouldBeCorrectStep.ShouldReport);        
         }
 
-        ExecutionStep AndIncorrectAttributeWouldNotMatterStep
+        Step AndIncorrectAttributeWouldNotMatterStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle.Trim() == "And incorrect attribute would not matter");
+                return _steps.Single(s => s.Title.Trim() == "And incorrect attribute would not matter");
             }
         }
 
@@ -256,7 +256,7 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.ShouldReport);        
         }
 
-        ExecutionStep AndInputsAreFormattedPropertlyInTheTitle
+        Step AndInputsAreFormattedPropertlyInTheTitle
         {
             get
             {
@@ -264,7 +264,7 @@ namespace TestStack.BDDfy.Tests.FluentScanner
                     ScenarioToBeScannedUsingFluentScanner.InputDateStepTitleTemplate, 
                     ScenarioToBeScannedUsingFluentScanner.InputDate);
 
-                return _steps.Single(s => s.StepTitle.Trim() == formattedTitle);
+                return _steps.Single(s => s.Title.Trim() == formattedTitle);
             }
         }
 
@@ -274,11 +274,11 @@ namespace TestStack.BDDfy.Tests.FluentScanner
             Assert.That(AndInputsAreFormattedPropertlyInTheTitle.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
         }
 
-        ExecutionStep TearDownStep
+        Step TearDownStep
         {
             get
             {
-                return _steps.Single(s => s.StepTitle == "Dispose");
+                return _steps.Single(s => s.Title == "Dispose");
             }
         }
 

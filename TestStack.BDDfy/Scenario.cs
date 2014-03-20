@@ -7,7 +7,7 @@ namespace TestStack.BDDfy
 {
     public class Scenario
     {
-        public Scenario(object testObject, IEnumerable<ExecutionStep> steps, string scenarioText)
+        public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText)
         {
             TestObject = testObject;
             _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
@@ -21,8 +21,8 @@ namespace TestStack.BDDfy
         public object TestObject { get; internal set; }
         public Guid Id { get; private set; }
 
-        private readonly List<ExecutionStep> _steps;
-        public List<ExecutionStep> Steps
+        private readonly List<Step> _steps;
+        public List<Step> Steps
         {
             get { return _steps; }
         }
@@ -39,12 +39,12 @@ namespace TestStack.BDDfy
         }
 
         // ToDo: this method does not really belong to this class
-        public StepExecutionResult ExecuteStep(ExecutionStep executionStep)
+        public StepExecutionResult ExecuteStep(Step step)
         {
             try
             {
-                executionStep.Execute(TestObject);
-                executionStep.Result = StepExecutionResult.Passed;
+                step.Execute(TestObject);
+                step.Result = StepExecutionResult.Passed;
             }
             catch (Exception ex)
             {
@@ -57,22 +57,22 @@ namespace TestStack.BDDfy
 
                 if (exception is NotImplementedException)
                 {
-                    executionStep.Result = StepExecutionResult.NotImplemented;
-                    executionStep.Exception = exception;
+                    step.Result = StepExecutionResult.NotImplemented;
+                    step.Exception = exception;
                 }
                 else if (IsInconclusive(exception))
                 {
-                    executionStep.Result = StepExecutionResult.Inconclusive;
-                    executionStep.Exception = exception;
+                    step.Result = StepExecutionResult.Inconclusive;
+                    step.Exception = exception;
                 }
                 else
                 {
-                    executionStep.Exception = exception;
-                    executionStep.Result = StepExecutionResult.Failed;
+                    step.Exception = exception;
+                    step.Result = StepExecutionResult.Failed;
                 }
             }
 
-            return executionStep.Result;
+            return step.Result;
         }
 
         private static bool IsInconclusive(Exception exception)

@@ -86,12 +86,12 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        private ExecutionStep GetStep(string stepTitle)
+        private Step GetStep(string stepTitle)
         {
-            return _scenario.Steps.First(s => s.StepTitle == stepTitle);
+            return _scenario.Steps.First(s => s.Title == stepTitle);
         }
 
-        ExecutionStep GivenStep
+        Step GivenStep
         {
             get
             {
@@ -99,14 +99,14 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        ExecutionStep WhenStep
+        Step WhenStep
         {
             get {
                 return GetStep("When");
             }
         }
 
-        ExecutionStep ThenStep
+        Step ThenStep
         {
             get
             {
@@ -114,7 +114,7 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        ExecutionStep TearDownStep
+        Step TearDownStep
         {
             get
             {

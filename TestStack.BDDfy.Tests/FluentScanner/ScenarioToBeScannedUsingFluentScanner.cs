@@ -71,7 +71,7 @@ namespace TestStack.BDDfy.Tests.FluentScanner
         public void Dispose()
         {}
 
-        public static IEnumerable<ExecutionStep> GetSteps(ScenarioToBeScannedUsingFluentScanner testObject)
+        public static IEnumerable<Step> GetSteps(ScenarioToBeScannedUsingFluentScanner testObject)
         {
             var fluentScanner = testObject
                 .Given(s => s.GivenSomeState(1, 2))
