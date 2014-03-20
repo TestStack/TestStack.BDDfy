@@ -105,7 +105,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Story.cs" />
     <Compile Include="StoryAttribute.cs" />
-    <Compile Include="StoryMetadata.cs" />
+    <Compile Include="Scanners\StoryMetadata.cs" />
     <Compile Include="Processors\InconclusiveException.cs" />
     <Compile Include="Processors\Disposer.cs" />
     <Compile Include="Processors\ExceptionProcessor.cs" />
