@@ -34,13 +34,13 @@ namespace TestStack.BDDfy.Reporters
 
         private static void ReportStoryHeader(Story story)
         {
-            if (story.MetaData == null || story.MetaData.Type == null)
+            if (story.Metadata == null || story.Metadata.Type == null)
                 return;
 
-            Console.WriteLine("Story: " + story.MetaData.Title);
-            Console.WriteLine("\t" + story.MetaData.AsA);
-            Console.WriteLine("\t" + story.MetaData.IWant);
-            Console.WriteLine("\t" + story.MetaData.SoThat);
+            Console.WriteLine("Story: " + story.Metadata.Title);
+            Console.WriteLine("\t" + story.Metadata.AsA);
+            Console.WriteLine("\t" + story.Metadata.IWant);
+            Console.WriteLine("\t" + story.Metadata.SoThat);
         }
 
         static string PrefixWithSpaceIfRequired(Step step)

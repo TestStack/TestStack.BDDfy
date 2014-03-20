@@ -10,8 +10,8 @@ namespace TestStack.BDDfy.Tests.Stories
         public void Verify()
         {
             _story = this.BDDfy();
-            Assert.That(_story.MetaData, Is.Not.Null);
-            Assert.That(_story.MetaData.Title, Is.EqualTo(StoryTitle));
+            Assert.That(_story.Metadata, Is.Not.Null);
+            Assert.That(_story.Metadata.Title, Is.EqualTo(StoryTitle));
         }
 
         void WhenTheSubclassIsBddified()

@@ -28,8 +28,8 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
             foreach (var story in viewModel.Stories)
             {
                 var name = story.Namespace;
-                if (story.MetaData != null)
-                    name = story.MetaData.Title;
+                if (story.Metadata != null)
+                    name = story.Metadata.Title;
 
                 graph.Add(new StoryDiagnostic
                 {

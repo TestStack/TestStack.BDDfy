@@ -150,7 +150,7 @@ namespace TestStack.BDDfy.Reporters.Html
             {
                 using (OpenTag(string.Format("<div class='story {0}'>", storyResult), HtmlTag.div))
                 {
-                    AddStoryMetaDataAndNarrative(story);
+                    AddStoryMetadataAndNarrative(story);
 
                     using (OpenTag("<div class='scenarios'>", HtmlTag.div))
                     {
@@ -210,27 +210,27 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddStoryMetaDataAndNarrative(Story story)
+        private void AddStoryMetadataAndNarrative(Story story)
         {
-            using (OpenTag("<div class='storyMetaData'>", HtmlTag.div))
+            using (OpenTag("<div class='storyMetadata'>", HtmlTag.div))
             {
-                if (story.MetaData == null)
+                if (story.Metadata == null)
                 {
                     var @namespace = story.Namespace;
                     AddLine(string.Format("<div class='namespaceName'>{0}</div>", @namespace));
                 }
                 else
                 {
-                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.MetaData.Title));
+                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.Metadata.Title));
                 }
 
-                if (story.MetaData != null && !string.IsNullOrEmpty(story.MetaData.AsA))
+                if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.AsA))
                 {
                     using (OpenTag("<ul class='storyNarrative'>", HtmlTag.ul))
                     {
-                        AddLine(string.Format("<li>{0}</li>", story.MetaData.AsA));
-                        AddLine(string.Format("<li>{0}</li>", story.MetaData.IWant));
-                        AddLine(string.Format("<li>{0}</li>", story.MetaData.SoThat));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.AsA));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.IWant));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.SoThat));
                     }
                 }
             }

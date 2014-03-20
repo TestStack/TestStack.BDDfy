@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Reporters
         {
             get
             {
-                return _stories.Where(b => b.MetaData == null).GroupBy(s => s.Namespace).Count();
+                return _stories.Where(b => b.Metadata == null).GroupBy(s => s.Namespace).Count();
             }
         }
 
@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Reporters
 
         public int Stories
         {
-            get { return _stories.Where(b => b.MetaData != null).GroupBy(b => b.MetaData.Type).Count(); }
+            get { return _stories.Where(b => b.Metadata != null).GroupBy(b => b.Metadata.Type).Count(); }
         }
 
         public int Passed

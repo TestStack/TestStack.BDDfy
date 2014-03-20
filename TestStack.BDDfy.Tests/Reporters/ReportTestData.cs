@@ -7,12 +7,12 @@ namespace TestStack.BDDfy.Tests.Reporters
     {
         public IEnumerable<Story> CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
         {
-            var storyMetaData1 = new StoryMetaData(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetaData2 = new StoryMetaData(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
+            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
+            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
             var stories = new List<Story>()
             {
-                new Story(storyMetaData1, GetScenarios()),
-                new Story(storyMetaData2, GetScenarios())
+                new Story(storyMetadata1, GetScenarios()),
+                new Story(storyMetadata2, GetScenarios())
             };
 
             return stories;

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace TestStack.BDDfy
 {
-    public class StoryMetaData
+    public class StoryMetadata
     {
         // ReSharper disable InconsistentNaming
         private const string I_want_prefix = "I want";
@@ -11,7 +11,7 @@ namespace TestStack.BDDfy
         private const string As_a_prefix = "As a";
         // ReSharper restore InconsistentNaming
 
-        public StoryMetaData(Type storyType, StoryAttribute storyAttribute)
+        public StoryMetadata(Type storyType, StoryAttribute storyAttribute)
         {
             var title = storyAttribute.Title;
             if (string.IsNullOrEmpty(title))
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy
             SoThat = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
         }
 
-        public StoryMetaData(Type storyType, string asA, string iWant, string soThat, string storyTitle = null)
+        public StoryMetadata(Type storyType, string asA, string iWant, string soThat, string storyTitle = null)
         {
             Title = storyTitle ?? NetToString.Convert(storyType.Name);
             Type = storyType;

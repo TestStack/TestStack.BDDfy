@@ -17,8 +17,8 @@ namespace TestStack.BDDfy.Tests.Stories
             var scanner = new DefaultScanner(testObject, new ReflectiveScenarioScanner(new[] { new DefaultMethodNameStepScanner() }));
             var story = scanner.Scan();
 
-            Assert.That(story.MetaData, Is.Not.Null);
-            Assert.That(story.MetaData.Type, Is.EqualTo(typeof(StoryDouble)));
+            Assert.That(story.Metadata, Is.Not.Null);
+            Assert.That(story.Metadata.Type, Is.EqualTo(typeof(StoryDouble)));
             Assert.That(story.Scenarios.Count(), Is.EqualTo(1));
             Assert.True(story.Scenarios.Single().TestObject.GetType() == typeof(DummyScenario));
         }

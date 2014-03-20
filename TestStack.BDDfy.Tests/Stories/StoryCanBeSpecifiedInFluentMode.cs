@@ -13,8 +13,8 @@ namespace TestStack.BDDfy.Tests.Stories
                 .Then(_ => ThenTheSpecifiedStoryShouldBeUsed())
                 .BDDfy<SharedStoryNotion>();
 
-            Assert.That(story.MetaData, Is.Not.Null);
-            Assert.That(story.MetaData.Type, Is.EqualTo(typeof(SharedStoryNotion)));
+            Assert.That(story.Metadata, Is.Not.Null);
+            Assert.That(story.Metadata.Type, Is.EqualTo(typeof(SharedStoryNotion)));
         }
 
         void WhenStoryIsSpecifiedInFluentMode()
