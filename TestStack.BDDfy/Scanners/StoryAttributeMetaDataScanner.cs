@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace TestStack.BDDfy
 {
     public class StoryAttributeMetadataScanner : IStoryMetadataScanner
     {
-        // ReSharper disable InconsistentNaming
-        private const string I_want_prefix = "I want";
-        private const string So_that_prefix = "So that";
-        private const string As_a_prefix = "As a";
-        private const string In_order_to_prefix = "In order to";
-        // ReSharper restore InconsistentNaming
-
         public virtual StoryMetadata Scan(object testObject, Type explicitStoryType = null)
         {
             return GetStoryMetadata(testObject, explicitStoryType) ?? GetStoryMetadataFromScenario(testObject);
@@ -26,7 +18,7 @@ namespace TestStack.BDDfy
             if (storyAttribute == null)
                 return null;
 
-            return CreateStoryMetadata(scenarioType, storyAttribute);
+            return new StoryMetadata(scenarioType, storyAttribute);
         }
 
         StoryMetadata GetStoryMetadata(object testObject, Type explicityStoryType)
@@ -39,45 +31,7 @@ namespace TestStack.BDDfy
             if (storyAttribute == null)
                 return null;
 
-            return CreateStoryMetadata(candidateStoryType, storyAttribute);
-        }
-
-        static StoryMetadata CreateStoryMetadata(Type storyType, StoryAttribute storyAttribute)
-        {
-            var title = storyAttribute.Title;
-            if (string.IsNullOrEmpty(title))
-                title = NetToString.Convert(storyType.Name);
-
-            string narrative1, narrative2, narrative3;
-
-            if (!string.IsNullOrWhiteSpace(storyAttribute.InOrderTo))
-            {
-                narrative1 = CleanseProperty(storyAttribute.InOrderTo, In_order_to_prefix);
-                narrative2 = CleanseProperty(storyAttribute.AsA, As_a_prefix);
-                narrative3 = CleanseProperty(storyAttribute.IWant, I_want_prefix);
-            }
-            else
-            {
-                narrative1 = CleanseProperty(storyAttribute.AsA, As_a_prefix);
-                narrative2 = CleanseProperty(storyAttribute.IWant, I_want_prefix);
-                narrative3 = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
-            }
-
-            return new StoryMetadata(storyType, narrative1, narrative2, narrative3, title);
-        }
-
-        static string CleanseProperty(string text, string prefix)
-        {
-            var property = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(text))
-                return null;
-
-            if (!text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                property.AppendFormat("{0} ", prefix);
-
-            property.Append(text);
-            return property.ToString();
+            return new StoryMetadata(candidateStoryType, storyAttribute);
         }
 
         protected virtual Type GetCandidateStory(object testObject, Type explicitStoryType)
@@ -99,9 +53,9 @@ namespace TestStack.BDDfy
             return firstFrame.GetMethod().DeclaringType;
         }
 
-        static StoryAttribute GetStoryAttribute(Type candidateStoryType)
+        static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)
         {
-            return (StoryAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryAttribute), true).FirstOrDefault();
+            return (StoryNarrativeAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryNarrativeAttribute), true).FirstOrDefault();
         }
     }
 }

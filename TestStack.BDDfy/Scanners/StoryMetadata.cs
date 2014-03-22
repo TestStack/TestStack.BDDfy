@@ -4,6 +4,11 @@ namespace TestStack.BDDfy
 {
     public class StoryMetadata
     {
+        public StoryMetadata(Type storyType, StoryNarrativeAttribute narrative)
+            : this(storyType, narrative.Narrative1, narrative.Narrative2, narrative.Narrative3, narrative.Title)
+        {
+        }
+
         public StoryMetadata(Type storyType, string narrative1, string narrative2, string narrative3, string storyTitle = null)
         {
             Title = storyTitle ?? NetToString.Convert(storyType.Name);
