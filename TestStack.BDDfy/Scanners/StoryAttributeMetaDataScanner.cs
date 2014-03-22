@@ -11,6 +11,7 @@ namespace TestStack.BDDfy
         private const string I_want_prefix = "I want";
         private const string So_that_prefix = "So that";
         private const string As_a_prefix = "As a";
+        private const string In_order_to_prefix = "In order to";
         // ReSharper restore InconsistentNaming
 
         public virtual StoryMetadata Scan(object testObject, Type explicitStoryType = null)
@@ -47,9 +48,20 @@ namespace TestStack.BDDfy
             if (string.IsNullOrEmpty(title))
                 title = NetToString.Convert(storyType.Name);
 
-            var narrative1 = CleanseProperty(storyAttribute.AsA, As_a_prefix);
-            var narrative2 = CleanseProperty(storyAttribute.IWant, I_want_prefix);
-            var narrative3 = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
+            string narrative1, narrative2, narrative3;
+
+            if (!string.IsNullOrWhiteSpace(storyAttribute.InOrderTo))
+            {
+                narrative1 = CleanseProperty(storyAttribute.InOrderTo, In_order_to_prefix);
+                narrative2 = CleanseProperty(storyAttribute.AsA, As_a_prefix);
+                narrative3 = CleanseProperty(storyAttribute.IWant, I_want_prefix);
+            }
+            else
+            {
+                narrative1 = CleanseProperty(storyAttribute.AsA, As_a_prefix);
+                narrative2 = CleanseProperty(storyAttribute.IWant, I_want_prefix);
+                narrative3 = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
+            }
 
             return new StoryMetadata(storyType, narrative1, narrative2, narrative3, title);
         }
