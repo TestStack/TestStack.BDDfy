@@ -6,7 +6,7 @@
     <Version Condition="$(Version)==''">0.0.0.0</Version>
     <BuildPath>$(MSBuildProjectDirectory)\Build</BuildPath>
     <ArtifactPath>$(BuildPath)\Library</ArtifactPath>
-    <PackageDefinitionSourcePath>$(MSBuildProjectDirectory)\NuGet</PackageDefinitionSourcePath>
+    <PackageDefinitionSourcePath>$(MSBuildProjectDirectory)</PackageDefinitionSourcePath>
     <PackageWorkingPath>$(MSBuildProjectDirectory)\PackageBuild</PackageWorkingPath>
     <ArtifactTemp>$(PackageWorkingPath)\Library</ArtifactTemp>
     <PackageDefinitionPath>$(PackageWorkingPath)\PackageTemp</PackageDefinitionPath>
@@ -18,9 +18,9 @@
 
   <PropertyGroup>
     <BDDfySamplesPath>$(MSBuildProjectDirectory)\Samples\TestStack.BDDfy.Samples</BDDfySamplesPath>
-    <BDDfySpecPath>$(PackageDefinitionPath)\TestStack.BDDfy</BDDfySpecPath>
+    <BDDfySpecPath>$(PackageDefinitionPath)</BDDfySpecPath>
     <BDDfySpec>$(BDDfySpecPath)\TestStack.BDDfy.nuspec</BDDfySpec>
-    <SamplesSpecPath>$(PackageDefinitionPath)\TestStack.BDDfy.Samples</SamplesSpecPath>
+    <SamplesSpecPath>$(PackageDefinitionPath)</SamplesSpecPath>
     <SamplesSpec>$(SamplesSpecPath)\TestStack.BDDfy.Samples.nuspec</SamplesSpec>
 </PropertyGroup>
 
