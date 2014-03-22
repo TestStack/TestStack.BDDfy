@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace TestStack.BDDfy
 {
     public class StoryAttributeMetadataScanner : IStoryMetadataScanner
     {
+        // ReSharper disable InconsistentNaming
+        private const string I_want_prefix = "I want";
+        private const string So_that_prefix = "So that";
+        private const string As_a_prefix = "As a";
+        // ReSharper restore InconsistentNaming
+
         public virtual StoryMetadata Scan(object testObject, Type explicitStoryType = null)
         {
             return GetStoryMetadata(testObject, explicitStoryType) ?? GetStoryMetadataFromScenario(testObject);
@@ -18,7 +25,7 @@ namespace TestStack.BDDfy
             if (storyAttribute == null)
                 return null;
 
-            return new StoryMetadata(scenarioType, storyAttribute);
+            return CreateStoryMetadata(scenarioType, storyAttribute);
         }
 
         StoryMetadata GetStoryMetadata(object testObject, Type explicityStoryType)
@@ -31,7 +38,34 @@ namespace TestStack.BDDfy
             if (storyAttribute == null)
                 return null;
 
-            return new StoryMetadata(candidateStoryType, storyAttribute);
+            return CreateStoryMetadata(candidateStoryType, storyAttribute);
+        }
+
+        static StoryMetadata CreateStoryMetadata(Type storyType, StoryAttribute storyAttribute)
+        {
+            var title = storyAttribute.Title;
+            if (string.IsNullOrEmpty(title))
+                title = NetToString.Convert(storyType.Name);
+
+            var narrative1 = CleanseProperty(storyAttribute.AsA, As_a_prefix);
+            var narrative2 = CleanseProperty(storyAttribute.IWant, I_want_prefix);
+            var narrative3 = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
+
+            return new StoryMetadata(storyType, narrative1, narrative2, narrative3, title);
+        }
+
+        static string CleanseProperty(string text, string prefix)
+        {
+            var property = new StringBuilder();
+
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
+            if (!text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                property.AppendFormat("{0} ", prefix);
+
+            property.Append(text);
+            return property.ToString();
         }
 
         protected virtual Type GetCandidateStory(object testObject, Type explicitStoryType)

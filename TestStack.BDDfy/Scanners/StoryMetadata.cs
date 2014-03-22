@@ -1,58 +1,23 @@
 ﻿using System;
-using System.Text;
 
 namespace TestStack.BDDfy
 {
     public class StoryMetadata
     {
-        // ReSharper disable InconsistentNaming
-        private const string I_want_prefix = "I want";
-        private const string So_that_prefix = "So that";
-        private const string As_a_prefix = "As a";
-        // ReSharper restore InconsistentNaming
-
-        public StoryMetadata(Type storyType, StoryAttribute storyAttribute)
-        {
-            var title = storyAttribute.Title;
-            if (string.IsNullOrEmpty(title))
-                title = NetToString.Convert(storyType.Name);
-
-            Type = storyType;
-            Title = title;
-
-            AsA = CleanseProperty(storyAttribute.AsA, As_a_prefix);
-            IWant= CleanseProperty(storyAttribute.IWant, I_want_prefix);
-            SoThat = CleanseProperty(storyAttribute.SoThat, So_that_prefix);
-        }
-
-        public StoryMetadata(Type storyType, string asA, string iWant, string soThat, string storyTitle = null)
+        public StoryMetadata(Type storyType, string narrative1, string narrative2, string narrative3, string storyTitle = null)
         {
             Title = storyTitle ?? NetToString.Convert(storyType.Name);
             Type = storyType;
 
-            AsA = CleanseProperty(asA, As_a_prefix);
-            IWant = CleanseProperty(iWant, I_want_prefix);
-            SoThat = CleanseProperty(soThat, So_that_prefix);
-        }
-
-        string CleanseProperty(string text, string prefix)
-        {
-            var property = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(text))
-                return null;
-
-            if (!text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                property.AppendFormat("{0} ", prefix);
-
-            property.Append(text);
-            return property.ToString();
+            Narrative1 = narrative1;
+            Narrative2 = narrative2;
+            Narrative3 = narrative3;
         }
 
         public Type Type { get; private set; }
         public string Title { get; private set; }
-        public string AsA { get; private set; }
-        public string IWant { get; private set; }
-        public string SoThat { get; private set; }
+        public string Narrative1 { get; private set; }
+        public string Narrative2 { get; private set; }
+        public string Narrative3 { get; private set; }
     }
 }

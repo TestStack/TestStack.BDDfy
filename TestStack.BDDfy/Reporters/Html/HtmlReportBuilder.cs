@@ -224,13 +224,13 @@ namespace TestStack.BDDfy.Reporters.Html
                     AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.Metadata.Title));
                 }
 
-                if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.AsA))
+                if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
                 {
                     using (OpenTag("<ul class='storyNarrative'>", HtmlTag.ul))
                     {
-                        AddLine(string.Format("<li>{0}</li>", story.Metadata.AsA));
-                        AddLine(string.Format("<li>{0}</li>", story.Metadata.IWant));
-                        AddLine(string.Format("<li>{0}</li>", story.Metadata.SoThat));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative1));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative2));
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative3));
                     }
                 }
             }
