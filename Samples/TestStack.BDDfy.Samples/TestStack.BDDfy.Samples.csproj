@@ -48,7 +48,7 @@
     <Compile Include="Atm\AccountHasInsufficientFund.cs" />
     <Compile Include="Atm\Atm.cs" />
     <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
-    <Compile Include="Atm\HtmlReportConfig.cs" />
+    <Compile Include="Atm\AtmHtmlReportConfig.cs" />
     <Compile Include="BDDfyConfiguration.cs" />
     <Compile Include="BDDfy_Rocks.cs" />
     <Compile Include="CanWorkWithoutAStory.cs" />

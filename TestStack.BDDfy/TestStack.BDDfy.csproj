@@ -160,6 +160,7 @@
   <ItemGroup>
     <Content Include="Reporters\Html\BDDfy.css" />
     <Content Include="Reporters\Html\BDDfy.js" />
+    <Content Include="Reporters\Html\jquery-2.1.0.min.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reporters\Html\HtmlReportResources.resx">

@@ -135,8 +135,12 @@ namespace TestStack.BDDfy.Reporters.Html
         private void Footer()
         {
             AddLine("<div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>");
-            
-            AddLine("<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>");
+
+            if (_viewModel.Configuration.ResolveJqueryFromCdn)
+                AddLine("<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>");
+            else
+                EmbedJavascriptFile(HtmlReportResources.jquery_2_1_0_min);
+
             EmbedJavascriptFile(HtmlReportResources.BDDfy_js);
             EmbedJavascriptFile(_viewModel.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
