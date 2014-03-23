@@ -42,9 +42,9 @@ namespace TestStack.BDDfy.Tests.Stories
         {
             var expectedNarrative = (StoryAttribute)typeof(StoryAsScenario).GetCustomAttributes(typeof(StoryAttribute), false).First();
             Assert.That(_story.Metadata, Is.Not.Null);
-            Assert.That(_story.Metadata.AsA, Is.EqualTo(expectedNarrative.AsA));
-            Assert.That(_story.Metadata.IWant, Is.EqualTo(expectedNarrative.IWant));
-            Assert.That(_story.Metadata.SoThat, Is.EqualTo(expectedNarrative.SoThat));
+            Assert.That(_story.Metadata.Narrative1, Is.EqualTo(expectedNarrative.AsA));
+            Assert.That(_story.Metadata.Narrative2, Is.EqualTo(expectedNarrative.IWant));
+            Assert.That(_story.Metadata.Narrative3, Is.EqualTo(expectedNarrative.SoThat));
         }
 
         [Test]

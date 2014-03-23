@@ -53,9 +53,9 @@ namespace TestStack.BDDfy
             return firstFrame.GetMethod().DeclaringType;
         }
 
-        static StoryAttribute GetStoryAttribute(Type candidateStoryType)
+        static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)
         {
-            return (StoryAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryAttribute), true).FirstOrDefault();
+            return (StoryNarrativeAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryNarrativeAttribute), true).FirstOrDefault();
         }
     }
 }

@@ -152,6 +152,7 @@
     <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
     <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
     <Compile Include="Scanners\StoryAttributeMetadataScanner.cs" />
+    <Compile Include="StoryNarrativeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />

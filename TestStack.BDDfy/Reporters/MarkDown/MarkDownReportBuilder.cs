@@ -13,9 +13,9 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 if (story.Metadata != null)
                 {
                     report.AppendLine(string.Format("## Story: {0}", story.Metadata.Title));
-                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.AsA));
-                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.IWant));
-                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.SoThat));
+                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.Narrative1));
+                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.Narrative2));
+                    report.AppendLine(string.Format(" **{0}**  ", story.Metadata.Narrative3));
                 }
 
                 report.AppendLine(); // separator

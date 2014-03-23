@@ -99,6 +99,7 @@
     <Compile Include="Scanner\WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed.cs" />
     <Compile Include="Scanner\WhenStepsAreDefinedInABaseClass.cs" />
     <Compile Include="Scanner\WhenStepsReturnTheirText.cs" />
+    <Compile Include="Stories\CanUseACustomStoryAttribute.cs" />
     <Compile Include="Stories\WhenStoryAttibuteMissesDuplicateTextsInProperties.cs" />
     <Compile Include="Stories\WhenStoryAttibuteMissesSoThatTextInSoThatProperty.cs" />
     <Compile Include="Stories\WhenStoryAttibuteMissesIWantTextInIWantProperty.cs" />
