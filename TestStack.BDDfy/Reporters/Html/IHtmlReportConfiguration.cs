@@ -6,6 +6,7 @@ namespace TestStack.BDDfy.Reporters.Html
         string ReportDescription { get; }
         string OutputPath { get; }
         string OutputFileName { get; }
+        bool ResolveJqueryFromCdn { get; }
         bool RunsOn(Story story);
     }
 }

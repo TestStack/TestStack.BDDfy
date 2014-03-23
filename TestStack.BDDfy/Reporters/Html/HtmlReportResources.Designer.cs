@@ -147,5 +147,15 @@ namespace TestStack.BDDfy.Reporters.Html {
                 return ResourceManager.GetString("CustomStylesheetComment", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*! jQuery v2.1.0 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
+        ///!function(a,b){&quot;object&quot;==typeof module&amp;&amp;&quot;object&quot;==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error(&quot;jQuery requires a window with a document&quot;);return b(a)}:b(a)}(&quot;undefined&quot;!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k=&quot;&quot;.trim,l={},m=a.document,n=&quot;2.1.0&quot;,o=function(a,b){return new o.fn.init(a [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string jquery_2_1_0_min {
+            get {
+                return ResourceManager.GetString("jquery_2_1_0_min", resourceCulture);
+            }
+        }
     }
 }

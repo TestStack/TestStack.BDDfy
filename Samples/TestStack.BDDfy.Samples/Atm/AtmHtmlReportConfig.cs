@@ -1,4 +1,4 @@
-﻿using TestStack.BDDfy.Processors;
+﻿using System;
 using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Samples.Atm
@@ -6,11 +6,11 @@ namespace TestStack.BDDfy.Samples.Atm
     /// <summary>
     /// This overrides the default html report setting
     /// </summary>
-    public class HtmlReportConfig : DefaultHtmlReportConfiguration
+    public class AtmHtmlReportConfig : DefaultHtmlReportConfiguration
     {
         public override bool RunsOn(Story story)
         {
-            return story.Metadata.Type.Namespace != null && story.Metadata.Type.Namespace.EndsWith("Atm");
+            return story.Namespace.EndsWith("Atm", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -44,6 +44,14 @@ namespace TestStack.BDDfy.Samples.Atm
             {
                 return "A reliable solution for your offline banking needs";
             }
+        }
+
+        /// <summary>
+        /// For ATM report I want to embed jQuery in the report so people can see it with no internet connectivity
+        /// </summary>
+        public override bool ResolveJqueryFromCdn
+        {
+            get { return false; }
         }
     }
 }

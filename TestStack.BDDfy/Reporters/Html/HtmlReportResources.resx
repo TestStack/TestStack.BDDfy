@@ -130,4 +130,7 @@
   <data name="CustomStylesheetComment" xml:space="preserve">
     <value>If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.</value>
   </data>
+  <data name="jquery_2_1_0_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>jquery-2.1.0.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>
