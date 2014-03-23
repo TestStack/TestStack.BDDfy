@@ -61,72 +61,20 @@ namespace TestStack.BDDfy.Reporters.Html {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to body
-        ///{
-        ///	max-width:100%;
-        ///	background-color:#fff;
-        ///	font-family: Verdana, Arial, Helvetica, sans-serif;
-        ///	font-size: 10pt;
-        ///	margin: 0;
-        ///	padding: 0;
-        ///    padding-bottom:40px;
-        ///}
-        ///
-        ///ul
-        ///{
-        ///    padding:5px;
-        ///    margin:5px;
-        ///    border:1px solid #d0d0d0;
-        ///    background-color:#f0f0f0;
-        ///    -webkit-border-radius: 10px;
-        ///    -moz-border-radius:    10px;
-        ///    border-radius:10px;
-        ///}
-        ///
-        ///li
-        ///{
-        ///    list-style-type: none;
-        ///}
-        ///			
-        ///#main
-        ///{
-        ///	width: 100%;
-        ///	height:100%;
-        ///}
-        ///			
-        ///.header, .footer
-        ///{
-        ///    background: [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;margin:0;padding:0;padding-bottom:40px}ul{padding:5px;margin:5px;border:1px solid #d0d0d0;background-color:#f0f0f0;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}li{list-style-type:none}#main{width:100%;height:100%}.header,.footer{background:#679bdb;background:-moz-linear-gradient(top,#679bdb 1%,#3b77a5 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(1%,#679 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BDDfy_css {
+        internal static string BDDfy_css_min {
             get {
-                return ResourceManager.GetString("BDDfy_css", resourceCulture);
+                return ResourceManager.GetString("BDDfy_css_min", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $(function () {
-        ///    $(&apos;.canToggle&apos;).each(function () {
-        ///        var target = $(&apos;#&apos; + $(this).data(&apos;toggle-target&apos;));
-        ///        target.hide();
-        ///        $(this).click(function () {
-        ///            target.toggle(200);
-        ///        });
-        ///    });
-        ///
-        ///    $(&apos;.expandAll&apos;).click(function () {
-        ///        $(&apos;.steps&apos;).css(&apos;display&apos;, &apos;&apos;);
-        ///    });
-        ///    $(&apos;.collapseAll&apos;).click(function () {
-        ///        $(&apos;.steps&apos;).css(&apos;display&apos;, &apos;none&apos;);
-        ///    });
-        ///
-        ///    $(&quot;ul.resultSummary li:not(&apos;.storySummary&apos;):not(&apos;.scenarioSummary&apos;)&quot;)
-        ///        .a [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to $(function(){$(&quot;.canToggle&quot;).each(function(){var n=$(&quot;#&quot;+$(this).data(&quot;toggle-target&quot;));n.hide();$(this).click(function(){n.toggle(200)})});$(&quot;.expandAll&quot;).click(function(){$(&quot;.steps&quot;).css(&quot;display&quot;,&quot;&quot;)});$(&quot;.collapseAll&quot;).click(function(){$(&quot;.steps&quot;).css(&quot;display&quot;,&quot;none&quot;)});$(&quot;ul.resultSummary li:not(&apos;.storySummary&apos;):not(&apos;.scenarioSummary&apos;)&quot;).append(&quot;&lt;input type=&apos;checkbox&apos; class=&apos;cbx_toggle&apos; checked/&gt;&quot;);$(&quot;.cbx_toggle&quot;).click(function(){var n=$(this),t=n.closest(&quot;li&quot;).attr(&quot;class&quot;);$(&quot;#testResult div.scena [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BDDfy_js {
+        internal static string BDDfy_js_min {
             get {
-                return ResourceManager.GetString("BDDfy_js", resourceCulture);
+                return ResourceManager.GetString("BDDfy_js_min", resourceCulture);
             }
         }
         

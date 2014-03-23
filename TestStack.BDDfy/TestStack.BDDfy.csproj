@@ -156,11 +156,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />
+    <None Include="Reporters\Html\BDDfy.min.js.map">
+      <DependentUpon>BDDfy.js</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Reporters\Html\BDDfy.css" />
     <Content Include="Reporters\Html\BDDfy.js" />
     <Content Include="Reporters\Html\jquery-2.1.0.min.js" />
+    <Content Include="Reporters\Html\BDDfy.min.css">
+      <DependentUpon>BDDfy.css</DependentUpon>
+    </Content>
+    <Content Include="Reporters\Html\BDDfy.min.js">
+      <DependentUpon>BDDfy.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reporters\Html\HtmlReportResources.resx">
