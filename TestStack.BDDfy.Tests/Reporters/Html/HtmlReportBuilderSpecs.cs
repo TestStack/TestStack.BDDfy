@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         private string GetReportHtml()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "TestStack.BDDfy.Tests.Reporters.Html.HtmlReport.html";
+            var resourceName = "TestStack.BDDfy.Tests.Reporters.Html.HtmlReport.approved.html";
 
             string result;
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
