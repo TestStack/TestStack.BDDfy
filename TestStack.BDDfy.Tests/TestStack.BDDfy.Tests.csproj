@@ -67,6 +67,7 @@
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
+    <Compile Include="Reporters\Html\HtmlReportBuilderSpecs.cs" />
     <Compile Include="Reporters\Html\HtmlReporterSpecs.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
@@ -138,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reporters\Html\HtmlReport.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
