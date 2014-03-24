@@ -67,6 +67,8 @@
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
+    <Compile Include="Reporters\Html\HtmlReporterSpecs.cs" />
+    <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />

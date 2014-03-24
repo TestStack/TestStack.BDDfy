@@ -93,6 +93,8 @@
     <Compile Include="Reporters\MarkDown\MarkDownReporter.cs" />
     <Compile Include="Reporters\IReportBuilder.cs" />
     <Compile Include="Reporters\MarkDown\MarkDownReportBuilder.cs" />
+    <Compile Include="Reporters\Readers\FileReader.cs" />
+    <Compile Include="Reporters\Readers\IFileReader.cs" />
     <Compile Include="Reporters\Serializers\ISerializer.cs" />
     <Compile Include="Reporters\Serializers\JsonFormatter.cs" />
     <Compile Include="Reporters\Serializers\JsonSerializer.cs" />

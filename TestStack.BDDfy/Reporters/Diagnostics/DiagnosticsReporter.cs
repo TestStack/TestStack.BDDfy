@@ -19,7 +19,6 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
 
         public void Process(IEnumerable<Story> stories)
         {
-            const string error = "There was an error compiling the json report: ";
             var viewModel = new FileReportModel(stories);
             string report;
 
@@ -29,7 +28,7 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
             }
             catch (Exception ex)
             {
-                report = error + ex.Message;
+                report = ex.Message + ex.StackTrace;
             }
 
             _writer.OutputReport(report, "Diagnostics.json");
