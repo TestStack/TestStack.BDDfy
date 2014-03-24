@@ -6,8 +6,8 @@
     <Version Condition="$(Version)==''">0.0.0.0</Version>
     <BuildPath>$(MSBuildProjectDirectory)\Build</BuildPath>
     <ArtifactPath>$(BuildPath)\Library</ArtifactPath>
-    <PackageDefinitionSourcePath>$(MSBuildProjectDirectory)</PackageDefinitionSourcePath>
     <PackageWorkingPath>$(MSBuildProjectDirectory)\PackageBuild</PackageWorkingPath>
+    <NuspecRootPath>$(MSBuildProjectDirectory)</NuspecRootPath>
     <ArtifactTemp>$(PackageWorkingPath)\Library</ArtifactTemp>
     <PackageDefinitionPath>$(PackageWorkingPath)\PackageTemp</PackageDefinitionPath>
     <NuGetExe>"$(MSBuildProjectDirectory)\.nuget\NuGet.exe"</NuGetExe>
@@ -18,9 +18,9 @@
 
   <PropertyGroup>
     <BDDfySamplesPath>$(MSBuildProjectDirectory)\Samples\TestStack.BDDfy.Samples</BDDfySamplesPath>
-    <BDDfySpecPath>$(PackageDefinitionPath)</BDDfySpecPath>
+    <BDDfySpecPath>$(PackageDefinitionPath)\TestStack.BDDfy</BDDfySpecPath>
     <BDDfySpec>$(BDDfySpecPath)\TestStack.BDDfy.nuspec</BDDfySpec>
-    <SamplesSpecPath>$(PackageDefinitionPath)</SamplesSpecPath>
+    <SamplesSpecPath>$(PackageDefinitionPath)\TestStack.BDDfy.Samples</SamplesSpecPath>
     <SamplesSpec>$(SamplesSpecPath)\TestStack.BDDfy.Samples.nuspec</SamplesSpec>
 </PropertyGroup>
 
@@ -56,10 +56,6 @@
     <CallTarget Targets="Net40Build" />
     <CallTarget Targets="Net35Build" />
   </Target>
-
-  <Target Name="CopyNuspecFiles">
-    <Copy SourceFiles="PackageDefinitionSourcePath" DestinationFolder="$(PackageDefinitionPath)" />
-  </Target>
   
   <Target Name="CopyBDDfyLibs">
     <Copy SourceFiles="$(ArtifactTemp)\NET40\TestStack.BDDfy.dll;$(ArtifactTemp)\NET40\TestStack.BDDfy.dll" DestinationFolder="$(BDDfySpecPath)\lib\NET40"  />
@@ -73,15 +69,16 @@
     <Copy SourceFiles="@(SampleFile)" DestinationFiles="@(SampleFile->'$(SamplesSpecPath)\content\TestStack.BDDfy.Samples\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
+  <Target Name="CopyNuspecFiles">
+    <Copy SourceFiles="$(NuspecRootPath)\TestStack.BDDfy.nuspec" DestinationFolder="$(BDDfySpecPath)"  />
+    <Copy SourceFiles="$(NuspecRootPath)\TestStack.BDDfy.Samples.nuspec" DestinationFolder="$(SamplesSpecPath)"  />
+  </Target>
+
   <Target Name="Pack">
-    <CreateItem Include="$(PackageDefinitionSourcePath)\**\*.*">
-      <Output ItemName="PackageContent" TaskParameter="Include"/>
-    </CreateItem>
-    <Copy SourceFiles="@(PackageContent)" DestinationFiles="@(PackageContent->'$(PackageDefinitionPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
     <CreateItem Include="$(BDDfySpec);$(SamplesSpec);">
       <Output ItemName="NuGetSpec" TaskParameter="Include"/>
     </CreateItem>
-    <CallTarget Targets="CopyBDDfyLibs;CopyBDDfySampleFiles;" />
+    <CallTarget Targets="CopyBDDfyLibs;CopyBDDfySampleFiles;CopyNuspecFiles" />
     <MakeDir Directories="$(PackageOutput)" ContinueOnError="true"/>
     <Exec Command='$(NuGetExe) pack "%(NuGetSpec.FullPath)" -version $(Version)' WorkingDirectory="$(PackageOutput)"/>
   </Target>
