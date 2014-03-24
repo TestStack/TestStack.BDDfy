@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Reporters.Html
             using(OpenTag(HtmlTag.head))
             {
                 AddLine("<meta charset='utf-8'/>");
-                EmbedCssFile(HtmlReportResources.BDDfy_css);
+                EmbedCssFile(HtmlReportResources.BDDfy_css_min);
                 EmbedCssFile(_viewModel.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
 
                 AddLine(string.Format("<title>BDDfy Test Result {0}</title>", DateTime.Now.ToShortDateString()));
@@ -141,7 +141,7 @@ namespace TestStack.BDDfy.Reporters.Html
             else
                 EmbedJavascriptFile(HtmlReportResources.jquery_2_1_0_min);
 
-            EmbedJavascriptFile(HtmlReportResources.BDDfy_js);
+            EmbedJavascriptFile(HtmlReportResources.BDDfy_js_min);
             EmbedJavascriptFile(_viewModel.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
 
