@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
@@ -13,6 +14,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
     public class HtmlReportBuilderTests
     {
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
             var model = new HtmlReportViewModel(
