@@ -9,7 +9,7 @@ using TestStack.BDDfy.Reporters.Writers;
 namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 {
     [TestFixture]
-    public class DiagnosticsReporterSpecs
+    public class DiagnosticsReporterTests
     {
         private IReportBuilder _builder;
         private IReportWriter _writer;

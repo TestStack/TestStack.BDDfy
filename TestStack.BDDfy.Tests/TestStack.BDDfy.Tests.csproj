@@ -74,8 +74,8 @@
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
-    <Compile Include="Reporters\Html\HtmlReportBuilderSpecs.cs" />
-    <Compile Include="Reporters\Html\HtmlReporterSpecs.cs" />
+    <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
+    <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
@@ -94,11 +94,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
-    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderTests.cs" />
     <Compile Include="Reporters\Diagnostics\WhenBuildingReportDiagnostics.cs" />
-    <Compile Include="Reporters\Diagnostics\DiagnosticsReporterSpecs.cs" />
-    <Compile Include="Reporters\MarkDown\MarkDownReportBuilderSpecs.cs" />
-    <Compile Include="Reporters\MarkDown\MarkDownReporterSpecs.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReporterTests.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReportBuilderTests.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReporterTests.cs" />
     <Compile Include="Reporters\ReportTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />

@@ -7,7 +7,7 @@ using TestStack.BDDfy.Reporters;
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
     [TestFixture]
-    public class HtmlReporterSpecs
+    public class HtmlReporterTests
     {
         private TestableHtmlReporter SUT;
         private const string OutputPath = @"C:\Reports";

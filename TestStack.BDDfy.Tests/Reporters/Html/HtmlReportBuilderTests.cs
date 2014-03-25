@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 {
     [TestFixture]
     [UseReporter(typeof(DiffReporter))]
-    public class HtmlReportBuilderSpecs
+    public class HtmlReportBuilderTests
     {
         [Test]
         public void ShouldProduceExpectedHtml()

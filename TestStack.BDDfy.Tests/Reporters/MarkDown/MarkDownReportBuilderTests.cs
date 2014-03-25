@@ -7,7 +7,7 @@ using TestStack.BDDfy.Reporters.MarkDown;
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
     [TestFixture]
-    public class MarkDownReportBuilderSpecs
+    public class MarkDownReportBuilderTests
     {
         private MarkDownReportBuilder _sut;
         private IEnumerable<Story> _stories;
