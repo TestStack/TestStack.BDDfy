@@ -6,12 +6,13 @@ namespace TestStack.BDDfy.Reporters.Html
 {
     public class HtmlReportBuilder : IReportBuilder
     {
+        private Func<DateTime> _dateProvider = () => DateTime.Now;
         private HtmlReportViewModel _viewModel;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
         int _tabCount;
 
-        public HtmlReportBuilder() 
+        public HtmlReportBuilder()
         {
             _html = new StringBuilder();
         }
@@ -128,7 +129,7 @@ namespace TestStack.BDDfy.Reporters.Html
                     }
                 }
 
-                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", DateTime.Now));
+                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", _dateProvider()));
             }
         }
 
@@ -295,6 +296,12 @@ namespace TestStack.BDDfy.Reporters.Html
 
             _html.AppendFormat("/*{0}*/", htmlComment);
             _html.AppendLine();
+        }
+
+        public Func<DateTime> DateProvider
+        {
+            get { return _dateProvider; } 
+            set { _dateProvider = value; }
         }
     }
 }

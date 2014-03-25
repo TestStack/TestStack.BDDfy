@@ -65,10 +65,12 @@
     <Compile Include="Configuration\BatchProcessors.cs" />
     <Compile Include="Configuration\ComponentFactory.cs" />
     <Compile Include="Configuration\HtmlReportFactory.cs" />
+    <Compile Include="Configuration\IKeyGenerator.cs" />
     <Compile Include="Configuration\ProcessorFactory.cs" />
     <Compile Include="Configuration\Configurator.cs" />
     <Compile Include="Configuration\Processors.cs" />
     <Compile Include="Configuration\Scanners.cs" />
+    <Compile Include="Configuration\SequentialKeyGenerator.cs" />
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Configuration\TestRunnerFactory.cs" />
     <Compile Include="IBatchProcessor.cs" />

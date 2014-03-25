@@ -9,7 +9,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
 /*If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.*/
 
     </style>
-    <title>BDDfy Test Result 24/03/2014</title>
+    <title>BDDfy Test Result 25/03/2014</title>
   </head>
   <body>
     <div id='main'>
@@ -79,29 +79,29 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='14813549-b503-4cf4-9573-6013f44fd2ac'>Happy Path Scenario</div>
-                  <ul class='steps' id='14813549-b503-4cf4-9573-6013f44fd2ac'>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='45408fed-c743-41bc-bc4c-db608b7a4690' >
+                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='scenario-3'>Happy Path Scenario</div>
+                  <ul class='steps' id='scenario-3'>
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-3-1' >
                       <span>Given a positive account balance</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='f2905b00-9ada-4288-a7b5-9d0d81312c43' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-3-2' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='4e27eb36-3689-4b2b-bf28-64d1eed12689' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-3-3' >
                       <span>Then money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='7a5bcd14-ebef-4913-b063-f6cfbb28de13'>Sad Path Scenario</div>
-                  <ul class='steps' id='7a5bcd14-ebef-4913-b063-f6cfbb28de13'>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='91bebf29-0729-4cd7-8c2a-8a5aadfbd375' >
+                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='scenario-4'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-4'>
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-4-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='e35ee1b2-11db-47d4-a32d-54673f7169ce' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-4-2' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='f02eb934-99f7-466c-ac4a-0b68f0ec886b' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-4-3' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
@@ -121,29 +121,29 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='320ba464-b9b2-41e8-bf9b-09b7dddd4ede'>Happy Path Scenario</div>
-                  <ul class='steps' id='320ba464-b9b2-41e8-bf9b-09b7dddd4ede'>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='e928a159-1cf7-41b1-88ba-7502f20701f1' >
+                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a positive account balance</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='17175f18-892e-4d3a-80da-70488168be3e' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-1-2' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='7ac9aca2-36da-46ae-9b93-777156d5a7e5' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-1-3' >
                       <span>Then money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='179d79fd-c235-4aee-a820-4a7fc9f8b6b4'>Sad Path Scenario</div>
-                  <ul class='steps' id='179d79fd-c235-4aee-a820-4a7fc9f8b6b4'>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='fbae9904-5d52-4aa0-a525-acc4ae60b2ef' >
+                  <div class='NotExecuted canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-2'>
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-2-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='64e01c01-75a2-4263-bedf-bbcb25c32d27' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-2-2' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotExecuted  Assertion ' data-toggle-target='22bd7e82-9b0a-42ca-a341-d590418e7295' >
+                    <li class='step NotExecuted  Assertion ' data-toggle-target='step-2-3' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
@@ -152,7 +152,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
             </div>
           </li>
         </ul>
-        <p><span>Tested at: 24/03/2014 21:45:27</span></p>
+        <p><span>Tested at: 25/03/2014 11:30:05</span></p>
       </div>
     </div>
     <div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>
