@@ -17,6 +17,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
+            string expected = GetReportHtml(); 
             var model = new HtmlReportViewModel(
                 new DefaultHtmlReportConfiguration(), 
                 new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
@@ -25,7 +26,26 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             var result = sut.CreateReport(model);
 
-            Approvals.Verify(result);
+            //Approvals.Verify(result);
+            Assert.That(result, Is.EqualTo(expected));
         }
+
+        private string GetReportHtml()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "TestStack.BDDfy.Tests.Reporters.Html.HtmlReportBuilderTests.ShouldProduceExpectedHtml.approved.txt";
+
+            string result;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return result;
+        }
+
     }
 }
