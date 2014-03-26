@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -16,12 +17,12 @@ namespace TestStack.BDDfy
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
             Result = Result.NotExecuted;
-            Id = Guid.NewGuid();
+            Id = Configurator.IdGenerator.GetStepId();
             Title = title;
             Action = action;
         }
 
-        public Guid Id { get; private set; }
+        public string Id { get; private set; }
         internal Action<object> Action { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
