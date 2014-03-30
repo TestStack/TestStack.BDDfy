@@ -34,11 +34,11 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             
             // enforcing line ending explicitly
             var result = sut.CreateReport(model);
-            var cleansedResult = Regex.Replace(result, "\r?\n|\r", "\r\n");
+            //var cleansedResult = Regex.Replace(result, "\r?\n|\r", "\n");
 
-            string expected = GetReportHtml();
-            Assert.That(cleansedResult, Is.EqualTo(expected));
-            Approvals.Verify(cleansedResult);
+            //string expected = GetReportHtml();
+            //Assert.That(cleansedResult, Is.EqualTo(expected));
+            Approvals.Verify(result);
         }
 
         private string GetReportHtml()
