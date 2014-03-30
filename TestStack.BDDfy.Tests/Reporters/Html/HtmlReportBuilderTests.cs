@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 using ApprovalTests;
 using ApprovalTests.Reporters;
@@ -32,11 +33,12 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
             
             // enforcing line ending explicitly
-            var result = sut.CreateReport(model).Replace("\n", "\r\n");
+            var result = sut.CreateReport(model);
+            var cleansedResult = Regex.Replace(result, "\r?\n|\r", "\r\n");
 
             string expected = GetReportHtml();
-            Assert.That(result, Is.EqualTo(expected));
-            Approvals.Verify(result);
+            Assert.That(cleansedResult, Is.EqualTo(expected));
+            Approvals.Verify(cleansedResult);
         }
 
         private string GetReportHtml()
