@@ -9,35 +9,37 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
     [TestFixture]
     public class HtmlReporterTests
     {
-        private TestableHtmlReporter SUT;
+        private TestableHtmlReporter _sut;
         private const string OutputPath = @"C:\Reports";
         private const string ReportData = "Report Data";
-        private const string ErrorMessage = "Error occurred.";
+        private const string CustomStylesheet = "some custom css in here!";
+        private const string CustomJavascript = "some custom javascript in here!";
+        private const string ErrorMessage = "There was some exception.";
 
         [SetUp]
         public void SetUp()
         {
-            SUT = TestableHtmlReporter.Create();
+            _sut = TestableHtmlReporter.Create();
         }
 
         [Test]
         public void ShouldCreateReportIfProcessingSucceeds()
         {
-            SUT.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
+            _sut.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
 
-            SUT.Process(new List<Story>());
+            _sut.Process(new List<Story>());
 
-            SUT.Writer.Received().OutputReport(ReportData, Arg.Any<string>(), Arg.Any<string>());
+            _sut.Writer.Received().OutputReport(ReportData, Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]
         public void ShouldPrintErrorInReportIfProcessingFails()
         {
-            SUT.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
+            _sut.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
 
-            SUT.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
 
-            SUT.Writer.Received().OutputReport(
+            _sut.Writer.Received().OutputReport(
                 Arg.Is<string>(s => s.StartsWith(ErrorMessage)),
                 Arg.Any<string>(),
                 Arg.Any<string>());
@@ -46,56 +48,55 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Test]
         public void ShouldLoadCustomStyleSheetIfOneExists()
         {
-            const string customStylesheet = OutputPath + @"\BDDfyCustom.css";
-            SUT.Configuration.OutputPath.Returns(OutputPath);
-            SUT.FileReader.Exists(customStylesheet).Returns(true);
-            SUT.FileReader.Read(customStylesheet).Returns(ReportData);
+            const string customStylesheetFilePath = OutputPath + @"\BDDfyCustom.css";
+            _sut.Configuration.OutputPath.Returns(OutputPath);
+            _sut.FileReader.Exists(customStylesheetFilePath).Returns(true);
+            _sut.FileReader.Read(customStylesheetFilePath).Returns(CustomStylesheet);
 
-            SUT.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(SUT.Model.CustomStylesheet, Is.EqualTo(ReportData));
-            SUT.FileReader.Received().Read(customStylesheet);
+            Assert.That(_sut.Model.CustomStylesheet, Is.EqualTo(CustomStylesheet));
+            _sut.FileReader.Received().Read(customStylesheetFilePath);
         }
 
         [Test]
         public void ShouldNotLoadCustomStyleSheetIfNoneExist()
         {
             const string customStylesheet = OutputPath + @"\BDDfyCustom.css";
-            SUT.Configuration.OutputPath.Returns(OutputPath);
-            SUT.FileReader.Exists(customStylesheet).Returns(false);
+            _sut.Configuration.OutputPath.Returns(OutputPath);
+            _sut.FileReader.Exists(customStylesheet).Returns(false);
 
-            SUT.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(SUT.Model.CustomStylesheet, Is.Null);
-            SUT.FileReader.DidNotReceive().Read(customStylesheet);
+            Assert.That(_sut.Model.CustomStylesheet, Is.Null);
+            _sut.FileReader.DidNotReceive().Read(customStylesheet);
         }
 
         [Test]
         public void ShouldLoadCustomJavascriptIfOneExists()
         {
-            const string javaScript = OutputPath + @"\BDDfyCustom.js";
-            SUT.Configuration.OutputPath.Returns(OutputPath);
-            SUT.FileReader.Exists(javaScript).Returns(true);
-            SUT.FileReader.Read(javaScript).Returns(ReportData);
+            const string javaScriptFilePath = OutputPath + @"\BDDfyCustom.js";
+            _sut.Configuration.OutputPath.Returns(OutputPath);
+            _sut.FileReader.Exists(javaScriptFilePath).Returns(true);
+            _sut.FileReader.Read(javaScriptFilePath).Returns(CustomJavascript);
 
-            SUT.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(SUT.Model.CustomJavascript, Is.EqualTo(ReportData));
-            SUT.FileReader.Received().Read(javaScript);
+            Assert.That(_sut.Model.CustomJavascript, Is.EqualTo(CustomJavascript));
+            _sut.FileReader.Received().Read(javaScriptFilePath);
         }
 
         [Test]
         public void ShouldNotLoadCustomJavascriptIfNoneExist()
         {
             const string customJavascript = OutputPath + @"\BDDfyCustom.js";
-            SUT.Configuration.OutputPath.Returns(OutputPath);
-            SUT.FileReader.Exists(customJavascript).Returns(false);
+            _sut.Configuration.OutputPath.Returns(OutputPath);
+            _sut.FileReader.Exists(customJavascript).Returns(false);
 
-            SUT.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(SUT.Model.CustomJavascript, Is.Null);
-            SUT.FileReader.DidNotReceive().Read(customJavascript);
+            Assert.That(_sut.Model.CustomJavascript, Is.Null);
+            _sut.FileReader.DidNotReceive().Read(customJavascript);
         }
-
     }
 }

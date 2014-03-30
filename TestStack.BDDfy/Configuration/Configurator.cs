@@ -1,45 +1,30 @@
-using System;
-
 namespace TestStack.BDDfy.Configuration
 {
     public static class Configurator
     {
         private static readonly Processors ProcessorsFactory = new Processors();
-        public static Processors Processors 
+        public static Processors Processors
         {
-            get
-            {
-                return ProcessorsFactory;
-            }
+            get { return ProcessorsFactory; }
         }
 
         private static readonly BatchProcessors BatchProcessorFactory = new BatchProcessors();
         public static BatchProcessors BatchProcessors
         {
-            get
-            { return BatchProcessorFactory; }
+            get { return BatchProcessorFactory; }
         }
 
         private static readonly Scanners ScannersFactory = new Scanners();
         public static Scanners Scanners
         {
-            get
-            {
-                return ScannersFactory;
-            }
+            get { return ScannersFactory; }
         }
 
         private static IKeyGenerator _idGenerator = new SequentialKeyGenerator();
         public static IKeyGenerator IdGenerator
         {
-            get
-            {
-                return _idGenerator;
-            }
-            set
-            {
-                _idGenerator = value;
-            }
+            get { return _idGenerator; }
+            set { _idGenerator = value; }
         }
     }
 }
