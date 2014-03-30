@@ -12,9 +12,8 @@ namespace TestStack.BDDfy
         {
             TestObject = testObject;
             _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
-            Id = Configurator.IdGenerator.GetScenarioId();
-
             Title = scenarioText;
+            Id = Configurator.IdGenerator.GetScenarioId(this);
         }
 
         public string Title { get; private set; }

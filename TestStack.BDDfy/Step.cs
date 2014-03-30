@@ -17,9 +17,9 @@ namespace TestStack.BDDfy
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
             Result = Result.NotExecuted;
-            Id = Configurator.IdGenerator.GetStepId();
             Title = title;
             Action = action;
+            Id = Configurator.IdGenerator.GetStepId(this);
         }
 
         public string Id { get; private set; }
