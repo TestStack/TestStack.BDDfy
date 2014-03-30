@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TestStack.BDDfy.build = TestStack.BDDfy.build
 		TestStack.BDDfy.nuspec = TestStack.BDDfy.nuspec
 		TestStack.BDDfy.Samples.nuspec = TestStack.BDDfy.Samples.nuspec
-		WE-settings.xml = WE-settings.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.BDDfy", "TestStack.BDDfy\TestStack.BDDfy.csproj", "{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}"

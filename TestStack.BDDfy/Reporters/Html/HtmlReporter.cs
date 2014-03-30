@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TestStack.BDDfy.Reporters.Readers;
 using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy.Reporters.Html
@@ -10,15 +11,20 @@ namespace TestStack.BDDfy.Reporters.Html
     {
         private readonly IReportBuilder _builder;
         private readonly IReportWriter _writer;
+        private readonly IFileReader _fileReader;
         readonly IHtmlReportConfiguration _configuration;
+        public HtmlReportViewModel Model { get; private set; }
 
-        public HtmlReporter(IHtmlReportConfiguration configuration) : this(configuration, new HtmlReportBuilder(), new FileWriter()) { }
+        public HtmlReporter(IHtmlReportConfiguration configuration) 
+            : this(configuration, new HtmlReportBuilder(), new FileWriter(), new FileReader()) { }
 
-        public HtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder builder, IReportWriter writer)
+        public HtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder builder, 
+            IReportWriter writer, IFileReader reader)
         {
             _configuration = configuration;
             _builder = builder;
             _writer = writer;
+            _fileReader = reader;
         }
 
         public void Process(IEnumerable<Story> stories)
@@ -29,13 +35,13 @@ namespace TestStack.BDDfy.Reporters.Html
 
         void WriteOutHtmlReport(IEnumerable<Story> stories)
         {
-            var viewModel = new HtmlReportViewModel(_configuration, stories);
-            LoadCustomScripts(viewModel);
+            Model = new HtmlReportViewModel(_configuration, stories);
+            LoadCustomScripts();
             string report;
 
             try
             {
-                report = _builder.CreateReport(viewModel);
+                report = _builder.CreateReport(Model);
             }
             catch (Exception ex)
             {
@@ -45,15 +51,15 @@ namespace TestStack.BDDfy.Reporters.Html
             _writer.OutputReport(report, _configuration.OutputFileName, _configuration.OutputPath);
         }
 
-        private void LoadCustomScripts(HtmlReportViewModel viewModel)
+        private void LoadCustomScripts()
         {
             var customStylesheet = Path.Combine(_configuration.OutputPath, "BDDfyCustom.css");
-            if (File.Exists(customStylesheet))
-                viewModel.CustomStylesheet = File.ReadAllText(customStylesheet);
+            if (_fileReader.Exists(customStylesheet))
+                Model.CustomStylesheet = _fileReader.Read(customStylesheet);
 
             var customJavascript = Path.Combine(_configuration.OutputPath, "BDDfyCustom.js");
-            if(File.Exists(customJavascript))
-                viewModel.CustomJavascript = File.ReadAllText(customJavascript);
+            if (_fileReader.Exists(customJavascript))
+                Model.CustomJavascript = _fileReader.Read(customJavascript);
         }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace TestStack.BDDfy.Configuration
 {
     public static class Configurator
@@ -24,6 +26,19 @@ namespace TestStack.BDDfy.Configuration
             get
             {
                 return ScannersFactory;
+            }
+        }
+
+        private static IKeyGenerator _idGenerator = new SequentialKeyGenerator();
+        public static IKeyGenerator IdGenerator
+        {
+            get
+            {
+                return _idGenerator;
+            }
+            set
+            {
+                _idGenerator = value;
             }
         }
     }

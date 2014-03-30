@@ -7,7 +7,7 @@ using TestStack.BDDfy.Reporters.MarkDown;
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
     [TestFixture]
-    public class MarkDownReportBuilderSpecs
+    public class MarkDownReportBuilderTests
     {
         private MarkDownReportBuilder _sut;
         private IEnumerable<Story> _stories;
@@ -19,7 +19,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             _sut = new MarkDownReportBuilder();
         }
 
-        public void AndGivenTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
+        public void AndGivenTwoStoriesEachWithTwoScenariosWithThreeSteps()
         {
             _stories = new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds();
         }
