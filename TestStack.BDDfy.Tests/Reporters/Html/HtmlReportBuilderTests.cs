@@ -1,5 +1,7 @@
 using System;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using ApprovalTests;
@@ -28,9 +30,30 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             // setting the culture to make sure the date is formatted the same on all machines
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
-            var result = sut.CreateReport(model);
+            
+            // enforcing line ending explicitly
+            var result = sut.CreateReport(model).Replace(Environment.NewLine, "\r\n");
 
+            //string expected = GetReportHtml();
+            //Assert.That(result, Is.EqualTo(expected));
             Approvals.Verify(result);
+        }
+
+        private string GetReportHtml()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "TestStack.BDDfy.Tests.Reporters.Html.HtmlReportBuilderTests.ShouldProduceExpectedHtml.approved.txt";
+
+            string result;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return result;
         }
     }
 }
