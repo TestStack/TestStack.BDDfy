@@ -5,6 +5,7 @@ using System.Threading;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
+using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
@@ -17,6 +18,8 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
+            Configurator.IdGenerator.Reset();
+
             var model = new HtmlReportViewModel(
                 new DefaultHtmlReportConfiguration(),
                 new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
