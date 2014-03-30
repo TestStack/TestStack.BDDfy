@@ -9,7 +9,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
 /*If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.*/
 
     </style>
-    <title>BDDfy Test Result 3/25/2014</title>
+    <title>BDDfy Test Result 25/03/2014</title>
   </head>
   <body>
     <div id='main'>
@@ -152,7 +152,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
             </div>
           </li>
         </ul>
-        <p><span>Tested at: 3/25/2014 11:30:05 AM</span></p>
+        <p><span>Tested at: 25/03/2014 11:30:05</span></p>
       </div>
     </div>
     <div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>
