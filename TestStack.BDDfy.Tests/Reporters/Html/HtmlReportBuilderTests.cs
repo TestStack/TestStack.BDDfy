@@ -32,10 +32,10 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
             
             // enforcing line ending explicitly
-            var result = sut.CreateReport(model).Replace(Environment.NewLine, "\r\n");
+            var result = sut.CreateReport(model).Replace("\n", "\r\n");
 
-            //string expected = GetReportHtml();
-            //Assert.That(result, Is.EqualTo(expected));
+            string expected = GetReportHtml();
+            Assert.That(result, Is.EqualTo(expected));
             Approvals.Verify(result);
         }
 
