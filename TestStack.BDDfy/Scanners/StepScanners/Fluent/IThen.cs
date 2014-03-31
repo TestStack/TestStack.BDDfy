@@ -6,11 +6,11 @@ namespace TestStack.BDDfy
 {
     public interface IThen<TScenario> : IStepsBase<TScenario>
     {
-        IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, bool includeInputsInStepTitle);
-        IAndThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate = null);
-        IAndThen<TScenario> And(Expression<Func<TScenario, Task>> andThenStep, bool includeInputsInStepTitle);
-        IAndThen<TScenario> And(Expression<Func<TScenario, Task>> andThenStep, string stepTextTemplate = null);
-        IAndThen<TScenario> And(Action andThenStep, string title);
-        IAndThen<TScenario> And(string title);
+        IThen<TScenario> And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate = null);
+        IThen<TScenario> And(Expression<Action<TScenario>> andThenStep, bool includeInputsInStepTitle);
+        IThen<TScenario> And(Expression<Func<TScenario, Task>> andThenStep, string stepTextTemplate = null);
+        IThen<TScenario> And(Expression<Func<TScenario, Task>> andThenStep, bool includeInputsInStepTitle);
+        IThen<TScenario> And(Action andThenStep, string title);
+        IThen<TScenario> And(string title);
     }
 }

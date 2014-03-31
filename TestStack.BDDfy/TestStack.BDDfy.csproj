@@ -141,9 +141,6 @@
     <Compile Include="Scanners\StepScanners\Fluent\FluentScanner.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\FluentScannerExtensions.cs" />
     <Compile Include="Scanners\ScenarioScanners\FluentScenarioScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IAndGiven.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IAndThen.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IAndWhen.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IStepsBase.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IGiven.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IInitialStep.cs" />
