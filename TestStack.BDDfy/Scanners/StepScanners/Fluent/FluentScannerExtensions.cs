@@ -43,10 +43,34 @@ namespace TestStack.BDDfy
             return testObject.Given(givenStep, null);
         }
 
+        public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, Action givenStep, string title)
+            where TScenario : class
+        {
+            return testObject.Scan().Given(givenStep, title);
+        }
+
+        public static IGiven<TScenario> Given<TScenario>(this TScenario testObject, string title)
+            where TScenario : class
+        {
+            return testObject.Scan().Given(title);
+        }
+
         public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> whenStep)
             where TScenario : class
         {
             return testObject.When(whenStep, null);
+        }
+
+        public static IWhen<TScenario> When<TScenario>(this TScenario testObject, Action whenStep, string title)
+            where TScenario : class
+        {
+            return testObject.Scan().When(whenStep, title);
+        }
+
+        public static IWhen<TScenario> When<TScenario>(this TScenario testObject, string title)
+            where TScenario : class
+        {
+            return testObject.Scan().When(title);
         }
     }
 }

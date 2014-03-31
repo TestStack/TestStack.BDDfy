@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
-using System.Linq;
 using TestStack.BDDfy.Configuration;
 
-namespace TestStack.BDDfy.Tests.FluentScanner
+namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     public enum SomeEnumForTesting
     {
