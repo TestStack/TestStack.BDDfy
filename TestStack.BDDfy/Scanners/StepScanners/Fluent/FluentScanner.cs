@@ -61,7 +61,7 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, string stepTextTemplate)
+        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, string stepTextTemplate)
         {
             AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
             return this;
@@ -73,13 +73,13 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, bool includeInputsInStepTitle)
+        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, bool includeInputsInStepTitle)
         {
             AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
         }
 
-        IThen<TScenario> IWhen<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate)
+        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate)
         {
             AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
             return this;
@@ -103,7 +103,7 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IThen<TScenario> IWhen<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, bool includeInputsInStepTitle)
+        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, bool includeInputsInStepTitle)
         {
             AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
@@ -112,12 +112,6 @@ namespace TestStack.BDDfy
         IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Func<TScenario, Task>> andGivenStep, bool includeInputsInStepTitle)
         {
             AddStep(andGivenStep, null, false, ExecutionOrder.ConsecutiveSetupState, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IThen<TScenario> IGiven<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
         }
 
@@ -133,25 +127,7 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IThen<TScenario> IGiven<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate)
-        {
-            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IWhen<TScenario> IGiven<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IWhen<TScenario> IGiven<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, string stepTextTemplate)
-        {
-            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
-            return this;
-        }
-
-        IFluentScanner<TScenario> IFluentScanner<TScenario>.TearDownWith(Expression<Func<TScenario, Task>> tearDownStep)
+        IStepsBase<TScenario> IStepsBase<TScenario>.TearDownWith(Expression<Func<TScenario, Task>> tearDownStep)
         {
             AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
             return this;
@@ -236,19 +212,19 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
+        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
         {
             AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
             return this;
         }
 
-        IWhen<TScenario> IInitialStep<TScenario>.When(Action whenStep, string title)
+        IWhen<TScenario> IWhenSteps<TScenario>.When(Action whenStep, string title)
         {
             AddStep(whenStep, title, false, ExecutionOrder.Transition);
             return this;
         }
 
-        IWhen<TScenario> IInitialStep<TScenario>.When(string title)
+        IWhen<TScenario> IWhenSteps<TScenario>.When(string title)
         {
             AddStep(() => { }, title, false, ExecutionOrder.Transition);
             return this;
@@ -260,7 +236,7 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
+        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
         {
             AddStep(whenStep, null, false,ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
@@ -272,7 +248,7 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
+        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
         {
             AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle:includeInputsInStepTitle);
             return this;
@@ -281,12 +257,6 @@ namespace TestStack.BDDfy
         IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep, bool includeInputsInStepTitle)
         {
             AddStep(andWhenStep, null, false, ExecutionOrder.ConsecutiveTransition, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle:includeInputsInStepTitle);
             return this;
         }
 
@@ -314,45 +284,27 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
+        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
         {
             AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
             return this;
         }
 
-        IThen<TScenario> IWhen<TScenario>.Then(Action thenStep, string title)
+        IThen<TScenario> IThenSteps<TScenario>.Then(Action thenStep, string title)
         {
             AddStep(thenStep, title, true, ExecutionOrder.Assertion);
             return this;
         }
 
-        IThen<TScenario> IWhen<TScenario>.Then(string title)
+        IThen<TScenario> IThenSteps<TScenario>.Then(string title)
         {
             AddStep(() => { }, title, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IWhen<TScenario> IGiven<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
         }
 
         IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate)
         {
             AddStep(andWhenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveTransition);
-            return this;
-        }
-
-        IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
-        {
-            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IWhen<TScenario> IGiven<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
-        {
-            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
             return this;
         }
 
@@ -374,18 +326,6 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IWhen<TScenario> IGiven<TScenario>.When(Action whenStep, string title)
-        {
-            AddStep(whenStep, title, false, ExecutionOrder.Transition);
-            return this;
-        }
-
-        IWhen<TScenario> IGiven<TScenario>.When(string title)
-        {
-            AddStep(() => { }, title, false, ExecutionOrder.Transition);
-            return this;
-        }
-
         IAndThen<TScenario> IThen<TScenario>.And(Action andThenStep, string title)
         {
             AddStep(andThenStep, title, true, ExecutionOrder.ConsecutiveAssertion);
@@ -398,7 +338,7 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        IFluentScanner<TScenario> IFluentScanner<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
+        IStepsBase<TScenario> IStepsBase<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
         {
             AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
             return this;

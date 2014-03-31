@@ -105,6 +105,8 @@
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
     <Compile Include="IHasScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IThenSteps.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IWhenSteps.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Story.cs" />
@@ -142,7 +144,7 @@
     <Compile Include="Scanners\StepScanners\Fluent\IAndGiven.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IAndThen.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IAndWhen.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IStepsBase.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IGiven.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IInitialStep.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IThen.cs" />
