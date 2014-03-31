@@ -77,6 +77,7 @@
     <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
+    <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
@@ -86,11 +87,11 @@
     <Compile Include="Exceptions\ThrowingMethods.cs" />
     <Compile Include="Exceptions\WhenAnInconclusiveTestIsRun.cs" />
     <Compile Include="Exceptions\ExceptionThrowingTest.cs" />
-    <Compile Include="FluentScanner\BDDfyUsingFluentApi.cs" />
-    <Compile Include="FluentScanner\ScenarioToBeScannedUsingFluentScanner.cs">
+    <Compile Include="Scanner\FluentScanner\BDDfyUsingFluentApi.cs" />
+    <Compile Include="Scanner\FluentScanner\ScenarioToBeScannedUsingFluentScanner.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FluentScanner\WhenStepsAreScannedUsingFluentScanner.cs">
+    <Compile Include="Scanner\FluentScanner\WhenStepsAreScannedUsingFluentScanner.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />

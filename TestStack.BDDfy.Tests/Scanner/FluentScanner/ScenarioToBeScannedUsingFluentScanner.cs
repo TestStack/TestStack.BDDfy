@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Collections.Generic;
 
-namespace TestStack.BDDfy.Tests.FluentScanner
+namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     [Story]
     class ScenarioToBeScannedUsingFluentScanner

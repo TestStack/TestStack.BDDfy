@@ -7,7 +7,13 @@ namespace TestStack.BDDfy
     public interface IGiven<TScenario>
     {
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle);
+        IWhen<TScenario> When(Action whenStep, string title);
+        IWhen<TScenario> When(string title);
+
         IAndGiven<TScenario> And(Expression<Action<TScenario>> andGivenStep, bool includeInputsInStepTitle);
+        IAndGiven<TScenario> And(Action andGivenStep, string title);
+        IAndGiven<TScenario> And(string title);
+        
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle);
 
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);

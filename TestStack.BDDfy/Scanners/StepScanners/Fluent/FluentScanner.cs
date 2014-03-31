@@ -213,15 +213,44 @@ namespace TestStack.BDDfy
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
         }
 
+        private void AddStep(Action stepAction, string title, bool asserts, ExecutionOrder executionOrder, bool reports = true)
+        {
+            _steps.Add(new Step(o => stepAction(), title, asserts, executionOrder, reports));
+        }
+
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
         {
             AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
             return this;
         }
 
+        public IGiven<TScenario> Given(Action givenStep, string title)
+        {
+            AddStep(givenStep, title, false, ExecutionOrder.SetupState);
+            return this;
+        }
+
+        public IGiven<TScenario> Given(string title)
+        {
+            AddStep(() => { }, title, false, ExecutionOrder.SetupState);
+            return this;
+        }
+
         IWhen<TScenario> IInitialStep<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
         {
             AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
+            return this;
+        }
+
+        IWhen<TScenario> IInitialStep<TScenario>.When(Action whenStep, string title)
+        {
+            AddStep(whenStep, title, false, ExecutionOrder.Transition);
+            return this;
+        }
+
+        IWhen<TScenario> IInitialStep<TScenario>.When(string title)
+        {
+            AddStep(() => { }, title, false, ExecutionOrder.Transition);
             return this;
         }
 
@@ -267,6 +296,18 @@ namespace TestStack.BDDfy
             return this;
         }
 
+        IAndGiven<TScenario> IGiven<TScenario>.And(Action andGivenStep, string title)
+        {
+            AddStep(andGivenStep, title, false, ExecutionOrder.ConsecutiveSetupState);
+            return this;
+        }
+
+        IAndGiven<TScenario> IGiven<TScenario>.And(string title)
+        {
+            AddStep(() => {}, title, false, ExecutionOrder.ConsecutiveSetupState);
+            return this;
+        }
+
         IAndThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep, bool includeInputsInStepTitle)
         {
             AddStep(andThenStep, null, true, ExecutionOrder.ConsecutiveAssertion, includeInputsInStepTitle: includeInputsInStepTitle);
@@ -276,6 +317,18 @@ namespace TestStack.BDDfy
         IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
         {
             AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
+            return this;
+        }
+
+        IThen<TScenario> IWhen<TScenario>.Then(Action thenStep, string title)
+        {
+            AddStep(thenStep, title, true, ExecutionOrder.Assertion);
+            return this;
+        }
+
+        IThen<TScenario> IWhen<TScenario>.Then(string title)
+        {
+            AddStep(() => { }, title, true, ExecutionOrder.Assertion);
             return this;
         }
 
@@ -306,6 +359,42 @@ namespace TestStack.BDDfy
         IAndThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate)
         {
             AddStep(andThenStep, stepTextTemplate, true, ExecutionOrder.ConsecutiveAssertion);
+            return this;
+        }
+
+        IAndWhen<TScenario> IWhen<TScenario>.And(Action andWhenStep, string title)
+        {
+            AddStep(andWhenStep, title, false, ExecutionOrder.ConsecutiveTransition);
+            return this;
+        }
+
+        IAndWhen<TScenario> IWhen<TScenario>.And(string title)
+        {
+            AddStep(() => { }, title, false, ExecutionOrder.ConsecutiveTransition);
+            return this;
+        }
+
+        IWhen<TScenario> IGiven<TScenario>.When(Action whenStep, string title)
+        {
+            AddStep(whenStep, title, false, ExecutionOrder.Transition);
+            return this;
+        }
+
+        IWhen<TScenario> IGiven<TScenario>.When(string title)
+        {
+            AddStep(() => { }, title, false, ExecutionOrder.Transition);
+            return this;
+        }
+
+        IAndThen<TScenario> IThen<TScenario>.And(Action andThenStep, string title)
+        {
+            AddStep(andThenStep, title, true, ExecutionOrder.ConsecutiveAssertion);
+            return this;
+        }
+
+        IAndThen<TScenario> IThen<TScenario>.And(string title)
+        {
+            AddStep(() => { }, title, true, ExecutionOrder.ConsecutiveAssertion);
             return this;
         }
 

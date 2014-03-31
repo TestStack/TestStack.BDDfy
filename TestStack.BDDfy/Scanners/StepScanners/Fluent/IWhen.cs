@@ -10,7 +10,11 @@ namespace TestStack.BDDfy
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle);
 
         IAndWhen<TScenario> And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate = null);
+        IAndWhen<TScenario> And(Action andWhenStep, string title);
+        IAndWhen<TScenario> And(string title);
         IThen<TScenario> Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate = null);
+        IThen<TScenario> Then(Action thenStep, string title);
+        IThen<TScenario> Then(string title);
 
         IAndWhen<TScenario> And(Expression<Func<TScenario, Task>> andWhenStep, string stepTextTemplate = null);
         IThen<TScenario> Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate = null);
