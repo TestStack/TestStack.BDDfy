@@ -1,5 +1,4 @@
-﻿#if !NET35
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -54,4 +53,3 @@ namespace TestStack.BDDfy.Samples
         }
     }
 }
-#endif

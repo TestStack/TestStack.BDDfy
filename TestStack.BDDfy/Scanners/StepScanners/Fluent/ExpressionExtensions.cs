@@ -22,7 +22,6 @@ namespace TestStack.BDDfy
             return ExtractConstants(methodCallExpression);
         }
 
-#if !NET35
         public static IEnumerable<object> ExtractConstants<T>(this Expression<Func<T, System.Threading.Tasks.Task>> expression)
         {
             var lambdaExpression = expression as LambdaExpression;
@@ -35,7 +34,6 @@ namespace TestStack.BDDfy
 
             return ExtractConstants(methodCallExpression);
         }
-#endif
 
         private static IEnumerable<object> ExtractConstants(Expression expression)
         {

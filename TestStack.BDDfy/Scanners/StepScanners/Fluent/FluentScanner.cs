@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
-
-#if !NET35
 using System.Threading.Tasks;
-#endif
 
 namespace TestStack.BDDfy
 {
@@ -57,55 +54,7 @@ namespace TestStack.BDDfy
         {
             return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
-#if NET35
-        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder)
-        {
-            AddStep(stepAction, stepTextTemplate, asserts, executionOrder, true);
-        }
-
-        public IWhen<TScenario> When(Expression<Action<TScenario>> whenStep)
-        {
-            AddStep(whenStep, null, false, ExecutionOrder.Transition);
-            return this;
-        }
-
-        public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep)
-        {
-            return Given(givenStep, null);
-        }
-
-        IWhen<TScenario> IGiven<TScenario>.When(Expression<Action<TScenario>> whenStep)
-        {
-            return When(whenStep);
-        }
-
-        IThen<TScenario> IWhen<TScenario>.Then(Expression<Action<TScenario>> thenStep)
-        {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IThen<TScenario> IGiven<TScenario>.Then(Expression<Action<TScenario>> thenStep)
-        {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IAndThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep)
-        {
-            return ((IThen<TScenario>)this).And(andThenStep, null);
-        }
-
-        IAndWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep)
-        {
-            return ((IWhen<TScenario>)this).And(andWhenStep, null);
-        }
-
-        IAndGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep)
-        {
-            return ((IGiven<TScenario>)this).And(andGivenStep, null);
-        }
-#else
+   
         IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
         {
             AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
@@ -238,7 +187,6 @@ namespace TestStack.BDDfy
             var methodCall = (MethodCallExpression)stepAction.Body;
             return methodCall.Method;
         }
-#endif
 
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
         {
