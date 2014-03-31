@@ -9,7 +9,7 @@ using TestStack.BDDfy.Reporters.Writers;
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
     [TestFixture]
-    public class MarkDownReporterSpecs
+    public class MarkDownReporterTests
     {
         private IReportBuilder _builder;
         private IReportWriter _writer;

@@ -46,6 +46,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApprovalTests">
+      <HintPath>..\packages\ApprovalTests.3.0.5\lib\net40\ApprovalTests.dll</HintPath>
+    </Reference>
+    <Reference Include="ApprovalUtilities">
+      <HintPath>..\packages\ApprovalUtilities.3.0.5\lib\net35\ApprovalUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute, Version=1.6.1.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath Condition="$(TargetFrameworkVersion)=='v4.0'">..\packages\NSubstitute.1.6.1.0\lib\NET40\NSubstitute.dll</HintPath>
@@ -66,7 +72,11 @@
     <Compile Include="Arguments\ArgumentsProvidedForGiven.cs" />
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
+    <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
+    <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
+    <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
+    <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
@@ -84,11 +94,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HumanizerTests.cs" />
-    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderSpecs.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderTests.cs" />
     <Compile Include="Reporters\Diagnostics\WhenBuildingReportDiagnostics.cs" />
-    <Compile Include="Reporters\Diagnostics\DiagnosticsReporterSpecs.cs" />
-    <Compile Include="Reporters\MarkDown\MarkDownReportBuilderSpecs.cs" />
-    <Compile Include="Reporters\MarkDown\MarkDownReporterSpecs.cs" />
+    <Compile Include="Reporters\Diagnostics\DiagnosticsReporterTests.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReportBuilderTests.cs" />
+    <Compile Include="Reporters\MarkDown\MarkDownReporterTests.cs" />
     <Compile Include="Reporters\ReportTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
@@ -136,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reporters\Html\HtmlReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

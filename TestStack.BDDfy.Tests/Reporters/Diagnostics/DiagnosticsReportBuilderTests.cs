@@ -7,7 +7,7 @@ using TestStack.BDDfy.Reporters.Serializers;
 namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 {
     [TestFixture]
-    public class DiagnosticsReportBuilderSpecs
+    public class DiagnosticsReportBuilderTests
     {
         [Test]
         public void ShouldSerializeDiagnosticDataToSpecifiedFormat()

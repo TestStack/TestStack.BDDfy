@@ -38,9 +38,12 @@ namespace TestStack.BDDfy.Reporters
                 return;
 
             Console.WriteLine("Story: " + story.Metadata.Title);
-            Console.WriteLine("\t" + story.Metadata.Narrative1);
-            Console.WriteLine("\t" + story.Metadata.Narrative2);
-            Console.WriteLine("\t" + story.Metadata.Narrative3);
+            if (!string.IsNullOrEmpty(story.Metadata.Narrative1))
+                Console.WriteLine("\t" + story.Metadata.Narrative1);
+            if (!string.IsNullOrEmpty(story.Metadata.Narrative2))
+                Console.WriteLine("\t" + story.Metadata.Narrative2);
+            if (!string.IsNullOrEmpty(story.Metadata.Narrative3))
+                Console.WriteLine("\t" + story.Metadata.Narrative3);
         }
 
         static string PrefixWithSpaceIfRequired(Step step)
