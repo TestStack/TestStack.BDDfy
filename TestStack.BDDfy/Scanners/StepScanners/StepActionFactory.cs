@@ -3,10 +3,7 @@ using System.Reflection;
 using System.Security;
 using System.Threading;
 using TestStack.BDDfy.Processors;
-
-#if !NET35
 using System.Threading.Tasks;
-#endif
 
 namespace TestStack.BDDfy
 {
@@ -27,13 +24,6 @@ namespace TestStack.BDDfy
             });
         }
 
-#if NET35
-        private static void Run(Func<object> func)
-        {
-            func();
-        }
-
-#else
         public static Action<object> GetStepAction<TScenario>(Func<TScenario, Task> action)
            where TScenario : class
         {
@@ -83,6 +73,5 @@ namespace TestStack.BDDfy
         {
             SynchronizationContext.SetSynchronizationContext(context);
         }
-#endif
     }
 }
