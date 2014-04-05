@@ -47,17 +47,17 @@ namespace TestStack.BDDfy.Tests.Scanner
             }
         }
 
-        object[] GetArguments(Expression<Action<ClassUnderTest>> action)
+        object[] GetArguments(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
         {
-            return action.ExtractConstants().ToArray();
+            return action.ExtractArguments()(instance).ToArray();
         }
 
         int _input1 = 1;
         string _input2 = "2";
         const string ConstInput2 = "2";
 
-        int[] _arrayInput1 = new[] { 1, 2 };
-        public string[] _arrayInput2 = new[] { "3", "4" };
+        int[] _arrayInput1 = { 1, 2 };
+        public string[] _arrayInput2 = { "3", "4" };
 
         public int[] ArrayInput1
         {
@@ -92,7 +92,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void NoArguments()
         {
-            var arguments = GetArguments(x => x.MethodWithoutArguments());
+            var arguments = GetArguments(x => x.MethodWithoutArguments(), new ClassUnderTest());
             Assert.That(arguments.Length, Is.EqualTo(0));
         }
 
@@ -106,7 +106,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void InputArgumentsPassedInline()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(1, "2"));
+            var arguments = GetArguments(x => x.MethodWithInputs(1, "2"), new ClassUnderTest());
             AssertReturnedArguments(arguments, 1, "2");
         }
 
@@ -115,41 +115,41 @@ namespace TestStack.BDDfy.Tests.Scanner
         {
             int input1 = 1;
             const string input2 = "2";
-            var arguments = GetArguments(x => x.MethodWithInputs(input1, input2));
+            var arguments = GetArguments(x => x.MethodWithInputs(input1, input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, input1, input2);
         }
 
         [Test]
         public void InputArgumentsProvidedUsingFields()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(_input1, ConstInput2));
+            var arguments = GetArguments(x => x.MethodWithInputs(_input1, ConstInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, _input1, ConstInput2);
         }
 
         [Test]
         public void InputArgumentsProvidedUsingProperty()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(Input1, Input2));
+            var arguments = GetArguments(x => x.MethodWithInputs(Input1, Input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, Input1, Input2);
         }
         
         [Test]
         public void InputArgumentsProvidedUsingInheritedFields()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(InheritedInput1, InheritedInput2));
+            var arguments = GetArguments(x => x.MethodWithInputs(InheritedInput1, InheritedInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, InheritedInput1, InheritedInput2);
         }
         
         [Test]
         public void InputArgumentsProvidedUsingMethodCallDoesNotThrow()
         {
-            Assert.DoesNotThrow(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test"))));
+            Assert.DoesNotThrow(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test")), new ClassUnderTest()));
         }
 
         [Test]
         public void ArrayInputsArgumentsProvidedInline()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(new[] { 1, 2 }, new[] { "3", "4" }));
+            var arguments = GetArguments(x => x.MethodWithArrayInputs(new[] { 1, 2 }, new[] { "3", "4" }), new ClassUnderTest());
             AssertReturnedArguments(arguments, new[] {1, 2}, new[] {"3", "4"});
         }
 
@@ -158,29 +158,35 @@ namespace TestStack.BDDfy.Tests.Scanner
         {
             var input1 = new[] {1, 2};
             var input2 = new[] {"3", "4"};
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(input1, input2));
+            var arguments = GetArguments(x => x.MethodWithArrayInputs(input1, input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, input1, input2);
         }
 
         [Test]
         public void ArrayInputArgumentsProvidedUsingFields()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(_arrayInput1, _arrayInput2));
+            var arguments = GetArguments(x => x.MethodWithArrayInputs(_arrayInput1, _arrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, _arrayInput1, _arrayInput2);
         }
 
         [Test]
         public void ArrayInputArgumentsProvidedUsingProperty()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(ArrayInput1, ArrayInput2));
+            var arguments = GetArguments(x => x.MethodWithArrayInputs(ArrayInput1, ArrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, ArrayInput1, ArrayInput2);
         }
 
         [Test]
         public void ArrayInputArgumentsProvidedUsingInheritedProperty()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2));
+            var arguments = GetArguments(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, InheritedArrayInput1, InheritedArrayInput2);
+        }
+
+        [Test]
+        public void StaticField()
+        {
+            Assert.DoesNotThrow(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2(string.Empty)), new ClassUnderTest()));
         }
     }
 }

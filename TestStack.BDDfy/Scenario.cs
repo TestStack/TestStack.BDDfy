@@ -30,7 +30,7 @@ namespace TestStack.BDDfy
         public string Title { get; private set; }
         public string[] ExampleHeaders { get; set; }
         public object[] Examples { get; set; }
-        public int ExampleRowIndex { get; set; }
+        public int? ExampleRowIndex { get; set; }
         public TimeSpan Duration { get { return new TimeSpan(_steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; internal set; }
         public string Id { get; set; }
@@ -57,6 +57,7 @@ namespace TestStack.BDDfy
         {
             try
             {
+                PrepareTestObject(TestObject);
                 step.Execute(TestObject);
                 step.Result = Result.Passed;
             }
@@ -87,6 +88,35 @@ namespace TestStack.BDDfy
             }
 
             return step.Result;
+        }
+
+        private void PrepareTestObject(object testObject)
+        {
+            if (ExampleRowIndex == null) return;
+
+            for (int index = 0; index < ExampleHeaders.Length; index++)
+            {
+                var exampleHeader = ExampleHeaders[index];
+                var exampleValue = Examples[index];
+                var type = testObject.GetType();
+                //TODO should we throw if match both a field and a property?
+                var matchingMembers = type.GetMembers()
+                    .Where(m => m is FieldInfo || m is PropertyInfo)
+                    .FirstOrDefault(n => n.Name.Equals(exampleHeader, StringComparison.InvariantCultureIgnoreCase));
+
+                if (matchingMembers == null)
+                    throw new InvalidOperationException(
+                        string.Format("Expecting a fields or a property with name of {0} to match example header",
+                            exampleHeader));
+
+                var prop = matchingMembers as PropertyInfo;
+                if (prop != null)
+                    prop.SetValue(testObject, exampleValue, null);
+
+                var field = matchingMembers as FieldInfo;
+                if (field != null)
+                    field.SetValue(testObject, exampleValue);
+            }
         }
 
         private static bool IsInconclusive(Exception exception)

@@ -106,7 +106,6 @@
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\Args.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IThenSteps.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IWhenSteps.cs" />
     <Compile Include="Scanners\StepScanners\WithExamplesExtensions.cs" />

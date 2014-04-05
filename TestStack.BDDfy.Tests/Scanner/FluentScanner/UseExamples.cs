@@ -4,21 +4,29 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     class UseExamples
     {
+        //For reflective
         private int _start;
         private int _eat;
+
+        //For Fluent
+        public int Start { get; set; }
+        public int Eat { get; set; }
+        public int Left { get; set; }
 
         [Test]
         public void RunExamplesWithFluentApi()
         {
-            this.Given(_ => _.GivenThereAre__start__Cucumbers(Args.From<int>("Start")))
-                .When(_ => _.WhenIEat__eat__Cucumbers(Args.From<int>("Eat")))
-                .Then(_ => _.ThenIShouldHave__left__Cucumbers(Args.From<int>("Left")))
+            var story = this
+                .Given(_ => _.GivenThereAre__start__Cucumbers(_.Start))
+                .When(_ => _.WhenIEat__eat__Cucumbers(_.Eat))
+                .Then(_ => _.ThenIShouldHave__left__Cucumbers(_.Left))
                 .WithExamples(
-                    new [] { "Start", "Eat", "Left" },
+                    new[] { "Start", "Eat", "Left" },
                     new object[] { 12, 5, 8 },
                     new object[] { 20, 5, 17 })
                 .BDDfy();
         }
+
 
         [Test]
         public void RunExamplesWithReflectiveApi()

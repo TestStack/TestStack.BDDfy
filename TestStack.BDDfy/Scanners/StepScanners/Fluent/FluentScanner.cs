@@ -130,11 +130,19 @@ namespace TestStack.BDDfy
 
         private void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
         {
+            
+            var action = stepAction.Compile();
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), o => CreateTitle(stepAction, stepTextTemplate, includeInputsInStepTitle, o), asserts, executionOrder, reports));
+        }
+
+        private static string CreateTitle(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle,
+            object o)
+        {
             var methodInfo = GetMethodInfo(stepAction);
             var inputArguments = new object[0];
             if (includeInputsInStepTitle)
             {
-                inputArguments = stepAction.ExtractConstants().ToArray();
+                inputArguments = stepAction.ExtractArguments()(o).ToArray();
             }
 
             var flatInputArray = inputArguments.FlattenArrays();
@@ -148,9 +156,7 @@ namespace TestStack.BDDfy
                 stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
             }
 
-            stepTitle = stepTitle.Trim();
-            var action = stepAction.Compile();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+            return stepTitle.Trim();
         }
 
         private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
@@ -161,32 +167,34 @@ namespace TestStack.BDDfy
 
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
         {
-            var methodInfo = GetMethodInfo(stepAction);
-            var inputArguments = new object[0];
-            if(includeInputsInStepTitle)
-            {
-                inputArguments = stepAction.ExtractConstants().ToArray();
-            }
-
-            var flatInputArray = inputArguments.FlattenArrays();
-            var stepTitle = NetToString.Convert(methodInfo.Name);
-
-            if (!string.IsNullOrEmpty(stepTextTemplate))
-                stepTitle = string.Format(stepTextTemplate, flatInputArray);
-            else if (includeInputsInStepTitle)
-            {
-                var stringFlatInputs = flatInputArray.Select(i => i.ToString()).ToArray();
-                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
-            }
-
-            stepTitle = stepTitle.Trim();
             var action = stepAction.Compile();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), o =>
+            {
+                var methodInfo = GetMethodInfo(stepAction);
+                var inputArguments = new object[0];
+                if (includeInputsInStepTitle)
+                {
+                    inputArguments = stepAction.ExtractArguments()(o).ToArray();
+                }
+
+                var flatInputArray = inputArguments.FlattenArrays();
+                var stepTitle = NetToString.Convert(methodInfo.Name);
+
+                if (!string.IsNullOrEmpty(stepTextTemplate))
+                    stepTitle = string.Format(stepTextTemplate, flatInputArray);
+                else if (includeInputsInStepTitle)
+                {
+                    var stringFlatInputs = flatInputArray.Select(i => i.ToString()).ToArray();
+                    stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+                }
+
+                return stepTitle.Trim();
+            }, asserts, executionOrder, reports));
         }
 
         private void AddStep(Action stepAction, string title, bool asserts, ExecutionOrder executionOrder, bool reports = true)
         {
-            _steps.Add(new Step(o => stepAction(), title, asserts, executionOrder, reports));
+            _steps.Add(new Step(o => stepAction(), o => title, asserts, executionOrder, reports));
         }
 
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
