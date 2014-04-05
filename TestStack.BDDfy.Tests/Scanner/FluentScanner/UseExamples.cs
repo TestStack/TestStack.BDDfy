@@ -49,6 +49,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void GettingTitle()
         {
             Assert.That(NetToString.Convert("GivenThereAre__start__Cucumbers"), Is.EqualTo("Given there are <start> cucumbers"));
+            Assert.That(NetToString.Convert("Given_there_are__start__cucumbers"), Is.EqualTo("Given there are <start> cucumbers"));
         }
     }
 }

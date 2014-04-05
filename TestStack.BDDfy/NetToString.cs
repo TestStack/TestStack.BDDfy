@@ -50,9 +50,16 @@ namespace TestStack.BDDfy
         public static Func<string, string> Convert = name =>
         {
             if (name.Contains("__"))
+            {
+                // hacking the crap out of it for now
                 name = Regex.Replace(name, "__(\\w+)__", " <$1> ");
+                return FromPascalCase(name).Replace("_", "").Replace(" >", ">");
+            }
 
-            return FromPascalCase(name).Replace(" >", ">");
+            if (name.Contains("_"))
+                return FromUnderscoreSeparatedWords(name);
+
+            return FromPascalCase(name);
         };
     }
 }
