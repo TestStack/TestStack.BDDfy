@@ -33,14 +33,10 @@ namespace TestStack.BDDfy.Reporters
 
                 Console.WriteLine();
                 Console.WriteLine("Examples: ");
+                WriteExampleRow(exampleScenario.ExampleHeaders);
                 foreach (var example in exampleScenario.Examples)
                 {
-                    Console.Write("\t|");
-                    foreach (var col in example)
-                    {
-                        Console.Write("\t{0}\t|", col);
-                    }
-                    Console.WriteLine();
+                    WriteExampleRow(example);
                 }
             }
             else
@@ -58,6 +54,16 @@ namespace TestStack.BDDfy.Reporters
             }
 
             ReportExceptions();
+        }
+
+        private static void WriteExampleRow(IEnumerable<object> example)
+        {
+            Console.Write("\t|");
+            foreach (var col in example)
+            {
+                Console.Write("\t{0}\t|", col);
+            }
+            Console.WriteLine();
         }
 
         private static void ReportStoryHeader(Story story)

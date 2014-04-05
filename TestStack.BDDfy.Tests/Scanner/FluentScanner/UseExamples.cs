@@ -14,7 +14,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .When(_ => _.WhenIEat__eat__Cucumbers(Args.From<int>("Eat")))
                 .Then(_ => _.ThenIShouldHave__left__Cucumbers(Args.From<int>("Left")))
                 .WithExamples(
-                    new object[] { "Start", "Eat", "Left" },
+                    new [] { "Start", "Eat", "Left" },
                     new object[] { 12, 5, 8 },
                     new object[] { 20, 5, 17 })
                 .BDDfy();
@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void RunExamplesWithReflectiveApi()
         {
             this.WithExamples(
-                    new object[] { "start", "eat", "left" },
+                    new [] { "start", "eat", "left" },
                     new object[] { 12, 5, 7 },
                     new object[] { 20, 5, 15 })
                 .BDDfy();

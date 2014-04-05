@@ -70,7 +70,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, string[] exampleHeaders, object[][] examples, int exampleRowIndex)
         {
             foreach (var matcher in _matchers)
             {
@@ -78,15 +78,14 @@ namespace TestStack.BDDfy
                     continue;
 
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                yield return GetStep(testObject, matcher, method, returnsItsText, examples, exampleRowIndex);
+                yield return GetStep(testObject, matcher, method, returnsItsText, exampleHeaders, examples, exampleRowIndex);
             }
         }
 
-        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[][] examples, int exampleRowIndex)
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, string[] exampleHeaders, object[][] examples, int exampleRowIndex)
         {
             var stepMethodName = GetStepTitleFromMethodName(method, null);
             var inputs = new List<object>();
-            var exampleHeaders = examples[0];
             var inputPlaceholders = Regex.Matches(stepMethodName, " <\\w+> ");
 
             for (int i = 0; i < inputPlaceholders.Count; i++)

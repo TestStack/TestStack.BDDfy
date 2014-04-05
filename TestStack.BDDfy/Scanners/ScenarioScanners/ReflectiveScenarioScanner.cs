@@ -26,9 +26,12 @@ namespace TestStack.BDDfy
         {
             var examples = testObject as IExamples;
             object[][] exampleRows = null;
+            string[] exampleHeaders = null;
+
             if (examples != null)
             {
                 testObject = examples.TestObject;
+                exampleHeaders = examples.ExampleHeaders;
                 exampleRows = examples.ExampleRows;
             }
 
@@ -46,8 +49,8 @@ namespace TestStack.BDDfy
 
             for (int i = 1; i < exampleRows.Length; i++)
             {
-                var steps = ScanScenarioForSteps(testObject, exampleRows, i);
-                yield return new Scenario(testObject, steps, scenarioTitle, exampleRows, i) { Id = scenarioId };
+                var steps = ScanScenarioForSteps(testObject, exampleHeaders, exampleRows, i);
+                yield return new Scenario(testObject, steps, scenarioTitle, exampleHeaders, exampleRows, i) { Id = scenarioId };
             }
         }
 
@@ -78,7 +81,7 @@ namespace TestStack.BDDfy
             return allSteps;
         }
 
-        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, object[][] exampleRows, int exampleRowIndex)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, string[] exampleHeaders, object[][] exampleRows, int exampleRowIndex)
         {
             var allSteps = new List<Step>();
             var scenarioType = testObject.GetType();
@@ -88,7 +91,7 @@ namespace TestStack.BDDfy
                 // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
-                    var steps = scanner.Scan(testObject, methodInfo, exampleRows, exampleRowIndex);
+                    var steps = scanner.Scan(testObject, methodInfo, exampleHeaders, exampleRows, exampleRowIndex);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);

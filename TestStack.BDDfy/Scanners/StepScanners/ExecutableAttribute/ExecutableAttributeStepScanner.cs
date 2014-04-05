@@ -68,7 +68,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, string[] exampleHeaders, object[][] examples, int exampleRowIndex)
         {
             var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if (executableAttribute == null)
@@ -81,7 +81,6 @@ namespace TestStack.BDDfy
             var stepAsserts = IsAssertingByAttribute(method);
 
             var inputs = new List<object>();
-            var exampleHeaders = examples[0];
             var inputPlaceholders = Regex.Matches(stepTitle, " <\\w+> ");
 
             for (int i = 0; i < inputPlaceholders.Count; i++)
