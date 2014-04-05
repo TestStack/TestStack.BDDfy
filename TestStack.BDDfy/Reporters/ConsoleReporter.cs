@@ -31,16 +31,11 @@ namespace TestStack.BDDfy.Reporters
                     if (exampleScenario.Steps.Any())
                     {
                         foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
-                            ReportOnStep(exampleScenario, step);
+                            ReportOnStep(exampleScenario, step, false);
                     }
 
                     Console.WriteLine();
-                    Console.WriteLine("Examples: ");
-                    WriteExampleRow(exampleScenario.ExampleHeaders);
-                    foreach (var scenario in scenarioGroup)
-                    {
-                        WriteExampleRow(scenario.Examples);
-                    }
+                    WriteExamples(exampleScenario, scenarioGroup);
                 }
                 else
                 {
@@ -51,7 +46,7 @@ namespace TestStack.BDDfy.Reporters
                         if (scenario.Steps.Any())
                         {
                             foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                                ReportOnStep(scenario, step);
+                                ReportOnStep(scenario, step, true);
                         }
                     }
                 }
@@ -60,14 +55,59 @@ namespace TestStack.BDDfy.Reporters
             ReportExceptions();
         }
 
-        private static void WriteExampleRow(IEnumerable<object> example)
+        private static void WriteExamples(Scenario exampleScenario, IGrouping<string, Scenario> scenarioGroup)
+        {
+            Console.WriteLine(@"Examples: ");
+            var numberColumns = exampleScenario.ExampleHeaders.Length + 2;
+            var maxWidth = new int[numberColumns];
+            var rows = new List<string[]>();
+            Action<string, IEnumerable<object>, string> addRow = (result, r, error) =>
+            {
+                var row = new string[numberColumns];
+                row[0] = result;
+                var index = 1;
+                foreach (var o in r)
+                {
+                    row[index++] = o.ToString();
+                }
+                row[numberColumns - 1] = error;
+                for (var i = 0; i < numberColumns; i++)
+                {
+                    var rowValue = row[i];
+                    if (rowValue != null && rowValue.Length > maxWidth[i])
+                        maxWidth[i] = rowValue.Length;
+                }
+                rows.Add(row);
+            };
+            addRow(string.Empty, exampleScenario.ExampleHeaders, "Errors");
+            foreach (var scenario in scenarioGroup)
+            {
+                var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
+                string error;
+                if (failingStep == null)
+                    error = null;
+                else
+                {
+                    error = string.Format("Step: {0} failed with exception: {1}", failingStep.Title, FlattenExceptionMessage(failingStep.Exception.Message));
+                }
+                addRow(scenario.Result.ToString(), scenario.Examples, error);
+            }
+
+            foreach (var row in rows)
+            {
+                WriteExampleRow(row, maxWidth);
+            }
+        }
+
+        private static void WriteExampleRow(string[] row, int[] maxWidth)
         {
             Console.Write("\t|");
-            foreach (var col in example)
+            for (int index   = 0; index < row.Length; index++)
             {
-                Console.Write("\t{0}\t|", col);
+                var col = row[index];
+                Console.Write("\t{0}\t|", (col??string.Empty).Trim().PadRight(maxWidth[index]));
             }
-            Console.WriteLine();
+            Console.Write("\n");
         }
 
         private static void ReportStoryHeader(Story story)
@@ -97,8 +137,14 @@ namespace TestStack.BDDfy.Reporters
             return stepTitle.Replace(Environment.NewLine, Environment.NewLine + "\t\t");
         }
 
-        void ReportOnStep(Scenario scenario, Step step)
+        void ReportOnStep(Scenario scenario, Step step, bool includeResults)
         {
+            if (!includeResults)
+            {
+                Console.WriteLine("\t{0}", PrefixWithSpaceIfRequired(step).PadRight(_longestStepSentence));
+                return;
+            }
+
             var message =
                 string.Format
                     ("\t{0}  [{1}] ",
