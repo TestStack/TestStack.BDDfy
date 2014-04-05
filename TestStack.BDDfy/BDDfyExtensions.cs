@@ -6,14 +6,6 @@ namespace TestStack.BDDfy
 {
     public static class BDDfyExtensions
     {
-        static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
-        {
-            var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
-            var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
-
-            return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
-        }
-
         /// <summary>
         /// Extension method to BDDfy an object instance.
         /// </summary>
@@ -57,18 +49,33 @@ namespace TestStack.BDDfy
             string storyCategory,
             Type explicitStoryType = null)
         {
-            IScanner scanner = null;
-            var hasScanner = testObject as IHasScanner;
-
-            if (hasScanner != null)
-            {
-                scanner = hasScanner.GetScanner(scenarioTitle, explicitStoryType);
-                testObject = hasScanner.TestObject;
-            }
-
-            var storyScanner = scanner ?? GetReflectiveScanner(testObject, scenarioTitle, explicitStoryType);
+            var storyScanner = GetFluentScanner(testObject, scenarioTitle, explicitStoryType) ?? GetReflectiveScanner(testObject, scenarioTitle, explicitStoryType);
 
             return new Engine(storyCategory, storyScanner);
+        }
+
+        static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
+        {
+            var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
+            var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
+
+            return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
+        }
+
+        static IScanner GetFluentScanner(object testObject, string scenarioTitle, Type explicitStoryType)
+        {
+            IScanner scanner = null;
+            var hasScanner = testObject as IFluentScanner;
+
+            var examples = testObject as IExamples;
+
+            if (examples != null)
+                hasScanner = examples.TestObject as IFluentScanner;
+            
+            if (hasScanner != null)
+                scanner = hasScanner.GetScanner(scenarioTitle, explicitStoryType);
+
+            return scanner;
         }
     }
 }

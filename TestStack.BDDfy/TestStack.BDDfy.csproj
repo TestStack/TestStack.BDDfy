@@ -105,7 +105,7 @@
     <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
-    <Compile Include="IHasScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\Args.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IThenSteps.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IWhenSteps.cs" />
