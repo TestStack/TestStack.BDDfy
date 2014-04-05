@@ -30,13 +30,20 @@ namespace TestStack.BDDfy
 
                 var scenarioId = Configurator.IdGenerator.GetScenarioId();
                 return exampleRows.Select((r, i) =>
-                    new Scenario(scenarioId, testObject, _steps, scenarioText, exampleHeaders, r, i)
+                    new Scenario(scenarioId, testObject, CloneSteps(_steps), scenarioText, exampleHeaders, r, i)
                     {
                         Init = o=> PrepareTestObject(o, exampleHeaders, r, i)
                     });
             }
 
             return new[]{ new Scenario(testObject, _steps, scenarioText)};
+        }
+
+        private IEnumerable<Step> CloneSteps(IEnumerable<Step> steps)
+        {
+            return steps.Select(step => new Step(step)
+            {
+            });
         }
 
         private void PrepareTestObject(object testObject, string[] exampleHeaders, object[] examples, int rowIndex)
