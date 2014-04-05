@@ -24,6 +24,11 @@ namespace TestStack.BDDfy
             return BDDfy(testObject, null);
         }
 
+        public static Story BDDfy(this IExamples examples)
+        {
+            return examples.TestObject.BDDfy();
+        }
+
         /// <summary>
         /// Extension method to BDDfy an object instance.
         /// </summary>
