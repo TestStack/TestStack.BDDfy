@@ -25,6 +25,17 @@ namespace TestStack.BDDfy
             Id = Configurator.IdGenerator.GetStepId();
         }
 
+        public Step(Step step)
+        {
+            _titleFactory = step._titleFactory;
+            Id = step.Id;
+            Asserts = step.Asserts;
+            ExecutionOrder = step.ExecutionOrder;
+            ShouldReport = step.ShouldReport;
+            Result = Result.NotExecuted;
+            Action = step.Action;
+        }
+
         public string Id { get; private set; }
         internal Action<object> Action { get; set; }
         public bool Asserts { get; private set; }
