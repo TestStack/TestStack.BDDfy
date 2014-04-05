@@ -34,13 +34,13 @@ namespace TestStack.BDDfy
     /// }
     /// </code>
     /// </example>
-    internal class FluentScanner<TScenario> : IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>
+    internal class FluentScanner<TScenario> : IFluentScanner, IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
         private readonly object _testObject;
 
-        object IHasScanner.TestObject
+        object IFluentScanner.TestObject
         {
             get { return _testObject; }
         }
@@ -50,7 +50,7 @@ namespace TestStack.BDDfy
             _testObject = testObject;
         }
 
-        IScanner IHasScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
+        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
             return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }

@@ -18,14 +18,42 @@ namespace TestStack.BDDfy.Reporters
             if (allSteps.Any())
                 _longestStepSentence = allSteps.Max(s => PrefixWithSpaceIfRequired(s).Length);
 
-            foreach (var scenario in story.Scenarios)
+            if (story.Scenarios.Any(s => s.Examples != null))
             {
-                Report(scenario);
+                // all scenarios in an example based scenario share the same header and narrative
 
-                if (scenario.Steps.Any())
+                var exampleScenario = story.Scenarios.First();
+                Report(exampleScenario);
+
+                if (exampleScenario.Steps.Any())
                 {
-                    foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                        ReportOnStep(scenario, step);
+                    foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
+                        ReportOnStep(exampleScenario, step);
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Examples: ");
+                foreach (var example in exampleScenario.Examples)
+                {
+                    Console.Write("\t|");
+                    foreach (var col in example)
+                    {
+                        Console.Write("\t{0}\t|", col);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                foreach (var scenario in story.Scenarios)
+                {
+                    Report(scenario);
+
+                    if (scenario.Steps.Any())
+                    {
+                        foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                            ReportOnStep(scenario, step);
+                    }
                 }
             }
 

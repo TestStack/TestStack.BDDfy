@@ -2,7 +2,7 @@
 
 namespace TestStack.BDDfy
 {
-    public interface IHasScanner
+    public interface IFluentScanner
     {
         IScanner GetScanner(string scenarioTitle, Type explicitStoryType = null);
         object TestObject { get; }

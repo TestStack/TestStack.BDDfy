@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TestStack.BDDfy
 {
@@ -46,12 +47,19 @@ namespace TestStack.BDDfy
             return result.Replace(" i ", " I "); // I is an exception
         }
 
-        internal static Func<string, string> Convert = name =>
+        public static Func<string, string> Convert = name =>
+        {
+            if (name.Contains("__"))
             {
-                if (name.Contains("_"))
-                    return FromUnderscoreSeparatedWords(name);
+                // hacking the crap out of it for now
+                name = Regex.Replace(name, "__(\\w+)__", " <$1> ");
+                return FromPascalCase(name).Replace("_", "").Replace(" >", ">");
+            }
 
-                return FromPascalCase(name);
-            };
+            if (name.Contains("_"))
+                return FromUnderscoreSeparatedWords(name);
+
+            return FromPascalCase(name);
+        };
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace TestStack.BDDfy
 {
@@ -66,6 +67,44 @@ namespace TestStack.BDDfy
                         };
             }
         }
+
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        {
+            var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+            if (executableAttribute == null)
+                yield break;
+
+            string stepTitle = executableAttribute.StepTitle;
+            if (string.IsNullOrEmpty(stepTitle))
+                stepTitle = NetToString.Convert(method.Name);
+
+            var stepAsserts = IsAssertingByAttribute(method);
+
+            var inputs = new List<object>();
+            var exampleHeaders = examples[0];
+            var inputPlaceholders = Regex.Matches(stepTitle, " <\\w+> ");
+
+            for (int i = 0; i < inputPlaceholders.Count; i++)
+            {
+                var placeholder = inputPlaceholders[i].Value;
+                var exampleColIndex = -1;
+
+                for (int j = 0; j < exampleHeaders.Length; j++)
+                {
+                    if (string.Format(" <{0}> ", exampleHeaders[j]) == placeholder)
+                    {
+                        exampleColIndex = j;
+                        break;
+                    }
+                }
+
+                inputs.Add(examples[exampleRowIndex][exampleColIndex]);
+            }
+
+            var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());  
+            yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
+        }
+
 
         private static bool IsAssertingByAttribute(MethodInfo method)
         {

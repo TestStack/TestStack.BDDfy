@@ -13,13 +13,24 @@ namespace TestStack.BDDfy
             TestObject = testObject;
             _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
             Title = scenarioText;
-            Id = Configurator.IdGenerator.GetScenarioId(this);
+            Id = Configurator.IdGenerator.GetScenarioId();
+        }
+
+        public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText, object[][] examples, int exampleRowIndex)
+        {
+            TestObject = testObject;
+            _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+            Title = scenarioText;
+            Examples = examples;
+            ExampleRowIndex = exampleRowIndex;
         }
 
         public string Title { get; private set; }
+        public object[][] Examples { get; set; }
+        public int ExampleRowIndex { get; set; }
         public TimeSpan Duration { get { return new TimeSpan(_steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; internal set; }
-        public string Id { get; private set; }
+        public string Id { get; set; }
 
         private readonly List<Step> _steps;
         public List<Step> Steps

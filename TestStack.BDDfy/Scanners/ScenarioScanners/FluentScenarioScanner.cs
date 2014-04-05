@@ -15,10 +15,19 @@ namespace TestStack.BDDfy
             _steps = steps;
         }
 
-        public Scenario Scan(object testObject)
+        public IEnumerable<Scenario> Scan(object testObject)
         {
+            object[][] exampleRows = null;
+            var examples = testObject as IExamples;
+
+            if (examples != null)
+            {
+                testObject = examples.TestObject;
+                exampleRows = examples.ExampleRows;
+            }
+
             var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testObject);
-            return new Scenario(testObject, _steps, scenarioText);
+            yield return new Scenario(testObject, _steps, scenarioText, exampleRows, 0);
         }
 
         internal static string GetTitleFromMethodNameInStackTrace(object testObject)
