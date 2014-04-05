@@ -67,6 +67,11 @@ namespace TestStack.BDDfy
             }
         }
 
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        {
+            yield break;
+        }
+
         private static bool IsAssertingByAttribute(MethodInfo method)
         {
             var attribute = GetExecutableAttribute(method);

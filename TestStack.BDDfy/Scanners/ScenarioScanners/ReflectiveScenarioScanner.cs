@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -21,7 +22,7 @@ namespace TestStack.BDDfy
             _scenarioTitle = scenarioTitle;
         }
 
-        public virtual Scenario Scan(object testObject)
+        public virtual IEnumerable<Scenario> Scan(object testObject)
         {
             var examples = testObject as IExamples;
             object[][] exampleRows = null;
@@ -33,9 +34,21 @@ namespace TestStack.BDDfy
 
             var scenarioType = testObject.GetType();
             var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
-            var steps = ScanScenarioForSteps(testObject);
 
-            return new Scenario(testObject, steps, scenarioTitle, exampleRows);
+            if (examples == null)
+            {
+                var steps = ScanScenarioForSteps(testObject);
+                yield return new Scenario(testObject, steps, scenarioTitle);
+                yield break;
+            }
+
+            var scenarioId = Configurator.IdGenerator.GetScenarioId();
+
+            for (int i = 1; i < exampleRows.Length; i++)
+            {
+                var steps = ScanScenarioForSteps(testObject, exampleRows, i);
+                yield return new Scenario(testObject, steps, scenarioTitle, exampleRows, i) { Id = scenarioId };
+            }
         }
 
         static string GetScenarioText(Type scenarioType)
@@ -54,6 +67,28 @@ namespace TestStack.BDDfy
                 foreach (var scanner in _stepScanners)
                 {
                     var steps = scanner.Scan(testObject, methodInfo);
+                    if (steps.Any())
+                    {
+                        allSteps.AddRange(steps);
+                        break;
+                    }
+                }
+            }
+
+            return allSteps;
+        }
+
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, object[][] exampleRows, int exampleRowIndex)
+        {
+            var allSteps = new List<Step>();
+            var scenarioType = testObject.GetType();
+
+            foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
+            {
+                // chain of responsibility of step scanners
+                foreach (var scanner in _stepScanners)
+                {
+                    var steps = scanner.Scan(testObject, methodInfo, exampleRows, exampleRowIndex);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);

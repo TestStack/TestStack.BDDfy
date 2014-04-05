@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TestStack.BDDfy
 {
@@ -67,6 +68,46 @@ namespace TestStack.BDDfy
 
                 yield break;
             }
+        }
+
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        {
+            foreach (var matcher in _matchers)
+            {
+                if (!matcher.IsMethodOfInterest(method.Name))
+                    continue;
+
+                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
+                yield return GetStep(testObject, matcher, method, returnsItsText, examples, exampleRowIndex);
+            }
+        }
+
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[][] examples, int exampleRowIndex)
+        {
+            var stepMethodName = GetStepTitleFromMethodName(method, null);
+            var inputs = new List<object>();
+            var exampleHeaders = examples[0];
+            var inputPlaceholders = Regex.Matches(stepMethodName, " <\\w+> ");
+
+            for (int i = 0; i < inputPlaceholders.Count; i++)
+            {
+                var placeholder = inputPlaceholders[i].Value;
+                var exampleColIndex = -1;
+
+                for (int j = 0; j < exampleHeaders.Length; j++)
+                {
+                    if (string.Format(" <{0}> ", exampleHeaders[j]) == placeholder)
+                    {
+                        exampleColIndex = j;
+                        break;
+                    }
+                }
+
+                inputs.Add(examples[exampleRowIndex][exampleColIndex]);
+            }
+
+            var stepAction = GetStepAction(method, inputs.ToArray(), returnsItsText);
+            return new Step(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
         }
 
         private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)

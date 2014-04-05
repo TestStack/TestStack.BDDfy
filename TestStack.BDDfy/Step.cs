@@ -19,7 +19,7 @@ namespace TestStack.BDDfy
             Result = Result.NotExecuted;
             Title = title;
             Action = action;
-            Id = Configurator.IdGenerator.GetStepId(this);
+            Id = Configurator.IdGenerator.GetStepId();
         }
 
         public string Id { get; private set; }

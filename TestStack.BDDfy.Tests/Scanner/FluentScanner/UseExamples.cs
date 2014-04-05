@@ -24,9 +24,9 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void RunExamplesWithReflectiveApi()
         {
             this.WithExamples(
-                    new object[] { "Start", "Eat", "Left" },
-                    new object[] { 12, 5, 8 },
-                    new object[] { 20, 5, 17 })
+                    new object[] { "start", "eat", "left" },
+                    new object[] { 12, 5, 7 },
+                    new object[] { 20, 5, 15 })
                 .BDDfy();
         }
 
