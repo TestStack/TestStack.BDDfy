@@ -1,8 +1,13 @@
-﻿using NUnit.Framework;
+﻿using ApprovalTests;
+using ApprovalTests.Reporters;
+using NUnit.Framework;
+using TestStack.BDDfy.Reporters;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    class UseExamples
+    [TestFixture]
+    [UseReporter(typeof(DiffReporter))]
+    public class UseExamples
     {
         //For reflective
         private int _start;
@@ -16,23 +21,28 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void RunExamplesWithFluentApi()
         {
-            var story = this
-                .Given(_ => _.GivenThereAre__start__Cucumbers(_.Start))
-                .When(_ => _.WhenIEat__eat__Cucumbers(_.Eat))
-                .Then(_ => _.ThenIShouldHave__left__Cucumbers(_.Left))
-                .WithExamples(
-                    new[] { "Start", "Eat", "Left" },
-                    new object[] { 12, 5, 8 },
-                    new object[] { 20, 5, 17 })
-                .BDDfy();
-        }
+            var engine = this
+                    .Given(_ => _.GivenThereAre__start__Cucumbers(_.Start), false)
+                    .When(_ => _.WhenIEat__eat__Cucumbers(_.Eat), false)
+                    .Then(_ => _.ThenIShouldHave__left__Cucumbers(_.Left), false)
+                    .WithExamples(
+                        new[] { "Start", "Eat", "Left" },
+                        new object[] { 12, 5, 7 },
+                        new object[] { 20, 5, 17 })
+                    .LazyBDDfy();
 
+            Assert.Throws<AssertionException>(() => engine.Run());
+
+            var textReporter = new TextReporter();
+            textReporter.Process(engine.Story);
+            Approvals.Verify(textReporter.ToString());
+        }
 
         [Test]
         public void RunExamplesWithReflectiveApi()
         {
             this.WithExamples(
-                    new [] { "start", "eat", "left" },
+                    new[] { "start", "eat", "left" },
                     new object[] { 12, 5, 7 },
                     new object[] { 20, 5, 15 })
                 .BDDfy();

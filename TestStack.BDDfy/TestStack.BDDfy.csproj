@@ -101,6 +101,7 @@
     <Compile Include="Reporters\Serializers\ISerializer.cs" />
     <Compile Include="Reporters\Serializers\JsonFormatter.cs" />
     <Compile Include="Reporters\Serializers\JsonSerializer.cs" />
+    <Compile Include="Reporters\TextReporter.cs" />
     <Compile Include="Reporters\Writers\FileWriter.cs" />
     <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
