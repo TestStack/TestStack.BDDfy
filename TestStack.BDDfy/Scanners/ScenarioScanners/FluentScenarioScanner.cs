@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -28,10 +30,40 @@ namespace TestStack.BDDfy
 
                 var scenarioId = Configurator.IdGenerator.GetScenarioId();
                 return exampleRows.Select((r, i) =>
-                    new Scenario(scenarioId, testObject, _steps, scenarioText, exampleHeaders, r, i));
+                    new Scenario(scenarioId, testObject, _steps, scenarioText, exampleHeaders, r, i)
+                    {
+                        Init = o=> PrepareTestObject(o, exampleHeaders, r, i)
+                    });
             }
 
             return new[]{ new Scenario(testObject, _steps, scenarioText)};
+        }
+
+        private void PrepareTestObject(object testObject, string[] exampleHeaders, object[] examples, int rowIndex)
+        {
+            for (int index = 0; index < exampleHeaders.Length; index++)
+            {
+                var exampleHeader = exampleHeaders[index];
+                var exampleValue = examples[index];
+                var type = testObject.GetType();
+                //TODO should we throw if match both a field and a property?
+                var matchingMembers = type.GetMembers()
+                    .Where(m => m is FieldInfo || m is PropertyInfo)
+                    .FirstOrDefault(n => n.Name.Equals(exampleHeader, StringComparison.InvariantCultureIgnoreCase));
+
+                if (matchingMembers == null)
+                    throw new InvalidOperationException(
+                        string.Format("Expecting a fields or a property with name of {0} to match example header",
+                            exampleHeader));
+
+                var prop = matchingMembers as PropertyInfo;
+                if (prop != null)
+                    prop.SetValue(testObject, exampleValue, null);
+
+                var field = matchingMembers as FieldInfo;
+                if (field != null)
+                    field.SetValue(testObject, exampleValue);
+            }
         }
 
         private static string GetTitleFromMethodNameInStackTrace(object testObject)
