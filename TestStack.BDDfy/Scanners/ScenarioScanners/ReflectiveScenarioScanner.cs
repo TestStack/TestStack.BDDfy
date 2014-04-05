@@ -47,10 +47,11 @@ namespace TestStack.BDDfy
 
             var scenarioId = Configurator.IdGenerator.GetScenarioId();
 
-            for (int i = 1; i < exampleRows.Length; i++)
+            for (var i = 1; i < exampleRows.Length; i++)
             {
-                var steps = ScanScenarioForSteps(testObject, exampleHeaders, exampleRows, i);
-                yield return new Scenario(testObject, steps, scenarioTitle, exampleHeaders, exampleRows, i) { Id = scenarioId };
+                var exampleRow = exampleRows[i - 1];
+                var steps = ScanScenarioForSteps(testObject, exampleHeaders, exampleRow, i);
+                yield return new Scenario(scenarioId, testObject, steps, scenarioTitle, exampleHeaders, exampleRow, i);
             }
         }
 
@@ -81,7 +82,7 @@ namespace TestStack.BDDfy
             return allSteps;
         }
 
-        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, string[] exampleHeaders, object[][] exampleRows, int exampleRowIndex)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, string[] exampleHeaders, object[] exampleRows, int exampleRowIndex)
         {
             var allSteps = new List<Step>();
             var scenarioType = testObject.GetType();

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-
-namespace TestStack.BDDfy
+﻿namespace TestStack.BDDfy
 {
     public static class WithExamplesExtensions
     {

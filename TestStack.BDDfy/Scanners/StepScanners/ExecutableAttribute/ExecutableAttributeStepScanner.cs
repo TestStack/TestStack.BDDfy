@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -68,7 +69,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, string[] exampleHeaders, object[][] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, string[] exampleHeaders, object[] examples, int exampleRowIndex)
         {
             var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if (executableAttribute == null)
@@ -90,14 +91,13 @@ namespace TestStack.BDDfy
 
                 for (int j = 0; j < exampleHeaders.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", exampleHeaders[j]) == placeholder)
+                    if (string.Format(" <{0}> ", exampleHeaders[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        exampleColIndex = j;
+                        inputs.Add(examples[j]);
                         break;
                     }
                 }
 
-                inputs.Add(examples[exampleRowIndex][exampleColIndex]);
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());  

@@ -40,19 +40,14 @@ namespace TestStack.BDDfy
         private readonly List<Step> _steps = new List<Step>();
         private readonly object _testObject;
 
-        object IFluentScanner.TestObject
-        {
-            get { return _testObject; }
-        }
-
         internal FluentScanner(object testObject)
         {
             _testObject = testObject;
         }
 
-        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
+        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType, IExamples examples)
         {
-            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
+            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle, examples), explicitStoryType);
         }
    
         IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)

@@ -18,37 +18,41 @@ namespace TestStack.BDDfy.Reporters
             if (allSteps.Any())
                 _longestStepSentence = allSteps.Max(s => PrefixWithSpaceIfRequired(s).Length);
 
-            if (story.Scenarios.Any(s => s.Examples != null))
+            //TODO This should be a reporting service. 
+            // Maybe we introduce a reporting model for the moment we can duplicate logic
+            foreach (var scenarioGroup in story.Scenarios.GroupBy(s => s.Id))
             {
-                // all scenarios in an example based scenario share the same header and narrative
-
-                var exampleScenario = story.Scenarios.First();
-                Report(exampleScenario);
-
-                if (exampleScenario.Steps.Any())
+                if (scenarioGroup.Count() > 1)
                 {
-                    foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
-                        ReportOnStep(exampleScenario, step);
-                }
+                    // all scenarios in an example based scenario share the same header and narrative
+                    var exampleScenario = story.Scenarios.First();
+                    Report(exampleScenario);
 
-                Console.WriteLine();
-                Console.WriteLine("Examples: ");
-                WriteExampleRow(exampleScenario.ExampleHeaders);
-                foreach (var example in exampleScenario.Examples)
-                {
-                    WriteExampleRow(example);
-                }
-            }
-            else
-            {
-                foreach (var scenario in story.Scenarios)
-                {
-                    Report(scenario);
-
-                    if (scenario.Steps.Any())
+                    if (exampleScenario.Steps.Any())
                     {
-                        foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                            ReportOnStep(scenario, step);
+                        foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
+                            ReportOnStep(exampleScenario, step);
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine("Examples: ");
+                    WriteExampleRow(exampleScenario.ExampleHeaders);
+                    foreach (var scenario in scenarioGroup)
+                    {
+                        WriteExampleRow(scenario.Examples);
+                    }
+                }
+                else
+                {
+                    foreach (var scenario in story.Scenarios)
+                    {
+                        Report(scenario);
+
+                        if (scenario.Steps.Any())
+                        {
+                            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                                ReportOnStep(scenario, step);
+                        }
                     }
                 }
             }

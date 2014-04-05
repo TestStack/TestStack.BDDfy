@@ -4,7 +4,6 @@ namespace TestStack.BDDfy
 {
     public interface IFluentScanner
     {
-        IScanner GetScanner(string scenarioTitle, Type explicitStoryType = null);
-        object TestObject { get; }
+        IScanner GetScanner(string scenarioTitle, Type explicitStoryType, IExamples examples);
     }
 }
