@@ -35,6 +35,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             _start = start;
         }
 
+        [AndGiven("And I eat <eat> of them")]
         private void WhenIEat__eat__Cucumbers(int eat)
         {
             _eat = eat;
