@@ -103,11 +103,11 @@ namespace TestStack.BDDfy.Reporters
 
         private void WriteExampleRow(string[] row, int[] maxWidth)
         {
-            Write("\t|");
+            Write("|");
             for (int index   = 0; index < row.Length; index++)
             {
                 var col = row[index];
-                Write("\t{0}\t|", (col??string.Empty).Trim().PadRight(maxWidth[index]));
+                Write(" {0} |", (col??string.Empty).Trim().PadRight(maxWidth[index]));
             }
             Write("\n");
         }

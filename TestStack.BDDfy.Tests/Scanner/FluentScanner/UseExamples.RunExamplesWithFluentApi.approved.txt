@@ -5,7 +5,7 @@ Scenario: Run examples with fluent api
 	Then I should have <left> cucumbers
 
 Examples: 
-	|	      	|	Start	|	Eat	|	Left	|	Errors                                                                                     	|
-	|	Passed	|	12   	|	5  	|	7   	|	                                                                                           	|
-	|	Failed	|	20   	|	5  	|	17  	|	Step: Then I should have <left> cucumbers failed with exception: Expected: 17,  But was: 15	|
+|        | Start | Eat | Left | Errors                                                                                      |
+| Passed | 12    | 5   | 7    |                                                                                             |
+| Failed | 20    | 5   | 17   | Step: Then I should have <left> cucumbers failed with exception: Expected: 17,  But was: 15 |
 
