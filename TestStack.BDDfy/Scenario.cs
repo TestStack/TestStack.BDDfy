@@ -8,15 +8,17 @@ namespace TestStack.BDDfy
 {
     public class Scenario
     {
-        public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText)
+        public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText, object[][] examples = null)
         {
             TestObject = testObject;
             _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
             Title = scenarioText;
+            Examples = examples;
             Id = Configurator.IdGenerator.GetScenarioId(this);
         }
 
         public string Title { get; private set; }
+        public object[][] Examples { get; set; }
         public TimeSpan Duration { get { return new TimeSpan(_steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; internal set; }
         public string Id { get; private set; }

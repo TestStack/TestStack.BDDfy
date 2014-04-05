@@ -17,8 +17,17 @@ namespace TestStack.BDDfy
 
         public Scenario Scan(object testObject)
         {
+            object[][] exampleRows = null;
+            var examples = testObject as IExamples;
+
+            if (examples != null)
+            {
+                testObject = examples.TestObject;
+                exampleRows = examples.ExampleRows;
+            }
+
             var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testObject);
-            return new Scenario(testObject, _steps, scenarioText);
+            return new Scenario(testObject, _steps, scenarioText, exampleRows);
         }
 
         internal static string GetTitleFromMethodNameInStackTrace(object testObject)

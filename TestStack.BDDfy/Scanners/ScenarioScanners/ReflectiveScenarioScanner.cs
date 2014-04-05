@@ -23,11 +23,19 @@ namespace TestStack.BDDfy
 
         public virtual Scenario Scan(object testObject)
         {
+            var examples = testObject as IExamples;
+            object[][] exampleRows = null;
+            if (examples != null)
+            {
+                testObject = examples.TestObject;
+                exampleRows = examples.ExampleRows;
+            }
+
             var scenarioType = testObject.GetType();
             var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
             var steps = ScanScenarioForSteps(testObject);
 
-            return new Scenario(testObject, steps, scenarioTitle);
+            return new Scenario(testObject, steps, scenarioTitle, exampleRows);
         }
 
         static string GetScenarioText(Type scenarioType)
@@ -39,6 +47,7 @@ namespace TestStack.BDDfy
         {
             var allSteps = new List<Step>();
             var scenarioType = testObject.GetType();
+
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
                 // chain of responsibility of step scanners
