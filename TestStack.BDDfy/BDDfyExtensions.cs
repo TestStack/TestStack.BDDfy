@@ -65,15 +65,15 @@ namespace TestStack.BDDfy
         static IScanner GetFluentScanner(object testObject, string scenarioTitle, Type explicitStoryType)
         {
             IScanner scanner = null;
-            var hasScanner = testObject as IFluentScanner;
 
             var examples = testObject as IExamples;
 
+            var fluentScanner = testObject as IFluentScanner;
             if (examples != null)
-                hasScanner = examples.TestObject as IFluentScanner;
+                fluentScanner = examples.TestObject as IFluentScanner;
             
-            if (hasScanner != null)
-                scanner = hasScanner.GetScanner(scenarioTitle, explicitStoryType);
+            if (fluentScanner != null)
+                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType);
 
             return scanner;
         }
