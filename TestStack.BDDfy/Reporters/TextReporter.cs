@@ -85,13 +85,8 @@ namespace TestStack.BDDfy.Reporters
             foreach (var scenario in scenarioGroup)
             {
                 var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
-                string error;
-                if (failingStep == null)
-                    error = null;
-                else
-                {
-                    error = string.Format("Step: {0} failed with exception: {1}", failingStep.Title, FlattenExceptionMessage(failingStep.Exception.Message));
-                }
+                var error = failingStep == null ? null :
+                    string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
                 addRow(scenario.Result.ToString(), scenario.Examples, error);
             }
 
@@ -99,6 +94,8 @@ namespace TestStack.BDDfy.Reporters
             {
                 WriteExampleRow(row, maxWidth);
             }
+
+
         }
 
         private void WriteExampleRow(string[] row, int[] maxWidth)
@@ -159,13 +156,7 @@ namespace TestStack.BDDfy.Reporters
 
             if (step.Exception != null)
             {
-                _exceptions.Add(step.Exception);
-
-                var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
-                if (!string.IsNullOrEmpty(step.Exception.Message))
-                    message += string.Format("[{0}] {1}", FlattenExceptionMessage(step.Exception.Message), exceptionReference);
-                else
-                    message += string.Format("{0}", exceptionReference);
+                message = CreateExceptionMessage(step);
             }
 
             if (step.Result == Result.Inconclusive || step.Result == Result.NotImplemented)
@@ -177,6 +168,17 @@ namespace TestStack.BDDfy.Reporters
 
             WriteLine(message);
             ForegroundColor = ConsoleColor.White;
+        }
+
+        private string CreateExceptionMessage(Step step)
+        {
+            _exceptions.Add(step.Exception);
+
+            var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
+            if (!string.IsNullOrEmpty(step.Exception.Message))
+                return string.Format("[{0}] {1}", FlattenExceptionMessage(step.Exception.Message), exceptionReference);
+
+            return string.Format("{0}", exceptionReference);
         }
 
         void ReportExceptions()

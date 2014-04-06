@@ -70,14 +70,10 @@ namespace TestStack.BDDfy
 
             var fluentScanner = testObject as IFluentScanner;
             if (examples != null)
-            {
                 fluentScanner = examples.TestObject as IFluentScanner;
-            }
 
             if (fluentScanner != null)
-            {
                 scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType, examples);
-            }
 
             return scanner;
         }
