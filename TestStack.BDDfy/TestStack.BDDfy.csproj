@@ -80,6 +80,13 @@
     <Compile Include="Reporters\Diagnostics\StoryDiagnostic.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
+    <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilder.cs" />
+    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetroHtmlReportTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplateCustom.cs" />
     <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
     <Compile Include="Reporters\Html\HtmlReporter.cs" />
@@ -159,6 +166,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />
+    <None Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MetroHtmlReportTemplate.cs</LastGenOutput>
+    </None>
     <None Include="Reporters\Html\BDDfy.min.js.map">
       <DependentUpon>BDDfy.js</DependentUpon>
     </None>
@@ -180,7 +191,9 @@
       <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.WindowsPhone.Overrides.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />
