@@ -49,8 +49,6 @@ namespace TestStack.BDDfy
         {
             try
             {
-                if (Init != null)
-                    Init(TestObject);
                 step.Execute(TestObject);
                 step.Result = Result.Passed;
             }

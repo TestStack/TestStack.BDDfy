@@ -11,6 +11,9 @@
         {
             foreach (var scenario in story.Scenarios)
             {
+                if (scenario.Init != null)
+                    scenario.Init(scenario.TestObject);
+
                 foreach (var executionStep in scenario.Steps)
                 {
                     if (scenario.ExecuteStep(executionStep) == Result.Passed) 
