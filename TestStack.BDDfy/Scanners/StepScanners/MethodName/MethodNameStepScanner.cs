@@ -70,7 +70,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, string[] exampleHeaders, object[] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
         {
             foreach (var matcher in _matchers)
             {
@@ -78,11 +78,11 @@ namespace TestStack.BDDfy
                     continue;
 
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                yield return GetStep(testObject, matcher, method, returnsItsText, exampleHeaders, examples, exampleRowIndex);
+                yield return GetStep(testObject, matcher, method, returnsItsText, example);
             }
         }
 
-        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, string[] exampleHeaders, object[] examples, int exampleRowIndex)
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
         {
 
             var stepMethodName = GetStepTitleFromMethodName(method, null);
@@ -93,11 +93,11 @@ namespace TestStack.BDDfy
             {
                 var placeholder = inputPlaceholders[i].Value;
 
-                for (int j = 0; j < exampleHeaders.Length; j++)
+                for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", exampleHeaders[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        inputs.Add(examples[j]);
+                        inputs.Add(example.Values[j]);
                     }
                 }
             }

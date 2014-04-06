@@ -66,7 +66,7 @@ namespace TestStack.BDDfy
         {
             IScanner scanner = null;
 
-            var examples = testObject as IExamples;
+            var examples = testObject as IExampleTable;
 
             var fluentScanner = testObject as IFluentScanner;
             if (examples != null)

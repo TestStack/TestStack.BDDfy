@@ -22,29 +22,32 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void RunExamplesWithFluentApi()
         {
             var engine = this
-                    .Given(_ => _.GivenThereAre__start__Cucumbers(_.Start), false)
-                    .When(_ => _.WhenIEat__eat__Cucumbers(_.Eat), false)
-                    .Then(_ => _.ThenIShouldHave__left__Cucumbers(_.Left), false)
-                    .WithExamples(
-                        new[] { "Start", "Eat", "Left" },
-                        new object[] { 12, 5, 7 },
-                        new object[] { 20, 5, 17 })
-                    .LazyBDDfy();
+                .Given(_ => _.GivenThereAre__start__Cucumbers(_.Start), false)
+                .When(_ => _.WhenIEat__eat__Cucumbers(_.Eat), false)
+                .Then(_ => _.ThenIShouldHave__left__Cucumbers(_.Left), false)
+                .WithExamples(new ExampleTable("Start", "Eat", "Left")
+                {
+                    {12, 5, 7},
+                    {20, 5, 17}
+                })
+                .LazyBDDfy();
 
             Assert.Throws<AssertionException>(() => engine.Run());
 
             var textReporter = new TextReporter();
             textReporter.Process(engine.Story);
-            Approvals.Verify(textReporter.ToString());
+            var text = textReporter.ToString();
+            Approvals.Verify(text);
         }
 
         [Test]
         public void RunExamplesWithReflectiveApi()
         {
-            this.WithExamples(
-                    new[] { "start", "eat", "left" },
-                    new object[] { 12, 5, 7 },
-                    new object[] { 20, 5, 15 })
+            this.WithExamples(new ExampleTable("start", "eat", "left")
+                {
+                    {12, 5, 7},
+                    {20, 5, 17}
+                })
                 .BDDfy();
         }
 

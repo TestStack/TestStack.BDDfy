@@ -58,7 +58,7 @@ namespace TestStack.BDDfy.Reporters
         private void WriteExamples(Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)
         {
             WriteLine(@"Examples: ");
-            var numberColumns = exampleScenario.ExampleHeaders.Length + 2;
+            var numberColumns = exampleScenario.Example.ColumnCount + 2;
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
             Action<string, IEnumerable<object>, string> addRow = (result, r, error) =>
@@ -79,13 +79,13 @@ namespace TestStack.BDDfy.Reporters
                 }
                 rows.Add(row);
             };
-            addRow(string.Empty, exampleScenario.ExampleHeaders, "Errors");
+            addRow(string.Empty, exampleScenario.Example.Headers, "Errors");
             foreach (var scenario in scenarioGroup)
             {
                 var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
                 var error = failingStep == null ? null :
                     string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
-                addRow(scenario.Result.ToString(), scenario.Examples, error);
+                addRow(scenario.Result.ToString(), scenario.Example.Values, error);
             }
 
             foreach (var row in rows)

@@ -69,7 +69,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, string[] exampleHeaders, object[] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
         {
             var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if (executableAttribute == null)
@@ -88,11 +88,11 @@ namespace TestStack.BDDfy
             {
                 var placeholder = inputPlaceholders[i].Value;
 
-                for (int j = 0; j < exampleHeaders.Length; j++)
+                for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", exampleHeaders[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        inputs.Add(examples[j]);
+                        inputs.Add(example.Values[j]);
                         break;
                     }
                 }

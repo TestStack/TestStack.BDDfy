@@ -10,10 +10,10 @@ namespace TestStack.BDDfy
     public class FluentScenarioScanner : IScenarioScanner
     {
         private readonly string _title;
-        private readonly IExamples _examples;
+        private readonly IExampleTable _examples;
         private readonly IEnumerable<Step> _steps;
 
-        public FluentScenarioScanner(IEnumerable<Step> steps, string title, IExamples examples)
+        public FluentScenarioScanner(IEnumerable<Step> steps, string title, IExampleTable examples)
         {
             _title = title;
             _examples = examples;
@@ -25,14 +25,11 @@ namespace TestStack.BDDfy
             var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testObject);
             if (_examples != null)
             {
-                var exampleHeaders = _examples.ExampleHeaders;
-                var exampleRows = _examples.ExampleRows;
-
                 var scenarioId = Configurator.IdGenerator.GetScenarioId();
-                return exampleRows.Select((r, i) =>
-                    new Scenario(scenarioId, testObject, CloneSteps(_steps), scenarioText, exampleHeaders, r, i)
+                return _examples.Select(example =>
+                    new Scenario(scenarioId, testObject, CloneSteps(_steps), scenarioText, example)
                     {
-                        Init = o=> PrepareTestObject(o, exampleHeaders, r, i)
+                        Init = o => PrepareTestObject(o, example)
                     });
             }
 
@@ -46,30 +43,28 @@ namespace TestStack.BDDfy
             });
         }
 
-        private void PrepareTestObject(object testObject, string[] exampleHeaders, object[] examples, int rowIndex)
+        private void PrepareTestObject(object testObject, Example example)
         {
-            for (int index = 0; index < exampleHeaders.Length; index++)
+            foreach (var column in example)
             {
-                var exampleHeader = exampleHeaders[index];
-                var exampleValue = examples[index];
                 var type = testObject.GetType();
                 //TODO should we throw if match both a field and a property?
                 var matchingMembers = type.GetMembers()
                     .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .FirstOrDefault(n => n.Name.Equals(exampleHeader, StringComparison.InvariantCultureIgnoreCase));
+                    .FirstOrDefault(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase));
 
                 if (matchingMembers == null)
                     throw new InvalidOperationException(
                         string.Format("Expecting a fields or a property with name of {0} to match example header",
-                            exampleHeader));
+                            column.Key));
 
                 var prop = matchingMembers as PropertyInfo;
                 if (prop != null)
-                    prop.SetValue(testObject, exampleValue, null);
+                    prop.SetValue(testObject, column.Value, null);
 
                 var field = matchingMembers as FieldInfo;
                 if (field != null)
-                    field.SetValue(testObject, exampleValue);
+                    field.SetValue(testObject, column.Value);
             }
         }
 
