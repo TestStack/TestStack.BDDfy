@@ -58,42 +58,50 @@ namespace TestStack.BDDfy.Reporters
         private void WriteExamples(Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)
         {
             WriteLine(@"Examples: ");
-            var numberColumns = exampleScenario.Example.Values.Length + 2;
+            var scenarios = scenarioGroup.ToArray();
+            var allPassed = scenarios.All(s => s.Result == Result.Passed);
+            var exampleColumns = exampleScenario.Example.Values.Length;
+            var numberColumns = allPassed ? exampleColumns : exampleColumns + 2;
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
-            Action<string, IEnumerable<object>, string> addRow = (result, r, error) =>
+
+            Action<IEnumerable<object>, string, string> addRow = (columns, result, error) =>
             {
                 var row = new string[numberColumns];
-                row[0] = result;
-                var index = 1;
-                foreach (var o in r)
+                var index = 0;
+                
+                foreach (var col in columns)
+                    row[index++] = col.ToString();
+
+                if (!allPassed)
                 {
-                    row[index++] = o.ToString();
+                    row[numberColumns - 2] = result;
+                    row[numberColumns - 1] = error;
                 }
-                row[numberColumns - 1] = error;
+
                 for (var i = 0; i < numberColumns; i++)
                 {
                     var rowValue = row[i];
                     if (rowValue != null && rowValue.Length > maxWidth[i])
                         maxWidth[i] = rowValue.Length;
                 }
+                
                 rows.Add(row);
             };
-            addRow(string.Empty, exampleScenario.Example.Headers, "Errors");
-            foreach (var scenario in scenarioGroup)
+
+            addRow(exampleScenario.Example.Headers, "Result", "Errors");
+            foreach (var scenario in scenarios)
             {
                 var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
-                var error = failingStep == null ? null :
-                    string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
-                addRow(scenario.Result.ToString(), scenario.Example.Values, error);
+                var error = failingStep == null
+                    ? null
+                    : string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
+
+                addRow(scenario.Example.Values, scenario.Result.ToString(), error);
             }
 
             foreach (var row in rows)
-            {
                 WriteExampleRow(row, maxWidth);
-            }
-
-
         }
 
         private void WriteExampleRow(string[] row, int[] maxWidth)
