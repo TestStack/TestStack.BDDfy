@@ -49,7 +49,7 @@ namespace TestStack.BDDfy.Tests.Scanner
 
         object[] GetArguments(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
         {
-            return action.ExtractArguments()(instance).ToArray();
+            return action.ExtractArguments(instance).ToArray();
         }
 
         int _input1 = 1;

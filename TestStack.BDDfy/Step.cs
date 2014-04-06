@@ -6,29 +6,26 @@ namespace TestStack.BDDfy
 {
     public class Step
     {
-        private readonly Func<object, string> _titleFactory;
-        private string _title;
-
         public Step(
             Action<object> action,
-            Func<object, string> titleFactory, 
+            string title, 
             bool asserts, 
             ExecutionOrder executionOrder,
             bool shouldReport)
         {
-            _titleFactory = titleFactory;
+            Id = Configurator.IdGenerator.GetStepId();
             Asserts = asserts;
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
             Result = Result.NotExecuted;
             Action = action;
-            Id = Configurator.IdGenerator.GetStepId();
+            Title = title;
         }
 
         public Step(Step step)
         {
-            _titleFactory = step._titleFactory;
             Id = step.Id;
+            Title = step.Title;
             Asserts = step.Asserts;
             ExecutionOrder = step.ExecutionOrder;
             ShouldReport = step.ShouldReport;
@@ -40,28 +37,20 @@ namespace TestStack.BDDfy
         internal Action<object> Action { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
+        public string Title { get; private set; }
+        public ExecutionOrder ExecutionOrder { get; private set; }
+
         public Result Result { get; set; }
         public Exception Exception { get; set; }
-        public ExecutionOrder ExecutionOrder { get; private set; }
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
 
-        public string Title
-        {
-            get
-            {
-                if (_title == null)
-                    return _titleFactory(null);
-                return _title;
-            }
-        }
 
         public void Execute(object testObject)
         {
             Stopwatch sw = Stopwatch.StartNew();
             try
             {
-                _title = _titleFactory(testObject);
                 Action(testObject);
                 sw.Stop();
                 Duration = sw.Elapsed;

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace TestStack.BDDfy
 {
     public static class ExpressionExtensions
     {
-        public static Func<object, IEnumerable<object>> ExtractArguments<T>(this Expression<Action<T>> expression)
+        public static IEnumerable<object> ExtractArguments<T>(this Expression<Action<T>> expression, T value)
         {
             var lambdaExpression = expression as LambdaExpression;
             if (lambdaExpression == null)
@@ -19,10 +20,10 @@ namespace TestStack.BDDfy
             if (methodCallExpression == null)
                 throw new InvalidOperationException("Please provide a *method call* lambda expression.");
 
-            return ExtractArguments(methodCallExpression);
+            return ExtractArguments(methodCallExpression, value);
         }
 
-        public static Func<object, IEnumerable<object>> ExtractArguments<T>(this Expression<Func<T, System.Threading.Tasks.Task>> expression)
+        public static IEnumerable<object> ExtractArguments<T>(this Expression<Func<T, Task>> expression, T value)
         {
             var lambdaExpression = expression as LambdaExpression;
             if (lambdaExpression == null)
@@ -32,107 +33,98 @@ namespace TestStack.BDDfy
             if (methodCallExpression == null)
                 throw new InvalidOperationException("Please provide a *method call* lambda expression.");
 
-            return ExtractArguments(methodCallExpression);
+            return ExtractArguments(methodCallExpression, value);
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(Expression expression)
+        private static IEnumerable<object> ExtractArguments<T>(Expression expression, T value)
         {
             if (expression == null || expression is ParameterExpression)
-                return o => new object[0];
+                return new object[0];
 
             var memberExpression = expression as MemberExpression;
             if (memberExpression != null)
-                return ExtractArguments(memberExpression);
+                return ExtractArguments(memberExpression, value);
 
             var constantExpression = expression as ConstantExpression;
             if (constantExpression != null)
-                return ExtractArguments(constantExpression);
+                return ExtractArguments(constantExpression, value);
 
             var newArrayExpression = expression as NewArrayExpression;
             if (newArrayExpression != null)
-                return ExtractArguments(newArrayExpression);
+                return ExtractArguments(newArrayExpression, value);
 
             var newExpression = expression as NewExpression;
             if (newExpression != null)
-                return ExtractArguments(newExpression);
+                return ExtractArguments(newExpression, value);
 
             var unaryExpression = expression as UnaryExpression;
             if (unaryExpression != null)
-                return ExtractArguments(unaryExpression);
+                return ExtractArguments(unaryExpression, value);
 
-            return o => new object[0];
+            return new object[0];
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(MethodCallExpression methodCallExpression)
+        private static IEnumerable<object> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)
         {
-            return o =>
+            var constants = new List<object>();
+            foreach (var arg in methodCallExpression.Arguments)
             {
-                var constants = new List<object>();
-                foreach (var arg in methodCallExpression.Arguments)
-                {
-                    constants.AddRange(ExtractArguments(arg)(o));
-                }
+                constants.AddRange(ExtractArguments(arg, value));
+            }
 
-                constants.AddRange(ExtractArguments(methodCallExpression.Object)(o));
+            constants.AddRange(ExtractArguments(methodCallExpression.Object, value));
 
-                return constants;
-            };
+            return constants;
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(UnaryExpression unaryExpression)
+        private static IEnumerable<object> ExtractArguments<T>(UnaryExpression unaryExpression, T value)
         {
-            return ExtractArguments(unaryExpression.Operand);
+            return ExtractArguments(unaryExpression.Operand, value);
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(NewExpression newExpression)
+        private static IEnumerable<object> ExtractArguments<T>(NewExpression newExpression, T value)
         {
-            return o =>
+            var arguments = new List<object>();
+            foreach (var argumentExpression in newExpression.Arguments)
             {
-                var arguments = new List<object>();
-                foreach (var argumentExpression in newExpression.Arguments)
-                {
-                    arguments.AddRange(ExtractArguments(argumentExpression)(o));
-                }
+                arguments.AddRange(ExtractArguments(argumentExpression, value));
+            }
 
-                return new[] {newExpression.Constructor.Invoke(arguments.ToArray())};
-            };
+            return new[] { newExpression.Constructor.Invoke(arguments.ToArray()) };
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(NewArrayExpression newArrayExpression)
+        private static IEnumerable<object> ExtractArguments<T>(NewArrayExpression newArrayExpression, T value)
         {
             Type type = newArrayExpression.Type.GetElementType();
             if (type is IConvertible)
                 return ExtractConvertibleTypeArrayConstants(newArrayExpression, type);
 
-            return ExtractNonConvertibleArrayConstants(newArrayExpression, type);
+            return ExtractNonConvertibleArrayConstants(newArrayExpression, type, value);
         }
 
-        private static Func<object, IEnumerable<object>> ExtractNonConvertibleArrayConstants(NewArrayExpression newArrayExpression, Type type)
+        private static IEnumerable<object> ExtractNonConvertibleArrayConstants<T>(NewArrayExpression newArrayExpression, Type type, T value)
         {
-            return o =>
+            var arrayElements = CreateList(type);
+            foreach (var arrayElementExpression in newArrayExpression.Expressions)
             {
-                var arrayElements = CreateList(type);
-                foreach (var arrayElementExpression in newArrayExpression.Expressions)
+                object arrayElement;
+
+                var constantExpression = arrayElementExpression as ConstantExpression;
+                if (constantExpression != null)
+                    arrayElement = constantExpression.Value;
+                else
+                    arrayElement = ExtractArguments(arrayElementExpression, value).ToArray();
+
+                if (arrayElement is object[])
                 {
-                    object arrayElement;
-
-                    var constantExpression = arrayElementExpression as ConstantExpression;
-                    if (constantExpression != null)
-                        arrayElement = constantExpression.Value;
-                    else
-                        arrayElement = ExtractArguments(arrayElementExpression)(o).ToArray();
-
-                    if (arrayElement is object[])
-                    {
-                        foreach (var item in (object[]) arrayElement)
-                            arrayElements.Add(item);
-                    }
-                    else
-                        arrayElements.Add(arrayElement);
+                    foreach (var item in (object[])arrayElement)
+                        arrayElements.Add(item);
                 }
+                else
+                    arrayElements.Add(arrayElement);
+            }
 
-                return ToArray(arrayElements);
-            };
+            return ToArray(arrayElements);
         }
 
         private static IEnumerable<object> ToArray(IList list)
@@ -146,7 +138,7 @@ namespace TestStack.BDDfy
             return (IList)typeof(List<>).MakeGenericType(type).GetConstructor(new Type[0]).Invoke(BindingFlags.CreateInstance, null, null, null);
         }
 
-        private static Func<object, IEnumerable<object>> ExtractConvertibleTypeArrayConstants(NewArrayExpression newArrayExpression, Type type)
+        private static IEnumerable<object> ExtractConvertibleTypeArrayConstants(NewArrayExpression newArrayExpression, Type type)
         {
             var arrayElements = CreateList(type);
             foreach (var arrayElementExpression in newArrayExpression.Expressions)
@@ -155,16 +147,16 @@ namespace TestStack.BDDfy
                 arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type, null));
             }
 
-            return o => new[] { ToArray(arrayElements) };
+            return new[] { ToArray(arrayElements) };
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(ConstantExpression constantExpression)
+        private static IEnumerable<object> ExtractArguments<T>(ConstantExpression constantExpression, T value)
         {
 
             var expression = constantExpression.Value as Expression;
             if (expression != null)
             {
-                return ExtractArguments(expression);
+                return ExtractArguments(expression, value);
             }
 
             var constants = new List<object>();
@@ -175,35 +167,35 @@ namespace TestStack.BDDfy
                 constantExpression.Value == null)
                 constants.Add(constantExpression.Value);
 
-            return o => constants;
+            return constants;
         }
 
-        private static Func<object, IEnumerable<object>> ExtractArguments(MemberExpression memberExpression)
+        private static IEnumerable<object> ExtractArguments<T>(MemberExpression memberExpression, T value)
         {
             var constExpression = memberExpression.Expression as ConstantExpression;
             if (constExpression != null)
                 return ExtractConstant(memberExpression, constExpression);
-            
+
             var fieldInfo = memberExpression.Member as FieldInfo;
             if (fieldInfo != null)
-                return ExtractFieldValue(memberExpression, fieldInfo);
-            
+                return ExtractFieldValue(memberExpression, fieldInfo, value);
+
             var propertyInfo = memberExpression.Member as PropertyInfo;
             if (propertyInfo != null)
-                return ExtractPropertyValue(memberExpression, propertyInfo);
+                return ExtractPropertyValue(memberExpression, propertyInfo, value);
 
             throw new InvalidOperationException("Unknown expression type: " + memberExpression.GetType().Name);
         }
 
-        private static Func<object, IEnumerable<object>> ExtractFieldValue(MemberExpression memberExpression, FieldInfo fieldInfo)
+        private static IEnumerable<object> ExtractFieldValue<T>(MemberExpression memberExpression, FieldInfo fieldInfo, T value)
         {
             if (fieldInfo.IsStatic)
-                return o => new[] {fieldInfo.GetValue(null)};
+                return new[] { fieldInfo.GetValue(null) };
 
-            throw new Exception("Currently only static fields supported");
+            return new[] { fieldInfo.GetValue(value) };
         }
 
-        private static Func<object, IEnumerable<object>> ExtractConstant(MemberExpression memberExpression, ConstantExpression constExpression)
+        private static IEnumerable<object> ExtractConstant(MemberExpression memberExpression, ConstantExpression constExpression)
         {
             var constants = new List<object>();
             var valIsConstant = constExpression != null;
@@ -223,21 +215,12 @@ namespace TestStack.BDDfy
             else
                 constants.Add(((PropertyInfo)member).GetGetMethod(true).Invoke(declaringObject, null));
 
-            return o => constants;
+            return constants;
         }
 
-        private static Func<object, IEnumerable<object>> ExtractPropertyValue(MemberExpression expression, PropertyInfo member)
+        private static IEnumerable<object> ExtractPropertyValue<T>(MemberExpression expression, PropertyInfo member, T value)
         {
-            return o =>
-            {
-                var obj = o;
-                //if (expression.Expression != null)
-                //{
-                //    obj = ExtractArguments(expression);
-                //}
-
-                return new[] { member.GetValue(o, null) };
-            };
+            return new[] { member.GetValue(value, null) };
         }
     }
 }

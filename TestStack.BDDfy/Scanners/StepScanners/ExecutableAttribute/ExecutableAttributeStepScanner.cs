@@ -42,7 +42,7 @@ namespace TestStack.BDDfy
             if (runStepWithArgsAttributes.Length == 0)
             {
                 yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, new object[0]), o => stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, new object[0]), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -61,7 +61,7 @@ namespace TestStack.BDDfy
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), o => methodName, stepAsserts,
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
                                       executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
@@ -100,7 +100,7 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
-            yield return new Step(stepAction, o => stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
+            yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
         }
 
 
