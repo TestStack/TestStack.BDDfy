@@ -57,7 +57,7 @@ namespace TestStack.BDDfy.Reporters
 
         private void WriteExamples(Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)
         {
-            WriteLine(@"Examples: ");
+            WriteLine("Examples: ");
             var scenarios = scenarioGroup.ToArray();
             var allPassed = scenarios.All(s => s.Result == Result.Passed);
             var exampleColumns = exampleScenario.Example.Values.Length;
@@ -106,13 +106,12 @@ namespace TestStack.BDDfy.Reporters
 
         private void WriteExampleRow(string[] row, int[] maxWidth)
         {
-            Write("|");
             for (int index   = 0; index < row.Length; index++)
             {
                 var col = row[index];
-                Write(" {0} |", (col??string.Empty).Trim().PadRight(maxWidth[index]));
+                Write("| {0} ", (col??string.Empty).Trim().PadRight(maxWidth[index]));
             }
-            Write("\n");
+            WriteLine("|");
         }
 
         private void ReportStoryHeader(Story story)
