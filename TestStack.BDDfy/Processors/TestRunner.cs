@@ -11,12 +11,12 @@
         {
             foreach (var scenario in story.Scenarios)
             {
-                if (scenario.Init != null)
-                    scenario.Init(scenario.TestObject);
+                var executor = new ScenarioExecutor(scenario);
+                executor.InitializeScenario();
 
                 foreach (var executionStep in scenario.Steps)
                 {
-                    if (scenario.ExecuteStep(executionStep) == Result.Passed) 
+                    if (executor.ExecuteStep(executionStep) == Result.Passed) 
                         continue;
 
                     if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)

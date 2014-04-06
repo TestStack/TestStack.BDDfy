@@ -75,6 +75,7 @@
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Configuration\TestRunnerFactory.cs" />
     <Compile Include="IBatchProcessor.cs" />
+    <Compile Include="Processors\ScenarioExecutor.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReporter.cs" />
