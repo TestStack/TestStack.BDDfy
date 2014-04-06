@@ -6,7 +6,6 @@ using TestStack.BDDfy.Reporters;
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter))]
     public class UseExamples
     {
         //For reflective
@@ -33,11 +32,6 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .LazyBDDfy();
 
             Assert.Throws<AssertionException>(() => engine.Run());
-
-            var textReporter = new TextReporter();
-            textReporter.Process(engine.Story);
-            var text = textReporter.ToString();
-            Approvals.Verify(text);
         }
 
         [Test]
