@@ -15,8 +15,6 @@ namespace TestStack.BDDfy
 
         public string[] Headers { get; internal set; }
         public object[] Values { get { return _items; } }
-        public int ExampleIndex { get; internal set; }
-        public int ColumnCount { get { return _items.Length; } }
 
         public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
         {

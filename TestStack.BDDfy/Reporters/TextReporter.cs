@@ -58,7 +58,7 @@ namespace TestStack.BDDfy.Reporters
         private void WriteExamples(Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)
         {
             WriteLine(@"Examples: ");
-            var numberColumns = exampleScenario.Example.ColumnCount + 2;
+            var numberColumns = exampleScenario.Example.Values.Length + 2;
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
             Action<string, IEnumerable<object>, string> addRow = (result, r, error) =>

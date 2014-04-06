@@ -26,11 +26,10 @@ namespace TestStack.BDDfy
 
         public void Add(Example example)
         {
-            if (example.ColumnCount != Headers.Length)
+            if (example.Values.Length != Headers.Length)
                 throw new ArgumentException(string.Format("Example does not have the same number as columns as headers: {0}", example));
 
             example.Headers = Headers;
-            example.ExampleIndex = _rows.Count;
             _rows.Add(example);
         }
 
