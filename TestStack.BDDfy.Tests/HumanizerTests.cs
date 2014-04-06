@@ -55,5 +55,12 @@ namespace TestStack.BDDfy.Tests
                 Configurator.Scanners.Humanize("XIsFirstPlayer"),
                 Is.EqualTo("X is first player"));
         }
+
+        [Test]
+        public void CanDealWithExampleStepNames()
+        {
+            Assert.That(NetToString.Convert("GivenThereAre__start__Cucumbers"), Is.EqualTo("Given there are <start> cucumbers"));
+            Assert.That(NetToString.Convert("Given_there_are__start__cucumbers"), Is.EqualTo("Given there are <start> cucumbers"));
+        }
     }
 }

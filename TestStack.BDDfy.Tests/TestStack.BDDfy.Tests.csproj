@@ -78,7 +78,6 @@
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
-    <Compile Include="Scanner\FluentScanner\UseExamples.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
@@ -151,6 +150,9 @@
       <Project>{da6bcb39-307c-4a8e-9a3a-27bb2dbc44a3}</Project>
       <Name>TestStack.BDDfy</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scanner\ReflectiveScanner\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
