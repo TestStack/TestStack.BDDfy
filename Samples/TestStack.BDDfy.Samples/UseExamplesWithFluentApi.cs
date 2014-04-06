@@ -12,7 +12,7 @@ namespace TestStack.BDDfy.Samples
         [Test]
         public void RunExamplesWithFluentApi()
         {
-            this.Given(_ => _.GivenThereAre__start__Cucumbers())
+            this.Given("Given there are <start> cucumbers")
                 .When(_ => _.WhenIEat__eat__Cucumbers())
                 .Then(_ => _.ThenIShouldHave__left__Cucumbers())
                 .WithExamples(new ExampleTable("Start", "Eat", "Left")
@@ -23,17 +23,18 @@ namespace TestStack.BDDfy.Samples
                 .BDDfy();
         }
 
-        private void GivenThereAre__start__Cucumbers()
-        {
-            // because the name contains __start__ the Start field/property is fetched from the examples and set by the framework per example
 
-            // you can obviously take additional setup actions here if you want
-        }
+        // I didn't have to create this method 
+        // because the inline step title has the <start> placeholder in it 
+        // and I didn't have any logic more than setting the Start property
+        // which is done by the framework. 
+        //private void GivenThereAre__start__Cucumbers()
+        //{
+        //}
 
         private void WhenIEat__eat__Cucumbers()
         {
             // because the name contains __eat__ the Eat field/property is fetched from the examples and set by the framework per example
-
             // you can obviously take additional setup actions here if you want
         }
 
