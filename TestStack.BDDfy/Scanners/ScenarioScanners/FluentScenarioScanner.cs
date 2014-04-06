@@ -38,9 +38,7 @@ namespace TestStack.BDDfy
 
         private IEnumerable<Step> CloneSteps(IEnumerable<Step> steps)
         {
-            return steps.Select(step => new Step(step)
-            {
-            });
+            return steps.Select(step => new Step(step));
         }
 
         private void PrepareTestObject(object testObject, Example example)
@@ -48,23 +46,26 @@ namespace TestStack.BDDfy
             foreach (var column in example)
             {
                 var type = testObject.GetType();
-                //TODO should we throw if match both a field and a property?
                 var matchingMembers = type.GetMembers()
                     .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .FirstOrDefault(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase));
+                    .Where(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase))
+                    .ToArray();
 
-                if (matchingMembers == null)
+                if (!matchingMembers.Any())
                     throw new InvalidOperationException(
                         string.Format("Expecting a fields or a property with name of {0} to match example header",
                             column.Key));
 
-                var prop = matchingMembers as PropertyInfo;
-                if (prop != null)
-                    prop.SetValue(testObject, column.Value, null);
+                foreach (var matchingMember in matchingMembers)
+                {
+                    var prop = matchingMember as PropertyInfo;
+                    if (prop != null)
+                        prop.SetValue(testObject, column.Value, null);
 
-                var field = matchingMembers as FieldInfo;
-                if (field != null)
-                    field.SetValue(testObject, column.Value);
+                    var field = matchingMember as FieldInfo;
+                    if (field != null)
+                        field.SetValue(testObject, column.Value);
+                }
             }
         }
 
