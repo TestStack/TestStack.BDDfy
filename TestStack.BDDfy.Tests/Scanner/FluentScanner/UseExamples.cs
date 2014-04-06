@@ -1,7 +1,4 @@
-﻿using ApprovalTests;
-using ApprovalTests.Reporters;
-using NUnit.Framework;
-using TestStack.BDDfy.Reporters;
+﻿using NUnit.Framework;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {

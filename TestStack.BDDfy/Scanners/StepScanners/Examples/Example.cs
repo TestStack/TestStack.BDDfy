@@ -25,5 +25,10 @@ namespace TestStack.BDDfy
         {
             return GetEnumerator();
         }
+
+        public override string ToString()
+        {
+            return string.Join(", ", _items.Select(i => i.ToString()));
+        }
     }
 }
