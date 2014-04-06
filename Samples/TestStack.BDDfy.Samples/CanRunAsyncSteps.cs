@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace TestStack.BDDfy.Samples
 {
-    public class AsyncExample
+    public class CanRunAsyncSteps
     {
         private Sut _sut;
 
