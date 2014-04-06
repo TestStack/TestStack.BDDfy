@@ -43,49 +43,5 @@ namespace TestStack.BDDfy
                 return (Result)Steps.Max(s => (int)s.Result);
             }
         }
-
-        // ToDo: this method does not really belong to this class
-        public Result ExecuteStep(Step step)
-        {
-            try
-            {
-                if (Init != null)
-                    Init(TestObject);
-                step.Execute(TestObject);
-                step.Result = Result.Passed;
-            }
-            catch (Exception ex)
-            {
-                // ToDo: more thought should be put into this. Is it safe to get the exception?
-                var exception = ex;
-                if (exception is TargetInvocationException)
-                {
-                    exception = ex.InnerException ?? ex;
-                }
-
-                if (exception is NotImplementedException)
-                {
-                    step.Result = Result.NotImplemented;
-                    step.Exception = exception;
-                }
-                else if (IsInconclusive(exception))
-                {
-                    step.Result = Result.Inconclusive;
-                    step.Exception = exception;
-                }
-                else
-                {
-                    step.Exception = exception;
-                    step.Result = Result.Failed;
-                }
-            }
-
-            return step.Result;
-        }
-
-        private static bool IsInconclusive(Exception exception)
-        {
-            return exception.GetType().Name.Contains("InconclusiveException");
-        }
     }
 }
