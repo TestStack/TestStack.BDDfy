@@ -20,8 +20,6 @@ namespace TestStack.BDDfy.Reporters
             if (allSteps.Any())
                 _longestStepSentence = allSteps.Max(s => PrefixWithSpaceIfRequired(s).Length);
 
-            //TODO This should be a reporting service. 
-            // Maybe we introduce a reporting model for the moment we can duplicate logic
             foreach (var scenarioGroup in story.Scenarios.GroupBy(s => s.Id))
             {
                 if (scenarioGroup.Count() > 1)
