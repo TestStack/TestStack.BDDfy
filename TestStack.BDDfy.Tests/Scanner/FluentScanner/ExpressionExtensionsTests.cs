@@ -1,9 +1,9 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using NUnit.Framework;
-using System.Linq;
 
-namespace TestStack.BDDfy.Tests.Scanner
+namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     public class BaseClass
     {

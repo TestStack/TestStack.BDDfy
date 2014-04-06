@@ -104,7 +104,7 @@
     <Compile Include="Reporters\ReportTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
-    <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
+    <Compile Include="Scanner\FluentScanner\ExpressionExtensionsTests.cs" />
     <Compile Include="Scanner\StepScannerExtensions.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
