@@ -58,8 +58,8 @@
     <Compile Include="TicTacToe\TicTacToe.cs" />
     <Compile Include="TicTacToe\WinnerGame.cs" />
     <Compile Include="TicTacToe\XWins.cs" />
-    <Compile Include="UseExamplesWithFluentApi.cs" />
     <Compile Include="UseExamplesWithReflectiveApi.cs" />
+    <Compile Include="UseExamplesWithFluentApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">

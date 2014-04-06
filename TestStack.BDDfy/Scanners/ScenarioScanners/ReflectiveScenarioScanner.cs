@@ -25,16 +25,22 @@ namespace TestStack.BDDfy
         public virtual IEnumerable<Scenario> Scan(object testObject)
         {
             var examples = testObject as IExampleTable;
-
-            var scenarioType = testObject.GetType();
-            var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
+            Type scenarioType;
+            string scenarioTitle;
 
             if (examples == null)
             {
                 var steps = ScanScenarioForSteps(testObject);
+                scenarioType = testObject.GetType();
+                scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
+
                 yield return new Scenario(testObject, steps, scenarioTitle);
                 yield break;
             }
+
+            testObject = examples.TestObject;
+            scenarioType = testObject.GetType();
+            scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
 
             var scenarioId = Configurator.IdGenerator.GetScenarioId();
 
