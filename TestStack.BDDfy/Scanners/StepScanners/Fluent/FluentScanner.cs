@@ -38,21 +38,16 @@ namespace TestStack.BDDfy
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
-        private readonly object _testObject;
+        private readonly TScenario _testObject;
 
-        object IFluentScanner.TestObject
-        {
-            get { return _testObject; }
-        }
-
-        internal FluentScanner(object testObject)
+        internal FluentScanner(TScenario testObject)
         {
             _testObject = testObject;
         }
 
-        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
+        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType, IExampleTable examples)
         {
-            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
+            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle, examples), explicitStoryType);
         }
    
         IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
@@ -135,11 +130,19 @@ namespace TestStack.BDDfy
 
         private void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
         {
+            
+            var action = stepAction.Compile();
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), CreateTitle(stepAction, stepTextTemplate, includeInputsInStepTitle, _testObject), asserts, executionOrder, reports));
+        }
+
+        private static string CreateTitle(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle,
+            TScenario o)
+        {
             var methodInfo = GetMethodInfo(stepAction);
             var inputArguments = new object[0];
             if (includeInputsInStepTitle)
             {
-                inputArguments = stepAction.ExtractConstants().ToArray();
+                inputArguments = stepAction.ExtractArguments(o).ToArray();
             }
 
             var flatInputArray = inputArguments.FlattenArrays();
@@ -153,9 +156,7 @@ namespace TestStack.BDDfy
                 stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
             }
 
-            stepTitle = stepTitle.Trim();
-            var action = stepAction.Compile();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+            return stepTitle.Trim();
         }
 
         private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
@@ -166,11 +167,13 @@ namespace TestStack.BDDfy
 
         private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
         {
+            var action = stepAction.Compile();
+
             var methodInfo = GetMethodInfo(stepAction);
             var inputArguments = new object[0];
-            if(includeInputsInStepTitle)
+            if (includeInputsInStepTitle)
             {
-                inputArguments = stepAction.ExtractConstants().ToArray();
+                inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
             var flatInputArray = inputArguments.FlattenArrays();
@@ -184,9 +187,8 @@ namespace TestStack.BDDfy
                 stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
             }
 
-            stepTitle = stepTitle.Trim();
-            var action = stepAction.Compile();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), stepTitle, asserts, executionOrder, reports));
+            var title = stepTitle.Trim();
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
         }
 
         private void AddStep(Action stepAction, string title, bool asserts, ExecutionOrder executionOrder, bool reports = true)

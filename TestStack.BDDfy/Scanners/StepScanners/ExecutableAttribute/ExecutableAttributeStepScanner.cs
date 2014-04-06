@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -68,7 +69,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
         {
             var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if (executableAttribute == null)
@@ -81,27 +82,24 @@ namespace TestStack.BDDfy
             var stepAsserts = IsAssertingByAttribute(method);
 
             var inputs = new List<object>();
-            var exampleHeaders = examples[0];
             var inputPlaceholders = Regex.Matches(stepTitle, " <\\w+> ");
 
             for (int i = 0; i < inputPlaceholders.Count; i++)
             {
                 var placeholder = inputPlaceholders[i].Value;
-                var exampleColIndex = -1;
 
-                for (int j = 0; j < exampleHeaders.Length; j++)
+                for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", exampleHeaders[j]) == placeholder)
+                    if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        exampleColIndex = j;
+                        inputs.Add(example.Values[j]);
                         break;
                     }
                 }
 
-                inputs.Add(examples[exampleRowIndex][exampleColIndex]);
             }
 
-            var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());  
+            var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
             yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
         }
 

@@ -11,32 +11,27 @@ namespace TestStack.BDDfy
         public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText)
         {
             TestObject = testObject;
-            _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+            Steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
             Title = scenarioText;
             Id = Configurator.IdGenerator.GetScenarioId();
         }
 
-        public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText, object[][] examples, int exampleRowIndex)
+        public Scenario(string id, object testObject, IEnumerable<Step> steps, string scenarioText, Example example)
         {
+            Id = id;
             TestObject = testObject;
-            _steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+            Steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
             Title = scenarioText;
-            Examples = examples;
-            ExampleRowIndex = exampleRowIndex;
+            Example = example;
         }
 
-        public string Title { get; private set; }
-        public object[][] Examples { get; set; }
-        public int ExampleRowIndex { get; set; }
-        public TimeSpan Duration { get { return new TimeSpan(_steps.Sum(x => x.Duration.Ticks)); } }
-        public object TestObject { get; internal set; }
         public string Id { get; set; }
-
-        private readonly List<Step> _steps;
-        public List<Step> Steps
-        {
-            get { return _steps; }
-        }
+        public string Title { get; private set; }
+        public Example Example { get; set; }
+        public TimeSpan Duration { get { return new TimeSpan(Steps.Sum(x => x.Duration.Ticks)); } }
+        public object TestObject { get; internal set; }
+        public List<Step> Steps { get; private set; }
+        internal Action<object> Init { get; set; }
 
         public Result Result
         {
@@ -54,6 +49,8 @@ namespace TestStack.BDDfy
         {
             try
             {
+                if (Init != null)
+                    Init(TestObject);
                 step.Execute(TestObject);
                 step.Result = Result.Passed;
             }

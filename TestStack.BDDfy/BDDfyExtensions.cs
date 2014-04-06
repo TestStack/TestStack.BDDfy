@@ -66,14 +66,14 @@ namespace TestStack.BDDfy
         {
             IScanner scanner = null;
 
-            var examples = testObject as IExamples;
+            var examples = testObject as IExampleTable;
 
             var fluentScanner = testObject as IFluentScanner;
             if (examples != null)
                 fluentScanner = examples.TestObject as IFluentScanner;
-            
+
             if (fluentScanner != null)
-                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType);
+                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType, examples);
 
             return scanner;
         }

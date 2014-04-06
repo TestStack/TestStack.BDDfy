@@ -24,13 +24,7 @@ namespace TestStack.BDDfy
 
         public virtual IEnumerable<Scenario> Scan(object testObject)
         {
-            var examples = testObject as IExamples;
-            object[][] exampleRows = null;
-            if (examples != null)
-            {
-                testObject = examples.TestObject;
-                exampleRows = examples.ExampleRows;
-            }
+            var examples = testObject as IExampleTable;
 
             var scenarioType = testObject.GetType();
             var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
@@ -44,10 +38,10 @@ namespace TestStack.BDDfy
 
             var scenarioId = Configurator.IdGenerator.GetScenarioId();
 
-            for (int i = 1; i < exampleRows.Length; i++)
+            foreach (var example in examples)
             {
-                var steps = ScanScenarioForSteps(testObject, exampleRows, i);
-                yield return new Scenario(testObject, steps, scenarioTitle, exampleRows, i) { Id = scenarioId };
+                var steps = ScanScenarioForSteps(testObject, example);
+                yield return new Scenario(scenarioId, testObject, steps, scenarioTitle, example);
             }
         }
 
@@ -78,7 +72,7 @@ namespace TestStack.BDDfy
             return allSteps;
         }
 
-        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, object[][] exampleRows, int exampleRowIndex)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, Example example)
         {
             var allSteps = new List<Step>();
             var scenarioType = testObject.GetType();
@@ -88,7 +82,7 @@ namespace TestStack.BDDfy
                 // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
-                    var steps = scanner.Scan(testObject, methodInfo, exampleRows, exampleRowIndex);
+                    var steps = scanner.Scan(testObject, methodInfo, example);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);

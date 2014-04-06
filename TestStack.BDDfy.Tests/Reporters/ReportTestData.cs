@@ -30,7 +30,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private IEnumerable<Step> GetHappyExecutionSteps()
         {
-            var steps = new List<Step>()
+            var steps = new List<Step>
             {
                 new Step(null, "Given a positive account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
                 new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private IEnumerable<Step> GetSadExecutionSteps()
         {
-            var steps = new List<Step>()
+            var steps = new List<Step>
             {
                 new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
                 new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},

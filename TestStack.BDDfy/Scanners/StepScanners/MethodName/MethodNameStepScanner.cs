@@ -70,7 +70,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, object[][] examples, int exampleRowIndex)
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
         {
             foreach (var matcher in _matchers)
             {
@@ -78,32 +78,28 @@ namespace TestStack.BDDfy
                     continue;
 
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                yield return GetStep(testObject, matcher, method, returnsItsText, examples, exampleRowIndex);
+                yield return GetStep(testObject, matcher, method, returnsItsText, example);
             }
         }
 
-        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[][] examples, int exampleRowIndex)
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
         {
+
             var stepMethodName = GetStepTitleFromMethodName(method, null);
             var inputs = new List<object>();
-            var exampleHeaders = examples[0];
             var inputPlaceholders = Regex.Matches(stepMethodName, " <\\w+> ");
 
             for (int i = 0; i < inputPlaceholders.Count; i++)
             {
                 var placeholder = inputPlaceholders[i].Value;
-                var exampleColIndex = -1;
 
-                for (int j = 0; j < exampleHeaders.Length; j++)
+                for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", exampleHeaders[j]) == placeholder)
+                    if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        exampleColIndex = j;
-                        break;
+                        inputs.Add(example.Values[j]);
                     }
                 }
-
-                inputs.Add(examples[exampleRowIndex][exampleColIndex]);
             }
 
             var stepAction = GetStepAction(method, inputs.ToArray(), returnsItsText);

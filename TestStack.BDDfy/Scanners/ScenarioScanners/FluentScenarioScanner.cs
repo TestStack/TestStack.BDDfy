@@ -1,36 +1,75 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using System.Reflection;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
     public class FluentScenarioScanner : IScenarioScanner
     {
         private readonly string _title;
+        private readonly IExampleTable _examples;
         private readonly IEnumerable<Step> _steps;
 
-        public FluentScenarioScanner(IEnumerable<Step> steps, string title = null)
+        public FluentScenarioScanner(IEnumerable<Step> steps, string title, IExampleTable examples)
         {
             _title = title;
+            _examples = examples;
             _steps = steps;
         }
 
         public IEnumerable<Scenario> Scan(object testObject)
         {
-            object[][] exampleRows = null;
-            var examples = testObject as IExamples;
-
-            if (examples != null)
+            var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testObject);
+            if (_examples != null)
             {
-                testObject = examples.TestObject;
-                exampleRows = examples.ExampleRows;
+                var scenarioId = Configurator.IdGenerator.GetScenarioId();
+                return _examples.Select(example =>
+                    new Scenario(scenarioId, testObject, CloneSteps(_steps), scenarioText, example)
+                    {
+                        Init = o => PrepareTestObject(o, example)
+                    });
             }
 
-            var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testObject);
-            yield return new Scenario(testObject, _steps, scenarioText, exampleRows, 0);
+            return new[]{ new Scenario(testObject, _steps, scenarioText)};
         }
 
-        internal static string GetTitleFromMethodNameInStackTrace(object testObject)
+        private IEnumerable<Step> CloneSteps(IEnumerable<Step> steps)
+        {
+            return steps.Select(step => new Step(step));
+        }
+
+        private void PrepareTestObject(object testObject, Example example)
+        {
+            foreach (var column in example)
+            {
+                var type = testObject.GetType();
+                var matchingMembers = type.GetMembers()
+                    .Where(m => m is FieldInfo || m is PropertyInfo)
+                    .Where(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase))
+                    .ToArray();
+
+                if (!matchingMembers.Any())
+                    throw new InvalidOperationException(
+                        string.Format("Expecting a fields or a property with name of {0} to match example header",
+                            column.Key));
+
+                foreach (var matchingMember in matchingMembers)
+                {
+                    var prop = matchingMember as PropertyInfo;
+                    if (prop != null)
+                        prop.SetValue(testObject, column.Value, null);
+
+                    var field = matchingMember as FieldInfo;
+                    if (field != null)
+                        field.SetValue(testObject, column.Value);
+                }
+            }
+        }
+
+        private static string GetTitleFromMethodNameInStackTrace(object testObject)
         {
             var trace = new StackTrace();
             var frames = trace.GetFrames();

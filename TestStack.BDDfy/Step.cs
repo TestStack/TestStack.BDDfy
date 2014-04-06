@@ -13,13 +13,24 @@ namespace TestStack.BDDfy
             ExecutionOrder executionOrder,
             bool shouldReport)
         {
+            Id = Configurator.IdGenerator.GetStepId();
             Asserts = asserts;
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
             Result = Result.NotExecuted;
-            Title = title;
             Action = action;
-            Id = Configurator.IdGenerator.GetStepId();
+            Title = title;
+        }
+
+        public Step(Step step)
+        {
+            Id = step.Id;
+            Title = step.Title;
+            Asserts = step.Asserts;
+            ExecutionOrder = step.ExecutionOrder;
+            ShouldReport = step.ShouldReport;
+            Result = Result.NotExecuted;
+            Action = step.Action;
         }
 
         public string Id { get; private set; }
@@ -27,11 +38,13 @@ namespace TestStack.BDDfy
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
         public string Title { get; private set; }
+        public ExecutionOrder ExecutionOrder { get; private set; }
+
         public Result Result { get; set; }
         public Exception Exception { get; set; }
-        public ExecutionOrder ExecutionOrder { get; private set; }
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
+
 
         public void Execute(object testObject)
         {
