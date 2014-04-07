@@ -3,6 +3,9 @@ using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Reporters.HtmlMetro
 {
+    /// <summary>
+    /// Partial class for the T4 runtime template where it's data comes from
+    /// </summary>
     partial class MetroHtmlReportTemplate
     {
         private readonly HtmlReportViewModel _model;      

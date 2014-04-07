@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             {
                 var model = new HtmlReportViewModel(
                     new DefaultHtmlReportConfiguration(),
-                    new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+                    new ReportTestData().CreateMixContainingEachTypeOfOutcome());
 
                 var sut = new HtmlMetroReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
                 var result = sut.CreateReport(model);
