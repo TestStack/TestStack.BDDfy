@@ -6,7 +6,6 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
     public class HtmlMetroReportBuilder : IReportBuilder
     {
         private Func<DateTime> _dateProvider = () => DateTime.Now;
-        private HtmlReportViewModel _viewModel;
 
         string IReportBuilder.CreateReport(FileReportModel model)
         {
@@ -15,8 +14,6 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 
         public string CreateReport(HtmlReportViewModel model)
         {
-            _viewModel = model;
-
             var t = new MetroHtmlReportTemplate(model, DateProvider());
 
             var html = t.TransformText();

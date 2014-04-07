@@ -1,16 +1,14 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.HtmlMetro;
+using TestStack.BDDfy.Tests.Reporters.Html;
 
-namespace TestStack.BDDfy.Tests.Reporters.Html
+namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
 {
     [TestFixture]
     [UseReporter(typeof (DiffReporter))]
