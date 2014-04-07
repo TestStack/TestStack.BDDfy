@@ -3,10 +3,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-
-
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -215,36 +211,6 @@ h4, h5, h6 {
     
 }
 
-ul.metro-list, ol.metro-list {
-    padding: 0;
-}
-
-    ul.metro-list li, ol.metro-list li {
-        display: block;
-        list-style-type: none;
-        border-left: solid 30px #1ba1e2;
-        height: 20px;
-        list-style-position: inside;
-        margin: 10px 0;
-        padding: 5px;
-    }
-
-/*ul.metro-list {
-    overflow: hidden;
-}
-
-ol.metro-list {
-    text-indent: -25px;
-    counter-reset: item;
-}
-
-    ol.metro-list li:before {
-        color: white;
-        margin-right: 25px;
-        content: counter(item) " ";
-        counter-increment: item;
-    }
-*/
 .tile {
     -webkit-perspective: 0;
     -webkit-transform-style: preserve- 3 d;
@@ -337,57 +303,6 @@ ol.metro-list {
     margin-left: 600px;
 }
 
-/*metro-pivot .headers {
-    clear: both;
-    display: block;
-    white-space: nowrap;
-}
-
-.metro-pivot .pivot-item h3, .metro-pivot .headers .header {
-    font-family: 'Roboto', "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
-    font-weight: 300;
-    margin-top: 5px;
-    margin-bottom: 0px;
-    
-    cursor: pointer;
-    display: inline-block;
-    font-size: 42px;
-    margin-right: 24px;
-    padding: 0;
-    vertical-align: top;
-}
-
-.metro-pivot .headers {
-    white-space: nowrap;
-    display: block;
-    clear: both;
-}
-
-    .metro-pivot .pivot-item h3, .metro-pivot .headers .header {
-        font-family: 'Roboto', "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
-        font-weight: 300;
-        margin-top: 5px;
-        margin-bottom: 0px;
-        
-        font-size: 42px;
-        display: inline-block;
-        vertical-align: top;
-        padding: 0;
-        cursor: pointer;
-        margin-right: 24px;
-    }
-
-.metro-pivot .items {
-    position: relative;
-}
-
-    .metro-pivot .items .pivotItem {
-        display: block;
-        white-space: normal;
-        text-align: justify;
-        width: 100%;
-    }
-*/
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
     display: block;
 }
@@ -817,7 +732,7 @@ li {
 }
 
 #summaryTotals {
-	margin-top: 50px;
+	margin-top: 30px;
          width: 800px;
 }
 
@@ -1020,287 +935,204 @@ code {
     font-family: monospace;
 }
 	</style>
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>	
-	<link rel="stylesheet" type="text/css" href="newo.css">	
-    <style type='text/css'>
-		/*If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.*/
-    </style>
-    <title>BDDfy Test Result <#= RunDate.ToShortDateString() #></title>
-  </head>
-  <body>
-    <div id='main'>
-	
-	
-	
-	
-	
-	
-	
-      <section id='titles'>
-        <h1 class="blue"><#= Model.Configuration.ReportHeader #></h1>
-        <h3><#= Model.Configuration.ReportDescription #></h3>
-      </section>
-	  
-	  	 
-	  
-	  
-    <section id='summaryTotals' class='group'>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>	
+		<link rel="stylesheet" type="text/css" href="newo.css">	
+		<style type='text/css'>
+			/*If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.*/
+		</style>
+		<title>BDDfy Test Result <#= RunDate.ToShortDateString() #></title>
+	</head>
+	<body>
+		<div id='main'>
+
+			<section id='titles'>
+				<h1 class="blue"><#= Model.Configuration.ReportHeader #></h1>
+				<h3><#= Model.Configuration.ReportDescription #></h3>
+			</section>
 		
-		
-		<div class='tiles' >
-			<div class='tilerow'>
-				<div id='storycount' class="tile tileNoHover two-h purplebg">
-					<h3>stories</h3>
-					<h1><#= Model.Summary.Stories #></12>
-				</div>
-				<div id='scenariocount' class="tile tileNoHover two-h tealbg">
-					<h3>scenarios</h3>
-					<h1><#= Model.Summary.Scenarios #></h1>
-				</div>					  
-			</div>			
-		
-		
-		
-			<div class='tilerow'>
-				<div class="tile tileNoHover one limebg">
-					<h4>PASSED</h4>
-					<h1><#= Model.Summary.Passed #></h1>
-				</div>
-				<div class="tile tileNoHover one redbg">
-					<h4>FAILED</h4>
-					<h1><#= Model.Summary.Failed #></h1>
-				</div>							
-				<div class="tile tileNoHover one orangebg">
-					<h4>INCONCLUSIVE</h4>
-					<h1><#= Model.Summary.Inconclusive #></h1>
-				</div>
-				<div class="tile tileNoHover one bluebg">
-					<h4>NOT IMPLEMENTED</h4>
-					<h1><#= Model.Summary.NotImplemented #></h1>				
-				</div>			
-			</div>
-		
-		</div>
-		
-		</section> 
-		
-		
-		
-		
-		
-		
+			<section id='summaryTotals' class='group'>				
+				<div class='tiles' >
+					<div class='tilerow'>
+						<div id='storycount' class="tile tileNoHover two-h purplebg">
+							<h3>stories</h3>
+							<h1><#= Model.Summary.Stories #></h1>
+						</div>
+						<div id='scenariocount' class="tile tileNoHover two-h tealbg">
+							<h3>scenarios</h3>
+							<h1><#= Model.Summary.Scenarios #></h1>
+						</div>					  
+					</div>						
+					<div class='tilerow'>
+						<div class="tile tileNoHover one limebg">
+							<h4>PASSED</h4>
+							<h1><#= Model.Summary.Passed #></h1>
+						</div>
+						<div class="tile tileNoHover one redbg">
+							<h4>FAILED</h4>
+							<h1><#= Model.Summary.Failed #></h1>
+						</div>							
+						<div class="tile tileNoHover one orangebg">
+							<h4>INCONCLUSIVE</h4>
+							<h1><#= Model.Summary.Inconclusive #></h1>
+						</div>
+						<div class="tile tileNoHover one bluebg">
+							<h4>NOT IMPLEMENTED</h4>
+							<h1><#= Model.Summary.NotImplemented #></h1>				
+						</div>			
+					</div>		
+				</div>		
+			</section> 		
 	  
+			<section id='resultOptions' class='group'>	  
+				<h3>options</h3>
 	  
+				<ul id='filterOptions'>         
+					<li class="Passed">
+						<input id="passedFilter" type="checkbox" checked="" data-target-class="Passed">
+						<label for="passedFilter">passed</label>
+					</li>		  
+					<li class="Failed">
+						<input id="failedFilter" type="checkbox" checked="" data-target-class="Failed">
+						<label for="failedFilter">failed</label>
+					</li>
+					<li class="Inconclusive">
+						<input id="inconclusiveFilter" type="checkbox" checked="" data-target-class="Inconclusive">
+						<label for="inconclusiveFilter">inconclusive</label>
+					</li>		  		  
+					<li  class="NotImplemented">
+						<input id="notImplementedFilter" type="checkbox" checked="" data-target-class="NotImplemented">
+						<label for="notImplementedFilter">not implemented</label>
+					</li>		  		  
+				</ul>	  
+			</section>
 	  
-	  
-	  
-      <section id='resultOptions' class='group'>
-	  
-		<h3>options</h3>
-	  
-	  <ul id='filterOptions'>         
-          <li class="Passed">
-			<input id="passedFilter" type="checkbox" checked="" data-target-class="Passed">
-			<label for="passedFilter">passed</label>
-          </li>
-		  
-          <li class="Failed">
-			<input id="failedFilter" type="checkbox" checked="" data-target-class="Failed">
-			<label for="failedFilter">failed</label>
-          </li>
-
-          <li class="Inconclusive">
-			<input id="inconclusiveFilter" type="checkbox" checked="" data-target-class="Inconclusive">
-			<label for="inconclusiveFilter">inconclusive</label>
-          </li>		  
-		  
-          <li  class="NotImplemented">
-			<input id="notImplementedFilter" type="checkbox" checked="" data-target-class="NotImplemented">
-			<label for="notImplementedFilter">not implemented</label>
-          </li>		  		  
-        </ul>
-	  
-
-    
-	  
-
-	
-
-  </section>
-	  
-  <section id='testResults'>
-
-
-
-    <div id='expandCollapse' class='group'>
-        <h2 style="float: left">results</h2>      
-        <a href="#" class='expandAll'>show steps</a>
-        <a href="#" class='collapseAll'>hide steps</a>           
-    </div>
-
-
-        <ul class='testResult'>
-
-
-		<# foreach (var story in Model.Stories) 
-			{ #>
-
-		<li>
-            <div class='story <#= story.Result #>'>
-
-				<div class='storyMetaData'>
-					<h3 class='storyTitle'><#= story.Metadata.Title #></h3>
-
-
-					<# if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
-						{ #>
-
-							<ul class='storyNarrative'>
-								<li><#= story.Metadata.Narrative1 #></li>
-								<li><#= story.Metadata.Narrative2 #></li>
-								<li><#= story.Metadata.Narrative3 #></li>
-							</ul>
-
-						<# } // end if narrative lines #>
+			<section id='testResults'>
+				<div id='expandCollapse' class='group'>
+					<h2 style="float: left">results</h2>      
+					<a href="#" class='expandAll'>show steps</a>
+					<a href="#" class='collapseAll'>hide steps</a>           
 				</div>
 
+				<ul class='testResult'>
+				
+					<# foreach (var story in Model.Stories) 
+					{ #>
+					<li>
+						<div class='story <#= story.Result #>'>
+							<div class='storyMetaData'>
+								<h3 class='storyTitle'><#= story.Metadata.Title #></h3>
 
+								<# if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
+								{ #>
+								<ul class='storyNarrative'>
+									<li><#= story.Metadata.Narrative1 #></li>
+									<li><#= story.Metadata.Narrative2 #></li>
+									<li><#= story.Metadata.Narrative3 #></li>
+								</ul>
+								<# } // end if narrative lines #>
+							</div>
 
-				<#
-					var scenariosInGroup = story.Scenarios.ToList();
-					var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
-				#>
-			
+							<#
+								var scenariosInGroup = story.Scenarios.ToList();
+								var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
+							#>			
 
-				<div class='scenarios'>
+							<div class='scenarios'>
 
-					<# foreach (var scenario in scenariosInGroup)
-					 { #>
+								<# foreach (var scenario in scenariosInGroup)
+								{ #>
 
-
-				<div class='scenario'>
-					  <div class='<#= scenario.Result #> canToggle scenarioTitle' data-toggle-target='<#= scenario.Id #>'><#= scenario.Title #></div>
-					  
-					  <ul class='steps' id='<#= scenario.Id #>'>
-						  <# foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-						  { 
-								string stepClass = string.Empty;
-								var reportException = step.Exception != null && step.Result == Result.Failed;
-								string canToggle = reportException ? "canToggle" : string.Empty;
-						#>					  
-								<li class='step <#= step.Result #> <#= stepClass #> <#= step.ExecutionOrder #> <#= canToggle #>' data-toggle-target='<#= step.Id #>' >
+								<div class='scenario'>
+									<div class='<#= scenario.Result #> canToggle scenarioTitle' data-toggle-target='<#= scenario.Id #>'><#= scenario.Title #></div>					  
+										<ul class='steps' id='<#= scenario.Id #>'>
+										
+											<# foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+											{ 
+												string stepClass = string.Empty;
+												var reportException = step.Exception != null && step.Result == Result.Failed;
+												string canToggle = reportException ? "canToggle" : string.Empty;
+											#>					  
+										
+											<li class='step <#= step.Result #> <#= stepClass #> <#= step.ExecutionOrder #> <#= canToggle #>' data-toggle-target='<#= step.Id #>' >									
 									
-									
-									<#
-										var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-										var title = titleLines[0];
-										if (reportException)
-										{
-											stepClass = step.Result + "Exception";
-											if (!string.IsNullOrEmpty(step.Exception.Message))
+											<#
+											var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+											var title = titleLines[0];
+											if (reportException)
 											{
-												title += " [Exception Message: '" + step.Exception.Message + "']";
+												stepClass = step.Result + "Exception";
+												if (!string.IsNullOrEmpty(step.Exception.Message))
+												{
+													title += " [Exception Message: '" + step.Exception.Message + "']";
+												}
 											}
-										}
-									#>
+											#>
 									
-									<span><#= title #></span>
+												<span><#= title #></span>
+										
+												<# for (int i = 1; i < titleLines.Length; i++)
+												{ #>
+												<div class='step-title-extra-lines'><#= titleLines[i] #></div>
+												<#} // foreach title lines #>
 
+												<# if (reportException)
+												{ #>
+												<div class='step <#= stepClass #>' id='<#= step.Id #>'>
+												<# } // end if report exception #>
 
+											</li>					 
 
-									<# for (int i = 1; i < titleLines.Length; i++)
-									{ #>
-										<div class='step-title-extra-lines'><#= titleLines[i] #></div>
-									 <#} // foreach title lines #>
-
-
-									<# if (reportException)
-									{ #>
-										<div class='step <#= stepClass #>' id='<#= step.Id #>'>
-									<# } // end if report exception #>
-
-								</li>					 
-
-						  <# } // end foreach step #>
-					  </ul>					 					  
-                </div> <!-- end scenario -->
+											<# } // end foreach step #>
+										</ul>					 					  
+								</div> <# // end scenario #>
                         
                         
-					<# } // end for each scenario #>
+								<# } // end for each scenario #>
 
-				</div> <!-- end scenarios -->
+							</div> <# // end scenarios #>
 
+						</div> <# // end story #>
 
-
-			  <# } // end for each story #>
-
-              </div>
-
-			  
-        </ul>    
-
-
-
-            
-     
-     
-          
-           
-            
-
-
-
-
-
-      </section>
+					<# } // end for each story #>			  
+				</ul>    
+			</section>
     
-	 
+			<section>
+				<p>Tested at: <#= RunDate #></p>
+				<hr />
+				<p>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a></p>
+			</section>		
+		
+		</div> <# // end div main #>
 	
-	<section>
-    <p>Tested at: <#= RunDate #></p>
-    <hr />
-    <p>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a></p>
-  </section>
-	
-	
-	
-	
-	</div>
-	
-	
-	
-	
-	
-    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
-    <script>
-$(function () {
-    $('.canToggle').each(function () {
-        var target = $('#' + $(this).data('toggle-target'));
-        target.hide();
-        $(this).click(function () {
-            target.toggle(200);
-        });
-    });
+		<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+		
+		<script>
+			$(function () {
+				$('.canToggle').each(function () {
+					var target = $('#' + $(this).data('toggle-target'));
+					target.hide();
+					$(this).click(function () {
+						target.toggle(200);
+					});
+				});
 
-    $('.expandAll').click(function () {
-        $('.steps').css('display', '');
-    });
-    $('.collapseAll').click(function () {
-        $('.steps').css('display', 'none');        
-    });
+				$('.expandAll').click(function () {
+					$('.steps').css('display', '');
+				});
+				$('.collapseAll').click(function () {
+					$('.steps').css('display', 'none');        
+				});
 
 
-    $("#filterOptions li input").click(function () {
-      
-        var checkBox = $(this);
-        var resultType = checkBox.data("target-class");                
-        $("div.scenario ." + resultType).parent().toggle(checkBox.prop("checked"));
-       
-    });});
-    </script>
-    <script>
-/*If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report.*/
-
+				$("#filterOptions li input").click(function () {      
+					var checkBox = $(this);
+					var resultType = checkBox.data("target-class");                
+					$("div.scenario ." + resultType).parent().toggle(checkBox.prop("checked"));       
+				});});
+		</script>
+		<script>
+			/*If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report.*/
     </script>
   </body>
 </html>

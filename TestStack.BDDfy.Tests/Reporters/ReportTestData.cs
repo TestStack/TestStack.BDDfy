@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             var stories = new List<Story>()
             {
                 new Story(storyMetadata1, GetOneOfEachScenarioResult()),
-                 new Story(storyMetadata2, GetScenarios())
+                new Story(storyMetadata2, GetOneOfEachScenarioResult())                
             };
 
             return stories;

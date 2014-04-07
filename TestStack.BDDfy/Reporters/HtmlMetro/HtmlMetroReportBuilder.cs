@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Reporters.HtmlMetro
@@ -30,8 +28,6 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
         {
             get { return _dateProvider; }
             set { _dateProvider = value; }
-        }
-     
-
+        }     
     }
 }
