@@ -9,7 +9,7 @@
   <head>
     <meta charset='utf-8'/>
 	<style type='text/css'>
-		<!-- <#= HtmlReportResources.BDDfy_css_min #> -->
+		<#= ReportCss #>
 		<!-- <#= HtmlReportResources.CustomStylesheetComment #> -->
 		<#= Model.CustomStylesheet ?? "" #>
 	</style>

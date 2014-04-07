@@ -176,9 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Reporters\HtmlMetro\BDDfyMetro.css" />
-    <Content Include="Reporters\HtmlMetro\BDDfyMetro.min.css">
+    <EmbeddedResource Include="Reporters\HtmlMetro\BDDfyMetro.min.css">
       <DependentUpon>BDDfyMetro.css</DependentUpon>
-    </Content>
+    </EmbeddedResource>
     <Content Include="Reporters\Html\BDDfy.css" />
     <Content Include="Reporters\Html\BDDfy.js" />
     <Content Include="Reporters\Html\jquery-2.1.0.min.js" />

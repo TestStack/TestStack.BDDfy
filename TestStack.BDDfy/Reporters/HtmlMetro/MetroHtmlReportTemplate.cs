@@ -30,14 +30,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
         public virtual string TransformText()
         {
             this.Write("<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\'utf-8\'/>\r\n\t<style type=\'tex" +
-                    "t/css\'>\r\n\t\t<!-- ");
+                    "t/css\'>\r\n\t\t");
             
             #line 12 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.BDDfy_css_min));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ReportCss));
             
             #line default
             #line hidden
-            this.Write(" -->\r\n\t\t<!-- ");
+            this.Write("\r\n\t\t<!-- ");
             
             #line 13 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.CustomStylesheetComment));

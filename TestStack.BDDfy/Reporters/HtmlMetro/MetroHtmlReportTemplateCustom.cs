@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Reporters.HtmlMetro
@@ -20,6 +22,21 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
         public HtmlReportViewModel Model
         {
             get { return _model; }
+        }
+
+        public string ReportCss
+        {
+            get
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                const string resourceName = "TestStack.BDDfy.Reporters.HtmlMetro.BDDfyMetro.min.css";
+
+                using (var stream = assembly.GetManifestResourceStream(resourceName))
+                using (var reader = new StreamReader(stream))
+                {
+                    return  reader.ReadToEnd();
+                }
+            }
         }
     }
 }
