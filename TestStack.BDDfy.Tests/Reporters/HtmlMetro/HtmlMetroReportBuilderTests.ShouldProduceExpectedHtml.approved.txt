@@ -255,12 +255,15 @@
 
 																  
 										
-											<li class='step Failed  Assertion ' data-toggle-target='step-6-3' >									
+											<li class='step Failed  Assertion canToggle' data-toggle-target='step-6-3' >									
 									
 																				
-												<span>Then no money is dispensed</span>
+												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
 										
 												
+																								<div class='step FailedException' id='step-6-3'>
+													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
+												</div>
 												
 											</li>					 
 
@@ -440,12 +443,15 @@
 
 																  
 										
-											<li class='step Failed  Assertion ' data-toggle-target='step-2-3' >									
+											<li class='step Failed  Assertion canToggle' data-toggle-target='step-2-3' >									
 									
 																				
-												<span>Then no money is dispensed</span>
+												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
 										
 												
+																								<div class='step FailedException' id='step-2-3'>
+													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
+												</div>
 												
 											</li>					 
 
@@ -620,12 +626,15 @@
 
 																  
 										
-											<li class='step Failed  Assertion ' data-toggle-target='step-10-3' >									
+											<li class='step Failed  Assertion canToggle' data-toggle-target='step-10-3' >									
 									
 																				
-												<span>Then no money is dispensed</span>
+												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
 										
 												
+																								<div class='step FailedException' id='step-10-3'>
+													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
+												</div>
 												
 											</li>					 
 

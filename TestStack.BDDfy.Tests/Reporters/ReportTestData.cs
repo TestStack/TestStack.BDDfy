@@ -61,8 +61,22 @@ namespace TestStack.BDDfy.Tests.Reporters
 
             SetAllStepResults(scenarios[1].Steps, Result.Passed);
             scenarios[1].Steps.Last().Result = Result.Failed;
+            scenarios[1].Steps.Last().Exception = MakeExWithStackTrace();
+                
 
             return scenarios.ToArray();
+        }
+
+        private Exception MakeExWithStackTrace()
+        {
+            try
+            {
+                throw new NotImplementedException("This is a test exception, it should be shown when step is expanded.");
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }            
         }
 
         private IEnumerable<Step> GetHappyExecutionSteps()

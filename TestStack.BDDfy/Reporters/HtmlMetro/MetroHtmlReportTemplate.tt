@@ -162,6 +162,8 @@
 												<# if (reportException)
 												{ #>
 												<div class='step <#= stepClass #>' id='<#= step.Id #>'>
+													<code><#= step.Exception.StackTrace ?? "" #></code>
+												</div>
 												<# } // end if report exception #>
 
 											</li>					 
