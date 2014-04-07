@@ -1,4 +1,20 @@
 ###In development
+####Improvements
+ - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61), [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable. Breaking change.
+ - [#63](https://github.com/TestStack/TestStack.BDDfy/pull/63) - renamed a number of types to more accurately reflect their role and usage. Breaking change.
+ - [#64](https://github.com/TestStack/TestStack.BDDfy/pull/64), [#65](https://github.com/TestStack/TestStack.BDDfy/pull/65) - cleans up NuGet packages and sets up automatic restore.
+ - [#67](https://github.com/TestStack/TestStack.BDDfy/pull/67) - makes StoryMetadata generic to allow different story narratives.
+ - [#71](https://github.com/TestStack/TestStack.BDDfy/pull/71) - config point for resolving jquery thru CDN or embedding it so as to remove dependency on jQuery.
+ - [#72](https://github.com/TestStack/TestStack.BDDfy/pull/72) - minifies bddfy .css and .js files to make HTML report source more readable.
+ - [#74](https://github.com/TestStack/TestStack.BDDfy/pull/74), [#76](https://github.com/TestStack/TestStack.BDDfy/pull/76), [#77](https://github.com/TestStack/TestStack.BDDfy/pull/77) - added tests for HTML report.
+ - [#80](https://github.com/TestStack/TestStack.BDDfy/pull/80) - removed .net 3.5 support. Breaking change.
+
+####Bugs
+ - [#73](https://github.com/TestStack/TestStack.BDDfy/pull/73) - fixed packages.build that broke after nuget cleanup.
+
+####New Features
+ - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - ability to do inline assertions using the fluent API.
+
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
 
 ###v3.19.1 - 2014-03-17
