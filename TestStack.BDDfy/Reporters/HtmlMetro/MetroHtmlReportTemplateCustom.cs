@@ -38,5 +38,22 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                 }
             }
         }
+
+        public string ReportJs
+        {
+            get
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                const string resourceName = "TestStack.BDDfy.Reporters.HtmlMetro.BDDfyMetro.min.js";
+
+                using (var stream = assembly.GetManifestResourceStream(resourceName))
+                using (var reader = new StreamReader(stream))
+                {
+                    // the first line contains the min js, other lines contain source map comments which we don't want
+                    return reader.ReadLine();
+                    
+                }
+            }
+        }
     }
 }

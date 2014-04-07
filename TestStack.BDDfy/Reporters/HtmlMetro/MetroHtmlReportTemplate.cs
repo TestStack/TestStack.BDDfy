@@ -476,37 +476,17 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             
             #line default
             #line hidden
-            this.Write(@"	
-		<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
-		
-		<script>
-			$(function () {
-				$('.canToggle').each(function () {
-					var target = $('#' + $(this).data('toggle-target'));
-					target.hide();
-					$(this).click(function () {
-						target.toggle(200);
-					});
-				});
-
-				$('.expandAll').click(function () {
-					$('.steps').css('display', '');
-				});
-				$('.collapseAll').click(function () {
-					$('.steps').css('display', 'none');        
-				});
-
-
-				$(""#filterOptions li input"").click(function () {      
-					var checkBox = $(this);
-					var resultType = checkBox.data(""target-class"");                
-					$(""div.scenario ."" + resultType).parent().toggle(checkBox.prop(""checked""));       
-				});});
-		</script>
-		<script>
-			<!-- ");
+            this.Write("\t\r\n\t\t<script type=\'text/javascript\' src=\'https://code.jquery.com/jquery-1.11.0.mi" +
+                    "n.js\'></script>\r\n\t\t\r\n\t\t<script>\r\n\t\t\t");
             
-            #line 217 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 193 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ReportJs));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t\t</script>\r\n\t\t<script>\r\n\t\t\t<!-- ");
+            
+            #line 196 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.CustomJavascriptComment));
             
             #line default
