@@ -12,6 +12,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using TestStack.BDDfy.Reporters.Html;
     using System;
     
     /// <summary>
@@ -29,211 +30,31 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
         public virtual string TransformText()
         {
             this.Write("<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\'utf-8\'/>\r\n\t<style type=\'tex" +
-                    "t/css\'>\r\n\r\n/**\r\n    * Eric Meyer\'s Reset CSS v2.0 (http://meyerweb.com/eric/tool" +
-                    "s/css/reset/)\r\n    * http://cssreset.com\r\n    */\r\nhtml, body, div, span, applet," +
-                    " object, iframe,\r\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\r\na, abbr, acronym," +
-                    " address, big, cite, code,\r\ndel, dfn, em, img, ins, kbd, q, s, samp,\r\nsmall, str" +
-                    "ike, strong, sub, sup, tt, var,\r\nb, u, i, center,\r\ndl, dt, dd, ol, ul, li,\r\nfiel" +
-                    "dset, form, label, legend,\r\ntable, caption, tbody, tfoot, thead, tr, th, td,\r\nar" +
-                    "ticle, aside, canvas, details, embed,\r\nfigure, figcaption, footer, header, hgrou" +
-                    "p,\r\nmenu, nav, output, ruby, section, summary,\r\ntime, mark, audio, video {\r\n    " +
-                    "margin: 0;\r\n    padding: 0;\r\n    border: 0;\r\n    font-size: 100%;\r\n    font: inh" +
-                    "erit;\r\n    vertical-align: baseline;\r\n}\r\n/* HTML5 display-role reset for older b" +
-                    "rowsers */\r\narticle, aside, details, figcaption, figure,\r\nfooter, header, hgroup" +
-                    ", menu, nav, section {\r\n    display: block;\r\n}\r\n\r\nbody {\r\n    line-height: 1;\r\n}" +
-                    "\r\n\r\nol, ul {\r\n    list-style: none;\r\n}\r\n\r\nblockquote, q {\r\n    quotes: none;\r\n}\r" +
-                    "\n\r\n    blockquote:before, blockquote:after,\r\n    q:before, q:after {\r\n        co" +
-                    "ntent: \'\';\r\n        content: none;\r\n    }\r\n\r\ntable {\r\n    border-collapse: colla" +
-                    "pse;\r\n    border-spacing: 0;\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/* based on metro blue theme " +
-                    "from: http://code52.org/metro.css/#colours */\r\n.accent {\r\n    color: #1ba1e2;\r\n}" +
-                    "\r\n\r\n.white {\r\n    color: #fff;\r\n}\r\n\r\n.black {\r\n    color: #000;\r\n}\r\n\r\n.blue {\r\n " +
-                    "   color: #1ba1e2;\r\n}\r\n\r\n.brown {\r\n    color: #a05000;\r\n}\r\n\r\n.green {\r\n    color" +
-                    ": #393;\r\n}\r\n\r\n.lime {\r\n    color: #8cbf26;\r\n}\r\n\r\n.magenta {\r\n    color: #ff0097;" +
-                    "\r\n}\r\n\r\n.orange {\r\n    color: #f09609;\r\n}\r\n\r\n.pink {\r\n    color: #e671b8;\r\n}\r\n\r\n." +
-                    "purple {\r\n    color: #a200ff;\r\n}\r\n\r\n.red {\r\n    color: #e51400;\r\n}\r\n\r\n.teal {\r\n " +
-                    "   color: #00aba9;\r\n}\r\n\r\n.whitebg {\r\n    background-color: #fff;\r\n}\r\n\r\n.blackbg " +
-                    "{\r\n    background-color: #000;\r\n}\r\n\r\n.bluebg {\r\n    background-color: #1ba1e2;\r\n" +
-                    "}\r\n\r\n.brownbg {\r\n    background-color: #a05000;\r\n}\r\n\r\n.greenbg {\r\n    background" +
-                    "-color: #393;\r\n}\r\n\r\n.limebg {\r\n    background-color: #8cbf26;\r\n}\r\n\r\n.magentabg {" +
-                    "\r\n    background-color: #ff0097;\r\n}\r\n\r\n.orangebg {\r\n    background-color: #f0960" +
-                    "9;\r\n}\r\n\r\n.pinkbg {\r\n    background-color: #e671b8;\r\n}\r\n\r\n.purplebg {\r\n    backgr" +
-                    "ound-color: #a200ff;\r\n}\r\n\r\n.redbg {\r\n    background-color: #e51400;\r\n}\r\n\r\n.tealb" +
-                    "g {\r\n    background-color: #00aba9;\r\n}\r\n\r\n\r\n#headingstyles {\r\n    font-family: \'" +
-                    "Roboto\', \"Segoe UI Light\",\"Helvetica Neue\",\"Segoe UI\",\"Segoe WP\",sans-serif;\r\n  " +
-                    "  font-weight: 300;\r\n    margin-top: 5px;\r\n    margin-bottom: 0px;\r\n    \r\n}\r\n\r\nb" +
-                    "ody {\r\n    font-family: \'Roboto\', \"Segoe UI\",\"Segoe WP\",\"Helvetica Neue\",sans-se" +
-                    "rif;\r\n    font-size: 14px;\r\n\tfont-weight: 400;\r\n}\r\n\r\nh1, h2, h3, h4, h5, h6 {\r\n " +
-                    "   font-family: \'Roboto\',\"Segoe UI Light\",\"Helvetica Neue\",\"Segoe UI\",\"Segoe WP\"" +
-                    ",sans-serif;\r\n    font-weight: 300;\r\n    margin-top: 5px;\r\n    margin-bottom: 0p" +
-                    "x;\r\n    \r\n}\r\n\r\nh1 {\r\n    font-size: 56px;\r\n}\r\n\r\nh2 {\r\n    font-size: 42px;\r\n}\r\n\r" +
-                    "\nh3 {\r\n    font-size: 28px;\r\n}\r\n\r\nh4, h5, h6 {\r\n    font-weight: 400;\r\n    \r\n}\r\n" +
-                    "\r\n.tile {\r\n    -webkit-perspective: 0;\r\n    -webkit-transform-style: preserve- 3" +
-                    " d;\r\n    -webkit-transition: -webkit-transform 0.2s;\r\n    float: left;\r\n    marg" +
-                    "in-right: 10px;\r\n    margin-bottom: 10px;\r\n    text-align: center;\r\n    padding:" +
-                    " 5px;\r\n    opacity: 0.75;\r\n}\r\n\r\n    .tile h1, .tile h2, .tile h3, .tile h4, .til" +
-                    "e h5, .tile h6 {\r\n        color: #fff;\r\n        -webkit-user-select: none;\r\n    " +
-                    "}\r\n\r\n    .tile h2 {\r\n        font-size: 1.75em;\r\n        margin-top: -10px;\r\n   " +
-                    "     margin-left: 0px;\r\n    }\r\n\r\n    .tile a:hover {\r\n        text-decoration: n" +
-                    "one;\r\n    }\r\n\r\n    .tile img {\r\n        border: 0;\r\n    }\r\n\r\n    .tile:hover, .t" +
-                    "ileNoHover {\r\n        opacity: 1;\r\n    }\r\n\t\r\n    .tileNoHover {\r\n        opacity" +
-                    ": 1;\r\n    }\t\r\n\t\r\n\t\r\n\r\n.tiles {\r\n    clear: both;\r\n}\r\n\r\n.tilerow {\r\n    float: le" +
-                    "ft;\r\n    -webkit-perspective: 0;\r\n    -webkit-transform-style: preserve- 3 d;\r\n " +
-                    "   -webkit-user-select: none;\r\n}\r\n\r\n.one {\r\n    width: 130px;\r\n    height: 130px" +
-                    ";\r\n}\r\n\r\n\r\n.two-h {\r\n    width: 280px;\r\n    height: 130px;\r\n}\r\n\r\n.two-v {\r\n    wi" +
-                    "dth: 130px;\r\n    height: 280px;\r\n}\r\n\r\n.tile h4 {\r\n    margin-top: 20px;\r\n}\r\n\r\n.f" +
-                    "irstcol, .secondcol, .thirdcol, .fourthcol, .fifthcol {\r\n    position: absolute;" +
-                    "\r\n}\r\n\r\n.secondcol {\r\n    margin-left: 150px;\r\n}\r\n\r\n.thirdcol {\r\n    margin-left:" +
-                    " 300px;\r\n}\r\n\r\n.fourthcol {\r\n    margin-left: 450px;\r\n}\r\n\r\n.fifthcol {\r\n    margi" +
-                    "n-left: 600px;\r\n}\r\n\r\narticle, aside, details, figcaption, figure, footer, header" +
-                    ", hgroup, nav, section {\r\n    display: block;\r\n}\r\n\r\naudio, canvas, video {\r\n    " +
-                    "display: inline-block;\r\n    *display: inline;\r\n    *zoom: 1;\r\n}\r\n\r\n    audio:not" +
-                    "([controls]) {\r\n        display: none;\r\n    }\r\n\r\nhtml {\r\n    font-size: 100%;\r\n " +
-                    "   -webkit-text-size-adjust: 100%;\r\n    -ms-text-size-adjust: 100%;\r\n}\r\n\r\na:focu" +
-                    "s {\r\n    outline: thin dotted;\r\n    outline: 5px auto -webkit-focus-ring-color;\r" +
-                    "\n    outline-offset: -2px;\r\n}\r\n\r\na:hover, a:active {\r\n    outline: 0;\r\n}\r\n\r\nsub," +
-                    " sup {\r\n    position: relative;\r\n    font-size: 75%;\r\n    line-height: 0;\r\n    v" +
-                    "ertical-align: baseline;\r\n}\r\n\r\nsup {\r\n    top: -0.5em;\r\n}\r\n\r\nsub {\r\n    bottom: " +
-                    "-0.25em;\r\n}\r\n\r\nimg {\r\n    max-width: 100%;\r\n    height: auto;\r\n    border: 0;\r\n " +
-                    "   -ms-interpolation-mode: bicubic;\r\n}\r\n\r\nbutton, input, select, textarea {\r\n   " +
-                    " margin: 0;\r\n    font-size: 100%;\r\n    vertical-align: middle;\r\n}\r\n\r\nbutton, inp" +
-                    "ut {\r\n    *overflow: visible;\r\n    line-height: normal;\r\n}\r\n\r\n    button::-moz-f" +
-                    "ocus-inner, input::-moz-focus-inner {\r\n        padding: 0;\r\n        border: 0;\r\n" +
-                    "    }\r\n\r\n    button, input[type=\"button\"], input[type=\"reset\"], input[type=\"subm" +
-                    "it\"] {\r\n        cursor: pointer;\r\n        -webkit-appearance: button;\r\n    }\r\n\r\n" +
-                    "    input[type=\"search\"] {\r\n        -webkit-appearance: textfield;\r\n        -web" +
-                    "kit-box-sizing: content-box;\r\n        -moz-box-sizing: content-box;\r\n        box" +
-                    "-sizing: content-box;\r\n    }\r\n\r\n        input[type=\"search\"]::-webkit-search-dec" +
-                    "oration, input[type=\"search\"]::-webkit-search-cancel-button {\r\n            -webk" +
-                    "it-appearance: none;\r\n        }\r\n\r\ntextarea {\r\n    overflow: auto;\r\n    vertical" +
-                    "-align: top;\r\n}\r\n\r\n.container {\r\n    width: 940px;\r\n    margin-left: auto;\r\n    " +
-                    "margin-right: auto;\r\n    *zoom: 1;\r\n}\r\n\r\n    .container:before, .container:after" +
-                    " {\r\n        display: table;\r\n        content: \"\";\r\n    }\r\n\r\n    .container:after" +
-                    " {\r\n        clear: both;\r\n    }\r\n\r\n.container-fluid {\r\n    padding-left: 20px;\r\n" +
-                    "    padding-right: 20px;\r\n    *zoom: 1;\r\n}\r\n\r\n    .container-fluid:before, .cont" +
-                    "ainer-fluid:after {\r\n        display: table;\r\n        content: \"\";\r\n    }\r\n\r\n   " +
-                    " .container-fluid:after {\r\n        clear: both;\r\n    }\r\n\r\n.row {\r\n    margin-lef" +
-                    "t: -20px;\r\n    *zoom: 1;\r\n}\r\n\r\n    .row:before, .row:after {\r\n        display: t" +
-                    "able;\r\n        content: \"\";\r\n    }\r\n\r\n    .row:after {\r\n        clear: both;\r\n  " +
-                    "  }\r\n\r\n[class*=\"span\"] {\r\n    float: left;\r\n    margin-left: 20px;\r\n}\r\n\r\n.span1 " +
-                    "{\r\n    width: 60px;\r\n}\r\n\r\n.span2 {\r\n    width: 140px;\r\n}\r\n\r\n.span3 {\r\n    width:" +
-                    " 220px;\r\n}\r\n\r\n.span4 {\r\n    width: 300px;\r\n}\r\n\r\n.span5 {\r\n    width: 380px;\r\n}\r\n" +
-                    "\r\n.span6 {\r\n    width: 460px;\r\n}\r\n\r\n.span7 {\r\n    width: 540px;\r\n}\r\n\r\n.span8 {\r\n" +
-                    "    width: 620px;\r\n}\r\n\r\n.span9 {\r\n    width: 700px;\r\n}\r\n\r\n.span10 {\r\n    width: " +
-                    "780px;\r\n}\r\n\r\n.span11 {\r\n    width: 860px;\r\n}\r\n\r\n.span12, .container {\r\n    width" +
-                    ": 940px;\r\n}\r\n\r\n.offset1 {\r\n    margin-left: 100px;\r\n}\r\n\r\n.offset2 {\r\n    margin-" +
-                    "left: 180px;\r\n}\r\n\r\n.offset3 {\r\n    margin-left: 260px;\r\n}\r\n\r\n.offset4 {\r\n    mar" +
-                    "gin-left: 340px;\r\n}\r\n\r\n.offset5 {\r\n    margin-left: 420px;\r\n}\r\n\r\n.offset6 {\r\n   " +
-                    " margin-left: 500px;\r\n}\r\n\r\n.offset7 {\r\n    margin-left: 580px;\r\n}\r\n\r\n.offset8 {\r" +
-                    "\n    margin-left: 660px;\r\n}\r\n\r\n.offset9 {\r\n    margin-left: 740px;\r\n}\r\n\r\n.offset" +
-                    "10 {\r\n    margin-left: 820px;\r\n}\r\n\r\n.offset11 {\r\n    margin-left: 900px;\r\n}\r\n\r\n." +
-                    "row-fluid {\r\n    width: 100%;\r\n    *zoom: 1;\r\n}\r\n\r\n    .row-fluid:before, .row-f" +
-                    "luid:after {\r\n        display: table;\r\n        content: \"\";\r\n    }\r\n\r\n    .row-f" +
-                    "luid:after {\r\n        clear: both;\r\n    }\r\n\r\n    .row-fluid > [class*=\"span\"] {\r" +
-                    "\n        float: left;\r\n        margin-left: 2.13%;\r\n    }\r\n\r\n        .row-fluid " +
-                    "> [class*=\"span\"]:first-child {\r\n            margin-left: 0;\r\n        }\r\n\r\n    ." +
-                    "row-fluid .span1 {\r\n        width: 6.38%;\r\n    }\r\n\r\n    .row-fluid .span2 {\r\n   " +
-                    "     width: 14.89%;\r\n    }\r\n\r\n    .row-fluid .span3 {\r\n        width: 23.4%;\r\n  " +
-                    "  }\r\n\r\n    .row-fluid .span4 {\r\n        width: 31.91%;\r\n    }\r\n\r\n    .row-fluid " +
-                    ".span5 {\r\n        width: 40.43%;\r\n    }\r\n\r\n    .row-fluid .span6 {\r\n        widt" +
-                    "h: 48.94%;\r\n    }\r\n\r\n    .row-fluid .span7 {\r\n        width: 57.45%;\r\n    }\r\n\r\n " +
-                    "   .row-fluid .span8 {\r\n        width: 65.96%;\r\n    }\r\n\r\n    .row-fluid .span9 {" +
-                    "\r\n        width: 74.47%;\r\n    }\r\n\r\n    .row-fluid .span10 {\r\n        width: 82.9" +
-                    "8%;\r\n    }\r\n\r\n    .row-fluid .span11 {\r\n        width: 91.49%;\r\n    }\r\n\r\n    .ro" +
-                    "w-fluid .span12 {\r\n        width: 100%;\r\n    }\r\n\r\n.pull-right {\r\n    float: righ" +
-                    "t;\r\n}\r\n\r\n.pull-left {\r\n    float: left;\r\n}\r\n\r\n.hide {\r\n    display: none;\r\n}\r\n\r\n" +
-                    ".show {\r\n    display: block;\r\n}\r\n\r\n.invisible {\r\n    visibility: hidden;\r\n}\r\n\r\na" +
-                    " {\r\n    color: #1ba1e2;\r\n    text-decoration: none;\r\n}\r\n\r\n    a:hover {\r\n       " +
-                    " color: #13709e;\r\n        text-decoration: underline;\r\n    }\r\n\r\npre {\r\n    paddi" +
-                    "ng: 15px;\r\n    border: 1px solid #aaa;\r\n    background: #fafafa;\r\n}\r\n\r\ncode {\r\n " +
-                    "   padding-left: 5px;\r\n    padding-right: 5px;\r\n}\r\n\r\n.clear {\r\n    clear: both;\r" +
-                    "\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/* clearfix from: http://css-tricks.com/snippets/c" +
-                    "ss/clear-fix/ */\r\n.group:after {\r\n    visibility: hidden;\r\n    display: block;\r\n" +
-                    "    content: \"\";\r\n    clear: both;\r\n    height: 0;\r\n}\r\n\r\n* html .group {\r\n    zo" +
-                    "om: 1;\r\n}\r\n/* IE6 */\r\n*:first-child + html .group {\r\n    zoom: 1;\r\n}\r\n/* IE7 */\r" +
-                    "\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/* BDDfy Report Css Starts Here */\r\n\r\n\r\nbody {\r\n   " +
-                    " background-color: #FFFFFF;\r\n    color: #000000;\r\n    margin: 0;\r\n    max-width:" +
-                    " 100%;\r\n    padding: 0 0 40px;\r\n}\r\n\r\n#main section {\r\n    margin-left: 10px;\r\n}\r" +
-                    "\n\r\nul {\r\n    margin: 5px;\r\n    padding: 5px;\r\n}\r\n\r\nli {\r\n    list-style-type: no" +
-                    "ne;\r\n}\r\n\r\n#main {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n.header, .footer {\r" +
-                    "\n}\r\n\r\n.header {\r\n    border-bottom: 2px solid #FFFFFF;\r\n    padding: 10px;\r\n    " +
-                    "vertical-align: middle;\r\n}\r\n\r\n#summaryTotals {\r\n\tmargin-top: 30px;\r\n         wid" +
-                    "th: 800px;\r\n}\r\n\r\n#filterOptions{\r\n    margin-bottom: 20px;\r\n    margin-top: 10px" +
-                    ";\r\n}\r\n\r\n.summary {\r\n    margin: 10px 5px 0;\r\n}\r\n\r\n.summaryLine {\r\n    display: i" +
-                    "nline-block;\r\n    width: 200px;\r\n}\r\n\r\n.summary li {\r\n    padding: 0 5px;\r\n}\r\n\r\nh" +
-                    "3 {\r\n    margin: 10px 5px 5px;\r\n}\r\n\r\n.summaryLabel {\r\n    float: left;\r\n    widt" +
-                    "h: 140px;\r\n}\r\n\r\n.resultSummary {\r\n    display: inline-block;\r\n    width: 250px;\r" +
-                    "\n}\r\n\r\n    .resultSummary li:before {\r\n        float: left;\r\n        padding-righ" +
-                    "t: 5px;\r\n    }\r\n\r\n.storySummary div.summaryLine, .scenarioSummary div.summaryLin" +
-                    "e {\r\n    margin-left: 20px;\r\n    width: 200px;\r\n    height: 200px;\r\n}\r\n\r\ndiv#gen" +
-                    "eratedAt {\r\n    color: #222299;\r\n}\r\n\r\n.testResult {\r\n    background-color: rgba(" +
-                    "0, 0, 0, 0);\r\n    border: medium none;\r\n    padding-top: 0;\r\n}\r\n\r\n#testResult {\r" +
-                    "\n    padding: 5px;\r\n}\r\n\r\n#detailsLable {\r\n    float: left;\r\n}\r\n\r\n\r\n#expandCollap" +
-                    "se {    \r\n    margin: 5px;\r\n}\r\n\r\n.expandAll, .collapseAll {    \r\nfloat: left;\r\nm" +
-                    "argin-top: 30px;\r\nmargin-right: 10px;\r\nmargin-left: 5px;\r\n}\r\n\r\n#testResult span " +
-                    "{\r\n    margin-bottom: 20px;\r\n    margin-left: 5px;\r\n    margin-top: 20px;\r\n}\r\n\r\n" +
-                    "\r\n.Passed:before {   \r\n   content: url(\"data:image/png;base64,iVBORw0KGgoAAAANSU" +
-                    "hEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAAB" +
-                    "p0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABIUlEQVQoU2OAAdEsBmbhfOZEkXzm/U" +
-                    "D8AohfAvFhIM6ULGJghSqDAJE8JjGo5H+sOI/5jEg+kwxYMchkoCBOxWEzvP7r1cuD2OeFchnYGaDOwF" +
-                    "AIwrp1cv8/fHv//+LjczCxQgYgAXIzikIY3nV16/9/QBgy3QMmdh6kAeTB/w5dRv+LVmbAFecsTfoPAo" +
-                    "uOzYaLAfEPkIZXIM6hW/vACibu6QS7GeSUx+8e/lcsF0TW8BOkAexhzRqp/+cengZrev/1LbpTYPgySE" +
-                    "MmTEC2lPf/lovrwJrQnALDlQygSIGEM0RQvJDtf/PmKnSngOLiunAOAxc4LoRzmWSBgudRFCBjkOI8Zh" +
-                    "WwYhgARQpQshCIQRp/APFPIL4MxJVwkxkYGADBUeEvVLvj0QAAAABJRU5ErkJggg==\"); \r\n}\r\n\r\n.Fa" +
-                    "iled:before {\r\n    content: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA" +
-                    "AwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U" +
-                    "29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA1ElEQVQoU22RMQ7CMAxFHaEKiQMwwcbFGNuNM" +
-                    "Sdob9DjMHRF6tChVwBO0C4x/ycNTQmWfhTZ71uOIzFUZOeMuaoxd+gJvaAOuRK1YsFCOJEjCh0A/SfUH" +
-                    "mBOHl46d2qtev0aqkq1rnnvYdrLMkaAGamJsHOqTRNzN8HBmUMiNeUw1dPAB67JaMphaqLhvUnGzox0v" +
-                    "KCZhnU76RjpeKth4KPLDI5AbrJca8E9+9XlMwe4bXkfwR78X2C/ZyT6DbjViKYXD8fgp6Bwg2icoBkaI" +
-                    "PvtLCIfrFIm1BpxcygAAAAASUVORK5CYII=\");\r\n}\r\n\r\n.Inconclusive:before {\r\n    content" +
-                    ": url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGd" +
-                    "BTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHY" +
-                    "zLjUuMTFH80I3AAABDUlEQVQoU22RsWoCQRCGByQc5AEMgaQxqfIGeYL0eQNLyyt9Ah/CUgQ1lUJIEyI" +
-                    "q6QJXCF5lKcSzCAiB3TXu5J+79di9ZOBj9/75/2Vul07FI6rpITXBFHyCLVioAbX2fTpztqL0gOrSBPw" +
-                    "fCH2Aq9zsTi7NP6sO22zG9ivhw/ujH0y+exQRNjJG2TDPN8U6uWS7T0vdEUtAZq422Lze83EzqeqJBOQ" +
-                    "Hg4Z5uWO7m7MZXwQ6UBLIKiLb7RtGawSaQ0vgz+0c113WT1GgOZYk91xtmHGd9agWaI42yaPIPfsNm03" +
-                    "5MHvwjayGlKo+nedvgY9riIlv8BEz1tvcfCp5FIgxkKACGixBuzyZiH4BJFlSSOTFIwMAAAAASUVORK5" +
-                    "CYII=\");\r\n}\r\n\r\n.NotImplemented:before {\r\n    content: url(\"data:image/png;base64" +
-                    ",iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAA" +
-                    "OwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32" +
-                    "RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLAMWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+" +
-                    "aoeyEMCtyIldyI+cQEi3w6H7aqgpghpVpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTW" +
-                    "gd3aM9fRl8XWSakAf6Bj7TWHxdSIauHtiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jb" +
-                    "UkZzrxDZ/S4dCMSYaFGJIRpLfyQDebDIf4hRsICYAAAAASUVORK5CYII=\");\r\n}\r\n\r\n.NotExecuted:" +
-                    "before {\r\n    content: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAA" +
-                    "AMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdH" +
-                    "dhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLA" +
-                    "MWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+aoeyEMCtyIldyI+cQEi3w6H7aqgpghp" +
-                    "VpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTWgd3aM9fRl8XWSakAf6Bj7TWHxdSIauH" +
-                    "tiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jbUkZzrxDZ/S4dCMSYaFGJIRpLfyQDebD" +
-                    "If4hRsICYAAAAASUVORK5CYII=\");\r\n}\r\n\r\ndiv.FailedException, div.NotImplementedExcep" +
-                    "tion, div.InconclusiveException {\r\n    padding: 5px 0 3px 50px;\r\n}\r\n\r\n.FailedExc" +
-                    "eption, .InconclusiveException, .NotImplementedException {\r\n    color: #800000;\r" +
-                    "\n}\r\n\r\ndiv.story {\r\n    margin: 10px 0;\r\n    padding: 5px 0px;\r\n}\r\n\r\n.storyTitle:" +
-                    "before {\r\n    content: \"Story: \";\r\n}\r\n\r\n.storyTitle, .namespaceName { \r\n    disp" +
-                    "lay: inline;    \r\n    font-size: 18px;\r\n}\r\n\r\nh3.storyTitle{\r\n    margin: 0px;\r\n}" +
-                    "\r\n\r\n.namespaceName:before {\r\n    content: \"Namespace: \";\r\n}\r\n\r\nul.resultSummary " +
-                    "li.storySummary {\r\n    float: left;\r\n    display: inline-block;\r\n}\r\n\r\n.storySumm" +
-                    "ary div.summaryLabel, .scenarioSummary div.summaryLabel, .storyTitle, .namespace" +
-                    " div.summaryLabel, .namespaceName {\r\n}\r\n\r\n.storyMetaData {\r\n    display: inline;" +
-                    "\r\n    padding: 5px 0;\r\n}\r\n\r\n.scenario {\r\n    margin: 0;\r\n    padding: 3px 10px;\r" +
-                    "\n}\r\n\r\n.canToggle {\r\n    cursor: pointer;\r\n}\r\n\r\ndiv.scenario:nth-child(2n+1) {\r\n}" +
-                    "\r\n\r\ndiv.scenario:nth-child(2n) {\r\n}\r\n\r\n.scenarioTitle {\r\n}\r\n\r\n    .scenarioTitle" +
-                    ":before {\r\n        margin-right: 5px;\r\n    }\r\n\r\n.assembly {\r\n    background-colo" +
-                    "r: #101010;\r\n    color: #FFFFFF;\r\n    height: 40px;\r\n}\r\n\r\nul.storyNarrative {\r\n " +
-                    "   margin: 0;\r\n    padding: 5px 15px;\r\n}\r\n\r\nul.steps {\r\n    background-color: rg" +
-                    "ba(0, 0, 0, 0);\r\n    border: medium none;\r\n    margin-bottom: 0;\r\n    padding-le" +
-                    "ft: 20px;\r\n}\r\n\r\n.step.ConsecutiveSetupState span, .step.ConsecutiveTransition sp" +
-                    "an, .step.ConsecutiveAssertion span {\r\n    padding-left: 10px;\r\n}\r\n\r\n.step-title" +
-                    "-extra-lines {\r\n    padding-left: 50px;\r\n}\r\n\r\ncode {\r\n    font-family: monospace" +
-                    ";\r\n}\r\n\t</style>\r\n\t\t<link href=\'http://fonts.googleapis.com/css?family=Roboto:400" +
-                    ",300\' rel=\'stylesheet\' type=\'text/css\'>\t\r\n\t\t<link rel=\"stylesheet\" type=\"text/cs" +
-                    "s\" href=\"newo.css\">\t\r\n\t\t<style type=\'text/css\'>\r\n\t\t\t/*If you drop a custom style" +
-                    "sheet named BDDfyCustom.css in your output folder it gets embedded here. This wa" +
-                    "y you can apply some custom styles over your html report.*/\r\n\t\t</style>\r\n\t\t<titl" +
-                    "e>BDDfy Test Result ");
+                    "t/css\'>\r\n\t\t<!-- ");
             
-            #line 939 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 12 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.BDDfy_css_min));
+            
+            #line default
+            #line hidden
+            this.Write(" -->\r\n\t\t<!-- ");
+            
+            #line 13 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.CustomStylesheetComment));
+            
+            #line default
+            #line hidden
+            this.Write(" -->\r\n\t\t");
+            
+            #line 14 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.CustomStylesheet ?? ""));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t</style>\r\n\t\t<link href=\'http://fonts.googleapis.com/css?family=Roboto:400,300\'" +
+                    " rel=\'stylesheet\' type=\'text/css\'>\t\t\r\n\t\t<title>BDDfy Test Result ");
+            
+            #line 17 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RunDate.ToShortDateString()));
             
             #line default
@@ -241,14 +62,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</title>\r\n\t</head>\r\n\t<body>\r\n\t\t<div id=\'main\'>\r\n\r\n\t\t\t<section id=\'titles\'>\r\n\t\t\t\t<" +
                     "h1 class=\"blue\">");
             
-            #line 945 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 23 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Configuration.ReportHeader));
             
             #line default
             #line hidden
             this.Write("</h1>\r\n\t\t\t\t<h3>");
             
-            #line 946 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 24 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Configuration.ReportDescription));
             
             #line default
@@ -257,7 +78,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                     "<div class=\'tiles\' >\r\n\t\t\t\t\t<div class=\'tilerow\'>\r\n\t\t\t\t\t\t<div id=\'storycount\' cla" +
                     "ss=\"tile tileNoHover two-h purplebg\">\r\n\t\t\t\t\t\t\t<h3>stories</h3>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 954 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 32 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Stories));
             
             #line default
@@ -265,7 +86,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div id=\'scenariocount\' class=\"tile tileNoHover two-h " +
                     "tealbg\">\r\n\t\t\t\t\t\t\t<h3>scenarios</h3>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 958 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 36 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Scenarios));
             
             #line default
@@ -273,7 +94,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\t\t\t\t\t  \r\n\t\t\t\t\t</div>\t\t\t\t\t\t\r\n\t\t\t\t\t<div class=\'tilerow\'>\r\n\t\t\t\t\t\t" +
                     "<div class=\"tile tileNoHover one limebg\">\r\n\t\t\t\t\t\t\t<h4>PASSED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 964 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 42 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Passed));
             
             #line default
@@ -281,7 +102,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one redbg\">\r\n\t\t\t\t\t\t\t<h4>F" +
                     "AILED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 968 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 46 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Failed));
             
             #line default
@@ -289,7 +110,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one orangebg\">\r\n\t\t" +
                     "\t\t\t\t\t<h4>INCONCLUSIVE</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 972 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 50 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Inconclusive));
             
             #line default
@@ -297,7 +118,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one bluebg\">\r\n\t\t\t\t\t\t\t<h4>" +
                     "NOT IMPLEMENTED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 976 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 54 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.NotImplemented));
             
             #line default
@@ -342,7 +163,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 				
 					");
             
-            #line 1014 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 92 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var story in Model.Stories) 
 					{ 
             
@@ -350,14 +171,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t<div class=\'story ");
             
-            #line 1017 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 95 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Result));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t<div class=\'storyMetaData\'>\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1020 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 98 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (story.Metadata == null)
 								{ 
             
@@ -365,14 +186,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<h3 class=\'namespaceName\'>");
             
-            #line 1022 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 100 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Namespace));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1023 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 101 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  }
 								else
 								{ 
@@ -381,21 +202,21 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<h3 class=\'storyTitle\'>");
             
-            #line 1026 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 104 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Title));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1027 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 105 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1029 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 107 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
 								{ 
             
@@ -403,35 +224,35 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<ul class=\'storyNarrative\'>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 1032 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 110 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative1));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 1033 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 111 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative2));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 1034 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 112 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative3));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1036 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 114 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end if narrative lines 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t");
             
-            #line 1039 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 117 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 
 								var scenariosInGroup = story.Scenarios.ToList();
 								var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
@@ -441,7 +262,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\r\n\r\n\t\t\t\t\t\t\t<div class=\'scenarios\'>\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1046 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 124 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var scenario in scenariosInGroup)
 								{ 
             
@@ -449,35 +270,35 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t<div class=\'scenario\'>\r\n\t\t\t\t\t\t\t\t\t<div class=\'");
             
-            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 128 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Result));
             
             #line default
             #line hidden
             this.Write(" canToggle scenarioTitle\' data-toggle-target=\'");
             
-            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 128 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Id));
             
             #line default
             #line hidden
             this.Write("\'>");
             
-            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 128 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Title));
             
             #line default
             #line hidden
             this.Write("</div>\t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t\t\t<ul class=\'steps\' id=\'");
             
-            #line 1051 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 129 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Id));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1053 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 131 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
 											{ 
 												string stepClass = string.Empty;
@@ -489,42 +310,42 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t<li class=\'step ");
             
-            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 138 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Result));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 138 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(stepClass));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 138 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.ExecutionOrder));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 138 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(canToggle));
             
             #line default
             #line hidden
             this.Write("\' data-toggle-target=\'");
             
-            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 138 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Id));
             
             #line default
             #line hidden
             this.Write("\' >\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1062 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 140 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 
 											var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
 											var title = titleLines[0];
@@ -542,14 +363,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span>");
             
-            #line 1075 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 153 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(title));
             
             #line default
             #line hidden
             this.Write("</span>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1077 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 155 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  for (int i = 1; i < titleLines.Length; i++)
 												{ 
             
@@ -557,21 +378,21 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\'step-title-extra-lines\'>");
             
-            #line 1079 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 157 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(titleLines[i]));
             
             #line default
             #line hidden
             this.Write("</div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1080 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 158 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 } // foreach title lines 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1082 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 160 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (reportException)
 												{ 
             
@@ -579,70 +400,70 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\'step ");
             
-            #line 1084 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 162 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(stepClass));
             
             #line default
             #line hidden
             this.Write("\' id=\'");
             
-            #line 1084 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 162 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Id));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1085 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 163 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end if report exception 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t\t\t\t</li>\t\t\t\t\t \r\n\r\n\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1089 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 167 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end foreach step 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t</ul>\t\t\t\t\t \t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t</div> ");
             
-            #line 1091 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 169 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end scenario 
             
             #line default
             #line hidden
             this.Write("                        \r\n                        \r\n\t\t\t\t\t\t\t\t");
             
-            #line 1094 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 172 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end for each scenario 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t</div> ");
             
-            #line 1096 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 174 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end scenarios 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t</div> ");
             
-            #line 1098 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 176 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end story 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t");
             
-            #line 1100 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 178 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end for each story 
             
             #line default
             #line hidden
             this.Write("\t\t\t  \r\n\t\t\t\t</ul>    \r\n\t\t\t</section>\r\n    \r\n\t\t\t<section>\r\n\t\t\t\t<p>Tested at: ");
             
-            #line 1105 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 183 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RunDate));
             
             #line default
@@ -650,7 +471,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</p>\r\n\t\t\t\t<hr />\r\n\t\t\t\t<p>Powered by <a href=\'https://github.com/TestStack/TestSta" +
                     "ck.BDDfy\'>BDDfy</a></p>\r\n\t\t\t</section>\t\t\r\n\t\t\r\n\t\t</div> ");
             
-            #line 1110 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 188 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end div main 
             
             #line default
@@ -683,11 +504,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 				});});
 		</script>
 		<script>
-			/*If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report.*/
-    </script>
-  </body>
-</html>
-");
+			<!-- ");
+            
+            #line 217 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.CustomJavascriptComment));
+            
+            #line default
+            #line hidden
+            this.Write(" -->\t\t\t\r\n    </script>\r\n  </body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

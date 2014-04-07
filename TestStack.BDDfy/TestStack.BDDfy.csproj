@@ -175,6 +175,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Reporters\HtmlMetro\BDDfyMetro.css" />
+    <Content Include="Reporters\HtmlMetro\BDDfyMetro.min.css">
+      <DependentUpon>BDDfyMetro.css</DependentUpon>
+    </Content>
     <Content Include="Reporters\Html\BDDfy.css" />
     <Content Include="Reporters\Html\BDDfy.js" />
     <Content Include="Reporters\Html\jquery-2.1.0.min.js" />
@@ -189,6 +193,7 @@
     <EmbeddedResource Include="Reporters\Html\HtmlReportResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
