@@ -848,7 +848,7 @@ div.story {
     content: "Story: ";
 }
 
-.storyTitle {
+.storyTitle, .namespaceName { 
     display: inline;    
     font-size: 18px;
 }
@@ -859,10 +859,6 @@ h3.storyTitle{
 
 .namespaceName:before {
     content: "Namespace: ";
-}
-
-.namespaceName {
-    display: inline;
 }
 
 ul.resultSummary li.storySummary {
@@ -954,25 +950,25 @@ code {
 						</div>
 						<div id='scenariocount' class="tile tileNoHover two-h tealbg">
 							<h3>scenarios</h3>
-							<h1>8</h1>
+							<h1>12</h1>
 						</div>					  
 					</div>						
 					<div class='tilerow'>
 						<div class="tile tileNoHover one limebg">
 							<h4>PASSED</h4>
-							<h1>2</h1>
+							<h1>3</h1>
 						</div>
 						<div class="tile tileNoHover one redbg">
 							<h4>FAILED</h4>
-							<h1>2</h1>
+							<h1>3</h1>
 						</div>							
 						<div class="tile tileNoHover one orangebg">
 							<h4>INCONCLUSIVE</h4>
-							<h1>2</h1>
+							<h1>3</h1>
 						</div>
 						<div class="tile tileNoHover one bluebg">
 							<h4>NOT IMPLEMENTED</h4>
-							<h1>2</h1>				
+							<h1>3</h1>				
 						</div>			
 					</div>		
 				</div>		
@@ -1013,7 +1009,9 @@ code {
 										<li>
 						<div class='story Failed'>
 							<div class='storyMetaData'>
-								<h3 class='storyTitle'>Account holder withdraws cash</h3>
+
+																<h3 class='storyTitle'>Account holder withdraws cash</h3>
+														
 
 																<ul class='storyNarrative'>
 									<li>As an account holder</li>
@@ -1196,7 +1194,9 @@ code {
 										<li>
 						<div class='story Failed'>
 							<div class='storyMetaData'>
-								<h3 class='storyTitle'>Happiness</h3>
+
+																<h3 class='storyTitle'>Happiness</h3>
+														
 
 																<ul class='storyNarrative'>
 									<li>As a person</li>
@@ -1362,6 +1362,186 @@ code {
 																  
 										
 											<li class='step Failed  Assertion ' data-toggle-target='step-2-3' >									
+									
+																				
+												<span>Then no money is dispensed</span>
+										
+												
+												
+											</li>					 
+
+																					</ul>					 					  
+								</div>                         
+                        
+								
+							</div> 
+						</div> 
+										<li>
+						<div class='story Failed'>
+							<div class='storyMetaData'>
+
+																<h3 class='namespaceName'>System</h3>
+														
+
+															</div>
+
+										
+
+							<div class='scenarios'>
+
+								
+								<div class='scenario'>
+									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-9'>Happy Path Scenario</div>					  
+										<ul class='steps' id='scenario-9'>
+										
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-9-1' >									
+									
+																				
+												<span>Given a positive account balance</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-9-2' >									
+									
+																				
+												<span>When the account holder requests money</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-9-3' >									
+									
+																				
+												<span>Then money is dispensed</span>
+										
+												
+												
+											</li>					 
+
+																					</ul>					 					  
+								</div>                         
+                        
+								
+								<div class='scenario'>
+									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-11'>Inconclusive Scenario</div>					  
+										<ul class='steps' id='scenario-11'>
+										
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-11-1' >									
+									
+																				
+												<span>Given a negative account balance</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-11-2' >									
+									
+																				
+												<span>When the account holder requests money</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Inconclusive  Assertion ' data-toggle-target='step-11-3' >									
+									
+																				
+												<span>Then no money is dispensed</span>
+										
+												
+												
+											</li>					 
+
+																					</ul>					 					  
+								</div>                         
+                        
+								
+								<div class='scenario'>
+									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-12'>Not Implemented Scenario</div>					  
+										<ul class='steps' id='scenario-12'>
+										
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-12-1' >									
+									
+																				
+												<span>Given a negative account balance</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-12-2' >									
+									
+																				
+												<span>When the account holder requests money</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step NotImplemented  Assertion ' data-toggle-target='step-12-3' >									
+									
+																				
+												<span>Then no money is dispensed</span>
+										
+												
+												
+											</li>					 
+
+																					</ul>					 					  
+								</div>                         
+                        
+								
+								<div class='scenario'>
+									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-10'>Sad Path Scenario</div>					  
+										<ul class='steps' id='scenario-10'>
+										
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-10-1' >									
+									
+																				
+												<span>Given a negative account balance</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Passed  Assertion ' data-toggle-target='step-10-2' >									
+									
+																				
+												<span>When the account holder requests money</span>
+										
+												
+												
+											</li>					 
+
+																  
+										
+											<li class='step Failed  Assertion ' data-toggle-target='step-10-3' >									
 									
 																				
 												<span>Then no money is dispensed</span>

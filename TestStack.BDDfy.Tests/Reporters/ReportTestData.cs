@@ -23,11 +23,14 @@ namespace TestStack.BDDfy.Tests.Reporters
         {
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
             var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
-            
+
+            const StoryMetadata testThatReportWorksWithNoStory = null;
+
             var stories = new List<Story>()
             {
                 new Story(storyMetadata1, GetOneOfEachScenarioResult()),
-                new Story(storyMetadata2, GetOneOfEachScenarioResult())                
+                new Story(storyMetadata2, GetOneOfEachScenarioResult()),
+                new Story(testThatReportWorksWithNoStory, GetOneOfEachScenarioResult())
             };
 
             return stories;

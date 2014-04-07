@@ -210,30 +210,30 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                     "tion, div.InconclusiveException {\r\n    padding: 5px 0 3px 50px;\r\n}\r\n\r\n.FailedExc" +
                     "eption, .InconclusiveException, .NotImplementedException {\r\n    color: #800000;\r" +
                     "\n}\r\n\r\ndiv.story {\r\n    margin: 10px 0;\r\n    padding: 5px 0px;\r\n}\r\n\r\n.storyTitle:" +
-                    "before {\r\n    content: \"Story: \";\r\n}\r\n\r\n.storyTitle {\r\n    display: inline;    \r" +
-                    "\n    font-size: 18px;\r\n}\r\n\r\nh3.storyTitle{\r\n    margin: 0px;\r\n}\r\n\r\n.namespaceNam" +
-                    "e:before {\r\n    content: \"Namespace: \";\r\n}\r\n\r\n.namespaceName {\r\n    display: inl" +
-                    "ine;\r\n}\r\n\r\nul.resultSummary li.storySummary {\r\n    float: left;\r\n    display: in" +
-                    "line-block;\r\n}\r\n\r\n.storySummary div.summaryLabel, .scenarioSummary div.summaryLa" +
-                    "bel, .storyTitle, .namespace div.summaryLabel, .namespaceName {\r\n}\r\n\r\n.storyMeta" +
-                    "Data {\r\n    display: inline;\r\n    padding: 5px 0;\r\n}\r\n\r\n.scenario {\r\n    margin:" +
-                    " 0;\r\n    padding: 3px 10px;\r\n}\r\n\r\n.canToggle {\r\n    cursor: pointer;\r\n}\r\n\r\ndiv.s" +
-                    "cenario:nth-child(2n+1) {\r\n}\r\n\r\ndiv.scenario:nth-child(2n) {\r\n}\r\n\r\n.scenarioTitl" +
-                    "e {\r\n}\r\n\r\n    .scenarioTitle:before {\r\n        margin-right: 5px;\r\n    }\r\n\r\n.ass" +
-                    "embly {\r\n    background-color: #101010;\r\n    color: #FFFFFF;\r\n    height: 40px;\r" +
-                    "\n}\r\n\r\nul.storyNarrative {\r\n    margin: 0;\r\n    padding: 5px 15px;\r\n}\r\n\r\nul.steps" +
-                    " {\r\n    background-color: rgba(0, 0, 0, 0);\r\n    border: medium none;\r\n    margi" +
-                    "n-bottom: 0;\r\n    padding-left: 20px;\r\n}\r\n\r\n.step.ConsecutiveSetupState span, .s" +
-                    "tep.ConsecutiveTransition span, .step.ConsecutiveAssertion span {\r\n    padding-l" +
-                    "eft: 10px;\r\n}\r\n\r\n.step-title-extra-lines {\r\n    padding-left: 50px;\r\n}\r\n\r\ncode {" +
-                    "\r\n    font-family: monospace;\r\n}\r\n\t</style>\r\n\t\t<link href=\'http://fonts.googleap" +
-                    "is.com/css?family=Roboto:400,300\' rel=\'stylesheet\' type=\'text/css\'>\t\r\n\t\t<link re" +
-                    "l=\"stylesheet\" type=\"text/css\" href=\"newo.css\">\t\r\n\t\t<style type=\'text/css\'>\r\n\t\t\t" +
-                    "/*If you drop a custom stylesheet named BDDfyCustom.css in your output folder it" +
-                    " gets embedded here. This way you can apply some custom styles over your html re" +
-                    "port.*/\r\n\t\t</style>\r\n\t\t<title>BDDfy Test Result ");
+                    "before {\r\n    content: \"Story: \";\r\n}\r\n\r\n.storyTitle, .namespaceName { \r\n    disp" +
+                    "lay: inline;    \r\n    font-size: 18px;\r\n}\r\n\r\nh3.storyTitle{\r\n    margin: 0px;\r\n}" +
+                    "\r\n\r\n.namespaceName:before {\r\n    content: \"Namespace: \";\r\n}\r\n\r\nul.resultSummary " +
+                    "li.storySummary {\r\n    float: left;\r\n    display: inline-block;\r\n}\r\n\r\n.storySumm" +
+                    "ary div.summaryLabel, .scenarioSummary div.summaryLabel, .storyTitle, .namespace" +
+                    " div.summaryLabel, .namespaceName {\r\n}\r\n\r\n.storyMetaData {\r\n    display: inline;" +
+                    "\r\n    padding: 5px 0;\r\n}\r\n\r\n.scenario {\r\n    margin: 0;\r\n    padding: 3px 10px;\r" +
+                    "\n}\r\n\r\n.canToggle {\r\n    cursor: pointer;\r\n}\r\n\r\ndiv.scenario:nth-child(2n+1) {\r\n}" +
+                    "\r\n\r\ndiv.scenario:nth-child(2n) {\r\n}\r\n\r\n.scenarioTitle {\r\n}\r\n\r\n    .scenarioTitle" +
+                    ":before {\r\n        margin-right: 5px;\r\n    }\r\n\r\n.assembly {\r\n    background-colo" +
+                    "r: #101010;\r\n    color: #FFFFFF;\r\n    height: 40px;\r\n}\r\n\r\nul.storyNarrative {\r\n " +
+                    "   margin: 0;\r\n    padding: 5px 15px;\r\n}\r\n\r\nul.steps {\r\n    background-color: rg" +
+                    "ba(0, 0, 0, 0);\r\n    border: medium none;\r\n    margin-bottom: 0;\r\n    padding-le" +
+                    "ft: 20px;\r\n}\r\n\r\n.step.ConsecutiveSetupState span, .step.ConsecutiveTransition sp" +
+                    "an, .step.ConsecutiveAssertion span {\r\n    padding-left: 10px;\r\n}\r\n\r\n.step-title" +
+                    "-extra-lines {\r\n    padding-left: 50px;\r\n}\r\n\r\ncode {\r\n    font-family: monospace" +
+                    ";\r\n}\r\n\t</style>\r\n\t\t<link href=\'http://fonts.googleapis.com/css?family=Roboto:400" +
+                    ",300\' rel=\'stylesheet\' type=\'text/css\'>\t\r\n\t\t<link rel=\"stylesheet\" type=\"text/cs" +
+                    "s\" href=\"newo.css\">\t\r\n\t\t<style type=\'text/css\'>\r\n\t\t\t/*If you drop a custom style" +
+                    "sheet named BDDfyCustom.css in your output folder it gets embedded here. This wa" +
+                    "y you can apply some custom styles over your html report.*/\r\n\t\t</style>\r\n\t\t<titl" +
+                    "e>BDDfy Test Result ");
             
-            #line 943 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 939 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RunDate.ToShortDateString()));
             
             #line default
@@ -241,14 +241,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</title>\r\n\t</head>\r\n\t<body>\r\n\t\t<div id=\'main\'>\r\n\r\n\t\t\t<section id=\'titles\'>\r\n\t\t\t\t<" +
                     "h1 class=\"blue\">");
             
-            #line 949 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 945 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Configuration.ReportHeader));
             
             #line default
             #line hidden
             this.Write("</h1>\r\n\t\t\t\t<h3>");
             
-            #line 950 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 946 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Configuration.ReportDescription));
             
             #line default
@@ -257,7 +257,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                     "<div class=\'tiles\' >\r\n\t\t\t\t\t<div class=\'tilerow\'>\r\n\t\t\t\t\t\t<div id=\'storycount\' cla" +
                     "ss=\"tile tileNoHover two-h purplebg\">\r\n\t\t\t\t\t\t\t<h3>stories</h3>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 958 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 954 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Stories));
             
             #line default
@@ -265,7 +265,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div id=\'scenariocount\' class=\"tile tileNoHover two-h " +
                     "tealbg\">\r\n\t\t\t\t\t\t\t<h3>scenarios</h3>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 962 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 958 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Scenarios));
             
             #line default
@@ -273,7 +273,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\t\t\t\t\t  \r\n\t\t\t\t\t</div>\t\t\t\t\t\t\r\n\t\t\t\t\t<div class=\'tilerow\'>\r\n\t\t\t\t\t\t" +
                     "<div class=\"tile tileNoHover one limebg\">\r\n\t\t\t\t\t\t\t<h4>PASSED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 968 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 964 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Passed));
             
             #line default
@@ -281,7 +281,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one redbg\">\r\n\t\t\t\t\t\t\t<h4>F" +
                     "AILED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 972 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 968 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Failed));
             
             #line default
@@ -289,7 +289,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one orangebg\">\r\n\t\t" +
                     "\t\t\t\t\t<h4>INCONCLUSIVE</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 976 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 972 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Inconclusive));
             
             #line default
@@ -297,7 +297,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one bluebg\">\r\n\t\t\t\t\t\t\t<h4>" +
                     "NOT IMPLEMENTED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 980 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 976 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.NotImplemented));
             
             #line default
@@ -342,7 +342,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 				
 					");
             
-            #line 1018 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1014 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var story in Model.Stories) 
 					{ 
             
@@ -350,14 +350,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t<div class=\'story ");
             
-            #line 1021 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1017 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Result));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t<div class=\'storyMetaData\'>\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1024 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1020 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (story.Metadata == null)
 								{ 
             
@@ -365,14 +365,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<h3 class=\'namespaceName\'>");
             
-            #line 1026 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1022 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Namespace));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1027 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1023 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  }
 								else
 								{ 
@@ -381,21 +381,21 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<h3 class=\'storyTitle\'>");
             
-            #line 1030 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1026 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Title));
             
             #line default
             #line hidden
             this.Write("</h3>\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1031 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1027 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1033 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1029 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
 								{ 
             
@@ -403,35 +403,35 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<ul class=\'storyNarrative\'>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 1036 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1032 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative1));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 1037 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1033 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative2));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 1038 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1034 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative3));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1040 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1036 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end if narrative lines 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t");
             
-            #line 1043 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1039 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 
 								var scenariosInGroup = story.Scenarios.ToList();
 								var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
@@ -441,7 +441,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\r\n\r\n\t\t\t\t\t\t\t<div class=\'scenarios\'>\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1046 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var scenario in scenariosInGroup)
 								{ 
             
@@ -449,35 +449,35 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t<div class=\'scenario\'>\r\n\t\t\t\t\t\t\t\t\t<div class=\'");
             
-            #line 1054 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Result));
             
             #line default
             #line hidden
             this.Write(" canToggle scenarioTitle\' data-toggle-target=\'");
             
-            #line 1054 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Id));
             
             #line default
             #line hidden
             this.Write("\'>");
             
-            #line 1054 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1050 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Title));
             
             #line default
             #line hidden
             this.Write("</div>\t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t\t\t<ul class=\'steps\' id=\'");
             
-            #line 1055 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1051 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Id));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1057 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1053 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
 											{ 
 												string stepClass = string.Empty;
@@ -489,42 +489,42 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t<li class=\'step ");
             
-            #line 1064 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Result));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1064 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(stepClass));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1064 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.ExecutionOrder));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1064 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(canToggle));
             
             #line default
             #line hidden
             this.Write("\' data-toggle-target=\'");
             
-            #line 1064 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1060 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Id));
             
             #line default
             #line hidden
             this.Write("\' >\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1066 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1062 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 
 											var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
 											var title = titleLines[0];
@@ -542,14 +542,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span>");
             
-            #line 1079 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1075 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(title));
             
             #line default
             #line hidden
             this.Write("</span>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1081 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1077 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  for (int i = 1; i < titleLines.Length; i++)
 												{ 
             
@@ -557,21 +557,21 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\'step-title-extra-lines\'>");
             
-            #line 1083 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1079 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(titleLines[i]));
             
             #line default
             #line hidden
             this.Write("</div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1084 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1080 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 } // foreach title lines 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1086 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1082 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (reportException)
 												{ 
             
@@ -579,70 +579,70 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\'step ");
             
-            #line 1088 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1084 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(stepClass));
             
             #line default
             #line hidden
             this.Write("\' id=\'");
             
-            #line 1088 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1084 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Id));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1089 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1085 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end if report exception 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t\t\t\t\t</li>\t\t\t\t\t \r\n\r\n\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 1093 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1089 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end foreach step 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t</ul>\t\t\t\t\t \t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t</div> ");
             
-            #line 1095 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1091 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end scenario 
             
             #line default
             #line hidden
             this.Write("                        \r\n                        \r\n\t\t\t\t\t\t\t\t");
             
-            #line 1098 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1094 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end for each scenario 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t</div> ");
             
-            #line 1100 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1096 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end scenarios 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t</div> ");
             
-            #line 1102 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1098 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end story 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t");
             
-            #line 1104 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1100 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end for each story 
             
             #line default
             #line hidden
             this.Write("\t\t\t  \r\n\t\t\t\t</ul>    \r\n\t\t\t</section>\r\n    \r\n\t\t\t<section>\r\n\t\t\t\t<p>Tested at: ");
             
-            #line 1109 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1105 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RunDate));
             
             #line default
@@ -650,7 +650,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</p>\r\n\t\t\t\t<hr />\r\n\t\t\t\t<p>Powered by <a href=\'https://github.com/TestStack/TestSta" +
                     "ck.BDDfy\'>BDDfy</a></p>\r\n\t\t\t</section>\t\t\r\n\t\t\r\n\t\t</div> ");
             
-            #line 1114 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 1110 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end div main 
             
             #line default

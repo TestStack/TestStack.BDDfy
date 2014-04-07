@@ -853,7 +853,7 @@ div.story {
     content: "Story: ";
 }
 
-.storyTitle {
+.storyTitle, .namespaceName { 
     display: inline;    
     font-size: 18px;
 }
@@ -864,10 +864,6 @@ h3.storyTitle{
 
 .namespaceName:before {
     content: "Namespace: ";
-}
-
-.namespaceName {
-    display: inline;
 }
 
 ul.resultSummary li.storySummary {
