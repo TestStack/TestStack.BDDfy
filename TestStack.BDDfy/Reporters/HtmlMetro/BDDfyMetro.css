@@ -798,6 +798,11 @@ margin-right: 10px;
 margin-left: 5px;
 }
 
+
+#testResults {
+    width: 800px;
+}
+
 #testResult span {
     margin-bottom: 20px;
     margin-left: 5px;
@@ -881,8 +886,8 @@ div.scenario:nth-child(2n+1) {
 }
 
 div.scenario:nth-child(2n) {
+    background: #EBEBEB;
 }
-
 .scenarioTitle {
 }
 
