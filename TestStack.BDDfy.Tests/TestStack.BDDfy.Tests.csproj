@@ -75,6 +75,7 @@
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
     <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.cs" />
+    <Compile Include="Reporters\HtmlMetro\Xxx.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TemporaryCulture.cs" />
