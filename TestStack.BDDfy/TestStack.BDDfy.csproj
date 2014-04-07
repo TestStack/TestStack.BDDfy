@@ -86,7 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MetroHtmlReportTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplateCustom.cs" />
+    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.Model.cs" />
     <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
     <Compile Include="Reporters\Html\HtmlReporter.cs" />
