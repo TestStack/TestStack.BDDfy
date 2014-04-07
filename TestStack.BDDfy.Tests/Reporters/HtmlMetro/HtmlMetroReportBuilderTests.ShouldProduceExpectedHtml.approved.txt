@@ -3,13 +3,12 @@
   <head>
     <meta charset='utf-8'/>
 	<style type='text/css'>
-		html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}.accent{color:#1ba1e2}.white{color:#fff}.black{color:#000}.blue{color:#1ba1e2}.brown{color:#a05000}.green{color:#393}.lime{color:#8cbf26}.magenta{color:#ff0097}.orange{color:#f09609}.pink{color:#e671b8}.purple{color:#a200ff}.red{color:#e51400}.teal{color:#00aba9}.whitebg{background-color:#fff}.blackbg{background-color:#000}.bluebg{background-color:#1ba1e2}.brownbg{background-color:#a05000}.greenbg{background-color:#393}.limebg{background-color:#8cbf26}.magentabg{background-color:#ff0097}.orangebg{background-color:#f09609}.pinkbg{background-color:#e671b8}.purplebg{background-color:#a200ff}.redbg{background-color:#e51400}.tealbg{background-color:#00aba9}#headingstyles{font-family:'Roboto',"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;font-weight:300;margin-top:5px;margin-bottom:0}body{font-family:'Roboto',"Segoe UI","Segoe WP","Helvetica Neue",sans-serif;font-size:14px;font-weight:400}h1,h2,h3,h4,h5,h6{font-family:'Roboto',"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;font-weight:300;margin-top:5px;margin-bottom:0}h1{font-size:56px}h2{font-size:42px}h3{font-size:28px}h4,h5,h6{font-weight:400}.tile{-webkit-perspective:0;-webkit-transform-style:preserve- 3 d;-webkit-transition:-webkit-transform .2s;float:left;margin-right:10px;margin-bottom:10px;text-align:center;padding:5px;opacity:.75}.tile h1,.tile h2,.tile h3,.tile h4,.tile h5,.tile h6{color:#fff;-webkit-user-select:none}.tile h2{font-size:1.75em;margin-top:-10px;margin-left:0}.tile a:hover{text-decoration:none}.tile img{border:0}.tile:hover,.tileNoHover{opacity:1}.tileNoHover{opacity:1}.tiles{clear:both}.tilerow{float:left;-webkit-perspective:0;-webkit-transform-style:preserve- 3 d;-webkit-user-select:none}.one{width:130px;height:130px}.two-h{width:280px;height:130px}.two-v{width:130px;height:280px}.tile h4{margin-top:20px}.firstcol,.secondcol,.thirdcol,.fourthcol,.fifthcol{position:absolute}.secondcol{margin-left:150px}.thirdcol{margin-left:300px}.fourthcol{margin-left:450px}.fifthcol{margin-left:600px}article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}a:hover,a:active{outline:0}sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{max-width:100%;height:auto;border:0;-ms-interpolation-mode:bicubic}button,input,select,textarea{margin:0;font-size:100%;vertical-align:middle}button,input{*overflow:visible;line-height:normal}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button}input[type="search"]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration,input[type="search"]::-webkit-search-cancel-button{-webkit-appearance:none}textarea{overflow:auto;vertical-align:top}.container{width:940px;margin-left:auto;margin-right:auto;*zoom:1}.container:before,.container:after{display:table;content:""}.container:after{clear:both}.container-fluid{padding-left:20px;padding-right:20px;*zoom:1}.container-fluid:before,.container-fluid:after{display:table;content:""}.container-fluid:after{clear:both}.row{margin-left:-20px;*zoom:1}.row:before,.row:after{display:table;content:""}.row:after{clear:both}[class*="span"]{float:left;margin-left:20px}.span1{width:60px}.span2{width:140px}.span3{width:220px}.span4{width:300px}.span5{width:380px}.span6{width:460px}.span7{width:540px}.span8{width:620px}.span9{width:700px}.span10{width:780px}.span11{width:860px}.span12,.container{width:940px}.offset1{margin-left:100px}.offset2{margin-left:180px}.offset3{margin-left:260px}.offset4{margin-left:340px}.offset5{margin-left:420px}.offset6{margin-left:500px}.offset7{margin-left:580px}.offset8{margin-left:660px}.offset9{margin-left:740px}.offset10{margin-left:820px}.offset11{margin-left:900px}.row-fluid{width:100%;*zoom:1}.row-fluid:before,.row-fluid:after{display:table;content:""}.row-fluid:after{clear:both}.row-fluid>[class*="span"]{float:left;margin-left:2.13%}.row-fluid>[class*="span"]:first-child{margin-left:0}.row-fluid .span1{width:6.38%}.row-fluid .span2{width:14.89%}.row-fluid .span3{width:23.4%}.row-fluid .span4{width:31.91%}.row-fluid .span5{width:40.43%}.row-fluid .span6{width:48.94%}.row-fluid .span7{width:57.45%}.row-fluid .span8{width:65.96%}.row-fluid .span9{width:74.47%}.row-fluid .span10{width:82.98%}.row-fluid .span11{width:91.49%}.row-fluid .span12{width:100%}.pull-right{float:right}.pull-left{float:left}.hide{display:none}.show{display:block}.invisible{visibility:hidden}a{color:#1ba1e2;text-decoration:none}a:hover{color:#13709e;text-decoration:underline}pre{padding:15px;border:1px solid #aaa;background:#fafafa}code{padding-left:5px;padding-right:5px}.clear{clear:both}.group:after{visibility:hidden;display:block;content:"";clear:both;height:0}* html .group{zoom:1}*:first-child+html .group{zoom:1}body{background-color:#fff;color:#000;margin:0;max-width:100%;padding:0 0 40px}#main section{margin-left:10px}ul{margin:5px;padding:5px}li{list-style-type:none}#main{height:100%;width:100%}.header,.footer{}.header{border-bottom:2px solid #fff;padding:10px;vertical-align:middle}#summaryTotals{margin-top:30px;width:800px}#filterOptions{margin-bottom:20px;margin-top:10px}.summary{margin:10px 5px 0}.summaryLine{display:inline-block;width:200px}.summary li{padding:0 5px}h3{margin:10px 5px 5px}.summaryLabel{float:left;width:140px}.resultSummary{display:inline-block;width:250px}.resultSummary li:before{float:left;padding-right:5px}.storySummary div.summaryLine,.scenarioSummary div.summaryLine{margin-left:20px;width:200px;height:200px}div#generatedAt{color:#229}.testResult{background-color:rgba(0,0,0,0);border:medium none;padding-top:0}#testResult{padding:5px}#detailsLable{float:left}#expandCollapse{margin:5px}.expandAll,.collapseAll{float:left;margin-top:30px;margin-right:10px;margin-left:5px}#testResults{width:800px}#testResult span{margin-bottom:20px;margin-left:5px;margin-top:20px}.Passed:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABIUlEQVQoU2OAAdEsBmbhfOZEkXzm/UD8AohfAvFhIM6ULGJghSqDAJE8JjGo5H+sOI/5jEg+kwxYMchkoCBOxWEzvP7r1cuD2OeFchnYGaDOwFAIwrp1cv8/fHv//+LjczCxQgYgAXIzikIY3nV16/9/QBgy3QMmdh6kAeTB/w5dRv+LVmbAFecsTfoPAouOzYaLAfEPkIZXIM6hW/vACibu6QS7GeSUx+8e/lcsF0TW8BOkAexhzRqp/+cengZrev/1LbpTYPgySEMmTEC2lPf/lovrwJrQnALDlQygSIGEM0RQvJDtf/PmKnSngOLiunAOAxc4LoRzmWSBgudRFCBjkOI8ZhWwYhgARQpQshCIQRp/APFPIL4MxJVwkxkYGADBUeEvVLvj0QAAAABJRU5ErkJggg==")}.Failed:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA1ElEQVQoU22RMQ7CMAxFHaEKiQMwwcbFGNuNMSdob9DjMHRF6tChVwBO0C4x/ycNTQmWfhTZ71uOIzFUZOeMuaoxd+gJvaAOuRK1YsFCOJEjCh0A/SfUHmBOHl46d2qtev0aqkq1rnnvYdrLMkaAGamJsHOqTRNzN8HBmUMiNeUw1dPAB67JaMphaqLhvUnGzox0vKCZhnU76RjpeKth4KPLDI5AbrJca8E9+9XlMwe4bXkfwR78X2C/ZyT6DbjViKYXD8fgp6Bwg2icoBkaIPvtLCIfrFIm1BpxcygAAAAASUVORK5CYII=")}.Inconclusive:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABDUlEQVQoU22RsWoCQRCGByQc5AEMgaQxqfIGeYL0eQNLyyt9Ah/CUgQ1lUJIEyIq6QJXCF5lKcSzCAiB3TXu5J+79di9ZOBj9/75/2Vul07FI6rpITXBFHyCLVioAbX2fTpztqL0gOrSBPwfCH2Aq9zsTi7NP6sO22zG9ivhw/ujH0y+exQRNjJG2TDPN8U6uWS7T0vdEUtAZq422Lze83EzqeqJBOQHg4Z5uWO7m7MZXwQ6UBLIKiLb7RtGawSaQ0vgz+0c113WT1GgOZYk91xtmHGd9agWaI42yaPIPfsNm035MHvwjayGlKo+nedvgY9riIlv8BEz1tvcfCp5FIgxkKACGixBuzyZiH4BJFlSSOTFIwMAAAAASUVORK5CYII=")}.NotImplemented:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLAMWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+aoeyEMCtyIldyI+cQEi3w6H7aqgpghpVpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTWgd3aM9fRl8XWSakAf6Bj7TWHxdSIauHtiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jbUkZzrxDZ/S4dCMSYaFGJIRpLfyQDebDIf4hRsICYAAAAASUVORK5CYII=")}.NotExecuted:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLAMWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+aoeyEMCtyIldyI+cQEi3w6H7aqgpghpVpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTWgd3aM9fRl8XWSakAf6Bj7TWHxdSIauHtiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jbUkZzrxDZ/S4dCMSYaFGJIRpLfyQDebDIf4hRsICYAAAAASUVORK5CYII=")}div.FailedException,div.NotImplementedException,div.InconclusiveException{padding:5px 0 3px 50px}.FailedException,.InconclusiveException,.NotImplementedException{color:maroon}div.story{margin:10px 0;padding:5px 0}.storyTitle:before{content:"Story: "}.storyTitle,.namespaceName{display:inline;font-size:18px}h3.storyTitle{margin:0}.namespaceName:before{content:"Namespace: "}ul.resultSummary li.storySummary{float:left;display:inline-block}.storySummary div.summaryLabel,.scenarioSummary div.summaryLabel,.storyTitle,.namespace div.summaryLabel,.namespaceName{}.storyMetaData{display:inline;padding:5px 0}.scenario{margin:0;padding:3px 10px}.canToggle{cursor:pointer}div.scenario:nth-child(2n+1){}div.scenario:nth-child(2n){background:#ebebeb}.scenarioTitle{}.scenarioTitle:before{margin-right:5px}.assembly{background-color:#101010;color:#fff;height:40px}ul.storyNarrative{margin:0;padding:5px 15px}ul.steps{background-color:rgba(0,0,0,0);border:medium none;margin-bottom:0;padding-left:20px}.step.ConsecutiveSetupState span,.step.ConsecutiveTransition span,.step.ConsecutiveAssertion span{padding-left:10px}.step-title-extra-lines{padding-left:50px}code{font-family:monospace}
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}.accent{color:#1ba1e2}.white{color:#fff}.black{color:#000}.blue{color:#1ba1e2}.brown{color:#a05000}.green{color:#393}.lime{color:#8cbf26}.magenta{color:#ff0097}.orange{color:#f09609}.pink{color:#e671b8}.purple{color:#a200ff}.red{color:#e51400}.teal{color:#00aba9}.whitebg{background-color:#fff}.blackbg{background-color:#000}.bluebg{background-color:#1ba1e2}.brownbg{background-color:#a05000}.greenbg{background-color:#393}.limebg{background-color:#8cbf26}.magentabg{background-color:#ff0097}.orangebg{background-color:#f09609}.pinkbg{background-color:#e671b8}.purplebg{background-color:#a200ff}.redbg{background-color:#e51400}.tealbg{background-color:#00aba9}#headingstyles{font-family:'Roboto',"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;font-weight:300;margin-top:5px;margin-bottom:0}body{font-family:'Roboto',"Segoe UI","Segoe WP","Helvetica Neue",sans-serif;font-size:14px;font-weight:400}h1,h2,h3,h4,h5,h6{font-family:'Roboto',"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;font-weight:300;margin-top:5px;margin-bottom:0}h1{font-size:56px}h2{font-size:42px}h3{font-size:28px}h4,h5,h6{font-weight:400}.tile{-webkit-perspective:0;-webkit-transform-style:preserve- 3 d;-webkit-transition:-webkit-transform .2s;float:left;margin-right:10px;margin-bottom:10px;text-align:center;padding:5px;opacity:.75}.tile h1,.tile h2,.tile h3,.tile h4,.tile h5,.tile h6{color:#fff;-webkit-user-select:none}.tile h2{font-size:1.75em;margin-top:-10px;margin-left:0}.tile a:hover{text-decoration:none}.tile img{border:0}.tile:hover,.tileNoHover{opacity:1}.tileNoHover{opacity:1}.tiles{clear:both}.tilerow{float:left;-webkit-perspective:0;-webkit-transform-style:preserve- 3 d;-webkit-user-select:none}.one{width:130px;height:130px}.two-h{width:280px;height:130px}.two-v{width:130px;height:280px}.tile h4{margin-top:20px}.firstcol,.secondcol,.thirdcol,.fourthcol,.fifthcol{position:absolute}.secondcol{margin-left:150px}.thirdcol{margin-left:300px}.fourthcol{margin-left:450px}.fifthcol{margin-left:600px}article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none}html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}a:hover,a:active{outline:0}sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{max-width:100%;height:auto;border:0;-ms-interpolation-mode:bicubic}button,input,select,textarea{margin:0;font-size:100%;vertical-align:middle}button,input{*overflow:visible;line-height:normal}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button}input[type="search"]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-decoration,input[type="search"]::-webkit-search-cancel-button{-webkit-appearance:none}textarea{overflow:auto;vertical-align:top}.container{width:940px;margin-left:auto;margin-right:auto;*zoom:1}.container:before,.container:after{display:table;content:""}.container:after{clear:both}.container-fluid{padding-left:20px;padding-right:20px;*zoom:1}.container-fluid:before,.container-fluid:after{display:table;content:""}.container-fluid:after{clear:both}.row{margin-left:-20px;*zoom:1}.row:before,.row:after{display:table;content:""}.row:after{clear:both}[class*="span"]{float:left;margin-left:20px}.span1{width:60px}.span2{width:140px}.span3{width:220px}.span4{width:300px}.span5{width:380px}.span6{width:460px}.span7{width:540px}.span8{width:620px}.span9{width:700px}.span10{width:780px}.span11{width:860px}.span12,.container{width:940px}.offset1{margin-left:100px}.offset2{margin-left:180px}.offset3{margin-left:260px}.offset4{margin-left:340px}.offset5{margin-left:420px}.offset6{margin-left:500px}.offset7{margin-left:580px}.offset8{margin-left:660px}.offset9{margin-left:740px}.offset10{margin-left:820px}.offset11{margin-left:900px}.row-fluid{width:100%;*zoom:1}.row-fluid:before,.row-fluid:after{display:table;content:""}.row-fluid:after{clear:both}.row-fluid>[class*="span"]{float:left;margin-left:2.13%}.row-fluid>[class*="span"]:first-child{margin-left:0}.row-fluid .span1{width:6.38%}.row-fluid .span2{width:14.89%}.row-fluid .span3{width:23.4%}.row-fluid .span4{width:31.91%}.row-fluid .span5{width:40.43%}.row-fluid .span6{width:48.94%}.row-fluid .span7{width:57.45%}.row-fluid .span8{width:65.96%}.row-fluid .span9{width:74.47%}.row-fluid .span10{width:82.98%}.row-fluid .span11{width:91.49%}.row-fluid .span12{width:100%}.pull-right{float:right}.pull-left{float:left}.hide{display:none}.show{display:block}.invisible{visibility:hidden}a{color:#1ba1e2;text-decoration:none}a:hover{color:#13709e;text-decoration:underline}pre{padding:15px;border:1px solid #aaa;background:#fafafa}code{padding-left:5px;padding-right:5px}.clear{clear:both}.group:after{visibility:hidden;display:block;content:"";clear:both;height:0}* html .group{zoom:1}*:first-child+html .group{zoom:1}body{background-color:#fff;color:#000;margin:0;max-width:100%;padding:0 0 40px}#main section{margin-left:10px}ul{margin:5px;padding:5px}li{list-style-type:none}#main{height:100%;width:100%}.header,.footer{}.header{border-bottom:2px solid #fff;padding:10px;vertical-align:middle}#summaryTotals{margin-top:30px;width:800px}#filterOptions{margin-bottom:20px;margin-top:10px}.summary{margin:10px 5px 0}.summaryLine{display:inline-block;width:200px}.summary li{padding:0 5px}h3{margin:10px 5px 5px}.summaryLabel{float:left;width:140px}.resultSummary{display:inline-block;width:250px}.resultSummary li:before{float:left;padding-right:5px}.storySummary div.summaryLine,.scenarioSummary div.summaryLine{margin-left:20px;width:200px;height:200px}div#generatedAt{color:#229}.testResult{background-color:rgba(0,0,0,0);border:medium none;padding-top:0}#testResult{padding:5px}#detailsLable{float:left}#expandCollapse{margin:5px}.expandAll,.collapseAll{float:left;margin-top:30px;margin-right:10px;margin-left:5px}#testResults{width:800px}#testResult span{margin-bottom:20px;margin-left:5px;margin-top:20px}.Passed:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABIUlEQVQoU2OAAdEsBmbhfOZEkXzm/UD8AohfAvFhIM6ULGJghSqDAJE8JjGo5H+sOI/5jEg+kwxYMchkoCBOxWEzvP7r1cuD2OeFchnYGaDOwFAIwrp1cv8/fHv//+LjczCxQgYgAXIzikIY3nV16/9/QBgy3QMmdh6kAeTB/w5dRv+LVmbAFecsTfoPAouOzYaLAfEPkIZXIM6hW/vACibu6QS7GeSUx+8e/lcsF0TW8BOkAexhzRqp/+cengZrev/1LbpTYPgySEMmTEC2lPf/lovrwJrQnALDlQygSIGEM0RQvJDtf/PmKnSngOLiunAOAxc4LoRzmWSBgudRFCBjkOI8ZhWwYhgARQpQshCIQRp/APFPIL4MxJVwkxkYGADBUeEvVLvj0QAAAABJRU5ErkJggg==")}.Failed:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA1ElEQVQoU22RMQ7CMAxFHaEKiQMwwcbFGNuNMSdob9DjMHRF6tChVwBO0C4x/ycNTQmWfhTZ71uOIzFUZOeMuaoxd+gJvaAOuRK1YsFCOJEjCh0A/SfUHmBOHl46d2qtev0aqkq1rnnvYdrLMkaAGamJsHOqTRNzN8HBmUMiNeUw1dPAB67JaMphaqLhvUnGzox0vKCZhnU76RjpeKth4KPLDI5AbrJca8E9+9XlMwe4bXkfwR78X2C/ZyT6DbjViKYXD8fgp6Bwg2icoBkaIPvtLCIfrFIm1BpxcygAAAAASUVORK5CYII=")}.Inconclusive:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABDUlEQVQoU22RsWoCQRCGByQc5AEMgaQxqfIGeYL0eQNLyyt9Ah/CUgQ1lUJIEyIq6QJXCF5lKcSzCAiB3TXu5J+79di9ZOBj9/75/2Vul07FI6rpITXBFHyCLVioAbX2fTpztqL0gOrSBPwfCH2Aq9zsTi7NP6sO22zG9ivhw/ujH0y+exQRNjJG2TDPN8U6uWS7T0vdEUtAZq422Lze83EzqeqJBOQHg4Z5uWO7m7MZXwQ6UBLIKiLb7RtGawSaQ0vgz+0c113WT1GgOZYk91xtmHGd9agWaI42yaPIPfsNm035MHvwjayGlKo+nedvgY9riIlv8BEz1tvcfCp5FIgxkKACGixBuzyZiH4BJFlSSOTFIwMAAAAASUVORK5CYII=")}.NotImplemented:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLAMWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+aoeyEMCtyIldyI+cQEi3w6H7aqgpghpVpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTWgd3aM9fRl8XWSakAf6Bj7TWHxdSIauHtiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jbUkZzrxDZ/S4dCMSYaFGJIRpLfyQDebDIf4hRsICYAAAAASUVORK5CYII=")}.NotExecuted:before{content:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLAMWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+aoeyEMCtyIldyI+cQEi3w6H7aqgpghpVpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTWgd3aM9fRl8XWSakAf6Bj7TWHxdSIauHtiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jbUkZzrxDZ/S4dCMSYaFGJIRpLfyQDebDIf4hRsICYAAAAASUVORK5CYII=")}div.FailedException,div.NotImplementedException,div.InconclusiveException{padding:5px 0 3px 50px}.FailedException,.InconclusiveException,.NotImplementedException{color:maroon}div.story{margin:10px 0;padding:5px 0}.storyTitle:before{content:"Story: "}.storyTitle,.namespaceName{display:inline;font-size:18px}h3.storyTitle{margin:0}.namespaceName:before{content:"Namespace: "}ul.resultSummary li.storySummary{float:left;display:inline-block}.storySummary div.summaryLabel,.scenarioSummary div.summaryLabel,.storyTitle,.namespace div.summaryLabel,.namespaceName{}.storyMetaData{display:inline;padding:5px 0}.scenario{margin:0;padding:3px 10px}.canToggle{cursor:pointer}div.scenario:nth-child(2n+1){}div.scenario:nth-child(2n){background:#ebebeb}.scenarioTitle{}.scenarioTitle:before{margin-right:5px}.assembly{background-color:#101010;color:#fff;height:40px}ul.storyNarrative{margin:0;padding:5px 15px}ul.steps{background-color:rgba(0,0,0,0);border:medium none;margin-bottom:0;padding-left:20px}.step.ConsecutiveSetupState span,.step.ConsecutiveTransition span,.step.ConsecutiveAssertion span{padding-left:10px}.step-title-extra-lines{padding-left:50px}code{font-family:monospace}
 
 		<!-- If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report. -->
 
-		
 	</style>
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>		
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 		<title>BDDfy Test Result 25/03/2014</title>
 	</head>
 	<body>
@@ -85,567 +84,213 @@
 
 				<ul class='testResult'>
 				
-										<li>
+					<li>
 						<div class='story Failed'>
 							<div class='storyMetaData'>
-
-																<h3 class='storyTitle'>Account holder withdraws cash</h3>
-														
-
-																<ul class='storyNarrative'>
+								<h3 class='storyTitle'>Account holder withdraws cash</h3>
+								<ul class='storyNarrative'>
 									<li>As an account holder</li>
 									<li>I want to withdraw cash</li>
 									<li>So that I can get money when the bank is closed</li>
 								</ul>
-															</div>
-
-										
+							</div>
 
 							<div class='scenarios'>
-
-								
 								<div class='scenario'>
-									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-5'>Happy Path Scenario</div>					  
+									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-5'>Happy Path Scenario</div>
 										<ul class='steps' id='scenario-5'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-5-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-5-1' >
 												<span>Given a positive account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-5-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-5-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-5-3' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-5-3' >
 												<span>Then money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-7'>Inconclusive Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-7'>Inconclusive Scenario</div>
 										<ul class='steps' id='scenario-7'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-7-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-7-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-7-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-7-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Inconclusive  Assertion ' data-toggle-target='step-7-3' >									
-									
-																				
+											</li>
+											<li class='step Inconclusive  Assertion ' data-toggle-target='step-7-3' >
 												<span>Then no money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-8'>Not Implemented Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-8'>Not Implemented Scenario</div>
 										<ul class='steps' id='scenario-8'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-8-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-8-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-8-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-8-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step NotImplemented  Assertion ' data-toggle-target='step-8-3' >									
-									
-																				
+											</li>
+											<li class='step NotImplemented  Assertion ' data-toggle-target='step-8-3' >
 												<span>Then no money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-6'>Sad Path Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-6'>Sad Path Scenario</div>
 										<ul class='steps' id='scenario-6'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-6-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-6-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-6-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-6-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Failed  Assertion canToggle' data-toggle-target='step-6-3' >									
-									
-																				
+											</li>
+											<li class='step Failed  Assertion canToggle' data-toggle-target='step-6-3' >
 												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
-										
-												
-																								<div class='step FailedException' id='step-6-3'>
+												<div class='step FailedException' id='step-6-3'>
 													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
 												</div>
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
+											</li>
+										</ul>
+								</div> 
 							</div> 
 						</div> 
-										<li>
+					<li>
 						<div class='story Failed'>
 							<div class='storyMetaData'>
-
-																<h3 class='storyTitle'>Happiness</h3>
-														
-
-																<ul class='storyNarrative'>
+								<h3 class='storyTitle'>Happiness</h3>
+								<ul class='storyNarrative'>
 									<li>As a person</li>
 									<li>I want ice cream</li>
 									<li>So that I can be happy</li>
 								</ul>
-															</div>
-
-										
+							</div>
 
 							<div class='scenarios'>
-
-								
 								<div class='scenario'>
-									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>					  
+									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
 										<ul class='steps' id='scenario-1'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-1-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
 												<span>Given a positive account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-1-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-1-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-1-3' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-1-3' >
 												<span>Then money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-3'>Inconclusive Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-3'>Inconclusive Scenario</div>
 										<ul class='steps' id='scenario-3'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-3-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-3-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-3-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-3-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Inconclusive  Assertion ' data-toggle-target='step-3-3' >									
-									
-																				
+											</li>
+											<li class='step Inconclusive  Assertion ' data-toggle-target='step-3-3' >
 												<span>Then no money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-4'>Not Implemented Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-4'>Not Implemented Scenario</div>
 										<ul class='steps' id='scenario-4'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-4-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-4-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-4-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-4-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step NotImplemented  Assertion ' data-toggle-target='step-4-3' >									
-									
-																				
+											</li>
+											<li class='step NotImplemented  Assertion ' data-toggle-target='step-4-3' >
 												<span>Then no money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>
 										<ul class='steps' id='scenario-2'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-2-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-2-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-2-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-2-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Failed  Assertion canToggle' data-toggle-target='step-2-3' >									
-									
-																				
+											</li>
+											<li class='step Failed  Assertion canToggle' data-toggle-target='step-2-3' >
 												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
-										
-												
-																								<div class='step FailedException' id='step-2-3'>
+												<div class='step FailedException' id='step-2-3'>
 													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
 												</div>
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
+											</li>
+										</ul>
+								</div> 
 							</div> 
 						</div> 
-										<li>
+					<li>
 						<div class='story Failed'>
 							<div class='storyMetaData'>
-
-																<h3 class='namespaceName'>System</h3>
-														
-
-															</div>
-
-										
+								<h3 class='namespaceName'>System</h3>
+							</div>
 
 							<div class='scenarios'>
-
-								
 								<div class='scenario'>
-									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-9'>Happy Path Scenario</div>					  
+									<div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-9'>Happy Path Scenario</div>
 										<ul class='steps' id='scenario-9'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-9-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-9-1' >
 												<span>Given a positive account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-9-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-9-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-9-3' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-9-3' >
 												<span>Then money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-11'>Inconclusive Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-11'>Inconclusive Scenario</div>
 										<ul class='steps' id='scenario-11'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-11-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-11-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-11-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-11-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Inconclusive  Assertion ' data-toggle-target='step-11-3' >									
-									
-																				
+											</li>
+											<li class='step Inconclusive  Assertion ' data-toggle-target='step-11-3' >
 												<span>Then no money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-12'>Not Implemented Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-12'>Not Implemented Scenario</div>
 										<ul class='steps' id='scenario-12'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-12-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-12-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-12-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-12-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step NotImplemented  Assertion ' data-toggle-target='step-12-3' >									
-									
-																				
+											</li>
+											<li class='step NotImplemented  Assertion ' data-toggle-target='step-12-3' >
 												<span>Then no money is dispensed</span>
-										
-												
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
-								<div class='scenario'>
-									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-10'>Sad Path Scenario</div>					  
+											</li>
+										</ul>
+								</div> 								<div class='scenario'>
+									<div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-10'>Sad Path Scenario</div>
 										<ul class='steps' id='scenario-10'>
-										
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-10-1' >									
-									
-																				
+											<li class='step Passed  Assertion ' data-toggle-target='step-10-1' >
 												<span>Given a negative account balance</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Passed  Assertion ' data-toggle-target='step-10-2' >									
-									
-																				
+											</li>
+											<li class='step Passed  Assertion ' data-toggle-target='step-10-2' >
 												<span>When the account holder requests money</span>
-										
-												
-												
-											</li>					 
-
-																  
-										
-											<li class='step Failed  Assertion canToggle' data-toggle-target='step-10-3' >									
-									
-																				
+											</li>
+											<li class='step Failed  Assertion canToggle' data-toggle-target='step-10-3' >
 												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
-										
-												
-																								<div class='step FailedException' id='step-10-3'>
+												<div class='step FailedException' id='step-10-3'>
 													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
 												</div>
-												
-											</li>					 
-
-																					</ul>					 					  
-								</div>                         
-                        
-								
+											</li>
+										</ul>
+								</div> 
 							</div> 
 						</div> 
-								  
-				</ul>    
+
+				</ul>
 			</section>
     
 			<section>
@@ -656,16 +301,12 @@
 		
 		</div> 	
 
-	
-						<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>                
-        
-		
-		
+		<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
 		<script>
-			$(function(){$(".canToggle").each(function(){var n=$("#"+$(this).data("toggle-target"));n.hide();$(this).click(function(){n.toggle(200)})});$(".expandAll").click(function(){$(".steps").css("display","")});$(".collapseAll").click(function(){$(".steps").css("display","none")});$("#filterOptions li input").click(function(){var n=$(this),t=n.data("target-class");$("div.scenario ."+t).parent().toggle(n.prop("checked"))})});
+$(function(){$(".canToggle").each(function(){var n=$("#"+$(this).data("toggle-target"));n.hide();$(this).click(function(){n.toggle(200)})});$(".expandAll").click(function(){$(".steps").css("display","")});$(".collapseAll").click(function(){$(".steps").css("display","none")});$("#filterOptions li input").click(function(){var n=$(this),t=n.data("target-class");$("div.scenario ."+t).parent().toggle(n.prop("checked"))})});
 		</script>
 		<script>
-			<!-- If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report. -->			
+			<!-- If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report. -->
     </script>
   </body>
 </html>

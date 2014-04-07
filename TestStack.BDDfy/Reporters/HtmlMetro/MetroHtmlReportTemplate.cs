@@ -30,7 +30,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
         public virtual string TransformText()
         {
             this.Write("<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\'utf-8\'/>\r\n\t<style type=\'tex" +
-                    "t/css\'>\r\n\t\t");
+                    "t/css\'>\r\n\t");
             
             #line 12 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ReportCss));
@@ -44,17 +44,17 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             
             #line default
             #line hidden
-            this.Write(" -->\r\n\r\n\t\t");
+            this.Write(" -->\r\n");
             
-            #line 16 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 15 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.CustomStylesheet ?? ""));
             
             #line default
             #line hidden
             this.Write("\r\n\t</style>\r\n\t\t<link href=\'http://fonts.googleapis.com/css?family=Roboto:400,300\'" +
-                    " rel=\'stylesheet\' type=\'text/css\'>\t\t\r\n\t\t<title>BDDfy Test Result ");
+                    " rel=\'stylesheet\' type=\'text/css\'>\r\n\t\t<title>BDDfy Test Result ");
             
-            #line 19 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 18 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RunDate.ToShortDateString()));
             
             #line default
@@ -62,14 +62,14 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</title>\r\n\t</head>\r\n\t<body>\r\n\t\t<div id=\'main\'>\r\n\r\n\t\t\t<section id=\'titles\'>\r\n\t\t\t\t<" +
                     "h1 class=\"blue\">");
             
-            #line 25 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 24 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Configuration.ReportHeader));
             
             #line default
             #line hidden
             this.Write("</h1>\r\n\t\t\t\t<h3>");
             
-            #line 26 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 25 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Configuration.ReportDescription));
             
             #line default
@@ -78,7 +78,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                     "<div class=\'tiles\' >\r\n\t\t\t\t\t<div class=\'tilerow\'>\r\n\t\t\t\t\t\t<div id=\'storycount\' cla" +
                     "ss=\"tile tileNoHover two-h purplebg\">\r\n\t\t\t\t\t\t\t<h3>stories</h3>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 34 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 33 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Stories));
             
             #line default
@@ -86,7 +86,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div id=\'scenariocount\' class=\"tile tileNoHover two-h " +
                     "tealbg\">\r\n\t\t\t\t\t\t\t<h3>scenarios</h3>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 38 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 37 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Scenarios));
             
             #line default
@@ -94,7 +94,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\t\t\t\t\t  \r\n\t\t\t\t\t</div>\t\t\t\t\t\t\r\n\t\t\t\t\t<div class=\'tilerow\'>\r\n\t\t\t\t\t\t" +
                     "<div class=\"tile tileNoHover one limebg\">\r\n\t\t\t\t\t\t\t<h4>PASSED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 44 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 43 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Passed));
             
             #line default
@@ -102,7 +102,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one redbg\">\r\n\t\t\t\t\t\t\t<h4>F" +
                     "AILED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 48 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 47 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Failed));
             
             #line default
@@ -110,7 +110,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one orangebg\">\r\n\t\t" +
                     "\t\t\t\t\t<h4>INCONCLUSIVE</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 52 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 51 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.Inconclusive));
             
             #line default
@@ -118,7 +118,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</h1>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"tile tileNoHover one bluebg\">\r\n\t\t\t\t\t\t\t<h4>" +
                     "NOT IMPLEMENTED</h4>\r\n\t\t\t\t\t\t\t<h1>");
             
-            #line 56 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 55 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Summary.NotImplemented));
             
             #line default
@@ -161,191 +161,190 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 
 				<ul class='testResult'>
 				
-					");
+");
             
-            #line 94 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 93 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var story in Model.Stories) 
-					{ 
+{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t<li>\r\n\t\t\t\t\t\t<div class=\'story ");
             
-            #line 97 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 96 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Result));
             
             #line default
             #line hidden
-            this.Write("\'>\r\n\t\t\t\t\t\t\t<div class=\'storyMetaData\'>\r\n\r\n\t\t\t\t\t\t\t\t");
+            this.Write("\'>\r\n\t\t\t\t\t\t\t<div class=\'storyMetaData\'>\r\n");
             
-            #line 100 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 98 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (story.Metadata == null)
-								{ 
+{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<h3 class=\'namespaceName\'>");
             
-            #line 102 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 100 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Namespace));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t\t\t\t");
+            this.Write("</h3>\r\n");
             
-            #line 103 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 101 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  }
-								else
-								{ 
+else
+{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<h3 class=\'storyTitle\'>");
             
-            #line 106 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 104 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Title));
             
             #line default
             #line hidden
-            this.Write("</h3>\r\n\t\t\t\t\t\t\t\t");
+            this.Write("</h3>\r\n");
             
-            #line 107 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 105 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\r\n\r\n\t\t\t\t\t\t\t\t");
             
-            #line 109 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 106 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
-								{ 
+{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t<ul class=\'storyNarrative\'>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 112 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 109 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative1));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 113 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 110 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative2));
             
             #line default
             #line hidden
             this.Write("</li>\r\n\t\t\t\t\t\t\t\t\t<li>");
             
-            #line 114 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 111 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Narrative3));
             
             #line default
             #line hidden
-            this.Write("</li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t");
+            this.Write("</li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n");
             
-            #line 116 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 113 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end if narrative lines 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t");
+            this.Write("\t\t\t\t\t\t\t</div>\r\n\r\n");
             
-            #line 119 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 116 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 
 								var scenariosInGroup = story.Scenarios.ToList();
 								var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
-							
+
             
             #line default
             #line hidden
-            this.Write("\t\t\t\r\n\r\n\t\t\t\t\t\t\t<div class=\'scenarios\'>\r\n\r\n\t\t\t\t\t\t\t\t");
+            this.Write("\t\t\t\t\t\t\t<div class=\'scenarios\'>\r\n");
             
-            #line 126 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 121 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var scenario in scenariosInGroup)
-								{ 
+{ 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t\t<div class=\'scenario\'>\r\n\t\t\t\t\t\t\t\t\t<div class=\'");
+            this.Write("\t\t\t\t\t\t\t\t<div class=\'scenario\'>\r\n\t\t\t\t\t\t\t\t\t<div class=\'");
             
-            #line 130 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 124 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Result));
             
             #line default
             #line hidden
             this.Write(" canToggle scenarioTitle\' data-toggle-target=\'");
             
-            #line 130 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 124 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Id));
             
             #line default
             #line hidden
             this.Write("\'>");
             
-            #line 130 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 124 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Title));
             
             #line default
             #line hidden
-            this.Write("</div>\t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t\t\t<ul class=\'steps\' id=\'");
+            this.Write("</div>\r\n\t\t\t\t\t\t\t\t\t\t<ul class=\'steps\' id=\'");
             
-            #line 131 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 125 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(scenario.Id));
             
             #line default
             #line hidden
-            this.Write("\'>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t");
+            this.Write("\'>\r\n");
             
-            #line 133 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 126 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
 											{ 
 												string stepClass = string.Empty;
 												var reportException = step.Exception != null && step.Result == Result.Failed;
 												string canToggle = reportException ? "canToggle" : string.Empty;
-											
+
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t<li class=\'step ");
+            this.Write("\t\t\t\t\t\t\t\t\t\t\t<li class=\'step ");
             
-            #line 140 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 132 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Result));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 140 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 132 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(stepClass));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 140 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 132 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.ExecutionOrder));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 140 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 132 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(canToggle));
             
             #line default
             #line hidden
             this.Write("\' data-toggle-target=\'");
             
-            #line 140 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 132 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Id));
             
             #line default
             #line hidden
-            this.Write("\' >\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t");
+            this.Write("\' >\r\n");
             
-            #line 142 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 133 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 
 											var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
 											var title = titleLines[0];
@@ -357,120 +356,118 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 													title += " [Exception Message: '" + step.Exception.Message + "']";
 												}
 											}
-											
+
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span>");
+            this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<span>");
             
-            #line 155 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 145 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(title));
             
             #line default
             #line hidden
-            this.Write("</span>\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
+            this.Write("</span>\r\n");
             
-            #line 157 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 146 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  for (int i = 1; i < titleLines.Length; i++)
-												{ 
+{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\'step-title-extra-lines\'>");
             
-            #line 159 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 148 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(titleLines[i]));
             
             #line default
             #line hidden
-            this.Write("</div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
+            this.Write("</div>\r\n");
             
-            #line 160 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 149 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
 } // foreach title lines 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
             
-            #line 162 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 150 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (reportException)
-												{ 
+{ 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\'step ");
             
-            #line 164 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 152 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(stepClass));
             
             #line default
             #line hidden
             this.Write("\' id=\'");
             
-            #line 164 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 152 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Id));
             
             #line default
             #line hidden
             this.Write("\'>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<code>");
             
-            #line 165 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 153 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(step.Exception.StackTrace ?? ""));
             
             #line default
             #line hidden
-            this.Write("</code>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t");
+            this.Write("</code>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\r\n");
             
-            #line 167 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 155 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end if report exception 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t\t\t\t\t\t\t</li>\t\t\t\t\t \r\n\r\n\t\t\t\t\t\t\t\t\t\t\t");
+            this.Write("\t\t\t\t\t\t\t\t\t\t\t</li>\r\n");
             
-            #line 171 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 157 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end foreach step 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t\t\t\t\t\t\t</ul>\t\t\t\t\t \t\t\t\t\t  \r\n\t\t\t\t\t\t\t\t</div> ");
+            this.Write("\t\t\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t</div> ");
             
-            #line 173 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 159 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end scenario 
             
             #line default
             #line hidden
-            this.Write("                        \r\n                        \r\n\t\t\t\t\t\t\t\t");
             
-            #line 176 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 160 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end for each scenario 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t\t</div> ");
             
-            #line 178 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 162 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end scenarios 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t\t\t</div> ");
             
-            #line 180 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 164 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end story 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t\t\t");
+            this.Write("\r\n");
             
-            #line 182 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 166 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } // end for each story 
             
             #line default
             #line hidden
-            this.Write("\t\t\t  \r\n\t\t\t\t</ul>    \r\n\t\t\t</section>\r\n    \r\n\t\t\t<section>\r\n\t\t\t\t<p>Tested at: ");
+            this.Write("\r\n\t\t\t\t</ul>\r\n\t\t\t</section>\r\n    \r\n\t\t\t<section>\r\n\t\t\t\t<p>Tested at: ");
             
-            #line 187 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 172 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RunDate));
             
             #line default
@@ -478,58 +475,58 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
             this.Write("</p>\r\n\t\t\t\t<hr />\r\n\t\t\t\t<p>Powered by <a href=\'https://github.com/TestStack/TestSta" +
                     "ck.BDDfy\'>BDDfy</a></p>\r\n\t\t\t</section>\t\t\r\n\t\t\r\n\t\t</div> ");
             
-            #line 192 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 177 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end div main 
             
             #line default
             #line hidden
-            this.Write("\t\r\n\r\n\t\r\n\t\t");
+            this.Write("\t\r\n\r\n");
             
-            #line 196 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 180 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (Model.Configuration.ResolveJqueryFromCdn) 
-		{ 
+{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t<script type=\'text/javascript\' src=\'http://code.jquery.com/jquery-2.1.0.min.j" +
-                    "s\'></script>                \r\n        ");
+            this.Write("\t\t<script type=\'text/javascript\' src=\'http://code.jquery.com/jquery-2.1.0.min.js\'" +
+                    "></script>\r\n");
             
-            #line 199 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 183 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
-		else 
-		{ 
+else 
+{ 
             
             #line default
             #line hidden
-            this.Write("\t\t\t<script type=\'text/javascript\'>\r\n\t\t\t\t");
+            this.Write("\t\t<script type=\'text/javascript\'>\r\n");
             
-            #line 203 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 187 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.jquery_2_1_0_min));
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\t</script>\r\n\t\t");
+            this.Write("\r\n\t\t</script>\r\n");
             
-            #line 205 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 189 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\r\n\t\t\r\n\t\t<script>\r\n\t\t\t");
+            this.Write("\t\t<script>\r\n");
             
-            #line 210 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 191 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ReportJs));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t</script>\r\n\t\t<script>\r\n\t\t\t<!-- ");
             
-            #line 213 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 194 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.CustomJavascriptComment));
             
             #line default
             #line hidden
-            this.Write(" -->\t\t\t\r\n    </script>\r\n  </body>\r\n</html>\r\n");
+            this.Write(" -->\r\n    </script>\r\n  </body>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }
