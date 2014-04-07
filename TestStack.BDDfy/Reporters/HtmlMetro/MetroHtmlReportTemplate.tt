@@ -1020,7 +1020,15 @@ code {
 					<li>
 						<div class='story <#= story.Result #>'>
 							<div class='storyMetaData'>
+
+								<# if (story.Metadata == null)
+								{ #>
+								<h3 class='namespaceName'><#= story.Namespace #></h3>
+								<# }
+								else
+								{ #>
 								<h3 class='storyTitle'><#= story.Metadata.Title #></h3>
+								<# } #>						
 
 								<# if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
 								{ #>
