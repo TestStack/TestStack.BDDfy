@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Reporters.Html;
+using TestStack.BDDfy.Reporters.HtmlMetro;
 using TestStack.BDDfy.Reporters.MarkDown;
 
 namespace TestStack.BDDfy.Tests.Configuration
@@ -25,6 +25,13 @@ namespace TestStack.BDDfy.Tests.Configuration
         }
 
         [Test]
+        public void DoesNotReturnHtmlMetroReporterByDefault()
+        {
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+            Assert.IsFalse(processors.Any(p => p is HtmlMetroReporter));
+        }
+
+        [Test]
         public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
         {
             Configurator.BatchProcessors.HtmlReport.Disable();
@@ -42,6 +49,19 @@ namespace TestStack.BDDfy.Tests.Configuration
 
             Assert.IsTrue(processors.Any(p => p is MarkDownReporter));
             Configurator.BatchProcessors.MarkDownReport.Disable();
+        }
+
+        [Test]
+        public void ReturnsHtmlMetroReporterWhenItIsActivated()
+        {
+            Configurator.BatchProcessors.HtmlMetroReport.Enable();           
+            
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+
+            Assert.IsTrue(processors.OfType<HtmlMetroReporter>().Any(),
+                "The metro Html report was not found in batch processors");
+
+            Configurator.BatchProcessors.HtmlMetroReport.Disable();
         }
     }
 }

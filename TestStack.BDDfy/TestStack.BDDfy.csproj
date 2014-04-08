@@ -88,8 +88,9 @@
     </Compile>
     <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.Model.cs" />
     <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
-    <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
     <Compile Include="Reporters\Html\HtmlReporter.cs" />
+    <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
+    <Compile Include="Reporters\HtmlMetro\HtmlMetroReporter.cs" />
     <Compile Include="Reporters\Html\HtmlReportResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
