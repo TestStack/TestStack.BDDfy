@@ -1,15 +1,35 @@
-###In development
+##V4 In Development
+
 ####Improvements
- - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61), [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable. Breaking change.
- - [#63](https://github.com/TestStack/TestStack.BDDfy/pull/63) - renamed a number of types to more accurately reflect their role and usage. Breaking change.
- - [#64](https://github.com/TestStack/TestStack.BDDfy/pull/64), [#65](https://github.com/TestStack/TestStack.BDDfy/pull/65) - cleans up NuGet packages and sets up automatic restore.
- - [#67](https://github.com/TestStack/TestStack.BDDfy/pull/67) - makes StoryMetadata generic to allow different story narratives.
- - [#71](https://github.com/TestStack/TestStack.BDDfy/pull/71) - config point for resolving jquery thru CDN or embedding it so as to remove dependency on jQuery.
- - [#72](https://github.com/TestStack/TestStack.BDDfy/pull/72) - minifies bddfy .css and .js files to make HTML report source more readable.
- - [#80](https://github.com/TestStack/TestStack.BDDfy/pull/80) - removed .net 3.5 support. Breaking change.
+ - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61) & [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable
+
+**Breaking Change**
+
+Some long namespaces were removed from the framework so the API becomes more discoverable. You just need to delete the now-removed namespaces from your using statements.
+Also the `Reporters` namespaces that you would use when configuring BDDfy's reports through the `Configurator` class has been moved around to the root namespace. 
+
+ - [#63](https://github.com/TestStack/TestStack.BDDfy/pull/63) - renames a number of types to more accurately reflect their role and usage
+
+**Breaking Change**
+
+ - renames ExecutionStep to Step & its StepTitle to Title
+ - renames StepExecutionResult to Result 
+ - renames StepAction in Step to Action
+ - moves RunStepWithArgs from root to StepScanners
+ - renames MetaData to Metadata everywhere
+ - moves StoryMetadata to Scanners folder
+
+ - [#67](https://github.com/TestStack/TestStack.BDDfy/pull/67) - makes `StoryMetadata` generic to allow different story narratives
+ - [#71](https://github.com/TestStack/TestStack.BDDfy/pull/71) - adds `ResolveJqueryFromCdn`config point for resolving jquery thru CDN or embedding it
+ - [#72](https://github.com/TestStack/TestStack.BDDfy/pull/72) - minifies bddfy .css and .js files to make HTML report smaller and the source more readable 
+ - [#80](https://github.com/TestStack/TestStack.BDDfy/pull/80) - removes .net 3.5 support
+
+**Breaking Change**
+
+BDDfy V4 won't support .Net 3.5. So if you want to feel all the love that's coming to V4 you should upgrade to .Net 4+.
 
 ####New Features
- - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - ability to do inline assertions using the fluent API.
+ - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - adds ability to do inline assertions and title only steps using the fluent API
 
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
 
