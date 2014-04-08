@@ -11,7 +11,7 @@
 	<style type='text/css'>
 	<#= ReportCss #>
 
-		<!-- <#= HtmlReportResources.CustomStylesheetComment #> -->
+		/* <#= HtmlReportResources.CustomStylesheetComment #> */
 <#= Model.CustomStylesheet ?? "" #>
 	</style>
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>

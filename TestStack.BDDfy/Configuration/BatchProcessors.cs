@@ -5,8 +5,6 @@ using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.HtmlMetro;
 using TestStack.BDDfy.Reporters.MarkDown;
-using TestStack.BDDfy.Reporters.Readers;
-using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy.Configuration
 {

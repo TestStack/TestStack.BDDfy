@@ -53,12 +53,6 @@ table {
 
 
 
-
-
-
-
-
-
 /* based on metro blue theme from: http://code52.org/metro.css/#colours */
 .accent {
     color: #1ba1e2;
@@ -160,19 +154,17 @@ table {
     background-color: #00aba9;
 }
 
-
 #headingstyles {
     font-family: 'Roboto', "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
     font-weight: 300;
     margin-top: 5px;
-    margin-bottom: 0px;
-    
+    margin-bottom: 0;
 }
 
 body {
     font-family: 'Roboto', "Segoe UI","Segoe WP","Helvetica Neue",sans-serif;
     font-size: 14px;
-	font-weight: 400;
+    font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -180,7 +172,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     margin-top: 5px;
     margin-bottom: 0px;
-    
 }
 
 h1 {
@@ -197,7 +188,6 @@ h3 {
 
 h4, h5, h6 {
     font-weight: 400;
-    
 }
 
 .tile {
@@ -223,6 +213,10 @@ h4, h5, h6 {
         margin-left: 0px;
     }
 
+    .tile h4 {
+        margin-top: 20px;
+    }
+
     .tile a:hover {
         text-decoration: none;
     }
@@ -234,12 +228,10 @@ h4, h5, h6 {
     .tile:hover, .tileNoHover {
         opacity: 1;
     }
-	
-    .tileNoHover {
-        opacity: 1;
-    }	
-	
-	
+
+.tileNoHover {
+    opacity: 1;
+}
 
 .tiles {
     clear: both;
@@ -257,7 +249,6 @@ h4, h5, h6 {
     height: 130px;
 }
 
-
 .two-h {
     width: 280px;
     height: 130px;
@@ -266,10 +257,6 @@ h4, h5, h6 {
 .two-v {
     width: 130px;
     height: 280px;
-}
-
-.tile h4 {
-    margin-top: 20px;
 }
 
 .firstcol, .secondcol, .thirdcol, .fourthcol, .fifthcol {
@@ -641,16 +628,6 @@ code {
 
 
 
-
-
-
-
-
-
-
-
-
-
 /* clearfix from: http://css-tricks.com/snippets/css/clear-fix/ */
 .group:after {
     visibility: hidden;
@@ -670,21 +647,7 @@ code {
 /* IE7 */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* BDDfy Report Css Starts Here */
-
-
 body {
     background-color: #FFFFFF;
     color: #000000;
@@ -702,9 +665,9 @@ ul {
     padding: 5px;
 }
 
-ul.storyNarrative {
-    padding-left: 35px;
-}
+    ul.storyNarrative {
+        padding-left: 35px;
+    }
 
 li {
     list-style-type: none;
@@ -715,9 +678,6 @@ li {
     width: 100%;
 }
 
-.header, .footer {
-}
-
 .header {
     border-bottom: 2px solid #FFFFFF;
     padding: 10px;
@@ -725,11 +685,11 @@ li {
 }
 
 #summaryTotals {
-	margin-top: 30px;
-         width: 800px;
+    margin-top: 30px;
+    width: 800px;
 }
 
-#filterOptions{
+#filterOptions {
     margin-bottom: 20px;
     margin-top: 10px;
 }
@@ -791,17 +751,16 @@ div#generatedAt {
 }
 
 
-#expandCollapse {    
+#expandCollapse {
     margin: 5px;
 }
 
-.expandAll, .collapseAll {    
-float: left;
-margin-top: 30px;
-margin-right: 10px;
-margin-left: 5px;
+.expandAll, .collapseAll {
+    float: left;
+    margin-top: 30px;
+    margin-right: 10px;
+    margin-left: 5px;
 }
-
 
 #testResults {
     width: auto;
@@ -813,9 +772,8 @@ margin-left: 5px;
     margin-top: 20px;
 }
 
-
-.Passed:before {   
-   content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABIUlEQVQoU2OAAdEsBmbhfOZEkXzm/UD8AohfAvFhIM6ULGJghSqDAJE8JjGo5H+sOI/5jEg+kwxYMchkoCBOxWEzvP7r1cuD2OeFchnYGaDOwFAIwrp1cv8/fHv//+LjczCxQgYgAXIzikIY3nV16/9/QBgy3QMmdh6kAeTB/w5dRv+LVmbAFecsTfoPAouOzYaLAfEPkIZXIM6hW/vACibu6QS7GeSUx+8e/lcsF0TW8BOkAexhzRqp/+cengZrev/1LbpTYPgySEMmTEC2lPf/lovrwJrQnALDlQygSIGEM0RQvJDtf/PmKnSngOLiunAOAxc4LoRzmWSBgudRFCBjkOI8ZhWwYhgARQpQshCIQRp/APFPIL4MxJVwkxkYGADBUeEvVLvj0QAAAABJRU5ErkJggg=="); 
+.Passed:before {
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABIUlEQVQoU2OAAdEsBmbhfOZEkXzm/UD8AohfAvFhIM6ULGJghSqDAJE8JjGo5H+sOI/5jEg+kwxYMchkoCBOxWEzvP7r1cuD2OeFchnYGaDOwFAIwrp1cv8/fHv//+LjczCxQgYgAXIzikIY3nV16/9/QBgy3QMmdh6kAeTB/w5dRv+LVmbAFecsTfoPAouOzYaLAfEPkIZXIM6hW/vACibu6QS7GeSUx+8e/lcsF0TW8BOkAexhzRqp/+cengZrev/1LbpTYPgySEMmTEC2lPf/lovrwJrQnALDlQygSIGEM0RQvJDtf/PmKnSngOLiunAOAxc4LoRzmWSBgudRFCBjkOI8ZhWwYhgARQpQshCIQRp/APFPIL4MxJVwkxkYGADBUeEvVLvj0QAAAABJRU5ErkJggg==");
 }
 
 .Failed:before {
@@ -842,24 +800,22 @@ div.FailedException, div.NotImplementedException, div.InconclusiveException {
     color: #800000;
 }
 
-
- div.story {
+div.story {
     border-bottom: 2px solid #B3B8C9;
     padding-bottom: 15px;
-    margin-top: 10px
- }
-
+    margin-top: 10px;
+}
 
 .storyTitle:before {
     content: "Story: ";
 }
 
-.storyTitle, .namespaceName { 
-    display: inline;    
+.storyTitle, .namespaceName {
+    display: inline;
     font-size: 18px;
 }
 
-h3.storyTitle{
+h3.storyTitle {
     margin: 0px;
 }
 
@@ -870,9 +826,6 @@ h3.storyTitle{
 ul.resultSummary li.storySummary {
     float: left;
     display: inline-block;
-}
-
-.storySummary div.summaryLabel, .scenarioSummary div.summaryLabel, .storyTitle, .namespace div.summaryLabel, .namespaceName {
 }
 
 .storyMetaData {
@@ -891,19 +844,15 @@ ul.resultSummary li.storySummary {
 
 div.scenario:nth-child(2n+1) {
     background: #F9F9FF;
-  }
-
- div.scenario:nth-child(2n) {
-    background: #F2F2F8;
-  }
-
-
-.scenarioTitle {
 }
 
-    .scenarioTitle:before {
-        margin-right: 5px;
-    }
+div.scenario:nth-child(2n) {
+    background: #F2F2F8;
+}
+
+.scenarioTitle:before {
+    margin-right: 5px;
+}
 
 .assembly {
     background-color: #101010;
