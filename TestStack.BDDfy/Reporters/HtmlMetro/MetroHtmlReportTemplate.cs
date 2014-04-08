@@ -472,17 +472,17 @@ else
             
             #line default
             #line hidden
-            this.Write("</p>\r\n\t\t\t\t<hr />\r\n\t\t\t\t<p>Powered by <a href=\'https://github.com/TestStack/TestSta" +
-                    "ck.BDDfy\'>BDDfy</a></p>\r\n\t\t\t</section>\t\t\r\n\t\t\r\n\t\t</div> ");
+            this.Write("</p>\r\n\t\t\t\t<p>Powered by <a href=\'https://github.com/TestStack/TestStack.BDDfy\'>BD" +
+                    "Dfy</a></p>\r\n\t\t\t</section>\t\t\r\n\t\t\r\n\t\t</div> ");
             
-            #line 177 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 176 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  // end div main 
             
             #line default
             #line hidden
             this.Write("\t\r\n\r\n");
             
-            #line 180 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 179 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  if (Model.Configuration.ResolveJqueryFromCdn) 
 { 
             
@@ -491,7 +491,7 @@ else
             this.Write("\t\t<script type=\'text/javascript\' src=\'http://code.jquery.com/jquery-2.1.0.min.js\'" +
                     "></script>\r\n");
             
-            #line 183 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 182 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
 else 
 { 
@@ -500,28 +500,28 @@ else
             #line hidden
             this.Write("\t\t<script type=\'text/javascript\'>\r\n");
             
-            #line 187 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 186 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.jquery_2_1_0_min));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t</script>\r\n");
             
-            #line 189 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 188 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t<script>\r\n");
             
-            #line 191 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 190 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ReportJs));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t</script>\r\n\t\t<script>\r\n\t\t\t<!-- ");
             
-            #line 194 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
+            #line 193 "C:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlReportResources.CustomJavascriptComment));
             
             #line default

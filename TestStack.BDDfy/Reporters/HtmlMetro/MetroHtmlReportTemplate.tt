@@ -170,7 +170,6 @@ else
     
 			<section>
 				<p>Tested at: <#= RunDate #></p>
-				<hr />
 				<p>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a></p>
 			</section>		
 		

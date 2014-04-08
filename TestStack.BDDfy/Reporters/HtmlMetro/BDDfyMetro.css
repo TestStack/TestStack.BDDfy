@@ -702,6 +702,10 @@ ul {
     padding: 5px;
 }
 
+ul.storyNarrative {
+    padding-left: 35px;
+}
+
 li {
     list-style-type: none;
 }
@@ -800,7 +804,7 @@ margin-left: 5px;
 
 
 #testResults {
-    width: 800px;
+    width: auto;
 }
 
 #testResult span {
@@ -838,10 +842,13 @@ div.FailedException, div.NotImplementedException, div.InconclusiveException {
     color: #800000;
 }
 
-div.story {
-    margin: 10px 0;
-    padding: 5px 0px;
-}
+
+ div.story {
+    border-bottom: 2px solid #B3B8C9;
+    padding-bottom: 15px;
+    margin-top: 10px
+ }
+
 
 .storyTitle:before {
     content: "Story: ";
@@ -883,11 +890,14 @@ ul.resultSummary li.storySummary {
 }
 
 div.scenario:nth-child(2n+1) {
-}
+    background: #F9F9FF;
+  }
 
-div.scenario:nth-child(2n) {
-    background: #EBEBEB;
-}
+ div.scenario:nth-child(2n) {
+    background: #F2F2F8;
+  }
+
+
 .scenarioTitle {
 }
 
