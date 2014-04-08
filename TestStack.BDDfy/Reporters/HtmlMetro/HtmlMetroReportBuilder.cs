@@ -14,11 +14,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 
         public string CreateReport(HtmlReportViewModel model)
         {
-            var t = new MetroHtmlReportTemplate(model, DateProvider());
-
-            var html = t.TransformText();
-
-            return html;
+            return new MetroHtmlReportTemplate(model, DateProvider()).TransformText();
         }
 
         public Func<DateTime> DateProvider

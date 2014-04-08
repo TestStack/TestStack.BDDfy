@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Reporters.Html
 {
     public class HtmlReporter : IBatchProcessor
     {
-        private readonly IReportBuilder _builder;
+        public IReportBuilder ReportBuilder { get; set; }
         private readonly IReportWriter _writer;
         private readonly IFileReader _fileReader;
         readonly IHtmlReportConfiguration _configuration;
@@ -27,12 +27,12 @@ namespace TestStack.BDDfy.Reporters.Html
 
         public HtmlReporter(
             IHtmlReportConfiguration configuration, 
-            IReportBuilder builder, 
+            IReportBuilder reportBuilder, 
             IReportWriter writer, 
             IFileReader reader)
         {
             _configuration = configuration;
-            _builder = builder;
+            ReportBuilder = reportBuilder;
             _writer = writer;
             _fileReader = reader;
         }
@@ -51,7 +51,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
             try
             {
-                report = _builder.CreateReport(Model);
+                report = ReportBuilder.CreateReport(Model);
             }
             catch (Exception ex)
             {

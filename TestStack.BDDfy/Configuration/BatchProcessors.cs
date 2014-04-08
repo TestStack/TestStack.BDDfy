@@ -37,7 +37,7 @@ namespace TestStack.BDDfy.Configuration
         private readonly BatchProcessorFactory _htmlReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
         public BatchProcessorFactory HtmlReport { get { return _htmlReportFactory; } }
 
-        private readonly BatchProcessorFactory _htmlMetroReportFactory = new BatchProcessorFactory(() => new HtmlMetroReporter(new DefaultHtmlReportConfiguration()),false);
+        private readonly BatchProcessorFactory _htmlMetroReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration(), new HtmlMetroReportBuilder()), false);
         public BatchProcessorFactory HtmlMetroReport { get { return _htmlMetroReportFactory; } }
 
         private readonly BatchProcessorFactory _markDownFactory = new BatchProcessorFactory(() => new MarkDownReporter(), false);
