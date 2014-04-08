@@ -15,11 +15,21 @@ namespace TestStack.BDDfy.Reporters.Html
         readonly IHtmlReportConfiguration _configuration;
         public HtmlReportViewModel Model { get; private set; }
 
-        public HtmlReporter(IHtmlReportConfiguration configuration) 
-            : this(configuration, new HtmlReportBuilder(), new FileWriter(), new FileReader()) { }
+        public HtmlReporter(IHtmlReportConfiguration configuration)
+            : this(configuration, new HtmlReportBuilder(), new FileWriter(), new FileReader())
+        {
+        }
 
-        public HtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder builder, 
-            IReportWriter writer, IFileReader reader)
+        public HtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder htmlReportBuilder)
+            : this(configuration, htmlReportBuilder, new FileWriter(), new FileReader())
+        {
+        }
+
+        public HtmlReporter(
+            IHtmlReportConfiguration configuration, 
+            IReportBuilder builder, 
+            IReportWriter writer, 
+            IFileReader reader)
         {
             _configuration = configuration;
             _builder = builder;
