@@ -145,9 +145,9 @@
 												<span>When the account holder requests money</span>
 											</li>
 											<li class='step Failed  Assertion canToggle' data-toggle-target='step-6-3' >
-												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
+												<span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
 												<div class='step FailedException' id='step-6-3'>
-													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
+													<code>This is a test stack trace</code>
 												</div>
 											</li>
 										</ul>
@@ -215,9 +215,9 @@
 												<span>When the account holder requests money</span>
 											</li>
 											<li class='step Failed  Assertion canToggle' data-toggle-target='step-2-3' >
-												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
+												<span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
 												<div class='step FailedException' id='step-2-3'>
-													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
+													<code>This is a test stack trace</code>
 												</div>
 											</li>
 										</ul>
@@ -280,9 +280,9 @@
 												<span>When the account holder requests money</span>
 											</li>
 											<li class='step Failed  Assertion canToggle' data-toggle-target='step-10-3' >
-												<span>Then no money is dispensed [Exception Message: 'This is a test exception, it should be shown when step is expanded.']</span>
+												<span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
 												<div class='step FailedException' id='step-10-3'>
-													<code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.MakeExWithStackTrace() in c:\dev\Community\Teststack\bddfy\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 74</code>
+													<code>This is a test stack trace</code>
 												</div>
 											</li>
 										</ul>
