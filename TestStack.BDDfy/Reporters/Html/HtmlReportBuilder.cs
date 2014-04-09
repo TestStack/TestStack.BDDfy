@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Reporters.Html
 {
+    using System.Web;
+
     public class HtmlReportBuilder : IReportBuilder
     {
         private Func<DateTime> _dateProvider = () => DateTime.Now;
@@ -26,7 +29,7 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             _viewModel = model;
             AddLine("<!DOCTYPE html>");
-            using(OpenTag(HtmlTag.html))
+            using (OpenTag(HtmlTag.html))
             {
                 HtmlHead();
                 HtmlBody();
@@ -37,7 +40,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void HtmlHead()
         {
-            using(OpenTag(HtmlTag.head))
+            using (OpenTag(HtmlTag.head))
             {
                 AddLine("<meta charset='utf-8'/>");
                 EmbedCssFile(HtmlReportResources.BDDfy_css_min);
@@ -49,9 +52,9 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void HtmlBody()
         {
-            using(OpenTag(HtmlTag.body))
+            using (OpenTag(HtmlTag.body))
             {
-                using(OpenTag("<div id='main'>", HtmlTag.div))
+                using (OpenTag("<div id='main'>", HtmlTag.div))
                 {
                     Header();
                     ResultSummary();
@@ -149,6 +152,7 @@ namespace TestStack.BDDfy.Reporters.Html
         private void AddStory(Story story)
         {
             var scenariosInGroup = story.Scenarios.ToList();
+            var scenariosGroupedById = story.Scenarios.GroupBy(s => s.Id);
             var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
 
             using (OpenTag(HtmlTag.li))
@@ -159,9 +163,103 @@ namespace TestStack.BDDfy.Reporters.Html
 
                     using (OpenTag("<div class='scenarios'>", HtmlTag.div))
                     {
-                        foreach (var scenario in scenariosInGroup)
+                        foreach (var scenario in scenariosGroupedById)
                         {
-                            AddScenario(scenario);
+                            AddScenario(scenario.ToArray());
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AddScenario(Scenario[] scenarioGroup)
+        {
+            using (OpenTag(string.Format("<div class='scenario'>"), HtmlTag.div))
+            {
+                if (scenarioGroup.Count() == 1)
+                {
+                    AddScenario(scenarioGroup.Single());
+                }
+                else
+                {
+                    AddScenarioWithExamples(scenarioGroup);
+                }
+            }
+        }
+
+        private void AddScenarioWithExamples(Scenario[] scenarioGroup)
+        {
+            var firstScenario = scenarioGroup.First();
+            var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
+
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}</div>", scenarioResult, firstScenario.Id, HttpUtility.HtmlEncode(firstScenario.Title)));
+
+            using (OpenTag(string.Format("<ul class='steps' id='{0}'>", firstScenario.Id), HtmlTag.ul))
+            {
+                foreach (var step in firstScenario.Steps.Where(s => s.ShouldReport))
+                {
+                    using (OpenTag(string.Format("<li class='step {0}'>", step.ExecutionOrder), HtmlTag.li))
+                    {
+                        var titleLines = HttpUtility.HtmlEncode(step.Title)
+                            .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                        var title = titleLines[0];
+
+                        AddLine(string.Format("<span>{0}</span>", title));
+
+                        for (int i = 1; i < titleLines.Length; i++)
+                        {
+                            AddLine(string.Format("<div class='step-title-extra-lines'>{0}</div>", titleLines[i]));
+                        }
+                    }
+                }
+
+                using (OpenTag("<li class='step'>", HtmlTag.li))
+                {
+                    AddLine("<h3>Examples:</h3>");
+                    using (OpenTag(string.Format("<table class='examples' style='border-collapse: collapse;margin-left:10px''>"), HtmlTag.table))
+                    {
+                        using (OpenTag("<tr>", HtmlTag.tr))
+                        {
+                            AddLine(string.Format("<th></th>"));
+                            foreach (var header in firstScenario.Example.Headers)
+                            {
+                                AddLine(string.Format("<th>{0}</th>", header));
+                            }
+
+                            if (scenarioResult == Result.Failed)
+                            {
+                                AddLine(string.Format("<th>Error</th>"));
+                            }
+                        }
+
+                        foreach (var scenario in scenarioGroup)
+                        {
+                            using (OpenTag("<tr>", HtmlTag.tr))
+                            {
+                                AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
+                                foreach (var value in scenario.Example.Values)
+                                {
+                                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(value)));
+                                }
+
+                                if (scenarioResult != Result.Failed)
+                                    continue;
+
+                                using (OpenTag("<td>", HtmlTag.td))
+                                {
+                                    var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
+
+                                    if (failingStep == null)
+                                        continue;
+
+                                    var exceptionId = Configurator.IdGenerator.GetStepId();
+                                    AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, HttpUtility.HtmlEncode(failingStep.Exception.Message)));
+                                    using (OpenTag(string.Format("<div class='step' id='{0}'>", exceptionId), HtmlTag.div))
+                                    {
+                                        AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -170,44 +268,41 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void AddScenario(Scenario scenario)
         {
-            using (OpenTag(string.Format("<div class='scenario'>"), HtmlTag.div))
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}</div>", scenario.Result, scenario.Id, scenario.Title));
+
+            using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
             {
-                AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}</div>", scenario.Result, scenario.Id, scenario.Title));
-
-                using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
+                foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                 {
-                    foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                    string stepClass = string.Empty;
+                    var reportException = step.Exception != null && step.Result == Result.Failed;
+                    string canToggle = reportException ? "canToggle" : string.Empty;
+
+                    using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
                     {
-                        string stepClass = string.Empty;
-                        var reportException = step.Exception != null && step.Result == Result.Failed;
-                        string canToggle = reportException ? "canToggle" : string.Empty;
-
-                        using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
+                        var titleLines = step.Title.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                        var title = titleLines[0];
+                        if (reportException)
                         {
-                            var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-                            var title = titleLines[0];
-                            if (reportException)
+                            stepClass = step.Result + "Exception";
+                            if (!string.IsNullOrEmpty(step.Exception.Message))
                             {
-                                stepClass = step.Result + "Exception";
-                                if (!string.IsNullOrEmpty(step.Exception.Message))
-                                {
-                                    title += " [Exception Message: '" + step.Exception.Message + "']";
-                                }
+                                title += " [Exception Message: '" + step.Exception.Message + "']";
                             }
+                        }
 
-                            AddLine(string.Format("<span>{0}</span>", title));
+                        AddLine(string.Format("<span>{0}</span>", title));
 
-                            for (int i = 1; i < titleLines.Length; i++)
+                        for (int i = 1; i < titleLines.Length; i++)
+                        {
+                            AddLine(string.Format("<div class='step-title-extra-lines'>{0}</div>", titleLines[i]));
+                        }
+
+                        if (reportException)
+                        {
+                            using (OpenTag(string.Format("<div class='step {0}' id='{1}'>", stepClass, step.Id), HtmlTag.div))
                             {
-                                AddLine(string.Format("<div class='step-title-extra-lines'>{0}</div>", titleLines[i]));
-                            }
-
-                            if (reportException)
-                            {
-                                using (OpenTag(string.Format("<div class='step {0}' id='{1}'>", stepClass, step.Id), HtmlTag.div))
-                                {
-                                    AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace));
-                                }
+                                AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace));
                             }
                         }
                     }
@@ -299,7 +394,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         public Func<DateTime> DateProvider
         {
-            get { return _dateProvider; } 
+            get { return _dateProvider; }
             set { _dateProvider = value; }
         }
     }

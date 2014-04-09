@@ -79,33 +79,45 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-3'>Happy Path Scenario</div>
-                  <ul class='steps' id='scenario-3'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-4' >
-                      <span>Given a positive account balance</span>
+                  <div class='Failed canToggle scenarioTitle' data-toggle-target='1'>Example Scenario</div>
+                  <ul class='steps' id='1'>
+                    <li class='step Assertion'>
+                      <span>Given a &lt;sign&gt; account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-5' >
+                    <li class='step Assertion'>
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-6' >
-                      <span>Then money is dispensed</span>
+                    <li class='step Assertion'>
+                      <span>Then money &lt;action&gt; dispensed</span>
                     </li>
-                  </ul>
-                </div>
-                <div class='scenario'>
-                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-4'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-4'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-1' >
-                      <span>Given a negative account balance</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-2' >
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-3-3' >
-                      <span>Then no money is dispensed [Exception Message: 'Boom']</span>
-                      <div class='step FailedException' id='step-3-3'>
-                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in c:\Users\Jake\_Code\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 65</code>
-                      </div>
+                    <li class='step'>
+                      <h3>Examples:</h3>
+                      <table class='examples' style='border-collapse: collapse;margin-left:10px''>
+                        <tr>
+                          <th></th>
+                          <th>sign</th>
+                          <th>action</th>
+                          <th>Error</th>
+                        </tr>
+                        <tr>
+                          <td><Span class='Passed' style='margin-right:4px;' /></td>
+                          <td>positive</td>
+                          <td>is</td>
+                          <td>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><Span class='Failed' style='margin-right:4px;' /></td>
+                          <td>negative</td>
+                          <td>is not</td>
+                          <td>
+                            <span class='canToggle' data-toggle-target='step-1-19'>Boom</span>
+                            <div class='step' id='step-1-19'>
+                              <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in c:\Users\Jake\_Code\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 88</code>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
                     </li>
                   </ul>
                 </div>
@@ -124,30 +136,36 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
-                  <ul class='steps' id='scenario-1'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-4' >
-                      <span>Given a positive account balance</span>
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='0'>Example Scenario</div>
+                  <ul class='steps' id='0'>
+                    <li class='step Assertion'>
+                      <span>Given a &lt;sign&gt; account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-5' >
+                    <li class='step Assertion'>
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-6' >
-                      <span>Then money is dispensed</span>
+                    <li class='step Assertion'>
+                      <span>Then money &lt;action&gt; dispensed</span>
                     </li>
-                  </ul>
-                </div>
-                <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-2'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
-                      <span>Given a negative account balance</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-2' >
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-3' >
-                      <span>Then no money is dispensed</span>
+                    <li class='step'>
+                      <h3>Examples:</h3>
+                      <table class='examples' style='border-collapse: collapse;margin-left:10px''>
+                        <tr>
+                          <th></th>
+                          <th>sign</th>
+                          <th>action</th>
+                        </tr>
+                        <tr>
+                          <td><Span class='Passed' style='margin-right:4px;' /></td>
+                          <td>positive</td>
+                          <td>is</td>
+                        </tr>
+                        <tr>
+                          <td><Span class='Passed' style='margin-right:4px;' /></td>
+                          <td>negative</td>
+                          <td>is not</td>
+                        </tr>
+                      </table>
                     </li>
                   </ul>
                 </div>
