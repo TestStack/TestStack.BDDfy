@@ -20,7 +20,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 
         public void AndGivenTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
         {
-            _stories = new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds();
+            _stories = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds();
         }
 
         public void WhenTheDiagnosticDataIsCalculated()
