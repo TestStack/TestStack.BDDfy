@@ -113,7 +113,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
                           <td>
                             <span class='canToggle' data-toggle-target='step-1-19'>Boom</span>
                             <div class='step' id='step-1-19'>
-                              <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in c:\Users\Jake\_Code\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 88</code>
+                              <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 88</code>
                             </div>
                           </td>
                         </tr>
