@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
                 var sut = new HtmlReportBuilder { DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5) };
                 var result = sut.CreateReport(model);
-                Approvals.Verify(result, StackTraceScrubber.ScrubPaths);
+                Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
             }
         }
 
@@ -52,7 +52,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
                 var sut = new HtmlReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
                 var result = sut.CreateReport(model);
-                Approvals.Verify(result, StackTraceScrubber.ScrubPaths);
+                Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
             }
         }
     }
