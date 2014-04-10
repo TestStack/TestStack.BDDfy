@@ -3,6 +3,7 @@ using System.Linq;
 using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Html;
+using TestStack.BDDfy.Reporters.HtmlMetro;
 using TestStack.BDDfy.Reporters.MarkDown;
 
 namespace TestStack.BDDfy.Configuration
@@ -14,6 +15,10 @@ namespace TestStack.BDDfy.Configuration
             var htmlReporter = HtmlReport.ConstructFor(StoryCache.Stories);
             if (htmlReporter != null)
                 yield return htmlReporter;
+
+            var htmlMetroReporter = HtmlMetroReport.ConstructFor(StoryCache.Stories);
+            if (htmlMetroReporter != null)
+                yield return htmlMetroReporter;
 
             var markDown = MarkDownReport.ConstructFor(StoryCache.Stories);
             if (markDown != null)
@@ -31,6 +36,9 @@ namespace TestStack.BDDfy.Configuration
 
         private readonly BatchProcessorFactory _htmlReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
         public BatchProcessorFactory HtmlReport { get { return _htmlReportFactory; } }
+
+        private readonly BatchProcessorFactory _htmlMetroReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration(), new HtmlMetroReportBuilder()), false);
+        public BatchProcessorFactory HtmlMetroReport { get { return _htmlMetroReportFactory; } }
 
         private readonly BatchProcessorFactory _markDownFactory = new BatchProcessorFactory(() => new MarkDownReporter(), false);
         public BatchProcessorFactory MarkDownReport { get { return _markDownFactory; } }

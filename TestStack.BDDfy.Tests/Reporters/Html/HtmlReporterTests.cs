@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Test]
         public void ShouldCreateReportIfProcessingSucceeds()
         {
-            _sut.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
+            _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
 
             _sut.Process(new List<Story>());
 
@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Test]
         public void ShouldPrintErrorInReportIfProcessingFails()
         {
-            _sut.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
+            _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
 
             _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
 
