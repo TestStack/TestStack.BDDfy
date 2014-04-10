@@ -1,0 +1,196 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="TestStack.BDDfy.Reporters.Html" #>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'/>
+	<style type='text/css'>
+	<#= ReportCss #>
+
+		<!-- <#= HtmlReportResources.CustomStylesheetComment #> -->
+<#= Model.CustomStylesheet ?? "" #>
+	</style>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+		<title>BDDfy Test Result <#= RunDate.ToShortDateString() #></title>
+	</head>
+	<body>
+		<div id='main'>
+
+			<section id='titles'>
+				<h1 class="blue"><#= Model.Configuration.ReportHeader #></h1>
+				<h3><#= Model.Configuration.ReportDescription #></h3>
+			</section>
+		
+			<section id='summaryTotals' class='group'>				
+				<div class='tiles' >
+					<div class='tilerow'>
+						<div id='storycount' class="tile tileNoHover two-h purplebg">
+							<h3>stories</h3>
+							<h1><#= Model.Summary.Stories #></h1>
+						</div>
+						<div id='scenariocount' class="tile tileNoHover two-h tealbg">
+							<h3>scenarios</h3>
+							<h1><#= Model.Summary.Scenarios #></h1>
+						</div>					  
+					</div>						
+					<div class='tilerow'>
+						<div class="tile tileNoHover one limebg">
+							<h4>PASSED</h4>
+							<h1><#= Model.Summary.Passed #></h1>
+						</div>
+						<div class="tile tileNoHover one redbg">
+							<h4>FAILED</h4>
+							<h1><#= Model.Summary.Failed #></h1>
+						</div>							
+						<div class="tile tileNoHover one orangebg">
+							<h4>INCONCLUSIVE</h4>
+							<h1><#= Model.Summary.Inconclusive #></h1>
+						</div>
+						<div class="tile tileNoHover one bluebg">
+							<h4>NOT IMPLEMENTED</h4>
+							<h1><#= Model.Summary.NotImplemented #></h1>				
+						</div>			
+					</div>		
+				</div>		
+			</section> 		
+	  
+			<section id='resultOptions' class='group'>	  
+				<h3>options</h3>
+	  
+				<ul id='filterOptions'>         
+					<li class="Passed">
+						<input id="passedFilter" type="checkbox" checked="" data-target-class="Passed">
+						<label for="passedFilter">passed</label>
+					</li>		  
+					<li class="Failed">
+						<input id="failedFilter" type="checkbox" checked="" data-target-class="Failed">
+						<label for="failedFilter">failed</label>
+					</li>
+					<li class="Inconclusive">
+						<input id="inconclusiveFilter" type="checkbox" checked="" data-target-class="Inconclusive">
+						<label for="inconclusiveFilter">inconclusive</label>
+					</li>		  		  
+					<li  class="NotImplemented">
+						<input id="notImplementedFilter" type="checkbox" checked="" data-target-class="NotImplemented">
+						<label for="notImplementedFilter">not implemented</label>
+					</li>		  		  
+				</ul>	  
+			</section>
+	  
+			<section id='testResults'>
+				<div id='expandCollapse' class='group'>
+					<h2 style="float: left">results</h2>      
+					<a href="#" class='expandAll'>show steps</a>
+					<a href="#" class='collapseAll'>hide steps</a>           
+				</div>
+
+				<ul class='testResult'>
+				
+<# foreach (var story in Model.Stories) 
+{ #>
+					<li>
+						<div class='story <#= story.Result #>'>
+							<div class='storyMetaData'>
+<# if (story.Metadata == null)
+{ #>
+								<h3 class='namespaceName'><#= story.Namespace #></h3>
+<# }
+else
+{ #>
+								<h3 class='storyTitle'><#= story.Metadata.Title #></h3>
+<# } #>
+<# if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
+{ #>
+								<ul class='storyNarrative'>
+									<li><#= story.Metadata.Narrative1 #></li>
+									<li><#= story.Metadata.Narrative2 #></li>
+									<li><#= story.Metadata.Narrative3 #></li>
+								</ul>
+<# } // end if narrative lines #>
+							</div>
+
+<#
+								var scenariosInGroup = story.Scenarios.ToList();
+								var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
+#>
+							<div class='scenarios'>
+<# foreach (var scenario in scenariosInGroup)
+{ #>
+								<div class='scenario'>
+									<div class='<#= scenario.Result #> canToggle scenarioTitle' data-toggle-target='<#= scenario.Id #>'><#= scenario.Title #></div>
+										<ul class='steps' id='<#= scenario.Id #>'>
+<# foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+											{ 
+												string stepClass = string.Empty;
+												var reportException = step.Exception != null && step.Result == Result.Failed;
+												string canToggle = reportException ? "canToggle" : string.Empty;
+#>
+											<li class='step <#= step.Result #> <#= stepClass #> <#= step.ExecutionOrder #> <#= canToggle #>' data-toggle-target='<#= step.Id #>' >
+<#
+											var titleLines = step.Title.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+											var title = titleLines[0];
+											if (reportException)
+											{
+												stepClass = step.Result + "Exception";
+												if (!string.IsNullOrEmpty(step.Exception.Message))
+												{
+													title += " [Exception Message: '" + step.Exception.Message + "']";
+												}
+											}
+#>
+												<span><#= title #></span>
+<# for (int i = 1; i < titleLines.Length; i++)
+{ #>
+												<div class='step-title-extra-lines'><#= titleLines[i] #></div>
+<#} // foreach title lines #>
+<# if (reportException)
+{ #>
+												<div class='step <#= stepClass #>' id='<#= step.Id #>'>
+													<code><#= step.Exception.StackTrace ?? "" #></code>
+												</div>
+<# } // end if report exception #>
+											</li>
+<# } // end foreach step #>
+										</ul>
+								</div> <# // end scenario #>
+<# } // end for each scenario #>
+
+							</div> <# // end scenarios #>
+
+						</div> <# // end story #>
+
+<# } // end for each story #>
+
+				</ul>
+			</section>
+    
+			<section>
+				<p>Tested at: <#= RunDate #></p>
+				<p>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a></p>
+			</section>		
+		
+		</div> <# // end div main #>
+	
+
+<# if (Model.Configuration.ResolveJqueryFromCdn) 
+{ #>
+		<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+<# } 
+else 
+{ #>
+		<script type='text/javascript'>
+<#= HtmlReportResources.jquery_2_1_0_min #>
+		</script>
+<# } #>
+		<script>
+<#= ReportJs #>
+		</script>
+		<script>
+			<!-- <#= HtmlReportResources.CustomJavascriptComment #> -->
+    </script>
+  </body>
+</html>

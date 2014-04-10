@@ -74,8 +74,10 @@
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
+    <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
+    <Compile Include="Reporters\Html\TemporaryCulture.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
@@ -150,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Reporters\Html\HtmlReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
