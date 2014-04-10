@@ -31,7 +31,7 @@ namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
 
                 var sut = new HtmlMetroReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
                 var result = sut.CreateReport(model);
-                Approvals.Verify(result);
+                Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
             }
         }
     }
