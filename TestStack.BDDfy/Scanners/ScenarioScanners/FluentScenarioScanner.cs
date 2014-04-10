@@ -27,10 +27,7 @@ namespace TestStack.BDDfy
             {
                 var scenarioId = Configurator.IdGenerator.GetScenarioId();
                 return _examples.Select(example =>
-                    new Scenario(scenarioId, testObject, CloneSteps(_steps), scenarioText, example)
-                    {
-                        Init = o => PrepareTestObject(o, example)
-                    });
+                    new Scenario(scenarioId, testObject, CloneSteps(_steps), scenarioText, example));
             }
 
             return new[]{ new Scenario(testObject, _steps, scenarioText)};
@@ -39,34 +36,6 @@ namespace TestStack.BDDfy
         private IEnumerable<Step> CloneSteps(IEnumerable<Step> steps)
         {
             return steps.Select(step => new Step(step));
-        }
-
-        private void PrepareTestObject(object testObject, Example example)
-        {
-            foreach (var column in example)
-            {
-                var type = testObject.GetType();
-                var matchingMembers = type.GetMembers()
-                    .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .Where(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase))
-                    .ToArray();
-
-                if (!matchingMembers.Any())
-                    throw new InvalidOperationException(
-                        string.Format("Expecting a fields or a property with name of {0} to match example header",
-                            column.Key));
-
-                foreach (var matchingMember in matchingMembers)
-                {
-                    var prop = matchingMember as PropertyInfo;
-                    if (prop != null)
-                        prop.SetValue(testObject, column.Value, null);
-
-                    var field = matchingMember as FieldInfo;
-                    if (field != null)
-                        field.SetValue(testObject, column.Value);
-                }
-            }
         }
 
         private static string GetTitleFromMethodNameInStackTrace(object testObject)

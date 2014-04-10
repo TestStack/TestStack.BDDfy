@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace TestStack.BDDfy.Processors
@@ -14,8 +15,31 @@ namespace TestStack.BDDfy.Processors
 
         public void InitializeScenario()
         {
-            if (_scenario.Init != null)
-                _scenario.Init(_scenario.TestObject);
+            if (_scenario.Example == null) 
+                return;
+
+            foreach (var column in _scenario.Example)
+            {
+                var type = _scenario.TestObject.GetType();
+                var matchingMembers = type.GetMembers()
+                    .Where(m => m is FieldInfo || m is PropertyInfo)
+                    .Where(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase))
+                    .ToArray();
+
+                if (!matchingMembers.Any())
+                    continue;
+
+                foreach (var matchingMember in matchingMembers)
+                {
+                    var prop = matchingMember as PropertyInfo;
+                    if (prop != null)
+                        prop.SetValue(_scenario.TestObject, column.Value, null);
+
+                    var field = matchingMember as FieldInfo;
+                    if (field != null)
+                        field.SetValue(_scenario.TestObject, column.Value);
+                }
+            }
         }
 
         public Result ExecuteStep(Step step)
