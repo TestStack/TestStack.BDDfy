@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TestStack.BDDfy.Reporters
@@ -9,10 +10,12 @@ namespace TestStack.BDDfy.Reporters
         {
             _stories = stories;
             Summary = new FileReportSummaryModel(stories);
+            RunDate = DateTime.Now;
         }
 
         readonly IEnumerable<Story> _stories;
         public FileReportSummaryModel Summary { get; private set; }
+        public DateTime RunDate { get; set; }
 
         public IEnumerable<Story> Stories
         {

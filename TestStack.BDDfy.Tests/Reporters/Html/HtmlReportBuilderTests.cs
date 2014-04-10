@@ -1,8 +1,5 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
@@ -29,8 +26,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                 var model = new HtmlReportViewModel(
                     new DefaultHtmlReportConfiguration(),
                     new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+                model.RunDate = new DateTime(2014, 3, 25, 11, 30, 5);
 
-                var sut = new HtmlReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
+                var sut = new HtmlReportBuilder();
                 var result = sut.CreateReport(model);
                 Approvals.Verify(result);
             }

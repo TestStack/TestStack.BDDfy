@@ -55,7 +55,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                     " rel=\'stylesheet\' type=\'text/css\'>\r\n\t\t<title>BDDfy Test Result ");
             
             #line 18 "D:\Apps\github\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RunDate.ToShortDateString()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.RunDate.ToShortDateString()));
             
             #line default
             #line hidden
@@ -468,7 +468,7 @@ else
             this.Write("\r\n\t\t\t\t</ul>\r\n\t\t\t</section>\r\n    \r\n\t\t\t<section>\r\n\t\t\t\t<p>Tested at: ");
             
             #line 172 "D:\Apps\github\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RunDate));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.RunDate));
             
             #line default
             #line hidden
