@@ -101,7 +101,7 @@
 <# }
 else
 { #>
-								<h3 class='storyTitle'><#= story.Metadata.Title #></h3>
+								<h3 class='storyTitle'><#= story.Metadata.TitlePrefix + story.Metadata.Title #></h3>
 <# } #>
 <# if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
 { #>

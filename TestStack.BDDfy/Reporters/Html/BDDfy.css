@@ -209,10 +209,6 @@ div.story {
     border-radius: 10px;
 }
 
-.storyTitle:before {
-    content: "Story: ";
-}
-
 .storyTitle {
     display: inline;
 }

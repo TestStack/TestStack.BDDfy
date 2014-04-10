@@ -12,7 +12,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             {
                 if (story.Metadata != null)
                 {
-                    report.AppendLine(string.Format("## Story: {0}", story.Metadata.Title));
+                    report.AppendLine(string.Format("## {0}{1}", story.Metadata.TitlePrefix, story.Metadata.Title));
                     if (!string.IsNullOrEmpty(story.Metadata.Narrative1))
                         report.AppendLine(string.Format(" **{0}**  ", story.Metadata.Narrative1));
                     if (!string.IsNullOrEmpty(story.Metadata.Narrative2))
