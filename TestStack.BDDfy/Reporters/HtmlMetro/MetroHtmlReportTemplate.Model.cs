@@ -11,12 +11,10 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
     partial class MetroHtmlReportTemplate
     {
         private readonly HtmlReportViewModel _model;      
-        public DateTime RunDate { get; set; }
 
-        public MetroHtmlReportTemplate(HtmlReportViewModel model, DateTime runDate)
+        public MetroHtmlReportTemplate(HtmlReportViewModel model)
         {
             _model = model;
-            RunDate = runDate;
         }
 
         public HtmlReportViewModel Model

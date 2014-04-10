@@ -7,6 +7,7 @@ namespace TestStack.BDDfy
     public class StoryNarrativeAttribute : Attribute
     {
         public string Title { get; set; }
+        public string TitlePrefix { get; set; }
         public string Narrative1 { get; set; }
         public string Narrative2 { get; set; }
         public string Narrative3 { get; set; }

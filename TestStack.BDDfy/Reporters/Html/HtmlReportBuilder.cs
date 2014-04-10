@@ -6,7 +6,6 @@ namespace TestStack.BDDfy.Reporters.Html
 {
     public class HtmlReportBuilder : IReportBuilder
     {
-        private Func<DateTime> _dateProvider = () => DateTime.Now;
         private HtmlReportViewModel _viewModel;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
@@ -43,7 +42,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 EmbedCssFile(HtmlReportResources.BDDfy_css_min);
                 EmbedCssFile(_viewModel.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
 
-                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", DateProvider().ToShortDateString()));
+                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _viewModel.RunDate.ToShortDateString()));
             }
         }
 
@@ -129,7 +128,7 @@ namespace TestStack.BDDfy.Reporters.Html
                     }
                 }
 
-                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", _dateProvider()));
+                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", _viewModel.RunDate));
             }
         }
 
@@ -226,7 +225,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 }
                 else
                 {
-                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.Metadata.Title));
+                    AddLine(string.Format("<div class='storyTitle'>{0}{1}</div>", story.Metadata.TitlePrefix, story.Metadata.Title));
                 }
 
                 if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
@@ -295,12 +294,6 @@ namespace TestStack.BDDfy.Reporters.Html
 
             _html.AppendFormat("/*{0}*/", htmlComment);
             _html.AppendLine();
-        }
-
-        public Func<DateTime> DateProvider
-        {
-            get { return _dateProvider; } 
-            set { _dateProvider = value; }
         }
     }
 }

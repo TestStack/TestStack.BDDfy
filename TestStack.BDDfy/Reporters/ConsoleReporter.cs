@@ -37,7 +37,7 @@ namespace TestStack.BDDfy.Reporters
             if (story.Metadata == null || story.Metadata.Type == null)
                 return;
 
-            Console.WriteLine("Story: " + story.Metadata.Title);
+            Console.WriteLine(story.Metadata.TitlePrefix + story.Metadata.Title);
             if (!string.IsNullOrEmpty(story.Metadata.Narrative1))
                 Console.WriteLine("\t" + story.Metadata.Narrative1);
             if (!string.IsNullOrEmpty(story.Metadata.Narrative2))
