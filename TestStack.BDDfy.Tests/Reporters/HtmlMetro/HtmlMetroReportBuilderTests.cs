@@ -1,19 +1,18 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
+using TestStack.BDDfy.Reporters.HtmlMetro;
+using TestStack.BDDfy.Tests.Reporters.Html;
 
-namespace TestStack.BDDfy.Tests.Reporters.Html
+namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
 {
     [TestFixture]
     [UseReporter(typeof (DiffReporter))]
-    public class HtmlReportBuilderTests
+    public class HtmlMetroReportBuilderTests
     {
         [Test]
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -28,9 +27,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             {
                 var model = new HtmlReportViewModel(
                     new DefaultHtmlReportConfiguration(),
-                    new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+                    new ReportTestData().CreateMixContainingEachTypeOfOutcome());
 
-                var sut = new HtmlReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
+                var sut = new HtmlMetroReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
                 var result = sut.CreateReport(model);
                 Approvals.Verify(result);
             }
