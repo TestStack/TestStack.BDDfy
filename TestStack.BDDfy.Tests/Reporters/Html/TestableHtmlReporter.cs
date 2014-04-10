@@ -9,15 +9,14 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
     public class TestableHtmlReporter : HtmlReporter
     {
         public IHtmlReportConfiguration Configuration { get; set; }
-        public IReportBuilder Builder { get; set; }
         public IReportWriter Writer { get; set; }
         public IFileReader FileReader { get; set; }
 
-        public TestableHtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder builder, IReportWriter writer, IFileReader fileReader) 
-            : base(configuration, builder, writer, fileReader)
+        public TestableHtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder reportBuilder, IReportWriter writer, IFileReader fileReader) 
+            : base(configuration, reportBuilder, writer, fileReader)
         {
             Configuration = configuration;
-            Builder = builder;
+            ReportBuilder = reportBuilder;
             Writer = writer;
             FileReader = fileReader;
             Configuration.RunsOn(Arg.Any<Story>()).Returns(true);

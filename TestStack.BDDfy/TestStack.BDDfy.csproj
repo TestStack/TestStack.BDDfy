@@ -58,6 +58,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +83,16 @@
     <Compile Include="Reporters\Diagnostics\StoryDiagnostic.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
+    <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilder.cs" />
+    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetroHtmlReportTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.Model.cs" />
     <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
-    <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
     <Compile Include="Reporters\Html\HtmlReporter.cs" />
+    <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
     <Compile Include="Reporters\Html\HtmlReportResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -166,11 +174,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />
+    <None Include="Reporters\HtmlMetro\BDDfyMetro.min.js.map">
+      <DependentUpon>BDDfyMetro.js</DependentUpon>
+    </None>
+    <None Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MetroHtmlReportTemplate.cs</LastGenOutput>
+    </None>
     <None Include="Reporters\Html\BDDfy.min.js.map">
       <DependentUpon>BDDfy.js</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Reporters\HtmlMetro\BDDfyMetro.css" />
+    <EmbeddedResource Include="Reporters\HtmlMetro\BDDfyMetro.min.css">
+      <DependentUpon>BDDfyMetro.css</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Reporters\HtmlMetro\BDDfyMetro.js" />
+    <EmbeddedResource Include="Reporters\HtmlMetro\BDDfyMetro.min.js">
+      <DependentUpon>BDDfyMetro.js</DependentUpon>
+    </EmbeddedResource>
     <Content Include="Reporters\Html\BDDfy.css" />
     <Content Include="Reporters\Html\BDDfy.js" />
     <Content Include="Reporters\Html\jquery-2.1.0.min.js" />
@@ -185,9 +208,12 @@
     <EmbeddedResource Include="Reporters\Html\HtmlReportResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HtmlReportResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.WindowsPhone.Overrides.targets" Condition="$(MSBuildTargets) == 'Windows Phone 7'" />

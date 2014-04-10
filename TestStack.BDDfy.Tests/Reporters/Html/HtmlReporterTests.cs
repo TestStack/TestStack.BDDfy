@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Test]
         public void ShouldCreateReportIfProcessingSucceeds()
         {
-            _sut.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
+            _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
 
             _sut.Process(new List<Story>());
 
@@ -35,9 +35,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Test]
         public void ShouldPrintErrorInReportIfProcessingFails()
         {
-            _sut.Builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
+            _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
 
-            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
             _sut.Writer.Received().OutputReport(
                 Arg.Is<string>(s => s.StartsWith(ErrorMessage)),
@@ -53,7 +53,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             _sut.FileReader.Exists(customStylesheetFilePath).Returns(true);
             _sut.FileReader.Read(customStylesheetFilePath).Returns(CustomStylesheet);
 
-            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
             Assert.That(_sut.Model.CustomStylesheet, Is.EqualTo(CustomStylesheet));
             _sut.FileReader.Received().Read(customStylesheetFilePath);
@@ -66,7 +66,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             _sut.Configuration.OutputPath.Returns(OutputPath);
             _sut.FileReader.Exists(customStylesheet).Returns(false);
 
-            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
             Assert.That(_sut.Model.CustomStylesheet, Is.Null);
             _sut.FileReader.DidNotReceive().Read(customStylesheet);
@@ -80,7 +80,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             _sut.FileReader.Exists(javaScriptFilePath).Returns(true);
             _sut.FileReader.Read(javaScriptFilePath).Returns(CustomJavascript);
 
-            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
             Assert.That(_sut.Model.CustomJavascript, Is.EqualTo(CustomJavascript));
             _sut.FileReader.Received().Read(javaScriptFilePath);
@@ -93,7 +93,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             _sut.Configuration.OutputPath.Returns(OutputPath);
             _sut.FileReader.Exists(customJavascript).Returns(false);
 
-            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds());
+            _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
             Assert.That(_sut.Model.CustomJavascript, Is.Null);
             _sut.FileReader.DidNotReceive().Read(customJavascript);
