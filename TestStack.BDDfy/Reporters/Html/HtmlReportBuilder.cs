@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TestStack.BDDfy.Configuration;
@@ -177,13 +178,9 @@ namespace TestStack.BDDfy.Reporters.Html
             using (OpenTag(string.Format("<div class='scenario'>"), HtmlTag.div))
             {
                 if (scenarioGroup.Count() == 1)
-                {
                     AddScenario(scenarioGroup.Single());
-                }
                 else
-                {
                     AddScenarioWithExamples(scenarioGroup);
-                }
             }
         }
 
@@ -207,60 +204,64 @@ namespace TestStack.BDDfy.Reporters.Html
                         AddLine(string.Format("<span>{0}</span>", title));
 
                         for (int i = 1; i < titleLines.Length; i++)
-                        {
                             AddLine(string.Format("<div class='step-title-extra-lines'>{0}</div>", titleLines[i]));
-                        }
                     }
                 }
 
-                using (OpenTag("<li class='step'>", HtmlTag.li))
+                AddExamples(scenarioGroup);
+            }
+        }
+
+        private void AddExamples(Scenario[] scenarioGroup)
+        {
+            var firstScenario = scenarioGroup.First();
+            var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
+
+            using (OpenTag("<li class='step'>", HtmlTag.li))
+            {
+                AddLine("<h3>Examples:</h3>");
+                using (OpenTag(string.Format("<table class='examples' style='border-collapse: collapse;margin-left:10px''>"), HtmlTag.table))
                 {
-                    AddLine("<h3>Examples:</h3>");
-                    using (OpenTag(string.Format("<table class='examples' style='border-collapse: collapse;margin-left:10px''>"), HtmlTag.table))
+                    using (OpenTag("<tr>", HtmlTag.tr))
                     {
-                        using (OpenTag("<tr>", HtmlTag.tr))
-                        {
-                            AddLine(string.Format("<th></th>"));
-                            foreach (var header in firstScenario.Example.Headers)
-                            {
-                                AddLine(string.Format("<th>{0}</th>", header));
-                            }
+                        AddLine(string.Format("<th></th>"));
+                        foreach (var header in firstScenario.Example.Headers)
+                            AddLine(string.Format("<th>{0}</th>", header));
 
-                            if (scenarioResult == Result.Failed)
-                            {
-                                AddLine(string.Format("<th>Error</th>"));
-                            }
-                        }
+                        if (scenarioResult == Result.Failed)
+                            AddLine(string.Format("<th>Error</th>"));
+                    }
 
-                        foreach (var scenario in scenarioGroup)
-                        {
-                            using (OpenTag("<tr>", HtmlTag.tr))
-                            {
-                                AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
-                                foreach (var value in scenario.Example.Values)
-                                {
-                                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(value)));
-                                }
+                    foreach (var scenario in scenarioGroup)
+                        AddExampleRow(scenario, scenarioResult);
+                }
+            }
+        }
 
-                                if (scenarioResult != Result.Failed)
-                                    continue;
+        private void AddExampleRow(Scenario scenario, Result scenarioResult)
+        {
+            using (OpenTag("<tr>", HtmlTag.tr))
+            {
+                AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
+                foreach (var value in scenario.Example.Values)
+                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(value)));
 
-                                using (OpenTag("<td>", HtmlTag.td))
-                                {
-                                    var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
+                if (scenarioResult != Result.Failed)
+                    return;
 
-                                    if (failingStep == null)
-                                        continue;
+                using (OpenTag("<td>", HtmlTag.td))
+                {
+                    var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
 
-                                    var exceptionId = Configurator.IdGenerator.GetStepId();
-                                    AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, HttpUtility.HtmlEncode(failingStep.Exception.Message)));
-                                    using (OpenTag(string.Format("<div class='step' id='{0}'>", exceptionId), HtmlTag.div))
-                                    {
-                                        AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
-                                    }
-                                }
-                            }
-                        }
+                    if (failingStep == null)
+                        return;
+
+                    var exceptionId = Configurator.IdGenerator.GetStepId();
+                    var encodedExceptionMessage = HttpUtility.HtmlEncode(failingStep.Exception.Message);
+                    AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, encodedExceptionMessage));
+                    using (OpenTag(string.Format("<div class='step' id='{0}'>", exceptionId), HtmlTag.div))
+                    {
+                        AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
                     }
                 }
             }
@@ -286,17 +287,13 @@ namespace TestStack.BDDfy.Reporters.Html
                         {
                             stepClass = step.Result + "Exception";
                             if (!string.IsNullOrEmpty(step.Exception.Message))
-                            {
                                 title += " [Exception Message: '" + step.Exception.Message + "']";
-                            }
                         }
 
                         AddLine(string.Format("<span>{0}</span>", title));
 
                         for (int i = 1; i < titleLines.Length; i++)
-                        {
                             AddLine(string.Format("<div class='step-title-extra-lines'>{0}</div>", titleLines[i]));
-                        }
 
                         if (reportException)
                         {
@@ -314,26 +311,20 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             using (OpenTag("<div class='storyMetadata'>", HtmlTag.div))
             {
-                if (story.Metadata == null)
-                {
-                    var @namespace = story.Namespace;
-                    AddLine(string.Format("<div class='namespaceName'>{0}</div>", @namespace));
-                }
-                else
-                {
-                    AddLine(string.Format("<div class='storyTitle'>{0}</div>", story.Metadata.Title));
-                }
+                AddLine(story.Metadata == null
+                    ? string.Format("<div class='namespaceName'>{0}</div>", story.Namespace)
+                    : string.Format("<div class='storyTitle'>{0}</div>", story.Metadata.Title));
 
-                if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
+                if (story.Metadata == null || string.IsNullOrEmpty(story.Metadata.Narrative1)) 
+                    return;
+
+                using (OpenTag("<ul class='storyNarrative'>", HtmlTag.ul))
                 {
-                    using (OpenTag("<ul class='storyNarrative'>", HtmlTag.ul))
-                    {
-                        AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative1));
-                        if (!string.IsNullOrEmpty(story.Metadata.Narrative2))
-                            AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative2));
-                        if (!string.IsNullOrEmpty(story.Metadata.Narrative3))
-                            AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative3));
-                    }
+                    AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative1));
+                    if (!string.IsNullOrEmpty(story.Metadata.Narrative2))
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative2));
+                    if (!string.IsNullOrEmpty(story.Metadata.Narrative3))
+                        AddLine(string.Format("<li>{0}</li>", story.Metadata.Narrative3));
                 }
             }
         }
