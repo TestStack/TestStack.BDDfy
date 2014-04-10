@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
