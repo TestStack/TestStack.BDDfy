@@ -87,6 +87,7 @@
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\FluentScanner\FluentWithExamples.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
+    <Compile Include="Scanner\ReflectiveScanner\ReflectiveWithExamples.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
@@ -160,9 +161,7 @@
       <Name>TestStack.BDDfy</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scanner\ReflectiveScanner\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>

@@ -84,20 +84,19 @@ namespace TestStack.BDDfy
 
         private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
         {
-
             var stepMethodName = GetStepTitleFromMethodName(method, null);
-            var inputs = new List<object>();
-            var inputPlaceholders = Regex.Matches(stepMethodName, " <\\w+> ");
+            var methodParameters = method.GetParameters();
+            var inputs = new object[methodParameters.Length];
 
-            for (int i = 0; i < inputPlaceholders.Count; i++)
+            for (var parameterIndex = 0; parameterIndex < inputs.Length; parameterIndex++)
             {
-                var placeholder = inputPlaceholders[i].Value;
-
-                for (int j = 0; j < example.Headers.Length; j++)
+                for (var exampleIndex = 0; exampleIndex < example.Headers.Length; exampleIndex++)
                 {
-                    if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
+                    var parameterName = methodParameters[parameterIndex].Name;
+                    var placeholderMatchesExampleColumn = example.Headers[exampleIndex].Equals(parameterName, StringComparison.InvariantCultureIgnoreCase);
+                    if (placeholderMatchesExampleColumn )
                     {
-                        inputs.Add(example.Values[j]);
+                        inputs[parameterIndex] = example.Values[exampleIndex];
                     }
                 }
             }
