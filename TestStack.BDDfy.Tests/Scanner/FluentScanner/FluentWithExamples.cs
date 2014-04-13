@@ -1,5 +1,4 @@
 ﻿using ApprovalTests;
-using ApprovalTests.Reporters;
 using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
@@ -7,7 +6,6 @@ using TestStack.BDDfy.Reporters;
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter))]
     public class FluentWithExamples
     {
         [Test]

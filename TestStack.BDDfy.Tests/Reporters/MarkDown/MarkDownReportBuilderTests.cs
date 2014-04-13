@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using ApprovalTests;
-using ApprovalTests.Reporters;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters;
@@ -10,7 +9,6 @@ using TestStack.BDDfy.Tests.Reporters.Html;
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter))]
     public class MarkDownReportBuilderTests
     {
         [Test]
