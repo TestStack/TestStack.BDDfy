@@ -62,7 +62,6 @@ namespace TestStack.BDDfy.Tests
         {
             NetToString.Convert("GivenThereAre__start__Cucumbers").ShouldBe("Given there are <start> cucumbers");
             NetToString.Convert("Given_there_are__start__cucumbers").ShouldBe("Given there are <start> cucumbers");
-            NetToString.Convert("GivenSomethingWith__example__InTitle").ShouldBe("Given something with <example> in title");
             NetToString.Convert("GivenMethodTaking__ExampleInt__").ShouldBe("Given method taking <example int>");
         }
     }
