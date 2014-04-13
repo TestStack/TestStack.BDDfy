@@ -47,13 +47,13 @@ namespace TestStack.BDDfy
             return result.Replace(" i ", " I "); // I is an exception
         }
 
-        public static Func<string, string> Convert = name =>
+        public static readonly Func<string, string> Convert = name =>
         {
             if (name.Contains("__"))
             {
                 // hacking the crap out of it for now
                 name = Regex.Replace(name, "__(\\w+)__", " <$1> ");
-                return FromPascalCase(name).Replace("_", "").Replace(" >", ">");
+                return FromPascalCase(name).Replace("_", "").Replace(" >", ">").Replace("< ", "<").TrimEnd();
             }
 
             if (name.Contains("_"))
