@@ -85,6 +85,7 @@
     <Compile Include="Reporters\Html\TemporaryCulture.cs" />
     <Compile Include="Reporters\Html\LineEndingsScrubber.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
+    <Compile Include="Scanner\FluentScanner\FluentWithExamples.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
