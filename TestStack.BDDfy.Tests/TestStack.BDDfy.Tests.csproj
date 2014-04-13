@@ -77,7 +77,6 @@
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
-    <Compile Include="NetToStringTests.cs" />
     <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.cs" />
     <Compile Include="Processors\TestRunnerTests.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
