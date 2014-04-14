@@ -10,6 +10,7 @@
     <description>BDDfy is the simplest BDD framework to use and extend</description>
 	  <projectUrl>https://github.com/TestStack/TestStack.BDDfy</projectUrl>
     <licenseUrl>https://github.com/TestStack/TestStack.BDDfy/blob/master/license.txt</licenseUrl>
+    <iconUrl>https://raw.github.com/TestStack/TestStack.BDDfy/master/logo.png</iconUrl>
     <tags>BDD testing</tags>
   </metadata>
 </package>

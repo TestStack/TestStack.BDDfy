@@ -10,6 +10,7 @@
     <description>Contains two small samples that showcase BDDfy's API and usage</description>
     <projectUrl>https://github.com/TestStack/TestStack.BDDfy</projectUrl>
     <licenseUrl>https://github.com/TestStack/TestStack.BDDfy/blob/master/license.txt</licenseUrl>
+    <iconUrl>https://raw.github.com/TestStack/TestStack.BDDfy/master/logo.png</iconUrl>
     <dependencies>
       <dependency id="TestStack.BDDfy" version="$version$" />
       <dependency id="nunit" version="2.5" />
