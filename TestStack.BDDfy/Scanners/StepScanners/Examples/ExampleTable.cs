@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TestStack.BDDfy
 {
-    public class ExampleTable : IExampleTable, ICollection<Example>
+    public class ExampleTable : ICollection<Example>
     {
         private readonly List<Example> _rows = new List<Example>();
 

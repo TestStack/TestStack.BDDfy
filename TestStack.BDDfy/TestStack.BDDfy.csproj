@@ -117,7 +117,6 @@
     <Compile Include="ExecutionOrder.cs" />
     <Compile Include="Scanners\StepScanners\Examples\Example.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
-    <Compile Include="Scanners\StepScanners\Examples\IExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IThenSteps.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IWhenSteps.cs" />
