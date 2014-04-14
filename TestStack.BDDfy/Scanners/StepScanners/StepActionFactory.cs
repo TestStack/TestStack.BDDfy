@@ -11,7 +11,7 @@ namespace TestStack.BDDfy
     {
         public static Action<object> GetStepAction(MethodInfo method, object[] inputs)
         {
-            return o => Run(()=>method.Invoke(o, inputs));
+            return o => Run(() => method.Invoke(o, inputs));
         }
 
         public static Action<object> GetStepAction<TScenario>(Action<TScenario> action)
@@ -19,7 +19,7 @@ namespace TestStack.BDDfy
         {
             return o => Run(() =>
             {
-                action((TScenario) o);
+                action((TScenario)o);
                 return null;
             });
         }

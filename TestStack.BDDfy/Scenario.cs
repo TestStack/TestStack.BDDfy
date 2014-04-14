@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -31,7 +30,6 @@ namespace TestStack.BDDfy
         public TimeSpan Duration { get { return new TimeSpan(Steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; internal set; }
         public List<Step> Steps { get; private set; }
-        internal Action<object> Init { get; set; }
 
         public Result Result
         {

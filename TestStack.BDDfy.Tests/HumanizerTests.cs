@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Tests
@@ -59,8 +60,9 @@ namespace TestStack.BDDfy.Tests
         [Test]
         public void CanDealWithExampleStepNames()
         {
-            Assert.That(NetToString.Convert("GivenThereAre__start__Cucumbers"), Is.EqualTo("Given there are <start> cucumbers"));
-            Assert.That(NetToString.Convert("Given_there_are__start__cucumbers"), Is.EqualTo("Given there are <start> cucumbers"));
+            NetToString.Convert("GivenThereAre__start__Cucumbers").ShouldBe("Given there are <start> cucumbers");
+            NetToString.Convert("Given_there_are__start__cucumbers").ShouldBe("Given there are <start> cucumbers");
+            NetToString.Convert("GivenMethodTaking__ExampleInt__").ShouldBe("Given method taking <example int>");
         }
     }
 }

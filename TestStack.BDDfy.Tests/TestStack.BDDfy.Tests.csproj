@@ -61,6 +61,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Shouldly">
+      <HintPath>..\packages\Shouldly.2.1.1\lib\net40\Shouldly.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -75,12 +78,15 @@
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
     <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.cs" />
+    <Compile Include="Processors\TestRunnerTests.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TemporaryCulture.cs" />
     <Compile Include="Reporters\Html\LineEndingsScrubber.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
+    <Compile Include="Scanner\FluentScanner\FluentWithExamples.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
+    <Compile Include="Scanner\ReflectiveScanner\ReflectiveWithExamples.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
@@ -154,9 +160,7 @@
       <Name>TestStack.BDDfy</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scanner\ReflectiveScanner\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>

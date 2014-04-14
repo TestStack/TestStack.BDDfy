@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using ApprovalTests;
-using ApprovalTests.Reporters;
 using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
@@ -11,7 +10,6 @@ using TestStack.BDDfy.Tests.Reporters.Html;
 namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
 {
     [TestFixture]
-    [UseReporter(typeof (DiffReporter))]
     public class HtmlMetroReportBuilderTests
     {
         [Test]
