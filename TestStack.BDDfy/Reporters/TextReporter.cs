@@ -60,18 +60,18 @@ namespace TestStack.BDDfy.Reporters
             WriteLine("Examples: ");
             var scenarios = scenarioGroup.ToArray();
             var allPassed = scenarios.All(s => s.Result == Result.Passed);
-            var exampleColumns = exampleScenario.Example.Values.Length;
+            var exampleColumns = exampleScenario.Example.Headers.Length;
             var numberColumns = allPassed ? exampleColumns : exampleColumns + 2;
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            Action<IEnumerable<object>, string, string> addRow = (columns, result, error) =>
+            Action<IEnumerable<string>, string, string> addRow = (columns, result, error) =>
             {
                 var row = new string[numberColumns];
                 var index = 0;
-                
+
                 foreach (var col in columns)
-                    row[index++] = col.ToString();
+                    row[index++] = col;
 
                 if (!allPassed)
                 {
@@ -85,7 +85,7 @@ namespace TestStack.BDDfy.Reporters
                     if (rowValue != null && rowValue.Length > maxWidth[i])
                         maxWidth[i] = rowValue.Length;
                 }
-                
+
                 rows.Add(row);
             };
 
@@ -97,7 +97,7 @@ namespace TestStack.BDDfy.Reporters
                     ? null
                     : string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
 
-                addRow(scenario.Example.Values, scenario.Result.ToString(), error);
+                addRow(scenario.Example.Select(e => (string)e.GetExampleValue(typeof(string))), scenario.Result.ToString(), error);
             }
 
             foreach (var row in rows)
@@ -106,10 +106,10 @@ namespace TestStack.BDDfy.Reporters
 
         private void WriteExampleRow(string[] row, int[] maxWidth)
         {
-            for (int index   = 0; index < row.Length; index++)
+            for (int index = 0; index < row.Length; index++)
             {
                 var col = row[index];
-                Write("| {0} ", (col??string.Empty).Trim().PadRight(maxWidth[index]));
+                Write("| {0} ", (col ?? string.Empty).Trim().PadRight(maxWidth[index]));
             }
             WriteLine("|");
         }

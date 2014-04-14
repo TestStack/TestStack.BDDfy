@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace TestStack.BDDfy
 {
@@ -92,11 +91,12 @@ namespace TestStack.BDDfy
             {
                 for (var exampleIndex = 0; exampleIndex < example.Headers.Length; exampleIndex++)
                 {
-                    var parameterName = methodParameters[parameterIndex].Name;
+                    var methodParameter = methodParameters[parameterIndex];
+                    var parameterName = methodParameter.Name;
                     var placeholderMatchesExampleColumn = example.Headers[exampleIndex].Equals(parameterName, StringComparison.InvariantCultureIgnoreCase);
                     if (placeholderMatchesExampleColumn )
                     {
-                        inputs[parameterIndex] = example.Values[exampleIndex];
+                        inputs[parameterIndex] = example.GetExampleValue(exampleIndex, methodParameter.ParameterType);
                     }
                 }
             }

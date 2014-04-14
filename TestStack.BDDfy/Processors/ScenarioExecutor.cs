@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Processors
                 var type = _scenario.TestObject.GetType();
                 var matchingMembers = type.GetMembers()
                     .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .Where(n => n.Name.Equals(column.Key, StringComparison.InvariantCultureIgnoreCase))
+                    .Where(n => n.Name.Equals(column.Header, StringComparison.InvariantCultureIgnoreCase))
                     .ToArray();
 
                 if (!matchingMembers.Any())
@@ -33,11 +33,11 @@ namespace TestStack.BDDfy.Processors
                 {
                     var prop = matchingMember as PropertyInfo;
                     if (prop != null)
-                        prop.SetValue(_scenario.TestObject, column.Value, null);
+                        prop.SetValue(_scenario.TestObject, column.GetExampleValue(prop.PropertyType), null);
 
                     var field = matchingMember as FieldInfo;
                     if (field != null)
-                        field.SetValue(_scenario.TestObject, column.Value);
+                        field.SetValue(_scenario.TestObject, column.GetExampleValue(field.FieldType));
                 }
             }
         }

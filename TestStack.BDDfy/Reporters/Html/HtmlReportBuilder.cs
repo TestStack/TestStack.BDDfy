@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TestStack.BDDfy.Configuration;
@@ -243,8 +242,8 @@ namespace TestStack.BDDfy.Reporters.Html
             using (OpenTag("<tr>", HtmlTag.tr))
             {
                 AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
-                foreach (var value in scenario.Example.Values)
-                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(value)));
+                foreach (var exampleValue in scenario.Example)
+                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(exampleValue.GetExampleValue(typeof(string)))));
 
                 if (scenarioResult != Result.Failed)
                     return;
