@@ -70,7 +70,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
           <li>
             <div class='story Failed'>
               <div class='storyMetadata'>
-                <div class='storyTitle'>Account holder withdraws cash</div>
+                <div class='storyTitle'>Story: Account holder withdraws cash</div>
                 <ul class='storyNarrative'>
                   <li>As an account holder</li>
                   <li>I want to withdraw cash</li>
@@ -127,7 +127,7 @@ body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sa
           <li>
             <div class='story Passed'>
               <div class='storyMetadata'>
-                <div class='storyTitle'>Happiness</div>
+                <div class='storyTitle'>Story: Happiness</div>
                 <ul class='storyNarrative'>
                   <li>As a person</li>
                   <li>I want ice cream</li>

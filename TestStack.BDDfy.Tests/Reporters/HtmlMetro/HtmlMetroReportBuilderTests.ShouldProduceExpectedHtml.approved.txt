@@ -87,7 +87,7 @@
                     <li>
                         <div class='story Failed'>
                             <div class='storyMetaData'>
-                                <h3 class='storyTitle'>Account holder withdraws cash</h3>
+                                <h3 class='storyTitle'>Story: Account holder withdraws cash</h3>
                                 <ul class='storyNarrative'>
                                     <li>As an account holder</li>
                                     <li>I want to withdraw cash</li>
@@ -157,7 +157,7 @@
                     <li>
                         <div class='story Failed'>
                             <div class='storyMetaData'>
-                                <h3 class='storyTitle'>Happiness</h3>
+                                <h3 class='storyTitle'>Story: Happiness</h3>
                                 <ul class='storyNarrative'>
                                     <li>As a person</li>
                                     <li>I want ice cream</li>

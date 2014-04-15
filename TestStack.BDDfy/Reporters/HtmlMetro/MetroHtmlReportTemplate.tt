@@ -15,7 +15,7 @@
 <#= Model.CustomStylesheet ?? "" #>
     </style>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-        <title>BDDfy Test Result <#= RunDate.ToShortDateString() #></title>
+        <title>BDDfy Test Result <#= Model.RunDate.ToShortDateString() #></title>
     </head>
     <body>
         <div id='main'>
@@ -101,7 +101,7 @@
 <# }
 else
 { #>
-                                <h3 class='storyTitle'><#= story.Metadata.Title #></h3>
+                                <h3 class='storyTitle'><#= story.Metadata.TitlePrefix + story.Metadata.Title #></h3>
 <# } #>
 <# if (story.Metadata != null && !string.IsNullOrEmpty(story.Metadata.Narrative1))
 { #>
@@ -169,7 +169,7 @@ else
             </section>
     
             <section>
-                <p>Tested at: <#= RunDate #></p>
+                <p>Tested at: <#= Model.RunDate #></p>
                 <p>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a></p>
             </section>
         

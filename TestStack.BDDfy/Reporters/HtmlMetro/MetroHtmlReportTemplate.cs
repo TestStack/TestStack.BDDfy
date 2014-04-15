@@ -55,7 +55,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
                     ":400,300\' rel=\'stylesheet\' type=\'text/css\'>\r\n        <title>BDDfy Test Result ");
             
             #line 18 "C:\Users\Jake\_Code\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RunDate.ToShortDateString()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.RunDate.ToShortDateString()));
             
             #line default
             #line hidden
@@ -198,7 +198,7 @@ else
             this.Write("                                <h3 class=\'storyTitle\'>");
             
             #line 104 "C:\Users\Jake\_Code\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.Title));
+            this.Write(this.ToStringHelper.ToStringWithCulture(story.Metadata.TitlePrefix + story.Metadata.Title));
             
             #line default
             #line hidden
@@ -468,7 +468,7 @@ else
                     "             <p>Tested at: ");
             
             #line 172 "C:\Users\Jake\_Code\TestStack.BDDfy\TestStack.BDDfy\Reporters\HtmlMetro\MetroHtmlReportTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RunDate));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.RunDate));
             
             #line default
             #line hidden

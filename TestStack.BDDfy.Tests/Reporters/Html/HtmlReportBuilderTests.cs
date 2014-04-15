@@ -24,8 +24,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                 var model = new HtmlReportViewModel(
                     new DefaultHtmlReportConfiguration(),
                     new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
+                model.RunDate = new DateTime(2014, 3, 25, 11, 30, 5);
 
-                var sut = new HtmlReportBuilder { DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5) };
+                var sut = new HtmlReportBuilder();
                 var result = sut.CreateReport(model);
                 Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
             }
@@ -45,10 +46,12 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                 var model = new HtmlReportViewModel(
                     new DefaultHtmlReportConfiguration(),
                     new ReportTestData()
-                        .CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples
-                        ());
+                        .CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples())
+                {
+                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+                };
 
-                var sut = new HtmlReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
+                var sut = new HtmlReportBuilder();
                 var result = sut.CreateReport(model);
                 Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
             }

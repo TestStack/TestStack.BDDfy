@@ -25,9 +25,12 @@ namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
             {
                 var model = new HtmlReportViewModel(
                     new DefaultHtmlReportConfiguration(),
-                    new ReportTestData().CreateMixContainingEachTypeOfOutcome());
+                    new ReportTestData().CreateMixContainingEachTypeOfOutcome())
+                {
+                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+                };
 
-                var sut = new HtmlMetroReportBuilder {DateProvider = () => new DateTime(2014, 3, 25, 11, 30, 5)};
+                var sut = new HtmlMetroReportBuilder();
                 var result = sut.CreateReport(model);
                 Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
             }
