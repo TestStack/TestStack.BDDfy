@@ -806,10 +806,6 @@ div.story {
     margin-top: 10px;
 }
 
-.storyTitle:before {
-    content: "Story: ";
-}
-
 .storyTitle, .namespaceName {
     display: inline;
     font-size: 18px;
