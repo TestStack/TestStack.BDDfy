@@ -26,7 +26,7 @@ namespace TestStack.BDDfy.Tests.Scanner.StepScanners.Examples
             exampleTable.ElementAt(1).GetExampleValue(0, typeof(int?)).ShouldBe(null);
             exampleTable.ElementAt(1).GetExampleValue(2, typeof(ExecutionOrder)).ShouldBe(ExecutionOrder.Transition);
             var argException = Should.Throw<ArgumentException>(() => exampleTable.ElementAt(1).GetExampleValue(0, typeof(int)));
-            argException.Message.ShouldBe(string.Format("Cannot convert {0} to {1}", "<null>", "Int32"));
+            argException.Message.ShouldBe("Cannot convert <null> to Int32");
             exampleTable.ElementAt(1).GetExampleValue(1, typeof(DateTime)).ShouldBe(new DateTime(2010, 3, 14));
         }
     }
