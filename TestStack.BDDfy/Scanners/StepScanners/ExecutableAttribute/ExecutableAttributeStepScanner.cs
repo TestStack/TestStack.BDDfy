@@ -80,6 +80,7 @@ namespace TestStack.BDDfy
                 stepTitle = NetToString.Convert(method.Name);
 
             var stepAsserts = IsAssertingByAttribute(method);
+            var methodParameters = method.GetParameters();
 
             var inputs = new List<object>();
             var inputPlaceholders = Regex.Matches(stepTitle, " <\\w+> ");
@@ -92,7 +93,7 @@ namespace TestStack.BDDfy
                 {
                     if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        inputs.Add(example.Values[j]);
+                        inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
                         break;
                     }
                 }

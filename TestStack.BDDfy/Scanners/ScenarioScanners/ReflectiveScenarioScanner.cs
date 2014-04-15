@@ -24,7 +24,7 @@ namespace TestStack.BDDfy
 
         public virtual IEnumerable<Scenario> Scan(object testObject)
         {
-            var examples = testObject as IExampleTable;
+            var examples = testObject as ExampleTable;
             Type scenarioType;
             string scenarioTitle;
 

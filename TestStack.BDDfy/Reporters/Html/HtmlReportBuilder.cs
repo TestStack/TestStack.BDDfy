@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TestStack.BDDfy.Configuration;
@@ -10,7 +9,6 @@ namespace TestStack.BDDfy.Reporters.Html
 
     public class HtmlReportBuilder : IReportBuilder
     {
-        private Func<DateTime> _dateProvider = () => DateTime.Now;
         private HtmlReportViewModel _viewModel;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
@@ -18,6 +16,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         public HtmlReportBuilder()
         {
+            DateProvider = () => DateTime.Now;
             _html = new StringBuilder();
         }
 
@@ -133,7 +132,7 @@ namespace TestStack.BDDfy.Reporters.Html
                     }
                 }
 
-                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", _dateProvider()));
+                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", DateProvider()));
             }
         }
 
@@ -243,8 +242,8 @@ namespace TestStack.BDDfy.Reporters.Html
             using (OpenTag("<tr>", HtmlTag.tr))
             {
                 AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
-                foreach (var value in scenario.Example.Values)
-                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(value)));
+                foreach (var exampleValue in scenario.Example.Values)
+                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(exampleValue.GetValue(typeof(string)))));
 
                 if (scenarioResult != Result.Failed)
                     return;
@@ -383,10 +382,6 @@ namespace TestStack.BDDfy.Reporters.Html
             _html.AppendLine();
         }
 
-        public Func<DateTime> DateProvider
-        {
-            get { return _dateProvider; }
-            set { _dateProvider = value; }
-        }
+        public Func<DateTime> DateProvider { get; set; }
     }
 }

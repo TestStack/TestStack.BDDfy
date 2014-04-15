@@ -45,7 +45,7 @@ namespace TestStack.BDDfy
             _testObject = testObject;
         }
 
-        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType, IExampleTable examples)
+        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType, ExampleTable examples)
         {
             return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle, examples), explicitStoryType);
         }

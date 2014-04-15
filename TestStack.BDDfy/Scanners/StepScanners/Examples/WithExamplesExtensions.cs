@@ -2,10 +2,15 @@
 {
     public static class WithExamplesExtensions
     {
-        public static IExampleTable WithExamples(this object testObject, ExampleTable table)
+        public static ExampleTable WithExamples(this object testObject, ExampleTable table)
         {
             table.TestObject = testObject;
             return table;
+        }
+
+        public static ExampleTable WithExamples(this object testObject, string table)
+        {
+            return testObject.WithExamples(ExampleTable.Parse(table));
         }
     }
 }
