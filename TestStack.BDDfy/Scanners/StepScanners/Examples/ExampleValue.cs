@@ -5,16 +5,18 @@ namespace TestStack.BDDfy
     public class ExampleValue
     {
         private readonly object _underlyingValue;
+        private readonly Func<int> _getRow;
 
-        public ExampleValue(string header, object underlyingValue)
+        public ExampleValue(string header, object underlyingValue, Func<int> getRow)
         {
             Header = header;
             _underlyingValue = underlyingValue;
+            _getRow = getRow;
         }
 
         public string Header { get; private set; }
 
-        public object GetExampleValue(Type targetType)
+        public object GetValue(Type targetType)
         {
             var stringValue = _underlyingValue as string;
             if (_underlyingValue == null || (_underlyingValue is string && string.IsNullOrEmpty(stringValue)))
@@ -23,7 +25,7 @@ namespace TestStack.BDDfy
                     !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof (Nullable<>)))
                 {
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
-                    throw new ArgumentException(string.Format("Cannot convert {0} to {1}", valueAsString, targetType.Name));
+                    throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, _getRow()));
                 }
                 return null;
             }

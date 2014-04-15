@@ -96,7 +96,7 @@ namespace TestStack.BDDfy
                     var placeholderMatchesExampleColumn = example.Headers[exampleIndex].Equals(parameterName, StringComparison.InvariantCultureIgnoreCase);
                     if (placeholderMatchesExampleColumn )
                     {
-                        inputs[parameterIndex] = example.GetExampleValue(exampleIndex, methodParameter.ParameterType);
+                        inputs[parameterIndex] = example.GetValueOf(exampleIndex, methodParameter.ParameterType);
                     }
                 }
             }

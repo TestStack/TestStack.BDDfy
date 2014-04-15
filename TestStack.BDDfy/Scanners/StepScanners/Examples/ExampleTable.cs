@@ -25,7 +25,10 @@ namespace TestStack.BDDfy
             if (items.Length != Headers.Length)
                 throw new ArgumentException(string.Format("Number of column values does not match number of headers, got {0}, expected {1}", items.Length, Headers.Length));
 
-            Add(new Example(items.Select((o, i) => new ExampleValue(Headers[i], o)).ToArray()));
+            Example example = null;
+            // ReSharper disable once AccessToModifiedClosure
+            example = new Example(items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example) + 1)).ToArray());
+            Add(example);
         }
 
         public void Add(Example example)

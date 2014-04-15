@@ -93,7 +93,7 @@ namespace TestStack.BDDfy
                 {
                     if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        inputs.Add(example.GetExampleValue(j, methodParameters[inputs.Count].ParameterType));
+                        inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
                         break;
                     }
                 }

@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace TestStack.BDDfy
 {
-    public class Example : IEnumerable<ExampleValue>
+    public class Example
     {
         private readonly ExampleValue[] _items;
 
@@ -14,26 +13,21 @@ namespace TestStack.BDDfy
             _items = items;
         }
 
-        public string[] Headers { get { return _items.Select(i => i.Header).ToArray(); } }
+        public string[] Headers { get { return Values.Select(i => i.Header).ToArray(); } }
 
-        public object GetExampleValue(int index, Type targetType)
+        public IEnumerable<ExampleValue> Values
         {
-            return _items[index].GetExampleValue(targetType);
+            get { return _items; }
         }
 
-        public IEnumerator<ExampleValue> GetEnumerator()
+        public object GetValueOf(int index, Type targetType)
         {
-            return ((ICollection<ExampleValue>)_items).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return _items[index].GetValue(targetType);
         }
 
         public override string ToString()
         {
-            return string.Join(", ", _items.Select(i => i.ToString()));
+            return string.Join(", ", Values.Select(i => i.ToString()));
         }
     }
 }

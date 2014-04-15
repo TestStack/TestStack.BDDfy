@@ -19,15 +19,15 @@ namespace TestStack.BDDfy.Tests.Scanner.StepScanners.Examples
             var exampleTable = this.WithExamples(table);
 
             exampleTable.Headers.ShouldBe(new[] { "Header1", "Header2", "Header3" });
-            exampleTable.ElementAt(0).GetExampleValue(0, typeof(string)).ShouldBe("Value 1");
-            exampleTable.ElementAt(0).GetExampleValue(1, typeof(int)).ShouldBe(2);
-            exampleTable.ElementAt(0).GetExampleValue(2, typeof(decimal)).ShouldBe(3m);
-            exampleTable.ElementAt(1).GetExampleValue(0, typeof(string)).ShouldBe(null);
-            exampleTable.ElementAt(1).GetExampleValue(0, typeof(int?)).ShouldBe(null);
-            exampleTable.ElementAt(1).GetExampleValue(2, typeof(ExecutionOrder)).ShouldBe(ExecutionOrder.Transition);
-            var argException = Should.Throw<ArgumentException>(() => exampleTable.ElementAt(1).GetExampleValue(0, typeof(int)));
-            argException.Message.ShouldBe("Cannot convert <null> to Int32");
-            exampleTable.ElementAt(1).GetExampleValue(1, typeof(DateTime)).ShouldBe(new DateTime(2010, 3, 14));
+            exampleTable.ElementAt(0).GetValueOf(0, typeof(string)).ShouldBe("Value 1");
+            exampleTable.ElementAt(0).GetValueOf(1, typeof(int)).ShouldBe(2);
+            exampleTable.ElementAt(0).GetValueOf(2, typeof(decimal)).ShouldBe(3m);
+            exampleTable.ElementAt(1).GetValueOf(0, typeof(string)).ShouldBe(null);
+            exampleTable.ElementAt(1).GetValueOf(0, typeof(int?)).ShouldBe(null);
+            exampleTable.ElementAt(1).GetValueOf(2, typeof(ExecutionOrder)).ShouldBe(ExecutionOrder.Transition);
+            var argException = Should.Throw<ArgumentException>(() => exampleTable.ElementAt(1).GetValueOf(0, typeof(int)));
+            argException.Message.ShouldBe("Cannot convert <null> to Int32 (Column: 'Header1', Row: 2)");
+            exampleTable.ElementAt(1).GetValueOf(1, typeof(DateTime)).ShouldBe(new DateTime(2010, 3, 14));
         }
     }
 }
