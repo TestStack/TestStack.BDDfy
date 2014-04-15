@@ -11,7 +11,7 @@ namespace TestStack.BDDfy.Samples
         [Test]
         public void CanRunExamplesWithReflectiveApi()
         {
-            this.WithExamples(new ExampleTable("start", "eat", "left")
+            this.WithExamples(new ExampleTable("Start", "Eat", "Left")
                 {
                     {12, 5, 7},
                     {20, 5, 15}

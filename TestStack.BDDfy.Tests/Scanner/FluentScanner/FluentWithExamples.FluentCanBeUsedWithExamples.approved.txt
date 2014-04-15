@@ -7,7 +7,7 @@ Scenario: Fluent can be used with examples
 	Then all is good                            
 
 Examples: 
-| Prop1 | Prop2 |
-| 1     | foo   |
-| 2     | bar   |
+| Prop 1 | Prop2 |
+| 1      | foo   |
+| 2      | bar   |
 

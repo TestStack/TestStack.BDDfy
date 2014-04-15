@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         public void Run()
         {
             var story = this
-                .WithExamples(new ExampleTable("FirstExample", "SecondExample")
+                .WithExamples(new ExampleTable("First Example", "Second Example")
                 {
                     {1, "foo"},
                     {2, "bar"}
