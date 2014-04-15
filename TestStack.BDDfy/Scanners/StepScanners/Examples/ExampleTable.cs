@@ -70,7 +70,7 @@ namespace TestStack.BDDfy
         {
             var lines = table.Trim().Split('\n').Select(l => l.Trim().Trim('|')).ToArray();
             var firstRow = lines.First();
-            var headers = firstRow.Split('|').Select(h => h.Trim().Replace(" ", string.Empty)).ToArray();
+            var headers = firstRow.Split('|').Select(h => h.Trim()).ToArray();
 
             var exampleTable = new ExampleTable(headers);
 

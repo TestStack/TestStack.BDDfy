@@ -91,7 +91,7 @@ namespace TestStack.BDDfy
 
                 for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", example.Headers[j]).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Format(" <{0}> ", example.Headers[j].Replace(" ", string.Empty)).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
                     {
                         inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
                         break;

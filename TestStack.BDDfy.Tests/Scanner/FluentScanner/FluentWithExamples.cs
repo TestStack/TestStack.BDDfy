@@ -17,7 +17,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .And(_ => GivenADifferentMethodWithRandomArg(2))
                 .When(_ => WhenMethodUsing__ExampleString__())
                 .Then(_ => ThenAllIsGood())
-                .WithExamples(new ExampleTable("Prop1", "Prop2")
+                .WithExamples(new ExampleTable("Prop 1", "Prop2")
                 {
                     {1, "foo"},
                     {2, "bar"}

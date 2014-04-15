@@ -4,7 +4,7 @@ Scenario: Reflective with examples
 	Given step with <second example> accessed via property
 
 Examples: 
-| FirstExample | SecondExample |
-| 1            | foo           |
-| 2            | bar           |
+| First Example | Second Example |
+| 1             | foo            |
+| 2             | bar            |
 
