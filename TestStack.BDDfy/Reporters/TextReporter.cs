@@ -65,13 +65,13 @@ namespace TestStack.BDDfy.Reporters
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            Action<IEnumerable<string>, string, string> addRow = (columns, result, error) =>
+            Action<IEnumerable<string>, string, string> addRow = (cells, result, error) =>
             {
                 var row = new string[numberColumns];
                 var index = 0;
 
-                foreach (var col in columns)
-                    row[index++] = col;
+                foreach (var cellText in cells)
+                    row[index++] = cellText;
 
                 if (!allPassed)
                 {
