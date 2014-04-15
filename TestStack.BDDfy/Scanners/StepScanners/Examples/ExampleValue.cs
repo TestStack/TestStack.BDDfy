@@ -5,13 +5,13 @@ namespace TestStack.BDDfy
     public class ExampleValue
     {
         private readonly object _underlyingValue;
-        private readonly Func<int> _getRow;
+        private readonly Func<int> _getRowIndex;
 
-        public ExampleValue(string header, object underlyingValue, Func<int> getRow)
+        public ExampleValue(string header, object underlyingValue, Func<int> getRowIndex)
         {
             Header = header;
             _underlyingValue = underlyingValue;
-            _getRow = getRow;
+            _getRowIndex = getRowIndex;
         }
 
         public string Header { get; private set; }
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy
                     !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof (Nullable<>)))
                 {
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
-                    throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, _getRow()));
+                    throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, _getRowIndex()));
                 }
                 return null;
             }

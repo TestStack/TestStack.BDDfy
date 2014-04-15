@@ -18,12 +18,12 @@ namespace TestStack.BDDfy.Processors
             if (_scenario.Example == null) 
                 return;
 
-            foreach (var column in _scenario.Example.Values)
+            foreach (var cell in _scenario.Example.Values)
             {
                 var type = _scenario.TestObject.GetType();
                 var matchingMembers = type.GetMembers()
                     .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .Where(n => n.Name.Equals(column.Header, StringComparison.InvariantCultureIgnoreCase))
+                    .Where(n => n.Name.Equals(cell.Header, StringComparison.InvariantCultureIgnoreCase))
                     .ToArray();
 
                 if (!matchingMembers.Any())
@@ -33,11 +33,11 @@ namespace TestStack.BDDfy.Processors
                 {
                     var prop = matchingMember as PropertyInfo;
                     if (prop != null)
-                        prop.SetValue(_scenario.TestObject, column.GetValue(prop.PropertyType), null);
+                        prop.SetValue(_scenario.TestObject, cell.GetValue(prop.PropertyType), null);
 
                     var field = matchingMember as FieldInfo;
                     if (field != null)
-                        field.SetValue(_scenario.TestObject, column.GetValue(field.FieldType));
+                        field.SetValue(_scenario.TestObject, cell.GetValue(field.FieldType));
                 }
             }
         }
