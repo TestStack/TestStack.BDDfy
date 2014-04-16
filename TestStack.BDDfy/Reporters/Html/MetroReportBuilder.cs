@@ -1,9 +1,6 @@
-﻿using System;
-using TestStack.BDDfy.Reporters.Html;
-
-namespace TestStack.BDDfy.Reporters.HtmlMetro
+﻿namespace TestStack.BDDfy.Reporters.Html
 {
-    public class HtmlMetroReportBuilder : IReportBuilder
+    public class MetroReportBuilder : IReportBuilder
     {
         string IReportBuilder.CreateReport(FileReportModel model)
         {
@@ -12,7 +9,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
 
         public string CreateReport(HtmlReportModel model)
         {
-            return new MetroHtmlReportTemplate(model).TransformText();
+            return new MetroReportTemplate(model).TransformText();
         }
     }
 }

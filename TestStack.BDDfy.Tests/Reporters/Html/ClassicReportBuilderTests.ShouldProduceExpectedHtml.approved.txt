@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'/>
+    <style type='text/css'>
+body{max-width:100%;background-color:#fff;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;margin:0;padding:0;padding-bottom:40px}ul{padding:5px;margin:5px;border:1px solid #d0d0d0;background-color:#f0f0f0;-ms-border-radius:10px;border-radius:10px}li{list-style-type:none}#main{width:100%;height:100%}.header,.footer{background:#679bdb;background:-moz-linear-gradient(top,#679bdb 1%,#3b77a5 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(1%,#679bdb),color-stop(100%,#3b77a5));background:-webkit-linear-gradient(top,#679bdb 1%,#3b77a5 100%);background:-o-linear-gradient(top,#679bdb 1%,#3b77a5 100%);background:-ms-linear-gradient(top,#679bdb 1%,#3b77a5 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#679bdb',endColorstr='#3b77a5',GradientType=0);background:linear-gradient(top,#679bdb 1%,#3b77a5 100%)}.header{vertical-align:middle;padding:10px;border-bottom:2px solid #fff;height:57px}.footer{color:#fff;height:40px;line-height:40px;text-align:center;position:fixed;bottom:0;display:block;width:100%}.footer a{color:#fff}.footer a:hover{color:#3865c6}#BDDfyTitle{font-size:20pt;font-family:Trebuchet MS;font-weight:bold;color:#fff;-ms-text-shadow:#262f57 1px 1px 3px;text-shadow:#262f57 1px 1px 3px}#BDDfyDescription{font-size:large;color:#fff;color:#fff;-ms-text-shadow:#262f57 1px 1px 3px;text-shadow:#262f57 1px 1px 3px}.summary{margin:10px 5px 0;display:inline-block}.summaryLine{display:inline-block}.summary li{padding:0 5px}h3{color:#2b547d;margin:5px;margin-top:10px}.summaryLabel{float:left;width:140px}.resultSummary{display:inline-block;width:250px}.resultSummary li:before{float:left;padding-right:5px}.storySummary div.summaryLine,.scenarioSummary div.summaryLine{margin-left:20px}div#generatedAt{font-size:12pt;font-family:Cambria;color:#229}.testResult{color:#2b547d;margin:20px 0;background-color:transparent;border:none}#testResult{padding:5px}#detailsLable{float:left}#testResult p{font-weight:bold;color:#2b547d;font-size:12pt}#expandCollapse{float:right;margin:15px}.expandAll,.collapseAll{text-decoration:none;border-bottom-style:dotted;border-bottom-color:#9cf;border-bottom-width:1px}#testResult span{margin-left:5px;margin-top:20px;margin-bottom:20px;font-size:10pt}.Passed:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKfSURBVDjLpZPrS1NhHMf9O3bOdmwDCWREIYKEUHsVJBI7mg3FvCxL09290jZj2EyLMnJexkgpLbPUanNOberU5taUMnHZUULMvelCtWF0sW/n7MVMEiN64AsPD8/n83uucQDi/id/DBT4Dolypw/qsz0pTMbj/WHpiDgsdSUyUmeiPt2+V7SrIM+bSss8ySGdR4abQQv6lrui6VxsRonrGCS9VEjSQ9E7CtiqdOZ4UuTqnBHO1X7YXl6Daa4yGq7vWO1D40wVDtj4kWQbn94myPGkCDPdSesczE2sCZShwl8CzcwZ6NiUs6n2nYX99T1cnKqA2EKui6+TwphA5k4yqMayopU5mANV3lNQTBdCMVUA9VQh3GuDMHiVcLCS3J4jSLhCGmKCjBEx0xlshjXYhApfMZRP5CyYD+UkG08+xt+4wLVQZA1tzxthm2tEfD3JxARH7QkbD1ZuozaggdZbxK5kAIsf5qGaKMTY2lAU/rH5HW3PLsEwUYy+YCcERmIjJpDcpzb6l7th9KtQ69fi09ePUej9l7cx2DJbD7UrG3r3afQHOyCo+V3QQzE35pvQvnAZukk5zL5qRL59jsKbPzdheXoBZc4saFhBS6AO7V4zqCpiawuptwQG+UAa7Ct3UT0hh9p9EnXT5Vh6t4C22QaUDh6HwnECOmcO7K+6kW49DKqS2DrEZCtfuI+9GrNHg4fMHVSO5kE7nAPVkAxKBxcOzsajpS4Yh4ohUPPWKTUh3PaQEptIOr6BiJjcZXCwktaAGfrRIpwblqOV3YKdhfXOIvBLeREWpnd8ynsaSJoyESFphwTtfjN6X1jRO2+FxWtCWksqBApeiFIR9K6fiTpPiigDoadqCEag5YUFKl6Yrciw0VOlhOivv/Ff8wtn0KzlebrUYwAAAABJRU5ErkJggg==)}.Failed:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJPSURBVDjLpZPLS5RhFMYfv9QJlelTQZwRb2OKlKuINuHGLlBEBEOLxAu46oL0F0QQFdWizUCrWnjBaDHgThCMoiKkhUONTqmjmDp2GZ0UnWbmfc/ztrC+GbM2dXbv4ZzfeQ7vefKMMfifyP89IbevNNCYdkN2kawkCZKfSPZTOGTf6Y/m1uflKlC3LvsNTWArr9BT2LAf+W73dn5jHclIBFZyfYWU3or7T4K7AJmbl/yG7EtX1BQXNTVCYgtgbAEAYHlqYHlrsTEVQWr63RZFuqsfDAcdQPrGRR/JF5nKGm9xUxMyr0YBAEXXHgIANq/3ADQobD2J9fAkNiMTMSFb9z8ambMAQER3JC1XttkYGGZXoyZEGyTHRuBuPgBTUu7VSnUAgAUAWutOV2MjZGkehgYUA6O5A0AlkAyRnotiX3MLlFKduYCqAtuGXpyH0XQmOj+TIURt51OzURTYZdBKV2UBSsOIcRp/TVTT4ewK6idECAihtUKOArWcjq/B8tQ6UkUR31+OYXP4sTOdisivrkMyHodWejlXwcC38Fvs8dY5xaIId89VlJy7ACpCNCFCuOp8+BJ6A631gANQSg1mVmOxxGQYRW2nHMha4B5WA3chsv22T5/B13AIicWZmNZ6cMchTXUe81Okzz54pLi0uQWp+TmkZqMwxsBV74Or3od4OISPr0e3SHa3PX0f3HXKofNH/UIG9pZ5PeUth+CyS2EMkEqs4fPEOBJLsyske48/+xD8oxcAYPzs4QaS7RR2kbLTTOTQieczfzfTv8QPldGvTGoF6/8AAAAASUVORK5CYII=)}.Inconclusive:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIsSURBVDjLpVNLSJQBEP7+h6uu62vLVAJDW1KQTMrINQ1vPQzq1GOpa9EppGOHLh0kCEKL7JBEhVCHihAsESyJiE4FWShGRmauu7KYiv6Pma+DGoFrBQ7MzGFmPr5vmDFIYj1mr1WYfrHPovA9VVOqbC7e/1rS9ZlrAVDYHig5WB0oPtBI0TNrUiC5yhP9jeF4X8NPcWfopoY48XT39PjjXeF0vWkZqOjd7LJYrmGasHPCCJbHwhS9/F8M4s8baid764Xi0Ilfp5voorpJfn2wwx/r3l77TwZUvR+qajXVn8PnvocYfXYH6k2ioOaCpaIdf11ivDcayyiMVudsOYqFb60gARJYHG9DbqQFmSVNjaO3K2NpAeK90ZCqtgcrjkP9aUCXp0moetDFEeRXnYCKXhm+uTW0CkBFu4JlxzZkFlbASz4CQGQVBFeEwZm8geyiMuRVntzsL3oXV+YMkvjRsydC1U+lhwZsWXgHb+oWVAEzIwvzyVlk5igsi7DymmHlHsFQR50rjl+981Jy1Fw6Gu0ObTtnU+cgs28AKgDiy+Awpj5OACBAhZ/qh2HOo6i+NeA73jUAML4/qWux8mt6NjW1w599CS9xb0mSEqQBEDAtwqALUmBaG5FV3oYPnTHMjAwetlWksyByaukxQg2wQ9FlccaK/OXA3/uAEUDp3rNIDQ1ctSk6kHh1/jRFoaL4M4snEMeD73gQx4M4PsT1IZ5AfYH68tZY7zv/ApRMY9mnuVMvAAAAAElFTkSuQmCC)}.NotImplemented:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKcSURBVDjLpZPLa9RXHMU/d0ysZEwmMQqZiTaP0agoaKGJUiwIxU0hUjtUQaIuXHSVbRVc+R8ICj5WvrCldJquhVqalIbOohuZxjDVxDSP0RgzyST9zdzvvffrQkh8tBs9yy9fPhw45xhV5X1U8+Yhc3U0LcEdVxdOVq20OA0ooQjhpnfhzuDZTx6++m9edfDFlZGMtXKxI6HJnrZGGtauAWAhcgwVnnB/enkGo/25859l3wIcvpzP2EhuHNpWF9/dWs/UnKW4EOGDkqhbQyqxjsKzMgM/P1ymhlO5C4ezK4DeS/c7RdzQoa3x1PaWenJjJZwT9rQ1gSp/js1jYoZdyfX8M1/mp7uFaTR8mrt29FEMQILr62jQ1I5kA8OF59jIItVA78dJertTiBNs1ZKfLNG+MUHX1oaURtIHEAOw3p/Y197MWHEJEUGCxwfHj8MTZIcnsGKxzrIURYzPLnJgbxvG2hMrKdjItjbV11CYKeG8R7ygIdB3sBMFhkem0RAAQ3Fuka7UZtRHrasOqhYNilOwrkrwnhCU/ON5/q04vHV48ThxOCuoAbxnBQB+am65QnO8FqMxNCjBe14mpHhxBBGCWBLxD3iyWMaYMLUKsO7WYH6Stk1xCAGccmR/Ozs/bKJuXS39R/YgIjgROloSDA39Deit1SZWotsjD8pfp5ONqZ6uTfyWn+T7X0f59t5fqDhUA4ry0fYtjJcWeZQvTBu4/VqRuk9/l9Fy5cbnX+6Od26s58HjWWaflwkusKGxjm1bmhkvLXHvh1+WMbWncgPfZN+qcvex6xnUXkzvSiYP7EvTvH4toDxdqDD4+ygT+cKMMbH+3MCZ7H9uAaDnqytpVX8cDScJlRY0YIwpAjcNcuePgXP/P6Z30QuoP4J7WbYhuQAAAABJRU5ErkJggg==)}.NotExecuted:before{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJySURBVDjLpVNLbxJRFO4P8BfwO2Dp0g27VmvSnYkbEzYmLpq6sZP66KIxQmYsUUyb1gYqCZrU2qamVJwOIKaxUKAMD4HyKBQGHAaGx1COcy4P8bHzJt/i3pzvO+c759wJAJgYx7Vl0KjQqdCrmBlAP3jT/Bk/TryiQnv/rWhwuDOM9zjGnYROhUAwLBweRbg3riQza68YMAZjfxMYkK/a2DwVOE3whbIIktwB5bJHUGu0IVesgOcoyK/sJSiMHYoMBbRIDka+S82WAnjkdhcqUgcEFfVWl7xJchsOfX7JshNFES0RQF9YNmYekuPnDSj+aEOh2kc014BcpTUS2Tvw8Hc3CmhHgwI6B3fGYNl4SmIbbjxiCQnJ+WoLphZcEMpIkCk3SUwkeQ603csgFwX0nm9RDj1jqUi6/pBV4YJIrg5ZoakKfCIInkkgNhS4qMqwuvmeQy4KzPhPQgI2q1zrEAHMiLi56IVYvgFTlCpAOWH6sZvc28olbFg3BeQSgeNAkAhg+egVydNP3CQrik7OO4mtyfl9chcbHVhdez0S0H/+GuaqUgtqskJ8EjLVJyeL8oiMCXAysWwVaIt1ZEFndcaZdK4MvR5AutQk5SI5UZAJJh/sk6lgYzvdHhx8CQNl/jBqouaerWRwsj5eEJujSSARx4mekYwNxQRxNbvpxTp/2xzrj3G4SPS7ALX1kZUKlX5gta6QalIXMlkmzBzLVsBosUlz9M6vRRpf5SWrj1q3b/FefxzSBZH0BD2HUwLssgFYolf4WdP236s8/pnuvEoZFl7uMk+X1zj6uVl4ZmKERaOFmzM6mFtM5N+f6X++80/jPghfk2d02wAAAABJRU5ErkJggg==)}div.FailedException,div.NotImplementedException,div.InconclusiveException{padding:5px 0 3px 50px}.FailedException,.InconclusiveException,.NotImplementedException{color:maroon;font-weight:bold}div.story{padding:5px 10px;margin:10px 0;background-color:#f5f5f5;border:1px solid #d0d0d0;-webkit-border-radius:10px;-moz-border-radius:10px;-ms-border-radius:10px;border-radius:10px}.storyTitle{display:inline}.namespaceName:before{content:"Namespace: "}.namespaceName{display:inline}.storySummary div.summaryLabel,.scenarioSummary div.summaryLabel,.storyTitle,.namespace div.summaryLabel,.namespaceName{font-weight:bold}.storyMetadata{padding:5px 0;display:inline}.scenario{border:1px solid #e5e5e5;-ms-border-radius:5px;border-radius:5px;margin:0;padding:3px 10px}.canToggle{cursor:pointer}div.scenario:nth-child(2n+1){background-color:#fff}div.scenario:nth-child(2n){background-color:#f0f1ff}.scenarioTitle{color:#000}.scenarioTitle:before{margin-right:5px}.assembly{background-color:#101010;color:#fff;height:40px}ul.storyNarrative{font-style:italic;font-weight:bold;margin:0;padding:5px 40px;color:#122f4b;border:none;background-color:transparent}ul.steps{padding-left:20px;margin-bottom:0;background-color:transparent;border:none}.step.ConsecutiveSetupState span,.step.ConsecutiveTransition span,.step.ConsecutiveAssertion span{padding-left:10px}.step-title-extra-lines{padding-left:50px}input.cbx_toggle{float:right}.examples{margin-left:15px;border-spacing:0;border-collapse:collapse;border:1px solid #d0d0d0}.examples th{background-color:#d0d0d0}.examples td,.examples th{padding:3px;border:0}.examples td{border:1px solid #d0d0d0}
+    </style>
+    <style type='text/css'>
+/*If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.*/
+
+    </style>
+    <title>BDDfy Test Result 25/03/2014</title>
+  </head>
+  <body>
+    <div id='main'>
+      <div class='header'>
+        <div id='BDDfyTitle'>BDDfy</div>
+        <div id='BDDfyDescription'>A simple BDD framework for .Net developers</div>
+      </div>
+      <section class='summary'>
+        <h3 class='label'>Summary:</h3>
+        <ul class='resultSummary'>
+          <li class='storySummary'>
+            <div class='summaryLine'>
+              <div class='summaryLabel'>Stories</div>
+              <span class='summaryCount'>2</span>
+            </div>
+          </li>
+          <li class='scenarioSummary'>
+            <div class='summaryLine'>
+              <div class='summaryLabel'>Scenarios</div>
+              <span class='summaryCount'>4</span>
+            </div>
+          </li>
+          <li class='Passed'>
+            <div class='summaryLine'>
+              <div class='summaryLabel'>Passed</div>
+              <span class='summaryCount'>3</span>
+            </div>
+          </li>
+          <li class='Inconclusive'>
+            <div class='summaryLine'>
+              <div class='summaryLabel'>Inconclusive</div>
+              <span class='summaryCount'>0</span>
+            </div>
+          </li>
+          <li class='NotImplemented'>
+            <div class='summaryLine'>
+              <div class='summaryLabel'>Not Implemented</div>
+              <span class='summaryCount'>0</span>
+            </div>
+          </li>
+          <li class='Failed'>
+            <div class='summaryLine'>
+              <div class='summaryLabel'>Failed</div>
+              <span class='summaryCount'>1</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <div id='testResult'>
+        <div id='detailsHeader'>
+          <h3 id='detailsLable'>Details:</h3>
+          <div id='expandCollapse'>
+            <a href='#' class='expandAll'>[expand all]</a>
+            <a href='#' class='collapseAll'>[collapse all]</a>
+          </div>
+        </div>
+        <ul class='testResult'>
+          <li>
+            <div class='story Failed'>
+              <div class='storyMetadata'>
+                <div class='storyTitle'>Story: Account holder withdraws cash</div>
+                <ul class='storyNarrative'>
+                  <li>As an account holder</li>
+                  <li>I want to withdraw cash</li>
+                  <li>So that I can get money when the bank is closed</li>
+                </ul>
+              </div>
+              <div class='scenarios'>
+                <div class='scenario'>
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-3'>Happy Path Scenario</div>
+                  <ul class='steps' id='scenario-3'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-3-4' >
+                      <span>Given a positive account balance</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-3-5' >
+                      <span>When the account holder requests money</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-3-6' >
+                      <span>Then money is dispensed</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class='scenario'>
+                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-4'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-4'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-3-1' >
+                      <span>Given a negative account balance</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-3-2' >
+                      <span>When the account holder requests money</span>
+                    </li>
+                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-3-3' >
+                      <span>Then no money is dispensed [Exception Message: 'Boom']</span>
+                      <div class='step FailedException' id='step-3-3'>
+                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 65</code>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class='story Passed'>
+              <div class='storyMetadata'>
+                <div class='storyTitle'>Story: Happiness</div>
+                <ul class='storyNarrative'>
+                  <li>As a person</li>
+                  <li>I want ice cream</li>
+                  <li>So that I can be happy</li>
+                </ul>
+              </div>
+              <div class='scenarios'>
+                <div class='scenario'>
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-4' >
+                      <span>Given a positive account balance</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-5' >
+                      <span>When the account holder requests money</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-6' >
+                      <span>Then money is dispensed</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class='scenario'>
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-2'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
+                      <span>Given a negative account balance</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-2' >
+                      <span>When the account holder requests money</span>
+                    </li>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-3' >
+                      <span>Then no money is dispensed</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <p><span>Tested at: 25/03/2014 11:30:05</span></p>
+      </div>
+    </div>
+    <div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+    <script>
+$(function(){$(".canToggle").each(function(){var n=$("#"+$(this).data("toggle-target"));n.hide();$(this).click(function(){n.toggle(200)})});$(".expandAll").click(function(){$(".steps").css("display","")});$(".collapseAll").click(function(){$(".steps").css("display","none")});$("ul.resultSummary li:not('.storySummary'):not('.scenarioSummary')").append("<input type='checkbox' class='cbx_toggle' checked/>");$(".cbx_toggle").click(function(){var n=$(this),t=n.closest("li").attr("class");$("#testResult div.scenario ."+t).parent().toggle(n.is(":checked"))})});
+/*
+//# sourceMappingURL=classic.min.js.map
+*/
+    </script>
+    <script>
+/*If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report.*/
+
+    </script>
+  </body>
+</html>

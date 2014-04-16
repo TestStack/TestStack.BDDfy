@@ -7,7 +7,7 @@ using TestStack.BDDfy.Reporters.Html;
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
     [TestFixture]
-    public class HtmlReportBuilderTests
+    public class ClassicReportBuilderTests
     {
         [Test]
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -19,7 +19,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };
 
-            var sut = new HtmlReportBuilder();
+            var sut = new ClassicReportBuilder();
             ReportApprover.Approve(model, sut);
         }
 
@@ -33,7 +33,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };
 
-            var sut = new HtmlReportBuilder();
+            var sut = new ClassicReportBuilder();
             ReportApprover.Approve(model, sut);
         }
     }

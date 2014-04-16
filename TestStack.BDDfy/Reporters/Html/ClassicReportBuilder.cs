@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Web;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Reporters.Html
 {
-    using System.Web;
-
-    public class HtmlReportBuilder : IReportBuilder
+    public class ClassicReportBuilder : IReportBuilder
     {
         private HtmlReportModel _model;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
         int _tabCount;
 
-        public HtmlReportBuilder()
+        public ClassicReportBuilder()
         {
             _html = new StringBuilder();
         }
@@ -42,7 +41,7 @@ namespace TestStack.BDDfy.Reporters.Html
             using (OpenTag(HtmlTag.head))
             {
                 AddLine("<meta charset='utf-8'/>");
-                EmbedCssFile(HtmlReportResources.BDDfy_css_min);
+                EmbedCssFile(HtmlReportResources.classic_css_min);
                 EmbedCssFile(_model.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
 
                 AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _model.RunDate.ToShortDateString()));
@@ -144,7 +143,7 @@ namespace TestStack.BDDfy.Reporters.Html
             else
                 EmbedJavascriptFile(HtmlReportResources.jquery_2_1_0_min);
 
-            EmbedJavascriptFile(HtmlReportResources.BDDfy_js_min);
+            EmbedJavascriptFile(HtmlReportResources.classic_js_min);
             EmbedJavascriptFile(_model.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
 

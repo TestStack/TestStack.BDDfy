@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BDDfy_css_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BDDfy.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="classic_css_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Scripts\classic.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="BDDfy_js_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BDDfy.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="classic_js_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Scripts\classic.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="CustomJavascriptComment" xml:space="preserve">
     <value>If you drop a custom Javascript named BDDfyCustom.js in your output folder it gets embedded here. This way you can apply some custom Javascript logic to your html report.</value>
@@ -131,6 +131,12 @@
     <value>If you drop a custom stylesheet named BDDfyCustom.css in your output folder it gets embedded here. This way you can apply some custom styles over your html report.</value>
   </data>
   <data name="jquery_2_1_0_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>jquery-2.1.0.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>Scripts\jquery-2.1.0.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="metro_css_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Scripts\metro.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="metro_js_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Scripts\metro.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>
