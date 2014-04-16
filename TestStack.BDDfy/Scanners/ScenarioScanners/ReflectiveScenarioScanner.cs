@@ -22,32 +22,30 @@ namespace TestStack.BDDfy
             _scenarioTitle = scenarioTitle;
         }
 
-        public virtual IEnumerable<Scenario> Scan(object testObject)
+        public virtual IEnumerable<Scenario> Scan(ITestContext testContext)
         {
-            var examples = testObject as ExampleTable;
             Type scenarioType;
             string scenarioTitle;
 
-            if (examples == null)
+            if (testContext.Examples == null)
             {
-                var steps = ScanScenarioForSteps(testObject);
-                scenarioType = testObject.GetType();
+                var steps = ScanScenarioForSteps(testContext);
+                scenarioType = testContext.TestObject.GetType();
                 scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
 
-                yield return new Scenario(testObject, steps, scenarioTitle);
+                yield return new Scenario(testContext.TestObject, steps, scenarioTitle);
                 yield break;
             }
 
-            testObject = examples.TestObject;
-            scenarioType = testObject.GetType();
+            scenarioType = testContext.TestObject.GetType();
             scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
 
             var scenarioId = Configurator.IdGenerator.GetScenarioId();
 
-            foreach (var example in examples)
+            foreach (var example in testContext.Examples)
             {
-                var steps = ScanScenarioForSteps(testObject, example);
-                yield return new Scenario(scenarioId, testObject, steps, scenarioTitle, example);
+                var steps = ScanScenarioForSteps(testContext, example);
+                yield return new Scenario(scenarioId, testContext.TestObject, steps, scenarioTitle, example);
             }
         }
 
@@ -56,17 +54,17 @@ namespace TestStack.BDDfy
             return NetToString.Convert(scenarioType.Name);
         }
 
-        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(ITestContext testContext)
         {
             var allSteps = new List<Step>();
-            var scenarioType = testObject.GetType();
+            var scenarioType = testContext.TestObject.GetType();
 
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
                 // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
-                    var steps = scanner.Scan(testObject, methodInfo);
+                    var steps = scanner.Scan(testContext, methodInfo);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);
@@ -78,17 +76,17 @@ namespace TestStack.BDDfy
             return allSteps;
         }
 
-        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject, Example example)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(ITestContext testContext, Example example)
         {
             var allSteps = new List<Step>();
-            var scenarioType = testObject.GetType();
+            var scenarioType = testContext.TestObject.GetType();
 
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
                 // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
-                    var steps = scanner.Scan(testObject, methodInfo, example);
+                    var steps = scanner.Scan(testContext, methodInfo, example);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);

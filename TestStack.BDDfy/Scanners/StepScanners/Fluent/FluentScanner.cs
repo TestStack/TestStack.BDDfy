@@ -34,7 +34,7 @@ namespace TestStack.BDDfy
     /// }
     /// </code>
     /// </example>
-    internal class FluentScanner<TScenario> : IFluentScanner, IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>
+    internal class FluentScanner<TScenario> : IFluentScanner, IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>, ITestContext
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
@@ -45,9 +45,9 @@ namespace TestStack.BDDfy
             _testObject = testObject;
         }
 
-        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType, ExampleTable examples)
+        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle, examples), explicitStoryType);
+            return new DefaultScanner(this, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
 
         IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
@@ -314,7 +314,7 @@ namespace TestStack.BDDfy
         {
             var flatInputArray = inputArguments.FlattenArrays();
             var stepTitle = NetToString.Convert(methodInfo.Name);
-            
+
             if (!string.IsNullOrEmpty(stepTextTemplate))
                 stepTitle = string.Format(stepTextTemplate, flatInputArray);
 
@@ -347,5 +347,15 @@ namespace TestStack.BDDfy
             var methodCall = (MethodCallExpression)stepAction.Body;
             return methodCall.Method;
         }
+
+        public object TestObject
+        {
+            get
+            {
+                return _testObject;
+            }
+        }
+
+        public ExampleTable Examples { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace TestStack.BDDfy
             Headers = headers;
         }
 
-        public object TestObject { get; internal set; }
         public string[] Headers { get; private set; }
 
         public int Count { get { return _rows.Count; } }
