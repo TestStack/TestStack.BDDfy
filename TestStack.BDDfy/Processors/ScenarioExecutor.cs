@@ -21,8 +21,10 @@ namespace TestStack.BDDfy.Processors
             foreach (var cell in _scenario.Example.Values)
             {
                 var type = _scenario.TestObject.GetType();
-                var matchingMembers = type.GetMembers()
+                var matchingMembers = type
+                    .GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public)
                     .Where(m => m is FieldInfo || m is PropertyInfo)
+                    .Where(m => !m.Name.EndsWith("BackingField"))
                     .Where(n => cell.MatchesName(n.Name))
                     .ToArray();
 
