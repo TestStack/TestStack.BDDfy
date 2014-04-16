@@ -49,31 +49,29 @@ namespace TestStack.BDDfy
             string storyCategory,
             Type explicitStoryType = null)
         {
-            var storyScanner = GetFluentScanner(testObject, scenarioTitle, explicitStoryType) ?? GetReflectiveScanner(testObject, scenarioTitle, explicitStoryType);
+            var context = testObject as ITestContext ?? new TestContext(testObject);
+
+            var storyScanner = GetFluentScanner(context, scenarioTitle, explicitStoryType) ?? GetReflectiveScanner(context, scenarioTitle, explicitStoryType);
 
             return new Engine(storyCategory, storyScanner);
         }
 
-        static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
+        static IScanner GetReflectiveScanner(ITestContext testContext, string scenarioTitle = null, Type explicitStoryType = null)
         {
-            var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
+            var stepScanners = Configurator.Scanners.GetStepScanners(testContext).ToArray();
             var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
 
-            return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
+            return new DefaultScanner(testContext, reflectiveScenarioScanner, explicitStoryType);
         }
 
-        static IScanner GetFluentScanner(object testObject, string scenarioTitle, Type explicitStoryType)
+        static IScanner GetFluentScanner(ITestContext testContext, string scenarioTitle, Type explicitStoryType)
         {
             IScanner scanner = null;
 
-            var examples = testObject as ExampleTable;
-
-            var fluentScanner = testObject as IFluentScanner;
-            if (examples != null)
-                fluentScanner = examples.TestObject as IFluentScanner;
+            var fluentScanner = testContext as IFluentScanner;
 
             if (fluentScanner != null)
-                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType, examples);
+                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType);
 
             return scanner;
         }

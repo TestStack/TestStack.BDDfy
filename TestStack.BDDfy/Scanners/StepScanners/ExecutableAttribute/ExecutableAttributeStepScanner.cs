@@ -25,7 +25,7 @@ namespace TestStack.BDDfy
     /// </example>
     public class ExecutableAttributeStepScanner : IStepScanner
     {
-        public IEnumerable<Step> Scan(object testObject, MethodInfo candidateMethod)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo candidateMethod)
         {
             var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if(executableAttribute == null)
@@ -68,7 +68,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
             var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if (executableAttribute == null)

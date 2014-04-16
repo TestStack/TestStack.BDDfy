@@ -116,6 +116,7 @@
     <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
+    <Compile Include="ITestContext.cs" />
     <Compile Include="Scanners\StepScanners\Examples\Example.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
     <Compile Include="Scanners\StoryAttributeMetadataScanner.cs" />
     <Compile Include="StoryNarrativeAttribute.cs" />
+    <Compile Include="TestContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />

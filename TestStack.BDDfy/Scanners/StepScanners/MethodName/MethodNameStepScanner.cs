@@ -45,7 +45,7 @@ namespace TestStack.BDDfy
             _matchers = matchers;
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method)
         {
             foreach (var matcher in _matchers)
             {
@@ -56,20 +56,20 @@ namespace TestStack.BDDfy
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                 if (argAttributes.Length == 0)
-                    yield return GetStep(testObject, matcher, method, returnsItsText);
+                    yield return GetStep(testContext.TestObject, matcher, method, returnsItsText);
 
                 foreach (var argAttribute in argAttributes)
                 {
                     var inputs = argAttribute.InputArguments;
                     if (inputs != null && inputs.Length > 0)
-                        yield return GetStep(testObject, matcher, method, returnsItsText, inputs, argAttribute);
+                        yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, inputs, argAttribute);
                 }
 
                 yield break;
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
             foreach (var matcher in _matchers)
             {
@@ -77,7 +77,7 @@ namespace TestStack.BDDfy
                     continue;
 
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                yield return GetStep(testObject, matcher, method, returnsItsText, example);
+                yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, example);
             }
         }
 

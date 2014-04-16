@@ -94,8 +94,8 @@ namespace TestStack.BDDfy.Tests.Reporters
                 }
                 return new List<Scenario>
                 {
-                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", this.WithExamples(exampleTable).ElementAt(0)),
-                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", this.WithExamples(exampleTable).ElementAt(1))
+                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0)),
+                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1))
                 }.ToArray();
             }
 

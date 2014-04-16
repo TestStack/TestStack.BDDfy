@@ -16,7 +16,7 @@ namespace TestStack.BDDfy.Tests.Scanner.StepScanners.Examples
 | Value 1  | 2            | 3          |
 |          | 14 Mar 2010  | Transition |";
 
-            var exampleTable = this.WithExamples(table);
+            var exampleTable = ExampleTable.Parse(table);
 
             exampleTable.Headers.ShouldBe(new[] { "Header 1", "Header 2", "Header3" });
             exampleTable.ElementAt(0).GetValueOf(0, typeof(string)).ShouldBe("Value 1");
