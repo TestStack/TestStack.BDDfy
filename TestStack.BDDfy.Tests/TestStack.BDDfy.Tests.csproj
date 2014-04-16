@@ -86,6 +86,7 @@
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Scanner\FluentScanner\FluentWithExamples.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
+    <Compile Include="Scanner\FluentScanner\TestContextTests.cs" />
     <Compile Include="Scanner\ReflectiveScanner\ReflectiveWithExamples.cs" />
     <Compile Include="Scanner\StepScanners\Examples\ExampleTableTests.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />

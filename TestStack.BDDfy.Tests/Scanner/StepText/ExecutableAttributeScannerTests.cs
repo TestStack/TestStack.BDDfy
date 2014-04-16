@@ -53,7 +53,7 @@ namespace TestStack.BDDfy.Tests.Scanner.StepText
         static void VerifyMethod(string expectedStepTitle, bool exists = true)
         {
             var scanner = new ExecutableAttributeStepScanner();
-            var steps = scanner.Scan(new TestContext(new ScenarioWithVaryingStepTexts())).ToList();
+            var steps = scanner.Scan(new ScenarioWithVaryingStepTexts().Given("")).ToList();
             var theStep = steps.Where(s => s.Title == expectedStepTitle);
 
             if (exists)

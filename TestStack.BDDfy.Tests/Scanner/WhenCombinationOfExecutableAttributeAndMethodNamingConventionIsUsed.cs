@@ -66,7 +66,7 @@ namespace TestStack.BDDfy.Tests.Scanner
                         {
                             new ExecutableAttributeStepScanner(),
                             new DefaultMethodNameStepScanner()
-                        }).Scan(new TestContext(_sut)).First();
+                        }).Scan(_sut.Given("")).First();
         }
 
         [Test]

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace TestStack.BDDfy
 {
-    public interface IWhenSteps<TScenario>
+    public interface IWhenSteps<TScenario> : ITestContext<TScenario>
     {
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, string stepTextTemplate = null);
         IWhen<TScenario> When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle);
