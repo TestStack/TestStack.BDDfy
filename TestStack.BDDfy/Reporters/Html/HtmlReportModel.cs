@@ -2,15 +2,15 @@
 
 namespace TestStack.BDDfy.Reporters.Html
 {
-    public class HtmlReportViewModel : FileReportModel
+    public class HtmlReportModel : FileReportModel
     {
-        public HtmlReportViewModel(IHtmlReportConfiguration configuration, IEnumerable<Story> stories)
+        public HtmlReportModel(IHtmlReportConfiguration configuration, IEnumerable<Story> stories)
             : base(stories)
         {
             Configuration = configuration;
         }
 
-        public HtmlReportViewModel(IEnumerable<Story> stories) 
+        public HtmlReportModel(IEnumerable<Story> stories) 
             :this(new DefaultHtmlReportConfiguration(), stories)
         {
         }

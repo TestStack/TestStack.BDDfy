@@ -101,7 +101,7 @@
       <DependentUpon>HtmlReportResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reporters\Html\HtmlReportTag.cs" />
-    <Compile Include="Reporters\Html\HtmlReportViewModel.cs" />
+    <Compile Include="Reporters\Html\HtmlReportModel.cs" />
     <Compile Include="Reporters\Html\HtmlTag.cs" />
     <Compile Include="Reporters\Html\IHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\MarkDown\MarkDownReporter.cs" />

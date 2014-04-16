@@ -14,7 +14,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         public void ShouldProduceExpectedHtml()
         {
             Func<FileReportModel> model = () =>
-                new HtmlReportViewModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds())
+                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds())
                     {
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };
@@ -28,7 +28,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         public void ShouldProduceExpectedHtmlWithExamples()
         {
             Func<FileReportModel> model = () => 
-                new HtmlReportViewModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples())
+                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples())
                     {
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };

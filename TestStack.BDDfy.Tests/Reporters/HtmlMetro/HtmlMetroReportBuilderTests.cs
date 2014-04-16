@@ -15,7 +15,7 @@ namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
         public void ShouldProduceExpectedHtml()
         {
             Func<FileReportModel> model = () => 
-                new HtmlReportViewModel(new ReportTestData().CreateMixContainingEachTypeOfOutcome())
+                new HtmlReportModel(new ReportTestData().CreateMixContainingEachTypeOfOutcome())
                     {
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };

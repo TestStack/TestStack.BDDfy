@@ -13,7 +13,7 @@ namespace TestStack.BDDfy.Reporters.Html
         private readonly IReportWriter _writer;
         private readonly IFileReader _fileReader;
         readonly IHtmlReportConfiguration _configuration;
-        public HtmlReportViewModel Model { get; private set; }
+        public HtmlReportModel Model { get; private set; }
 
         public HtmlReporter(IHtmlReportConfiguration configuration)
             : this(configuration, new HtmlReportBuilder(), new FileWriter(), new FileReader())
@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         void WriteOutHtmlReport(IEnumerable<Story> stories)
         {
-            Model = new HtmlReportViewModel(_configuration, stories);
+            Model = new HtmlReportModel(_configuration, stories);
             LoadCustomScripts();
             string report;
 

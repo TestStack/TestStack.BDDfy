@@ -7,10 +7,10 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
     {
         string IReportBuilder.CreateReport(FileReportModel model)
         {
-            return CreateReport(model as HtmlReportViewModel);
+            return CreateReport(model as HtmlReportModel);
         }
 
-        public string CreateReport(HtmlReportViewModel model)
+        public string CreateReport(HtmlReportModel model)
         {
             return new MetroHtmlReportTemplate(model).TransformText();
         }
