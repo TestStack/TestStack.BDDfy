@@ -1,11 +1,9 @@
 using System;
 using System.Runtime.CompilerServices;
-using ApprovalTests;
 using NUnit.Framework;
-using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.HtmlMetro;
-using TestStack.BDDfy.Tests.Reporters.Html;
 
 namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
 {
@@ -16,24 +14,14 @@ namespace TestStack.BDDfy.Tests.Reporters.HtmlMetro
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
-            // somehow the scenario id keeps increasing on TC
-            // resetting here explicitly
-            Configurator.IdGenerator.Reset();
+            Func<FileReportModel> model = () => 
+                new HtmlReportViewModel(new ReportTestData().CreateMixContainingEachTypeOfOutcome())
+                    {
+                        RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+                    };
 
-            // setting the culture to make sure the date is formatted the same on all machines
-            using (new TemporaryCulture("en-GB"))
-            {
-                var model = new HtmlReportViewModel(
-                    new DefaultHtmlReportConfiguration(),
-                    new ReportTestData().CreateMixContainingEachTypeOfOutcome())
-                {
-                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
-                };
-
-                var sut = new HtmlMetroReportBuilder();
-                var result = sut.CreateReport(model);
-                Approvals.Verify(result, s => LineEndingsScrubber.Scrub(StackTraceScrubber.ScrubPaths(s)));
-            }
+            var sut = new HtmlMetroReportBuilder();
+            ReportApprover.Approve(model, sut);
         }
     }
 }
