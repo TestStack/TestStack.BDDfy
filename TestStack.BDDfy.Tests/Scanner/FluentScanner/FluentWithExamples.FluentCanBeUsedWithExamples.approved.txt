@@ -3,7 +3,7 @@ Scenario: Fluent can be used with examples
 	Given method taking <example int>           
 	  Given method taking <example int>         
 	  Given a different method with random arg 2
-	  Given a different method with 'null'      
+	  Given a different method with <Prop2>     
 	When method using <example string>          
 	Then all is good                            
 

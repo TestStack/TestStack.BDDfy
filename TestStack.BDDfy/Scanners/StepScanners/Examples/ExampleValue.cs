@@ -18,12 +18,7 @@ namespace TestStack.BDDfy
 
         public bool MatchesName(string name)
         {
-            return Sanitise(name).Equals(Sanitise(Header), StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        private string Sanitise(string value)
-        {
-            return value.Replace(" ", string.Empty).Replace("_", string.Empty);
+            return ExampleTable.HeaderMatches(Header, name);
         }
 
         public int Row
