@@ -83,5 +83,15 @@ namespace TestStack.BDDfy
         {
             return row.Split('|').Select(h => (object)h.Trim()).ToArray();
         }
+
+        public static bool HeaderMatches(string header, string name)
+        {
+            return Sanitise(name).Equals(Sanitise(header), StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private static string Sanitise(string value)
+        {
+            return value.Replace(" ", string.Empty).Replace("_", string.Empty);
+        }
     }
 }

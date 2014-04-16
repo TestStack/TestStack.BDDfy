@@ -1,12 +1,19 @@
 namespace TestStack.BDDfy
 {
+    using System;
+
     public class StepTitle
     {
-        private readonly string _title;
+        private readonly Func<string> _createTitle;
 
         public StepTitle(string title)
         {
-            this._title = title;
+            this._createTitle = () => title;
+        }
+
+        public StepTitle(Func<string> createTitle)
+        {
+            this._createTitle = createTitle;
         }
 
         public static implicit operator string(StepTitle title)
@@ -16,7 +23,7 @@ namespace TestStack.BDDfy
 
         public override string ToString()
         {
-            return _title;
+            return _createTitle();
         }
     }
 }

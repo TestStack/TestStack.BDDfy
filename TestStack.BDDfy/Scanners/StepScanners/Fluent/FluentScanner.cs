@@ -310,30 +310,40 @@ namespace TestStack.BDDfy
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
         }
 
-        private static StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, object[] inputArguments)
+        private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, object[] inputArguments)
         {
-            var flatInputArray = inputArguments.FlattenArrays();
-            var stepTitle = NetToString.Convert(methodInfo.Name);
+            Func<string> createTitle = () =>
+                {
 
-            if (!string.IsNullOrEmpty(stepTextTemplate))
-                stepTitle = string.Format(stepTextTemplate, flatInputArray);
+                    var flatInputArray = inputArguments.FlattenArrays();
+                    var stepTitle = NetToString.Convert(methodInfo.Name);
 
-            else if (includeInputsInStepTitle)
-            {
-                var parameters = methodInfo.GetParameters();
-                var stringFlatInputs = flatInputArray
-                    .Select((a, i) => new
+                    if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
+                    else if (includeInputsInStepTitle)
                     {
-                        ParameterName = parameters[i],
-                        Value = a
-                    })
-                    // .Except(a => ) Remove examples
-                    .Select(i => i.Value.ToString())
-                    .ToArray();
-                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
-            }
+                        var parameters = methodInfo.GetParameters();
+                        var stringFlatInputs =
+                            flatInputArray
+                                .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
+                                .Select(i =>
+                                {
+                                    if (Examples != null)
+                                    {
 
-            return new StepTitle(stepTitle.Trim());
+                                        var matchingHeader = this.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
+                                        if (matchingHeader != null)
+                                            return string.Format("<{0}>", matchingHeader);
+                                    }
+                                    return i.Value.ToString();
+                                })
+                                .ToArray();
+                        stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+                    }
+
+                    return stepTitle.Trim();
+                };
+
+            return new StepTitle(createTitle);
         }
 
         private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
