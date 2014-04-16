@@ -14,7 +14,6 @@ namespace TestStack.BDDfy
             Headers = headers;
         }
 
-        public object TestObject { get; internal set; }
         public string[] Headers { get; private set; }
 
         public int Count { get { return _rows.Count; } }
@@ -27,7 +26,7 @@ namespace TestStack.BDDfy
 
             Example example = null;
             // ReSharper disable once AccessToModifiedClosure
-            example = new Example(items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example) + 1)).ToArray());
+            example = new Example(items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example))).ToArray());
             Add(example);
         }
 
@@ -83,6 +82,16 @@ namespace TestStack.BDDfy
         static object[] GetValues(string row)
         {
             return row.Split('|').Select(h => (object)h.Trim()).ToArray();
+        }
+
+        public static bool HeaderMatches(string header, string name)
+        {
+            return Sanitise(name).Equals(Sanitise(header), StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private static string Sanitise(string value)
+        {
+            return value.Replace(" ", string.Empty).Replace("_", string.Empty);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Tests.Scanner
             var methodNameMatchers = new[] { assertMatcher, andAssertMatcher, specEndMatcher, specStartMatcher, setupMethod };
             _scenario = new ScenarioClass();
             var scanner = new MethodNameStepScanner(s => s, methodNameMatchers);
-            _steps = scanner.Scan(_scenario).ToList();
+            _steps = scanner.Scan(new TestContext(_scenario)).ToList();
         }
 
         class ScenarioClass

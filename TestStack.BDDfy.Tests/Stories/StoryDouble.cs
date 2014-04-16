@@ -14,7 +14,7 @@ namespace TestStack.BDDfy.Tests.Stories
         public void ScanningAScenarioWithoutArgsFromAStoryClass()
         {
             var testObject = new DummyScenario();
-            var scanner = new DefaultScanner(testObject, new ReflectiveScenarioScanner(new[] { new DefaultMethodNameStepScanner() }));
+            var scanner = new DefaultScanner(new TestContext(testObject), new ReflectiveScenarioScanner(new[] { new DefaultMethodNameStepScanner() }));
             var story = scanner.Scan();
 
             Assert.That(story.Metadata, Is.Not.Null);

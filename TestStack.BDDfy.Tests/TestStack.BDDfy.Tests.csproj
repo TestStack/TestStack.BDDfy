@@ -146,6 +146,7 @@
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
     <Compile Include="Stories\StoryClassAndScenarioClassAreTheSame.cs" />
     <Compile Include="Stories\StorySubclass.cs" />
+    <Compile Include="UnusedExampleValueScenario.cs" />
     <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
   </ItemGroup>

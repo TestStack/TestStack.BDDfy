@@ -34,7 +34,7 @@ namespace TestStack.BDDfy
     /// }
     /// </code>
     /// </example>
-    internal class FluentScanner<TScenario> : IFluentScanner, IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>
+    internal class FluentScanner<TScenario> : IFluentScanner, IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>, ITestContext
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
@@ -45,11 +45,11 @@ namespace TestStack.BDDfy
             _testObject = testObject;
         }
 
-        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType, ExampleTable examples)
+        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(_testObject, new FluentScenarioScanner(_steps, scenarioTitle, examples), explicitStoryType);
+            return new DefaultScanner(this, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
-   
+
         IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
         {
             AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
@@ -128,74 +128,6 @@ namespace TestStack.BDDfy
             return this;
         }
 
-        private void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
-        {
-            
-            var action = stepAction.Compile();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), CreateTitle(stepAction, stepTextTemplate, includeInputsInStepTitle, _testObject), asserts, executionOrder, reports));
-        }
-
-        private static string CreateTitle(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle,
-            TScenario o)
-        {
-            var methodInfo = GetMethodInfo(stepAction);
-            var inputArguments = new object[0];
-            if (includeInputsInStepTitle)
-            {
-                inputArguments = stepAction.ExtractArguments(o).ToArray();
-            }
-
-            var flatInputArray = inputArguments.FlattenArrays();
-            var stepTitle = NetToString.Convert(methodInfo.Name);
-
-            if (!string.IsNullOrEmpty(stepTextTemplate))
-                stepTitle = string.Format(stepTextTemplate, flatInputArray);
-            else if (includeInputsInStepTitle)
-            {
-                var stringFlatInputs = flatInputArray.Select(i => i.ToString()).ToArray();
-                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
-            }
-
-            return stepTitle.Trim();
-        }
-
-        private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
-        {
-            var methodCall = (MethodCallExpression)stepAction.Body;
-            return methodCall.Method;
-        }
-
-        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
-        {
-            var action = stepAction.Compile();
-
-            var methodInfo = GetMethodInfo(stepAction);
-            var inputArguments = new object[0];
-            if (includeInputsInStepTitle)
-            {
-                inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
-            }
-
-            var flatInputArray = inputArguments.FlattenArrays();
-            var stepTitle = NetToString.Convert(methodInfo.Name);
-
-            if (!string.IsNullOrEmpty(stepTextTemplate))
-                stepTitle = string.Format(stepTextTemplate, flatInputArray);
-            else if (includeInputsInStepTitle)
-            {
-                var stringFlatInputs = flatInputArray.Select(i => i.ToString()).ToArray();
-                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
-            }
-
-            var title = stepTitle.Trim();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
-        }
-
-        private void AddStep(Action stepAction, string title, bool asserts, ExecutionOrder executionOrder, bool reports = true)
-        {
-            _steps.Add(new Step(o => stepAction(), title, asserts, executionOrder, reports));
-        }
-
         public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
         {
             AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
@@ -240,7 +172,7 @@ namespace TestStack.BDDfy
 
         IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
         {
-            AddStep(whenStep, null, false,ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
+            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
         }
 
@@ -252,7 +184,7 @@ namespace TestStack.BDDfy
 
         IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
         {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle:includeInputsInStepTitle);
+            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
             return this;
         }
 
@@ -276,7 +208,7 @@ namespace TestStack.BDDfy
 
         IGiven<TScenario> IGiven<TScenario>.And(string title)
         {
-            AddStep(() => {}, title, false, ExecutionOrder.ConsecutiveSetupState);
+            AddStep(() => { }, title, false, ExecutionOrder.ConsecutiveSetupState);
             return this;
         }
 
@@ -346,10 +278,94 @@ namespace TestStack.BDDfy
             return this;
         }
 
+        private void AddStep(Action stepAction, string title, bool asserts, ExecutionOrder executionOrder, bool reports = true)
+        {
+            _steps.Add(new Step(o => stepAction(), new StepTitle(title), asserts, executionOrder, reports));
+        }
+
+        private void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
+        {
+            var action = stepAction.Compile();
+            var inputArguments = new object[0];
+            if (includeInputsInStepTitle)
+            {
+                inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
+            }
+
+            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments);
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
+        }
+
+        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
+        {
+            var action = stepAction.Compile();
+
+            var inputArguments = new object[0];
+            if (includeInputsInStepTitle)
+            {
+                inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
+            }
+
+            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments);
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
+        }
+
+        private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, object[] inputArguments)
+        {
+            Func<string> createTitle = () =>
+                {
+
+                    var flatInputArray = inputArguments.FlattenArrays();
+                    var stepTitle = NetToString.Convert(methodInfo.Name);
+
+                    if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
+                    else if (includeInputsInStepTitle)
+                    {
+                        var parameters = methodInfo.GetParameters();
+                        var stringFlatInputs =
+                            flatInputArray
+                                .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
+                                .Select(i =>
+                                {
+                                    if (Examples != null)
+                                    {
+
+                                        var matchingHeader = this.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
+                                        if (matchingHeader != null)
+                                            return string.Format("<{0}>", matchingHeader);
+                                    }
+                                    return i.Value.ToString();
+                                })
+                                .ToArray();
+                        stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+                    }
+
+                    return stepTitle.Trim();
+                };
+
+            return new StepTitle(createTitle);
+        }
+
+        private static MethodInfo GetMethodInfo(Expression<Func<TScenario, Task>> stepAction)
+        {
+            var methodCall = (MethodCallExpression)stepAction.Body;
+            return methodCall.Method;
+        }
+
         private static MethodInfo GetMethodInfo(Expression<Action<TScenario>> stepAction)
         {
             var methodCall = (MethodCallExpression)stepAction.Body;
             return methodCall.Method;
         }
+
+        public object TestObject
+        {
+            get
+            {
+                return _testObject;
+            }
+        }
+
+        public ExampleTable Examples { get; set; }
     }
 }

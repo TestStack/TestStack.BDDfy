@@ -66,13 +66,13 @@ namespace TestStack.BDDfy.Tests.Scanner
                         {
                             new ExecutableAttributeStepScanner(),
                             new DefaultMethodNameStepScanner()
-                        }).Scan(_sut).First();          
+                        }).Scan(new TestContext(_sut)).First();
         }
 
         [Test]
         public void ScenarioTextIsSetUsingClassName()
         {
-            Assert.That(_scenario.Title, Is.EqualTo("Scenario with mixed steps"));    
+            Assert.That(_scenario.Title, Is.EqualTo("Scenario with mixed steps"));
         }
 
         [Test]
