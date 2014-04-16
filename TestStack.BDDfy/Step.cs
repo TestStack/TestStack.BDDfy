@@ -6,10 +6,12 @@ namespace TestStack.BDDfy
 {
     public class Step
     {
+        private readonly StepTitle _title;
+
         public Step(
             Action<object> action,
-            string title, 
-            bool asserts, 
+            StepTitle title,
+            bool asserts,
             ExecutionOrder executionOrder,
             bool shouldReport)
         {
@@ -19,13 +21,13 @@ namespace TestStack.BDDfy
             ShouldReport = shouldReport;
             Result = Result.NotExecuted;
             Action = action;
-            Title = title;
+            _title = title;
         }
 
         public Step(Step step)
         {
             Id = step.Id;
-            Title = step.Title;
+            _title = step._title;
             Asserts = step.Asserts;
             ExecutionOrder = step.ExecutionOrder;
             ShouldReport = step.ShouldReport;
@@ -37,14 +39,20 @@ namespace TestStack.BDDfy
         internal Action<object> Action { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
-        public string Title { get; private set; }
+        public string Title
+        {
+            get
+            {
+                return _title.ToString();
+            }
+        }
+
         public ExecutionOrder ExecutionOrder { get; private set; }
 
         public Result Result { get; set; }
         public Exception Exception { get; set; }
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
-
 
         public void Execute(object testObject)
         {
@@ -55,7 +63,7 @@ namespace TestStack.BDDfy
                 sw.Stop();
                 Duration = sw.Elapsed;
             }
-            finally 
+            finally
             {
                 sw.Stop();
                 Duration = sw.Elapsed;

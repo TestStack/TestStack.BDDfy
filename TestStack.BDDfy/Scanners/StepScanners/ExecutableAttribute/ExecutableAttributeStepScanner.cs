@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,9 +31,9 @@ namespace TestStack.BDDfy
             if(executableAttribute == null)
                 yield break;
 
-            string stepTitle = executableAttribute.StepTitle;
+            var stepTitle = new StepTitle(executableAttribute.StepTitle);
             if(string.IsNullOrEmpty(stepTitle))
-                stepTitle = NetToString.Convert(candidateMethod.Name);
+                stepTitle = new StepTitle(NetToString.Convert(candidateMethod.Name));
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
 
@@ -61,7 +60,7 @@ namespace TestStack.BDDfy
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), new StepTitle(methodName), stepAsserts,
                                       executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
@@ -100,7 +99,7 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
-            yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
+            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, true);
         }
 
 
