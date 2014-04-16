@@ -26,6 +26,14 @@ namespace TestStack.BDDfy
             return value.Replace(" ", string.Empty).Replace("_", string.Empty);
         }
 
+        public int Row
+        {
+            get
+            {
+                return _getRowIndex() + 1;
+            }
+        }
+
         public object GetValue(Type targetType)
         {
             var stringValue = _underlyingValue as string;
@@ -35,11 +43,12 @@ namespace TestStack.BDDfy
                     !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof (Nullable<>)))
                 {
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
-                    throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, _getRowIndex()));
+                    throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, Row));
                 }
                 return null;
             }
 
+            ValueHasBeenUsed = true;
             if (targetType.IsInstanceOfType(_underlyingValue))
                 return _underlyingValue;
 
@@ -51,6 +60,8 @@ namespace TestStack.BDDfy
 
             return Convert.ChangeType(_underlyingValue, targetType);
         }
+
+        public bool ValueHasBeenUsed { get; private set; }
 
         public override string ToString()
         {

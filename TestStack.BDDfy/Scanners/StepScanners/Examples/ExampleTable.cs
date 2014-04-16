@@ -27,7 +27,7 @@ namespace TestStack.BDDfy
 
             Example example = null;
             // ReSharper disable once AccessToModifiedClosure
-            example = new Example(items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example) + 1)).ToArray());
+            example = new Example(items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example))).ToArray());
             Add(example);
         }
 
