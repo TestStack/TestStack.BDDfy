@@ -61,6 +61,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Shouldly">
+      <HintPath>..\packages\Shouldly.2.1.1\lib\net40\Shouldly.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -75,11 +78,16 @@
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
     <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.cs" />
+    <Compile Include="Processors\TestRunnerTests.cs" />
     <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TemporaryCulture.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
+    <Compile Include="Reporters\ReportApprover.cs" />
+    <Compile Include="Scanner\FluentScanner\FluentWithExamples.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
+    <Compile Include="Scanner\ReflectiveScanner\ReflectiveWithExamples.cs" />
+    <Compile Include="Scanner\StepScanners\Examples\ExampleTableTests.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
@@ -105,7 +113,7 @@
     <Compile Include="Reporters\ReportTestData.cs" />
     <Compile Include="Scanner\ExecutableAttributeOrderOrdersTheStepsCorrectly.cs" />
     <Compile Include="Scanner\PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions.cs" />
-    <Compile Include="Scanner\ExpressionExtensionsTests.cs" />
+    <Compile Include="Scanner\FluentScanner\ExpressionExtensionsTests.cs" />
     <Compile Include="Scanner\StepScannerExtensions.cs" />
     <Compile Include="Scanner\StepText\DefaultScanForStepsByMethodNameTests.cs" />
     <Compile Include="Scanner\StepText\ExecutableAttributeScannerTests.cs" />
@@ -142,19 +150,23 @@
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestStack.BDDfy\TestStack.BDDfy.csproj">
-      <Project>{DA6BCB39-307C-4A8E-9A3A-27BB2DBC44A3}</Project>
-      <Name>TestStack.BDDfy</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Reporters\Html\HtmlReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestStack.BDDfy\TestStack.BDDfy.csproj">
+      <Project>{da6bcb39-307c-4a8e-9a3a-27bb2dbc44a3}</Project>
+      <Name>TestStack.BDDfy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
     <None Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reporters\Html\HtmlReportBuilderTests.ShouldProduceExpectedHtmlWithExamples.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

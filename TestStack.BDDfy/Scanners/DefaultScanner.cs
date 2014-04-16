@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -18,10 +19,10 @@ namespace TestStack.BDDfy
 
         public Story Scan()
         {
-            var scenario = _scenarioScanner.Scan(_testObject);
+            var scenarios = _scenarioScanner.Scan(_testObject);
             var metaData = Configurator.Scanners.StoryMetadataScanner().Scan(_testObject, _explicitStoryType);
 
-            return new Story(metaData, scenario);
+            return new Story(metaData, scenarios.ToArray());
         }
     }
 }

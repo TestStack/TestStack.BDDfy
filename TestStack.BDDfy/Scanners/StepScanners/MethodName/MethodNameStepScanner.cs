@@ -69,6 +69,40 @@ namespace TestStack.BDDfy
             }
         }
 
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
+        {
+            foreach (var matcher in _matchers)
+            {
+                if (!matcher.IsMethodOfInterest(method.Name))
+                    continue;
+
+                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
+                yield return GetStep(testObject, matcher, method, returnsItsText, example);
+            }
+        }
+
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
+        {
+            var stepMethodName = GetStepTitleFromMethodName(method, null);
+            var methodParameters = method.GetParameters();
+            var inputs = new object[methodParameters.Length];
+
+            for (var parameterIndex = 0; parameterIndex < inputs.Length; parameterIndex++)
+            {
+                for (var exampleIndex = 0; exampleIndex < example.Headers.Length; exampleIndex++)
+                {
+                    var methodParameter = methodParameters[parameterIndex];
+                    var parameterName = methodParameter.Name;
+                    var placeholderMatchesExampleColumn = example.Values.ElementAt(exampleIndex).MatchesName(parameterName);
+                    if (placeholderMatchesExampleColumn )
+                        inputs[parameterIndex] = example.GetValueOf(exampleIndex, methodParameter.ParameterType);
+                }
+            }
+
+            var stepAction = GetStepAction(method, inputs.ToArray(), returnsItsText);
+            return new Step(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+        }
+
         private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);

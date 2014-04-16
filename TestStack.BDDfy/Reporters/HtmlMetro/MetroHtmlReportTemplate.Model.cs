@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Reporters.HtmlMetro
     /// </summary>
     partial class MetroHtmlReportTemplate
     {
-        private readonly HtmlReportViewModel _model;      
+        private readonly HtmlReportViewModel _model;
 
         public MetroHtmlReportTemplate(HtmlReportViewModel model)
         {

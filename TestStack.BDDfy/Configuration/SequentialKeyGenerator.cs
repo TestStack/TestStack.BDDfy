@@ -5,7 +5,7 @@ namespace TestStack.BDDfy.Configuration
         private int _currentScenarioNumber = 1;
         private int _currentStepNumber = 1;
 
-        public string GetScenarioId(Scenario scenario)
+        public string GetScenarioId()
         {
             var id = string.Format("scenario-{0}", _currentScenarioNumber);
            _currentScenarioNumber++;
@@ -13,7 +13,7 @@ namespace TestStack.BDDfy.Configuration
             return id;
         }
 
-        public string GetStepId(Step step)
+        public string GetStepId()
         {
             var id = string.Format("step-{0}-{1}", _currentScenarioNumber, _currentStepNumber);
             _currentStepNumber++;

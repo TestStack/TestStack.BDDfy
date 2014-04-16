@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace TestStack.BDDfy
 {
@@ -66,6 +68,41 @@ namespace TestStack.BDDfy
                         };
             }
         }
+
+        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
+        {
+            var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+            if (executableAttribute == null)
+                yield break;
+
+            string stepTitle = executableAttribute.StepTitle;
+            if (string.IsNullOrEmpty(stepTitle))
+                stepTitle = NetToString.Convert(method.Name);
+
+            var stepAsserts = IsAssertingByAttribute(method);
+            var methodParameters = method.GetParameters();
+
+            var inputs = new List<object>();
+            var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
+
+            for (int i = 0; i < inputPlaceholders.Count; i++)
+            {
+                var placeholder = inputPlaceholders[i].Groups[1].Value;
+
+                for (int j = 0; j < example.Headers.Length; j++)
+                {
+                    if (example.Values.ElementAt(j).MatchesName(placeholder))
+                    {
+                        inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
+                        break;
+                    }
+                }
+            }
+
+            var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
+            yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
+        }
+
 
         private static bool IsAssertingByAttribute(MethodInfo method)
         {

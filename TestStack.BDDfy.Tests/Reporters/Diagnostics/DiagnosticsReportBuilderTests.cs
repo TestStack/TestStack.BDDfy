@@ -13,7 +13,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
         public void ShouldSerializeDiagnosticDataToSpecifiedFormat()
         {
             var serializer = Substitute.For<ISerializer>();
-            var testData = new ReportTestData().CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds();
+            var testData = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds();
             var model = new FileReportModel(testData);
             var sut = new DiagnosticsReportBuilder(serializer);
 

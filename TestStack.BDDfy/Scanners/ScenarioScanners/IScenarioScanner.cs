@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace TestStack.BDDfy
 {
     public interface IScenarioScanner
     {
-        Scenario Scan(object testObject);
+        IEnumerable<Scenario> Scan(object testObject);
     }
 }

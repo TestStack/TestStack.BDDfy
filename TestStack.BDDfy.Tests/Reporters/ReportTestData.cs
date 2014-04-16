@@ -4,16 +4,20 @@ using System.Linq;
 
 namespace TestStack.BDDfy.Tests.Reporters
 {
+    using System.Linq;
+
     public class ReportTestData
     {
-        public IEnumerable<Story> CreateTwoStoriesEachWithTwoScenariosWithThreeStepsOfFiveMilliseconds()
+        private int _idCount = 0;
+
+        public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
         {
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
             var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
             var stories = new List<Story>()
             {
-                new Story(storyMetadata1, GetScenarios()),
-                new Story(storyMetadata2, GetScenarios())
+                new Story(storyMetadata1, GetScenarios(false, false)),
+                new Story(storyMetadata2, GetScenarios(true, false))
             };
 
             return stories;
@@ -36,14 +40,70 @@ namespace TestStack.BDDfy.Tests.Reporters
             return stories;
         }
 
-        private Scenario[] GetScenarios()
+        public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
         {
-            var scenarios = new List<Scenario>()
+            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
+            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
+            var stories = new List<Story>
             {
-                new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario"),
-                new Scenario(typeof(SadPathScenario), GetSadExecutionSteps(), "Sad Path Scenario")
+                new Story(storyMetadata1, GetScenarios(false, true)),
+                new Story(storyMetadata2, GetScenarios(true, true))
             };
-            return scenarios.ToArray();
+
+            return stories;
+        }
+
+        private Scenario[] GetScenarios(bool includeFailingScenario, bool includeExamples)
+        {
+            var sadExecutionSteps = GetSadExecutionSteps().ToArray();
+            if (includeFailingScenario)
+            {
+                var last = sadExecutionSteps.Last();
+                last.Result = Result.Failed;
+                try
+                {
+                    throw new InvalidOperationException("Boom");
+                }
+                catch (Exception ex)
+                {
+                    last.Exception = ex;
+                }
+            }
+
+            if (includeExamples)
+            {
+                var exampleId = _idCount++.ToString();
+                var exampleTable = new ExampleTable("sign", "action")
+                                       {
+                                            {"positive", "is"},
+                                            {"negative", "is not"}
+                                       };
+                var exampleExecutionSteps = GetExampleExecutionSteps().ToArray();
+                if (includeFailingScenario)
+                {
+                    var last = exampleExecutionSteps.Last();
+                    last.Result = Result.Failed;
+                    try
+                    {
+                        throw new InvalidOperationException("Boom");
+                    }
+                    catch (Exception ex)
+                    {
+                        last.Exception = ex;
+                    }
+                }
+                return new List<Scenario>
+                {
+                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", this.WithExamples(exampleTable).ElementAt(0)),
+                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", this.WithExamples(exampleTable).ElementAt(1))
+                }.ToArray();
+            }
+
+            return new List<Scenario>
+                       {
+                           new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario"),
+                           new Scenario(typeof(SadPathScenario), sadExecutionSteps, "Sad Path Scenario")
+                       }.ToArray();
         }
 
         private Scenario[] GetOneOfEachScenarioResult()
@@ -68,22 +128,33 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private IEnumerable<Step> GetHappyExecutionSteps()
         {
-            var steps = new List<Step>()
+            var steps = new List<Step>
             {
-                new Step(null, "Given a positive account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "Then money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "Given a positive account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, "Then money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+            };
+            return steps;
+        }
+
+        private IEnumerable<Step> GetExampleExecutionSteps()
+        {
+            var steps = new List<Step>
+            {
+                new Step(null, "Given a <sign> account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, "Then money <action> dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
             };
             return steps;
         }
 
         private IEnumerable<Step> GetSadExecutionSteps()
         {
-            var steps = new List<Step>()
+            var steps = new List<Step>
             {
-                new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
             };
             return steps;
         }
@@ -131,6 +202,12 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         public class RegularAccountHolderStory { }
         public class GoldAccountHolderStory { }
+        public class ExampleScenario
+        {
+            public void GivenA__sign__AccountBalance() { }
+            public void WhenTheAccountHolderRequestsMoney() { }
+            public void ThenMoney__action__Dispensed() { }
+        }
         public class HappyPathScenario
         {
             public void GivenAPositiveAccountBalance() { }
