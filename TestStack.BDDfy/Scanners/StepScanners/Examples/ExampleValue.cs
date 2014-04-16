@@ -16,6 +16,11 @@ namespace TestStack.BDDfy
 
         public string Header { get; private set; }
 
+        public bool MatchesName(string name)
+        {
+            return name.Equals(Header.Replace(" ", string.Empty), StringComparison.InvariantCultureIgnoreCase);
+        }
+
         public object GetValue(Type targetType)
         {
             var stringValue = _underlyingValue as string;

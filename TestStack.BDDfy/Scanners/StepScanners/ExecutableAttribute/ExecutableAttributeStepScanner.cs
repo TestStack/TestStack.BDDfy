@@ -83,21 +83,20 @@ namespace TestStack.BDDfy
             var methodParameters = method.GetParameters();
 
             var inputs = new List<object>();
-            var inputPlaceholders = Regex.Matches(stepTitle, " <\\w+> ");
+            var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
 
             for (int i = 0; i < inputPlaceholders.Count; i++)
             {
-                var placeholder = inputPlaceholders[i].Value;
+                var placeholder = inputPlaceholders[i].Groups[1].Value;
 
                 for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (string.Format(" <{0}> ", example.Headers[j].Replace(" ", string.Empty)).Equals(placeholder, StringComparison.InvariantCultureIgnoreCase))
+                    if (example.Values.ElementAt(j).MatchesName(placeholder))
                     {
                         inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
                         break;
                     }
                 }
-
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());

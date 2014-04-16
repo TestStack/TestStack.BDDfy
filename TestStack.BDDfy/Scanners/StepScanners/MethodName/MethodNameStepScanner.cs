@@ -93,11 +93,9 @@ namespace TestStack.BDDfy
                 {
                     var methodParameter = methodParameters[parameterIndex];
                     var parameterName = methodParameter.Name;
-                    var placeholderMatchesExampleColumn = example.Headers[exampleIndex].Replace(" ", string.Empty).Equals(parameterName, StringComparison.InvariantCultureIgnoreCase);
+                    var placeholderMatchesExampleColumn = example.Values.ElementAt(exampleIndex).MatchesName(parameterName);
                     if (placeholderMatchesExampleColumn )
-                    {
                         inputs[parameterIndex] = example.GetValueOf(exampleIndex, methodParameter.ParameterType);
-                    }
                 }
             }
 

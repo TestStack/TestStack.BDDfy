@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Processors
                 var type = _scenario.TestObject.GetType();
                 var matchingMembers = type.GetMembers()
                     .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .Where(n => n.Name.Equals(cell.Header.Replace(" ", string.Empty), StringComparison.InvariantCultureIgnoreCase))
+                    .Where(n => cell.MatchesName(n.Name))
                     .ToArray();
 
                 if (!matchingMembers.Any())
