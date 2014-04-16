@@ -86,12 +86,6 @@
     <Compile Include="Reporters\FileReportModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
     <Compile Include="Reporters\Html\MetroReportBuilder.cs" />
-    <Compile Include="Reporters\Html\MetroReportTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MetroReportTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reporters\Html\MetroReportTemplate.Model.cs" />
     <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\Html\HtmlReporter.cs" />
     <Compile Include="Reporters\Html\ClassicReportBuilder.cs" />
@@ -178,10 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />
-    <None Include="Reporters\Html\MetroReportTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MetroReportTemplate.cs</LastGenOutput>
-    </None>
     <None Include="Reporters\Html\Scripts\classic.min.js.map">
       <DependentUpon>classic.js</DependentUpon>
     </None>
