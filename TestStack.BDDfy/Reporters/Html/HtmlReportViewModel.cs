@@ -10,6 +10,11 @@ namespace TestStack.BDDfy.Reporters.Html
             Configuration = configuration;
         }
 
+        public HtmlReportViewModel(IEnumerable<Story> stories) 
+            :this(new DefaultHtmlReportConfiguration(), stories)
+        {
+        }
+
         public string CustomStylesheet { get; set; }
         public string CustomJavascript { get; set; }
 
