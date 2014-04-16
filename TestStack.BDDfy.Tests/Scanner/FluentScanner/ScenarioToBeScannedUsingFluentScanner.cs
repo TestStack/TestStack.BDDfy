@@ -87,7 +87,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .And(s => s.ThenTitleFormatingWorksToo(InputDate), InputDateStepTitleTemplate)
                 .TearDownWith(s => s.Dispose());
 
-            return fluentScanner.GetScanner(null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
+            return ((IFluentScanner)fluentScanner).GetScanner(null, null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
         }
     }
 }

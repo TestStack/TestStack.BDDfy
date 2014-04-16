@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Tests
@@ -54,6 +55,14 @@ namespace TestStack.BDDfy.Tests
             Assert.That(
                 Configurator.Scanners.Humanize("XIsFirstPlayer"),
                 Is.EqualTo("X is first player"));
+        }
+
+        [Test]
+        public void CanDealWithExampleStepNames()
+        {
+            NetToString.Convert("GivenThereAre__start__Cucumbers").ShouldBe("Given there are <start> cucumbers");
+            NetToString.Convert("Given_there_are__start__cucumbers").ShouldBe("Given there are <start> cucumbers");
+            NetToString.Convert("GivenMethodTaking__ExampleInt__").ShouldBe("Given method taking <example int>");
         }
     }
 }

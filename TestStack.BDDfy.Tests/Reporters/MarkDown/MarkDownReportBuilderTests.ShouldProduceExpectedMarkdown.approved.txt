@@ -1,0 +1,71 @@
+﻿## Story: Account holder withdraws cash
+ **As an account holder**  
+ **I want to withdraw cash**  
+ **So that I can get money when the bank is closed**  
+
+### Happy Path Scenario
+  Given a positive account balance  
+  When the account holder requests money  
+  Then money is dispensed  
+
+### Inconclusive Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+### Not Implemented Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+### Sad Path Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+## Story: Happiness
+ **As a person**  
+ **I want ice cream**  
+ **So that I can be happy**  
+
+### Happy Path Scenario
+  Given a positive account balance  
+  When the account holder requests money  
+  Then money is dispensed  
+
+### Inconclusive Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+### Not Implemented Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+### Sad Path Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+
+### Happy Path Scenario
+  Given a positive account balance  
+  When the account holder requests money  
+  Then money is dispensed  
+
+### Inconclusive Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+### Not Implemented Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+
+### Sad Path Scenario
+  Given a negative account balance  
+  When the account holder requests money  
+  Then no money is dispensed  
+

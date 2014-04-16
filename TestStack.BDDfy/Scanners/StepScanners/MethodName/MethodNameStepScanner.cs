@@ -45,7 +45,7 @@ namespace TestStack.BDDfy
             _matchers = matchers;
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method)
         {
             foreach (var matcher in _matchers)
             {
@@ -56,24 +56,58 @@ namespace TestStack.BDDfy
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                 if (argAttributes.Length == 0)
-                    yield return GetStep(testObject, matcher, method, returnsItsText);
+                    yield return GetStep(testContext.TestObject, matcher, method, returnsItsText);
 
                 foreach (var argAttribute in argAttributes)
                 {
                     var inputs = argAttribute.InputArguments;
                     if (inputs != null && inputs.Length > 0)
-                        yield return GetStep(testObject, matcher, method, returnsItsText, inputs, argAttribute);
+                        yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, inputs, argAttribute);
                 }
 
                 yield break;
             }
         }
 
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
+        {
+            foreach (var matcher in _matchers)
+            {
+                if (!matcher.IsMethodOfInterest(method.Name))
+                    continue;
+
+                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
+                yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, example);
+            }
+        }
+
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
+        {
+            var stepMethodName = GetStepTitleFromMethodName(method, null);
+            var methodParameters = method.GetParameters();
+            var inputs = new object[methodParameters.Length];
+
+            for (var parameterIndex = 0; parameterIndex < inputs.Length; parameterIndex++)
+            {
+                for (var exampleIndex = 0; exampleIndex < example.Headers.Length; exampleIndex++)
+                {
+                    var methodParameter = methodParameters[parameterIndex];
+                    var parameterName = methodParameter.Name;
+                    var placeholderMatchesExampleColumn = example.Values.ElementAt(exampleIndex).MatchesName(parameterName);
+                    if (placeholderMatchesExampleColumn )
+                        inputs[parameterIndex] = example.GetValueOf(exampleIndex, methodParameter.ParameterType);
+                }
+            }
+
+            var stepAction = GetStepAction(method, inputs.ToArray(), returnsItsText);
+            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+        }
+
         private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
-            return new Step(stepAction, stepMethodName, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
+            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport);
         }
 
         private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)

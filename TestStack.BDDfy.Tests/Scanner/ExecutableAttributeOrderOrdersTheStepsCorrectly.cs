@@ -74,7 +74,7 @@ namespace TestStack.BDDfy.Tests.Scanner
             var testObject = new TypeWithOrderedAttribute();
             var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
             var scanner = new ReflectiveScenarioScanner(stepScanners);
-            var scenario = scanner.Scan(testObject);
+            var scenario = scanner.Scan(new TestContext(testObject)).First();
             _steps = scenario.Steps;
         }
 

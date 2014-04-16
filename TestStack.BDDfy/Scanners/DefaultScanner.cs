@@ -1,27 +1,28 @@
 using System;
+using System.Linq;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
     public class DefaultScanner : IScanner
     {
+        private readonly ITestContext _testContext;
         private readonly Type _explicitStoryType;
         private readonly IScenarioScanner _scenarioScanner;
-        private readonly object _testObject;
 
-        public DefaultScanner(object testObject, IScenarioScanner scenarioScanner, Type explicitStoryType = null)
+        public DefaultScanner(ITestContext testContext, IScenarioScanner scenarioScanner, Type explicitStoryType = null)
         {
+            this._testContext = testContext;
             _explicitStoryType = explicitStoryType;
             _scenarioScanner = scenarioScanner;
-            _testObject = testObject;
         }
 
         public Story Scan()
         {
-            var scenario = _scenarioScanner.Scan(_testObject);
-            var metaData = Configurator.Scanners.StoryMetadataScanner().Scan(_testObject, _explicitStoryType);
+            var scenarios = _scenarioScanner.Scan(_testContext);
+            var metaData = Configurator.Scanners.StoryMetadataScanner().Scan(_testContext.TestObject, _explicitStoryType);
 
-            return new Story(metaData, scenario);
+            return new Story(metaData, scenarios.ToArray());
         }
     }
 }
