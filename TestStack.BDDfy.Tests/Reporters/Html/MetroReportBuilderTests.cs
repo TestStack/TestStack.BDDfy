@@ -22,5 +22,19 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             var sut = new MetroReportBuilder();
             ReportApprover.Approve(model, sut);
         }
+
+        [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldProduceExpectedHtmlWithExamples()
+        {
+            Func<FileReportModel> model = () =>
+                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples())
+                {
+                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+                };
+
+            var sut = new MetroReportBuilder();
+            ReportApprover.Approve(model, sut);
+        }
     }
 }
