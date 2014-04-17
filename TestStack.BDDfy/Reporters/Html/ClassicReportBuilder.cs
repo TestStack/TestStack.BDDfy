@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Web;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Reporters.Html
 {
-    using System.Web;
-
-    public class HtmlReportBuilder : IReportBuilder
+    public class ClassicReportBuilder : IReportBuilder
     {
-        private HtmlReportViewModel _viewModel;
+        private HtmlReportModel _model;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
         int _tabCount;
 
-        public HtmlReportBuilder()
+        public ClassicReportBuilder()
         {
             _html = new StringBuilder();
         }
 
         string IReportBuilder.CreateReport(FileReportModel model)
         {
-            return CreateReport(model as HtmlReportViewModel);
+            return CreateReport(model as HtmlReportModel);
         }
 
-        public string CreateReport(HtmlReportViewModel model)
+        public string CreateReport(HtmlReportModel model)
         {
-            _viewModel = model;
+            _model = model;
             AddLine("<!DOCTYPE html>");
             using (OpenTag(HtmlTag.html))
             {
@@ -42,10 +41,10 @@ namespace TestStack.BDDfy.Reporters.Html
             using (OpenTag(HtmlTag.head))
             {
                 AddLine("<meta charset='utf-8'/>");
-                EmbedCssFile(HtmlReportResources.BDDfy_css_min);
-                EmbedCssFile(_viewModel.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
+                EmbedCssFile(HtmlReportResources.classic_css_min);
+                EmbedCssFile(_model.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
 
-                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _viewModel.RunDate.ToShortDateString()));
+                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _model.RunDate.ToShortDateString()));
             }
         }
 
@@ -68,8 +67,8 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             using (OpenTag("<div class='header'>", HtmlTag.div))
             {
-                AddLine(string.Format("<div id='BDDfyTitle'>{0}</div>", _viewModel.Configuration.ReportHeader));
-                AddLine(string.Format("<div id='BDDfyDescription'>{0}</div>", _viewModel.Configuration.ReportDescription));
+                AddLine(string.Format("<div id='BDDfyTitle'>{0}</div>", _model.Configuration.ReportHeader));
+                AddLine(string.Format("<div id='BDDfyDescription'>{0}</div>", _model.Configuration.ReportDescription));
             }
         }
 
@@ -81,12 +80,12 @@ namespace TestStack.BDDfy.Reporters.Html
 
                 using (OpenTag("<ul class='resultSummary'>", HtmlTag.ul))
                 {
-                    AddSummaryLine("storySummary", "Stories", _viewModel.Summary.Stories);
-                    AddSummaryLine("scenarioSummary", "Scenarios", _viewModel.Summary.Scenarios);
-                    AddSummaryLine("Passed", "Passed", _viewModel.Summary.Passed);
-                    AddSummaryLine("Inconclusive", "Inconclusive", _viewModel.Summary.Inconclusive);
-                    AddSummaryLine("NotImplemented", "Not Implemented", _viewModel.Summary.NotImplemented);
-                    AddSummaryLine("Failed", "Failed", _viewModel.Summary.Failed);
+                    AddSummaryLine("storySummary", "Stories", _model.Summary.Stories);
+                    AddSummaryLine("scenarioSummary", "Scenarios", _model.Summary.Scenarios);
+                    AddSummaryLine("Passed", "Passed", _model.Summary.Passed);
+                    AddSummaryLine("Inconclusive", "Inconclusive", _model.Summary.Inconclusive);
+                    AddSummaryLine("NotImplemented", "Not Implemented", _model.Summary.NotImplemented);
+                    AddSummaryLine("Failed", "Failed", _model.Summary.Failed);
                 }
             }
         }
@@ -125,13 +124,13 @@ namespace TestStack.BDDfy.Reporters.Html
 
                 using (OpenTag("<ul class='testResult'>", HtmlTag.ul))
                 {
-                    foreach (var story in _viewModel.Stories)
+                    foreach (var story in _model.Stories)
                     {
                         AddStory(story);
                     }
                 }
 
-                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", _viewModel.RunDate));
+                AddLine(string.Format("<p><span>Tested at: {0}</span></p>", _model.RunDate));
             }
         }
 
@@ -139,13 +138,13 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             AddLine("<div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>");
 
-            if (_viewModel.Configuration.ResolveJqueryFromCdn)
+            if (_model.Configuration.ResolveJqueryFromCdn)
                 AddLine("<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>");
             else
                 EmbedJavascriptFile(HtmlReportResources.jquery_2_1_0_min);
 
-            EmbedJavascriptFile(HtmlReportResources.BDDfy_js_min);
-            EmbedJavascriptFile(_viewModel.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
+            EmbedJavascriptFile(HtmlReportResources.classic_js_min);
+            EmbedJavascriptFile(_model.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
 
         private void AddStory(Story story)
@@ -217,7 +216,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
             using (OpenTag("<li class='step'>", HtmlTag.li))
             {
-                AddLine("<h3>Examples:</h3>");
+                AddLine("<span class='example-header'>Examples:</span>");
                 using (OpenTag(string.Format("<table class='examples' style='border-collapse: collapse;margin-left:10px''>"), HtmlTag.table))
                 {
                     using (OpenTag("<tr>", HtmlTag.tr))

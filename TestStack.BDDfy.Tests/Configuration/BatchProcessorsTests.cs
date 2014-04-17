@@ -2,7 +2,6 @@
 using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
-using TestStack.BDDfy.Reporters.HtmlMetro;
 using TestStack.BDDfy.Reporters.MarkDown;
 
 namespace TestStack.BDDfy.Tests.Configuration
@@ -12,7 +11,7 @@ namespace TestStack.BDDfy.Tests.Configuration
     {
         static bool MetroReportProcessorIsActive(IBatchProcessor batchProcessor)
         {
-            return batchProcessor is HtmlReporter && ((HtmlReporter)batchProcessor).ReportBuilder is HtmlMetroReportBuilder;
+            return batchProcessor is HtmlReporter && ((HtmlReporter)batchProcessor).ReportBuilder is MetroReportBuilder;
         }
 
         [Test]

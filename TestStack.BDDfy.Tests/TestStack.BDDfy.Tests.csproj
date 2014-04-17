@@ -77,13 +77,13 @@
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
-    <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.cs" />
+    <Compile Include="Reporters\Html\MetroReportBuilderTests.cs" />
     <Compile Include="Processors\TestRunnerTests.cs" />
-    <Compile Include="Reporters\Html\HtmlReportBuilderTests.cs" />
+    <Compile Include="Reporters\Html\ClassicReportBuilderTests.cs" />
     <Compile Include="Reporters\Html\HtmlReporterTests.cs" />
     <Compile Include="Reporters\Html\TemporaryCulture.cs" />
-    <Compile Include="Reporters\Html\LineEndingsScrubber.cs" />
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
+    <Compile Include="Reporters\ReportApprover.cs" />
     <Compile Include="Scanner\FluentScanner\FluentWithExamples.cs" />
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
     <Compile Include="Scanner\ReflectiveScanner\ReflectiveWithExamples.cs" />
@@ -154,7 +154,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Reporters\Html\HtmlReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
+    <None Include="Reporters\Html\ClassicReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestStack.BDDfy\TestStack.BDDfy.csproj">
@@ -164,10 +164,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Reporters\HtmlMetro\HtmlMetroReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
+    <None Include="Reporters\Html\MetroReportBuilderTests.ShouldProduceExpectedHtml.approved.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Reporters\Html\HtmlReportBuilderTests.ShouldProduceExpectedHtmlWithExamples.approved.txt" />
+    <Content Include="Reporters\Html\ClassicReportBuilderTests.ShouldProduceExpectedHtmlWithExamples.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
