@@ -42,12 +42,13 @@ namespace TestStack.BDDfy
 
         internal FluentScanner(TScenario testObject)
         {
+            TestContext.SetContext(testObject, this);
             _testObject = testObject;
         }
 
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(this, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
+            return new DefaultScanner(TestContext.GetContext(_testObject), new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
 
         IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
@@ -330,7 +331,7 @@ namespace TestStack.BDDfy
                                     if (Examples != null)
                                     {
 
-                                        var matchingHeader = this.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
+                                        var matchingHeader = Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
                                         if (matchingHeader != null)
                                             return string.Format("<{0}>", matchingHeader);
                                     }

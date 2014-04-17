@@ -15,10 +15,10 @@ namespace TestStack.BDDfy.Tests.Processors
         {
             const int ExpectedValue = 1;
             int actualValue = 0;
-            var exampleTable = this.WithExamples(new ExampleTable("ExampleValue")
+            var exampleTable = new ExampleTable("ExampleValue")
             {
                 ExpectedValue
-            }).Examples.Single();
+            }.Single();
 
             var sut = new TestRunner();
             Action<object> action = o => actualValue = ExampleValue;

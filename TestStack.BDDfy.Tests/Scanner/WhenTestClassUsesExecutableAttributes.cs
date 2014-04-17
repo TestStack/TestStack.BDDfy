@@ -48,7 +48,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         public void WhenStep_TestClassHasAttributes()
         {
             _typeWithAttribute = new TypeWithAttribute();
-            _steps = new ExecutableAttributeStepScanner().Scan(_typeWithAttribute.Given("")).ToList();
+            _steps = new ExecutableAttributeStepScanner().Scan(TestContext.GetContext(_typeWithAttribute)).ToList();
         }
 
         private static string GetStepTextFromMethodName(Action methodInfoAction)

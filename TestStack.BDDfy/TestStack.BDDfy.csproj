@@ -76,6 +76,7 @@
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Configuration\TestRunnerFactory.cs" />
     <Compile Include="IBatchProcessor.cs" />
+    <Compile Include="ITestContext.cs" />
     <Compile Include="Processors\ScenarioExecutor.cs" />
     <Compile Include="Processors\UnusedExampleException.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
-    <Compile Include="ITestContext.cs" />
     <Compile Include="Scanners\StepScanners\Examples\Example.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />

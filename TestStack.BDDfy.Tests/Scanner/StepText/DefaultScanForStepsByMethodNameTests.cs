@@ -37,7 +37,7 @@ namespace TestStack.BDDfy.Tests.Scanner.StepText
         {
             var testObject = new ScenarioWithVaryingStepTexts();
             var scanner = new DefaultMethodNameStepScanner();
-            var steps = scanner.Scan(testObject.Given("")).ToList();
+            var steps = scanner.Scan(TestContext.GetContext(testObject)).ToList();
             var theStep = steps.Where(s => s.Title == expectedStepTitle);
             
             if(exists)

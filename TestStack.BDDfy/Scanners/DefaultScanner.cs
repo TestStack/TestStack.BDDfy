@@ -12,7 +12,7 @@ namespace TestStack.BDDfy
 
         public DefaultScanner(ITestContext testContext, IScenarioScanner scenarioScanner, Type explicitStoryType = null)
         {
-            this._testContext = testContext;
+            _testContext = testContext;
             _explicitStoryType = explicitStoryType;
             _scenarioScanner = scenarioScanner;
         }
