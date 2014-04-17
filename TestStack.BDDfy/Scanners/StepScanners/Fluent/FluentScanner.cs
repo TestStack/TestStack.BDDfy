@@ -39,25 +39,17 @@ namespace TestStack.BDDfy
     {
         private readonly List<Step> _steps = new List<Step>();
         private readonly TScenario _testObject;
+        private ITestContext _testContext;
 
         internal FluentScanner(TScenario testObject)
         {
             _testObject = testObject;
+            _testContext = TestContext.GetContext(_testObject);
         }
-
-        public object TestObject
-        {
-            get
-            {
-                return _testObject;
-            }
-        }
-
-        public ExampleTable Examples { get; set; }
 
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(TestContext.GetContext(_testObject), new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
+            return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
 
         public void AddStep(Action stepAction, string title, bool reports, ExecutionOrder executionOrder, bool asserts)
@@ -155,10 +147,10 @@ namespace TestStack.BDDfy
                                 .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
                                 .Select(i =>
                                 {
-                                    if (Examples != null)
+                                    if (_testContext.Examples != null)
                                     {
 
-                                        var matchingHeader = Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
+                                        var matchingHeader = _testContext.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
                                         if (matchingHeader != null)
                                             return string.Format("<{0}>", matchingHeader);
                                     }
