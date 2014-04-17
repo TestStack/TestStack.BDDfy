@@ -1,5 +1,7 @@
 ﻿namespace TestStack.BDDfy.Processors
 {
+    using System.Linq;
+
     public class TestRunner : IProcessor
     {
         public ProcessType ProcessType
@@ -21,6 +23,12 @@
 
                     if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)
                         break;
+                }
+
+                if (scenario.Example != null)
+                {
+                    var unusedValue = scenario.Example.Values.FirstOrDefault(v => !v.ValueHasBeenUsed);
+                    if (unusedValue != null) throw new UnusedExampleException(unusedValue);
                 }
             }
         }

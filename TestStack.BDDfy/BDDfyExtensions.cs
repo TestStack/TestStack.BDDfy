@@ -56,24 +56,21 @@ namespace TestStack.BDDfy
 
         static IScanner GetReflectiveScanner(object testObject, string scenarioTitle = null, Type explicitStoryType = null)
         {
-            var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
+            var testContext = TestContext.GetContext(testObject);
+            var stepScanners = Configurator.Scanners.GetStepScanners(testContext).ToArray();
             var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
 
-            return new DefaultScanner(testObject, reflectiveScenarioScanner, explicitStoryType);
+            return new DefaultScanner(testContext, reflectiveScenarioScanner, explicitStoryType);
         }
 
         static IScanner GetFluentScanner(object testObject, string scenarioTitle, Type explicitStoryType)
         {
             IScanner scanner = null;
 
-            var examples = testObject as ExampleTable;
-
             var fluentScanner = testObject as IFluentScanner;
-            if (examples != null)
-                fluentScanner = examples.TestObject as IFluentScanner;
 
             if (fluentScanner != null)
-                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType, examples);
+                scanner = fluentScanner.GetScanner(scenarioTitle, explicitStoryType);
 
             return scanner;
         }

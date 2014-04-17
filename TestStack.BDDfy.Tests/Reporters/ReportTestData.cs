@@ -94,8 +94,8 @@ namespace TestStack.BDDfy.Tests.Reporters
                 }
                 return new List<Scenario>
                 {
-                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", this.WithExamples(exampleTable).ElementAt(0)),
-                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", this.WithExamples(exampleTable).ElementAt(1))
+                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0)),
+                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1))
                 }.ToArray();
             }
 
@@ -121,7 +121,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
             SetAllStepResults(scenarios[1].Steps, Result.Passed);
             scenarios[1].Steps.Last().Result = Result.Failed;
-            scenarios[1].Steps.Last().Exception = new FakeExceptionWithStackTrace("This is a test exception.");               
+            scenarios[1].Steps.Last().Exception = new FakeExceptionWithStackTrace("This is a test exception.");
 
             return scenarios.ToArray();
         }
@@ -130,9 +130,9 @@ namespace TestStack.BDDfy.Tests.Reporters
         {
             var steps = new List<Step>
             {
-                new Step(null, "Given a positive account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new Step(null, "Then money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("Given a positive account balance"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("Then money is dispensed"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
             };
             return steps;
         }
@@ -141,9 +141,9 @@ namespace TestStack.BDDfy.Tests.Reporters
         {
             var steps = new List<Step>
             {
-                new Step(null, "Given a <sign> account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new Step(null, "Then money <action> dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("Given a <sign> account balance"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("Then money <action> dispensed"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
             };
             return steps;
         }
@@ -152,20 +152,20 @@ namespace TestStack.BDDfy.Tests.Reporters
         {
             var steps = new List<Step>
             {
-                new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new Step(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
+                new Step(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
             };
             return steps;
         }
 
         private IEnumerable<Step> GetInconclusiveExecutionSteps()
         {
-            var steps = new List<Step>()
+            var steps = new List<Step>
             {
-                new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
             };
 
             SetAllStepResults(steps, Result.Passed);
@@ -178,11 +178,11 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private IEnumerable<Step> GetNotImplementedExecutionSteps()
         {
-            var steps = new List<Step>()
+            var steps = new List<Step>
             {
-                new Step(null, "Given a negative account balance", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "When the account holder requests money", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new Step(null, "Then no money is dispensed", true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
+                new Step(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
             };
 
             SetAllStepResults(steps, Result.Passed);

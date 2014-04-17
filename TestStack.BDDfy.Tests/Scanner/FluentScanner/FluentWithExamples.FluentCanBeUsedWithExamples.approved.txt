@@ -3,11 +3,12 @@ Scenario: Fluent can be used with examples
 	Given method taking <example int>           
 	  Given method taking <example int>         
 	  Given a different method with random arg 2
+	  Given a different method with <Prop2>     
 	When method using <example string>          
 	Then all is good                            
 
 Examples: 
-| Prop 1 | Prop2 |
-| 1      | foo   |
-| 2      | bar   |
+| Prop 1 | Prop2 | Prop 3               |
+| 1      | foo   | ConsecutiveAssertion |
+| 2      | bar   | Initialize           |
 

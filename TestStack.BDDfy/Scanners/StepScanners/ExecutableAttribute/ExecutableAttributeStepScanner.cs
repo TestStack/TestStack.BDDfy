@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,15 +25,15 @@ namespace TestStack.BDDfy
     /// </example>
     public class ExecutableAttributeStepScanner : IStepScanner
     {
-        public IEnumerable<Step> Scan(object testObject, MethodInfo candidateMethod)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo candidateMethod)
         {
             var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if(executableAttribute == null)
                 yield break;
 
-            string stepTitle = executableAttribute.StepTitle;
+            var stepTitle = new StepTitle(executableAttribute.StepTitle);
             if(string.IsNullOrEmpty(stepTitle))
-                stepTitle = NetToString.Convert(candidateMethod.Name);
+                stepTitle = new StepTitle(NetToString.Convert(candidateMethod.Name));
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
 
@@ -61,7 +60,7 @@ namespace TestStack.BDDfy
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), new StepTitle(methodName), stepAsserts,
                                       executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
@@ -69,7 +68,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public IEnumerable<Step> Scan(object testObject, MethodInfo method, Example example)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
             var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if (executableAttribute == null)
@@ -100,7 +99,7 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
-            yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true);
+            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, true);
         }
 
 
