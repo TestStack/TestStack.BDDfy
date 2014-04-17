@@ -9,6 +9,7 @@
         ConsecutiveTransition = 5,
         Assertion = 6,
         ConsecutiveAssertion = 7,
-        TearDown = 8
+        TearDown = 8,
+        ConsecutiveStep
     }
 }

@@ -15,6 +15,7 @@ namespace TestStack.BDDfy.Processors
         {
             foreach (var scenario in story.Scenarios)
             {
+                TestContext.ClearContextFor(scenario.TestObject);
                 scenario.TestObject = null;
                 foreach (var step in scenario.Steps)
                     step.Action = null;
