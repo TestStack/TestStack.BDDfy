@@ -219,8 +219,8 @@ namespace TestStack.BDDfy.Reporters.Html
             {
                 if (scenarioGroup.Count() == 1)
                     AddScenario(scenarioGroup.Single());
-                //else
-                //    AddScenarioWithExamples(scenarioGroup);
+                else
+                    AddScenarioWithExamples(scenarioGroup);
             }
         }
 
@@ -259,7 +259,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
             using (OpenTag("<li class='step'>", HtmlTag.li))
             {
-                AddLine("<h3>Examples:</h3>");
+                AddLine("<div class='example-header'>Examples:</div>");
                 using (OpenTag(string.Format("<table class='examples' style='border-collapse: collapse;margin-left:10px''>"), HtmlTag.table))
                 {
                     using (OpenTag("<tr>", HtmlTag.tr))
@@ -299,7 +299,7 @@ namespace TestStack.BDDfy.Reporters.Html
                     var exceptionId = Configurator.IdGenerator.GetStepId();
                     var encodedExceptionMessage = HttpUtility.HtmlEncode(failingStep.Exception.Message);
                     AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, encodedExceptionMessage));
-                    using (OpenTag(string.Format("<div class='step' id='{0}'>", exceptionId), HtmlTag.div))
+                    using (OpenTag(string.Format("<div class='step FailedException' id='{0}'>", exceptionId), HtmlTag.div))
                     {
                         AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
                     }

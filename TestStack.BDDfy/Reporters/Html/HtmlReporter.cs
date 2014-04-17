@@ -16,7 +16,12 @@ namespace TestStack.BDDfy.Reporters.Html
         public HtmlReportModel Model { get; private set; }
 
         public HtmlReporter(IHtmlReportConfiguration configuration)
-            : this(configuration, new ClassicReportBuilder(), new FileWriter(), new FileReader())
+            : this(configuration, new ClassicReportBuilder())
+        {
+        }
+
+        public HtmlReporter(IReportBuilder reportBuilder)
+            : this(new DefaultHtmlReportConfiguration(), reportBuilder)
         {
         }
 
