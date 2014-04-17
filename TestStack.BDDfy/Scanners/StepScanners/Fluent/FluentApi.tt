@@ -7,6 +7,7 @@
 <#
     var steps = new[]
     {
+        //StepName, reports, executionOrder, asserts
         Tuple.Create("Given", "true", "ExecutionOrder.SetupState", "false"),
         Tuple.Create("When", "true", "ExecutionOrder.Transition", "false"),
         Tuple.Create("Then", "true", "ExecutionOrder.Assertion", "true"),
