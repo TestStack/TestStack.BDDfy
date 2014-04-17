@@ -259,7 +259,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
             using (OpenTag("<li class='step'>", HtmlTag.li))
             {
-                AddLine("<div class='example-header'>Examples:</div>");
+                AddLine("<span class='example-header'>Examples:</span>");
                 using (OpenTag(string.Format("<table class='examples' style='border-collapse: collapse;margin-left:10px''>"), HtmlTag.table))
                 {
                     using (OpenTag("<tr>", HtmlTag.tr))

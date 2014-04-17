@@ -102,7 +102,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                       <span>Then money &lt;action&gt; dispensed</span>
                     </li>
                     <li class='step'>
-                      <div class='example-header'>Examples:</div>
+                      <span class='example-header'>Examples:</span>
                       <table class='examples' style='border-collapse: collapse;margin-left:10px''>
                         <tr>
                           <th></th>
@@ -159,7 +159,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                       <span>Then money &lt;action&gt; dispensed</span>
                     </li>
                     <li class='step'>
-                      <div class='example-header'>Examples:</div>
+                      <span class='example-header'>Examples:</span>
                       <table class='examples' style='border-collapse: collapse;margin-left:10px''>
                         <tr>
                           <th></th>
