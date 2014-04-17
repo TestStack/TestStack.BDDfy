@@ -57,7 +57,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
 
         public int Prop1 { get; set; }
-        private string _prop2;
+        private string _prop2 = null;
         public ExecutionOrder Prop_3 { get; set; }
     }
 }
