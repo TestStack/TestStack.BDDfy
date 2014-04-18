@@ -1,0 +1,109 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+    var steps = new[]
+    {
+        //StepName, reports, executionOrder, asserts
+        Tuple.Create("Given", "true", "ExecutionOrder.SetupState", "false"),
+        Tuple.Create("When", "true", "ExecutionOrder.Transition", "false"),
+        Tuple.Create("Then", "true", "ExecutionOrder.Assertion", "true"),
+        Tuple.Create("And", "true", "ExecutionOrder.ConsecutiveStep", "false"),
+        Tuple.Create("But", "true", "ExecutionOrder.ConsecutiveStep", "false"),
+        Tuple.Create("TearDownWith", "false", "ExecutionOrder.TearDown", "false")
+    };
+#>
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+// ReSharper disable CheckNamespace
+// This is in BDDfy namespace to make its usage simpler
+namespace TestStack.BDDfy
+// ReSharper restore CheckNamespace
+{
+    public static class FluentStepScannerExtensions
+    {
+        static FluentScanner<TScenario> Scan<TScenario>(this TScenario testObject) where TScenario : class
+        {
+            var existingContext = TestContext.GetContext(testObject);
+            if (existingContext.FluentScanner == null)
+                existingContext.FluentScanner = new FluentScanner<TScenario>(testObject);
+
+            return (FluentScanner<TScenario>) existingContext.FluentScanner;
+        }
+
+<#
+    foreach (var stepType in steps)
+    {
+#>
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            testObject.Scan().AddStep(step, stepTextTemplate, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            testObject.Scan().AddStep(step, null, includeInputsInStepTitle, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Expression<Action<TScenario>> step)
+            where TScenario: class
+        {
+            testObject.Scan().AddStep(step, null, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+        
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            testObject.Scan().AddStep(step, stepTextTemplate, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            testObject.Scan().AddStep(step, null, includeInputsInStepTitle, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step)
+            where TScenario: class
+        {
+            testObject.Scan().AddStep(step, null, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Action step, string title)
+            where TScenario : class
+        {
+            testObject.Scan().AddStep(step, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, Func<Task> step, string title)
+            where TScenario : class
+        {
+            testObject.Scan().AddStep(step, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+
+        public static TScenario <#=stepType.Item1#><TScenario>(this TScenario testObject, string title)
+            where TScenario : class
+        {
+            testObject.Scan().AddStep(() => { }, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return testObject;
+        }
+<#
+    }
+#>
+    }
+}

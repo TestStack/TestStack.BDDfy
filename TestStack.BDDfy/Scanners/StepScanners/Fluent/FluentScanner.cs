@@ -34,257 +34,35 @@ namespace TestStack.BDDfy
     /// }
     /// </code>
     /// </example>
-    internal class FluentScanner<TScenario> : IFluentScanner, IInitialStep<TScenario>, IGiven<TScenario>, IWhen<TScenario>, IThen<TScenario>, ITestContext
+    internal class FluentScanner<TScenario> : IFluentScanner
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
         private readonly TScenario _testObject;
+        private ITestContext _testContext;
 
         internal FluentScanner(TScenario testObject)
         {
-            TestContext.SetContext(testObject, this);
             _testObject = testObject;
+            _testContext = TestContext.GetContext(_testObject);
         }
 
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(TestContext.GetContext(_testObject), new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
+            return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }
 
-        IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, string stepTextTemplate)
+        public void AddStep(Action stepAction, string title, bool reports, ExecutionOrder executionOrder, bool asserts)
         {
-            AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
-            return this;
+            _steps.Add(new Step(StepActionFactory.GetStepAction<object>(o => stepAction()), new StepTitle(title), FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports));
         }
 
-        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, string stepTextTemplate)
+        public void AddStep(Func<Task> stepAction, string title, bool reports, ExecutionOrder executionOrder, bool asserts)
         {
-            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
-            return this;
+            _steps.Add(new Step(StepActionFactory.GetStepAction<object>(o => stepAction()), new StepTitle(title), FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports));
         }
 
-        IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Func<TScenario, Task>> givenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(givenStep, null, false, ExecutionOrder.SetupState, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Func<TScenario, Task>> whenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, string stepTextTemplate)
-        {
-            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IThen<TScenario> IThen<TScenario>.And(Expression<Func<TScenario, Task>> andThenStep, string stepTextTemplate)
-        {
-            AddStep(andThenStep, stepTextTemplate, true, ExecutionOrder.ConsecutiveAssertion);
-            return this;
-        }
-
-        IThen<TScenario> IThen<TScenario>.And(Expression<Func<TScenario, Task>> andThenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(andThenStep, null, true, ExecutionOrder.ConsecutiveAssertion, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IWhen<TScenario> IWhen<TScenario>.And(Expression<Func<TScenario, Task>> andWhenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(andWhenStep, null, false, ExecutionOrder.ConsecutiveTransition, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Func<TScenario, Task>> thenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IGiven<TScenario> IGiven<TScenario>.And(Expression<Func<TScenario, Task>> andGivenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(andGivenStep, null, false, ExecutionOrder.ConsecutiveSetupState, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IGiven<TScenario> IGiven<TScenario>.And(Expression<Func<TScenario, Task>> andGivenStep, string stepTextTemplate)
-        {
-            AddStep(andGivenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveSetupState);
-            return this;
-        }
-
-        IWhen<TScenario> IWhen<TScenario>.And(Expression<Func<TScenario, Task>> andWhenStep, string stepTextTemplate)
-        {
-            AddStep(andWhenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveTransition);
-            return this;
-        }
-
-        IStepsBase<TScenario> IStepsBase<TScenario>.TearDownWith(Expression<Func<TScenario, Task>> tearDownStep)
-        {
-            AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
-            return this;
-        }
-
-        public IGiven<TScenario> Given(Expression<Action<TScenario>> givenStep, string stepTextTemplate = null)
-        {
-            AddStep(givenStep, stepTextTemplate, false, ExecutionOrder.SetupState);
-            return this;
-        }
-
-        public IGiven<TScenario> Given(Action givenStep, string title)
-        {
-            AddStep(givenStep, title, false, ExecutionOrder.SetupState);
-            return this;
-        }
-
-        public IGiven<TScenario> Given(string title)
-        {
-            AddStep(() => { }, title, false, ExecutionOrder.SetupState);
-            return this;
-        }
-
-        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Action<TScenario>> whenStep, string stepTextTemplate)
-        {
-            AddStep(whenStep, stepTextTemplate, false, ExecutionOrder.Transition);
-            return this;
-        }
-
-        IWhen<TScenario> IWhenSteps<TScenario>.When(Action whenStep, string title)
-        {
-            AddStep(whenStep, title, false, ExecutionOrder.Transition);
-            return this;
-        }
-
-        IWhen<TScenario> IWhenSteps<TScenario>.When(string title)
-        {
-            AddStep(() => { }, title, false, ExecutionOrder.Transition);
-            return this;
-        }
-
-        IGiven<TScenario> IInitialStep<TScenario>.Given(Expression<Action<TScenario>> givenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(givenStep, null, false, ExecutionOrder.SetupState, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IWhen<TScenario> IWhenSteps<TScenario>.When(Expression<Action<TScenario>> whenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(whenStep, null, false, ExecutionOrder.Transition, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(andGivenStep, null, false, ExecutionOrder.ConsecutiveSetupState, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Action<TScenario>> thenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(thenStep, null, true, ExecutionOrder.Assertion, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(andWhenStep, null, false, ExecutionOrder.ConsecutiveTransition, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IGiven<TScenario> IGiven<TScenario>.And(Expression<Action<TScenario>> andGivenStep, string stepTextTemplate)
-        {
-            AddStep(andGivenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveSetupState);
-            return this;
-        }
-
-        IGiven<TScenario> IGiven<TScenario>.And(Action andGivenStep, string title)
-        {
-            AddStep(andGivenStep, title, false, ExecutionOrder.ConsecutiveSetupState);
-            return this;
-        }
-
-        IGiven<TScenario> IGiven<TScenario>.And(string title)
-        {
-            AddStep(() => { }, title, false, ExecutionOrder.ConsecutiveSetupState);
-            return this;
-        }
-
-        IThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep, bool includeInputsInStepTitle)
-        {
-            AddStep(andThenStep, null, true, ExecutionOrder.ConsecutiveAssertion, includeInputsInStepTitle: includeInputsInStepTitle);
-            return this;
-        }
-
-        IThen<TScenario> IThenSteps<TScenario>.Then(Expression<Action<TScenario>> thenStep, string stepTextTemplate)
-        {
-            AddStep(thenStep, stepTextTemplate, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IThen<TScenario> IThenSteps<TScenario>.Then(Action thenStep, string title)
-        {
-            AddStep(thenStep, title, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IThen<TScenario> IThenSteps<TScenario>.Then(string title)
-        {
-            AddStep(() => { }, title, true, ExecutionOrder.Assertion);
-            return this;
-        }
-
-        IWhen<TScenario> IWhen<TScenario>.And(Expression<Action<TScenario>> andWhenStep, string stepTextTemplate)
-        {
-            AddStep(andWhenStep, stepTextTemplate, false, ExecutionOrder.ConsecutiveTransition);
-            return this;
-        }
-
-        IThen<TScenario> IThen<TScenario>.And(Expression<Action<TScenario>> andThenStep, string stepTextTemplate)
-        {
-            AddStep(andThenStep, stepTextTemplate, true, ExecutionOrder.ConsecutiveAssertion);
-            return this;
-        }
-
-        IWhen<TScenario> IWhen<TScenario>.And(Action andWhenStep, string title)
-        {
-            AddStep(andWhenStep, title, false, ExecutionOrder.ConsecutiveTransition);
-            return this;
-        }
-
-        IWhen<TScenario> IWhen<TScenario>.And(string title)
-        {
-            AddStep(() => { }, title, false, ExecutionOrder.ConsecutiveTransition);
-            return this;
-        }
-
-        IThen<TScenario> IThen<TScenario>.And(Action andThenStep, string title)
-        {
-            AddStep(andThenStep, title, true, ExecutionOrder.ConsecutiveAssertion);
-            return this;
-        }
-
-        IThen<TScenario> IThen<TScenario>.And(string title)
-        {
-            AddStep(() => { }, title, true, ExecutionOrder.ConsecutiveAssertion);
-            return this;
-        }
-
-        IStepsBase<TScenario> IStepsBase<TScenario>.TearDownWith(Expression<Action<TScenario>> tearDownStep)
-        {
-            AddStep(tearDownStep, null, false, ExecutionOrder.TearDown, false);
-            return this;
-        }
-
-        private void AddStep(Action stepAction, string title, bool asserts, ExecutionOrder executionOrder, bool reports = true)
-        {
-            _steps.Add(new Step(o => stepAction(), new StepTitle(title), asserts, executionOrder, reports));
-        }
-
-        private void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
+        public void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts)
         {
             var action = stepAction.Compile();
             var inputArguments = new object[0];
@@ -294,10 +72,10 @@ namespace TestStack.BDDfy
             }
 
             var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments);
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports));
         }
 
-        private void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool asserts, ExecutionOrder executionOrder, bool reports = true, bool includeInputsInStepTitle = true)
+        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts)
         {
             var action = stepAction.Compile();
 
@@ -308,7 +86,48 @@ namespace TestStack.BDDfy
             }
 
             var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments);
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, asserts, executionOrder, reports));
+            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports));
+        }
+
+        private bool FixAsserts(bool asserts, ExecutionOrder executionOrder)
+        {
+            if (executionOrder == ExecutionOrder.ConsecutiveStep)
+            {
+                var lastStep = _steps.LastOrDefault();
+                if (lastStep != null)
+                {
+                    return lastStep.Asserts;
+                }
+            }
+
+            return asserts;
+        }
+
+        private ExecutionOrder FixConsecutiveStep(ExecutionOrder executionOrder)
+        {
+            if (executionOrder == ExecutionOrder.ConsecutiveStep)
+            {
+                var lastStep = _steps.LastOrDefault();
+                if (lastStep != null)
+                {
+                    switch (lastStep.ExecutionOrder)
+                    {
+                        case ExecutionOrder.Initialize:
+                        case ExecutionOrder.SetupState:
+                        case ExecutionOrder.ConsecutiveSetupState:
+                            return ExecutionOrder.ConsecutiveSetupState;
+                        case ExecutionOrder.Transition:
+                        case ExecutionOrder.ConsecutiveTransition:
+                            return ExecutionOrder.ConsecutiveTransition;
+                        case ExecutionOrder.Assertion:
+                        case ExecutionOrder.ConsecutiveAssertion:
+                        case ExecutionOrder.TearDown:
+                            return ExecutionOrder.ConsecutiveAssertion;
+                    }
+                }
+            }
+
+            return executionOrder;
         }
 
         private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, object[] inputArguments)
@@ -328,10 +147,10 @@ namespace TestStack.BDDfy
                                 .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
                                 .Select(i =>
                                 {
-                                    if (Examples != null)
+                                    if (_testContext.Examples != null)
                                     {
 
-                                        var matchingHeader = Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
+                                        var matchingHeader = _testContext.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
                                         if (matchingHeader != null)
                                             return string.Format("<{0}>", matchingHeader);
                                     }
@@ -358,15 +177,5 @@ namespace TestStack.BDDfy
             var methodCall = (MethodCallExpression)stepAction.Body;
             return methodCall.Method;
         }
-
-        public object TestObject
-        {
-            get
-            {
-                return _testObject;
-            }
-        }
-
-        public ExampleTable Examples { get; set; }
     }
 }

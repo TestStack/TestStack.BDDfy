@@ -114,9 +114,12 @@
     <Compile Include="Scanners\StepScanners\Examples\Example.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentApi.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FluentApi.tt</DependentUpon>
+    </Compile>
     <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IThenSteps.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IWhenSteps.cs" />
     <Compile Include="Scanners\StepScanners\Examples\WithExamplesExtensions.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="Engine.cs" />
@@ -151,13 +154,7 @@
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\WhenAttribute.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\ExpressionExtensions.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\FluentScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\FluentScannerExtensions.cs" />
     <Compile Include="Scanners\ScenarioScanners\FluentScenarioScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IStepsBase.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IGiven.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IInitialStep.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IThen.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IWhen.cs" />
     <Compile Include="Scanners\StepScanners\IgnoreStepAttribute.cs" />
     <Compile Include="Scanners\StepScanners\IStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\DefaultMethodNameStepScanner.cs" />
@@ -177,6 +174,10 @@
     </None>
     <None Include="Reporters\Html\Scripts\metro.min.js.map">
       <DependentUpon>metro.js</DependentUpon>
+    </None>
+    <None Include="Scanners\StepScanners\Fluent\FluentApi.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FluentApi.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

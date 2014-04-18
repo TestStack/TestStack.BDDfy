@@ -73,7 +73,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         public static IEnumerable<Step> GetSteps(ScenarioToBeScannedUsingFluentScanner testObject)
         {
-            var fluentScanner = testObject
+            var fluentScanner = TestContext.GetContext(testObject
                 .Given(s => s.GivenSomeState(1, 2))
                     .And(s => s.WhenSomeStepUsesIncompatibleNamingConvention())
                     .And(s => s.AndAMethodTakesArrayInputs(new[] {"1", "2"}, new[] {3, 4}, 5))
@@ -85,9 +85,9 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .Then(s => s.ThenTheFollowingAssertionsShouldBeCorrect())
                     .And(s => s.AndIncorrectAttributeWouldNotMatter())
                     .And(s => s.ThenTitleFormatingWorksToo(InputDate), InputDateStepTitleTemplate)
-                .TearDownWith(s => s.Dispose());
+                .TearDownWith(s => s.Dispose())).FluentScanner;
 
-            return ((IFluentScanner)fluentScanner).GetScanner(null, null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
+            return fluentScanner.GetScanner(null, null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
         }
     }
 }

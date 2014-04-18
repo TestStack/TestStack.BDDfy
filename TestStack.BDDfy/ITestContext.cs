@@ -4,5 +4,6 @@ namespace TestStack.BDDfy
     {
         object TestObject { get; }
         ExampleTable Examples { get; set; }
+        IFluentScanner FluentScanner { get; set; }
     }
 }
