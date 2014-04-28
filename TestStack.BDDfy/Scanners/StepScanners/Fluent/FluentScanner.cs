@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Linq;
 using System.Threading.Tasks;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -136,7 +137,7 @@ namespace TestStack.BDDfy
                 {
 
                     var flatInputArray = inputArguments.FlattenArrays();
-                    var stepTitle = NetToString.Convert(methodInfo.Name);
+                    var stepTitle = Configurator.Scanners.Humanize(methodInfo.Name);
 
                     if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
                     else if (includeInputsInStepTitle)

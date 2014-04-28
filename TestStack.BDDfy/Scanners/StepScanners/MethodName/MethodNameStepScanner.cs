@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -122,7 +123,7 @@ namespace TestStack.BDDfy
 
         private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
         {
-            var methodName = _stepTextTransformer(NetToString.Convert(method.Name));
+            var methodName = _stepTextTransformer(Configurator.Scanners.Humanize(method.Name));
             object[] inputs = null;
 
             if (argAttribute != null && argAttribute.InputArguments != null)
