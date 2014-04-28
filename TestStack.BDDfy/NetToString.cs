@@ -20,7 +20,7 @@ namespace TestStack.BDDfy
                             return list;
                         }
 
-                        if(list.Count == 0)
+                        if (list.Count == 0)
                         {
                             list.Add(currentChar);
                             return list;
@@ -50,16 +50,21 @@ namespace TestStack.BDDfy
         public static readonly Func<string, string> Convert = name =>
         {
             if (name.Contains("__"))
-            {
-                // hacking the crap out of it for now
-                name = Regex.Replace(name, "__(\\w+)__", " <$1> ");
-                return FromPascalCase(name).Replace("_", "").Replace(" >", ">").Replace("< ", "<").TrimEnd();
-            }
+                return ExampleTitle(name);
 
             if (name.Contains("_"))
                 return FromUnderscoreSeparatedWords(name);
 
             return FromPascalCase(name);
         };
+
+        private static string ExampleTitle(string name)
+        {
+            name = Regex.Replace(name, "__([a-zA-Z]+)__", " <$1> ");
+
+            // for when there are two consequetive example placeholders in the word; e.g. Given__one____two__parameters
+            name = name.Replace("  ", " ");
+            return FromPascalCase(name).Replace("_", "").Replace(" >", ">").Replace("< ", "<").Trim();
+        }
     }
 }
