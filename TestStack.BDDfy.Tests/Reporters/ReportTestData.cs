@@ -55,7 +55,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private Scenario[] GetScenarios(bool includeFailingScenario, bool includeExamples)
         {
-            var sadExecutionSteps = GetSadExecutionSteps().ToArray();
+            var sadExecutionSteps = GetSadExecutionSteps().ToList();
             if (includeFailingScenario)
             {
                 var last = sadExecutionSteps.Last();
@@ -78,7 +78,7 @@ namespace TestStack.BDDfy.Tests.Reporters
                                             {"positive", "is"},
                                             {"negative", "is not"}
                                        };
-                var exampleExecutionSteps = GetExampleExecutionSteps().ToArray();
+                var exampleExecutionSteps = GetExampleExecutionSteps().ToList();
                 if (includeFailingScenario)
                 {
                     var last = exampleExecutionSteps.Last();
@@ -126,7 +126,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             return scenarios.ToArray();
         }
 
-        private IEnumerable<Step> GetHappyExecutionSteps()
+        private List<Step> GetHappyExecutionSteps()
         {
             var steps = new List<Step>
             {
@@ -137,7 +137,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             return steps;
         }
 
-        private IEnumerable<Step> GetExampleExecutionSteps()
+        private List<Step> GetExampleExecutionSteps()
         {
             var steps = new List<Step>
             {
@@ -148,7 +148,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             return steps;
         }
 
-        private IEnumerable<Step> GetSadExecutionSteps()
+        private List<Step> GetSadExecutionSteps()
         {
             var steps = new List<Step>
             {
@@ -159,7 +159,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             return steps;
         }
 
-        private IEnumerable<Step> GetInconclusiveExecutionSteps()
+        private List<Step> GetInconclusiveExecutionSteps()
         {
             var steps = new List<Step>
             {
@@ -176,7 +176,7 @@ namespace TestStack.BDDfy.Tests.Reporters
         }
 
 
-        private IEnumerable<Step> GetNotImplementedExecutionSteps()
+        private List<Step> GetNotImplementedExecutionSteps()
         {
             var steps = new List<Step>
             {
