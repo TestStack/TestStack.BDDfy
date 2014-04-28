@@ -104,7 +104,7 @@
     <Compile Include="Scanner\FluentScanner\WhenStepsAreScannedUsingFluentScanner.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HumanizerTests.cs" />
+    <Compile Include="NetToStringTests.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilderTests.cs" />
     <Compile Include="Reporters\Diagnostics\WhenBuildingReportDiagnostics.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReporterTests.cs" />

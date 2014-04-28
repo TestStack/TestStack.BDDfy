@@ -45,7 +45,7 @@ namespace TestStack.BDDfy
             if (initiatingFrame == null)
                 return null;
 
-            return NetToString.Convert(initiatingFrame.GetMethod().Name);
+            return Configurator.Scanners.Humanize(initiatingFrame.GetMethod().Name);
         }
     }
 }

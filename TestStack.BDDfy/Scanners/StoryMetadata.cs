@@ -1,4 +1,5 @@
 ﻿using System;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -11,7 +12,7 @@ namespace TestStack.BDDfy
 
         public StoryMetadata(Type storyType, string narrative1, string narrative2, string narrative3, string title = null, string titlePrefix = null)
         {
-            Title = title ?? NetToString.Convert(storyType.Name);
+            Title = title ?? Configurator.Scanners.Humanize(storyType.Name);
             TitlePrefix = titlePrefix ?? "Story: ";
             Type = storyType;
 

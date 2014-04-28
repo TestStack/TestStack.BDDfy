@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -33,7 +34,7 @@ namespace TestStack.BDDfy
 
             var stepTitle = new StepTitle(executableAttribute.StepTitle);
             if(string.IsNullOrEmpty(stepTitle))
-                stepTitle = new StepTitle(NetToString.Convert(candidateMethod.Name));
+                stepTitle = new StepTitle(Configurator.Scanners.Humanize(candidateMethod.Name));
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
 
@@ -76,7 +77,7 @@ namespace TestStack.BDDfy
 
             string stepTitle = executableAttribute.StepTitle;
             if (string.IsNullOrEmpty(stepTitle))
-                stepTitle = NetToString.Convert(method.Name);
+                stepTitle = Configurator.Scanners.Humanize(method.Name);
 
             var stepAsserts = IsAssertingByAttribute(method);
             var methodParameters = method.GetParameters();
