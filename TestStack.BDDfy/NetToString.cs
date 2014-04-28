@@ -14,37 +14,39 @@ namespace TestStack.BDDfy
                 new List<char>(), 
                 (list, currentChar) =>
                     {
-                        if (currentChar == ' ')
-                        {
+                        if (currentChar == ' ' || list.Count == 0)
                             list.Add(currentChar);
-                            return list;
-                        }
-
-                        if (list.Count == 0)
+                        else
                         {
-                            list.Add(currentChar);
-                            return list;
-                        }
-
-                        var lastCharacterInTheList = list[list.Count - 1];
-                        if (lastCharacterInTheList != ' ')
-                        {
-                            if(char.IsDigit(lastCharacterInTheList))
-                            {
-                                if (char.IsLetter(currentChar))
-                                    list.Add(' ');
-                            }
-                            else if (!char.IsLower(currentChar))
+                            if(ShouldAddSpace(list[list.Count - 1], currentChar))
                                 list.Add(' ');
+                            list.Add(char.ToLower(currentChar));
                         }
-
-                        list.Add(char.ToLower(currentChar));
 
                         return list;
                     });
 
             var result = new string(chars.ToArray());
             return result.Replace(" i ", " I "); // I is an exception
+        }
+
+        private static bool ShouldAddSpace(char lastChar, char currentChar)
+        {
+            if (lastChar == ' ') 
+                return false;
+
+            if (char.IsDigit(lastChar))
+            {
+                if (char.IsLetter(currentChar))
+                    return true;
+
+                return false;
+            }
+
+            if (!char.IsLower(currentChar) && currentChar != '>' && lastChar != '<')
+                return true;
+
+            return false;
         }
 
         public static readonly Func<string, string> Convert = name =>
@@ -64,7 +66,7 @@ namespace TestStack.BDDfy
 
             // for when there are two consequetive example placeholders in the word; e.g. Given__one____two__parameters
             name = name.Replace("  ", " ");
-            return FromPascalCase(name).Replace("_", "").Replace(" >", ">").Replace("< ", "<").Trim();
+            return Convert(name).Trim();
         }
     }
 }

@@ -58,13 +58,13 @@ namespace TestStack.BDDfy.Tests
         [TestCase("GivenThereAre__start__Cucumbers", "Given there are <start> cucumbers")]
         [TestCase("Given_there_are__start__cucumbers", "Given there are <start> cucumbers")]
         [TestCase("GivenMethodTaking__ExampleInt__", "Given method taking <example int>")]
-        [TestCase("Given_method_taking__ExampleInt__", "Given method taking <example int>")]
+        [TestCase("Given_method_taking__ExampleInt__", "Given method taking <ExampleInt>")]
         [TestCase("__starting__with_example", "<starting> with example")]
         [TestCase("__starting__WithExample", "<starting> with example")]
-        [TestCase("WhenMethod__Takes____Two__Parameters", "When method <takes> <two> parameters")]
-        [TestCase("When_method__Takes____Two__Parameters", "When method <takes> <two> parameters")]
-        [TestCase("When_method_takes__one__and__two__Parameters", "When method takes <one> and <two> parameters")]
-        [TestCase("WhenMethodTakes__one__and__two__Parameters", "When method takes <one> and <two> parameters")]
+        [TestCase("WhenMethod__takes____two__parameters", "When method <takes> <two> parameters")]
+        [TestCase("When_method__takes____two__parameters", "When method <takes> <two> parameters")]
+        [TestCase("When_method_takes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
+        [TestCase("WhenMethodTakes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
         public void CanDealWithExampleStepNames(string stepName, string expectedStepTitle)
         {
             NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
