@@ -80,6 +80,60 @@ namespace TestStack.BDDfy
         {
             return new FluentTestBuilder<TScenario>(testObject).Given(title);
         }
+
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step, stepTextTemplate);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step, includeInputsInStepTitle);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step)
+            where TScenario: class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step);
+        }
+        
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step, stepTextTemplate);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step, includeInputsInStepTitle);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step)
+            where TScenario: class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Action step, string title)
+            where TScenario : class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step, title);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, Func<Task> step, string title)
+            where TScenario : class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(step, title);
+        }
+ 
+        public static IFluentTestBuilder<TScenario> When<TScenario>(this TScenario testObject, string title)
+            where TScenario : class
+        {
+            return new FluentTestBuilder<TScenario>(testObject).When(title);
+        }
     }
 
     public interface IFluentTestBuilder<TScenario> where TScenario: class
