@@ -7,19 +7,19 @@ namespace TestStack.BDDfy
 {
     public class Scenario
     {
-        public Scenario(object testObject, IEnumerable<Step> steps, string scenarioText)
+        public Scenario(object testObject, List<Step> steps, string scenarioText)
         {
             TestObject = testObject;
-            Steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+            Steps = steps;
             Title = scenarioText;
             Id = Configurator.IdGenerator.GetScenarioId();
         }
 
-        public Scenario(string id, object testObject, IEnumerable<Step> steps, string scenarioText, Example example)
+        public Scenario(string id, object testObject, List<Step> steps, string scenarioText, Example example)
         {
             Id = id;
             TestObject = testObject;
-            Steps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+            Steps = steps;
             Title = scenarioText;
             Example = example;
         }

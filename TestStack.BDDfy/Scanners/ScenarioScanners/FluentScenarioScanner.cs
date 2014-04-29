@@ -8,9 +8,9 @@ namespace TestStack.BDDfy
     public class FluentScenarioScanner : IScenarioScanner
     {
         private readonly string _title;
-        private readonly IEnumerable<Step> _steps;
+        private readonly List<Step> _steps;
 
-        public FluentScenarioScanner(IEnumerable<Step> steps, string title)
+        public FluentScenarioScanner(List<Step> steps, string title)
         {
             _title = title;
             _steps = steps;
@@ -29,9 +29,9 @@ namespace TestStack.BDDfy
             return new[] { new Scenario(testContext.TestObject, _steps, scenarioText) };
         }
 
-        private IEnumerable<Step> CloneSteps(IEnumerable<Step> steps)
+        private List<Step> CloneSteps(IEnumerable<Step> steps)
         {
-            return steps.Select(step => new Step(step));
+            return steps.Select(step => new Step(step)).ToList();
         }
 
         private static string GetTitleFromMethodNameInStackTrace(object testObject)
