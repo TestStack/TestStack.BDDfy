@@ -17,17 +17,24 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .And(_ => GivenADifferentMethodWithRandomArg(2))
                 .And(_ => GivenADifferentMethodWith(_prop2))
                 .When(_ => WhenMethodUsing__ExampleString__())
+                .When(_ => AndIUseA(multiWordHeading))
                 .Then(_ => ThenAllIsGood())
-                .WithExamples(new ExampleTable("Prop 1", "Prop2", "Prop 3")
+                .WithExamples(new ExampleTable("Prop 1", "Prop2", "Prop 3", "Multi word heading")
                 {
-                    {1, "foo", ExecutionOrder.ConsecutiveAssertion },
-                    {2, "bar", ExecutionOrder.Initialize }
+                    {1, "foo", ExecutionOrder.ConsecutiveAssertion, "" },
+                    {2, "bar", ExecutionOrder.Initialize, "val2" }
                 })
                 .BDDfy();
 
             var textReporter = new TextReporter();
             textReporter.Process(story);
             Approvals.Verify(textReporter.ToString());
+        }
+
+        private void AndIUseA(string multiWordHeading)
+        {
+            multiWordHeading.ShouldBeOneOf("", "val2");
+            this.multiWordHeading.ShouldBeOneOf("", "val2");
         }
 
         private void GivenADifferentMethodWith(string prop2)
@@ -58,6 +65,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         public int Prop1 { get; set; }
         private string _prop2 = null;
+        private string multiWordHeading = null;
         public ExecutionOrder Prop_3 { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace TestStack.BDDfy
 
         static object[] GetValues(string row)
         {
-            return row.Split('|').Select(h => (object)h.Trim()).ToArray();
+            return row.Split('|').Select(h => h.Trim()).Select(s=>string.IsNullOrEmpty(s) ? null : (object)s).ToArray();
         }
 
         public static bool HeaderMatches(string header, string name)
