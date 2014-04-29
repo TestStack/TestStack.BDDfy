@@ -32,10 +32,9 @@ namespace TestStack.BDDfy
         public object GetValue(Type targetType)
         {
             var stringValue = _underlyingValue as string;
-            if (_underlyingValue == null || (_underlyingValue is string && string.IsNullOrEmpty(stringValue)))
+            if (_underlyingValue == null)
             {
-                if (targetType.IsValueType &&
-                    !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof (Nullable<>)))
+                if (targetType.IsValueType && !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof (Nullable<>)))
                 {
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
                     throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, Row));

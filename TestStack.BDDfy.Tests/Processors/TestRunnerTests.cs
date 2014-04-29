@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using TestStack.BDDfy.Processors;
@@ -22,11 +23,11 @@ namespace TestStack.BDDfy.Tests.Processors
 
             var sut = new TestRunner();
             Action<object> action = o => actualValue = ExampleValue;
-            var steps = new[]{new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true) };
-            
+            var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true) };
+
             var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable);
             var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()),
-                new[]{ scenarioWithExample});
+                new[] { scenarioWithExample });
 
             sut.Process(story);
 
