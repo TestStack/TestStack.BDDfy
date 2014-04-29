@@ -6,12 +6,13 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
     [TestFixture]
     public class ComplexStepsTests
     {
-        private int count = 0;
+        private int count;
 
         [Test]
         public void ShouldBeAbleToChainComplexTestWithFluentApi()
         {
-            this.When(() => count++.ShouldBe(0), "When I do something")
+            this.Given(_ => count.ShouldBe(0))
+                .When(() => count++.ShouldBe(0), "When I do something")
                 .Given(() => count++.ShouldBe(1), "Given I am doing things in different order")
                 .Then(() => count++.ShouldBe(2), "Then they should run in defined order")
                 .When(() => count++.ShouldBe(3), "When I have whens after thens things still work")

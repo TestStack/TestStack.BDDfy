@@ -9,6 +9,7 @@ namespace TestStack.BDDfy.Tests.Stories
         public void Verify()
         {
             var story = this
+                .Given("Given step must be first")
                 .When(_ => WhenStoryIsSpecifiedInFluentMode())
                 .Then(_ => ThenTheSpecifiedStoryShouldBeUsed())
                 .BDDfy<SharedStoryNotion>();

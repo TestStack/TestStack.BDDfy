@@ -119,8 +119,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FluentApi.tt</DependentUpon>
     </Compile>
+    <Compile Include="Scanners\StepScanners\Fluent\FluentTestBuilder.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
     <Compile Include="Scanners\StepScanners\Examples\WithExamplesExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\IFluentTestBuilder.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="StepTitle.cs" />

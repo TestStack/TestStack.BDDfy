@@ -13,6 +13,9 @@ namespace TestStack.BDDfy
 
         public static void SetContext(object testObject, ITestContext context)
         {
+            var fluentBuilder = testObject as IFluentTestBuilder;
+            if (fluentBuilder != null) testObject = fluentBuilder.TestObject;
+
             if (ContextLookup.ContainsKey(testObject))
             {
                 var oldContext = ContextLookup[testObject];
@@ -27,6 +30,9 @@ namespace TestStack.BDDfy
 
         public static ITestContext GetContext(object testObject)
         {
+            var fluentBuilder = testObject as IFluentTestBuilder;
+            if (fluentBuilder != null) testObject = fluentBuilder.TestObject;
+
             if (!ContextLookup.ContainsKey(testObject))
                 ContextLookup.Add(testObject, new TestContext(testObject));
 
