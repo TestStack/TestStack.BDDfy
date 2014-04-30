@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            Approvals.Verify(actual);
+            Approvals.Verify(actual.ToString(), StackTraceScrubber.Scrub);
         }
     }
 }

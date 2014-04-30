@@ -21,7 +21,7 @@ Scenario: Sad Path Scenario [for Happiness]
 
 Exceptions:
   1. Boom
-   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in c:\_mine\Code\TestStack\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 203
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in ...\ReportTestData.cs
 
 
 Story: Happiness
@@ -46,54 +46,6 @@ Scenario: Not Implemented Scenario [for Happiness]
 	Then no money is dispensed                   [Not implemented] 
 
 
-Story: Account holder withdraws cash
-	As an account holder
-	I want to withdraw cash
-	So that I can get money when the bank is closed
-
-Scenario: Happy Path Scenario [for Account holder withdraws cash]
-	Given a positive account balance
-	When the account holder requests money
-	Then money is dispensed
-
-
-Story: Account holder withdraws cash
-	As an account holder
-	I want to withdraw cash
-	So that I can get money when the bank is closed
-
-Scenario: Sad Path Scenario [for Account holder withdraws cash]
-	Given a negative account balance             [Passed] 
-	When the account holder requests money       [Passed] 
-	Then no money is dispensed                   [Failed] [Boom] [Details at 1 below]
-
-Exceptions:
-  1. Boom
-   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in c:\_mine\Code\TestStack\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 203
-
-
-Story: Account holder withdraws cash
-	As an account holder
-	I want to withdraw cash
-	So that I can get money when the bank is closed
-
-Scenario: Inconclusive Scenario [for Account holder withdraws cash]
-	Given a negative account balance             [Passed] 
-	When the account holder requests money       [Passed] 
-	Then no money is dispensed                   [Inconclusive] 
-
-
-Story: Account holder withdraws cash
-	As an account holder
-	I want to withdraw cash
-	So that I can get money when the bank is closed
-
-Scenario: Not Implemented Scenario [for Account holder withdraws cash]
-	Given a negative account balance             [Passed] 
-	When the account holder requests money       [Passed] 
-	Then no money is dispensed                   [Not implemented] 
-
-
 
 Scenario: Happy Path Scenario [with no story]
 	Given a positive account balance
@@ -109,7 +61,7 @@ Scenario: Sad Path Scenario [with no story]
 
 Exceptions:
   1. Boom
-   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in c:\_mine\Code\TestStack\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 203
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in ...\ReportTestData.cs
 
 
 
@@ -124,5 +76,41 @@ Scenario: Not Implemented Scenario [with no story]
 	Given a negative account balance             [Passed] 
 	When the account holder requests money       [Passed] 
 	Then no money is dispensed                   [Not implemented] 
+
+
+Story: Unhappy examples
+	As an unhappy examples story
+	I want to see failed steps
+	So that I can diagnose what's wrong
+
+Scenario: Example Scenario
+	Given a <sign> account balance        
+	When the account holder requests money
+	Then money <action> dispensed         
+
+Examples: 
+| sign     | action | Result | Errors                                                                                 |
+| positive | is     | Passed |                                                                                        |
+| negative | is not | Failed | Step: Then money <action> dispensed failed with exception: [Boom] [Details at 1 below] |
+
+Exceptions:
+  1. Boom
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs
+
+
+Story: Happy Examples
+	As a happy examples story
+	I want a clean report with examples
+	So that the report is clean and readable
+
+Scenario: Example Scenario
+	Given a <sign> account balance        
+	When the account holder requests money
+	Then money <action> dispensed         
+
+Examples: 
+| sign     | action |
+| positive | is     |
+| negative | is not |
 
 

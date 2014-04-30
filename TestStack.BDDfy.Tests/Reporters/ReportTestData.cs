@@ -43,7 +43,8 @@ namespace TestStack.BDDfy.Tests.Reporters
         public IEnumerable<Story> CreateMixContainingEachTypeOfOutcomeWithOneScenarioPerStory()
         {
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
+            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an unhappy examples story", "I want to see failed steps", "So that I can diagnose what's wrong", "Unhappy examples");
+            var storyMetadata3 = new StoryMetadata(typeof(PlatinumAccountHolderStory), "As a happy examples story", "I want a clean report with examples", "So that the report is clean and readable", "Happy Examples");
 
             const StoryMetadata testThatReportWorksWithNoStory = null;
 
@@ -53,14 +54,12 @@ namespace TestStack.BDDfy.Tests.Reporters
                 new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]")),
                 new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Happiness]")),
                 new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Happiness]")),
-                new Story(storyMetadata2, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Account holder withdraws cash]")),
-                new Story(storyMetadata2, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Account holder withdraws cash]")),
-                new Story(storyMetadata2, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Account holder withdraws cash]")),
-                new Story(storyMetadata2, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Account holder withdraws cash]")),
                 new Story(testThatReportWorksWithNoStory, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [with no story]")),
                 new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [with no story]")),
                 new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [with no story]")),
                 new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [with no story]")),
+                new Story(storyMetadata2, GetScenarios(true, true)),
+                new Story(storyMetadata3, GetScenarios(false, true)),
             };
 
             return stories;
@@ -253,6 +252,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         public class RegularAccountHolderStory { }
         public class GoldAccountHolderStory { }
+        public class PlatinumAccountHolderStory { }
         public class ExampleScenario
         {
             public void GivenA__sign__AccountBalance() { }
