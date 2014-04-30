@@ -1,4 +1,5 @@
-﻿using ApprovalTests;
+﻿using System.Runtime.CompilerServices;
+using ApprovalTests;
 using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
@@ -32,6 +33,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
 
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void ExampleTypeMismatch()
         {
             var ex = Should.Throw<UnassignableExampleException>(
