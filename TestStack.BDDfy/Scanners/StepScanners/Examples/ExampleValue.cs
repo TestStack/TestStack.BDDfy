@@ -34,7 +34,7 @@ namespace TestStack.BDDfy
             var stringValue = _underlyingValue as string;
             if (_underlyingValue == null)
             {
-                if (targetType.IsValueType && !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof (Nullable<>)))
+                if (targetType.IsValueType && !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>)))
                 {
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
                     throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, Row));
@@ -49,10 +49,20 @@ namespace TestStack.BDDfy
             if (targetType.IsEnum && _underlyingValue is string)
                 return Enum.Parse(targetType, (string)_underlyingValue);
 
-            if (targetType == typeof (DateTime))
+            if (targetType == typeof(DateTime))
                 return DateTime.Parse(stringValue);
 
-            return Convert.ChangeType(_underlyingValue, targetType);
+            try
+            {
+                return Convert.ChangeType(_underlyingValue, targetType);
+            }
+            catch (InvalidCastException ex)
+            {
+                throw new UnassignableExampleException(string.Format(
+                    "{0} cannot be assigned to {1} (Column: '{2}', Row: {3})", 
+                    _underlyingValue == null ? "<null>" : _underlyingValue.ToString(),
+                    targetType.Name, Header, Row), ex, this);
+            }
         }
 
         public bool ValueHasBeenUsed { get; private set; }
@@ -60,6 +70,11 @@ namespace TestStack.BDDfy
         public override string ToString()
         {
             return string.Join("{0}: {1}", Header, _underlyingValue);
+        }
+
+        public string GetValueAsString()
+        {
+            return _underlyingValue.FlattenArray().ToString();
         }
     }
 }

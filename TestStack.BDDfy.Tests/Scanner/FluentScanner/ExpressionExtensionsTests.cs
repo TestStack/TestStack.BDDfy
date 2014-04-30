@@ -29,21 +29,40 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
     public class ExpressionExtensionsTests : BaseClass
     {
+        private class ContainerType
+        {
+            public int Target { get; set; }
+
+            public string Target2 { get; set; }
+
+            public ContainerType SubContainer { get; set; }
+
+            public override string ToString()
+            {
+                return Target2;
+            }
+        }
+
         class ClassUnderTest
         {
             public void MethodWithoutArguments()
             {
-                
+
             }
 
             public void MethodWithInputs(int input1, string input2)
             {
-                
+
             }
 
             public void MethodWithArrayInputs(int[] input1, string[] input2)
             {
-                
+
+            }
+
+            public void MethodWithInputs(ContainerType subContainer)
+            {
+
             }
         }
 
@@ -89,6 +108,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             return someInput + " Input 2";
         }
 
+        ContainerType container = new ContainerType();
+
         [Test]
         public void NoArguments()
         {
@@ -96,11 +117,13 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Assert.That(arguments.Length, Is.EqualTo(0));
         }
 
-        void AssertReturnedArguments(object[] arguments, object expectedArg1, object expectedArg2)
+        void AssertReturnedArguments(object[] arguments, params object[] expectedArgs)
         {
-            Assert.That(arguments.Length, Is.EqualTo(2));
-            Assert.That(arguments[0], Is.EqualTo(expectedArg1));
-            Assert.That(arguments[1], Is.EqualTo(expectedArg2));
+            Assert.That(arguments.Length, Is.EqualTo(expectedArgs.Length));
+            for (int i = 0; i < expectedArgs.Length; i++)
+            {
+                Assert.That(arguments[i], Is.EqualTo(expectedArgs[i]));
+            }
         }
 
         [Test]
@@ -132,14 +155,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             var arguments = GetArguments(x => x.MethodWithInputs(Input1, Input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, Input1, Input2);
         }
-        
+
         [Test]
         public void InputArgumentsProvidedUsingInheritedFields()
         {
             var arguments = GetArguments(x => x.MethodWithInputs(InheritedInput1, InheritedInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, InheritedInput1, InheritedInput2);
         }
-        
+
         [Test]
         public void InputArgumentsProvidedUsingMethodCallDoesNotThrow()
         {
@@ -150,14 +173,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void ArrayInputsArgumentsProvidedInline()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(new[] { 1, 2 }, new[] { "3", "4" }), new ClassUnderTest());
-            AssertReturnedArguments(arguments, new[] {1, 2}, new[] {"3", "4"});
+            AssertReturnedArguments(arguments, new[] { 1, 2 }, new[] { "3", "4" });
         }
 
         [Test]
         public void ArrayInputArgumentsProvidedUsingVariables()
         {
-            var input1 = new[] {1, 2};
-            var input2 = new[] {"3", "4"};
+            var input1 = new[] { 1, 2 };
+            var input2 = new[] { "3", "4" };
             var arguments = GetArguments(x => x.MethodWithArrayInputs(input1, input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, input1, input2);
         }
@@ -174,6 +197,33 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(ArrayInput1, ArrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, ArrayInput1, ArrayInput2);
+        }
+
+        [Test]
+        public void ComplexArgument()
+        {
+            container.Target = 1;
+            container.SubContainer = new ContainerType { Target2 = "Foo" };
+
+            var arguments = GetArguments(x => x.MethodWithInputs(container.Target, container.SubContainer.Target2), new ClassUnderTest());
+            AssertReturnedArguments(arguments, 1, "Foo");
+        }
+
+        [Test]
+        public void ComplexArgument2()
+        {
+            container.SubContainer = new ContainerType { Target2 = "Foo" };
+
+            var arguments = GetArguments(x => x.MethodWithInputs(container.SubContainer), new ClassUnderTest());
+            AssertReturnedArguments(arguments, container.SubContainer);
+        }
+
+        [Test]
+        public void ComplexArgumentWhenContainerIsNull()
+        {
+            ContainerType nullContainer = null;
+            var arguments = GetArguments(x => x.MethodWithInputs(nullContainer.SubContainer), new ClassUnderTest());
+            AssertReturnedArguments(arguments, new object[] { null });
         }
 
         [Test]

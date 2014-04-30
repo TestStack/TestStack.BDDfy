@@ -1,4 +1,5 @@
-﻿using ApprovalTests;
+﻿using System.Runtime.CompilerServices;
+using ApprovalTests;
 using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
@@ -31,6 +32,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Approvals.Verify(textReporter.ToString());
         }
 
+        [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ExampleTypeMismatch()
+        {
+            var ex = Should.Throw<UnassignableExampleException>(
+                () => this.Given(() => WrongType.ShouldBe(1), "Given i use an example")
+                    .WithExamples(new ExampleTable("Wrong type")
+                                      {
+                                          new object(), 
+                                          new object[] { null }
+                                      })
+                    .BDDfy());
+
+            ex.Message.ShouldBe("System.Object cannot be assigned to Int32 (Column: 'Wrong type', Row: 1)");
+        }
+
         private void AndIUseA(string multiWordHeading)
         {
             multiWordHeading.ShouldBeOneOf("", "val2");
@@ -44,7 +61,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         private void GivenADifferentMethodWithRandomArg(int foo)
         {
-            
+
         }
 
         private void ThenAllIsGood()
@@ -63,6 +80,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             exampleInt.ShouldBeInRange(1, 2);
         }
 
+        public int WrongType { get; set; }
         public int Prop1 { get; set; }
         private string _prop2 = null;
         private string multiWordHeading = null;

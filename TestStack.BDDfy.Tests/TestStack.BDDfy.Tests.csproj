@@ -90,6 +90,7 @@
     <Compile Include="Scanner\FluentScanner\InlineAssertions.cs" />
     <Compile Include="Scanner\ReflectiveScanner\ReflectiveWithExamples.cs" />
     <Compile Include="Scanner\StepScanners\Examples\ExampleTableTests.cs" />
+    <Compile Include="Scanner\StepScanners\Examples\ExampleValueTests.cs" />
     <Compile Include="Scanner\WhenStepScannerFactoryAsyncMethods.cs" />
     <Compile Include="Configuration\CustomProcessor.cs" />
     <Compile Include="Configuration\BatchProcessorsTests.cs" />
