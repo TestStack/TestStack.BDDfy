@@ -40,6 +40,32 @@ namespace TestStack.BDDfy.Tests.Reporters
             return stories;
         }
 
+        public IEnumerable<Story> CreateMixContainingEachTypeOfOutcomeWithOneScenarioPerStory()
+        {
+            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
+            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
+
+            const StoryMetadata testThatReportWorksWithNoStory = null;
+
+            var stories = new List<Story>()
+            {
+                new Story(storyMetadata1, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Happiness]")),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]")),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Happiness]")),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Happiness]")),
+                new Story(storyMetadata2, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Account holder withdraws cash]")),
+                new Story(storyMetadata2, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Account holder withdraws cash]")),
+                new Story(storyMetadata2, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Account holder withdraws cash]")),
+                new Story(storyMetadata2, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Account holder withdraws cash]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [with no story]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [with no story]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [with no story]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [with no story]")),
+            };
+
+            return stories;
+        }
+
         public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
         {
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
@@ -156,6 +182,31 @@ namespace TestStack.BDDfy.Tests.Reporters
                 new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
                 new Step(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
             };
+            return steps;
+        }
+
+        private List<Step> GetFailingExecutionSteps()
+        {
+            var steps = new List<Step>
+            {
+                new Step(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true),
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true),
+                new Step(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true),
+            };
+
+            SetAllStepResults(steps, Result.Passed);
+
+            var last = steps.Last();
+            last.Result = Result.Failed;
+            try
+            {
+                throw new InvalidOperationException("Boom");
+            }
+            catch (Exception ex)
+            {
+                last.Exception = ex;
+            }
+
             return steps;
         }
 

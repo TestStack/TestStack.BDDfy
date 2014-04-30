@@ -1,0 +1,128 @@
+﻿Story: Happiness
+	As a person
+	I want ice cream
+	So that I can be happy
+
+Scenario: Happy Path Scenario [for Happiness]
+	Given a positive account balance
+	When the account holder requests money
+	Then money is dispensed
+
+
+Story: Happiness
+	As a person
+	I want ice cream
+	So that I can be happy
+
+Scenario: Sad Path Scenario [for Happiness]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Failed] [Boom] [Details at 1 below]
+
+Exceptions:
+  1. Boom
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in c:\_mine\Code\TestStack\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 203
+
+
+Story: Happiness
+	As a person
+	I want ice cream
+	So that I can be happy
+
+Scenario: Inconclusive Scenario [for Happiness]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Inconclusive] 
+
+
+Story: Happiness
+	As a person
+	I want ice cream
+	So that I can be happy
+
+Scenario: Not Implemented Scenario [for Happiness]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Not implemented] 
+
+
+Story: Account holder withdraws cash
+	As an account holder
+	I want to withdraw cash
+	So that I can get money when the bank is closed
+
+Scenario: Happy Path Scenario [for Account holder withdraws cash]
+	Given a positive account balance
+	When the account holder requests money
+	Then money is dispensed
+
+
+Story: Account holder withdraws cash
+	As an account holder
+	I want to withdraw cash
+	So that I can get money when the bank is closed
+
+Scenario: Sad Path Scenario [for Account holder withdraws cash]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Failed] [Boom] [Details at 1 below]
+
+Exceptions:
+  1. Boom
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in c:\_mine\Code\TestStack\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 203
+
+
+Story: Account holder withdraws cash
+	As an account holder
+	I want to withdraw cash
+	So that I can get money when the bank is closed
+
+Scenario: Inconclusive Scenario [for Account holder withdraws cash]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Inconclusive] 
+
+
+Story: Account holder withdraws cash
+	As an account holder
+	I want to withdraw cash
+	So that I can get money when the bank is closed
+
+Scenario: Not Implemented Scenario [for Account holder withdraws cash]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Not implemented] 
+
+
+
+Scenario: Happy Path Scenario [with no story]
+	Given a positive account balance
+	When the account holder requests money
+	Then money is dispensed
+
+
+
+Scenario: Sad Path Scenario [with no story]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Failed] [Boom] [Details at 1 below]
+
+Exceptions:
+  1. Boom
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in c:\_mine\Code\TestStack\TestStack.BDDfy\TestStack.BDDfy.Tests\Reporters\ReportTestData.cs:line 203
+
+
+
+Scenario: Inconclusive Scenario [with no story]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Inconclusive] 
+
+
+
+Scenario: Not Implemented Scenario [with no story]
+	Given a negative account balance             [Passed] 
+	When the account holder requests money       [Passed] 
+	Then no money is dispensed                   [Not implemented] 
+
+

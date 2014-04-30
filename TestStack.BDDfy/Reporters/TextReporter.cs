@@ -160,9 +160,7 @@ namespace TestStack.BDDfy.Reporters
                 message = "\t" + PrefixWithSpaceIfRequired(step);
 
             if (step.Exception != null)
-            {
-                message = CreateExceptionMessage(step);
-            }
+                message += CreateExceptionMessage(step);
 
             if (step.Result == Result.Inconclusive || step.Result == Result.NotImplemented)
                 ForegroundColor = ConsoleColor.Yellow;
@@ -213,7 +211,6 @@ namespace TestStack.BDDfy.Reporters
 
         static string FlattenExceptionMessage(string message)
         {
-            // ToDo: if gets complex will change it with a regex
             return message
                 .Replace("\t", " ") // replace tab with one space
                 .Replace(Environment.NewLine, ", ") // replace new line with one space
