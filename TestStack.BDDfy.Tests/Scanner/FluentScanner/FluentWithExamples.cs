@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                                       })
                     .BDDfy());
 
-            ex.Message.ShouldBe("Wrong type: System.Object cannot be assigned to Int32");
+            ex.Message.ShouldBe("System.Object cannot be assigned to Int32 (Column: 'Wrong type', Row: 1)");
         }
 
         private void AndIUseA(string multiWordHeading)

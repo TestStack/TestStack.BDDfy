@@ -58,7 +58,10 @@ namespace TestStack.BDDfy
             }
             catch (InvalidCastException ex)
             {
-                throw new UnassignableExampleException(string.Format("{0}: {1} cannot be assigned to {2}", Header, _underlyingValue == null ? "<null>" : _underlyingValue.ToString(), targetType.Name), ex);
+                throw new UnassignableExampleException(string.Format(
+                    "{0} cannot be assigned to {1} (Column: '{2}', Row: {3})", 
+                    _underlyingValue == null ? "<null>" : _underlyingValue.ToString(),
+                    targetType.Name, Header, Row), ex, this);
             }
         }
 
@@ -71,7 +74,7 @@ namespace TestStack.BDDfy
 
         public string GetValueAsString()
         {
-            return _underlyingValue.FlattenArrays().ToString();
+            return _underlyingValue.FlattenArray().ToString();
         }
     }
 }

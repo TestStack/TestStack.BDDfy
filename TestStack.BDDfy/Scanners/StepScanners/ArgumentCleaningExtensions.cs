@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace TestStack.BDDfy
 {
-    internal static class StepScannerExtensions
+    internal static class ArgumentCleaningExtensions
     {
         internal static object[] FlattenArrays(this object[] inputs)
         {
-            return inputs.Select(FlattenArrays).ToArray();
+            return inputs.Select(FlattenArray).ToArray();
         }
 
-        public static object FlattenArrays(this object input)
+        public static object FlattenArray(this object input)
         {
             var inputArray = input as Array;
             if (inputArray != null)
