@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                                       })
                     .BDDfy());
 
-            Approvals.Verify(ex.Message);
+            ex.Message.ShouldBe("Wrong type: System.Object cannot be assigned to Int32");
         }
 
         private void AndIUseA(string multiWordHeading)
