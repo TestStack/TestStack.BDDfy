@@ -219,6 +219,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
 
         [Test]
+        public void ComplexArgumentWhenContainerIsNull()
+        {
+            ContainerType nullContainer = null;
+            var arguments = GetArguments(x => x.MethodWithInputs(nullContainer.SubContainer), new ClassUnderTest());
+            AssertReturnedArguments(arguments, new object[] { null });
+        }
+
+        [Test]
         public void ArrayInputArgumentsProvidedUsingInheritedProperty()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2), new ClassUnderTest());

@@ -223,10 +223,17 @@ namespace TestStack.BDDfy
             if (memberExpression != null)
             {
                 var extractArguments = ExtractArguments(memberExpression, value);
-                return new[]
+                try
+                {
+                    return new[]
                        {
                            member.GetValue(extractArguments.Single(), null)
                        };
+                }
+                catch (TargetException)
+                {
+                    return new object[] {null};
+                }
             }
             return new[]
                        {
