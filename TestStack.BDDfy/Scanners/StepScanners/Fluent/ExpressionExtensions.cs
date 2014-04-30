@@ -152,7 +152,6 @@ namespace TestStack.BDDfy
 
         private static IEnumerable<object> ExtractArguments<T>(ConstantExpression constantExpression, T value)
         {
-
             var expression = constantExpression.Value as Expression;
             if (expression != null)
             {
@@ -220,7 +219,19 @@ namespace TestStack.BDDfy
 
         private static IEnumerable<object> ExtractPropertyValue<T>(MemberExpression expression, PropertyInfo member, T value)
         {
-            return new[] { member.GetValue(value, null) };
+            var memberExpression = expression.Expression as MemberExpression;
+            if (memberExpression != null)
+            {
+                var extractArguments = ExtractArguments(memberExpression, value);
+                return new[]
+                       {
+                           member.GetValue(extractArguments.Single(), null)
+                       };
+            }
+            return new[]
+                       {
+                           member.GetValue(value, null)
+                       };
         }
     }
 }

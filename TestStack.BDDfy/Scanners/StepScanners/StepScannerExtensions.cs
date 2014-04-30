@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace TestStack.BDDfy
@@ -8,22 +7,21 @@ namespace TestStack.BDDfy
     {
         internal static object[] FlattenArrays(this object[] inputs)
         {
-            var flatArray = new List<object>();
-            foreach (var input in inputs)
+            return inputs.Select(FlattenArrays).ToArray();
+        }
+
+        public static object FlattenArrays(this object input)
+        {
+            var inputArray = input as Array;
+            if (inputArray != null)
             {
-                var inputArray = input as Array;
-                if (inputArray != null)
-                {
-                    var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToArray();
-                    flatArray.Add(string.Join(", ", temp));
-                }
-                else if (input == null)
-                    flatArray.Add("'null'");
-                else
-                    flatArray.Add(input);
+                var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToArray();
+                return string.Join(", ", temp);
             }
 
-            return flatArray.ToArray();
+            if (input == null) return "'null'";
+
+            return input;
         }
 
         static string GetSafeString(object input)

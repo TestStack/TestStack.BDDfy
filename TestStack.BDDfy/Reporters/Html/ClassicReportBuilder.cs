@@ -241,7 +241,7 @@ namespace TestStack.BDDfy.Reporters.Html
             {
                 AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
                 foreach (var exampleValue in scenario.Example.Values)
-                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(exampleValue.GetValue(typeof(string)))));
+                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(exampleValue.GetValueAsString())));
 
                 if (scenarioResult != Result.Failed)
                     return;

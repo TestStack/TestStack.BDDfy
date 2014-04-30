@@ -97,7 +97,7 @@ namespace TestStack.BDDfy.Reporters
                     ? null
                     : string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
 
-                addRow(scenario.Example.Values.Select(e => (string)e.GetValue(typeof(string))), scenario.Result.ToString(), error);
+                addRow(scenario.Example.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
             }
 
             foreach (var row in rows)
