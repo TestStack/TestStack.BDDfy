@@ -124,7 +124,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                           <td>
                             <span class='canToggle' data-toggle-target='step-1-19'>Boom</span>
                             <div class='step FailedException' id='step-1-19'>
-                              <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 113</code>
+                              <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 112</code>
                             </div>
                           </td>
                         </tr>

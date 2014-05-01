@@ -21,7 +21,7 @@
                     if (executor.ExecuteStep(executionStep) == Result.Passed) 
                         continue;
 
-                    if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)
+                    if (!scenario.CanContinueExecutionOnStepFail || Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)
                         break;
                 }
 

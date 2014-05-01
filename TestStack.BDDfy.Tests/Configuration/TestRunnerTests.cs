@@ -98,11 +98,11 @@ namespace TestStack.BDDfy.Tests.Configuration
             public void FailingThenDoesNotStopThePipelineWithReflectiveAPI()
             {
                 var testRun = new ScenarioWithFailingThen().LazyBDDfy();
-                Verify(testRun);
+                Verify(testRun, Result.Passed);
             }
 
             [Test]
-            public void FailingThenDoesNotStopThePipelineWithFluentAPI()
+            public void FailingThenDoesStopThePipelineWithFluentAPI()
             {
                 var testRun = new ScenarioWithFailingThen()
                     .Given(x => x.PassingGiven())
@@ -111,10 +111,10 @@ namespace TestStack.BDDfy.Tests.Configuration
                     .And(x => x.PassingAndThen())
                     .LazyBDDfy();
 
-                Verify(testRun);
+                Verify(testRun, Result.NotExecuted);
             }
 
-            private static void Verify(Engine testRun)
+            private static void Verify(Engine testRun, Result lastStepResult)
             {
                 Assert.Throws<Exception>(() => testRun.Run());
                 var scenario = testRun.Story.Scenarios.First();
@@ -128,7 +128,7 @@ namespace TestStack.BDDfy.Tests.Configuration
                 Assert.AreEqual(ExecutionOrder.Transition, steps[1].ExecutionOrder);
                 Assert.AreEqual(Result.Failed, steps[2].Result);
                 Assert.AreEqual(ExecutionOrder.Assertion, steps[2].ExecutionOrder);
-                Assert.AreEqual(Result.Passed, steps[3].Result);
+                Assert.AreEqual(lastStepResult, steps[3].Result);
                 Assert.AreEqual(ExecutionOrder.ConsecutiveAssertion, steps[3].ExecutionOrder);
             }
         }

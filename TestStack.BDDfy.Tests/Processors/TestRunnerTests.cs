@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Processors
             Action<object> action = o => actualValue = ExampleValue;
             var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true) };
 
-            var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable);
+            var scenarioWithExample = new Scenario("id", this, steps, true, "Scenario Text", exampleTable);
             var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()),
                 new[] { scenarioWithExample });
 
