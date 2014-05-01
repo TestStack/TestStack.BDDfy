@@ -40,6 +40,31 @@ namespace TestStack.BDDfy.Tests.Reporters
             return stories;
         }
 
+        public IEnumerable<Story> CreateMixContainingEachTypeOfOutcomeWithOneScenarioPerStory()
+        {
+            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
+            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an unhappy examples story", "I want to see failed steps", "So that I can diagnose what's wrong", "Unhappy examples");
+            var storyMetadata3 = new StoryMetadata(typeof(PlatinumAccountHolderStory), "As a happy examples story", "I want a clean report with examples", "So that the report is clean and readable", "Happy Examples");
+
+            const StoryMetadata testThatReportWorksWithNoStory = null;
+
+            var stories = new List<Story>()
+            {
+                new Story(storyMetadata1, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Happiness]")),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]")),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Happiness]")),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Happiness]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [with no story]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [with no story]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [with no story]")),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [with no story]")),
+                new Story(storyMetadata2, GetScenarios(true, true)),
+                new Story(storyMetadata3, GetScenarios(false, true)),
+            };
+
+            return stories;
+        }
+
         public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
         {
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
@@ -159,6 +184,31 @@ namespace TestStack.BDDfy.Tests.Reporters
             return steps;
         }
 
+        private List<Step> GetFailingExecutionSteps()
+        {
+            var steps = new List<Step>
+            {
+                new Step(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true),
+                new Step(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true),
+                new Step(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true),
+            };
+
+            SetAllStepResults(steps, Result.Passed);
+
+            var last = steps.Last();
+            last.Result = Result.Failed;
+            try
+            {
+                throw new InvalidOperationException("Boom");
+            }
+            catch (Exception ex)
+            {
+                last.Exception = ex;
+            }
+
+            return steps;
+        }
+
         private List<Step> GetInconclusiveExecutionSteps()
         {
             var steps = new List<Step>
@@ -202,6 +252,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         public class RegularAccountHolderStory { }
         public class GoldAccountHolderStory { }
+        public class PlatinumAccountHolderStory { }
         public class ExampleScenario
         {
             public void GivenA__sign__AccountBalance() { }
