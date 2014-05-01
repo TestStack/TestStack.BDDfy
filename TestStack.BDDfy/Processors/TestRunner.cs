@@ -16,13 +16,19 @@
                 var executor = new ScenarioExecutor(scenario);
                 executor.InitializeScenario();
 
+                var stepFailed = false;
                 foreach (var executionStep in scenario.Steps)
                 {
+                    if (stepFailed && (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts))
+                        break;
+
                     if (executor.ExecuteStep(executionStep) == Result.Passed) 
                         continue;
 
-                    if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)
+                    if (!executionStep.Asserts)
                         break;
+
+                    stepFailed = true;
                 }
 
                 if (scenario.Example != null)
