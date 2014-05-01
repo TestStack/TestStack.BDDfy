@@ -1,0 +1,35 @@
+﻿## Story: Account holder withdraws cash
+ **As an account holder**  
+ **I want to withdraw cash**  
+ **So that I can get money when the bank is closed**  
+
+### Example Scenario
+  Given a <sign> account balance  
+  When the account holder requests money  
+  Then money <action> dispensed  
+
+### Examples: 
+
+    | sign     | action | Result | Errors                                                                                 |
+    | positive | is     | Passed |                                                                                        |
+    | negative | is not | Failed | Step: Then money <action> dispensed failed with exception: [Boom] [Details at 1 below] |
+
+#### Exceptions:
+    1. Boom
+       at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 113
+
+## Story: Happiness
+ **As a person**  
+ **I want ice cream**  
+ **So that I can be happy**  
+
+### Example Scenario
+  Given a <sign> account balance  
+  When the account holder requests money  
+  Then money <action> dispensed  
+
+### Examples: 
+
+    | sign     | action |
+    | positive | is     |
+    | negative | is not |
