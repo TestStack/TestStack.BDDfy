@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TestStack.BDDfy.Tests.Reporters
 {
@@ -8,13 +7,13 @@ namespace TestStack.BDDfy.Tests.Reporters
 
     public class ReportTestData
     {
-        private int _idCount = 0;
+        private int _idCount;
 
         public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
         {
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
             var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
-            var stories = new List<Story>()
+            var stories = new List<Story>
             {
                 new Story(storyMetadata1, GetScenarios(false, false)),
                 new Story(storyMetadata2, GetScenarios(true, false))
@@ -30,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
             const StoryMetadata testThatReportWorksWithNoStory = null;
 
-            var stories = new List<Story>()
+            var stories = new List<Story>
             {
                 new Story(storyMetadata1, GetOneOfEachScenarioResult()),
                 new Story(storyMetadata2, GetOneOfEachScenarioResult()),
@@ -48,7 +47,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
             const StoryMetadata testThatReportWorksWithNoStory = null;
 
-            var stories = new List<Story>()
+            var stories = new List<Story>
             {
                 new Story(storyMetadata1, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Happiness]")),
                 new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]")),
@@ -119,8 +118,8 @@ namespace TestStack.BDDfy.Tests.Reporters
                 }
                 return new List<Scenario>
                 {
-                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0)),
-                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1))
+                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0), new List<StepArgument>()),
+                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1), new List<StepArgument>())
                 }.ToArray();
             }
 
@@ -133,7 +132,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private Scenario[] GetOneOfEachScenarioResult()
         {
-            var scenarios = new List<Scenario>()
+            var scenarios = new List<Scenario>
             {
                 new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario"),
                 new Scenario(typeof(SadPathScenario), GetSadExecutionSteps(), "Sad Path Scenario"),

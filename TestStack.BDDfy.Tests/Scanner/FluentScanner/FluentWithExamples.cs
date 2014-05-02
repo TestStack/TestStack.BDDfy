@@ -32,6 +32,27 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Approvals.Verify(textReporter.ToString());
         }
 
+        private void GivenIntWithValue(int inlineVariable)
+        {
+            inlineVariable.ShouldBeOneOf(1, 2);
+        }
+
+        [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void Inline()
+        {
+            // ReSharper disable once ConvertToConstant.Local
+            var inlineVariable = 0;
+            var story = this
+                .Given(_ => GivenIntWithValue(inlineVariable))
+                .WithExamples(new ExampleTable("Inline Variable") { 1, 2 })
+                .BDDfy();
+
+            var textReporter = new TextReporter();
+            textReporter.Process(story);
+            Approvals.Verify(textReporter.ToString());
+        }
+
         [Test]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ExampleTypeMismatch()

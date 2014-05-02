@@ -10,7 +10,7 @@ namespace TestStack.BDDfy
 {
     public static class ExpressionExtensions
     {
-        public static IEnumerable<object> ExtractArguments<T>(this Expression<Action<T>> expression, T value)
+        public static IEnumerable<StepArgument> ExtractArguments<T>(this Expression<Action<T>> expression, T value)
         {
             var lambdaExpression = expression as LambdaExpression;
             if (lambdaExpression == null)
@@ -23,7 +23,7 @@ namespace TestStack.BDDfy
             return ExtractArguments(methodCallExpression, value);
         }
 
-        public static IEnumerable<object> ExtractArguments<T>(this Expression<Func<T, Task>> expression, T value)
+        public static IEnumerable<StepArgument> ExtractArguments<T>(this Expression<Func<T, Task>> expression, T value)
         {
             var lambdaExpression = expression as LambdaExpression;
             if (lambdaExpression == null)
@@ -36,14 +36,14 @@ namespace TestStack.BDDfy
             return ExtractArguments(methodCallExpression, value);
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(Expression expression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(Expression expression, T value)
         {
             if (expression == null || expression is ParameterExpression)
-                return new object[0];
+                return new StepArgument[0];
 
             var memberExpression = expression as MemberExpression;
             if (memberExpression != null)
-                return ExtractArguments(memberExpression, value);
+                return new[] { ExtractArgument(memberExpression, value) };
 
             var constantExpression = expression as ConstantExpression;
             if (constantExpression != null)
@@ -61,12 +61,12 @@ namespace TestStack.BDDfy
             if (unaryExpression != null)
                 return ExtractArguments(unaryExpression, value);
 
-            return new object[0];
+            return new StepArgument[0];
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)
         {
-            var constants = new List<object>();
+            var constants = new List<StepArgument>();
             foreach (var arg in methodCallExpression.Arguments)
             {
                 constants.AddRange(ExtractArguments(arg, value));
@@ -77,23 +77,23 @@ namespace TestStack.BDDfy
             return constants;
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(UnaryExpression unaryExpression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(UnaryExpression unaryExpression, T value)
         {
             return ExtractArguments(unaryExpression.Operand, value);
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(NewExpression newExpression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(NewExpression newExpression, T value)
         {
-            var arguments = new List<object>();
+            var arguments = new List<StepArgument>();
             foreach (var argumentExpression in newExpression.Arguments)
             {
                 arguments.AddRange(ExtractArguments(argumentExpression, value));
             }
 
-            return new[] { newExpression.Constructor.Invoke(arguments.ToArray()) };
+            return new[] { new StepArgument(newExpression.Constructor.Invoke(arguments.Select(o => o.Value).ToArray())) };
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(NewArrayExpression newArrayExpression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(NewArrayExpression newArrayExpression, T value)
         {
             Type type = newArrayExpression.Type.GetElementType();
             if (type is IConvertible)
@@ -102,7 +102,7 @@ namespace TestStack.BDDfy
             return ExtractNonConvertibleArrayConstants(newArrayExpression, type, value);
         }
 
-        private static IEnumerable<object> ExtractNonConvertibleArrayConstants<T>(NewArrayExpression newArrayExpression, Type type, T value)
+        private static IEnumerable<StepArgument> ExtractNonConvertibleArrayConstants<T>(NewArrayExpression newArrayExpression, Type type, T value)
         {
             var arrayElements = CreateList(type);
             foreach (var arrayElementExpression in newArrayExpression.Expressions)
@@ -113,7 +113,7 @@ namespace TestStack.BDDfy
                 if (constantExpression != null)
                     arrayElement = constantExpression.Value;
                 else
-                    arrayElement = ExtractArguments(arrayElementExpression, value).ToArray();
+                    arrayElement = ExtractArguments(arrayElementExpression, value).Select(o => o.Value).ToArray();
 
                 if (arrayElement is object[])
                 {
@@ -124,7 +124,7 @@ namespace TestStack.BDDfy
                     arrayElements.Add(arrayElement);
             }
 
-            return ToArray(arrayElements);
+            return ToArray(arrayElements).Select(o => new StepArgument(o));
         }
 
         private static IEnumerable<object> ToArray(IList list)
@@ -138,7 +138,7 @@ namespace TestStack.BDDfy
             return (IList)typeof(List<>).MakeGenericType(type).GetConstructor(new Type[0]).Invoke(BindingFlags.CreateInstance, null, null, null);
         }
 
-        private static IEnumerable<object> ExtractConvertibleTypeArrayConstants(NewArrayExpression newArrayExpression, Type type)
+        private static IEnumerable<StepArgument> ExtractConvertibleTypeArrayConstants(NewArrayExpression newArrayExpression, Type type)
         {
             var arrayElements = CreateList(type);
             foreach (var arrayElementExpression in newArrayExpression.Expressions)
@@ -147,10 +147,10 @@ namespace TestStack.BDDfy
                 arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type, null));
             }
 
-            return new[] { ToArray(arrayElements) };
+            return new[] { new StepArgument(ToArray(arrayElements)) };
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(ConstantExpression constantExpression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(ConstantExpression constantExpression, T value)
         {
             var expression = constantExpression.Value as Expression;
             if (expression != null)
@@ -158,18 +158,18 @@ namespace TestStack.BDDfy
                 return ExtractArguments(expression, value);
             }
 
-            var constants = new List<object>();
+            var constants = new List<StepArgument>();
             if (constantExpression.Type == typeof(string) ||
                 constantExpression.Type == typeof(decimal) ||
                 constantExpression.Type.IsPrimitive ||
                 constantExpression.Type.IsEnum ||
                 constantExpression.Value == null)
-                constants.Add(constantExpression.Value);
+                constants.Add(new StepArgument(constantExpression.Value));
 
             return constants;
         }
 
-        private static IEnumerable<object> ExtractArguments<T>(MemberExpression memberExpression, T value)
+        private static StepArgument ExtractArgument<T>(MemberExpression memberExpression, T value)
         {
             var constExpression = memberExpression.Expression as ConstantExpression;
             if (constExpression != null)
@@ -186,17 +186,16 @@ namespace TestStack.BDDfy
             throw new InvalidOperationException("Unknown expression type: " + memberExpression.GetType().Name);
         }
 
-        private static IEnumerable<object> ExtractFieldValue<T>(MemberExpression memberExpression, FieldInfo fieldInfo, T value)
+        private static StepArgument ExtractFieldValue<T>(MemberExpression memberExpression, FieldInfo fieldInfo, T value)
         {
             if (fieldInfo.IsStatic)
-                return new[] { fieldInfo.GetValue(null) };
+                return new StepArgument(fieldInfo, null);
 
-            return new[] { fieldInfo.GetValue(value) };
+            return new StepArgument(fieldInfo, value);
         }
 
-        private static IEnumerable<object> ExtractConstant(MemberExpression memberExpression, ConstantExpression constExpression)
+        private static StepArgument ExtractConstant(MemberExpression memberExpression, ConstantExpression constExpression)
         {
-            var constants = new List<object>();
             var valIsConstant = constExpression != null;
             Type declaringType = memberExpression.Member.DeclaringType;
             object declaringObject = memberExpression.Member.DeclaringType;
@@ -210,35 +209,63 @@ namespace TestStack.BDDfy
             var member = declaringType.GetMember(memberExpression.Member.Name, MemberTypes.Field | MemberTypes.Property, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static).Single();
 
             if (member.MemberType == MemberTypes.Field)
-                constants.Add(((FieldInfo)member).GetValue(declaringObject));
-            else
-                constants.Add(((PropertyInfo)member).GetGetMethod(true).Invoke(declaringObject, null));
+                return new StepArgument((FieldInfo)member, declaringObject);
 
-            return constants;
+            return new StepArgument((PropertyInfo)member, declaringObject);
         }
 
-        private static IEnumerable<object> ExtractPropertyValue<T>(MemberExpression expression, PropertyInfo member, T value)
+        private static StepArgument ExtractPropertyValue<T>(MemberExpression expression, PropertyInfo member, T value)
         {
             var memberExpression = expression.Expression as MemberExpression;
             if (memberExpression != null)
             {
-                var extractArguments = ExtractArguments(memberExpression, value);
+                var extractArguments = ExtractArgument(memberExpression, value).Value;
                 try
                 {
-                    return new[]
-                       {
-                           member.GetValue(extractArguments.Single(), null)
-                       };
+                    return new StepArgument(member, extractArguments);
                 }
                 catch (TargetException)
                 {
-                    return new object[] {null};
+                    return new StepArgument(null);
                 }
             }
-            return new[]
-                       {
-                           member.GetValue(value, null)
-                       };
+            return new StepArgument(member, value);
+        }
+    }
+
+    public class StepArgument
+    {
+        private readonly Action<object> _set = o => { };
+
+        public StepArgument(FieldInfo member, object declaringObject)
+        {
+            Name = member.Name;
+            Value = member.GetValue(declaringObject);
+            _set = o => member.SetValue(declaringObject, o);
+            ArgumentType = member.FieldType;
+        }
+
+        public StepArgument(PropertyInfo member, object declaringObject)
+        {
+            Name = member.Name;
+            Value = member.GetGetMethod(true).Invoke(declaringObject, null);
+            _set = o => member.GetSetMethod(true).Invoke(declaringObject, new[] { o });
+            ArgumentType = member.PropertyType;
+        }
+
+        public StepArgument(object value)
+        {
+            Value = value;
+            ArgumentType = typeof(object);
+        }
+
+        public string Name { get; set; }
+        public object Value { get; set; }
+        public Type ArgumentType { get; private set; }
+
+        public void SetValue(object newValue)
+        {
+            _set(newValue);
         }
     }
 }

@@ -40,7 +40,8 @@ namespace TestStack.BDDfy
     {
         private readonly List<Step> _steps = new List<Step>();
         private readonly TScenario _testObject;
-        private ITestContext _testContext;
+        private readonly ITestContext _testContext;
+        private readonly List<StepArgument> _arguments = new List<StepArgument>();
 
         internal FluentScanner(TScenario testObject)
         {
@@ -50,7 +51,7 @@ namespace TestStack.BDDfy
 
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
-            return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
+            return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle, _arguments), explicitStoryType);
         }
 
         public void AddStep(Action stepAction, string title, bool reports, ExecutionOrder executionOrder, bool asserts)
@@ -66,13 +67,14 @@ namespace TestStack.BDDfy
         public void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts)
         {
             var action = stepAction.Compile();
-            var inputArguments = new object[0];
+            var inputArguments = new StepArgument[0];
             if (includeInputsInStepTitle)
             {
                 inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
             var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments);
+            _arguments.AddRange(inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)));
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports));
         }
 
@@ -80,13 +82,14 @@ namespace TestStack.BDDfy
         {
             var action = stepAction.Compile();
 
-            var inputArguments = new object[0];
+            var inputArguments = new StepArgument[0];
             if (includeInputsInStepTitle)
             {
                 inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
             var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments);
+            _arguments.AddRange(inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)));
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports));
         }
 
@@ -131,12 +134,12 @@ namespace TestStack.BDDfy
             return executionOrder;
         }
 
-        private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, object[] inputArguments)
+        private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, StepArgument[] inputArguments)
         {
             Func<string> createTitle = () =>
                 {
 
-                    var flatInputArray = inputArguments.FlattenArrays();
+                    var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
                     var stepTitle = Configurator.Scanners.Humanize(methodInfo.Name);
 
                     if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);

@@ -1,0 +1,9 @@
+﻿
+Scenario: Inline
+	Given int with value <Inline Variable>
+
+Examples: 
+| Inline Variable |
+| 1               |
+| 2               |
+
