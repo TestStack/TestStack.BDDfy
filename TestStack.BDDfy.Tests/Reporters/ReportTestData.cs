@@ -110,7 +110,7 @@ namespace TestStack.BDDfy.Tests.Reporters
                     last.Result = Result.Failed;
                     try
                     {
-                        throw new InvalidOperationException("Boom");
+                        throw new InvalidOperationException("Boom\nWith\r\nNew lines");
                     }
                     catch (Exception ex)
                     {

@@ -175,7 +175,7 @@
     <Content Include="Reporters\Html\MetroReportBuilderTests.ShouldProduceExpectedHtmlWithExamples.approved.txt" />
     <Content Include="Reporters\MarkDown\MarkDownReportBuilderTests.ShouldProduceExpectedMarkdown.approved.txt" />
     <Content Include="Reporters\MarkDown\MarkDownReportBuilderTests.ShouldProduceExpectedMarkdownWithExamples.approved.txt" />
-    <Content Include="Reporters\TextReporter\TextReporterTests.ShouldProduceExpectedMarkdownWithExamples.approved.txt" />
+    <Content Include="Reporters\TextReporter\TextReporterTests.ShouldProduceExpectedTextWithExamples.approved.txt" />
     <Content Include="Reporters\TextReporter\TextReporterTests.ShouldProduceExpectedReport.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

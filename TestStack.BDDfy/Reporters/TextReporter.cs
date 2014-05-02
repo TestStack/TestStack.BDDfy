@@ -211,11 +211,10 @@ namespace TestStack.BDDfy.Reporters
 
         static string FlattenExceptionMessage(string message)
         {
-            return message
+            return string.Join(" ", message
                 .Replace("\t", " ") // replace tab with one space
-                .Replace(Environment.NewLine, ", ") // replace new line with one space
-                .Trim() // trim starting and trailing spaces
-                .Replace("  ", " ")
+                .Split(new[]{"\r\n", "\n"}, StringSplitOptions.None)
+                .Select(s => s.Trim()))
                 .TrimEnd(','); // chop any , from the end
         }
 

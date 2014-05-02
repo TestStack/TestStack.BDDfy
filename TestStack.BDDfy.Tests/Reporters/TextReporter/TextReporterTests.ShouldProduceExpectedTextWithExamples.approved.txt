@@ -25,12 +25,12 @@ Scenario: Example Scenario
 	Then money <action> dispensed         
 
 Examples: 
-| sign     | action | Result | Errors                                                                                 |
-| positive | is     | Passed |                                                                                        |
-| negative | is not | Failed | Step: Then money <action> dispensed failed with exception: [Boom] [Details at 1 below] |
+| sign     | action | Result | Errors                                                                                                |
+| positive | is     | Passed |                                                                                                       |
+| negative | is not | Failed | Step: Then money <action> dispensed failed with exception: [Boom With New lines] [Details at 1 below] |
 
 Exceptions:
-  1. Boom
+  1. Boom With New lines
    at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs
 
 
