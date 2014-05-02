@@ -147,18 +147,19 @@ namespace TestStack.BDDfy
                     {
                         var parameters = methodInfo.GetParameters();
                         var stringFlatInputs =
-                            flatInputArray
+                            inputArguments
                                 .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
                                 .Select(i =>
                                 {
                                     if (_testContext.Examples != null)
                                     {
-
-                                        var matchingHeader = _testContext.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName));
+                                        var matchingHeader = _testContext.Examples.Headers
+                                            .SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName) ||
+                                            ExampleTable.HeaderMatches(header, i.Value.Name));
                                         if (matchingHeader != null)
                                             return string.Format("<{0}>", matchingHeader);
                                     }
-                                    return i.Value.ToString();
+                                    return i.Value.Value.FlattenArray();
                                 })
                                 .ToArray();
                         stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);

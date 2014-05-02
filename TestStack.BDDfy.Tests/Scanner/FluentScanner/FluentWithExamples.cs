@@ -32,9 +32,9 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Approvals.Verify(textReporter.ToString());
         }
 
-        private void GivenIntWithValue(int inlineVariable)
+        private void GivenIntWithValue(int differentName)
         {
-            inlineVariable.ShouldBeOneOf(1, 2);
+            differentName.ShouldBeOneOf(1, 2);
         }
 
         [Test]

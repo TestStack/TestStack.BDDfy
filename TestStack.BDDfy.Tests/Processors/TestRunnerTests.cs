@@ -14,11 +14,11 @@ namespace TestStack.BDDfy.Tests.Processors
         [Test]
         public void InitialisesScenarioWithExampleBeforeRunning()
         {
-            const int ExpectedValue = 1;
+            const int expectedValue = 1;
             int actualValue = 0;
             var exampleTable = new ExampleTable("ExampleValue")
             {
-                ExpectedValue
+                expectedValue
             }.Single();
 
             var sut = new TestRunner();
@@ -31,7 +31,7 @@ namespace TestStack.BDDfy.Tests.Processors
 
             sut.Process(story);
 
-            Assert.AreEqual(ExpectedValue, actualValue);
+            Assert.AreEqual(expectedValue, actualValue);
         }
     }
 }

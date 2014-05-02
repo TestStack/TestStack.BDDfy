@@ -86,6 +86,9 @@ namespace TestStack.BDDfy
 
         public static bool HeaderMatches(string header, string name)
         {
+            if (name == null)
+                return false;
+
             return Sanitise(name).Equals(Sanitise(header), StringComparison.InvariantCultureIgnoreCase);
         }
 
