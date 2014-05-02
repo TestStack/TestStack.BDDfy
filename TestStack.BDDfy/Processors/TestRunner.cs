@@ -19,7 +19,7 @@
                 var stepFailed = false;
                 foreach (var executionStep in scenario.Steps)
                 {
-                    if (stepFailed && (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts))
+                    if (stepFailed && ShouldExecuteStepWhenPreviousStepFailed(executionStep))
                         break;
 
                     if (executor.ExecuteStep(executionStep) == Result.Passed) 
@@ -37,6 +37,11 @@
                     if (unusedValue != null) throw new UnusedExampleException(unusedValue);
                 }
             }
+        }
+
+        private static bool ShouldExecuteStepWhenPreviousStepFailed(Step executionStep)
+        {
+            return Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts;
         }
     }
 }
