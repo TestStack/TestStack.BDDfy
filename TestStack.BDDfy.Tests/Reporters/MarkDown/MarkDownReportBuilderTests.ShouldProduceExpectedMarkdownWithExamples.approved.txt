@@ -16,7 +16,7 @@
 
 #### Exceptions:
     1. Boom With New lines
-       at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 114
+       at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 112
 
 ## Story: Happiness
  **As a person**  

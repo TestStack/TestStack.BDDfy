@@ -104,7 +104,7 @@ body{margin:0;padding:0;padding-bottom:40px;max-width:100%;background-color:#fff
                     <li class='step Failed  Assertion canToggle' data-toggle-target='step-3-3' >
                       <span>Then no money is dispensed [Exception Message: 'Boom']</span>
                       <div class='step FailedException' id='step-3-3'>
-                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 91</code>
+                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 89</code>
                       </div>
                     </li>
                   </ul>
