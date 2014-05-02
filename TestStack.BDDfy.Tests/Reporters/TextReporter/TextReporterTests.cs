@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 
         [Test]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public void ShouldProduceExpectedMarkdownWithExamples()
+        public void ShouldProduceExpectedTextWithExamples()
         {
             var stories = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples();
             var actual = new StringBuilder();
