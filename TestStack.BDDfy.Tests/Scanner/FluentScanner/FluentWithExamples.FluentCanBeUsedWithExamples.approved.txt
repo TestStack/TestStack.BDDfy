@@ -1,0 +1,15 @@
+﻿
+Scenario: Fluent can be used with examples
+	Given method taking <example int>           
+	  Given method taking <example int>         
+	  Given a different method with random arg 2
+	  Given a different method with <Prop2>     
+	When method using <example string>          
+	And I use a <Multi word heading>            
+	Then all is good                            
+
+Examples: 
+| Prop 1 | Prop2 | Prop 3               | Multi word heading |
+| 1      | foo   | ConsecutiveAssertion |                    |
+| 2      | bar   | Initialize           | val2               |
+

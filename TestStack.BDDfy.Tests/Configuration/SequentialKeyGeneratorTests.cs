@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         [Test]
         public void ShouldReturnOneForFirstScenario()
         {
-            Assert.That(new SequentialKeyGenerator().GetScenarioId(null), Is.EqualTo("scenario-1"));
+            Assert.That(new SequentialKeyGenerator().GetScenarioId(), Is.EqualTo("scenario-1"));
         }
 
         [Test]
@@ -19,14 +19,14 @@ namespace TestStack.BDDfy.Tests.Configuration
 
             for (int i = 1; i <= 12; i++)
             {
-                Assert.That(sut.GetScenarioId(null), Is.EqualTo("scenario-" + i));
+                Assert.That(sut.GetScenarioId(), Is.EqualTo("scenario-" + i));
             }
         }
 
         [Test]
         public void ShouldReturnOneOneForFirstStepOfFirstScenario()
         {
-            Assert.That(new SequentialKeyGenerator().GetStepId(null), Is.EqualTo("step-1-1"));
+            Assert.That(new SequentialKeyGenerator().GetStepId(), Is.EqualTo("step-1-1"));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace TestStack.BDDfy.Tests.Configuration
 
             for (int i = 1; i <= 12; i++)
             {
-                Assert.That(sut.GetStepId(null), Is.EqualTo("step-1-" + i));
+                Assert.That(sut.GetStepId(), Is.EqualTo("step-1-" + i));
             }
         }
 
@@ -44,10 +44,10 @@ namespace TestStack.BDDfy.Tests.Configuration
         public void ShouldResetStepCountForNewScenario()
         {
             var sut = new SequentialKeyGenerator();
-            sut.GetStepId(null);
-            sut.GetScenarioId(null);
+            sut.GetStepId();
+            sut.GetScenarioId();
 
-            Assert.That(sut.GetStepId(null), Is.EqualTo("step-2-1"));
+            Assert.That(sut.GetStepId(), Is.EqualTo("step-2-1"));
         }
     }
 }

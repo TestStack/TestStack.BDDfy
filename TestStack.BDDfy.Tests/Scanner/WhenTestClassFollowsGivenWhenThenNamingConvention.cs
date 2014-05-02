@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Tests.Scanner
         public void Setup()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
-            _steps = new DefaultMethodNameStepScanner().Scan(_typeWithoutAttribute).ToList();
+            _steps = new DefaultMethodNameStepScanner().Scan(TestContext.GetContext(_typeWithoutAttribute)).ToList();
         }
             
         [Test]

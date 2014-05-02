@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -21,30 +22,73 @@ namespace TestStack.BDDfy
             _scenarioTitle = scenarioTitle;
         }
 
-        public virtual Scenario Scan(object testObject)
+        public virtual IEnumerable<Scenario> Scan(ITestContext testContext)
         {
-            var scenarioType = testObject.GetType();
-            var scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
-            var steps = ScanScenarioForSteps(testObject);
+            Type scenarioType;
+            string scenarioTitle;
 
-            return new Scenario(testObject, steps, scenarioTitle);
+            if (testContext.Examples == null)
+            {
+                var steps = ScanScenarioForSteps(testContext);
+                scenarioType = testContext.TestObject.GetType();
+                scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
+
+                var orderedSteps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+                yield return new Scenario(testContext.TestObject, orderedSteps, scenarioTitle);
+                yield break;
+            }
+
+            scenarioType = testContext.TestObject.GetType();
+            scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
+
+            var scenarioId = Configurator.IdGenerator.GetScenarioId();
+
+            foreach (var example in testContext.Examples)
+            {
+                var steps = ScanScenarioForSteps(testContext, example);
+                var orderedSteps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
+                yield return new Scenario(scenarioId, testContext.TestObject, orderedSteps, scenarioTitle, example, new List<StepArgument>());
+            }
         }
 
         static string GetScenarioText(Type scenarioType)
         {
-            return NetToString.Convert(scenarioType.Name);
+            return Configurator.Scanners.Humanize(scenarioType.Name);
         }
 
-        protected virtual IEnumerable<Step> ScanScenarioForSteps(object testObject)
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(ITestContext testContext)
         {
             var allSteps = new List<Step>();
-            var scenarioType = testObject.GetType();
+            var scenarioType = testContext.TestObject.GetType();
+
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
                 // chain of responsibility of step scanners
                 foreach (var scanner in _stepScanners)
                 {
-                    var steps = scanner.Scan(testObject, methodInfo);
+                    var steps = scanner.Scan(testContext, methodInfo);
+                    if (steps.Any())
+                    {
+                        allSteps.AddRange(steps);
+                        break;
+                    }
+                }
+            }
+
+            return allSteps;
+        }
+
+        protected virtual IEnumerable<Step> ScanScenarioForSteps(ITestContext testContext, Example example)
+        {
+            var allSteps = new List<Step>();
+            var scenarioType = testContext.TestObject.GetType();
+
+            foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
+            {
+                // chain of responsibility of step scanners
+                foreach (var scanner in _stepScanners)
+                {
+                    var steps = scanner.Scan(testContext, methodInfo, example);
                     if (steps.Any())
                     {
                         allSteps.AddRange(steps);

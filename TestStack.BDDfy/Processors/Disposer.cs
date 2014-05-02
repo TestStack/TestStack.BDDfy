@@ -26,11 +26,11 @@ namespace TestStack.BDDfy.Processors
             var disposeSteps = scenario
                 .Steps
                 .Where(s => s.ExecutionOrder == ExecutionOrder.TearDown && s.Result == Result.NotExecuted);
-            
+
+            var executor = new ScenarioExecutor(scenario);
+
             foreach (var disposeStep in disposeSteps)
-            {
-                scenario.ExecuteStep(disposeStep);
-            }
+                executor.ExecuteStep(disposeStep);
         }
 
     }

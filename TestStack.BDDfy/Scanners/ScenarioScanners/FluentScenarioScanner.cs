@@ -1,27 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
     public class FluentScenarioScanner : IScenarioScanner
     {
         private readonly string _title;
-        private readonly IEnumerable<Step> _steps;
+        private readonly List<StepArgument> _arguments;
+        private readonly List<Step> _steps;
 
-        public FluentScenarioScanner(IEnumerable<Step> steps, string title = null)
+        public FluentScenarioScanner(List<Step> steps, string title, List<StepArgument> arguments)
         {
             _title = title;
+            _arguments = arguments;
             _steps = steps;
         }
 
-        public Scenario Scan(object testObject)
+        public IEnumerable<Scenario> Scan(ITestContext testContext)
         {
-            var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testObject);
-            return new Scenario(testObject, _steps, scenarioText);
+            var scenarioText = _title ?? GetTitleFromMethodNameInStackTrace(testContext.TestObject);
+            if (testContext.Examples != null)
+            {
+                var scenarioId = Configurator.IdGenerator.GetScenarioId();
+                return testContext.Examples.Select(example =>
+                    new Scenario(scenarioId, testContext.TestObject, CloneSteps(_steps), scenarioText, example, _arguments));
+            }
+
+            return new[] { new Scenario(testContext.TestObject, _steps, scenarioText) };
         }
 
-        internal static string GetTitleFromMethodNameInStackTrace(object testObject)
+        private List<Step> CloneSteps(IEnumerable<Step> steps)
+        {
+            return steps.Select(step => new Step(step)).ToList();
+        }
+
+        private static string GetTitleFromMethodNameInStackTrace(object testObject)
         {
             var trace = new StackTrace();
             var frames = trace.GetFrames();
@@ -32,7 +47,7 @@ namespace TestStack.BDDfy
             if (initiatingFrame == null)
                 return null;
 
-            return NetToString.Convert(initiatingFrame.GetMethod().Name);
+            return Configurator.Scanners.Humanize(initiatingFrame.GetMethod().Name);
         }
     }
 }
