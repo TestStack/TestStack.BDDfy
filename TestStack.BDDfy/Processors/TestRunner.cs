@@ -16,13 +16,19 @@
                 var executor = new ScenarioExecutor(scenario);
                 executor.InitializeScenario();
 
+                var stepFailed = false;
                 foreach (var executionStep in scenario.Steps)
                 {
+                    if (stepFailed && ShouldExecuteStepWhenPreviousStepFailed(executionStep))
+                        break;
+
                     if (executor.ExecuteStep(executionStep) == Result.Passed) 
                         continue;
 
-                    if (Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts)
+                    if (!executionStep.Asserts)
                         break;
+
+                    stepFailed = true;
                 }
 
                 if (scenario.Example != null)
@@ -31,6 +37,11 @@
                     if (unusedValue != null) throw new UnusedExampleException(unusedValue);
                 }
             }
+        }
+
+        private static bool ShouldExecuteStepWhenPreviousStepFailed(Step executionStep)
+        {
+            return Configuration.Configurator.Processors.TestRunner.StopExecutionOnFailingThen || !executionStep.Asserts;
         }
     }
 }
