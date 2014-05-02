@@ -4,15 +4,15 @@
  **So that I can get money when the bank is closed**  
 
 ### Example Scenario
-  Given a <sign> account balance  
+  Given a &lt;sign&gt; account balance  
   When the account holder requests money  
-  Then money <action> dispensed  
+  Then money &lt;action&gt; dispensed  
 
 ### Examples: 
 
-    | sign     | action | Result | Errors                                                                                 |
-    | positive | is     | Passed |                                                                                        |
-    | negative | is not | Failed | Step: Then money <action> dispensed failed with exception: [Boom] [Details at 1 below] |
+    | sign     | action | Result | Errors                                                                                       |
+    | positive | is     | Passed |                                                                                              |
+    | negative | is not | Failed | Step: Then money &lt;action&gt; dispensed failed with exception: [Boom] [Details at 1 below] |
 
 #### Exceptions:
     1. Boom
@@ -24,9 +24,9 @@
  **So that I can be happy**  
 
 ### Example Scenario
-  Given a <sign> account balance  
+  Given a &lt;sign&gt; account balance  
   When the account holder requests money  
-  Then money <action> dispensed  
+  Then money &lt;action&gt; dispensed  
 
 ### Examples: 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace TestStack.BDDfy.Reporters.MarkDown
 {
@@ -40,7 +41,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                         if (exampleScenario.Steps.Any())
                         {
                             foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
-                                report.AppendLine("  " + step.Title + "  ");
+                                report.AppendLine("  " + HttpUtility.HtmlEncode(step.Title) + "  ");
                         }
 
                         report.AppendLine(); // separator
@@ -53,7 +54,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                             report.AppendLine(string.Format("### {0}", scenario.Title));
 
                             foreach (var step in scenario.Steps)
-                                report.AppendLine("  " + step.Title + "  ");
+                                report.AppendLine("  " + HttpUtility.HtmlEncode(step.Title) + "  ");
 
                             report.AppendLine(); // separator
                         }
@@ -108,7 +109,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
                 var error = failingStep == null
                     ? null
-                    : string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
+                    : string.Format("Step: {0} failed with exception: {1}", HttpUtility.HtmlEncode(failingStep.Title), CreateExceptionMessage(failingStep));
 
                 addRow(scenario.Example.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
             }
