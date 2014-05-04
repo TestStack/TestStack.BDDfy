@@ -32,6 +32,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .Then(x => x.FailingThen())
                     .And(x => x.PassingAndThen())
                     .When(x => x.PassingWhen())
+                    .Then(x => x.FailingThen())
                     .LazyBDDfy();
 
             Assert.Throws<Exception>(() => testRun.Run());
@@ -39,7 +40,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Assert.AreEqual(Result.Failed, scenario.Result);
             var steps = scenario.Steps;
 
-            Assert.AreEqual(5, steps.Count);
+            Assert.AreEqual(6, steps.Count);
             Assert.AreEqual(Result.Passed, steps[0].Result);
             Assert.AreEqual(ExecutionOrder.SetupState, steps[0].ExecutionOrder);
             Assert.AreEqual(Result.Passed, steps[1].Result);
@@ -50,6 +51,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Assert.AreEqual(ExecutionOrder.ConsecutiveAssertion, steps[3].ExecutionOrder);
             Assert.AreEqual(Result.NotExecuted, steps[4].Result);
             Assert.AreEqual(ExecutionOrder.Transition, steps[4].ExecutionOrder);
+            Assert.AreEqual(Result.NotExecuted, steps[5].Result);
+            Assert.AreEqual(ExecutionOrder.Assertion, steps[5].ExecutionOrder);
         }
     }
 }
