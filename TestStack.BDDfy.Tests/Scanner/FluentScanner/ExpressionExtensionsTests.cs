@@ -68,7 +68,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         object[] GetArguments(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
         {
-            return action.ExtractArguments(instance).ToArray();
+            return action.ExtractArguments(instance).Select(o => o.Value).ToArray();
         }
 
         int _input1 = 1;

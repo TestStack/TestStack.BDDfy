@@ -18,13 +18,23 @@ namespace TestStack.BDDfy.Processors
             if (_scenario.Example == null) 
                 return;
 
+            var type = _scenario.TestObject.GetType();
+            var memberInfos = type
+                .GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public)
+                .Where(m => m is FieldInfo || m is PropertyInfo)
+                .Where(m => !m.Name.EndsWith("BackingField"))
+                .ToArray();
+
+            var possibleTargets = memberInfos
+                .OfType<FieldInfo>()
+                .Select(f => new StepArgument(f, _scenario.TestObject))
+                .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m, _scenario.TestObject)))
+                .Union(_scenario.Arguments)
+                .ToArray();
+
             foreach (var cell in _scenario.Example.Values)
             {
-                var type = _scenario.TestObject.GetType();
-                var matchingMembers = type
-                    .GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public)
-                    .Where(m => m is FieldInfo || m is PropertyInfo)
-                    .Where(m => !m.Name.EndsWith("BackingField"))
+                var matchingMembers = possibleTargets
                     .Where(n => cell.MatchesName(n.Name))
                     .ToArray();
 
@@ -33,13 +43,7 @@ namespace TestStack.BDDfy.Processors
 
                 foreach (var matchingMember in matchingMembers)
                 {
-                    var prop = matchingMember as PropertyInfo;
-                    if (prop != null)
-                        prop.SetValue(_scenario.TestObject, cell.GetValue(prop.PropertyType), null);
-
-                    var field = matchingMember as FieldInfo;
-                    if (field != null)
-                        field.SetValue(_scenario.TestObject, cell.GetValue(field.FieldType));
+                    matchingMember.SetValue(cell.GetValue(matchingMember.ArgumentType));
                 }
             }
         }

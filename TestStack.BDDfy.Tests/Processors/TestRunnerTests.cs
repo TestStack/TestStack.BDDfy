@@ -14,24 +14,24 @@ namespace TestStack.BDDfy.Tests.Processors
         [Test]
         public void InitialisesScenarioWithExampleBeforeRunning()
         {
-            const int ExpectedValue = 1;
+            const int expectedValue = 1;
             int actualValue = 0;
             var exampleTable = new ExampleTable("ExampleValue")
             {
-                ExpectedValue
+                expectedValue
             }.Single();
 
             var sut = new TestRunner();
             Action<object> action = o => actualValue = ExampleValue;
             var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true) };
 
-            var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable);
+            var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable, new List<StepArgument>());
             var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()),
                 new[] { scenarioWithExample });
 
             sut.Process(story);
 
-            Assert.AreEqual(ExpectedValue, actualValue);
+            Assert.AreEqual(expectedValue, actualValue);
         }
     }
 }

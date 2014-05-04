@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TestStack.BDDfy
 {
     internal static class ArgumentCleaningExtensions
     {
-        internal static object[] FlattenArrays(this object[] inputs)
+        internal static object[] FlattenArrays(this IEnumerable<object> inputs)
         {
             return inputs.Select(FlattenArray).ToArray();
         }
