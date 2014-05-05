@@ -13,6 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +58,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
@@ -74,29 +76,26 @@
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Configuration\TestRunnerFactory.cs" />
     <Compile Include="IBatchProcessor.cs" />
+    <Compile Include="ITestContext.cs" />
+    <Compile Include="Processors\ScenarioExecutor.cs" />
+    <Compile Include="Processors\UnusedExampleException.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReporter.cs" />
     <Compile Include="Reporters\Diagnostics\StoryDiagnostic.cs" />
     <Compile Include="Reporters\FileReportModel.cs" />
     <Compile Include="Reporters\FileReportSummaryModel.cs" />
-    <Compile Include="Reporters\HtmlMetro\HtmlMetroReportBuilder.cs" />
-    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MetroHtmlReportTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.Model.cs" />
+    <Compile Include="Reporters\Html\MetroReportBuilder.cs" />
     <Compile Include="Reporters\Html\DefaultHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\Html\HtmlReporter.cs" />
-    <Compile Include="Reporters\Html\HtmlReportBuilder.cs" />
+    <Compile Include="Reporters\Html\ClassicReportBuilder.cs" />
     <Compile Include="Reporters\Html\HtmlReportResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HtmlReportResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reporters\Html\HtmlReportTag.cs" />
-    <Compile Include="Reporters\Html\HtmlReportViewModel.cs" />
+    <Compile Include="Reporters\Html\HtmlReportModel.cs" />
     <Compile Include="Reporters\Html\HtmlTag.cs" />
     <Compile Include="Reporters\Html\IHtmlReportConfiguration.cs" />
     <Compile Include="Reporters\MarkDown\MarkDownReporter.cs" />
@@ -107,15 +106,26 @@
     <Compile Include="Reporters\Serializers\ISerializer.cs" />
     <Compile Include="Reporters\Serializers\JsonFormatter.cs" />
     <Compile Include="Reporters\Serializers\JsonSerializer.cs" />
+    <Compile Include="Reporters\TextReporter.cs" />
     <Compile Include="Reporters\Writers\FileWriter.cs" />
     <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
-    <Compile Include="IHasScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IThenSteps.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IWhenSteps.cs" />
+    <Compile Include="Scanners\StepScanners\Examples\Example.cs" />
+    <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
+    <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
+    <Compile Include="Scanners\StepScanners\Examples\UnassignableExampleException.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\FluentApi.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FluentApi.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Scanners\StepScanners\Fluent\IFluentScanner.cs" />
+    <Compile Include="Scanners\StepScanners\Examples\WithExamplesExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\Fluent\StepArgument.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="StepTitle.cs" />
     <Compile Include="Story.cs" />
     <Compile Include="StoryAttribute.cs" />
     <Compile Include="Scanners\StoryMetadata.cs" />
@@ -146,54 +156,49 @@
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\WhenAttribute.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\ExpressionExtensions.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\FluentScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\FluentScannerExtensions.cs" />
     <Compile Include="Scanners\ScenarioScanners\FluentScenarioScanner.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IStepsBase.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IGiven.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IInitialStep.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IThen.cs" />
-    <Compile Include="Scanners\StepScanners\Fluent\IWhen.cs" />
     <Compile Include="Scanners\StepScanners\IgnoreStepAttribute.cs" />
     <Compile Include="Scanners\StepScanners\IStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\DefaultMethodNameStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameMatcher.cs" />
     <Compile Include="Scanners\StepScanners\MethodName\MethodNameStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\StepActionFactory.cs" />
-    <Compile Include="Scanners\StepScanners\StepScannerExtensions.cs" />
+    <Compile Include="Scanners\StepScanners\ArgumentCleaningExtensions.cs" />
     <Compile Include="Scanners\StepScanners\StepTitleException.cs" />
     <Compile Include="Scanners\StoryAttributeMetadataScanner.cs" />
     <Compile Include="StoryNarrativeAttribute.cs" />
+    <Compile Include="TestContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BDDfy.snk" />
-    <None Include="Reporters\HtmlMetro\BDDfyMetro.min.js.map">
-      <DependentUpon>BDDfyMetro.js</DependentUpon>
+    <None Include="Reporters\Html\Scripts\classic.min.js.map">
+      <DependentUpon>classic.js</DependentUpon>
     </None>
-    <None Include="Reporters\HtmlMetro\MetroHtmlReportTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MetroHtmlReportTemplate.cs</LastGenOutput>
+    <None Include="Reporters\Html\Scripts\metro.min.js.map">
+      <DependentUpon>metro.js</DependentUpon>
     </None>
-    <None Include="Reporters\Html\BDDfy.min.js.map">
-      <DependentUpon>BDDfy.js</DependentUpon>
+    <None Include="Scanners\StepScanners\Fluent\FluentApi.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FluentApi.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Reporters\HtmlMetro\BDDfyMetro.css" />
-    <EmbeddedResource Include="Reporters\HtmlMetro\BDDfyMetro.min.css">
-      <DependentUpon>BDDfyMetro.css</DependentUpon>
-    </EmbeddedResource>
-    <Content Include="Reporters\HtmlMetro\BDDfyMetro.js" />
-    <EmbeddedResource Include="Reporters\HtmlMetro\BDDfyMetro.min.js">
-      <DependentUpon>BDDfyMetro.js</DependentUpon>
-    </EmbeddedResource>
-    <Content Include="Reporters\Html\BDDfy.css" />
-    <Content Include="Reporters\Html\BDDfy.js" />
-    <Content Include="Reporters\Html\jquery-2.1.0.min.js" />
-    <Content Include="Reporters\Html\BDDfy.min.css">
-      <DependentUpon>BDDfy.css</DependentUpon>
+    <Content Include="Reporters\Html\Scripts\classic.min.css">
+      <DependentUpon>classic.css</DependentUpon>
     </Content>
-    <Content Include="Reporters\Html\BDDfy.min.js">
-      <DependentUpon>BDDfy.js</DependentUpon>
+    <Content Include="Reporters\Html\Scripts\classic.min.js">
+      <DependentUpon>classic.js</DependentUpon>
+    </Content>
+    <Content Include="Reporters\Html\Scripts\metro.css" />
+    <Content Include="Reporters\Html\Scripts\metro.js" />
+    <Content Include="Reporters\Html\Scripts\classic.css" />
+    <Content Include="Reporters\Html\Scripts\classic.js" />
+    <Content Include="Reporters\Html\Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Reporters\Html\Scripts\metro.min.css">
+      <DependentUpon>metro.css</DependentUpon>
+    </Content>
+    <Content Include="Reporters\Html\Scripts\metro.min.js">
+      <DependentUpon>metro.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +219,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

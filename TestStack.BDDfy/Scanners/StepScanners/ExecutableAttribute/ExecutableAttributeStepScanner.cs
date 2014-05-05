@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -24,15 +26,15 @@ namespace TestStack.BDDfy
     /// </example>
     public class ExecutableAttributeStepScanner : IStepScanner
     {
-        public IEnumerable<Step> Scan(object testObject, MethodInfo candidateMethod)
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo candidateMethod)
         {
             var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
             if(executableAttribute == null)
                 yield break;
 
-            string stepTitle = executableAttribute.StepTitle;
+            var stepTitle = new StepTitle(executableAttribute.StepTitle);
             if(string.IsNullOrEmpty(stepTitle))
-                stepTitle = NetToString.Convert(candidateMethod.Name);
+                stepTitle = new StepTitle(Configurator.Scanners.Humanize(candidateMethod.Name));
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
 
@@ -59,13 +61,48 @@ namespace TestStack.BDDfy
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), methodName, stepAsserts,
+                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), new StepTitle(methodName), stepAsserts,
                                       executableAttribute.ExecutionOrder, true)
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
             }
         }
+
+        public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
+        {
+            var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+            if (executableAttribute == null)
+                yield break;
+
+            string stepTitle = executableAttribute.StepTitle;
+            if (string.IsNullOrEmpty(stepTitle))
+                stepTitle = Configurator.Scanners.Humanize(method.Name);
+
+            var stepAsserts = IsAssertingByAttribute(method);
+            var methodParameters = method.GetParameters();
+
+            var inputs = new List<object>();
+            var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
+
+            for (int i = 0; i < inputPlaceholders.Count; i++)
+            {
+                var placeholder = inputPlaceholders[i].Groups[1].Value;
+
+                for (int j = 0; j < example.Headers.Length; j++)
+                {
+                    if (example.Values.ElementAt(j).MatchesName(placeholder))
+                    {
+                        inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
+                        break;
+                    }
+                }
+            }
+
+            var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
+            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, true);
+        }
+
 
         private static bool IsAssertingByAttribute(MethodInfo method)
         {

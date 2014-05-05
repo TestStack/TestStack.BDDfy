@@ -5,6 +5,7 @@ namespace TestStack.BDDfy
 {
     public interface IStepScanner
     {
-        IEnumerable<Step> Scan(object testObject, MethodInfo candidateMethod);
+        IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method);
+        IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example);
     }
 }

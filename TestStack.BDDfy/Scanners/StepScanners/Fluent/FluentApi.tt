@@ -1,0 +1,254 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+    var steps = new[]
+    {
+        //StepName, reports, executionOrder, asserts
+        Tuple.Create("Given", "true", "ExecutionOrder.SetupState", "false"),
+        Tuple.Create("When", "true", "ExecutionOrder.Transition", "false"),
+        Tuple.Create("Then", "true", "ExecutionOrder.Assertion", "true"),
+        Tuple.Create("And", "true", "ExecutionOrder.ConsecutiveStep", "false"),
+        Tuple.Create("But", "true", "ExecutionOrder.ConsecutiveStep", "false"),
+        Tuple.Create("TearDownWith", "false", "ExecutionOrder.TearDown", "false")
+    };
+#>
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+ 
+// ReSharper disable CheckNamespace
+// This is in BDDfy namespace to make its usage simpler
+namespace TestStack.BDDfy
+// ReSharper restore CheckNamespace
+{
+    public static class FluentStepScannerExtensions
+    {
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step, stepTextTemplate);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step, includeInputsInStepTitle);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step);
+        }
+        
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step, stepTextTemplate);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step, includeInputsInStepTitle);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Action step, string title)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step, title);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Func<Task> step, string title)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(step, title);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, string title)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(title);
+        }
+
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step, stepTextTemplate);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step, includeInputsInStepTitle);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Action<TScenario>> step)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step);
+        }
+        
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, string stepTextTemplate)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step, stepTextTemplate);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step, includeInputsInStepTitle);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Expression<Func<TScenario, Task>> step)
+            where TScenario: class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Action step, string title)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step, title);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, Func<Task> step, string title)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(step, title);
+        }
+ 
+        public static IFluentStepBuilder<TScenario> When<TScenario>(this TScenario testObject, string title)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).When(title);
+        }
+    }
+
+    public interface IFluentStepBuilder<TScenario> where TScenario: class
+    {
+        TScenario TestObject { get; }
+<#
+    foreach (var stepType in steps)
+    {
+#>
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Action<TScenario>> step, string stepTextTemplate);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Action<TScenario>> step, bool includeInputsInStepTitle);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Action<TScenario>> step);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<TScenario, Task>> step, string stepTextTemplate);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<TScenario, Task>> step);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Action step, string title);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Func<Task> step, string title);
+
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(string title);
+<#
+    }
+#>
+    }
+
+    interface IFluentStepBuilder
+    {
+        object TestObject { get; }
+    }
+
+    public class FluentStepBuilder<TScenario> : IFluentStepBuilder<TScenario>, IFluentStepBuilder 
+                                                where TScenario : class
+    {
+        readonly FluentScanner<TScenario> scanner;
+
+        public FluentStepBuilder(TScenario testObject)
+        {
+            TestObject = testObject;
+            var existingContext = TestContext.GetContext(TestObject);
+            if (existingContext.FluentScanner == null)
+                existingContext.FluentScanner = new FluentScanner<TScenario>(testObject);
+ 
+            scanner = (FluentScanner<TScenario>) existingContext.FluentScanner;
+        }
+
+        public TScenario TestObject { get; private set; }
+
+        object IFluentStepBuilder.TestObject { get { return TestObject; } }
+
+<#
+    foreach (var stepType in steps)
+    {
+#>
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Action<TScenario>> step, string stepTextTemplate)
+        {
+            scanner.AddStep(step, stepTextTemplate, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
+        {
+            scanner.AddStep(step, null, includeInputsInStepTitle, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Action<TScenario>> step)
+        {
+            scanner.AddStep(step, null, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
+        {
+            scanner.AddStep(step, stepTextTemplate, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
+        {
+            scanner.AddStep(step, null, includeInputsInStepTitle, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<TScenario, Task>> step)
+        {
+            scanner.AddStep(step, null, true, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Action step, string title)
+        {
+            scanner.AddStep(step, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Func<Task> step, string title)
+        {
+            scanner.AddStep(step, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(string title)
+        {
+            scanner.AddStep(() => { }, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>);
+            return this;
+        }
+<#
+    }
+#>
+    }
+}

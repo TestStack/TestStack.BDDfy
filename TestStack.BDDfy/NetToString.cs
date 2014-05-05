@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TestStack.BDDfy
 {
@@ -13,31 +14,14 @@ namespace TestStack.BDDfy
                 new List<char>(), 
                 (list, currentChar) =>
                     {
-                        if (currentChar == ' ')
-                        {
+                        if (currentChar == ' ' || list.Count == 0)
                             list.Add(currentChar);
-                            return list;
-                        }
-
-                        if(list.Count == 0)
+                        else
                         {
-                            list.Add(currentChar);
-                            return list;
-                        }
-
-                        var lastCharacterInTheList = list[list.Count - 1];
-                        if (lastCharacterInTheList != ' ')
-                        {
-                            if(char.IsDigit(lastCharacterInTheList))
-                            {
-                                if (char.IsLetter(currentChar))
-                                    list.Add(' ');
-                            }
-                            else if (!char.IsLower(currentChar))
+                            if(ShouldAddSpace(list[list.Count - 1], currentChar))
                                 list.Add(' ');
+                            list.Add(char.ToLower(currentChar));
                         }
-
-                        list.Add(char.ToLower(currentChar));
 
                         return list;
                     });
@@ -46,12 +30,43 @@ namespace TestStack.BDDfy
             return result.Replace(" i ", " I "); // I is an exception
         }
 
-        internal static Func<string, string> Convert = name =>
-            {
-                if (name.Contains("_"))
-                    return FromUnderscoreSeparatedWords(name);
+        private static bool ShouldAddSpace(char lastChar, char currentChar)
+        {
+            if (lastChar == ' ') 
+                return false;
 
-                return FromPascalCase(name);
-            };
+            if (char.IsDigit(lastChar))
+            {
+                if (char.IsLetter(currentChar))
+                    return true;
+
+                return false;
+            }
+
+            if (!char.IsLower(currentChar) && currentChar != '>' && lastChar != '<')
+                return true;
+
+            return false;
+        }
+
+        public static readonly Func<string, string> Convert = name =>
+        {
+            if (name.Contains("__"))
+                return ExampleTitle(name);
+
+            if (name.Contains("_"))
+                return FromUnderscoreSeparatedWords(name);
+
+            return FromPascalCase(name);
+        };
+
+        private static string ExampleTitle(string name)
+        {
+            name = Regex.Replace(name, "__([a-zA-Z]+)__", " <$1> ");
+
+            // for when there are two consequetive example placeholders in the word; e.g. Given__one____two__parameters
+            name = name.Replace("  ", " ");
+            return Convert(name).Trim();
+        }
     }
 }

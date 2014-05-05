@@ -44,7 +44,15 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncExample.cs" />
+    <Compile Include="BuyingTrainFares\BuyerCategory.cs" />
+    <Compile Include="BuyingTrainFares\DayPass.cs" />
+    <Compile Include="BuyingTrainFares\Fare.cs" />
+    <Compile Include="BuyingTrainFares\Money.cs" />
+    <Compile Include="BuyingTrainFares\MonthlyPass.cs" />
+    <Compile Include="BuyingTrainFares\SingleTicket.cs" />
+    <Compile Include="BuyingTrainFares\WeeklyPass.cs" />
+    <Compile Include="BuyingTrainFareWithExamples.cs" />
+    <Compile Include="CanRunAsyncSteps.cs" />
     <Compile Include="Atm\AccountHasInsufficientFund.cs" />
     <Compile Include="Atm\Atm.cs" />
     <Compile Include="Atm\AccountHolderWithdrawsCash.cs" />
@@ -58,6 +66,8 @@
     <Compile Include="TicTacToe\TicTacToe.cs" />
     <Compile Include="TicTacToe\WinnerGame.cs" />
     <Compile Include="TicTacToe\XWins.cs" />
+    <Compile Include="UseExamplesWithReflectiveApi.cs" />
+    <Compile Include="UseExamplesWithFluentApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
