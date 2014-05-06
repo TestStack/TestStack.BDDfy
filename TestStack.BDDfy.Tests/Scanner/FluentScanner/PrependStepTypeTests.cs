@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Runtime.CompilerServices;
 using ApprovalTests;
 using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
@@ -9,6 +9,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
     public class PrependStepTypeTests
     {
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void VerifyPrependStepTitles()
         {
             var story = this.Given(_ => GivenAStepWithGivenInIt())
