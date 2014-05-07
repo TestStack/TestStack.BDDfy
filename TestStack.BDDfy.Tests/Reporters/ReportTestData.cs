@@ -145,7 +145,8 @@ namespace TestStack.BDDfy.Tests.Reporters
 
             SetAllStepResults(scenarios[1].Steps, Result.Passed);
             var last = scenarios[1].Steps.Last();
-            last.Result = Result.Failed; try
+            last.Result = Result.Failed; 
+            try
             {
                 throw new InvalidOperationException("Boom");
             }
