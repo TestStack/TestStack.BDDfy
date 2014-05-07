@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using ApprovalTests;
 using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
@@ -12,6 +13,7 @@ namespace TestStack.BDDfy.Tests
     public class TagsTests
     {
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInTextReport()
         {
             var story = this.Given(_ => GivenAStep())
@@ -25,6 +27,7 @@ namespace TestStack.BDDfy.Tests
         }
 
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInHtmlReport()
         {
             var story = this.Given(_ => GivenAStep())
@@ -40,6 +43,7 @@ namespace TestStack.BDDfy.Tests
         }
 
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInMetroHtmlReport()
         {
             var story = this.Given(_ => GivenAStep())
@@ -55,6 +59,7 @@ namespace TestStack.BDDfy.Tests
         }
 
         [Test]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInMarkdownReport()
         {
             var story = this.Given(_ => GivenAStep())
