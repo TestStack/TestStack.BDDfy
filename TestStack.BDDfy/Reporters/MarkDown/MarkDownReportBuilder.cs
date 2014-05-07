@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                         {
                             report.AppendLine(string.Format("### {0}", scenario.Title));
 
-                            foreach (var step in scenario.Steps)
+                            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                                 report.AppendLine("  " + HttpUtility.HtmlEncode(step.Title) + "  ");
 
                             report.AppendLine(); // separator
