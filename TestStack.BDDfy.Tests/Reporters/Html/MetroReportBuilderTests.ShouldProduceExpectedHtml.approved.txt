@@ -141,9 +141,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                       <span>When the account holder requests money</span>
                     </li>
                     <li class='step Failed  Assertion canToggle' data-toggle-target='step-1-1' >
-                      <span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
+                      <span>Then no money is dispensed [Exception Message: 'Boom']</span>
                       <div class='step FailedException' id='step-1-1'>
-                        <code>This is a test stack trace</code>
+                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetOneOfEachScenarioResult() in ...\ReportTestData.cs</code>
                       </div>
                     </li>
                   </ul>
@@ -214,9 +214,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                       <span>When the account holder requests money</span>
                     </li>
                     <li class='step Failed  Assertion canToggle' data-toggle-target='step-1-1' >
-                      <span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
+                      <span>Then no money is dispensed [Exception Message: 'Boom']</span>
                       <div class='step FailedException' id='step-1-1'>
-                        <code>This is a test stack trace</code>
+                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetOneOfEachScenarioResult() in ...\ReportTestData.cs</code>
                       </div>
                     </li>
                   </ul>
@@ -282,9 +282,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                       <span>When the account holder requests money</span>
                     </li>
                     <li class='step Failed  Assertion canToggle' data-toggle-target='step-1-1' >
-                      <span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
+                      <span>Then no money is dispensed [Exception Message: 'Boom']</span>
                       <div class='step FailedException' id='step-1-1'>
-                        <code>This is a test stack trace</code>
+                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetOneOfEachScenarioResult() in ...\ReportTestData.cs</code>
                       </div>
                     </li>
                   </ul>

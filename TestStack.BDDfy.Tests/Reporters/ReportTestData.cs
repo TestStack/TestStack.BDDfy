@@ -144,8 +144,15 @@ namespace TestStack.BDDfy.Tests.Reporters
             SetAllStepResults(scenarios[0].Steps, Result.Passed);
 
             SetAllStepResults(scenarios[1].Steps, Result.Passed);
-            scenarios[1].Steps.Last().Result = Result.Failed;
-            scenarios[1].Steps.Last().Exception = new FakeExceptionWithStackTrace("This is a test exception.");
+            var last = scenarios[1].Steps.Last();
+            last.Result = Result.Failed; try
+            {
+                throw new InvalidOperationException("Boom");
+            }
+            catch (Exception ex)
+            {
+                last.Exception = ex;
+            }
 
             return scenarios.ToArray();
         }
@@ -269,18 +276,6 @@ namespace TestStack.BDDfy.Tests.Reporters
             public void GivenANegativeAccountBalance() { }
             public void WhenTheAccountHolderRequestsMoney() { }
             public void ThenNoMoneyIsDispensed() { }
-        }
-
-        class FakeExceptionWithStackTrace : Exception
-        {
-            public FakeExceptionWithStackTrace(string message)
-                : base(message)
-            { }
-
-            public override string StackTrace
-            {
-                get { return "This is a test stack trace"; }
-            }
         }
     }
 }
