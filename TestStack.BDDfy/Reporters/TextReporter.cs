@@ -36,6 +36,7 @@ namespace TestStack.BDDfy.Reporters
 
                     WriteLine();
                     WriteExamples(exampleScenario, scenarioGroup);
+                    ReportTags(exampleScenario.Tags);
                 }
                 else
                 {
@@ -49,10 +50,22 @@ namespace TestStack.BDDfy.Reporters
                                 ReportOnStep(scenario, step, true);
                         }
                     }
+
+                    var exampleScenario = story.Scenarios.First();
+                    ReportTags(exampleScenario.Tags);
                 }
             }
 
             ReportExceptions();
+        }
+
+        private void ReportTags(List<string> tags)
+        {
+            if (!tags.Any())
+                return;
+
+            WriteLine();
+            WriteLine("Tags: {0}", string.Join(", ", tags));
         }
 
         private void WriteExamples(Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)

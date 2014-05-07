@@ -15,7 +15,7 @@ namespace TestStack.BDDfy.Tests.Processors
         public void InitialisesScenarioWithExampleBeforeRunning()
         {
             const int expectedValue = 1;
-            int actualValue = 0;
+            var actualValue = 0;
             var exampleTable = new ExampleTable("ExampleValue")
             {
                 expectedValue
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Processors
             Action<object> action = o => actualValue = ExampleValue;
             var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true) };
 
-            var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable, new List<StepArgument>());
+            var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable, new List<StepArgument>(), new List<string>());
             var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()),
                 new[] { scenarioWithExample });
 

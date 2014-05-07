@@ -15,6 +15,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>265a1279</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -151,6 +152,7 @@
     <Compile Include="Scanner\WhenTestClassUsesExecutableAttributes.cs" />
     <Compile Include="Stories\StoryClassAndScenarioClassAreTheSame.cs" />
     <Compile Include="Stories\StorySubclass.cs" />
+    <Compile Include="TagsTests.cs" />
     <Compile Include="UnusedExampleValueScenario.cs" />
     <Compile Include="WhenAnEmptyScenarioIsBddified.cs" />
     <Compile Include="WhenAnEmptyStoryIsBddified.cs" />
@@ -178,6 +180,8 @@
     <Content Include="Reporters\MarkDown\MarkDownReportBuilderTests.ShouldProduceExpectedMarkdownWithExamples.approved.txt" />
     <Content Include="Reporters\TextReporter\TextReporterTests.ShouldProduceExpectedTextWithExamples.approved.txt" />
     <Content Include="Reporters\TextReporter\TextReporterTests.ShouldProduceExpectedReport.approved.txt" />
+    <Content Include="TagsTests.TagsAreReportedInHtmlReport.approved.txt" />
+    <Content Include="TagsTests.TagsAreReportedInTextReport.approved.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

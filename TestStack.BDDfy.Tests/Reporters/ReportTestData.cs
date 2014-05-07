@@ -49,14 +49,14 @@ namespace TestStack.BDDfy.Tests.Reporters
 
             var stories = new List<Story>
             {
-                new Story(storyMetadata1, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Happiness]")),
-                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]")),
-                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Happiness]")),
-                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Happiness]")),
-                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [with no story]")),
-                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [with no story]")),
-                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [with no story]")),
-                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [with no story]")),
+                new Story(storyMetadata1, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Happiness]", new List<string>())),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]", new List<string>())),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Happiness]", new List<string>())),
+                new Story(storyMetadata1, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Happiness]", new List<string>())),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [with no story]", new List<string>())),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [with no story]", new List<string>())),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [with no story]", new List<string>())),
+                new Story(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [with no story]", new List<string>())),
                 new Story(storyMetadata2, GetScenarios(true, true)),
                 new Story(storyMetadata3, GetScenarios(false, true)),
             };
@@ -118,15 +118,15 @@ namespace TestStack.BDDfy.Tests.Reporters
                 }
                 return new List<Scenario>
                 {
-                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0), new List<StepArgument>()),
-                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1), new List<StepArgument>())
+                    new Scenario(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0), new List<StepArgument>(), new List<string>()),
+                    new Scenario(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1), new List<StepArgument>(), new List<string>())
                 }.ToArray();
             }
 
             return new List<Scenario>
                        {
-                           new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario"),
-                           new Scenario(typeof(SadPathScenario), sadExecutionSteps, "Sad Path Scenario")
+                           new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario", new List<string>()),
+                           new Scenario(typeof(SadPathScenario), sadExecutionSteps, "Sad Path Scenario", new List<string>())
                        }.ToArray();
         }
 
@@ -134,10 +134,10 @@ namespace TestStack.BDDfy.Tests.Reporters
         {
             var scenarios = new List<Scenario>
             {
-                new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario"),
-                new Scenario(typeof(SadPathScenario), GetSadExecutionSteps(), "Sad Path Scenario"),
-                new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario"),
-                new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario")
+                new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario", new List<string>()),
+                new Scenario(typeof(SadPathScenario), GetSadExecutionSteps(), "Sad Path Scenario", new List<string>()),
+                new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario", new List<string>()),
+                new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario", new List<string>())
             };
 
             // override specific step results - ideally this class could be refactored to provide  objectmother/builder interface

@@ -9,6 +9,7 @@ namespace TestStack.BDDfy
         private TestContext(object testObject)
         {
             TestObject = testObject;
+            Tags = new List<string>();
         }
 
         public static void SetContext(object testObject, ITestContext context)
@@ -47,6 +48,7 @@ namespace TestStack.BDDfy
 
         public ExampleTable Examples { get; set; }
         public IFluentScanner FluentScanner { get; set; }
+        public List<string> Tags { get; private set; }
         public object TestObject { get; private set; }
     }
 }

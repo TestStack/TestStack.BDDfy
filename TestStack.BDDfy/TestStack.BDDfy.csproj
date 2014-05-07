@@ -115,6 +115,7 @@
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
     <Compile Include="Scanners\StepScanners\Examples\UnassignableExampleException.cs" />
+    <Compile Include="Scanners\StepScanners\WithTagsExtensions.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\FluentApi.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

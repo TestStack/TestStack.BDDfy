@@ -1,0 +1,5 @@
+﻿
+### Tags are reported in markdown report
+  Given a step  
+
+Tags: `Tag1`, `Tag 2`
