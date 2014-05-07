@@ -20,7 +20,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         static string Scrub(string scrubPaths)
         {
-            return Regex.Replace(scrubPaths, @"(?<!\r)\n", "\r\n");
+            return Regex.Replace(Regex.Replace(Regex.Replace(scrubPaths, @"(?<!\r)\n", "\r\n"), "step-\\d+-\\d+", "step-1-1"), "scenario-\\d+", "scenario-1");
         }
     }
 }

@@ -111,10 +111,10 @@ body{margin:0;padding:0;padding-bottom:40px;max-width:100%;background-color:#fff
                           <td>negative</td>
                           <td>is not</td>
                           <td>
-                            <span class='canToggle' data-toggle-target='step-1-19'>Boom
+                            <span class='canToggle' data-toggle-target='step-1-1'>Boom
 With
 New lines</span>
-                            <div class='step' id='step-1-19'>
+                            <div class='step' id='step-1-1'>
                               <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 112</code>
                             </div>
                           </td>

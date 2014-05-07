@@ -90,59 +90,59 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-5'>Happy Path Scenario</div>
-                  <ul class='steps' id='scenario-5'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-5-1' >
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a positive account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-5-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-5-3' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-7'>Inconclusive Scenario</div>
-                  <ul class='steps' id='scenario-7'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-7-1' >
+                  <div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-1'>Inconclusive Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-7-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Inconclusive  Assertion ' data-toggle-target='step-7-3' >
+                    <li class='step Inconclusive  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-8'>Not Implemented Scenario</div>
-                  <ul class='steps' id='scenario-8'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-8-1' >
+                  <div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-1'>Not Implemented Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-8-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotImplemented  Assertion ' data-toggle-target='step-8-3' >
+                    <li class='step NotImplemented  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-6'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-6'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-6-1' >
+                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-1'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-6-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-6-3' >
+                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
-                      <div class='step FailedException' id='step-6-3'>
+                      <div class='step FailedException' id='step-1-1'>
                         <code>This is a test stack trace</code>
                       </div>
                     </li>
@@ -168,54 +168,54 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                     <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a positive account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-3' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-3'>Inconclusive Scenario</div>
-                  <ul class='steps' id='scenario-3'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-1' >
+                  <div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-1'>Inconclusive Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Inconclusive  Assertion ' data-toggle-target='step-3-3' >
+                    <li class='step Inconclusive  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-4'>Not Implemented Scenario</div>
-                  <ul class='steps' id='scenario-4'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-4-1' >
+                  <div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-1'>Not Implemented Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-4-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotImplemented  Assertion ' data-toggle-target='step-4-3' >
+                    <li class='step NotImplemented  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-2'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-2-1' >
+                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-1'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-2-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-2-3' >
+                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
-                      <div class='step FailedException' id='step-2-3'>
+                      <div class='step FailedException' id='step-1-1'>
                         <code>This is a test stack trace</code>
                       </div>
                     </li>
@@ -231,59 +231,59 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-9'>Happy Path Scenario</div>
-                  <ul class='steps' id='scenario-9'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-9-1' >
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a positive account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-9-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-9-3' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-11'>Inconclusive Scenario</div>
-                  <ul class='steps' id='scenario-11'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-11-1' >
+                  <div class='Inconclusive canToggle scenarioTitle' data-toggle-target='scenario-1'>Inconclusive Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-11-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Inconclusive  Assertion ' data-toggle-target='step-11-3' >
+                    <li class='step Inconclusive  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-12'>Not Implemented Scenario</div>
-                  <ul class='steps' id='scenario-12'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-12-1' >
+                  <div class='NotImplemented canToggle scenarioTitle' data-toggle-target='scenario-1'>Not Implemented Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-12-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step NotImplemented  Assertion ' data-toggle-target='step-12-3' >
+                    <li class='step NotImplemented  Assertion ' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed</span>
                     </li>
                   </ul>
                 </div>
                 <div class='scenario'>
-                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-10'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-10'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-10-1' >
+                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-1'>Sad Path Scenario</div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>Given a negative account balance</span>
                     </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-10-2' >
+                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
                       <span>When the account holder requests money</span>
                     </li>
-                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-10-3' >
+                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-1-1' >
                       <span>Then no money is dispensed [Exception Message: 'This is a test exception.']</span>
-                      <div class='step FailedException' id='step-10-3'>
+                      <div class='step FailedException' id='step-1-1'>
                         <code>This is a test stack trace</code>
                       </div>
                     </li>
