@@ -15,7 +15,7 @@ namespace TestStack.BDDfy.Tests.Processors
         public void InitialisesScenarioWithExampleBeforeRunning()
         {
             const int expectedValue = 1;
-            int actualValue = 0;
+            var actualValue = 0;
             var exampleTable = new ExampleTable("ExampleValue")
             {
                 expectedValue
