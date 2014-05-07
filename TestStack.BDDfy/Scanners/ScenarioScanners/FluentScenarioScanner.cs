@@ -8,13 +8,11 @@ namespace TestStack.BDDfy
     public class FluentScenarioScanner : IScenarioScanner
     {
         private readonly string _title;
-        private readonly List<StepArgument> _arguments;
         private readonly List<Step> _steps;
 
-        public FluentScenarioScanner(List<Step> steps, string title, List<StepArgument> arguments)
+        public FluentScenarioScanner(List<Step> steps, string title)
         {
             _title = title;
-            _arguments = arguments;
             _steps = steps;
         }
 
@@ -25,7 +23,7 @@ namespace TestStack.BDDfy
             {
                 var scenarioId = Configurator.IdGenerator.GetScenarioId();
                 return testContext.Examples.Select(example =>
-                    new Scenario(scenarioId, testContext.TestObject, CloneSteps(_steps), scenarioText, example, _arguments, testContext.Tags));
+                    new Scenario(scenarioId, testContext.TestObject, CloneSteps(_steps), scenarioText, example, testContext.Tags));
             }
 
             return new[] { new Scenario(testContext.TestObject, _steps, scenarioText, testContext.Tags) };
