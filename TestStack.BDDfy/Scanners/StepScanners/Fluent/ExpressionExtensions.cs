@@ -61,7 +61,17 @@ namespace TestStack.BDDfy
             if (unaryExpression != null)
                 return ExtractArguments(unaryExpression, value);
 
+            var methodCallExpression = expression as MethodCallExpression;
+            if (methodCallExpression != null)
+                return Invoke(methodCallExpression, ExtractArguments(methodCallExpression, value));
+
             return new StepArgument[0];
+        }
+
+        private static IEnumerable<StepArgument> Invoke(MethodCallExpression methodCallExpression, IEnumerable<StepArgument> args)
+        {
+            var value = ((ConstantExpression)methodCallExpression.Object).Value;
+            return new[] { new StepArgument(() => methodCallExpression.Method.Invoke(value, args.Select(s => s.Value).ToArray())) };
         }
 
         private static IEnumerable<StepArgument> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)
@@ -90,7 +100,7 @@ namespace TestStack.BDDfy
                 arguments.AddRange(ExtractArguments(argumentExpression, value));
             }
 
-            return new[] { new StepArgument(newExpression.Constructor.Invoke(arguments.Select(o => o.Value).ToArray())) };
+            return new[] { new StepArgument(() => newExpression.Constructor.Invoke(arguments.Select(o => o.Value).ToArray())) };
         }
 
         private static IEnumerable<StepArgument> ExtractArguments<T>(NewArrayExpression newArrayExpression, T value)
@@ -124,7 +134,7 @@ namespace TestStack.BDDfy
                     arrayElements.Add(arrayElement);
             }
 
-            return ToArray(arrayElements).Select(o => new StepArgument(o));
+            return ToArray(arrayElements).Select(o => new StepArgument(() => o));
         }
 
         private static IEnumerable<object> ToArray(IList list)
@@ -147,7 +157,7 @@ namespace TestStack.BDDfy
                 arrayElements.Add(Convert.ChangeType(arrayElement, arrayElementExpression.Type, null));
             }
 
-            return new[] { new StepArgument(ToArray(arrayElements)) };
+            return new[] { new StepArgument(() => ToArray(arrayElements)) };
         }
 
         private static IEnumerable<StepArgument> ExtractArguments<T>(ConstantExpression constantExpression, T value)
@@ -164,7 +174,7 @@ namespace TestStack.BDDfy
                 constantExpression.Type.IsPrimitive ||
                 constantExpression.Type.IsEnum ||
                 constantExpression.Value == null)
-                constants.Add(new StepArgument(constantExpression.Value));
+                constants.Add(new StepArgument(() => constantExpression.Value));
 
             return constants;
         }
@@ -220,14 +230,7 @@ namespace TestStack.BDDfy
             if (memberExpression != null)
             {
                 var extractArguments = ExtractArgument(memberExpression, value).Value;
-                try
-                {
-                    return new StepArgument(member, extractArguments);
-                }
-                catch (TargetException)
-                {
-                    return new StepArgument(null);
-                }
+                return new StepArgument(member, extractArguments);
             }
             return new StepArgument(member, value);
         }
