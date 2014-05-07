@@ -61,7 +61,24 @@ namespace TestStack.BDDfy
             if (unaryExpression != null)
                 return ExtractArguments(unaryExpression, value);
 
+            var methodCallExpression = expression as MethodCallExpression;
+            if (methodCallExpression != null)
+                return Invoke(methodCallExpression, ExtractArguments(methodCallExpression, value));
+
             return new StepArgument[0];
+        }
+
+        private static IEnumerable<StepArgument> Invoke(MethodCallExpression methodCallExpression, IEnumerable<StepArgument> args)
+        {
+            try
+            {
+                var value = ((ConstantExpression)methodCallExpression.Object).Value;
+                return new[] { new StepArgument(methodCallExpression.Method.Invoke(value, args.Select(s => s.Value).ToArray())) };
+            }
+            catch (Exception)
+            {
+                return Enumerable.Empty<StepArgument>();
+            }
         }
 
         private static IEnumerable<StepArgument> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)

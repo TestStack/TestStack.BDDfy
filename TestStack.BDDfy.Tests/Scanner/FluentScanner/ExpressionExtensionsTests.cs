@@ -227,6 +227,23 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
 
         [Test]
+        public void MethodCallValue()
+        {
+            var arguments = GetArguments(x => x.MethodWithInputs(GetNumberThree(), GetFooString()), new ClassUnderTest());
+            AssertReturnedArguments(arguments, new object[] { 3, "Foo" });
+        }
+
+        private string GetFooString()
+        {
+            return "Foo";
+        }
+
+        private int GetNumberThree()
+        {
+            return 3;
+        }
+
+        [Test]
         public void ArrayInputArgumentsProvidedUsingInheritedProperty()
         {
             var arguments = GetArguments(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2), new ClassUnderTest());
