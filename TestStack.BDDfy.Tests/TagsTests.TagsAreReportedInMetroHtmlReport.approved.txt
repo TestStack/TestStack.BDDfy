@@ -23,21 +23,21 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
           <div class='tilerow'>
             <div id='storycount' class='tile tileNoHover two-h purplebg'>
               <h3>stories</h3>
-              <h1>2</h1>
+              <h1>0</h1>
             </div>
             <div id='scenariocount' class='tile tileNoHover two-h tealbg'>
               <h3>scenarios</h3>
-              <h1>4</h1>
+              <h1>1</h1>
             </div>
           </div>
           <div class='tilerow'>
             <div class='tile tileNoHover one limebg'>
               <h4>PASSED</h4>
-              <h1>3</h1>
+              <h1>1</h1>
             </div>
             <div class='tile tileNoHover one redbg'>
               <h4>FAILED</h4>
-              <h1>1</h1>
+              <h1>0</h1>
             </div>
             <div class='tile tileNoHover one orangebg'>
               <h4>INCONCLUSIVE</h4>
@@ -79,106 +79,16 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
         </div>
         <ul class='testResult'>
           <li>
-            <div class='story Failed'>
-              <div class='storyMetadata'>
-                <h3 class='storyTitle'>Story: Account holder withdraws cash</h3>
-                <ul class='storyNarrative'>
-                  <li>As an account holder</li>
-                  <li>I want to withdraw cash</li>
-                  <li>So that I can get money when the bank is closed</li>
-                </ul>
-              </div>
-              <div class='scenarios'>
-                <div class='scenario'>
-                  <div class='Failed canToggle scenarioTitle' data-toggle-target='1'>Example Scenario</div>
-                  <ul class='steps' id='1'>
-                    <li class='step Assertion'>
-                      <span>Given a &lt;sign&gt; account balance</span>
-                    </li>
-                    <li class='step Assertion'>
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Assertion'>
-                      <span>Then money &lt;action&gt; dispensed</span>
-                    </li>
-                    <li class='step'>
-                      <span class='example-header'>Examples:</span>
-                      <table class='examples' style='border-collapse: collapse;margin-left:10px''>
-                        <tr>
-                          <th></th>
-                          <th>sign</th>
-                          <th>action</th>
-                          <th>Error</th>
-                        </tr>
-                        <tr>
-                          <td><Span class='Passed' style='margin-right:4px;' /></td>
-                          <td>positive</td>
-                          <td>is</td>
-                          <td>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><Span class='Failed' style='margin-right:4px;' /></td>
-                          <td>negative</td>
-                          <td>is not</td>
-                          <td>
-                            <span class='canToggle' data-toggle-target='step-1-19'>Boom
-With
-New lines</span>
-                            <div class='step FailedException' id='step-1-19'>
-                              <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 112</code>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
             <div class='story Passed'>
               <div class='storyMetadata'>
-                <h3 class='storyTitle'>Story: Happiness</h3>
-                <ul class='storyNarrative'>
-                  <li>As a person</li>
-                  <li>I want ice cream</li>
-                  <li>So that I can be happy</li>
-                </ul>
+                <h3 class='namespaceName'>TestStack.BDDfy.Tests</h3>
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='0'>Example Scenario</div>
-                  <ul class='steps' id='0'>
-                    <li class='step Assertion'>
-                      <span>Given a &lt;sign&gt; account balance</span>
-                    </li>
-                    <li class='step Assertion'>
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Assertion'>
-                      <span>Then money &lt;action&gt; dispensed</span>
-                    </li>
-                    <li class='step'>
-                      <span class='example-header'>Examples:</span>
-                      <table class='examples' style='border-collapse: collapse;margin-left:10px''>
-                        <tr>
-                          <th></th>
-                          <th>sign</th>
-                          <th>action</th>
-                        </tr>
-                        <tr>
-                          <td><Span class='Passed' style='margin-right:4px;' /></td>
-                          <td>positive</td>
-                          <td>is</td>
-                        </tr>
-                        <tr>
-                          <td><Span class='Passed' style='margin-right:4px;' /></td>
-                          <td>negative</td>
-                          <td>is not</td>
-                        </tr>
-                      </table>
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Tags are reported in metro html report<div class='tag'>Tag1</div><div class='tag'>Tag 2</div></div>
+                  <ul class='steps' id='scenario-1'>
+                    <li class='step Passed  SetupState ' data-toggle-target='step-1-1' >
+                      <span>Given a step</span>
                     </li>
                   </ul>
                 </div>

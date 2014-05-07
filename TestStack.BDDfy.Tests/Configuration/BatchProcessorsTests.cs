@@ -60,7 +60,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         [Test]
         public void ReturnsHtmlMetroReporterWhenItIsActivated()
         {
-            Configurator.BatchProcessors.HtmlMetroReport.Enable();           
+            Configurator.BatchProcessors.HtmlMetroReport.Enable();
             
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
             Assert.IsTrue(processors.Any(MetroReportProcessorIsActive), "The metro Html report was not found in batch processors");

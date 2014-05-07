@@ -904,3 +904,10 @@ code {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.tag {
+    margin: 3px;
+    padding: 3px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}

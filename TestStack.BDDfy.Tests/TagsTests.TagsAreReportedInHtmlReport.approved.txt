@@ -23,19 +23,19 @@ body{margin:0;padding:0;padding-bottom:40px;max-width:100%;background-color:#fff
           <li class='storySummary'>
             <div class='summaryLine'>
               <div class='summaryLabel'>Stories</div>
-              <span class='summaryCount'>2</span>
+              <span class='summaryCount'>0</span>
             </div>
           </li>
           <li class='scenarioSummary'>
             <div class='summaryLine'>
               <div class='summaryLabel'>Scenarios</div>
-              <span class='summaryCount'>4</span>
+              <span class='summaryCount'>1</span>
             </div>
           </li>
           <li class='Passed'>
             <div class='summaryLine'>
               <div class='summaryLabel'>Passed</div>
-              <span class='summaryCount'>3</span>
+              <span class='summaryCount'>1</span>
             </div>
           </li>
           <li class='Inconclusive'>
@@ -53,7 +53,7 @@ body{margin:0;padding:0;padding-bottom:40px;max-width:100%;background-color:#fff
           <li class='Failed'>
             <div class='summaryLine'>
               <div class='summaryLabel'>Failed</div>
-              <span class='summaryCount'>1</span>
+              <span class='summaryCount'>0</span>
             </div>
           </li>
         </ul>
@@ -68,86 +68,16 @@ body{margin:0;padding:0;padding-bottom:40px;max-width:100%;background-color:#fff
         </div>
         <ul class='testResult'>
           <li>
-            <div class='story Failed'>
-              <div class='storyMetadata'>
-                <div class='storyTitle'>Story: Account holder withdraws cash</div>
-                <ul class='storyNarrative'>
-                  <li>As an account holder</li>
-                  <li>I want to withdraw cash</li>
-                  <li>So that I can get money when the bank is closed</li>
-                </ul>
-              </div>
-              <div class='scenarios'>
-                <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-3'>Happy Path Scenario</div>
-                  <ul class='steps' id='scenario-3'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-4' >
-                      <span>Given a positive account balance</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-5' >
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-6' >
-                      <span>Then money is dispensed</span>
-                    </li>
-                  </ul>
-                </div>
-                <div class='scenario'>
-                  <div class='Failed canToggle scenarioTitle' data-toggle-target='scenario-4'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-4'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-1' >
-                      <span>Given a negative account balance</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-3-2' >
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Failed  Assertion canToggle' data-toggle-target='step-3-3' >
-                      <span>Then no money is dispensed [Exception Message: 'Boom']</span>
-                      <div class='step FailedException' id='step-3-3'>
-                        <code>   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs:line 89</code>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
             <div class='story Passed'>
               <div class='storyMetadata'>
-                <div class='storyTitle'>Story: Happiness</div>
-                <ul class='storyNarrative'>
-                  <li>As a person</li>
-                  <li>I want ice cream</li>
-                  <li>So that I can be happy</li>
-                </ul>
+                <div class='namespaceName'>TestStack.BDDfy.Tests</div>
               </div>
               <div class='scenarios'>
                 <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Happy Path Scenario</div>
+                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Tags are reported in html report<div class='tag'>Tag1</div><div class='tag'>Tag 2</div></div>
                   <ul class='steps' id='scenario-1'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-4' >
-                      <span>Given a positive account balance</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-5' >
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-6' >
-                      <span>Then money is dispensed</span>
-                    </li>
-                  </ul>
-                </div>
-                <div class='scenario'>
-                  <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-2'>Sad Path Scenario</div>
-                  <ul class='steps' id='scenario-2'>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
-                      <span>Given a negative account balance</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-2' >
-                      <span>When the account holder requests money</span>
-                    </li>
-                    <li class='step Passed  Assertion ' data-toggle-target='step-1-3' >
-                      <span>Then no money is dispensed</span>
+                    <li class='step Passed  SetupState ' data-toggle-target='step-1-1' >
+                      <span>Given a step</span>
                     </li>
                   </ul>
                 </div>

@@ -1,6 +1,10 @@
-﻿using ApprovalTests;
+﻿using System;
+using ApprovalTests;
 using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
+using TestStack.BDDfy.Reporters.Html;
+using TestStack.BDDfy.Reporters.MarkDown;
+using TestStack.BDDfy.Tests.Reporters;
 
 namespace TestStack.BDDfy.Tests
 {
@@ -20,9 +24,50 @@ namespace TestStack.BDDfy.Tests
             Approvals.Verify(textReporter.ToString());
         }
 
+        [Test]
+        public void TagsAreReportedInHtmlReport()
+        {
+            var story = this.Given(_ => GivenAStep())
+                .WithTags("Tag1", "Tag 2")
+                .BDDfy();
+            Func<FileReportModel> model = () => new HtmlReportModel(new[] { story })
+                {
+                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+                };
+
+            var sut = new ClassicReportBuilder();
+            ReportApprover.Approve(model, sut);
+        }
+
+        [Test]
+        public void TagsAreReportedInMetroHtmlReport()
+        {
+            var story = this.Given(_ => GivenAStep())
+                .WithTags("Tag1", "Tag 2")
+                .BDDfy();
+            Func<FileReportModel> model = () => new HtmlReportModel(new[] { story })
+                {
+                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+                };
+
+            var sut = new MetroReportBuilder();
+            ReportApprover.Approve(model, sut);
+        }
+
+        [Test]
+        public void TagsAreReportedInMarkdownReport()
+        {
+            var story = this.Given(_ => GivenAStep())
+                .WithTags("Tag1", "Tag 2")
+                .BDDfy();
+            Func<FileReportModel> model = () => new FileReportModel(new[] { story });
+            var sut = new MarkDownReportBuilder();
+            ReportApprover.Approve(model, sut);
+        }
+
         private void GivenAStep()
         {
-            
+
         }
     }
 }

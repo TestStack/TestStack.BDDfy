@@ -46,6 +46,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
                         report.AppendLine(); // separator
                         WriteExamples(report, exampleScenario, scenarioGroup);
+                        ReportTags(report, exampleScenario.Tags);
                     }
                     else
                     {
@@ -58,6 +59,9 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
                             report.AppendLine(); // separator
                         }
+
+                        var exampleScenario = story.Scenarios.First();
+                        ReportTags(report, exampleScenario.Tags);
                     }
                 }
 
@@ -66,6 +70,15 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             _exceptions.Clear();
 
             return report.ToString();
+        }
+
+        private void ReportTags(StringBuilder report, List<string> tags)
+        {
+            if (!tags.Any())
+                return;
+
+            report.AppendLine();
+            report.AppendLine(string.Format("Tags: {0}", string.Join(", ", tags.Select(t => string.Format("`{0}`", t)))));
         }
 
         private void WriteExamples(StringBuilder report, Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)

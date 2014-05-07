@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -229,7 +230,7 @@ namespace TestStack.BDDfy.Reporters.Html
             var firstScenario = scenarioGroup.First();
             var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
 
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}</div>", scenarioResult, firstScenario.Id, HttpUtility.HtmlEncode(firstScenario.Title)));
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenarioResult, firstScenario.Id, HttpUtility.HtmlEncode(firstScenario.Title), FormatTags(firstScenario.Tags)));
 
             using (OpenTag(string.Format("<ul class='steps' id='{0}'>", firstScenario.Id), HtmlTag.ul))
             {
@@ -250,6 +251,11 @@ namespace TestStack.BDDfy.Reporters.Html
 
                 AddExamples(scenarioGroup);
             }
+        }
+
+        private string FormatTags(List<string> tags)
+        {
+            return string.Join(string.Empty, tags.Select(t => string.Format("<div class='tag'>{0}</div>", t)));
         }
 
         private void AddExamples(Scenario[] scenarioGroup)
@@ -309,7 +315,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void AddScenario(Scenario scenario)
         {
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}</div>", scenario.Result, scenario.Id, scenario.Title));
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, HttpUtility.HtmlEncode(scenario.Title), FormatTags(scenario.Tags)));
 
             using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
             {
