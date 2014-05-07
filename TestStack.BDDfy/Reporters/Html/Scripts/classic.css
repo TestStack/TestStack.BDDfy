@@ -33,6 +33,7 @@ li {
     background: -o-linear-gradient(top, #679bdb 1%,#3b77a5 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#679bdb), color-stop(100%,#3b77a5));
     background: -webkit-linear-gradient(top, #679bdb 1%,#3b77a5 100%);
+    /* ReSharper disable once InvalidValue */
     background: linear-gradient(top, #679bdb 1%,#3b77a5 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#679bdb', endColorstr='#3b77a5',GradientType=0 );
     /* Chrome,Safari4+ */

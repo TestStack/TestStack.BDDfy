@@ -45,14 +45,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void GivenSomeState_StepReports()
         {
-            Assert.IsTrue(GivenSomeStateStep.ShouldReport);        
+            Assert.IsTrue(GivenSomeStateStep.ShouldReport);
         }
 
         Step WhenSomeStepUsesIncompatibleNamingConventionStep
         {
             get
             {
-                return _steps.Single(s => s.Title.Trim() == "When some step uses incompatible naming convention");
+                return _steps.Single(s => s.Title.Trim() == "And when some step uses incompatible naming convention");
             }
         }
 
@@ -71,7 +71,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void WhenSomeStepUsesIncompatibleNamingConvention_Reports()
         {
-            Assert.IsTrue(WhenSomeStepUsesIncompatibleNamingConventionStep.ShouldReport);        
+            Assert.IsTrue(WhenSomeStepUsesIncompatibleNamingConventionStep.ShouldReport);
         }
 
         Step AndAMethodTakesArrayInputsStep
@@ -123,14 +123,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void WhenSomethingHappensTransitionStep_Reports()
         {
-            Assert.IsTrue(WhenSomethingHappensTransitionStep.ShouldReport);        
+            Assert.IsTrue(WhenSomethingHappensTransitionStep.ShouldReport);
         }
 
         Step WhenSomethingHappensTransitionStepIgnoringInputInStepTitle
         {
             get
             {
-                return _steps.Single(s => s.Title == "When something happens");
+                return _steps.Single(s => s.Title == "And when something happens");
             }
         }
 
@@ -149,7 +149,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_Reports()
         {
-            Assert.IsTrue(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ShouldReport);        
+            Assert.IsTrue(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ShouldReport);
         }
 
         Step WhenSomethingHappensConsecutiveTransitionStep
@@ -175,7 +175,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void WhenSomethingHappensConsecutiveTransitionStep_Reports()
         {
-            Assert.IsTrue(WhenSomethingHappensConsecutiveTransitionStep.ShouldReport);        
+            Assert.IsTrue(WhenSomethingHappensConsecutiveTransitionStep.ShouldReport);
         }
 
         Step AndThenSomethingElseHappensStep
@@ -201,7 +201,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void AndThenSomethingElseHappensStep_Reports()
         {
-            Assert.IsTrue(AndThenSomethingElseHappensStep.ShouldReport);        
+            Assert.IsTrue(AndThenSomethingElseHappensStep.ShouldReport);
         }
 
         Step ThenTheFollowingAssertionsShouldBeCorrectStep
@@ -253,7 +253,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void AndIncorrectAttributeWouldNotMatterStep_Reports()
         {
-            Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.ShouldReport);        
+            Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.ShouldReport);
         }
 
         Step AndInputsAreFormattedPropertlyInTheTitle
@@ -297,7 +297,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void TearDownStep_DoesNotReports()
         {
-            Assert.IsFalse(TearDownStep.ShouldReport);        
+            Assert.IsFalse(TearDownStep.ShouldReport);
         }
     }
 }

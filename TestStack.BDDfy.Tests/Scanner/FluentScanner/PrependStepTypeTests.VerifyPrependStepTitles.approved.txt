@@ -1,0 +1,13 @@
+﻿
+Scenario: Verify prepend step titles
+	Given a step with given in it
+	Given a step without given in it
+	  And given a step with and given in it
+	  And a step without given in it
+	  But in step
+	  But nothing in step
+	When stuff
+	When stuff
+	Then we are winning
+	Then we are winning
+

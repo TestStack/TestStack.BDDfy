@@ -13,12 +13,12 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void FluentCanBeUsedWithExamples()
         {
             var story = this
-                .Given(_ => GivenMethodTaking__ExampleInt__(Prop1), false)
-                .And(_ => GivenMethodTaking__ExampleInt__(_.Prop1), false)
-                .And(_ => GivenADifferentMethodWithRandomArg(2))
-                .And(_ => GivenADifferentMethodWith(_prop2))
+                .Given(_ => MethodTaking__ExampleInt__(Prop1), false)
+                .And(_ => MethodTaking__ExampleInt__(_.Prop1), false)
+                .And(_ => ADifferentMethodWithRandomArg(2))
+                .And(_ => ADifferentMethodWith(_prop2))
                 .When(_ => WhenMethodUsing__ExampleString__())
-                .When(_ => AndIUseA(multiWordHeading))
+                .And(_ => AndIUseA(multiWordHeading))
                 .Then(_ => ThenAllIsGood())
                 .WithExamples(new ExampleTable("Prop 1", "Prop2", "Prop 3", "Multi word heading")
                 {
@@ -75,12 +75,12 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             this.multiWordHeading.ShouldBeOneOf("", "val2");
         }
 
-        private void GivenADifferentMethodWith(string prop2)
+        private void ADifferentMethodWith(string prop2)
         {
             _prop2.ShouldBeOneOf("foo", "bar");
         }
 
-        private void GivenADifferentMethodWithRandomArg(int foo)
+        private void ADifferentMethodWithRandomArg(int foo)
         {
 
         }
@@ -96,7 +96,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             Prop_3.ShouldBeOneOf(ExecutionOrder.ConsecutiveAssertion, ExecutionOrder.Initialize);
         }
 
-        private void GivenMethodTaking__ExampleInt__(int exampleInt)
+        private void MethodTaking__ExampleInt__(int exampleInt)
         {
             exampleInt.ShouldBeInRange(1, 2);
         }

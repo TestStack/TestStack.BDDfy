@@ -257,320 +257,320 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> Given(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Action step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Func<Task> step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(string title)
         {
-            scanner.AddStep(() => { }, title, true, ExecutionOrder.SetupState, false);
+            scanner.AddStep(() => { }, title, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
         public IFluentStepBuilder<TScenario> When(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Action step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Func<Task> step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(string title)
         {
-            scanner.AddStep(() => { }, title, true, ExecutionOrder.Transition, false);
+            scanner.AddStep(() => { }, title, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
         public IFluentStepBuilder<TScenario> Then(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Action step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, title, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Func<Task> step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(step, title, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(string title)
         {
-            scanner.AddStep(() => { }, title, true, ExecutionOrder.Assertion, true);
+            scanner.AddStep(() => { }, title, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
         public IFluentStepBuilder<TScenario> And(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Action step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Func<Task> step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(string title)
         {
-            scanner.AddStep(() => { }, title, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(() => { }, title, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
         public IFluentStepBuilder<TScenario> But(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Action step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Func<Task> step, string title)
         {
-            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(string title)
         {
-            scanner.AddStep(() => { }, title, true, ExecutionOrder.ConsecutiveStep, false);
+            scanner.AddStep(() => { }, title, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, stepTextTemplate, true, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Action<TScenario>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, null, true, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, stepTextTemplate, true, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<TScenario, Task>> step, bool includeInputsInStepTitle)
         {
-            scanner.AddStep(step, null, includeInputsInStepTitle, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, null, includeInputsInStepTitle, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, null, true, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Action step, string title)
         {
-            scanner.AddStep(step, title, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, title, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Func<Task> step, string title)
         {
-            scanner.AddStep(step, title, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(step, title, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(string title)
         {
-            scanner.AddStep(() => { }, title, false, ExecutionOrder.TearDown, false);
+            scanner.AddStep(() => { }, title, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
     }
