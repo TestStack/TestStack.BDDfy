@@ -7,7 +7,6 @@ namespace TestStack.BDDfy
 {
     public class Engine
     {
-        private readonly string _reportFilename;
         private readonly IScanner _scanner;
 
         static Engine()
@@ -23,16 +22,14 @@ namespace TestStack.BDDfy
             }
         }
 
-        public Engine(string reportFilename, IScanner scanner)
+        public Engine(IScanner scanner)
         {
-            _reportFilename = reportFilename ?? "BDDfy";
             _scanner = scanner;
         }
 
         public Story Run()
         {
             Story = _scanner.Scan();
-            Story.ReportFilename = _reportFilename;
 
             var processors = Configurator.Processors.GetProcessors(Story).ToList();
 
