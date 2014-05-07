@@ -77,7 +77,6 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             if (!tags.Any())
                 return;
 
-            report.AppendLine();
             report.AppendLine(string.Format("Tags: {0}", string.Join(", ", tags.Select(t => string.Format("`{0}`", t)))));
         }
 
