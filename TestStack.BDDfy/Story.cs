@@ -24,7 +24,7 @@ namespace TestStack.BDDfy
         /// Currently used only when scenario doesn't have a story and we use the namespace instead
         /// </summary>
         public string Namespace { get; set; }
-        public string Category { get; set; }
+        public string ReportFilename { get; set; }
         public IEnumerable<Scenario> Scenarios { get; private set; }
 
         public Result Result
