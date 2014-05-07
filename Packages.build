@@ -3,7 +3,10 @@
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
 
   <PropertyGroup>
+    <Version Condition="$(GitVersion_SemVer)!=''">$(GitVersion_SemVer)</Version>
     <Version Condition="$(Version)==''">0.0.0.0</Version>
+    <NuGetVersion Condition="$(GitVersion_MajorMinorPatch)==''">$(Version)</NuGetVersion>
+    <NuGetVersion Condition="$(GitVersion_MajorMinorPatch)!=''">$(GitVersion_MajorMinorPatch)$(GitVersion_PreReleaseTagWithDash.Replace('.', ''))</NuGetVersion>
     <BuildPath>$(MSBuildProjectDirectory)\Build</BuildPath>
     <ArtifactPath>$(BuildPath)\Library</ArtifactPath>
     <PackageWorkingPath>$(MSBuildProjectDirectory)\PackageBuild</PackageWorkingPath>
@@ -68,7 +71,7 @@
     </CreateItem>
     <CallTarget Targets="CopyBDDfyLibs;CopyBDDfySampleFiles;CopyNuspecFiles" />
     <MakeDir Directories="$(PackageOutput)" ContinueOnError="true"/>
-    <Exec Command='$(NuGetExe) pack "%(NuGetSpec.FullPath)" -version $(Version)' WorkingDirectory="$(PackageOutput)"/>
+    <Exec Command='$(NuGetExe) pack "%(NuGetSpec.FullPath)" -version $(NuGetVersion)' WorkingDirectory="$(PackageOutput)"/>
   </Target>
 
   <Target Name="Release" DependsOnTargets="Clean;Prepare;Build;Pack"/>

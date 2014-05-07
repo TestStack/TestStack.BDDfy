@@ -1,2 +1,2 @@
-@echo off
-@%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild Packages.build %*
+@echo on
+%~dp0\Resource\Build\GitVersion.exe /proj %~dp0\Packages.build /updateassemblyinfo /output buildserver /l console
