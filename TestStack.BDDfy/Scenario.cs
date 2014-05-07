@@ -16,14 +16,13 @@ namespace TestStack.BDDfy
             Id = Configurator.IdGenerator.GetScenarioId();
         }
 
-        public Scenario(string id, object testObject, List<Step> steps, string scenarioText, Example example, List<StepArgument> arguments, List<string> tags)
+        public Scenario(string id, object testObject, List<Step> steps, string scenarioText, Example example, List<string> tags)
         {
             Id = id;
             TestObject = testObject;
             Steps = steps;
             Title = scenarioText;
             Example = example;
-            Arguments = arguments;
             Tags = tags;
         }
 
@@ -31,7 +30,6 @@ namespace TestStack.BDDfy
         public string Title { get; private set; }
         public List<string> Tags { get; private set; }
         public Example Example { get; set; }
-        public List<StepArgument> Arguments { get; set; }
         public TimeSpan Duration { get { return new TimeSpan(Steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; internal set; }
         public List<Step> Steps { get; private set; }

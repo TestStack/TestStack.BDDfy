@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Processors
                 .OfType<FieldInfo>()
                 .Select(f => new StepArgument(f, _scenario.TestObject))
                 .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m, _scenario.TestObject)))
-                .Union(_scenario.Arguments)
+                .Union(_scenario.Steps.SelectMany(s=>s.Arguments))
                 .ToArray();
 
             foreach (var cell in _scenario.Example.Values)

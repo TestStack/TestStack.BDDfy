@@ -47,7 +47,7 @@ namespace TestStack.BDDfy
             {
                 var steps = ScanScenarioForSteps(testContext, example);
                 var orderedSteps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
-                yield return new Scenario(scenarioId, testContext.TestObject, orderedSteps, scenarioTitle, example, new List<StepArgument>(), testContext.Tags);
+                yield return new Scenario(scenarioId, testContext.TestObject, orderedSteps, scenarioTitle, example, testContext.Tags);
             }
         }
 

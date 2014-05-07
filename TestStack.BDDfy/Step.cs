@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TestStack.BDDfy.Configuration;
 
@@ -13,7 +14,8 @@ namespace TestStack.BDDfy
             StepTitle title,
             bool asserts,
             ExecutionOrder executionOrder,
-            bool shouldReport)
+            bool shouldReport, 
+            List<StepArgument> arguments)
         {
             Id = Configurator.IdGenerator.GetStepId();
             Asserts = asserts;
@@ -21,6 +23,7 @@ namespace TestStack.BDDfy
             ShouldReport = shouldReport;
             Result = Result.NotExecuted;
             Action = action;
+            Arguments = arguments;
             _title = title;
         }
 
@@ -33,6 +36,7 @@ namespace TestStack.BDDfy
             ShouldReport = step.ShouldReport;
             Result = Result.NotExecuted;
             Action = step.Action;
+            Arguments = step.Arguments;
         }
 
         public string Id { get; private set; }
@@ -53,6 +57,7 @@ namespace TestStack.BDDfy
         public Exception Exception { get; set; }
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
+        public List<StepArgument> Arguments { get; private set; }
 
         public void Execute(object testObject)
         {

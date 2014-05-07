@@ -41,8 +41,8 @@ namespace TestStack.BDDfy
             var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
             if (runStepWithArgsAttributes.Length == 0)
             {
-                yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, new object[0]), stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true)
+                var stepAction = StepActionFactory.GetStepAction(candidateMethod, new object[0]);
+                yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true, new List<StepArgument>())
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -60,9 +60,9 @@ namespace TestStack.BDDfy
                 else if (!string.IsNullOrEmpty(executableAttribute.StepTitle))
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
-                yield return
-                    new Step(StepActionFactory.GetStepAction(candidateMethod, inputArguments), new StepTitle(methodName), stepAsserts,
-                                      executableAttribute.ExecutionOrder, true)
+                var stepAction = StepActionFactory.GetStepAction(candidateMethod, inputArguments);
+                yield return new Step(stepAction, new StepTitle(methodName), stepAsserts,
+                                      executableAttribute.ExecutionOrder, true, new List<StepArgument>())
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -100,7 +100,7 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
-            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, true);
+            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, true, new List<StepArgument>());
         }
 
 
