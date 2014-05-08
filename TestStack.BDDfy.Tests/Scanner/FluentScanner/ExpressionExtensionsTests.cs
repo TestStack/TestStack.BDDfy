@@ -210,6 +210,16 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
 
         [Test]
+        public void ComplexArgumentMethodCall()
+        {
+            container.Target = 1;
+            container.SubContainer = new ContainerType { Target2 = "Foo" };
+
+            var arguments = GetArguments(x => x.MethodWithInputs(container.Target, container.SubContainer.ToString()), new ClassUnderTest());
+            AssertReturnedArguments(arguments, 1, "Foo");
+        }
+
+        [Test]
         public void ComplexArgument2()
         {
             container.SubContainer = new ContainerType { Target2 = "Foo" };

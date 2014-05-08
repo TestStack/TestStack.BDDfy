@@ -70,8 +70,11 @@ namespace TestStack.BDDfy
 
         private static IEnumerable<StepArgument> Invoke(MethodCallExpression methodCallExpression, IEnumerable<StepArgument> args)
         {
-            var value = ((ConstantExpression)methodCallExpression.Object).Value;
-            return new[] { new StepArgument(() => methodCallExpression.Method.Invoke(value, args.Select(s => s.Value).ToArray())) };
+            var constantExpression = methodCallExpression.Object as ConstantExpression;
+            if (constantExpression != null)
+                return new[] { new StepArgument(() => methodCallExpression.Method.Invoke(constantExpression.Value, args.Select(s => s.Value).ToArray())) };
+
+            return new[] { new StepArgument(() => methodCallExpression.Method.Invoke(args.First().Value, args.Skip(1).Select(s => s.Value).ToArray())) };
         }
 
         private static IEnumerable<StepArgument> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)
