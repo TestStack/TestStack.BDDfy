@@ -18,8 +18,6 @@
  - [#72](https://github.com/TestStack/TestStack.BDDfy/pull/72) - minifies bddfy .css and .js files to make HTML report smaller and the source more readable 
  - [#80](https://github.com/TestStack/TestStack.BDDfy/pull/80) - removes .net 3.5 support. **Breaking Change** 
 	- BDDfy V4 won't support .Net 3.5. So if you want to feel all the love that's coming to V4 you should upgrade to .Net 4+.
-- [#35](https://github.com/TestStack/TestStack.BDDfy/issues/35) [#89](https://github.com/TestStack/TestStack.BDDfy/pull/89)- Full Cucumber examples support! Blog post on this new functionality at [http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support](http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support)
-- [#69](https://github.com/TestStack/TestStack.BDDfy/issues/69) - Added tags, `.WithTags("Tag1", "Tag2")`. Tags will show in BDDfy reports
 - [#121](https://github.com/TestStack/TestStack.BDDfy/issues/121) - Fluent API: Prepend step type to Title, for example `.Given(_ => Foo())` will report as `Given foo`
 - Step title arguments in fluent API are reported much better, including:
 	- Step arguments are evaluated lazily, meaning if previous steps cause the value to change, the value at the time of step executed will be reported in the step
@@ -28,13 +26,15 @@
 	- And a few other cases have been addressed making steps much more resilient
 - [#118](https://github.com/TestStack/TestStack.BDDfy/issues/118) - Removed story.Category **Breaking Change**
 - [#101](https://github.com/TestStack/TestStack.BDDfy/issues/101) - Step titles are not encoded in HTML reports
-- [#87](https://github.com/TestStack/TestStack.BDDfy/issues/87) - Fluent API no longer orders steps by type of step, and is opened up to allow any ordering of steps (as long as the first step is Given or When. For example `.Given.Then.When.Then.And.When.Then` can be done.
-- [#78](https://github.com/TestStack/TestStack.BDDfy/issues/78) - Metro HTML report, new report which is a bit more modern. It can be enabled via configuration.
 - [#75](https://github.com/TestStack/TestStack.BDDfy/issues/75) - Inline assertions, allowing inline blocks of code - `.Given(() => { .... }, "Given some stuff")`
+- [#87](https://github.com/TestStack/TestStack.BDDfy/issues/87) - Fluent API no longer orders steps by type of step, and is opened up to allow any ordering of steps (as long as the first step is Given or When. For example `.Given.Then.When.Then.And.When.Then` can be done.
 - [#82](https://github.com/TestStack/TestStack.BDDfy/issues/82) - Strong naming has been removed **Breaking Change**
 
 ####New Features
  - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - adds ability to do inline assertions and title only steps using the fluent API
+- [#35](https://github.com/TestStack/TestStack.BDDfy/issues/35) [#89](https://github.com/TestStack/TestStack.BDDfy/pull/89)- Full Cucumber examples support! Blog post on this new functionality at [http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support](http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support)
+- [#78](https://github.com/TestStack/TestStack.BDDfy/issues/78) - Metro HTML report, new report which is a bit more modern. It can be enabled via configuration.
+- [#69](https://github.com/TestStack/TestStack.BDDfy/issues/69) - Added tags, `.WithTags("Tag1", "Tag2")`. Tags will show in BDDfy reports
 
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
 
