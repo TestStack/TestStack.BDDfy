@@ -38,12 +38,23 @@ namespace TestStack.BDDfy
     public class MethodNameStepScanner : IStepScanner
     {
         private readonly Func<string, string> _stepTextTransformer;
-        private readonly MethodNameMatcher[] _matchers;
+        private readonly List<MethodNameMatcher> _matchers;
 
         public MethodNameStepScanner(Func<string, string> stepTextTransformer, params MethodNameMatcher[] matchers)
         {
             _stepTextTransformer = stepTextTransformer;
-            _matchers = matchers;
+            _matchers = matchers.ToList();
+        }
+
+        public MethodNameStepScanner(Func<string, string> stepTextTransformer)
+        {
+            _stepTextTransformer = stepTextTransformer;
+            _matchers = new List<MethodNameMatcher>();
+        }
+
+        protected void AddMatcher(MethodNameMatcher matcher)
+        {
+            _matchers.Add(matcher);
         }
 
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method)

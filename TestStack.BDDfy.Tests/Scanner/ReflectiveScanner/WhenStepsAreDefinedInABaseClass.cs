@@ -1,8 +1,8 @@
-using NUnit.Framework;
 using System.Linq;
+using NUnit.Framework;
 using TestStack.BDDfy.Configuration;
 
-namespace TestStack.BDDfy.Tests.Scanner
+namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     [TestFixture]
     public class WhenStepsAreDefinedInABaseClass

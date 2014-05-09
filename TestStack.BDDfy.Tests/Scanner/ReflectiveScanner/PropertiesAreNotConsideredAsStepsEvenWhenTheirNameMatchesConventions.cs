@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Scanner
+namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     [TestFixture]
     public class PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions
