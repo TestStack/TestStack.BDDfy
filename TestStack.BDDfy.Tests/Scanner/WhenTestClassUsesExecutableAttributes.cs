@@ -42,6 +42,9 @@ namespace TestStack.BDDfy.Tests.Scanner
 
             [AndGiven]
             public void SomeOtherPartOfTheGiven() { }
+
+            [But]
+            public void IDontWantThisToBeTrue() { }
         }
 
         [SetUp]
@@ -59,166 +62,69 @@ namespace TestStack.BDDfy.Tests.Scanner
         [Test]
         public void DecoratedMethodsAreReturned()
         {
-            Assert.That(_steps.Count, Is.EqualTo(7));
-        }
-
-        Step GivenStep
-        {
-            get
-            {
-                return _steps.Single(s => s.Title == "Given");
-            }
+            Assert.That(_steps.Count, Is.EqualTo(8));
         }
 
         [Test]
-        public void GivenStep_IsFoundAsSetupState()
+        public void Given()
         {
-            Assert.That(GivenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
+            var givenStep = _steps.Single(s => s.Title == "Given"); 
+            Assert.That(givenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
+            Assert.IsFalse(givenStep.Asserts);
+            Assert.That(givenStep.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
         }
 
         [Test]
-        public void GivenStep_DoesNotAssert()
+        public void AndGiven()
         {
-            Assert.IsFalse(GivenStep.Asserts);
+            var step = _steps.Single(s => s.Title.Trim() == "Some other part of the given");
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+            Assert.IsFalse(step.Asserts);
+            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven)));
         }
 
         [Test]
-        public void GivenStep_TextIsFetchedFromMethodName()
+        public void When()
         {
-            Assert.That(GivenStep.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
-        }
-
-        Step AndGivenStep
-        {
-            get
-            {
-                return _steps.Single(s => s.Title.Trim() == "Some other part of the given");
-            }
+            var step = _steps.Single(s => s.Title == TypeWithAttribute.MethodTextForWhenSomethingHappens);
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.Transition));
+            Assert.That(step.Title, Is.EqualTo(TypeWithAttribute.MethodTextForWhenSomethingHappens));
+            Assert.IsFalse(step.Asserts);
         }
 
         [Test]
-        public void AndGivenIsFoundAsConsequtiveSetupState()
+        public void TheOtherPartOfWhen()
         {
-            Assert.That(AndGivenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+            var step = _steps.Single(s => s.Title.Trim() == "The other part of when");
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
+            Assert.IsFalse(step.Asserts);
         }
 
         [Test]
-        public void AndGivenStepDoesNotAssert()
+        public void ThenStepsWithArgs()
         {
-            Assert.IsFalse(AndGivenStep.Asserts);
-        }
-
-        [Test]
-        public void AndGivenStepTextIsFetchedFromMethodName()
-        {
-            Assert.That(AndGivenStep.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven)));
-        }
-
-        Step WhenStep
-        {
-            get
-            {
-                return _steps.Single(s => s.Title == TypeWithAttribute.MethodTextForWhenSomethingHappens);
-            }
-        }
-
-        [Test]
-        public void WhenStep_IsFoundAsTransitionStep()
-        {
-            Assert.That(WhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Transition));
-        }
-
-        [Test]
-        public void WhenStep_StepTextIsFetchedFromExecutableAttribute()
-        {
-            Assert.That(WhenStep.Title, Is.EqualTo(TypeWithAttribute.MethodTextForWhenSomethingHappens));
-        }
-
-        [Test]
-        public void WhenStep_StepDoesNotAssert()
-        {
-            Assert.IsFalse(WhenStep.Asserts);
-        }
-
-        Step TheOtherPartOfWhenStep
-        {
-            get
-            {
-                return _steps.Single(s => s.Title.Trim() == "The other part of when");
-            }
-        }
-
-        [Test]
-        public void TheOtherPartOfWhenStep_IsFoundAsConsecutiveTransition()
-        {
-            Assert.That(TheOtherPartOfWhenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
-        }
-
-        [Test]
-        public void TheOtherPartOfWhenStep_StepTextIsFetchedFromMethodName()
-        {
-            Assert.That(TheOtherPartOfWhenStep.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
-        }
-
-        [Test]
-        public void TheOtherPartOfWhenStep_StepDoesNotAssert()
-        {
-            Assert.IsFalse(TheOtherPartOfWhenStep.Asserts);
-        }
-
-        [Test]
-        public void ThenStepsAreReturnedAsAssertingSteps()
-        {
-            var steps = ThenSteps.ToList();
+            var steps = _steps.Where(s => s.Title == "Then 1, 2" || s.Title == "Then 3, 4").ToList();
             Assert.IsTrue(steps.All(s => s.ExecutionOrder == ExecutionOrder.Assertion));
-        }
-
-        IEnumerable<Step> ThenSteps
-        {
-            get
-            {
-                return _steps.Where(s => s.Title == "Then 1, 2" || s.Title == "Then 3, 4");
-            }
-        }
-
-        [Test]
-        public void ThenSteps_DoAssert()
-        {
-            var steps = ThenSteps.ToList();
-            Assert.True(steps.All(s => s.Asserts));
-        }
-
-        [Test]        
-        public void ThenSteps_StepTextIsFetchedFromMethodNamePostfixedWithArguments()
-        {
-            var steps = ThenSteps.ToList();
+            Assert.IsTrue(steps.All(s => s.Asserts));
             Assert.IsTrue(steps.All(s => s.Title.EndsWith(" 1, 2") || s.Title.EndsWith(" 3, 4")));
         }
 
-        Step AndThenStep
+        [Test]
+        public void AndThen()
         {
-            get
-            {
-                return _steps.Single(s => s.Title.Trim() == TypeWithAttribute.MethodTextForAndThen);
-            }
+            var step = _steps.Single(s => s.Title.Trim() == TypeWithAttribute.MethodTextForAndThen);
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
+            Assert.IsTrue(step.Asserts);
+            Assert.That(step.Title.Trim(), Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
         }
 
         [Test]
-        public void AndThenStep_IsFoundAndConsecutiveAssertingStep()
+        public void But()
         {
-            Assert.That(AndThenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
-        }
-
-        [Test]
-        public void AndThenStep_Asserts()
-        {
-            Assert.IsTrue(AndThenStep.Asserts);
-        }
-
-        [Test]
-        public void AndThenStep_StepTextIsFetchedFromExecutableAttribute()
-        {
-            Assert.That(AndThenStep.Title.Trim(), Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
+            var step = _steps.Single(s => s.Title == "I dont want this to be true");
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
+            Assert.IsTrue(step.Asserts);
         }
     }
 }
