@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Scanner
+namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     [TestFixture]
     public class WhenStepsReturnTheirText

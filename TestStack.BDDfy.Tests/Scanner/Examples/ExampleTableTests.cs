@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 
-namespace TestStack.BDDfy.Tests.Scanner.StepScanners.Examples
+namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
     [TestFixture]
     public class ExampleTableTests

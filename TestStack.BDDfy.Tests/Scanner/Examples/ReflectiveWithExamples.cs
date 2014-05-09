@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 
-namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
+namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
     [TestFixture]
     public class ReflectiveWithExamples

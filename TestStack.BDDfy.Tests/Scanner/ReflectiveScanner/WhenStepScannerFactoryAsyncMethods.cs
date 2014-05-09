@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Scanner
+namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     [TestFixture]
     public class WhenStepScannerFactoryAsyncMethods

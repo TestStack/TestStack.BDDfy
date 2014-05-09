@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using System.Linq;
+using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Scanner
+namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     [TestFixture]
     public class WhenTestClassFollowsGivenWhenThenNamingConvention
