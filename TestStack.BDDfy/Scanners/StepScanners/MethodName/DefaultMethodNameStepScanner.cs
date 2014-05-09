@@ -5,8 +5,7 @@ namespace TestStack.BDDfy
     public class DefaultMethodNameStepScanner : MethodNameStepScanner
     {
         public DefaultMethodNameStepScanner()
-            : base(
-                CleanupTheStepText,
+            : base(CleanupTheStepText,
                 new[]
                 {
                     new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.Initialize, false),
@@ -21,7 +20,8 @@ namespace TestStack.BDDfy
                     new MethodNameMatcher(s => s.StartsWith("And", StringComparison.OrdinalIgnoreCase), true, ExecutionOrder.ConsecutiveAssertion, true),
                     new MethodNameMatcher(s => s.StartsWith("AndThen", StringComparison.OrdinalIgnoreCase), true, ExecutionOrder.ConsecutiveAssertion, true),
                     new MethodNameMatcher(s => s.StartsWith("And_Then_", StringComparison.OrdinalIgnoreCase), true, ExecutionOrder.ConsecutiveAssertion, true),
-                    new MethodNameMatcher(s => s.StartsWith("TearDown", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.TearDown, false),
+                    new MethodNameMatcher(s => s.StartsWith("But", StringComparison.OrdinalIgnoreCase), true, ExecutionOrder.ConsecutiveAssertion, true),
+                    new MethodNameMatcher(s => s.StartsWith("TearDown", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.TearDown, false)
                 })
         {
         }
