@@ -1,7 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace TestStack.BDDfy.Tests.Scanner.StepText
+namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class ExecutableAttributeScannerTests
     {

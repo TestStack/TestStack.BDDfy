@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 
-namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
+namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
     [TestFixture]
     public class FluentWithExamples
