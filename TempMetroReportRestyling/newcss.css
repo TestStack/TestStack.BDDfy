@@ -860,6 +860,7 @@ code {
 
 .examples {
     margin-left: 15px;
+    margin-top: 10px;
     border-spacing: 0;
     border-collapse: collapse;
     border: 1px solid #d0d0d0;
@@ -879,8 +880,8 @@ code {
     }
 
 .example-header {
+    display: block;
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .tag {
