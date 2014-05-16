@@ -30,30 +30,30 @@
             </div>
           </div>
           <div class='tilerow' id='filterOptions'>
-            <div class='tile one limebg' data-target-class="Passed">
-				<a href="#">
+			<a href="#">
+				<div class='tile one limebg' data-target-class="Passed">				
 				  <h4>PASSED</h4>
-				  <h1>2</h1>
-				</a>
-            </div>
-            <div class='tile one redbg' data-target-class="Failed">
-				<a href="#">
+				  <h1>2</h1>				
+				</div>
+			</a>
+			<a href="#">
+				<div class='tile one redbg' data-target-class="Failed">				
 					<h4>FAILED</h4>
-					<h1>1</h1>
-				</a>
-            </div>
-            <div class='tile one orangebg' data-target-class="Inconclusive">
-				<a href="#">
+					<h1>1</h1>				
+				</div>
+			</a>
+			<a href="#">
+				<div class='tile one orangebg' data-target-class="Inconclusive">				
 					<h4>INCONCLUSIVE</h4>
-					<h1>1</h1>
-			  </a>
-            </div>
-            <div class='tile one bluebg' data-target-class="NotImplemented">
-				<a href="#">
+					<h1>1</h1>			  
+				</div>
+			</a>
+			<a href="#">
+				<div class='tile one bluebg' data-target-class="NotImplemented">				
 					<h4>NOT IMPLEMENTED</h4>
-					<h1>1</h1>
-			  </a>
-            </div>
+					<h1>1</h1>			  
+				</div>
+			</a>
           </div>
         </div>
       </section>
@@ -221,7 +221,7 @@ $(function () {
 
 
     $("#filterOptions a").click(function () {
-        var tile = $(this).parent();
+        var tile = $(this).children("div");
 		
 		tile.toggleClass("filterTileDisabled");
 		
