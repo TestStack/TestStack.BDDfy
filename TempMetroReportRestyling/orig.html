@@ -29,29 +29,37 @@
               <h1>5</h1>
             </div>
           </div>
-          <div class='tilerow'>
-            <div class='tile tileNoHover one limebg'>
-              <h4>PASSED</h4>
-              <h1>2</h1>
+          <div class='tilerow' id='filterOptions'>
+            <div class='tile one limebg' data-target-class="Passed">
+				<a href="#">
+				  <h4>PASSED</h4>
+				  <h1>2</h1>
+				</a>
             </div>
-            <div class='tile tileNoHover one redbg'>
-              <h4>FAILED</h4>
-              <h1>1</h1>
+            <div class='tile one redbg' data-target-class="Failed">
+				<a href="#">
+					<h4>FAILED</h4>
+					<h1>1</h1>
+				</a>
             </div>
-            <div class='tile tileNoHover one orangebg'>
-              <h4>INCONCLUSIVE</h4>
-              <h1>1</h1>
+            <div class='tile one orangebg' data-target-class="Inconclusive">
+				<a href="#">
+					<h4>INCONCLUSIVE</h4>
+					<h1>1</h1>
+			  </a>
             </div>
-            <div class='tile tileNoHover one bluebg'>
-              <h4>NOT IMPLEMENTED</h4>
-              <h1>1</h1>
+            <div class='tile one bluebg' data-target-class="NotImplemented">
+				<a href="#">
+					<h4>NOT IMPLEMENTED</h4>
+					<h1>1</h1>
+			  </a>
             </div>
           </div>
         </div>
       </section>
       <section id='resultOptions' class='group'>
         <h3>options</h3>
-        <ul id='filterOptions'>
+        <ul>
           <li class='Passed'>
             <input id='passedFilter' type='checkbox' checked='' data-target-class='Passed'>
             <label for='passedFilter'>passed</label>
@@ -195,8 +203,36 @@
     </section>
     <script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
     <script>
-$(function(){$(".canToggle").each(function(){var n=$("#"+$(this).data("toggle-target"));n.hide();$(this).click(function(){n.toggle(200)})});$(".expandAll").click(function(){$(".steps").css("display","")});$(".collapseAll").click(function(){$(".steps").css("display","none")});$("ul.resultSummary li:not('.storySummary'):not('.scenarioSummary')").append("<input type='checkbox' class='cbx_toggle' checked/>");$(".cbx_toggle").click(function(){var n=$(this),t=n.closest("li").attr("class");$("#testResult div.scenario ."+t).parent().toggle(n.is(":checked"))})});
-/*
+$(function () {
+    $('.canToggle').each(function () {
+        var target = $('#' + $(this).data('toggle-target'));
+        target.hide();
+        $(this).click(function () {
+            target.toggle(200);
+        });
+    });
+
+    $('.expandAll').click(function () {
+        $('.steps').css('display', '');
+    });
+    $('.collapseAll').click(function () {
+        $('.steps').css('display', 'none');
+    });
+
+
+    $("#filterOptions a").click(function () {
+        var tile = $(this).parent();
+		
+		tile.toggleClass("filterTileDisabled");
+		
+		var show = !tile.hasClass("filterTileDisabled");
+		
+        var resultType = tile.data("target-class");
+				
+		$("div.scenario ." + resultType).parent().toggle(show);
+    });
+});
+	/*
 //# sourceMappingURL=classic.min.js.map
 */
     </script>
