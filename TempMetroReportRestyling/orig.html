@@ -228,8 +228,9 @@ $(function () {
 		var show = !tile.hasClass("filterTileDisabled");
 		
         var resultType = tile.data("target-class");
-				
-		$("div.scenario ." + resultType).parent().toggle(show);
+	
+		// Toggle scenarios
+		$("div." + resultType).closest(".scenario").toggle(show);
     });
 });
 	/*
