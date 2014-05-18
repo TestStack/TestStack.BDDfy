@@ -1,20 +1,4 @@
-﻿/**
-    * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
-    * http://cssreset.com
-    */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+﻿html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -22,9 +6,8 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block;
 }
 
@@ -40,8 +23,7 @@ blockquote, q {
     quotes: none;
 }
 
-    blockquote:before, blockquote:after,
-    q:before, q:after {
+    blockquote:before, blockquote:after, q:before, q:after {
         content: '';
         content: none;
     }
@@ -51,9 +33,6 @@ table {
     border-spacing: 0;
 }
 
-
-
-/* based on metro blue theme from: http://code52.org/metro.css/#colours */
 .accent {
     color: #1ba1e2;
 }
@@ -155,14 +134,14 @@ table {
 }
 
 #headingstyles {
-    font-family: 'Roboto', "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+    font-family: 'Roboto',"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
     font-weight: 300;
     margin-top: 5px;
     margin-bottom: 0;
 }
 
 body {
-    font-family: 'Roboto', "Segoe UI","Segoe WP","Helvetica Neue",sans-serif;
+    font-family: 'Roboto',"Segoe UI","Segoe WP","Helvetica Neue",sans-serif;
     font-size: 14px;
     font-weight: 400;
 }
@@ -171,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto',"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
     font-weight: 300;
     margin-top: 5px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 h1 {
@@ -193,13 +172,13 @@ h4, h5, h6 {
 .tile {
     -webkit-perspective: 0;
     -webkit-transform-style: preserve- 3 d;
-    -webkit-transition: -webkit-transform 0.2s;
+    -webkit-transition: -webkit-transform .2s;
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
     text-align: center;
     padding: 5px;
-    opacity: 0.75;
+    opacity: .75;
 }
 
     .tile h1, .tile h2, .tile h3, .tile h4, .tile h5, .tile h6 {
@@ -210,7 +189,7 @@ h4, h5, h6 {
     .tile h2 {
         font-size: 1.75em;
         margin-top: -10px;
-        margin-left: 0px;
+        margin-left: 0;
     }
 
     .tile h4 {
@@ -279,6 +258,10 @@ h4, h5, h6 {
     margin-left: 600px;
 }
 
+.filterTileDisabled{
+	background-color: grey;
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
     display: block;
 }
@@ -317,11 +300,11 @@ sub, sup {
 }
 
 sup {
-    top: -0.5em;
+    top: -.5em;
 }
 
 sub {
-    bottom: -0.25em;
+    bottom: -.25em;
 }
 
 img {
@@ -626,9 +609,6 @@ code {
     clear: both;
 }
 
-
-
-/* clearfix from: http://css-tricks.com/snippets/css/clear-fix/ */
 .group:after {
     visibility: hidden;
     display: block;
@@ -640,17 +620,14 @@ code {
 * html .group {
     zoom: 1;
 }
-/* IE6 */
+
 *:first-child + html .group {
     zoom: 1;
 }
-/* IE7 */
 
-
-/* BDDfy Report Css Starts Here */
 body {
-    background-color: #FFFFFF;
-    color: #000000;
+    background-color: #fff;
+    color: #000;
     margin: 0;
     max-width: 100%;
     padding: 0 0 40px;
@@ -679,7 +656,7 @@ li {
 }
 
 .header {
-    border-bottom: 2px solid #FFFFFF;
+    border-bottom: 2px solid #fff;
     padding: 10px;
     vertical-align: middle;
 }
@@ -733,11 +710,11 @@ h3 {
 }
 
 div#generatedAt {
-    color: #222299;
+    color: #229;
 }
 
 .testResult {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0,0,0,0);
     border: medium none;
     padding-top: 0;
 }
@@ -749,7 +726,6 @@ div#generatedAt {
 #detailsLable {
     float: left;
 }
-
 
 #expandCollapse {
     margin: 5px;
@@ -772,12 +748,18 @@ div#generatedAt {
     margin-top: 20px;
 }
 
+.story:before {
+    float: left;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
 .Passed:before {
     content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAABIUlEQVQoU2OAAdEsBmbhfOZEkXzm/UD8AohfAvFhIM6ULGJghSqDAJE8JjGo5H+sOI/5jEg+kwxYMchkoCBOxWEzvP7r1cuD2OeFchnYGaDOwFAIwrp1cv8/fHv//+LjczCxQgYgAXIzikIY3nV16/9/QBgy3QMmdh6kAeTB/w5dRv+LVmbAFecsTfoPAouOzYaLAfEPkIZXIM6hW/vACibu6QS7GeSUx+8e/lcsF0TW8BOkAexhzRqp/+cengZrev/1LbpTYPgySEMmTEC2lPf/lovrwJrQnALDlQygSIGEM0RQvJDtf/PmKnSngOLiunAOAxc4LoRzmWSBgudRFCBjkOI8ZhWwYhgARQpQshCIQRp/APFPIL4MxJVwkxkYGADBUeEvVLvj0QAAAABJRU5ErkJggg==");
 }
 
 .Failed:before {
-    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA1ElEQVQoU22RMQ7CMAxFHaEKiQMwwcbFGNuNMSdob9DjMHRF6tChVwBO0C4x/ycNTQmWfhTZ71uOIzFUZOeMuaoxd+gJvaAOuRK1YsFCOJEjCh0A/SfUHmBOHl46d2qtev0aqkq1rnnvYdrLMkaAGamJsHOqTRNzN8HBmUMiNeUw1dPAB67JaMphaqLhvUnGzox0vKCZhnU76RjpeKth4KPLDI5AbrJca8E9+9XlMwe4bXkfwR78X2C/ZyT6DbjViKYXD8fgp6Bwg2icoBkaIPvtLCIfrFIm1BpxcygAAAAASUVORK5CYII=");
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA1ElEQVQoU22RMQ7CMAxFHaEKiQMwwcbFGNuNMSdob9DjMHRF6tChVwBO0C4x/ycNTQmWfhTZ71uOIzFUZOeMuaoxd+gJvaAOuRK1YsFCOJEjCh0A/SfUHmBOHl46d2qtev0aqkq1rnnvYdrLMkaAGamJsHOqTRNzN8HBmUMiNeUw1dPAB67JaMphaqLhvUnGzox0vKCZhnU76RjpeKth4KPLDI5AbrJca8E9+9XlMwe4bXkfwR78X2C/ZyT6DbjViKYXD8fgp6Bwg2icoBkaIPvtLCIfrFIm1BpxcygAAAAASUVORK5CYII=");    
 }
 
 .Inconclusive:before {
@@ -785,7 +767,7 @@ div#generatedAt {
 }
 
 .NotImplemented:before {
-    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA0UlEQVQoU32RMQrCQBBFP4gI2ltp5wU8gZ0kYOMRLAMWxi7gRbTzJBa2QooUuYJaCsKsBOKfjUp2DRl47PL//GV3B9+aoeyEMCtyIldyI+cQEi3w6H7aqgpghpVpymbkEkBGtvlzstN82BblcVfUApY0wLMHbvQajrkcVPg6iTWgd3aM9fRl8XWSakAf6Bj7TWHxdSIauHtiW8Bo4O93WgIZAxL5RksggQ5F/7luNAckn0P6dhYcyphi6jbUkZzrxDZ/S4dCMSYaFGJIRpLfyQDebDIf4hRsICYAAAAASUVORK5CYII=");
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAAA20lEQVQoU2OAAXuG/8ymzu+bdeNePVBsefJbeuGj/7qxrx6ZObzv9GH4xApVBgEeDD/FQJIgRdiwZvaLNx4MP2TAikEma+S+eIGsAAaQxTSzQJq+sjNoJ7+ahyyBD5vbfpjAAHIzNklsGGQLg3Lt01/oEmdf/QBjdHEQZsAmCAPY5BjQPQzCMIAuDnTSewadhFeL0CVgAF1cL/r1WgZQpIDCGVkCBpDFVEuffXZj+MEFjgtgpMiCQgBZATIGKdbKehkMVgwDoEjRjX29AlkjyM0a+S/2w01mYGAAAA5mUU0mBRvYAAAAAElFTkSuQmCC");
 }
 
 .NotExecuted:before {
@@ -797,11 +779,11 @@ div.FailedException, div.NotImplementedException, div.InconclusiveException {
 }
 
 .FailedException, .InconclusiveException, .NotImplementedException {
-    color: #800000;
+    color: maroon;
 }
 
 div.story {
-    border-bottom: 2px solid #B3B8C9;
+    border-bottom: 2px solid #b3b8c9;
     padding-bottom: 15px;
     margin-top: 10px;
 }
@@ -812,7 +794,7 @@ div.story {
 }
 
 h3.storyTitle {
-    margin: 0px;
+    margin: 0;
 }
 
 .namespaceName:before {
@@ -839,11 +821,11 @@ ul.resultSummary li.storySummary {
 }
 
 div.scenario:nth-child(2n+1) {
-    background: #F9F9FF;
+    background: #f9f9ff;
 }
 
 div.scenario:nth-child(2n) {
-    background: #F2F2F8;
+    background: #f2f2f8;
 }
 
 .scenarioTitle:before {
@@ -852,7 +834,7 @@ div.scenario:nth-child(2n) {
 
 .assembly {
     background-color: #101010;
-    color: #FFFFFF;
+    color: #fff;
     height: 40px;
 }
 
@@ -862,7 +844,7 @@ ul.storyNarrative {
 }
 
 ul.steps {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0,0,0,0);
     border: medium none;
     margin-bottom: 0;
     padding-left: 20px;
@@ -882,6 +864,7 @@ code {
 
 .examples {
     margin-left: 15px;
+    margin-top: 10px;
     border-spacing: 0;
     border-collapse: collapse;
     border: 1px solid #d0d0d0;
@@ -901,8 +884,8 @@ code {
     }
 
 .example-header {
+    display: block;
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .tag {

@@ -47,6 +47,18 @@ namespace TestStack.BDDfy.Samples
         }
 
 
+        [Test]
+        public void RunPassing()
+        {
+            Configurator.BatchProcessors.HtmlReport.Disable();
+            Configurator.BatchProcessors.HtmlMetroReport.Enable();
+
+            this.Given(_ => ILikeCucumbers())
+                .When(_ => IEatSome())
+                .Then(_ => ThenIShouldFeelGood())
+                .BDDfy();
+        }
+
 
         [Test]
         public void RunNotImplementedStep()
@@ -65,6 +77,10 @@ namespace TestStack.BDDfy.Samples
         {           
         }
 
+        private void ILikeCucumbers()
+        {
+        }
+
         private void IEatSome()
         {
         }
@@ -73,6 +89,11 @@ namespace TestStack.BDDfy.Samples
         private void ThenIShouldNotFeelGood()
         {
             Assert.Inconclusive("Sample of what an inconclusive step looks like in a report");
+        }
+
+        private void ThenIShouldFeelGood()
+        {
+         
         }
 
         private void ThenIShouldNotFeelGoodNotImpl()
