@@ -56,8 +56,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 using (OpenTag("<div id='main'>", HtmlTag.div))
                 {
                     Header();
-                    ResultSummary();
-                    ResultOptions();
+                    ResultSummary();                    
                     ResultDetails();
                 }
 
@@ -94,63 +93,36 @@ namespace TestStack.BDDfy.Reporters.Html
                         }
                     }
 
-                    using (OpenTag("<div class='tilerow'>", HtmlTag.div))
+                    using (OpenTag("<div class='tilerow' id='filterOptions'>", HtmlTag.div))
                     {
-                        using (OpenTag("<div class='tile tileNoHover one limebg'>", HtmlTag.div))
+
+                        var tileOptions = new[]
+                                          {
+                                              Tuple.Create("Passed", "limebg", _model.Summary.Passed),
+                                              Tuple.Create("Failed", "redbg", _model.Summary.Failed),
+                                              Tuple.Create("Inconclusive", "orangebg", _model.Summary.Inconclusive),
+                                              Tuple.Create("NotImplemented", "bluebg", _model.Summary.NotImplemented)
+                                          };
+
+
+                        foreach (var tileOption in tileOptions)
                         {
-                            AddLine("<h4>PASSED</h4>");
-                            AddLine(string.Format("<h1>{0}</h1>", _model.Summary.Passed));
-                        }
-                        using (OpenTag("<div class='tile tileNoHover one redbg'>", HtmlTag.div))
-                        {
-                            AddLine("<h4>FAILED</h4>");
-                            AddLine(string.Format("<h1>{0}</h1>", _model.Summary.Failed));
-                        }
-                        using (OpenTag("<div class='tile tileNoHover one orangebg'>", HtmlTag.div))
-                        {
-                            AddLine("<h4>INCONCLUSIVE</h4>");
-                            AddLine(string.Format("<h1>{0}</h1>", _model.Summary.Inconclusive));
-                        }
-                        using (OpenTag("<div class='tile tileNoHover one bluebg'>", HtmlTag.div))
-                        {
-                            AddLine("<h4>NOT IMPLEMENTED</h4>");
-                            AddLine(string.Format("<h1>{0}</h1>", _model.Summary.NotImplemented));
+                            using (OpenTag("<a href='#'>", HtmlTag.a))
+                            {
+                                using (
+                                    OpenTag(string.Format("<div class='tile one {0}' data-target-class='{1}'>", tileOption.Item2, tileOption.Item1), HtmlTag.div))
+                                {
+                                    AddLine(string.Format("<h4>{0}</h4>", tileOption.Item1.ToUpperInvariant()));
+                                    AddLine(string.Format("<h1>{0}</h1>", tileOption.Item3));
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
-        private void ResultOptions()
-        {
-            using (OpenTag("<section id='resultOptions' class='group'>", HtmlTag.section))
-            {
-                AddLine("<h3>options</h3>");
-                using (OpenTag("<ul id='filterOptions'>", HtmlTag.ul))
-                {
-                    using (OpenTag("<li class='Passed'>", HtmlTag.li))
-                    {
-                        AddLine("<input id='passedFilter' type='checkbox' checked='' data-target-class='Passed'>");
-                        AddLine("<label for='passedFilter'>passed</label>");
-                    }
-                    using (OpenTag("<li class='Failed'>", HtmlTag.li))
-                    {
-                        AddLine("<input id='failedFilter' type='checkbox' checked='' data-target-class='Failed'>");
-                        AddLine("<label for='failedFilter'>failed</label>");
-                    }
-                    using (OpenTag("<li class='Inconclusive'>", HtmlTag.li))
-                    { 
-                        AddLine("<input id='inconclusiveFilter' type='checkbox' checked='' data-target-class='Inconclusive'>");
-                        AddLine("<label for='inconclusiveFilter'>inconclusive</label>");
-                    }
-                    using (OpenTag("<li class='NotImplemented'>", HtmlTag.li))
-                    {
-                        AddLine("<input id='notImplementedFilter' type='checkbox' checked='' data-target-class='NotImplemented'>");
-                        AddLine("<label for='notImplemented'>not implemented</label>");
-                    }
-                }
-            }
-        }
+
 
         private void ExpandCollapse()
         {
@@ -189,7 +161,7 @@ namespace TestStack.BDDfy.Reporters.Html
             else
                 EmbedJavascriptFile(HtmlReportResources.jquery_2_1_0_min);
 
-            EmbedJavascriptFile(HtmlReportResources.classic_js_min);
+            EmbedJavascriptFile(HtmlReportResources.metro_js_min);
             EmbedJavascriptFile(_model.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
 
