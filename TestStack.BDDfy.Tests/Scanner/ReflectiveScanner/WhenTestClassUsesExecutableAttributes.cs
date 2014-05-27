@@ -27,12 +27,21 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             [When(StepTitle = MethodTextForWhenSomethingHappens)]
             public void WhenStep() { }
 
+            public void ButWhenSomethingDoesNotHappen() { }
+
+            [ButWhen]
+            public void AndSomethingHasNotHappened() { }
             public void WhenStep_NoAttributeIsProvided() { }
 
             [Given]
             public void Given() { }
 
             public void GivenWithoutAttribute() { }
+            
+            [ButGiven]
+            public void SetupShouldAvoidSomethings() { }
+
+            public void ButGivenSomethingIsNotSetup() {}
 
             [AndWhen]
             public void TheOtherPartOfWhen() { }
@@ -62,7 +71,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Test]
         public void DecoratedMethodsAreReturned()
         {
-            Assert.That(_steps.Count, Is.EqualTo(8));
+            Assert.That(_steps.Count, Is.EqualTo(10));
         }
 
         [Test]
@@ -84,6 +93,15 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         }
 
         [Test]
+        public void ButGiven()
+        {
+            var step = _steps.Single(s => s.Title.Trim() == "Setup should avoid somethings");
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+            Assert.IsFalse(step.Asserts);
+            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SetupShouldAvoidSomethings)));
+        }
+
+        [Test]
         public void When()
         {
             var step = _steps.Single(s => s.Title == TypeWithAttribute.MethodTextForWhenSomethingHappens);
@@ -98,6 +116,15 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var step = _steps.Single(s => s.Title.Trim() == "The other part of when");
             Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
             Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
+            Assert.IsFalse(step.Asserts);
+        }
+
+        [Test]
+        public void ButWhen()
+        {
+            var step = _steps.Single(s => s.Title.Trim() == "And something has not happened");
+            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.AndSomethingHasNotHappened)));
             Assert.IsFalse(step.Asserts);
         }
 
