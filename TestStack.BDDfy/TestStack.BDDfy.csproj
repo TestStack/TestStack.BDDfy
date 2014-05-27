@@ -115,6 +115,9 @@
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
     <Compile Include="Scanners\StepScanners\Examples\UnassignableExampleException.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ButAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ButGivenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ButWhenAttribute.cs" />
     <Compile Include="Scanners\StepScanners\WithTagsExtensions.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\FluentApi.cs">
       <AutoGen>True</AutoGen>
