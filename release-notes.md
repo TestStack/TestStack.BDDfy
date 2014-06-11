@@ -1,6 +1,7 @@
 ##V4 In Development
 
 ####Improvements
+ - [#155](https://github.com/TestStack/TestStack.BDDfy/pull/155)  - Multi-line steps format nicely in TextReporter
  - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61) & [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable. **Breaking Change**
 	- Some long namespaces were removed from the framework so the API becomes more discoverable. You just need to delete the now-removed namespaces from your using statements.
 	- The `Reporters` namespaces that you would use when configuring BDDfy's reports through the `Configurator` class has been moved around to the root namespace. 
