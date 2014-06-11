@@ -1,0 +1,13 @@
+﻿Story: Text reporter tests
+
+Scenario: Scenario Text
+	Given a normal length title                                  [Not executed] 
+	When something of normal length happens                      [Not executed] 
+	Then some long state should be: #Title                       [Not executed] 
+
+Some more stuff which is quite long on the second line
+
+And finally another really long line
+	  And a normal length assertion                              [Not executed] 
+
+

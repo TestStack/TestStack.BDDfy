@@ -16,9 +16,11 @@ namespace TestStack.BDDfy.Reporters
         {
             ReportStoryHeader(story);
 
-            var allSteps = story.Scenarios.SelectMany(s => s.Steps).ToList();
+            var allSteps = story.Scenarios.SelectMany(s => s.Steps)
+                .Select(GetStepWithLines)
+                .ToList();
             if (allSteps.Any())
-                _longestStepSentence = allSteps.Max(s => PrefixWithSpaceIfRequired(s).Length);
+                _longestStepSentence = allSteps.SelectMany(s => s.Item2.Select(l => l.Length)).Max();
 
             foreach (var scenarioGroup in story.Scenarios.GroupBy(s => s.Id))
             {
@@ -31,7 +33,7 @@ namespace TestStack.BDDfy.Reporters
                     if (exampleScenario.Steps.Any())
                     {
                         foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
-                            ReportOnStep(exampleScenario, step, false);
+                            ReportOnStep(exampleScenario, GetStepWithLines(step), false);
                     }
 
                     WriteLine();
@@ -47,7 +49,7 @@ namespace TestStack.BDDfy.Reporters
                         if (scenario.Steps.Any())
                         {
                             foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                                ReportOnStep(scenario, step, true);
+                                ReportOnStep(scenario, GetStepWithLines(step), true);
                         }
                     }
 
@@ -57,6 +59,11 @@ namespace TestStack.BDDfy.Reporters
             }
 
             ReportExceptions();
+        }
+
+        private static Tuple<Step, string[]> GetStepWithLines(Step s)
+        {
+            return Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
         }
 
         private void ReportTags(List<string> tags)
@@ -141,36 +148,43 @@ namespace TestStack.BDDfy.Reporters
                 WriteLine("\t" + story.Metadata.Narrative3);
         }
 
-        static string PrefixWithSpaceIfRequired(Step step)
+        static string PrefixWithSpaceIfRequired(string stepTitle, ExecutionOrder executionOrder)
         {
-            var stepTitle = step.Title;
-            var executionOrder = step.ExecutionOrder;
-
             if (executionOrder == ExecutionOrder.ConsecutiveAssertion ||
                 executionOrder == ExecutionOrder.ConsecutiveSetupState ||
                 executionOrder == ExecutionOrder.ConsecutiveTransition)
                 stepTitle = "  " + stepTitle; // add two spaces in the front for indentation.
 
-            return stepTitle.Replace(Environment.NewLine, Environment.NewLine + "\t\t");
+            return stepTitle;
         }
 
-        void ReportOnStep(Scenario scenario, Step step, bool includeResults)
+        void ReportOnStep(Scenario scenario, Tuple<Step, string[]> stepAndLines, bool includeResults)
         {
             if (!includeResults)
             {
-                WriteLine("\t{0}", PrefixWithSpaceIfRequired(step).PadRight(_longestStepSentence));
+                foreach (var line in stepAndLines.Item2)
+                {
+                    WriteLine("\t{0}", line);
+                }
                 return;
             }
 
-            var message =
-                string.Format
-                    ("\t{0}  [{1}] ",
-                        PrefixWithSpaceIfRequired(step).PadRight(_longestStepSentence + 5),
-                        Configurator.Scanners.Humanize(step.Result.ToString()));
+            var step = stepAndLines.Item1;
+            var humanizedResult = Configurator.Scanners.Humanize(step.Result.ToString());
 
-            // if all the steps have passed, there is no reason to make noise
+            string message;
             if (scenario.Result == Result.Passed)
-                message = "\t" + PrefixWithSpaceIfRequired(step);
+                message = string.Format("\t{0}", stepAndLines.Item2[0]);
+            else
+            {
+                var paddedFirstLine = stepAndLines.Item2[0].PadRight(_longestStepSentence + 5);
+                message = string.Format("\t{0}  [{1}] ", paddedFirstLine, humanizedResult);
+            }
+
+            if (stepAndLines.Item2.Length > 1)
+            {
+                message = string.Format("{0}\r\n{1}", message, string.Join("\r\n", stepAndLines.Item2.Skip(1)));
+            }
 
             if (step.Exception != null)
                 message += CreateExceptionMessage(step);
@@ -226,7 +240,7 @@ namespace TestStack.BDDfy.Reporters
         {
             return string.Join(" ", message
                 .Replace("\t", " ") // replace tab with one space
-                .Split(new[]{"\r\n", "\n"}, StringSplitOptions.None)
+                .Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
                 .Select(s => s.Trim()))
                 .TrimEnd(','); // chop any , from the end
         }
