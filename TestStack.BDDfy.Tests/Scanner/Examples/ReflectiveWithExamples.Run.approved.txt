@@ -1,6 +1,6 @@
 ﻿
 Scenario: Reflective with examples
-	Given step with <first example> passed as parameter   
+	Given step with <first example> passed as parameter
 	Given step with <second example> accessed via property
 
 Examples: 

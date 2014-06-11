@@ -4,9 +4,9 @@
 	So that I can be happy
 
 Scenario: Example Scenario
-	Given a <sign> account balance        
+	Given a <sign> account balance
 	When the account holder requests money
-	Then money <action> dispensed         
+	Then money <action> dispensed
 
 Examples: 
 | sign     | action |
@@ -20,9 +20,9 @@ Story: Account holder withdraws cash
 	So that I can get money when the bank is closed
 
 Scenario: Example Scenario
-	Given a <sign> account balance        
+	Given a <sign> account balance
 	When the account holder requests money
-	Then money <action> dispensed         
+	Then money <action> dispensed
 
 Examples: 
 | sign     | action | Result | Errors                                                                                                |
