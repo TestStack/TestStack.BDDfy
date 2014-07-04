@@ -39,6 +39,8 @@ namespace TestStack.BDDfy
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
                     throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, Row));
                 }
+
+                ValueHasBeenUsed = true;
                 return null;
             }
 
