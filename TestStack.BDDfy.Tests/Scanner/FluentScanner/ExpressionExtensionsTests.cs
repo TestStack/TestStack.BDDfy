@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using NUnit.Framework;
+using Shouldly;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
@@ -63,6 +64,15 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             public void MethodWithInputs(ContainerType subContainer)
             {
 
+            }
+
+            public Bar Foo { get; set; }
+
+            public class Bar
+            {
+                public void Baz()
+                {
+                }
             }
         }
 
@@ -241,6 +251,13 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             var arguments = GetArguments(x => x.MethodWithInputs(GetNumberThree(), GetFooString()), new ClassUnderTest());
             AssertReturnedArguments(arguments, new object[] { 3, "Foo" });
+        }
+
+        [Test]
+        public void DeepPropertyCall()
+        {
+            var arguments = GetArguments(x => x.Foo.Baz(), new ClassUnderTest());
+            arguments.ShouldBeEmpty();
         }
 
         private string GetFooString()

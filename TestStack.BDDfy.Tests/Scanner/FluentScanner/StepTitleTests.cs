@@ -12,12 +12,32 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Test]
         public void MethodCallInStepTitle()
         {
+            FooClass something = new FooClass();
             var story = this
                 .Given(_ => GivenWeMutateSomeState())
+                .When(_ => something.Sub.SomethingHappens())
                 .Then(_ => ThenTitleHas(AMethodCall()))
                 .BDDfy();
 
-            story.Scenarios.Single().Steps.ElementAt(1).Title.ShouldBe("Then title has Mutated state");
+            story.Scenarios.Single().Steps.ElementAt(2).Title.ShouldBe("Then title has Mutated state");
+        }
+
+        public class FooClass
+        {
+            public FooClass()
+            {
+                Sub = new BarClass();
+            }
+
+            public BarClass Sub { get; set; }
+        }
+
+        public class BarClass
+        {
+            public void SomethingHappens()
+            {
+                
+            }
         }
 
         private string AMethodCall()
