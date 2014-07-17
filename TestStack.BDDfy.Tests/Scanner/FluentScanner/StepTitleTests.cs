@@ -18,10 +18,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .When(_ => something.Sub.SomethingHappens())
                 .And(_ => something.Sub.SomethingWithDifferentTitle())
                 .Then(_ => ThenTitleHas(AMethodCall()))
+                .And(_ => something.Sub.SomethingWithArg("foo"))
+                .And(_ => something.Sub.SomethingWithArg2("foo"))
                 .BDDfy();
 
             story.Scenarios.Single().Steps.ElementAt(2).Title.ShouldBe("And different title");
             story.Scenarios.Single().Steps.ElementAt(3).Title.ShouldBe("Then title has Mutated state");
+            story.Scenarios.Single().Steps.ElementAt(4).Title.ShouldBe("And with arg foo");
+            story.Scenarios.Single().Steps.ElementAt(5).Title.ShouldBe("And with arg");
         }
 
         public class FooClass
@@ -43,6 +47,16 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
             [StepTitle("Different title")]
             public void SomethingWithDifferentTitle()
+            {
+            }
+
+            [StepTitle("With arg")]
+            public void SomethingWithArg(string arg)
+            {
+            }
+
+            [StepTitle("With arg", false)]
+            public void SomethingWithArg2(string arg)
             {
             }
         }

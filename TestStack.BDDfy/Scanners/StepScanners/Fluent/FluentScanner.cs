@@ -154,7 +154,12 @@ namespace TestStack.BDDfy
                     var name = methodInfo.Name;
                     var stepTitleAttribute = methodInfo.GetCustomAttributes(typeof(StepTitleAttribute), true).SingleOrDefault();
                     if (stepTitleAttribute != null)
-                        name = ((StepTitleAttribute)stepTitleAttribute).StepTitle;
+                    {
+                        var titleAttribute = ((StepTitleAttribute)stepTitleAttribute);
+                        name = titleAttribute.StepTitle;
+                        if (titleAttribute.IncludeInputsInStepTitle != null)
+                            includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
+                    }
 
                     var stepTitle = AppendPrefix(Configurator.Scanners.Humanize(name), stepPrefix);
 

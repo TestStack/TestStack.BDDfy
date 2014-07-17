@@ -7,9 +7,17 @@ namespace TestStack.BDDfy
     {
         public StepTitleAttribute(string stepTitle)
         {
-            this.StepTitle = stepTitle;
+            StepTitle = stepTitle;
+        }
+        
+        public StepTitleAttribute(string stepTitle, bool includeInputsInStepTitle)
+        {
+            IncludeInputsInStepTitle = includeInputsInStepTitle;
+            StepTitle = stepTitle;
         }
 
         public string StepTitle { get; private set; }
+
+        public bool? IncludeInputsInStepTitle { get; private set; }
     }
 }
