@@ -151,7 +151,17 @@ namespace TestStack.BDDfy
                 {
 
                     var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
-                    var stepTitle = AppendPrefix(Configurator.Scanners.Humanize(methodInfo.Name), stepPrefix);
+                    var name = methodInfo.Name;
+                    var stepTitleAttribute = methodInfo.GetCustomAttributes(typeof(StepTitleAttribute), true).SingleOrDefault();
+                    if (stepTitleAttribute != null)
+                    {
+                        var titleAttribute = ((StepTitleAttribute)stepTitleAttribute);
+                        name = string.Format(titleAttribute.StepTitle, flatInputArray);
+                        if (titleAttribute.IncludeInputsInStepTitle != null)
+                            includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
+                    }
+
+                    var stepTitle = AppendPrefix(Configurator.Scanners.Humanize(name), stepPrefix);
 
                     if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
                     else if (includeInputsInStepTitle)
