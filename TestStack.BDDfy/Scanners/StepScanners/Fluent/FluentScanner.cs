@@ -156,7 +156,7 @@ namespace TestStack.BDDfy
                     if (stepTitleAttribute != null)
                     {
                         var titleAttribute = ((StepTitleAttribute)stepTitleAttribute);
-                        name = titleAttribute.StepTitle;
+                        name = string.Format(titleAttribute.StepTitle, flatInputArray);
                         if (titleAttribute.IncludeInputsInStepTitle != null)
                             includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
                     }
