@@ -16,10 +16,12 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             var story = this
                 .Given(_ => GivenWeMutateSomeState())
                 .When(_ => something.Sub.SomethingHappens())
+                .And(_ => something.Sub.SomethingWithDifferentTitle())
                 .Then(_ => ThenTitleHas(AMethodCall()))
                 .BDDfy();
 
-            story.Scenarios.Single().Steps.ElementAt(2).Title.ShouldBe("Then title has Mutated state");
+            story.Scenarios.Single().Steps.ElementAt(2).Title.ShouldBe("And different title");
+            story.Scenarios.Single().Steps.ElementAt(3).Title.ShouldBe("Then title has Mutated state");
         }
 
         public class FooClass
@@ -37,6 +39,11 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             public void SomethingHappens()
             {
                 
+            }
+
+            [StepTitle("Different title")]
+            public void SomethingWithDifferentTitle()
+            {
             }
         }
 
