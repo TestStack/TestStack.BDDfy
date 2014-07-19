@@ -1,5 +1,8 @@
-##V4 In Development
+##In Development
 
+[Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v4.0.0...master)
+
+###v4.0.0 - 2014-07-19
 ####Improvements
  - [#155](https://github.com/TestStack/TestStack.BDDfy/pull/155)  - Multi-line steps format nicely in TextReporter
  - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61) & [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable. **Breaking Change**
@@ -39,7 +42,7 @@
  - [#94](https://github.com/TestStack/TestStack.BDDfy/pull/94) & [#98](https://github.com/TestStack/TestStack.BDDfy/pull/98) - Metro HTML report, new report which is a bit more modern. It can be enabled via configuration.
  - [#140](https://github.com/TestStack/TestStack.BDDfy/pull/140) - Added tags, `.WithTags("Tag1", "Tag2")`. Tags will show in BDDfy reports
 
-[Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
+[Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...v4.0.0)
 
 ###v3.19.1 - 2014-03-17
 ####Improvements
