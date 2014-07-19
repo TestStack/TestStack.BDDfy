@@ -1,6 +1,7 @@
 ##V4 In Development
 
 ####Improvements
+ - [#155](https://github.com/TestStack/TestStack.BDDfy/pull/155)  - Multi-line steps format nicely in TextReporter
  - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61) & [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable. **Breaking Change**
 	- Some long namespaces were removed from the framework so the API becomes more discoverable. You just need to delete the now-removed namespaces from your using statements.
 	- The `Reporters` namespaces that you would use when configuring BDDfy's reports through the `Configurator` class has been moved around to the root namespace. 
@@ -18,9 +19,25 @@
  - [#72](https://github.com/TestStack/TestStack.BDDfy/pull/72) - minifies bddfy .css and .js files to make HTML report smaller and the source more readable 
  - [#80](https://github.com/TestStack/TestStack.BDDfy/pull/80) - removes .net 3.5 support. **Breaking Change** 
 	- BDDfy V4 won't support .Net 3.5. So if you want to feel all the love that's coming to V4 you should upgrade to .Net 4+.
+ - [#138](https://github.com/TestStack/TestStack.BDDfy/pull/138) - Fluent API: Prepend step type to Title, for example `.Given(_ => Foo())` will report as `Given foo`
+ - Step title arguments in fluent API are reported much better, including:
+	- Step arguments are evaluated lazily, meaning if previous steps cause the value to change, the value at the time of step executed will be reported in the step
+	- [#139](https://github.com/TestStack/TestStack.BDDfy/pull/139) - Method call arguments are not shown in step title
+	- Support fields, properties as well as local variables passed as arguments as steps
+	- And a few other cases have been addressed making steps much more resilient
+ - [#144](https://github.com/TestStack/TestStack.BDDfy/pull/144) - Removed story.Category **Breaking Change**
+ - [#102](https://github.com/TestStack/TestStack.BDDfy/pull/102) - Step titles are not encoded in HTML reports
+ - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - Inline assertions, allowing inline blocks of code - `.Given(() => { .... }, "Given some stuff")`
+ - [#128](https://github.com/TestStack/TestStack.BDDfy/pull/128) - Fluent API no longer orders steps by type of step, and is opened up to allow any ordering of steps (as long as the first step is Given or When. For example `.Given.Then.When.Then.And.When.Then` can be done.
 
 ####New Features
+ - [#106](https://github.com/TestStack/TestStack.BDDfy/pull/106) - Made story title prefix customisable
+ - [#152](https://github.com/TestStack/TestStack.BDDfy/pull/152) - Adds But step support for reflective API 
+ - [#162](https://github.com/TestStack/TestStack.BDDfy/pull/162) - Allowed custom step title via attribute on Fluent 
  - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - adds ability to do inline assertions and title only steps using the fluent API
+ - [#89](https://github.com/TestStack/TestStack.BDDfy/pull/89)- Full Cucumber examples support! Blog post on this new functionality at [http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support](http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support)
+ - [#94](https://github.com/TestStack/TestStack.BDDfy/pull/94) & [#98](https://github.com/TestStack/TestStack.BDDfy/pull/98) - Metro HTML report, new report which is a bit more modern. It can be enabled via configuration.
+ - [#140](https://github.com/TestStack/TestStack.BDDfy/pull/140) - Added tags, `.WithTags("Tag1", "Tag2")`. Tags will show in BDDfy reports
 
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
 

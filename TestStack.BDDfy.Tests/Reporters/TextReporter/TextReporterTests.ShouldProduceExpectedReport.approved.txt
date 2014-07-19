@@ -84,9 +84,9 @@ Story: Unhappy examples
 	So that I can diagnose what's wrong
 
 Scenario: Example Scenario
-	Given a <sign> account balance        
+	Given a <sign> account balance
 	When the account holder requests money
-	Then money <action> dispensed         
+	Then money <action> dispensed
 
 Examples: 
 | sign     | action | Result | Errors                                                                                                |
@@ -104,9 +104,9 @@ Story: Happy Examples
 	So that the report is clean and readable
 
 Scenario: Example Scenario
-	Given a <sign> account balance        
+	Given a <sign> account balance
 	When the account holder requests money
-	Then money <action> dispensed         
+	Then money <action> dispensed
 
 Examples: 
 | sign     | action |

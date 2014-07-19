@@ -15,9 +15,15 @@
     });
 
 
-    $("#filterOptions li input").click(function () {
-        var checkBox = $(this);
-        var resultType = checkBox.data("target-class");
-        $("div.scenario ." + resultType).parent().toggle(checkBox.prop("checked"));
+    $("#filterOptions a").click(function () {
+        var tile = $(this).children("div");
+
+        tile.toggleClass("filterTileDisabled");
+
+        var show = !tile.hasClass("filterTileDisabled");
+
+        var resultType = tile.data("target-class");
+
+        $("div." + resultType).closest(".scenario").toggle(show);
     });
 });

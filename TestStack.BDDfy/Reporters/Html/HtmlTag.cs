@@ -16,7 +16,8 @@ namespace TestStack.BDDfy.Reporters.Html
         script,
         td,
         tr,
-        table
+        table,
+        a
     }
     // ReSharper restore InconsistentNaming
 }

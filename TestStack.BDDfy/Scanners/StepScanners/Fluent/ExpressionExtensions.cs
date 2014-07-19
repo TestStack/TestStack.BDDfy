@@ -20,7 +20,7 @@ namespace TestStack.BDDfy
             if (methodCallExpression == null)
                 throw new InvalidOperationException("Please provide a *method call* lambda expression.");
 
-            return ExtractArguments(methodCallExpression, value);
+            return ExtractArguments(methodCallExpression, value, false);
         }
 
         public static IEnumerable<StepArgument> ExtractArguments<T>(this Expression<Func<T, Task>> expression, T value)
@@ -33,7 +33,7 @@ namespace TestStack.BDDfy
             if (methodCallExpression == null)
                 throw new InvalidOperationException("Please provide a *method call* lambda expression.");
 
-            return ExtractArguments(methodCallExpression, value);
+            return ExtractArguments(methodCallExpression, value, false);
         }
 
         private static IEnumerable<StepArgument> ExtractArguments<T>(Expression expression, T value)
@@ -70,11 +70,20 @@ namespace TestStack.BDDfy
 
         private static IEnumerable<StepArgument> Invoke(MethodCallExpression methodCallExpression, IEnumerable<StepArgument> args)
         {
-            var value = ((ConstantExpression)methodCallExpression.Object).Value;
-            return new[] { new StepArgument(() => methodCallExpression.Method.Invoke(value, args.Select(s => s.Value).ToArray())) };
+            var constantExpression = methodCallExpression.Object as ConstantExpression;
+            var stepArguments = args.ToArray();
+            if (constantExpression != null)
+                return new[] { new StepArgument(() => methodCallExpression.Method.Invoke(constantExpression.Value, stepArguments.Select(s => s.Value).ToArray())) };
+
+            return new[] { new StepArgument(() =>
+            {
+                var value = stepArguments.First().Value;
+                var parameters = stepArguments.Skip(1).Select(s => s.Value).ToArray();
+                return methodCallExpression.Method.Invoke(value, parameters);
+            }) };
         }
 
-        private static IEnumerable<StepArgument> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value)
+        private static IEnumerable<StepArgument> ExtractArguments<T>(MethodCallExpression methodCallExpression, T value, bool extractArgsFromExpression = true)
         {
             var constants = new List<StepArgument>();
             foreach (var arg in methodCallExpression.Arguments)
@@ -82,7 +91,10 @@ namespace TestStack.BDDfy
                 constants.AddRange(ExtractArguments(arg, value));
             }
 
-            constants.AddRange(ExtractArguments(methodCallExpression.Object, value));
+            if (extractArgsFromExpression)
+            {
+                constants.AddRange(ExtractArguments(methodCallExpression.Object, value));
+            }
 
             return constants;
         }

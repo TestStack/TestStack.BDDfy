@@ -34,10 +34,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>BDDfy.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseNET35|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -115,6 +112,9 @@
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
     <Compile Include="Scanners\StepScanners\Examples\UnassignableExampleException.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ButAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ButGivenAttribute.cs" />
+    <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\ButWhenAttribute.cs" />
     <Compile Include="Scanners\StepScanners\WithTagsExtensions.cs" />
     <Compile Include="Scanners\StepScanners\Fluent\FluentApi.cs">
       <AutoGen>True</AutoGen>
@@ -127,6 +127,7 @@
     <Compile Include="Scenario.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="StepTitle.cs" />
+    <Compile Include="StepTitleAttribute.cs" />
     <Compile Include="Story.cs" />
     <Compile Include="StoryAttribute.cs" />
     <Compile Include="Scanners\StoryMetadata.cs" />
@@ -171,7 +172,6 @@
     <Compile Include="TestContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BDDfy.snk" />
     <None Include="Reporters\Html\Scripts\classic.min.js.map">
       <DependentUpon>classic.js</DependentUpon>
     </None>
