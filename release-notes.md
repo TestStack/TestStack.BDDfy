@@ -31,9 +31,12 @@
  - [#128](https://github.com/TestStack/TestStack.BDDfy/pull/128) - Fluent API no longer orders steps by type of step, and is opened up to allow any ordering of steps (as long as the first step is Given or When. For example `.Given.Then.When.Then.And.When.Then` can be done.
 
 ####New Features
+ - [#106](https://github.com/TestStack/TestStack.BDDfy/pull/106) - Made story title prefix customisable
+ - [#152](https://github.com/TestStack/TestStack.BDDfy/pull/152) - Adds But step support for reflective API 
+ - [#162](https://github.com/TestStack/TestStack.BDDfy/pull/162) - Allowed custom step title via attribute on Fluent 
  - [#81](https://github.com/TestStack/TestStack.BDDfy/pull/81) - adds ability to do inline assertions and title only steps using the fluent API
  - [#89](https://github.com/TestStack/TestStack.BDDfy/pull/89)- Full Cucumber examples support! Blog post on this new functionality at [http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support](http://jake.ginnivan.net/blog/2014/05/05/bddfy-examples-support)
- - [#94](https://github.com/TestStack/TestStack.BDDfy/pull/94) [#98](https://github.com/TestStack/TestStack.BDDfy/pull/98) - Metro HTML report, new report which is a bit more modern. It can be enabled via configuration.
+ - [#94](https://github.com/TestStack/TestStack.BDDfy/pull/94) & [#98](https://github.com/TestStack/TestStack.BDDfy/pull/98) - Metro HTML report, new report which is a bit more modern. It can be enabled via configuration.
  - [#140](https://github.com/TestStack/TestStack.BDDfy/pull/140) - Added tags, `.WithTags("Tag1", "Tag2")`. Tags will show in BDDfy reports
 
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v3.19.1...master)
