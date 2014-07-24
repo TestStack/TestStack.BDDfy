@@ -63,8 +63,10 @@
     <Compile Include="Configuration\BatchProcessorFactory.cs" />
     <Compile Include="Configuration\BatchProcessors.cs" />
     <Compile Include="Configuration\ComponentFactory.cs" />
+    <Compile Include="Configuration\DefaultStepExecutor.cs" />
     <Compile Include="Configuration\HtmlReportFactory.cs" />
     <Compile Include="Configuration\IKeyGenerator.cs" />
+    <Compile Include="Configuration\IStepExecutor.cs" />
     <Compile Include="Configuration\ProcessorFactory.cs" />
     <Compile Include="Configuration\Configurator.cs" />
     <Compile Include="Configuration\Processors.cs" />

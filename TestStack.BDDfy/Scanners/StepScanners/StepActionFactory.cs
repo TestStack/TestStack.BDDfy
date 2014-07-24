@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Security;
 using System.Threading;
+using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 using System.Threading.Tasks;
 
@@ -37,7 +38,7 @@ namespace TestStack.BDDfy
             {
                 var asyncSyncContext = new AsyncTestSyncContext();
                 SetSynchronizationContext(asyncSyncContext);
-                var result = func();
+                var result = Configurator.StepExecutor.Execute(func);
                 var task = result as Task;
                 if (task != null)
                 {
