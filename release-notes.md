@@ -2,7 +2,7 @@
 
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v4.0.0...master)
 
-###v4.0.0 - 2014-07-19
+###v4.0.0 - 2014-07-27
 ####Improvements
  - [#155](https://github.com/TestStack/TestStack.BDDfy/pull/155)  - Multi-line steps format nicely in TextReporter
  - [#61](https://github.com/TestStack/TestStack.BDDfy/pull/61) & [#62](https://github.com/TestStack/TestStack.BDDfy/pull/62) - rationalized BDDfy namespaces to require less namespaces for some features and to make features more discoverable. **Breaking Change**
