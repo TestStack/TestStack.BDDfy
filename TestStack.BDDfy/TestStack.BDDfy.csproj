@@ -73,7 +73,9 @@
     <Compile Include="Configuration\StepScannerFactory.cs" />
     <Compile Include="Configuration\TestRunnerFactory.cs" />
     <Compile Include="IBatchProcessor.cs" />
+    <Compile Include="IStepExecutor.cs" />
     <Compile Include="ITestContext.cs" />
+    <Compile Include="Processors\AsyncTestRunner.cs" />
     <Compile Include="Processors\ScenarioExecutor.cs" />
     <Compile Include="Processors\UnusedExampleException.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Scanners\StepScanners\Fluent\StepArgument.cs" />
     <Compile Include="Scenario.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="StepExecutor.cs" />
     <Compile Include="StepTitle.cs" />
     <Compile Include="StepTitleAttribute.cs" />
     <Compile Include="Story.cs" />
@@ -147,7 +150,7 @@
     <Compile Include="Scanners\IStoryMetadataScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\IScenarioScanner.cs" />
     <Compile Include="Scanners\ScenarioScanners\ReflectiveScenarioScanner.cs" />
-    <Compile Include="Scanners\StepScanners\AsyncTestSyncContext.cs" />
+    <Compile Include="Processors\AsyncTestSyncContext.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttribute.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\ExecutableAttributeStepScanner.cs" />
     <Compile Include="Scanners\StepScanners\ExecutableAttribute\GwtAttributes\AndGivenAttribute.cs" />

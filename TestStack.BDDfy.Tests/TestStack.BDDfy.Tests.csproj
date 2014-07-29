@@ -76,7 +76,9 @@
     <Compile Include="Arguments\ArgumentsProvidedForGiven.cs" />
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
+    <Compile Include="Configuration\EmptyScenario.cs" />
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
+    <Compile Include="Configuration\StepExecutorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
     <Compile Include="Reporters\TextReporter\TextReporterTests.cs" />
     <Compile Include="Reporters\Html\MetroReportBuilderTests.cs" />

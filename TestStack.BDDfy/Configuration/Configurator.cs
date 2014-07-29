@@ -26,5 +26,14 @@ namespace TestStack.BDDfy.Configuration
             get { return _idGenerator; }
             set { _idGenerator = value; }
         }
+
+
+        private static IStepExecutor _stepExecutor = new StepExecutor();
+        public static IStepExecutor  StepExecutor
+        {
+            get { return _stepExecutor; }
+            set { _stepExecutor = value; }
+        }
+
     }
 }

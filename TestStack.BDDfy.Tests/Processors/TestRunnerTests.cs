@@ -12,7 +12,7 @@ namespace TestStack.BDDfy.Tests.Processors
         public int ExampleValue { get; set; }
 
         [Test]
-        public void InitialisesScenarioWithExampleBeforeRunning()
+        public void InitializesScenarioWithExampleBeforeRunning()
         {
             const int expectedValue = 1;
             var actualValue = 0;
@@ -22,7 +22,7 @@ namespace TestStack.BDDfy.Tests.Processors
             }.Single();
 
             var sut = new TestRunner();
-            Action<object> action = o => actualValue = ExampleValue;
+            Func<object, object> action = o => actualValue = ExampleValue;
             var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true, new List<StepArgument>()) };
 
             var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable, new List<string>());

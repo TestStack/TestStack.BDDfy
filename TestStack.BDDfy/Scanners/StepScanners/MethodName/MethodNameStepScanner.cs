@@ -172,7 +172,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        static Action<object> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
+        static Func<object,object> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
         {
             if (returnsItsText)
             {
