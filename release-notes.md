@@ -1,4 +1,7 @@
 ##In Development
+ 
+####Improvements
+ - [#169](https://github.com/TestStack/TestStack.BDDfy/pull/169)  - Adds StepExecutor class which users can derive from to add custom logic before/after each step. 
 
 [Commits](https://github.com/TestStack/TestStack.BDDfy/compare/v4.0.0...master)
 
