@@ -10,7 +10,7 @@ namespace TestStack.BDDfy
         private readonly StepTitle _title;
 
         public Step(
-            Action<object> action,
+            Func<object, object> action,
             StepTitle title,
             bool asserts,
             ExecutionOrder executionOrder,
@@ -40,7 +40,7 @@ namespace TestStack.BDDfy
         }
 
         public string Id { get; private set; }
-        internal Action<object> Action { get; set; }
+        internal Func<object, object> Action { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
         public string Title
@@ -58,21 +58,5 @@ namespace TestStack.BDDfy
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
         public List<StepArgument> Arguments { get; private set; }
-
-        public void Execute(object testObject)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            try
-            {
-                Action(testObject);
-                sw.Stop();
-                Duration = sw.Elapsed;
-            }
-            finally
-            {
-                sw.Stop();
-                Duration = sw.Elapsed;
-            }
-        }
     }
 }

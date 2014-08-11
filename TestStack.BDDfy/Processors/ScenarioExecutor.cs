@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Processors
 {
@@ -52,7 +53,7 @@ namespace TestStack.BDDfy.Processors
         {
             try
             {
-                step.Execute(_scenario.TestObject);
+                AsyncTestRunner.Run(() => Configurator.StepExecutor.Execute(step, _scenario.TestObject));
                 step.Result = Result.Passed;
             }
             catch (Exception ex)
