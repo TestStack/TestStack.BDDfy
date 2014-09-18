@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 
 namespace TestStack.BDDfy
 {
@@ -8,41 +7,13 @@ namespace TestStack.BDDfy
         private readonly Action<object> _set = o => { };
         private readonly Func<object> _get;
 
-        public StepArgument(FieldInfo member, Func<object> declaringObject)
+        public StepArgument(string name, Type argumentType, Func<object> getValue, Action<object> setValue)
         {
-            Name = member.Name;
-            _get = () => member.GetValue(declaringObject == null ? null : declaringObject());
-            _set = o => member.SetValue(declaringObject == null ? null : declaringObject(), o);
-            ArgumentType = member.FieldType;
-        }
-
-        public StepArgument(PropertyInfo member, Func<object> declaringObject)
-        {
-            Name = member.Name;
-            _get = () =>
-            {
-                if (declaringObject == null)
-                    return member.GetGetMethod(true).Invoke(null, null);
-
-                var declaringObjectValue = declaringObject();
-                if (declaringObjectValue == null)
-                    return null;
-                return member.GetGetMethod(true).Invoke(declaringObjectValue, null);
-            };
-            _set = o =>
-            {
-                if (declaringObject == null)
-                {
-                    member.GetSetMethod(true).Invoke(null, new[] {o});
-                    return;
-                }
-
-                var declaringObjectValue = declaringObject();
-                if (declaringObjectValue == null)
-                    return;
-                member.GetSetMethod(true).Invoke(declaringObjectValue, new[] { o });
-            };
-            ArgumentType = member.PropertyType;
+            Name = name;
+            _get = getValue;
+            if (setValue != null)
+                _set = setValue;
+            ArgumentType = argumentType;
         }
 
         public StepArgument(Func<object> value)

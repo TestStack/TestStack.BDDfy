@@ -47,15 +47,27 @@ namespace TestStack.BDDfy
                         case ExpressionType.MemberAccess:
                             var memberExpression = (MemberExpression)a;
                             var field = memberExpression.Member as FieldInfo;
+                            string name;
+                            Type parameterType;
+                            bool isReadOnly;
                             if (field != null)
                             {
-                                var o = field.IsStatic ? null : GetValue(memberExpression.Expression);
-                                return new StepArgument(field, o);
+                                name = field.Name;
+                                parameterType = field.FieldType;
+                                isReadOnly = field.IsInitOnly;
                             }
-                            var propertyInfo = (PropertyInfo)memberExpression.Member;
-                            var methodInfo = propertyInfo.GetGetMethod(true);
-                            var declaringObject = methodInfo == null || methodInfo.IsStatic ? null : GetValue(memberExpression.Expression);
-                            return new StepArgument(propertyInfo, declaringObject);
+                            else
+                            {
+                                var propertyInfo = (PropertyInfo)memberExpression.Member;
+                                name = propertyInfo.Name;
+                                parameterType = propertyInfo.PropertyType;
+                                isReadOnly = !propertyInfo.CanWrite;
+                            }
+
+                            var getValue = GetValue(memberExpression);
+                            var setValue = isReadOnly ? null : SetValue(memberExpression, parameterType);
+
+                            return new StepArgument(name, parameterType, getValue, setValue);
                         default:
                             return new StepArgument(GetValue(a));
                     }
@@ -67,6 +79,14 @@ namespace TestStack.BDDfy
             private static Func<object> GetValue(Expression a)
             {
                 return Expression.Lambda<Func<object>>(Expression.Convert(a, typeof(object))).Compile();
+            }
+
+            private static Action<object> SetValue(Expression a, Type parameterType)
+            {
+                var parameter = Expression.Parameter(typeof(object));
+                var unaryExpression = Expression.Convert(parameter, parameterType);
+                var assign = Expression.Assign(a, unaryExpression);
+                return Expression.Lambda<Action<object>>(assign, parameter).Compile();
             }
         }
     }
