@@ -28,8 +28,8 @@ namespace TestStack.BDDfy.Processors
 
             var possibleTargets = memberInfos
                 .OfType<FieldInfo>()
-                .Select(f => new StepArgument(f, _scenario.TestObject))
-                .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m, _scenario.TestObject)))
+                .Select(f => new StepArgument(f, () => _scenario.TestObject))
+                .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m, () => _scenario.TestObject)))
                 .Union(_scenario.Steps.SelectMany(s=>s.Arguments))
                 .ToArray();
 

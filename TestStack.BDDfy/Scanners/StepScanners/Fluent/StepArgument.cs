@@ -8,19 +8,40 @@ namespace TestStack.BDDfy
         private readonly Action<object> _set = o => { };
         private readonly Func<object> _get;
 
-        public StepArgument(FieldInfo member, object declaringObject)
+        public StepArgument(FieldInfo member, Func<object> declaringObject)
         {
             Name = member.Name;
-            _get = () => member.GetValue(declaringObject);
-            _set = o => member.SetValue(declaringObject, o);
+            _get = () => member.GetValue(declaringObject == null ? null : declaringObject());
+            _set = o => member.SetValue(declaringObject == null ? null : declaringObject(), o);
             ArgumentType = member.FieldType;
         }
 
-        public StepArgument(PropertyInfo member, object declaringObject)
+        public StepArgument(PropertyInfo member, Func<object> declaringObject)
         {
             Name = member.Name;
-            _get = () => member.GetGetMethod(true).Invoke(declaringObject, null);
-            _set = o => member.GetSetMethod(true).Invoke(declaringObject, new[] { o });
+            _get = () =>
+            {
+                if (declaringObject == null)
+                    return member.GetGetMethod(true).Invoke(null, null);
+
+                var declaringObjectValue = declaringObject();
+                if (declaringObjectValue == null)
+                    return null;
+                return member.GetGetMethod(true).Invoke(declaringObjectValue, null);
+            };
+            _set = o =>
+            {
+                if (declaringObject == null)
+                {
+                    member.GetSetMethod(true).Invoke(null, new[] {o});
+                    return;
+                }
+
+                var declaringObjectValue = declaringObject();
+                if (declaringObjectValue == null)
+                    return;
+                member.GetSetMethod(true).Invoke(declaringObjectValue, new[] { o });
+            };
             ArgumentType = member.PropertyType;
         }
 
