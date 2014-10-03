@@ -16,3 +16,4 @@ PackageBuild/*
 Build/*
 TestResult.xml
 TestStack.BDDfy.sln.ide/graph
+_NCrunch_TestStack.BDDfy/
