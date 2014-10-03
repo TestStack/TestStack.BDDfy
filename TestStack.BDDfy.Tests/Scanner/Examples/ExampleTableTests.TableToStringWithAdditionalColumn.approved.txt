@@ -1,0 +1,4 @@
+﻿
+| Header 1 | Header 2 | Additional           |
+| 1        | 2        | SomeAdditional Value |
+| 3        | 4        |                      |
