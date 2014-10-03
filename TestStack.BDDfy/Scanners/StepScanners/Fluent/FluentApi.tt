@@ -75,6 +75,12 @@ namespace TestStack.BDDfy
             return new FluentStepBuilder<TScenario>(testObject).Given(step, title);
         }
  
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Func<ExampleAction>> action)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(action);
+        }
+ 
         public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, string title)
             where TScenario : class
         {
@@ -160,6 +166,17 @@ namespace TestStack.BDDfy
 
         IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Func<Task> step, string title);
 
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed%gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<ExampleAction>> action);
+
         IFluentStepBuilder<TScenario> <#=stepType.Item1#>(string title);
 <#
     }
@@ -233,6 +250,12 @@ namespace TestStack.BDDfy
         public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Action step, string title)
         {
             scanner.AddStep(step, title, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>, "<#=stepType.Item5#>");
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> <#=stepType.Item1#>(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, <#=stepType.Item2#>, <#=stepType.Item3#>, <#=stepType.Item4#>, "<#=stepType.Item5#>");
             return this;
         }
 

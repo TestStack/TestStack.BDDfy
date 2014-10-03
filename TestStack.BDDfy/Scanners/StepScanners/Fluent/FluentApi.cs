@@ -57,6 +57,12 @@ namespace TestStack.BDDfy
             return new FluentStepBuilder<TScenario>(testObject).Given(step, title);
         }
  
+        public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, Expression<Func<ExampleAction>> action)
+            where TScenario : class
+        {
+            return new FluentStepBuilder<TScenario>(testObject).Given(action);
+        }
+ 
         public static IFluentStepBuilder<TScenario> Given<TScenario>(this TScenario testObject, string title)
             where TScenario : class
         {
@@ -138,6 +144,17 @@ namespace TestStack.BDDfy
 
         IFluentStepBuilder<TScenario> Given(Func<Task> step, string title);
 
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed%gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> Given(Expression<Func<ExampleAction>> action);
+
         IFluentStepBuilder<TScenario> Given(string title);
 
         IFluentStepBuilder<TScenario> When(Expression<Action<TScenario>> step, string stepTextTemplate);
@@ -155,6 +172,17 @@ namespace TestStack.BDDfy
         IFluentStepBuilder<TScenario> When(Action step, string title);
 
         IFluentStepBuilder<TScenario> When(Func<Task> step, string title);
+
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed&gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> When(Expression<Func<ExampleAction>> action);
 
         IFluentStepBuilder<TScenario> When(string title);
 
@@ -174,6 +202,17 @@ namespace TestStack.BDDfy
 
         IFluentStepBuilder<TScenario> Then(Func<Task> step, string title);
 
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed%gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> Then(Expression<Func<ExampleAction>> action);
+
         IFluentStepBuilder<TScenario> Then(string title);
 
         IFluentStepBuilder<TScenario> And(Expression<Action<TScenario>> step, string stepTextTemplate);
@@ -191,6 +230,17 @@ namespace TestStack.BDDfy
         IFluentStepBuilder<TScenario> And(Action step, string title);
 
         IFluentStepBuilder<TScenario> And(Func<Task> step, string title);
+
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed%gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> And(Expression<Func<ExampleAction>> action);
 
         IFluentStepBuilder<TScenario> And(string title);
 
@@ -210,6 +260,17 @@ namespace TestStack.BDDfy
 
         IFluentStepBuilder<TScenario> But(Func<Task> step, string title);
 
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed%gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> But(Expression<Func<ExampleAction>> action);
+
         IFluentStepBuilder<TScenario> But(string title);
 
         IFluentStepBuilder<TScenario> TearDownWith(Expression<Action<TScenario>> step, string stepTextTemplate);
@@ -227,6 +288,17 @@ namespace TestStack.BDDfy
         IFluentStepBuilder<TScenario> TearDownWith(Action step, string title);
 
         IFluentStepBuilder<TScenario> TearDownWith(Func<Task> step, string title);
+
+        /// <summary>
+        /// Allows examples to provide steps, i.e 
+        /// 'When &lt;action is performed%gt;' 
+        ///
+        /// | Action is performed |
+        /// | Do Blah             |
+        /// | Do Other            | 
+        /// Search for ExampleAction on the BDDfy wiki for more information
+        /// </summary>
+        IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<ExampleAction>> action);
 
         IFluentStepBuilder<TScenario> TearDownWith(string title);
     }
@@ -297,6 +369,12 @@ namespace TestStack.BDDfy
             return this;
         }
 
+        public IFluentStepBuilder<TScenario> Given(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, true, ExecutionOrder.SetupState, false, "Given");
+            return this;
+        }
+
         public IFluentStepBuilder<TScenario> Given(Func<Task> step, string title)
         {
             scanner.AddStep(step, title, true, ExecutionOrder.SetupState, false, "Given");
@@ -347,6 +425,12 @@ namespace TestStack.BDDfy
         public IFluentStepBuilder<TScenario> When(Action step, string title)
         {
             scanner.AddStep(step, title, true, ExecutionOrder.Transition, false, "When");
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> When(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
@@ -403,6 +487,12 @@ namespace TestStack.BDDfy
             return this;
         }
 
+        public IFluentStepBuilder<TScenario> Then(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, true, ExecutionOrder.Assertion, true, "Then");
+            return this;
+        }
+
         public IFluentStepBuilder<TScenario> Then(Func<Task> step, string title)
         {
             scanner.AddStep(step, title, true, ExecutionOrder.Assertion, true, "Then");
@@ -453,6 +543,12 @@ namespace TestStack.BDDfy
         public IFluentStepBuilder<TScenario> And(Action step, string title)
         {
             scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false, "And");
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> And(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
@@ -509,6 +605,12 @@ namespace TestStack.BDDfy
             return this;
         }
 
+        public IFluentStepBuilder<TScenario> But(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, true, ExecutionOrder.ConsecutiveStep, false, "But");
+            return this;
+        }
+
         public IFluentStepBuilder<TScenario> But(Func<Task> step, string title)
         {
             scanner.AddStep(step, title, true, ExecutionOrder.ConsecutiveStep, false, "But");
@@ -559,6 +661,12 @@ namespace TestStack.BDDfy
         public IFluentStepBuilder<TScenario> TearDownWith(Action step, string title)
         {
             scanner.AddStep(step, title, false, ExecutionOrder.TearDown, false, "");
+            return this;
+        }
+
+        public IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<ExampleAction>> action)
+        {
+            scanner.AddStep(action, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
