@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
@@ -28,8 +29,8 @@ namespace TestStack.BDDfy.Processors
 
             var possibleTargets = memberInfos
                 .OfType<FieldInfo>()
-                .Select(f => new StepArgument(f, _scenario.TestObject))
-                .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m, _scenario.TestObject)))
+                .Select(f => new StepArgument(f.Name, f.FieldType, () => f.GetValue(_scenario.TestObject), o => f.SetValue(_scenario.TestObject, o)))
+                .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m.Name, m.PropertyType, () => m.GetValue(_scenario.TestObject, null), o => m.SetValue(_scenario.TestObject, o, null))))
                 .Union(_scenario.Steps.SelectMany(s=>s.Arguments))
                 .ToArray();
 

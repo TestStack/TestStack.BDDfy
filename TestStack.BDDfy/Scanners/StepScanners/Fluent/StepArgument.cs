@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 
 namespace TestStack.BDDfy
 {
@@ -8,20 +7,13 @@ namespace TestStack.BDDfy
         private readonly Action<object> _set = o => { };
         private readonly Func<object> _get;
 
-        public StepArgument(FieldInfo member, object declaringObject)
+        public StepArgument(string name, Type argumentType, Func<object> getValue, Action<object> setValue)
         {
-            Name = member.Name;
-            _get = () => member.GetValue(declaringObject);
-            _set = o => member.SetValue(declaringObject, o);
-            ArgumentType = member.FieldType;
-        }
-
-        public StepArgument(PropertyInfo member, object declaringObject)
-        {
-            Name = member.Name;
-            _get = () => member.GetGetMethod(true).Invoke(declaringObject, null);
-            _set = o => member.GetSetMethod(true).Invoke(declaringObject, new[] { o });
-            ArgumentType = member.PropertyType;
+            Name = name;
+            _get = getValue;
+            if (setValue != null)
+                _set = setValue;
+            ArgumentType = argumentType;
         }
 
         public StepArgument(Func<object> value)
