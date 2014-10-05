@@ -53,9 +53,10 @@ About to run step 'When something'
 Finished running step 'When something'
 About to run step 'Then something'
 Finished running step 'Then something'
-";
+".Replace("\r", string.Empty).Trim();
 
-                Assert.AreEqual(expected, testStepExecutor.Results);
+                string actual = testStepExecutor.Results.Replace("\r", string.Empty).Trim();
+                Assert.AreEqual(expected, actual);
 
             }
             finally
