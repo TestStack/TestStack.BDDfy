@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ApprovalTests;
 using NUnit.Framework;
 using Shouldly;
 
@@ -28,6 +29,30 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             var argException = Should.Throw<ArgumentException>(() => exampleTable.ElementAt(1).GetValueOf(0, typeof(int)));
             argException.Message.ShouldBe("Cannot convert <null> to Int32 (Column: 'Header 1', Row: 2)");
             exampleTable.ElementAt(1).GetValueOf(1, typeof(DateTime)).ShouldBe(new DateTime(2010, 3, 14));
+        }
+
+        [Test]
+        public void TableToString()
+        {
+            var table = new ExampleTable("Header 1", "Header 2")
+            {
+                {1, 2},
+                {3, 4}
+            };
+
+            Approvals.Verify(table.ToString());
+        }
+
+        [Test]
+        public void TableToStringWithAdditionalColumn()
+        {
+            var table = new ExampleTable("Header 1", "Header 2")
+            {
+                {1, 2},
+                {3, 4}
+            };
+
+            Approvals.Verify(table.ToString(new[] {"Additional"}, new[] {new[] {"SomeAdditional Value"}}));
         }
     }
 }

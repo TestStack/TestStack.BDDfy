@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace TestStack.BDDfy
 {
@@ -17,6 +18,7 @@ namespace TestStack.BDDfy
         public string[] Headers { get; private set; }
 
         public int Count { get { return _rows.Count; } }
+
         public bool IsReadOnly { get { return false; } }
 
         public void Add(params object[] items)
@@ -95,6 +97,69 @@ namespace TestStack.BDDfy
         private static string Sanitise(string value)
         {
             return value.Replace(" ", string.Empty).Replace("_", string.Empty);
+        }
+
+        public string ToString(string[] additionalHeaders, string[][] additionalData)
+        {
+            var numberColumns = Headers.Length + additionalHeaders.Length;
+            var maxWidth = new int[numberColumns];
+
+            var rows = new List<string[]>();
+
+            Action<IEnumerable<string>> addRow = cells =>
+            {
+                var row = new string[numberColumns];
+                var index = 0;
+
+                foreach (var cellText in cells)
+                {
+                    row[index++] = cellText;
+                }
+
+                for (var i = 0; i < numberColumns; i++)
+                {
+                    var rowValue = row[i];
+                    if (rowValue != null && rowValue.Length > maxWidth[i])
+                    {
+                        maxWidth[i] = rowValue.Length;
+                    }
+                }
+
+                rows.Add(row);
+            };
+
+            addRow(Headers.Concat(additionalHeaders));
+            var rowIndex = 0;
+            foreach (var row in this)
+            {
+                var additionalValues = additionalData.Length > rowIndex ? additionalData[rowIndex] : Enumerable.Empty<string>();
+                addRow(row.Values.Select(v => v.GetValueAsString()).Concat(additionalValues));
+                rowIndex++;
+            }
+
+            var stringBuilder = new StringBuilder().AppendLine();
+            foreach (var row in rows)
+            {
+                WriteExampleRow(row, maxWidth, stringBuilder);
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public override string ToString()
+        {
+            return ToString(new string[0], new string[0][]);
+        }
+
+        private void WriteExampleRow(string[] row, int[] maxWidth, StringBuilder stringBuilder)
+        {
+            for (var index = 0; index < row.Length; index++)
+            {
+                var col = row[index];
+                stringBuilder.AppendFormat("| {0} ", (col ?? string.Empty).Trim().PadRight(maxWidth[index]));
+            }
+
+            stringBuilder.AppendLine("|");
         }
     }
 }
