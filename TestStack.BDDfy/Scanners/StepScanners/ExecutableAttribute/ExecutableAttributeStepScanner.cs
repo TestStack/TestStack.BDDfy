@@ -28,7 +28,7 @@ namespace TestStack.BDDfy
     {
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo candidateMethod)
         {
-            var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+            var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), true).FirstOrDefault();
             if(executableAttribute == null)
                 yield break;
 
@@ -38,7 +38,7 @@ namespace TestStack.BDDfy
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
 
-            var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
+            var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), true);
             if (runStepWithArgsAttributes.Length == 0)
             {
                 var stepAction = StepActionFactory.GetStepAction(candidateMethod, new object[0]);
@@ -71,7 +71,7 @@ namespace TestStack.BDDfy
 
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
-            var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).FirstOrDefault();
+            var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), true).FirstOrDefault();
             if (executableAttribute == null)
                 yield break;
 
@@ -112,7 +112,7 @@ namespace TestStack.BDDfy
 
         private static ExecutableAttribute GetExecutableAttribute(MethodInfo method)
         {
-            return (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), false).First();
+            return (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), true).First();
         }
     }
 }
