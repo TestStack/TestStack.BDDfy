@@ -1,6 +1,5 @@
 using System;
 using Shouldly;
-using TestStack.BDDfy.Processors;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Exceptions.NotImplementedException
@@ -10,13 +9,13 @@ namespace TestStack.BDDfy.Tests.Exceptions.NotImplementedException
         private void ExecuteUsingFluentScanner()
         {
             var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Given, true));
-            ex.GetType().FullName.ShouldBe("Gallio.Framework.TestInconclusiveException");
+            ex.GetType().FullName.ShouldContain("Inconclusive");
         }
 
         private void ExecuteUsingReflectingScanners()
         {
             var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Given, false));
-            ex.GetType().FullName.ShouldBe("Gallio.Framework.TestInconclusiveException");
+            ex.GetType().FullName.ShouldContain("Inconclusive");
         }
 
         [Fact]
