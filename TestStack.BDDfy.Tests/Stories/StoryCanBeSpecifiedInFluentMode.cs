@@ -14,7 +14,7 @@ namespace TestStack.BDDfy.Tests.Stories
                 .Then(_ => ThenTheSpecifiedStoryShouldBeUsed())
                 .BDDfy<SharedStoryNotion>();
 
-            story.Metadata.ShouldBeAssignableTo<SharedStoryNotion>();
+            story.Metadata.Type.ShouldBe(typeof(SharedStoryNotion));
         }
 
         void WhenStoryIsSpecifiedInFluentMode()

@@ -3,6 +3,7 @@ using System.Linq;
 using Shouldly;
 using TestStack.BDDfy.Tests.Exceptions;
 using Xunit;
+using Xunit.Extensions;
 
 namespace TestStack.BDDfy.Tests.Disposer
 {

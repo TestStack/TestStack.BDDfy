@@ -134,9 +134,9 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         public void ThenStepsWithArgs()
         {
             var steps = _steps.Where(s => s.Title == "Then 1, 2" || s.Title == "Then 3, 4").ToList();
-            steps.All(s => s.ExecutionOrder == ExecutionOrder.Assertion).ShouldBe(false);
-            steps.All(s => s.Asserts).ShouldBe(false);
-            steps.All(s => s.Title.EndsWith(" 1, 2") || s.Title.EndsWith(" 3, 4")).ShouldBe(false);
+            steps.All(s => s.ExecutionOrder == ExecutionOrder.Assertion).ShouldBe(true);
+            steps.All(s => s.Asserts).ShouldBe(true);
+            steps.All(s => s.Title.EndsWith(" 1, 2") || s.Title.EndsWith(" 3, 4")).ShouldBe(true);
         }
 
         [Fact]
@@ -144,7 +144,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         {
             var step = _steps.Single(s => s.Title.Trim() == TypeWithAttribute.MethodTextForAndThen);
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
-            step.Asserts.ShouldBe(false);
+            step.Asserts.ShouldBe(true);
             step.Title.Trim().ShouldBe(TypeWithAttribute.MethodTextForAndThen);
         }
 
@@ -153,7 +153,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         {
             var step = _steps.Single(s => s.Title == "I dont want this to be true");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
-            step.Asserts.ShouldBe(false);
+            step.Asserts.ShouldBe(true);
         }
 
         [Fact]

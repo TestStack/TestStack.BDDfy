@@ -1,5 +1,6 @@
 using Shouldly;
 using Xunit;
+using Xunit.Extensions;
 
 namespace TestStack.BDDfy.Samples.TicTacToe
 {

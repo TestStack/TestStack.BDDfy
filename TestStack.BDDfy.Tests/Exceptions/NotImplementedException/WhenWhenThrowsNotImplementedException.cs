@@ -1,3 +1,4 @@
+using System;
 using Shouldly;
 using TestStack.BDDfy.Processors;
 using Xunit;
@@ -8,12 +9,14 @@ namespace TestStack.BDDfy.Tests.Exceptions.NotImplementedException
     {
         private void ExecuteUsingReflectingScanners()
         {
-            Should.Throw<InconclusiveException>(() => Sut.Execute(ThrowingMethods.When, false));
+            var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.When, false));
+            ex.GetType().FullName.ShouldBe("Gallio.Framework.TestInconclusiveException");
         }
 
         private void ExecuteUsingFluentScanner()
         {
-            Should.Throw<InconclusiveException>(() => Sut.Execute(ThrowingMethods.When, true));
+            var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.When, true));
+            ex.GetType().FullName.ShouldBe("Gallio.Framework.TestInconclusiveException");
         }
 
         [Fact]

@@ -1,6 +1,7 @@
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
+using Xunit.Extensions;
 
 namespace TestStack.BDDfy.Tests
 {

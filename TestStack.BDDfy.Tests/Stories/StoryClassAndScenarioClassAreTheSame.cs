@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Stories
 
         void ThenStoryIsReturnedAsAStory()
         {
-            _story.Metadata.ShouldBeAssignableTo<StoryAsScenario>();
+            _story.Metadata.Type.ShouldBe(typeof(StoryAsScenario));
         }
 
         [AndThen(StepTitle = "and as a scenario")]
@@ -59,7 +59,7 @@ namespace TestStack.BDDfy.Tests.Stories
             }
             finally
             {
-                BDDfy.Configuration.Configurator.Processors.StoryCache.Enable();                
+                BDDfy.Configuration.Configurator.Processors.StoryCache.Enable();
             }
         }
     }
