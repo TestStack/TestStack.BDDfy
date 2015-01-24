@@ -118,9 +118,13 @@ h3 {
     width: 250px;
 }
 
-    .resultSummary li:before {
-        padding-right: 5px;
+    .resultSummary li {
+        clear: both;
     }
+
+        .resultSummary li:before {
+            padding-right: 5px;
+        }
 
 .storySummary div.summaryLine,
 .scenarioSummary div.summaryLine {
