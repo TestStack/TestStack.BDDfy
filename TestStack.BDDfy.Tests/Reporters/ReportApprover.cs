@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using ApprovalTests;
+using ApprovalTests.Utilities;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Tests.Reporters.Html;
 
