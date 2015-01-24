@@ -94,6 +94,12 @@ li {
     margin: 10px 5px 0px;
 }
 
+.summaryCount {
+    position: absolute;
+    width: 32px;
+    text-align: right;
+}
+
 .summaryLine {
     display: inline-block;
 }
@@ -118,14 +124,17 @@ h3 {
     width: 250px;
 }
 
-    .resultSummary li:before {
-        float: left;
-        padding-right: 5px;
+    .resultSummary li {
+        clear: both;
     }
+
+        .resultSummary li:before {
+            padding-right: 5px;
+        }
 
 .storySummary div.summaryLine,
 .scenarioSummary div.summaryLine {
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 div#generatedAt {
