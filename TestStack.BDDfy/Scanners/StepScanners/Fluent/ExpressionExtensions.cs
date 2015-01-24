@@ -9,16 +9,8 @@ namespace TestStack.BDDfy
 {
     public static class ExpressionExtensions
     {
-        public static IEnumerable<StepArgument> ExtractArguments<T>(this Expression<Action<T>> expression, T value)
+        public static IEnumerable<StepArgument> ExtractArguments<T>(this LambdaExpression expression, T value)
         {
-            var lambdaExpression = expression as LambdaExpression;
-            if (lambdaExpression == null)
-                throw new InvalidOperationException("Please provide a lambda expression.");
-
-            var methodCallExpression = lambdaExpression.Body as MethodCallExpression;
-            if (methodCallExpression == null)
-                throw new InvalidOperationException("Please provide a *method call* lambda expression.");
-
             return new ArgumentExtractorVisitor().ExtractArguments(expression, value);
         }
 

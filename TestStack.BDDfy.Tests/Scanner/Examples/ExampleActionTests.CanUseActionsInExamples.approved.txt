@@ -1,0 +1,11 @@
+﻿
+Scenario: Can use actions in examples
+	Given some setup
+	When  <Action to perform>
+	Then should be <Value should be>
+
+Examples: 
+| Action to perform | Value should be |
+| Do something      | 42              |
+| Do something else | 7               |
+

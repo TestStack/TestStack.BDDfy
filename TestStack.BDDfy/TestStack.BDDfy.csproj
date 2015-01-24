@@ -78,6 +78,7 @@
     <Compile Include="Processors\AsyncTestRunner.cs" />
     <Compile Include="Processors\ScenarioExecutor.cs" />
     <Compile Include="Processors\UnusedExampleException.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReporter.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Reporters\Writers\IReportWriter.cs" />
     <Compile Include="Processors\StoryCache.cs" />
     <Compile Include="ExecutionOrder.cs" />
+    <Compile Include="Scanners\StepScanners\Examples\ExampleAction.cs" />
     <Compile Include="Scanners\StepScanners\Examples\Example.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleTable.cs" />
     <Compile Include="Scanners\StepScanners\Examples\ExampleValue.cs" />
