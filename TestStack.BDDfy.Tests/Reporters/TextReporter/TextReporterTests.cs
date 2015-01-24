@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 using ApprovalTests;
+using ApprovalTests.Utilities;
 using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 
@@ -24,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            Approvals.Verify(actual.ToString(), StackTraceScrubber.Scrub);
+            Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
         }
 
         [Test]
@@ -41,7 +42,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            Approvals.Verify(actual.ToString(), StackTraceScrubber.Scrub);
+            Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
         }
 
         [Test]
@@ -61,7 +62,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 scenario));
             var actual = new StringBuilder();
             actual.AppendLine(textReporter.ToString());
-            Approvals.Verify(actual.ToString(), StackTraceScrubber.Scrub);
+            Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
         }
     }
 }
