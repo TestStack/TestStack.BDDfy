@@ -94,6 +94,12 @@ li {
     margin: 10px 5px 0px;
 }
 
+.summaryCount {
+    position: absolute;
+    width: 32px;
+    text-align: right;
+}
+
 .summaryLine {
     display: inline-block;
 }
