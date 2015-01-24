@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Tests.Exceptions;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Disposer
 {
-    [TestFixture]
     public class DisposingScenarios
     {
         class DisposableScenario : IDisposable
@@ -44,12 +44,12 @@ namespace TestStack.BDDfy.Tests.Disposer
             public bool Disposed { get; set; }
         }
 
-        [Test]
-        [TestCase(ThrowingMethods.None)]
-        [TestCase(ThrowingMethods.Given)]
-        [TestCase(ThrowingMethods.When)]
-        [TestCase(ThrowingMethods.Then)]
-        [TestCase(ThrowingMethods.Given | ThrowingMethods.When | ThrowingMethods.Then)]
+        [Theory]
+        [InlineData(ThrowingMethods.None)]
+        [InlineData(ThrowingMethods.Given)]
+        [InlineData(ThrowingMethods.When)]
+        [InlineData(ThrowingMethods.Then)]
+        [InlineData(ThrowingMethods.Given | ThrowingMethods.When | ThrowingMethods.Then)]
         public void Execute(ThrowingMethods throwingMethods)
         {
             var scenario = new DisposableScenario(throwingMethods);
@@ -67,12 +67,12 @@ namespace TestStack.BDDfy.Tests.Disposer
             }
             finally
             {
-                BDDfy.Configuration.Configurator.Processors.StoryCache.Enable();                
+                BDDfy.Configuration.Configurator.Processors.StoryCache.Enable();
             }
             var story = bddifier.Story;
 
-            Assert.That(story.Scenarios.All(s => ((DisposableScenario)s.TestObject).Disposed), Is.False);
-            Assert.That(scenario.Disposed, Is.False);
+            story.Scenarios.All(s => ((DisposableScenario)s.TestObject).Disposed).ShouldBe(false);
+            scenario.Disposed.ShouldBe(false);
         }
     }
 }

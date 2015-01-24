@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
@@ -6,7 +7,6 @@ namespace TestStack.BDDfy.Samples.TicTacToe
         AsA = "As a player",
         IWant = "I want to have a tic tac toe game",
         SoThat = "So that I can waste some time!")]
-    [TestFixture]
     public class TicTacToe : NewGame
     {
         class Cell
@@ -38,12 +38,12 @@ namespace TestStack.BDDfy.Samples.TicTacToe
 
         void ThenTheWinnerShouldBe(string expectedWinner)
         {
-            Assert.AreEqual(Game.Winner, expectedWinner);
+            expectedWinner.ShouldBe(Game.Winner);
         }
 
         void ThenItShouldBeACatsGame()
         {
-            Assert.IsNull(Game.Winner);
+            Game.Winner.ShouldBe(null);
         }
 
         void WhenTheGameIsPlayedAt(params Cell[] cells)
@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
             }
         }
 
-        [Test]
+        [Fact]
         public void CatsGame()
         {
             this.Given(s => s.GivenTheFollowingBoard(new[] { X, O, X }, new[] { O, O, X }, new[] { X, X, O }), BoardStateTemplate)
@@ -62,7 +62,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
                 .BDDfy("Cat's game");
         }
 
-        [Test]
+        [Fact]
         public void WhenXAndOPlayTheirFirstMoves()
         {
             this.Given(s => s.GivenANewGame())
@@ -71,7 +71,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void OWins()
         {
             var cell = new Cell(2, 0);
@@ -81,21 +81,21 @@ namespace TestStack.BDDfy.Samples.TicTacToe
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void XWins()
         {
             // This is implemented like this to show you the possibilities
             new XWins().BDDfy();
         }
 
-        [Test]
-        [TestCase("Vertical win in the right", new[] { X, O, X }, new[] { O, O, X }, new[] { O, X, X }, X)]
-        [TestCase("Vertical win in the middle", new[] { N, X, O }, new[] { O, X, O }, new[] { O, X, X }, X)]
-        [TestCase("Diagonal win", new[] { X, O, O }, new[] { X, O, X }, new[] { O, X, N }, O)]
-        [TestCase("Horizontal win in the bottom", new[] { X, X, N }, new[] { X, O, X }, new[] { O, O, O }, O)]
-        [TestCase("Horizontal win in the middle", new[] { X, O, O }, new[] { X, X, X }, new[] { O, O, X }, X)]
-        [TestCase("Vertical win in the left", new[] { X, O, O }, new[] { X, O, X }, new[] { X, X, O }, X)]
-        [TestCase("Horizontal win", new[] { X, X, X }, new[] { X, O, O }, new[] { O, O, X }, X)]
+        [Theory]
+        [InlineData("Vertical win in the right", new[] { X, O, X }, new[] { O, O, X }, new[] { O, X, X }, X)]
+        [InlineData("Vertical win in the middle", new[] { N, X, O }, new[] { O, X, O }, new[] { O, X, X }, X)]
+        [InlineData("Diagonal win", new[] { X, O, O }, new[] { X, O, X }, new[] { O, X, N }, O)]
+        [InlineData("Horizontal win in the bottom", new[] { X, X, N }, new[] { X, O, X }, new[] { O, O, O }, O)]
+        [InlineData("Horizontal win in the middle", new[] { X, O, O }, new[] { X, X, X }, new[] { O, O, X }, X)]
+        [InlineData("Vertical win in the left", new[] { X, O, O }, new[] { X, O, X }, new[] { X, X, O }, X)]
+        [InlineData("Horizontal win", new[] { X, X, X }, new[] { X, O, O }, new[] { O, O, X }, X)]
         public void WinnerGame(string title, string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
         {
             new WinnerGame(firstRow, secondRow, thirdRow, expectedWinner).BDDfy<TicTacToe>(title);

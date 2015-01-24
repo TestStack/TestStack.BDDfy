@@ -1,5 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
@@ -56,64 +58,61 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var steps = scanner.Scan(TestContext.GetContext(new ScenarioWithVaryingStepTexts())).ToList();
             var theStep = steps.Where(s => s.Title == expectedStepTitle);
 
-            if (exists)
-                Assert.That(theStep.Count(), Is.EqualTo(1));
-            else
-                Assert.That(theStep.Count(), Is.EqualTo(0));
+            theStep.Count().ShouldBe(exists ? 1 : 0);
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithPascalCaseIsSeparatedAndTurnedIntoLowerCaseExceptTheFirstWord()
         {
             VerifyMethod("The pascal case for method name");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithUnderscoreAndLowerCaseWordsIsSeparatedAndCaseIsRetained()
         {
             VerifyMethod("with lower case underscored method name");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArrayArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
         {
             VerifyMethod("When step is run with array arguments without provided text 1, 2, 3, 4, 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArrayArgumentWithProvidedTextUsesArrayToFormatTheTextTemplate()
         {
             VerifyMethod("With the following inputs 1, 2, 3, 4, 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
         {
             VerifyMethod("Step is run with arguments without provided text 1, 2, 3");
             VerifyMethod("Step is run with arguments without provided text 3, 4, 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithProvidedTextUsesTheProvidedTextAsTemplate()
         {
             VerifyMethod("The step text gets argument 1, 2 and then 3");
             VerifyMethod("The step text gets argument 3, 4 and then 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithProvidedTextDoesNotUseTheMethodName()
         {
             VerifyMethod("Step is run with arguments with provided text 1, 2, 3", false);
             VerifyMethod("Step is run with arguments with provided text 3, 4, 5", false);
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithTextProvidedOnTheExecutableAttributeUsesExecutableAttributeTemplate()
         {
             VerifyMethod("Running step with arg 1, 2 and 3 using exec attribute template");
         }
 
-        [Test]
+        [Fact]
         public void RunStepWithArgsTemplateOverrideAllOtherTemplates()
         {
             VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute and RunStepWithArgs attribute");
@@ -121,13 +120,13 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             VerifyMethod("The template provided on RunStepWithArgs overrides all the others 4, 5, 6");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithTextProvidedOnTheExecutableAttributeConstructorUsesExecutableAttributeTemplate()
         {
             VerifyMethod("Running step with arg 1, 2 and 3 using exec attribute(string stepTitle)");
         }
 
-        [Test]
+        [Fact]
         public void RunStepWithArgsTemplateOverrideAllOtherTemplatesThatUseTheConstructor()
         {
             VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute(string stepTitle) and RunStepWithArgs attribute");

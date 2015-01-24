@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
+﻿using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
-    [TestFixture]
     public class UseExamplesWithReflectiveApi
     {
         private int _start;
         private int _eat;
 
-        [Test]
+        [Fact]
         public void CanRunExamplesWithReflectiveApi()
         {
             this.WithExamples(new ExampleTable("Start", "Eat", "Left")
@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Samples
         void ThenIShouldHave__left__Cucumbers(int left)
         {
             // like given and when steps left is provided here because it matches the example header and is found on the step title
-            Assert.That(_start - _eat, Is.EqualTo(left));
+            (_start - _eat).ShouldBe(left);
         }
     }
 }

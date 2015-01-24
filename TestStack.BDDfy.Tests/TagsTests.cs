@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using ApprovalTests;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
 using TestStack.BDDfy.Tests.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests
 {
-    [TestFixture]
     public class TagsTests
     {
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInTextReport()
         {
@@ -26,7 +25,7 @@ namespace TestStack.BDDfy.Tests
             Approvals.Verify(textReporter.ToString());
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInHtmlReport()
         {
@@ -42,7 +41,7 @@ namespace TestStack.BDDfy.Tests
             ReportApprover.Approve(model, sut);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInMetroHtmlReport()
         {
@@ -58,7 +57,7 @@ namespace TestStack.BDDfy.Tests
             ReportApprover.Approve(model, sut);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInMarkdownReport()
         {

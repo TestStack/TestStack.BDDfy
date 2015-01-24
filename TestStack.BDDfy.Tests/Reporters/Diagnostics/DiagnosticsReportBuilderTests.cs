@@ -1,15 +1,14 @@
 ﻿using NSubstitute;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Serializers;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 {
-    [TestFixture]
     public class DiagnosticsReportBuilderTests
     {
-        [Test]
+        [Fact]
         public void ShouldSerializeDiagnosticDataToSpecifiedFormat()
         {
             var serializer = Substitute.For<ISerializer>();

@@ -1,15 +1,14 @@
-using NUnit.Framework;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests
 {
-    [TestFixture]
     public class WhenAnEmptyScenarioIsBddified
     {
         private class ScenarioWithNoSteps
         {
         }
 
-        [Test]
+        [Fact]
         public void ThenNoExeptionIsThrown()
         {
             new ScenarioWithNoSteps().BDDfy();

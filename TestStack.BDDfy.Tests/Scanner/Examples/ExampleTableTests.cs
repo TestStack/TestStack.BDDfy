@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using ApprovalTests;
-using NUnit.Framework;
 using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
-    [TestFixture]
     public class ExampleTableTests
     {
-        [Test]
+        [Fact]
         public void CanParseTable()
         {
             const string table = @"
@@ -31,7 +30,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             exampleTable.ElementAt(1).GetValueOf(1, typeof(DateTime)).ShouldBe(new DateTime(2010, 3, 14));
         }
 
-        [Test]
+        [Fact]
         public void TableToString()
         {
             var table = new ExampleTable("Header 1", "Header 2")
@@ -43,7 +42,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             Approvals.Verify(table.ToString());
         }
 
-        [Test]
+        [Fact]
         public void TableToStringWithAdditionalColumn()
         {
             var table = new ExampleTable("Header 1", "Header 2")

@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using System.Linq;
+﻿using System.Linq;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
-    [TestFixture]
     public class BatchProcessorsTests
     {
         static bool MetroReportProcessorIsActive(IBatchProcessor batchProcessor)
@@ -14,57 +14,57 @@ namespace TestStack.BDDfy.Tests.Configuration
             return batchProcessor is HtmlReporter && ((HtmlReporter)batchProcessor).ReportBuilder is MetroReportBuilder;
         }
 
-        [Test]
+        [Fact]
         public void ReturnsHtmlReporterByDefault()
         {
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            Assert.IsTrue(processors.Any(p => p is HtmlReporter));
+            processors.Any(p => p is HtmlReporter).ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void DoesNotReturnMarkDownReporterByDefault()
         {
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            Assert.IsFalse(processors.Any(p => p is MarkDownReporter));
+            processors.Any(p => p is MarkDownReporter).ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void DoesNotReturnHtmlMetroReporterByDefault()
         {
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            Assert.IsFalse(processors.Any(MetroReportProcessorIsActive));
+            processors.Any(MetroReportProcessorIsActive).ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
         {
             Configurator.BatchProcessors.HtmlReport.Disable();
             
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            Assert.IsFalse(processors.Any(p => p is HtmlReporter));
-            
+            processors.Any(p => p is HtmlReporter).ShouldBe(false);
+
             Configurator.BatchProcessors.HtmlReport.Enable();
         }
 
-        [Test]
+        [Fact]
         public void ReturnsMarkdownReporterWhenItIsActivated()
         {
             Configurator.BatchProcessors.MarkDownReport.Enable();
             
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            Assert.IsTrue(processors.Any(p => p is MarkDownReporter));
-            
+            processors.Any(p => p is MarkDownReporter).ShouldBe(true);
+
             Configurator.BatchProcessors.MarkDownReport.Disable();
         }
 
-        [Test]
+        [Fact]
         public void ReturnsHtmlMetroReporterWhenItIsActivated()
         {
             Configurator.BatchProcessors.HtmlMetroReport.Enable();
             
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            Assert.IsTrue(processors.Any(MetroReportProcessorIsActive), "The metro Html report was not found in batch processors");
-            
+            processors.Any(MetroReportProcessorIsActive).ShouldBe(true);
+
             Configurator.BatchProcessors.HtmlMetroReport.Disable();
         }
     }

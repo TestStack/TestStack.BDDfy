@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
@@ -15,7 +16,7 @@ namespace TestStack.BDDfy.Samples
 
         public void ThenBddfyHasWaitedForThatSetupToCompleteBeforeContinuing()
         {
-            Assert.NotNull(_sut);
+            _sut.ShouldNotBe(null);
         }
 
         public async Task AndThenBddfyShouldCaptureExceptionsThrownInAsyncMethod()
@@ -30,13 +31,13 @@ namespace TestStack.BDDfy.Samples
             return new Sut();
         }
 
-        [Test]
+        [Fact]
         public void Run()
         {
             var engine = this.LazyBDDfy();
-            var exception = Assert.Throws<Exception>(() => engine.Run());
+            var exception = Should.Throw<Exception>(() => engine.Run());
 
-            Assert.AreEqual("Exception in async void method!!", exception.Message);
+            exception.Message.ShouldBe("Exception in async void method!!");
         }
 
         internal class Sut

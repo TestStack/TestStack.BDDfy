@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class WhenTestClassUsesExecutableAttributes
     {
         private TypeWithAttribute _typeWithAttribute;
@@ -59,8 +59,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             public void Executable() { }
         }
 
-        [SetUp]
-        public void WhenStep_TestClassHasAttributes()
+        public WhenTestClassUsesExecutableAttributes()
         {
             _typeWithAttribute = new TypeWithAttribute();
             _steps = new ExecutableAttributeStepScanner().Scan(TestContext.GetContext(_typeWithAttribute)).ToList();
@@ -71,106 +70,106 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             return Configurator.Scanners.Humanize(Helpers.GetMethodInfo(methodInfoAction).Name);
         }
 
-        [Test]
+        [Fact]
         public void DecoratedMethodsAreReturned()
         {
-            Assert.That(_steps.Count, Is.EqualTo(11));
+            _steps.Count.ShouldBe(11);
         }
 
-        [Test]
+        [Fact]
         public void Given()
         {
             var givenStep = _steps.Single(s => s.Title == "Given"); 
-            Assert.That(givenStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
-            Assert.IsFalse(givenStep.Asserts);
-            Assert.That(givenStep.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.Given)));
+            givenStep.ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
+            givenStep.Asserts.ShouldBe(false);
+            givenStep.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.Given));
         }
 
-        [Test]
+        [Fact]
         public void AndGiven()
         {
             var step = _steps.Single(s => s.Title.Trim() == "Some other part of the given");
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
-            Assert.IsFalse(step.Asserts);
-            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven)));
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
+            step.Asserts.ShouldBe(false);
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven));
         }
 
-        [Test]
+        [Fact]
         public void ButGiven()
         {
             var step = _steps.Single(s => s.Title.Trim() == "Setup should avoid somethings");
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
-            Assert.IsFalse(step.Asserts);
-            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.SetupShouldAvoidSomethings)));
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
+            step.Asserts.ShouldBe(false);
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.SetupShouldAvoidSomethings));
         }
 
-        [Test]
+        [Fact]
         public void When()
         {
             var step = _steps.Single(s => s.Title == TypeWithAttribute.MethodTextForWhenSomethingHappens);
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.Transition));
-            Assert.That(step.Title, Is.EqualTo(TypeWithAttribute.MethodTextForWhenSomethingHappens));
-            Assert.IsFalse(step.Asserts);
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.Transition);
+            step.Title.ShouldBe(TypeWithAttribute.MethodTextForWhenSomethingHappens);
+            step.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void TheOtherPartOfWhen()
         {
             var step = _steps.Single(s => s.Title.Trim() == "The other part of when");
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
-            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen)));
-            Assert.IsFalse(step.Asserts);
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen));
+            step.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void ButWhen()
         {
             var step = _steps.Single(s => s.Title.Trim() == "And something has not happened");
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
-            Assert.That(step.Title.Trim(), Is.EqualTo(GetStepTextFromMethodName(_typeWithAttribute.AndSomethingHasNotHappened)));
-            Assert.IsFalse(step.Asserts);
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.AndSomethingHasNotHappened));
+            step.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void ThenStepsWithArgs()
         {
             var steps = _steps.Where(s => s.Title == "Then 1, 2" || s.Title == "Then 3, 4").ToList();
-            Assert.IsTrue(steps.All(s => s.ExecutionOrder == ExecutionOrder.Assertion));
-            Assert.IsTrue(steps.All(s => s.Asserts));
-            Assert.IsTrue(steps.All(s => s.Title.EndsWith(" 1, 2") || s.Title.EndsWith(" 3, 4")));
+            steps.All(s => s.ExecutionOrder == ExecutionOrder.Assertion).ShouldBe(false);
+            steps.All(s => s.Asserts).ShouldBe(false);
+            steps.All(s => s.Title.EndsWith(" 1, 2") || s.Title.EndsWith(" 3, 4")).ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void AndThen()
         {
             var step = _steps.Single(s => s.Title.Trim() == TypeWithAttribute.MethodTextForAndThen);
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
-            Assert.IsTrue(step.Asserts);
-            Assert.That(step.Title.Trim(), Is.EqualTo(TypeWithAttribute.MethodTextForAndThen));
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
+            step.Asserts.ShouldBe(false);
+            step.Title.Trim().ShouldBe(TypeWithAttribute.MethodTextForAndThen);
         }
 
-        [Test]
+        [Fact]
         public void But()
         {
             var step = _steps.Single(s => s.Title == "I dont want this to be true");
-            Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
-            Assert.IsTrue(step.Asserts);
+            step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
+            step.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void ExecutableAttributesDefaultToShouldReport()
         {
             foreach (var step in _steps.Where(s => s.Title != "Executable"))
             {
-                Assert.IsTrue(step.ShouldReport);
+                step.ShouldReport.ShouldBe(true);
             }
         }
 
-        [Test]
+        [Fact]
         public void CanPreventExecutableAttributesReporting()
         {
             var step = _steps.First(s => s.Title == "Executable");
-            Assert.IsFalse(step.ShouldReport);
+            step.ShouldReport.ShouldBe(false);
         }
     }
 }

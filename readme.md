@@ -60,7 +60,7 @@ Now that you have installed BDDfy, write your first test (this test is borrowed 
     	    Assert.IsFalse(_atm.CardIsRetained);
     	}
     	
-    	[Test]
+    	[Fact]
     	public void Execute()
     	{
     	    this.BDDfy();
@@ -86,7 +86,7 @@ This is just the console report. Have a look at your output folder and you shoul
 
 If you want more control you can also use BDDfy's Fluent API. Here is another example done using the Fluent API:
 
-	[Test]
+	[Fact]
 	public void CardHasBeenDisabled()
 	{
 	    this.Given(s => s.GivenTheCardIsDisabled())

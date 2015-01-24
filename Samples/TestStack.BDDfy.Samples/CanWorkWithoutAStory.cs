@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
@@ -16,7 +16,7 @@ namespace TestStack.BDDfy.Samples
         {
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             this.BDDfy();

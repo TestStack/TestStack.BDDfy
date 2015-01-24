@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories
 {
@@ -6,13 +7,13 @@ namespace TestStack.BDDfy.Tests.Stories
     {
         Story _story;
 
-        [Test]
+        [Fact]
         public void Verify()
         {
             _story = this.BDDfy();
-            Assert.That(_story.Metadata, Is.Not.Null);
-            Assert.That(_story.Metadata.Title, Is.EqualTo(StoryTitle));
-            Assert.That(_story.Metadata.TitlePrefix, Is.EqualTo(StoryTitlePrefix));
+            _story.Metadata.ShouldNotBe(null);
+            _story.Metadata.Title.ShouldBe(StoryTitle);
+            _story.Metadata.TitlePrefix.ShouldBe(StoryTitlePrefix);
         }
 
         void WhenTheSubclassIsBddified()

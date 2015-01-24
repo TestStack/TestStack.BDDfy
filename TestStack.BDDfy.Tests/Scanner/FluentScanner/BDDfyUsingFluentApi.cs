@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
@@ -40,7 +42,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         public void ThenCallingTheActionThrows<T>() where T : Exception
         {
-            Assert.Throws<T>(() => _action());
+            Should.Throw<T>(() => _action());
         }
 
         public void GivenPrimitiveInputs(string input1, int input2)
@@ -68,19 +70,19 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         public void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(string expectedInput1, int expectedInput2)
         {
-            Assert.That(_primitiveInput1, Is.EqualTo(expectedInput1));
-            Assert.That(_primitiveInput2, Is.EqualTo(expectedInput2));
+            _primitiveInput1.ShouldBe(expectedInput1);
+            _primitiveInput2.ShouldBe(expectedInput2);
         }
 
         public void ThenEnumArgumentIsPassedInProperlyAndStoredOnTheSameObjectInstance(SomeEnumForTesting expectedInput)
         {
-            Assert.That(_enumInput, Is.EqualTo(expectedInput));
+            _enumInput.ShouldBe(expectedInput);
         }
 
         public void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(IEnumerable<string> expectedInput1, IEnumerable<int> expectedInput2)
         {
-            Assert.That(_arrayInput1, Is.EqualTo(expectedInput1));
-            Assert.That(_arrayInput2, Is.EqualTo(expectedInput2));
+            _arrayInput1.ShouldBe(expectedInput1);
+            _arrayInput2.ShouldBe(expectedInput2);
         }
 
         string _primitiveInput1Field = "1";
@@ -102,7 +104,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public string[] ArrayInput1Property { get { return _arrayInput1Field; } }
         public int[] ArrayInput2Property { get { return _arrayInput2Field; } }
 
-        [Test]
+        [Fact]
         public void PassingPrimitiveArgumentsInline()
         {
             this.Given(x => x.GivenPrimitiveInputs("1", 2), "Given inline input arguments {0} and {1}")
@@ -110,7 +112,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingPublicStaticPrimitiveArguments()
         {
             this.Given(x => x.GivenPrimitiveInputs(string.Empty, 2), "Given inline input arguments {0} and {1}")
@@ -118,7 +120,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingPublicStaticPrimitivePropertyAsArguments()
         {
             this.Given(x => x.GivenPrimitiveInputs(SomeClassWithStaticMembers.StringProp, SomeClassWithStaticMembers.IntProp), "Given inline input arguments {0} and {1}")
@@ -126,7 +128,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingNullPrimitiveArgumentInline()
         {
             this.Given(x => x.GivenPrimitiveInputs(null, 2), "Given inline input arguments {0} and {1}")
@@ -134,7 +136,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingPrimitiveArgumentsUsingVariables()
         {
             var input1 = "1";
@@ -145,7 +147,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingNullAsPrimitiveArgumentsUsingVariables()
         {
             string input1 = null;
@@ -156,7 +158,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
  
-        [Test]
+        [Fact]
         public void PassingPrimitiveArgumentsUsingFields()
         {
             this.Given(x => x.GivenPrimitiveInputs(_primitiveInput1Field, _primitiveInput2Field), "Given input arguments {0} and {1} are passed in using fields")
@@ -164,7 +166,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
  
-        [Test]
+        [Fact]
         public void PassingPrimitiveArgumentsUsingProperties()
         {
             this.Given(x => x.GivenPrimitiveInputs(PrimitiveInput1Property, PrimitiveInput2Property), "Given input arguments {0} and {1} are passed in using properties")
@@ -172,7 +174,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingEnumArgumentInline()
         {
             this.Given(x => x.GivenEnumInputs(SomeEnumForTesting.Value1), "Given inline enum argument {0}")
@@ -180,7 +182,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingEnumArgumentUsingVariable()
         {
             var someEnumForTesting = SomeEnumForTesting.Value1;
@@ -189,7 +191,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingEnumArgumentUsingFields()
         {
             this.Given(x => x.GivenEnumInputs(_enumInputField), "Given enum argument {0} provided using fields")
@@ -197,7 +199,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingArrayArgumentsInline()
         {
             this.Given(x => x.GivenArrayInputs(new[] { "1", "2" }, new[] { 3, 4 }), "Given inline array input arguments")
@@ -205,7 +207,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingEnumerableArguments()
         {
             this.Given(x => x.GivenEnumerableInputs(EnumerableString, EnumerableInt), "Given enumerable input arguments")
@@ -213,7 +215,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
         
-        [Test]
+        [Fact]
         public void PassingNullArrayArgumentInline()
         {
             this.Given(x => x.GivenArrayInputs(new[] {"1", null, "2"}, new[] {1, 2}), "Given inline input arguments {0} and {1}")
@@ -221,7 +223,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingNullAsArrayArgumentInline()
         {
             this.Given(x => x.GivenArrayInputs(null, new[] {1, 2}), "Given inline input arguments {0} and {1}")
@@ -229,7 +231,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingArrayArgumentsUsingVariables()
         {
             var input1 = new[] {"1", "2"};
@@ -240,7 +242,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void PassingNullAsOneOfArrayArgumentUsingVariables()
         {
             var input1 = new[] {null, "2"};
@@ -251,7 +253,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
  
-        [Test]
+        [Fact]
         public void PassingArrayArgumentsUsingFields()
         {
             this.Given(x => x.GivenArrayInputs(_arrayInput1Field, _arrayInput2Field), "Given array input arguments {0} and {1} are passed in using fields")
@@ -259,7 +261,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
  
-        [Test]
+        [Fact]
         public void PassingArrayArgumentsUsingProperties()
         {
             this.Given(x => x.GivenArrayInputs(ArrayInput1Property, ArrayInput2Property), "Given array input arguments {0} and {1} are passed in using properties")
@@ -267,7 +269,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void WhenTitleIsNotProvidedItIsFetchedFromMethodName()
         {
             var story = 
@@ -276,10 +278,10 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .BDDfy();
 
             var scenario = story.Scenarios.First();
-            Assert.That(scenario.Title, Is.EqualTo(Configurator.Scanners.Humanize(MethodBase.GetCurrentMethod().Name)));
+            scenario.Title.ShouldBe(Configurator.Scanners.Humanize(MethodBase.GetCurrentMethod().Name));
         }
 
-        [Test]
+        [Fact]
         public void WhenTitleIsProvidedItIsUsedAsIs()
         {
             const string dummyTitle = "some dummy title; blah blah $#^";
@@ -289,7 +291,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .BDDfy(dummyTitle);
 
             var scenario = story.Scenarios.First();
-            Assert.That(scenario.Title, Is.EqualTo(dummyTitle));
+            scenario.Title.ShouldBe(dummyTitle);
         }
 
         private static void ExceptionThrowingAction()
@@ -297,7 +299,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             throw new ApplicationException();
         }
 
-        [Test]
+        [Fact]
         public void CanPassActionToFluentApi()
         {
             this.Given(x => x.GivenAnAction(ExceptionThrowingAction))
@@ -305,7 +307,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void CanPassActionAndTitleToFluentApi()
         {
             this.Given(x => x.GivenAnAction(ExceptionThrowingAction), "Given an action that throws AppliationException")

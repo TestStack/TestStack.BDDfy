@@ -3,15 +3,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using ApprovalTests;
 using ApprovalTests.Utilities;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
-    [TestFixture]
     public class TextReporterTests
     {
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedReport()
         {
@@ -28,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedTextWithExamples()
         {
@@ -45,7 +44,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void LongStepName()
         {

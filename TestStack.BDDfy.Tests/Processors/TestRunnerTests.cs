@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Processors;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Processors
 {
-    [TestFixture]
     public class TestRunnerTests
     {
         public int ExampleValue { get; set; }
 
-        [Test]
+        [Fact]
         public void InitializesScenarioWithExampleBeforeRunning()
         {
             const int expectedValue = 1;
@@ -31,7 +31,7 @@ namespace TestStack.BDDfy.Tests.Processors
 
             sut.Process(story);
 
-            Assert.AreEqual(expectedValue, actualValue);
+            expectedValue.ShouldBe(actualValue);
         }
     }
 }

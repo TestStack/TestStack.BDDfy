@@ -1,11 +1,10 @@
-﻿using System;
-using System.Text;
-using NUnit.Framework;
+﻿using System.Text;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
-    [TestFixture]
     public class StepExecutorTests
     {
         private class TestStepExecutor : StepExecutor
@@ -31,7 +30,7 @@ namespace TestStack.BDDfy.Tests.Configuration
             }
         }
 
-        [Test]
+        [Fact]
         public void CustomizingStepExecutionByOverridingStepExecutor()
         {
             try
@@ -56,7 +55,7 @@ Finished running step 'Then something'
 ".Replace("\r", string.Empty).Trim();
 
                 string actual = testStepExecutor.Results.Replace("\r", string.Empty).Trim();
-                Assert.AreEqual(expected, actual);
+                expected.ShouldBe(actual);
 
             }
             finally

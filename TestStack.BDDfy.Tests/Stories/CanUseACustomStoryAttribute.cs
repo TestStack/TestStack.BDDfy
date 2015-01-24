@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories
 {
@@ -29,21 +31,20 @@ namespace TestStack.BDDfy.Tests.Stories
         }
     }
 
-    [TestFixture]
     [InOrderToStory(
         InOrderTo = "do something",
         AsA = "programmer",
         IWant = "this to work")]
     public class CanUseACustomStoryAttribute
     {
-        [Test]
+        [Fact]
         public void When_InOrderTo_is_specified_the_InOrderTo_syntax_is_used()
         {
             var story = new DummyScenario().BDDfy<CanUseACustomStoryAttribute>();
 
-            Assert.That(story.Metadata.Narrative1, Is.EqualTo("In order to do something"));
-            Assert.That(story.Metadata.Narrative2, Is.EqualTo("As a programmer"));
-            Assert.That(story.Metadata.Narrative3, Is.EqualTo("I want this to work"));
+            story.Metadata.Narrative1.ShouldBe("In order to do something");
+            story.Metadata.Narrative2.ShouldBe("As a programmer");
+            story.Metadata.Narrative3.ShouldBe("I want this to work");
         }
     }
 }

@@ -1,45 +1,45 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Processors;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class WhenStepScannerFactoryAsyncMethods
     {
-        [Test]
+        [Fact]
         public void CallingAsyncTaskWhichThrowsIsObservedAndRethrown()
         {
             var stepAction = StepActionFactory.GetStepAction<SomeScenario>(o => AsyncTaskMethod(o));            
-            Assert.Throws<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(new SomeScenario())));
+            Should.Throw<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(new SomeScenario())));
         }
 
-        [Test]
+        [Fact]
         public void CallingAsyncVoidWhichThrowsIsObservedAndRethrown()
         {
             var stepAction = StepActionFactory.GetStepAction<SomeScenario>(s=>AsyncVoidMethod(s));
 
-            Assert.Throws<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(new SomeScenario())));
+            Should.Throw<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(new SomeScenario())));
         }
 
-        [Test]
+        [Fact]
         public void InvokingAsyncTaskWhichThrowsIsObservedAndRethrown()
         {
             var methodInfo = typeof(WhenStepScannerFactoryAsyncMethods).GetMethod("AsyncVoidMethod", BindingFlags.Instance | BindingFlags.NonPublic);
             var stepAction = StepActionFactory.GetStepAction(methodInfo, new object[] { new SomeScenario() });
 
-            Assert.Throws<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(this)));
+            Should.Throw<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(this)));
         }
 
-        [Test]
+        [Fact]
         public void InvokingAsyncVoidWhichThrowsIsObservedAndRethrown()
         {
             var methodInfo = typeof(WhenStepScannerFactoryAsyncMethods).GetMethod("AsyncTaskMethod", BindingFlags.Instance | BindingFlags.NonPublic);
             var stepAction = StepActionFactory.GetStepAction(methodInfo, new object[] { new SomeScenario() });
 
-            Assert.Throws<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(this)));
+            Should.Throw<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(this)));
         }
 
         private async void AsyncVoidMethod(SomeScenario someScenario)

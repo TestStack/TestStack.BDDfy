@@ -1,15 +1,14 @@
 using System;
 using System.Runtime.CompilerServices;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
-    [TestFixture]
     public class ClassicReportBuilderTests
     {
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
@@ -23,7 +22,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             ReportApprover.Approve(model, sut);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtmlWithExamples()
         {

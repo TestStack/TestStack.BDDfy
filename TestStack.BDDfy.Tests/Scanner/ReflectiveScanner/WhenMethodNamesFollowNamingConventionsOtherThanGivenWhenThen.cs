@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen
     {
         private List<Step> _steps;
         ScenarioClass _scenario;
 
-        [SetUp]
-        public void Setup()
+        public WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen()
         {
             var specEndMatcher = new MethodNameMatcher(s => s.EndsWith("specification", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.SetupState, true);
             var specStartMatcher = new MethodNameMatcher(s => s.StartsWith("specification", StringComparison.OrdinalIgnoreCase), false, ExecutionOrder.SetupState, true);
@@ -58,43 +57,43 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void TheStepsAreFoundUsingConventionInjection()
         {
-            Assert.That(_steps.Count, Is.EqualTo(5));
+            _steps.Count.ShouldBe(5);
         }
 
-        [Test]
+        [Fact]
         public void TheSetupMethodIsPickedAsNonAsserting()
         {
             var setupMethod = _steps.Single(s => s.Title == "Setup");
-            Assert.That(setupMethod.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
-            Assert.That(setupMethod.ShouldReport, Is.False);
-            Assert.That(setupMethod.Asserts, Is.False);
+            setupMethod.ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
+            setupMethod.ShouldReport.ShouldBe(false);
+            setupMethod.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void TheCorrectSpecificationStepsAreFound()
         {
             AssertSpecificationStepIsScannedProperly(_scenario.SpecificationAppearingInTheBeginningOfTheMethodName);
             AssertSpecificationStepIsScannedProperly(_scenario.AppearingAtTheEndOfTheMethodNameSpecification);
         }
 
-        [Test]
+        [Fact]
         public void IncorrectSpecificationStepIsNotAdded()
         {
             var specMethod = _steps.Where(s => s.Title == "This method specification should not be included");
-            Assert.That(specMethod, Is.Empty);
+            specMethod.ShouldBeEmpty();
         }
 
         void AssertSpecificationStepIsScannedProperly(Action getSpecMethod)
         {
             var specMethods = _steps.Where(s => s.Title.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
-            Assert.That(specMethods.Count(), Is.EqualTo(1));
+            specMethods.Count().ShouldBe(1);
             var specStep = specMethods.First();
-            Assert.That(specStep.Asserts, Is.False);
-            Assert.That(specStep.ShouldReport, Is.True);
-            Assert.That(specStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
+            specStep.Asserts.ShouldBe(false);
+            specStep.ShouldReport.ShouldBe(true);
+            specStep.ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
         }
     }
 }

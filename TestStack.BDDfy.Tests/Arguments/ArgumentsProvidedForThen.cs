@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Arguments
 {
@@ -11,11 +12,11 @@ namespace TestStack.BDDfy.Tests.Arguments
         [RunStepWithArgs(1, "Test")]
         void ThenArgumentsAreSentToThenPart(int argument1, string argument2)
         {
-            Assert.That(argument1, Is.EqualTo(1));
-            Assert.That(argument2, Is.EqualTo("Test"));
+            argument1.ShouldBe(1);
+            argument2.ShouldBe("Test");
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             this.BDDfy();

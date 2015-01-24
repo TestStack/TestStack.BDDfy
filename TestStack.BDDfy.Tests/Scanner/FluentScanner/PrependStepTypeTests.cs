@@ -1,14 +1,13 @@
 ﻿using System.Runtime.CompilerServices;
 using ApprovalTests;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    [TestFixture]
     public class PrependStepTypeTests
     {
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void VerifyPrependStepTitles()
         {

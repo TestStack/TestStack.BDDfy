@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class ExecutableAttributeOrderOrdersTheStepsCorrectly
     {
         private List<Step> _steps;
@@ -68,8 +68,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         }
 
-        [SetUp]
-        public void WhenStep_TestClassHasAttributes()
+        public ExecutableAttributeOrderOrdersTheStepsCorrectly()
         {
             var testObject = new TypeWithOrderedAttribute();
             var stepScanners = Configurator.Scanners.GetStepScanners(testObject).ToArray();
@@ -78,120 +77,120 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             _steps = scenario.Steps;
         }
 
-        [Test]
+        [Fact]
         public void Step0IsGiven1()
         {
-            Assert.AreEqual("Given 1", _steps[0].Title);
+            _steps[0].Title.ShouldBe("Given 1");
         }
 
-        [Test]
+        [Fact]
         public void Step1IsGiven3()
         {
-            Assert.AreEqual("Given 3", _steps[1].Title);
+            _steps[1].Title.ShouldBe("Given 3");
         }
 
 
-        [Test]
+        [Fact]
         public void Step2IsAndGivenNeg3()
         {
-            Assert.AreEqual("And given neg 3", _steps[2].Title);
+            _steps[2].Title.ShouldBe("And given neg 3");
         }
 
-        [Test]
+        [Fact]
         public void Step3IsAndGiven0()
         {
-            Assert.AreEqual("And given 0", _steps[3].Title);
+            _steps[3].Title.ShouldBe("And given 0");
         }
 
 
-        [Test]
+        [Fact]
         public void Step4AndGiven2()
         {
-            Assert.AreEqual("And given 2", _steps[4].Title);
+            _steps[4].Title.ShouldBe("And given 2");
         }
 
-        [Test]
+        [Fact]
         public void Step5AndGiven2Again()
         {
-            Assert.AreEqual("And given 2 again", _steps[5].Title);
+            _steps[5].Title.ShouldBe("And given 2 again");
         }
 
-        
-        [Test]
+
+        [Fact]
         public void Step6IsWhen1()
         {
-            Assert.AreEqual("When 1", _steps[6].Title);
+            _steps[6].Title.ShouldBe("When 1");
         }
 
-        [Test]
+        [Fact]
         public void Step7IsWhen3()
         {
-            Assert.AreEqual("When 3", _steps[7].Title);
+            _steps[7].Title.ShouldBe("When 3");
         }
 
 
-        [Test]
+        [Fact]
         public void Step8IsAndWhenNeg3()
         {
-            Assert.AreEqual("And when neg 3", _steps[8].Title);
+            _steps[8].Title.ShouldBe("And when neg 3");
         }
 
-        [Test]
+        [Fact]
         public void Step9IsAndWhen0()
         {
-            Assert.AreEqual("And when 0", _steps[9].Title);
+            _steps[9].Title.ShouldBe("And when 0");
         }
 
 
-        [Test]
+        [Fact]
         public void Step10AndWhen2()
         {
-            Assert.AreEqual("And when 2", _steps[10].Title);
+            _steps[10].Title.ShouldBe("And when 2");
         }
 
-        [Test]
+        [Fact]
         public void Step11AndWhen2Again()
         {
-            Assert.AreEqual("And when 2 again", _steps[11].Title);
+            _steps[11].Title.ShouldBe("And when 2 again");
         }
 
 
-        [Test]
+        [Fact]
         public void Step12IsThen1()
         {
-            Assert.AreEqual("Then 1", _steps[12].Title);
+            _steps[12].Title.ShouldBe("Then 1");
         }
 
-        [Test]
+        [Fact]
         public void Step13IsThen3()
         {
-            Assert.AreEqual("Then 3", _steps[13].Title);
+            _steps[13].Title.ShouldBe("Then 3");
         }
 
 
-        [Test]
+        [Fact]
         public void Step14IsAndThenNeg3()
         {
-            Assert.AreEqual("And then neg 3", _steps[14].Title);
+            _steps[14].Title.ShouldBe("And then neg 3");
         }
 
-        [Test]
+        [Fact]
         public void Step15IsAndThen0()
         {
-            Assert.AreEqual("And then 0", _steps[15].Title);
+            _steps[15].Title.ShouldBe("And then 0");
         }
 
 
-        [Test]
+        [Fact]
         public void Step16AndThen2()
         {
-            Assert.AreEqual("And then 2", _steps[16].Title);
+            _steps[16].Title.ShouldBe("And then 2");
         }
 
-        [Test]
+        [Fact]
         public void Step17AndThen2Again()
         {
-            Assert.AreEqual("And then 2 again", _steps[17].Title);
+            _steps[17].Title.ShouldBe("And then 2 again");
         }
     }
 }

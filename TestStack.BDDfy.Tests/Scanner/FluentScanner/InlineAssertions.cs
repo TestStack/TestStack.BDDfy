@@ -1,22 +1,22 @@
-﻿using NUnit.Framework;
+﻿using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    [TestFixture]
     public class InlineAssertions
     {
         private int _x, _y, _z;
 
-        [Test]
+        [Fact]
         public void CanUseInlineAssertions()
         {
             this.Given(() => { _x = 0; _y = 2; }, "Given x equals 0")
                 .When(() => { _z = _x*_y; }, "When x and y are multiplied")
-                .Then(() => Assert.That(_z, Is.EqualTo(0)), "Then the result is 0")
+                .Then(() => _z.ShouldBe(0), "Then the result is 0")
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void CanUseTitleOnlySteps()
         {
             this.Given("Given x equals 0")
@@ -28,14 +28,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void CanMixThemAllIn()
         {
             this.Given(() => { _x = 0; _y = 2; }, "Given x equals 0")
                     .And("and y equals 0")
                 .When(_ => WhenXAndYAreMultiplied())
                     .And("and set to z")
-                .Then(() => Assert.That(_z, Is.EqualTo(0)), "Then the result is 0")
+                .Then(() => _z.ShouldBe(0), "Then the result is 0")
                     .And("and we're all cool")
                 .BDDfy();
 

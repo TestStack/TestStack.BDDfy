@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.MarkDown;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
-    [TestFixture]
     public class MarkDownReportBuilderTests
     {
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedMarkdown()
         {
@@ -18,7 +17,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             ReportApprover.Approve(model, sut);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedMarkdownWithExamples()
         {

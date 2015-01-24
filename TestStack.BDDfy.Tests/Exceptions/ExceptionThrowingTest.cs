@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 
 namespace TestStack.BDDfy.Tests.Exceptions
 {
@@ -134,32 +134,32 @@ namespace TestStack.BDDfy.Tests.Exceptions
  
         public void AssertTearDownMethodIsExecuted()
         {
-            Assert.That(TearDownStep.Result, Is.EqualTo(Result.Passed));
+            TearDownStep.Result.ShouldBe(Result.Passed);
         }
 
         public void AssertGivenStepResult(Result result)
         {
-            Assert.That(GivenStep.Result, Is.EqualTo(result));
+            GivenStep.Result.ShouldBe(result);
         }
 
         public void AssertWhenStepResult(Result result)
         {
-            Assert.That(WhenStep.Result, Is.EqualTo(result));
+            WhenStep.Result.ShouldBe(result);
         }
 
         public void AssertThenStepResult(Result result)
         {
-            Assert.That(ThenStep.Result, Is.EqualTo(result));
+            ThenStep.Result.ShouldBe(result);
         }
 
         public void AssertScenarioResult(Result result)
         {
-            Assert.That(Scenario.Result, Is.EqualTo(result));
+            Scenario.Result.ShouldBe(result);
         }
 
         public void AssertStoryResult(Result result)
         {
-            Assert.That(Story.Result, Is.EqualTo(result));
+            Story.Result.ShouldBe(result);
         }
     }
 }

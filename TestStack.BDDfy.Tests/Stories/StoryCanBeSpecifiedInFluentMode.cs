@@ -1,11 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories
 {
     [Story]
     public class StoryCanBeSpecifiedInFluentMode
     {
-        [Test] 
+        [Fact] 
         public void Verify()
         {
             var story = this
@@ -13,8 +14,7 @@ namespace TestStack.BDDfy.Tests.Stories
                 .Then(_ => ThenTheSpecifiedStoryShouldBeUsed())
                 .BDDfy<SharedStoryNotion>();
 
-            Assert.That(story.Metadata, Is.Not.Null);
-            Assert.That(story.Metadata.Type, Is.EqualTo(typeof(SharedStoryNotion)));
+            story.Metadata.ShouldBeAssignableTo<SharedStoryNotion>();
         }
 
         void WhenStoryIsSpecifiedInFluentMode()

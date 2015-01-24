@@ -176,6 +176,7 @@
     <Compile Include="TestContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Reporters\Html\Scripts\classic.min.js.map">
       <DependentUpon>classic.js</DependentUpon>
     </None>

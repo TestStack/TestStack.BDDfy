@@ -1,12 +1,12 @@
 ﻿using System;
-using NUnit.Framework;
 using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
     public class ExampleValueTests
     {
-        [Test]
+        [Fact]
         public void CanFormatAsStringTests()
         {
             new ExampleValue("Header", null, () => 0).GetValueAsString().ShouldBe("'null'");

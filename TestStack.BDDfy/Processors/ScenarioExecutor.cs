@@ -54,7 +54,10 @@ namespace TestStack.BDDfy.Processors
         {
             try
             {
-                AsyncTestRunner.Run(() => Configurator.StepExecutor.Execute(step, _scenario.TestObject));
+                if (Configurator.AsyncVoidSupportEnabled)
+                    AsyncTestRunner.Run(() => Configurator.StepExecutor.Execute(step, _scenario.TestObject));
+                else
+                    Configurator.StepExecutor.Execute(step, _scenario.TestObject);
                 step.Result = Result.Passed;
             }
             catch (Exception ex)

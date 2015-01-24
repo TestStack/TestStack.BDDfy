@@ -22,7 +22,7 @@ namespace TestStack.BDDfy
     /// <typeparam name="TScenario"></typeparam>
     /// <example>
     /// <code>
-    /// [Test]
+    /// [Fact]
     /// public void AccountHasSufficientFund()
     /// {
     ///     this.Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)

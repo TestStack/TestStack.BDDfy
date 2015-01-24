@@ -1,9 +1,9 @@
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories
 {
-    [TestFixture]
     public class StoryClassAndScenarioClassAreTheSame
     {
         private Story _story;
@@ -27,27 +27,27 @@ namespace TestStack.BDDfy.Tests.Stories
 
         void ThenStoryIsReturnedAsAStory()
         {
-            Assert.That(_story.Metadata.Type, Is.EqualTo(typeof(StoryAsScenario)));
+            _story.Metadata.ShouldBeAssignableTo<StoryAsScenario>();
         }
 
         [AndThen(StepTitle = "and as a scenario")]
         void andAsAScenario()
         {
-            Assert.That(_story.Scenarios.Count(), Is.EqualTo(1));
+            _story.Scenarios.Count().ShouldBe(1);
             var scenario = _story.Scenarios.First();
-            Assert.That(scenario.TestObject.GetType(), Is.EqualTo(typeof(StoryAsScenario)));
+            scenario.TestObject.ShouldBeAssignableTo<StoryAsScenario>();
         }
 
         void andTheNarrativeIsReturnedAsExpected()
         {
             var expectedNarrative = (StoryAttribute)typeof(StoryAsScenario).GetCustomAttributes(typeof(StoryAttribute), false).First();
-            Assert.That(_story.Metadata, Is.Not.Null);
-            Assert.That(_story.Metadata.Narrative1, Is.EqualTo(expectedNarrative.AsA));
-            Assert.That(_story.Metadata.Narrative2, Is.EqualTo(expectedNarrative.IWant));
-            Assert.That(_story.Metadata.Narrative3, Is.EqualTo(expectedNarrative.SoThat));
+            _story.Metadata.ShouldNotBe(null);
+            _story.Metadata.Narrative1.ShouldBe(expectedNarrative.AsA);
+            _story.Metadata.Narrative2.ShouldBe(expectedNarrative.IWant);
+            _story.Metadata.Narrative3.ShouldBe(expectedNarrative.SoThat);
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             try

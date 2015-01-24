@@ -1,5 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Arguments
 {
@@ -17,13 +18,13 @@ namespace TestStack.BDDfy.Tests.Arguments
 
         void ThenTheMethodIsCalledOncePerArgument()
         {
-            Assert.That(_inputs.Count, Is.EqualTo(3));
-            Assert.That(_inputs, Contains.Item(1));
-            Assert.That(_inputs, Contains.Item(2));
-            Assert.That(_inputs, Contains.Item(3));
+            _inputs.Count.ShouldBe(3);
+            _inputs.ShouldContain(1);
+            _inputs.ShouldContain(2);
+            _inputs.ShouldContain(3);
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             this.BDDfy();

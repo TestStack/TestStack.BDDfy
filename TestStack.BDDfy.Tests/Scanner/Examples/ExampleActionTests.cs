@@ -1,16 +1,15 @@
 ﻿using ApprovalTests;
-using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
-    [TestFixture]
     public class ExampleActionTests
     {
-        private int value;
+        private int _value;
 
-        [Test]
+        [Fact]
         public void CanUseActionsInExamples()
         {
             ExampleAction actionToPerform = null;
@@ -20,8 +19,8 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
                 .Then(_ => ShouldBe(valueShouldBe))
                 .WithExamples(new ExampleTable("Action to perform", "Value should be")
                 {
-                    { new ExampleAction("Do something", () => { value = 42; }), 42 },
-                    { new ExampleAction("Do something else", () => { value = 7; }), 7 }
+                    { new ExampleAction("Do something", () => { _value = 42; }), 42 },
+                    { new ExampleAction("Do something else", () => { _value = 7; }), 7 }
                 })
                 .BDDfy();
 
@@ -33,7 +32,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
 
         private void ShouldBe(int i)
         {
-            value.ShouldBe(i);
+            _value.ShouldBe(i);
         }
 
         private void SomeSetup()

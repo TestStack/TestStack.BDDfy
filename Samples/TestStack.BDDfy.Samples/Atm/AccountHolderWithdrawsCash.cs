@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples.Atm
 {
@@ -6,7 +7,6 @@ namespace TestStack.BDDfy.Samples.Atm
         AsA = "As an Account Holder",
         IWant = "I want to withdraw cash from an ATM",
         SoThat = "So that I can get money when the bank is closed")]
-    [TestFixture]
     public class AccountHolderWithdrawsCash
     {
         private const string GivenTheAccountBalanceIsTitleTemplate = "Given the account balance is ${0}";
@@ -44,25 +44,25 @@ namespace TestStack.BDDfy.Samples.Atm
 
         public void The_ATM_should_dispense(int dispensedMoney)
         {
-            Assert.AreEqual(dispensedMoney, _atm.DispenseValue);
+            _atm.DispenseValue.ShouldBe(dispensedMoney);
         }
 
         public void And_the_Account_Balance_should_be(int balance)
         {
-            Assert.AreEqual(balance, _card.AccountBalance);
+            _card.AccountBalance.ShouldBe(balance);
         }
 
         public void Then_Card_is_retained(bool cardIsRetained)
         {
-            Assert.AreEqual(cardIsRetained, _atm.CardIsRetained);
+            _atm.CardIsRetained.ShouldBe(cardIsRetained);
         }
 
         void And_the_ATM_should_say_the_Card_has_been_retained()
         {
-            Assert.AreEqual(DisplayMessage.CardIsRetained, _atm.Message);
+            _atm.Message.ShouldBe(DisplayMessage.CardIsRetained);
         }
 
-        [Test]
+        [Fact]
         public void AccountHasSufficientFund()
         {
            this.Given(s => s.Given_the_Account_Balance_is(100), GivenTheAccountBalanceIsTitleTemplate)
@@ -75,7 +75,7 @@ namespace TestStack.BDDfy.Samples.Atm
                 .BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void CardHasBeenDisabled()
         {
             this.Given(s => s.Given_the_Card_is_disabled())

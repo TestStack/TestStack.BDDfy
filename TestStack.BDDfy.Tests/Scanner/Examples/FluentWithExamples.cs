@@ -1,15 +1,14 @@
 ﻿using System.Runtime.CompilerServices;
 using ApprovalTests;
-using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
-    [TestFixture]
     public class FluentWithExamples
     {
-        [Test]
+        [Fact]
         public void FluentCanBeUsedWithExamples()
         {
             var story = this
@@ -37,7 +36,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             differentName.ShouldBeOneOf(1, 2);
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Inline()
         {
@@ -53,7 +52,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             Approvals.Verify(textReporter.ToString());
         }
 
-        [Test]
+        [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ExampleTypeMismatch()
         {
