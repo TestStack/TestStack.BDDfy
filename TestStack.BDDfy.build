@@ -95,11 +95,11 @@
 
   <Target Name="Test" DependsOnTargets="Build;Copy">
     <PropertyGroup>
-      <NUnitHome>$(MSBuildProjectDirectory)\packages\NUnit.Runners.2.6.2\tools\</NUnitHome>
+      <NUnitHome>$(MSBuildProjectDirectory)\packages\NUnit.Runners.2.6.4\tools\</NUnitHome>
       <NUnitConsole>$(NUnitHome)nunit-console.exe</NUnitConsole>
     </PropertyGroup>
     <ItemGroup>
-      <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.2.*" />
+      <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.4.*" />
     </ItemGroup>
 
     <Exec Command="$(MSBuildProjectDirectory)\.nuget\nuget.exe install &quot;$(MSBuildProjectDirectory)\.nuget\packages.config&quot; -o &quot;$(MSBuildProjectDirectory)\packages&quot;" />
