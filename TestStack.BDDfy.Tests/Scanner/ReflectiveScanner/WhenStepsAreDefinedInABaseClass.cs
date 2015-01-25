@@ -1,10 +1,10 @@
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class WhenStepsAreDefinedInABaseClass
     {
         private Story _story;
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [RunStepWithArgs("ThenInTheBaseClass")]
         void ThenTheFollowingStepFromBaseClassIsScanned(string stepName)
         {
-            Assert.That(Scenario.Steps.Count(s => s.Title == Configurator.Scanners.Humanize(stepName)), Is.EqualTo(1));
+            Scenario.Steps.Count(s => s.Title == Configurator.Scanners.Humanize(stepName)).ShouldBe(1);
         }
 
         [RunStepWithArgs("GivenInTheSubClass")]
@@ -49,10 +49,10 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [RunStepWithArgs("ThenInTheSubClass")]
         void ThenTheFollowingStepFromSubClassScanned(string stepName)
         {
-            Assert.That(Scenario.Steps.Count(s => s.Title == Configurator.Scanners.Humanize(stepName)), Is.EqualTo(1));
+            Scenario.Steps.Count(s => s.Title == Configurator.Scanners.Humanize(stepName)).ShouldBe(1);
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             this.BDDfy();

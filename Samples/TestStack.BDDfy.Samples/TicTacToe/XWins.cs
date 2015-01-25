@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using Shouldly;
+
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
     public class XWins : GameUnderTest
@@ -20,7 +21,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
 
         void ThenTheWinnerShouldBeX()
         {
-            Assert.AreEqual(X, Game.Winner);
+            Game.Winner.ShouldBe(X);
         }
     }
 }

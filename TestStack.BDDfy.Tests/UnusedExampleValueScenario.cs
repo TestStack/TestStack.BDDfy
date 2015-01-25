@@ -1,15 +1,12 @@
-﻿namespace TestStack.BDDfy.Tests
+﻿using Shouldly;
+using TestStack.BDDfy.Processors;
+using Xunit;
+
+namespace TestStack.BDDfy.Tests
 {
-    using NUnit.Framework;
-
-    using Shouldly;
-
-    using TestStack.BDDfy.Processors;
-
-    [TestFixture]
     public class UnusedExampleValueScenario
     {
-        [Test]
+        [Fact]
         public void WhenExampleIsNotUsedItThrows()
         {
             var ex = Should.Throw<UnusedExampleException>(() => 
@@ -19,7 +16,7 @@
             ex.Message.ShouldBe("Example Column 'Example 1' is unused, all examples should be consumed by the test (have you misspelt a field or property?)");
         }
 
-        [Test]
+        [Fact]
         public void NullableEnumIsUsedProperly()
         {
             SomeEnum? nullableEnum = null;

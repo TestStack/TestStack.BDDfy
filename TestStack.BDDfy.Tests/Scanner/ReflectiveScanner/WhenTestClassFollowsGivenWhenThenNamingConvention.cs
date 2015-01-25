@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class WhenTestClassFollowsGivenWhenThenNamingConvention
     {
         private List<Step> _steps;
@@ -38,14 +38,14 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             public void But_Given_Some_OTHER_state_is_not_set() { }
         }
 
-        [Test]
+        [Fact]
         public void VerifyScannedSteps()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
             _steps = new DefaultMethodNameStepScanner().Scan(TestContext.GetContext(_typeWithoutAttribute)).ToList();
             int stepIndex = 0;
         
-            Assert.That(_steps.Count, Is.EqualTo(24));
+            _steps.Count.ShouldBe(24);
             AssertStep(_steps[stepIndex++], "Establish context", ExecutionOrder.Initialize, false, false);
             AssertStep(_steps[stepIndex++], "Setup", ExecutionOrder.Initialize, false, false);
             AssertStep(_steps[stepIndex++], "Given some state", ExecutionOrder.SetupState);
@@ -74,10 +74,10 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         private static void AssertStep(Step step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            Assert.That(step.Title.Trim(), Is.EqualTo(stepTitle));
-            Assert.That(step.Asserts, Is.EqualTo(asserts));
-            Assert.That(step.ExecutionOrder, Is.EqualTo(order));
-            Assert.That(step.ShouldReport, Is.EqualTo(shouldReport));
+            step.Title.Trim().ShouldBe(stepTitle);
+            step.Asserts.ShouldBe(asserts);
+            step.ExecutionOrder.ShouldBe(order);
+            step.ShouldReport.ShouldBe(shouldReport);
         }
     }
 }

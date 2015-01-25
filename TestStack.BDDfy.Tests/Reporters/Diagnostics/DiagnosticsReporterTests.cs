@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using NSubstitute;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Writers;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 {
-    [TestFixture]
     public class DiagnosticsReporterTests
     {
         private IReportBuilder _builder;
         private IReportWriter _writer;
 
-        [Test]
+        [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
         {
             var sut = CreateSut();
@@ -25,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
             _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
 
-        [Test]
+        [Fact]
         public void ShouldPrintErrorInReportIfProcessingFails()
         {
             var sut = CreateSut();

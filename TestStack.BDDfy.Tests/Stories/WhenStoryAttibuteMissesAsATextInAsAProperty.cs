@@ -1,22 +1,22 @@
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories
 {
-    [TestFixture]
     [Story(
         AsA = "programmer",
         IWant = "I want the missing 'As a' to be added to story metadata",
         SoThat = "So that I don't have to duplicate it on the string")]
     public class WhenStoryAttibuteMissesAsATextInAsAProperty
     {
-        [Test]
+        [Fact]
         public void Then_it_is_injected_by_BDDfy()
         {
             var story = new DummyScenario().BDDfy<WhenStoryAttibuteMissesAsATextInAsAProperty>();
 
-            Assert.That(story.Metadata.Narrative1, Is.EqualTo("As a programmer"));
-            Assert.That(story.Metadata.Narrative2, Is.EqualTo("I want the missing 'As a' to be added to story metadata"));
-            Assert.That(story.Metadata.Narrative3, Is.EqualTo("So that I don't have to duplicate it on the string"));
+            story.Metadata.Narrative1.ShouldBe("As a programmer");
+            story.Metadata.Narrative2.ShouldBe("I want the missing 'As a' to be added to story metadata");
+            story.Metadata.Narrative3.ShouldBe("So that I don't have to duplicate it on the string");
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
@@ -31,10 +33,9 @@ namespace TestStack.BDDfy.Tests.Configuration
             }
         }
 
-        [TestFixture]
         public class When_StopExecutionOnFailingThen_IsSetToTrue
         {
-            [Test]
+            [Fact]
             public void FailingThenStopsThePipelineWithReflectiveAPI()
             {
                 Configurator.Processors.TestRunner.StopExecutionOnFailingThen = true;
@@ -50,7 +51,7 @@ namespace TestStack.BDDfy.Tests.Configuration
                 }
             }
 
-            [Test]
+            [Fact]
             public void FailingThenStopsThePipelineWithFluentAPI()
             {
                 Configurator.Processors.TestRunner.StopExecutionOnFailingThen = true;
@@ -74,34 +75,33 @@ namespace TestStack.BDDfy.Tests.Configuration
 
             private static void Verify(Engine testRun)
             {
-                Assert.Throws<Exception>(() => testRun.Run());
+                Should.Throw<Exception>(() => testRun.Run());
                 var scenario = testRun.Story.Scenarios.First();
-                Assert.AreEqual(Result.Failed, scenario.Result);
+                scenario.Result.ShouldBe(Result.Failed);
                 var steps = scenario.Steps;
 
-                Assert.AreEqual(4, steps.Count);
-                Assert.AreEqual(Result.Passed, steps[0].Result);
-                Assert.AreEqual(ExecutionOrder.SetupState, steps[0].ExecutionOrder);
-                Assert.AreEqual(Result.Passed, steps[1].Result);
-                Assert.AreEqual(ExecutionOrder.Transition, steps[1].ExecutionOrder);
-                Assert.AreEqual(Result.Failed, steps[2].Result);
-                Assert.AreEqual(ExecutionOrder.Assertion, steps[2].ExecutionOrder);
-                Assert.AreEqual(Result.NotExecuted, steps[3].Result);
-                Assert.AreEqual(ExecutionOrder.ConsecutiveAssertion, steps[3].ExecutionOrder);
+                steps.Count.ShouldBe(4);
+                steps[0].Result.ShouldBe(Result.Passed);
+                steps[0].ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
+                steps[1].Result.ShouldBe(Result.Passed);
+                steps[1].ExecutionOrder.ShouldBe(ExecutionOrder.Transition);
+                steps[2].Result.ShouldBe(Result.Failed);
+                steps[2].ExecutionOrder.ShouldBe(ExecutionOrder.Assertion);
+                steps[3].Result.ShouldBe(Result.NotExecuted);
+                steps[3].ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
             }
         }
 
-        [TestFixture]
         public class When_StopExecutionOnFailingThen_IsLeftAsDefault
         {
-            [Test]
+            [Fact]
             public void FailingThenDoesNotStopThePipelineWithReflectiveAPI()
             {
                 var testRun = new ScenarioWithFailingThen().LazyBDDfy();
                 Verify(testRun);
             }
 
-            [Test]
+            [Fact]
             public void FailingThenDoesNotStopThePipelineWithFluentAPI()
             {
                 var testRun = new ScenarioWithFailingThen()
@@ -116,20 +116,20 @@ namespace TestStack.BDDfy.Tests.Configuration
 
             private static void Verify(Engine testRun)
             {
-                Assert.Throws<Exception>(() => testRun.Run());
+                Should.Throw<Exception>(() => testRun.Run());
                 var scenario = testRun.Story.Scenarios.First();
-                Assert.AreEqual(Result.Failed, scenario.Result);
+                scenario.Result.ShouldBe(Result.Failed);
                 var steps = scenario.Steps;
 
-                Assert.AreEqual(4, steps.Count);
-                Assert.AreEqual(Result.Passed, steps[0].Result);
-                Assert.AreEqual(ExecutionOrder.SetupState, steps[0].ExecutionOrder);
-                Assert.AreEqual(Result.Passed, steps[1].Result);
-                Assert.AreEqual(ExecutionOrder.Transition, steps[1].ExecutionOrder);
-                Assert.AreEqual(Result.Failed, steps[2].Result);
-                Assert.AreEqual(ExecutionOrder.Assertion, steps[2].ExecutionOrder);
-                Assert.AreEqual(Result.Passed, steps[3].Result);
-                Assert.AreEqual(ExecutionOrder.ConsecutiveAssertion, steps[3].ExecutionOrder);
+                steps.Count.ShouldBe(4);
+                steps[0].Result.ShouldBe(Result.Passed);
+                steps[0].ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
+                steps[1].Result.ShouldBe(Result.Passed);
+                steps[1].ExecutionOrder.ShouldBe(ExecutionOrder.Transition);
+                steps[2].Result.ShouldBe(Result.Failed);
+                steps[2].ExecutionOrder.ShouldBe(ExecutionOrder.Assertion);
+                steps[3].Result.ShouldBe(Result.Passed);
+                steps[3].ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 {
@@ -12,18 +13,18 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
         /// Test to resolve issue where fluent scanner was returning the inner exception rather than the outer one.
         /// Issue 17: https://github.com/TestStack/TestStack.BDDfy/issues/17
         /// </summary>
-        [Test]
+        [Fact]
         public void FluentScannerShouldReturnOriginalExceptionAndNotInnerException()
         {
             _sut = new ExceptionThrowingTest<OuterException>();
-            Assert.Throws<OuterException>(() => _sut.Execute(ThrowingMethods.Given, true));
+            Should.Throw<OuterException>(() => _sut.Execute(ThrowingMethods.Given, true));
         }
 
-        [Test]
+        [Fact]
         public void ReflectiveScannerShouldReturnOriginalExceptionAndNotTargetInvocationException()
         {
             _sut = new ExceptionThrowingTest<OuterException>();
-            Assert.Throws<OuterException>(() => _sut.Execute(ThrowingMethods.Given, false));
+            Should.Throw<OuterException>(() => _sut.Execute(ThrowingMethods.Given, false));
         }
 
         private class OuterException : Exception
@@ -34,5 +35,4 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
             }
         }
     }
-
 }

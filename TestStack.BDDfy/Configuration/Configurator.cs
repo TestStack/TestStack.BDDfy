@@ -2,6 +2,13 @@ namespace TestStack.BDDfy.Configuration
 {
     public static class Configurator
     {
+        static Configurator()
+        {
+            AsyncVoidSupportEnabled = true;
+        }
+
+        public static bool AsyncVoidSupportEnabled { get; set; }
+
         private static readonly Processors ProcessorsFactory = new Processors();
         public static Processors Processors
         {

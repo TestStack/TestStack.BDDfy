@@ -1,5 +1,5 @@
 ﻿using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         private ITestContext _subsitute;
         private ExampleTable _exampleTable;
 
-        [Test]
+        [Fact]
         public void CanUseFluentApiWithNSubstitute()
         {
             this.Given(_ => GivenSomeStuff())

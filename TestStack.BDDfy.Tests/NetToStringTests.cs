@@ -1,70 +1,68 @@
-using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
+using Xunit.Extensions;
 
 namespace TestStack.BDDfy.Tests
 {
-    [TestFixture]
     public class NetToStringTests
     {
-        [Test]
+        [Fact]
         public void PascalCaseInputStringIsTurnedIntoSentence()
         {
-            Assert.That(
-                Configurator.Scanners.Humanize("PascalCaseInputStringIsTurnedIntoSentence"),
-                Is.EqualTo("Pascal case input string is turned into sentence"));
+            Configurator.Scanners.Humanize("PascalCaseInputStringIsTurnedIntoSentence")
+                .ShouldBe("Pascal case input string is turned into sentence");
         }
 
-        [Test]
+        [Fact]
         public void WhenInputStringContainsConsequtiveCaptialLetters_ThenTheyAreTurnedIntoOneLetterWords()
         {
-            Assert.That(Configurator.Scanners.Humanize("WhenIUseAnInputAHere"), Is.EqualTo("When I use an input a here"));
+            Configurator.Scanners.Humanize("WhenIUseAnInputAHere").ShouldBe("When I use an input a here");
         }
 
-        [Test]
+        [Fact]
         public void WhenInputStringStartsWithANumber_ThenNumberIsDealtWithLikeAWord()
         {
-            Assert.That(Configurator.Scanners.Humanize("10NumberIsInTheBegining"), Is.EqualTo("10 number is in the begining"));
+            Configurator.Scanners.Humanize("10NumberIsInTheBegining").ShouldBe("10 number is in the begining");
         }
 
-        [Test]
+        [Fact]
         public void WhenInputStringEndWithANumber_ThenNumberIsDealtWithLikeAWord()
         {
-            Assert.That(Configurator.Scanners.Humanize("NumberIsAtTheEnd100"), Is.EqualTo("Number is at the end 100"));
+            Configurator.Scanners.Humanize("NumberIsAtTheEnd100").ShouldBe("Number is at the end 100");
         }
 
-        [Test]
+        [Fact]
         public void UnderscoredInputStringIsTurnedIntoSentence()
         {
-            Assert.That(
-                Configurator.Scanners.Humanize("Underscored_input_string_is_turned_into_sentence"),
-                Is.EqualTo("Underscored input string is turned into sentence"));
+            Configurator.Scanners.Humanize("Underscored_input_string_is_turned_into_sentence")
+                .ShouldBe("Underscored input string is turned into sentence");
         }
 
-        [Test]
+        [Fact]
         public void UnderscoredInputStringPreservesCasing()
         {
-            Assert.That(
-                Configurator.Scanners.Humanize("Underscored_input_String_is_turned_INTO_sentence"),
-                Is.EqualTo("Underscored input String is turned INTO sentence"));
+            Configurator.Scanners.Humanize("Underscored_input_String_is_turned_INTO_sentence")
+                .ShouldBe("Underscored input String is turned INTO sentence");
         }
 
-        [Test]
+        [Fact]
         public void OneLetterWordInTheBeginningOfStringIsTurnedIntoAWord()
         {
-            Assert.That(Configurator.Scanners.Humanize("XIsFirstPlayer"), Is.EqualTo("X is first player"));
+            Configurator.Scanners.Humanize("XIsFirstPlayer").ShouldBe("X is first player");
         }
 
-        [TestCase("GivenThereAre__start__Cucumbers", "Given there are <start> cucumbers")]
-        [TestCase("Given_there_are__start__cucumbers", "Given there are <start> cucumbers")]
-        [TestCase("GivenMethodTaking__ExampleInt__", "Given method taking <example int>")]
-        [TestCase("Given_method_taking__ExampleInt__", "Given method taking <ExampleInt>")]
-        [TestCase("__starting__with_example", "<starting> with example")]
-        [TestCase("__starting__WithExample", "<starting> with example")]
-        [TestCase("WhenMethod__takes____two__parameters", "When method <takes> <two> parameters")]
-        [TestCase("When_method__takes____two__parameters", "When method <takes> <two> parameters")]
-        [TestCase("When_method_takes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
-        [TestCase("WhenMethodTakes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
+        [Theory]
+        [InlineData("GivenThereAre__start__Cucumbers", "Given there are <start> cucumbers")]
+        [InlineData("Given_there_are__start__cucumbers", "Given there are <start> cucumbers")]
+        [InlineData("GivenMethodTaking__ExampleInt__", "Given method taking <example int>")]
+        [InlineData("Given_method_taking__ExampleInt__", "Given method taking <ExampleInt>")]
+        [InlineData("__starting__with_example", "<starting> with example")]
+        [InlineData("__starting__WithExample", "<starting> with example")]
+        [InlineData("WhenMethod__takes____two__parameters", "When method <takes> <two> parameters")]
+        [InlineData("When_method__takes____two__parameters", "When method <takes> <two> parameters")]
+        [InlineData("When_method_takes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
+        [InlineData("WhenMethodTakes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
         public void CanDealWithExampleStepNames(string stepName, string expectedStepTitle)
         {
             NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 {
-    [TestFixture]
     public class WhenBuildingReportDiagnostics
     {
         private DiagnosticsReportBuilder _sut;
@@ -30,27 +30,27 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 
         public void ThenTwoStoriesShouldBeReturned()
         {
-            Assert.AreEqual(2, _result.Count);
+            _result.Count.ShouldBe(2);
         }
 
         public void AndThenEachStoryShouldHaveDurationOf30Milliseconds()
         {
-            _result.ToList().ForEach(story => Assert.AreEqual(30, story.Duration));
+            _result.ToList().ForEach(story => story.Duration.ShouldBe(30));
         }
 
         public void AndThenEachScenarioShouldHaveDurationOf10Milliseconds()
         {
-            _result[0].Scenarios.ForEach(scenario => Assert.AreEqual(15, scenario.Duration));
-            _result[1].Scenarios.ForEach(scenario => Assert.AreEqual(15, scenario.Duration));
+            _result[0].Scenarios.ForEach(scenario => scenario.Duration.ShouldBe(15));
+            _result[1].Scenarios.ForEach(scenario => scenario.Duration.ShouldBe(15));
         }
 
         public void AndThenEachStepShouldHaveDurationOf5Milliseconds()
         {
-            _result[0].Scenarios.ForEach(scenario => scenario.Steps.ForEach(step => Assert.AreEqual(5, step.Duration)));
-            _result[1].Scenarios.ForEach(scenario => scenario.Steps.ForEach(step => Assert.AreEqual(5, step.Duration)));
+            _result[0].Scenarios.ForEach(scenario => scenario.Steps.ForEach(step => step.Duration.ShouldBe(5)));
+            _result[1].Scenarios.ForEach(scenario => scenario.Steps.ForEach(step => step.Duration.ShouldBe(5)));
         }
 
-        [Test]
+        [Fact]
         public void RunSpecs()
         {
             this.BDDfy();

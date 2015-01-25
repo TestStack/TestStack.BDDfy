@@ -1,15 +1,15 @@
-﻿using NUnit.Framework;
+﻿using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
-    [TestFixture]
     public class UseExamplesWithFluentApi
     {
         public int Start { get; set; }
         public int Eat { get; set; }
         public int Left { get; set; }
 
-        [Test]
+        [Fact]
         public void RunExamplesWithFluentApi()
         {
             this.Given("Given there are <start> cucumbers")
@@ -47,7 +47,7 @@ namespace TestStack.BDDfy.Samples
 
         private void ThenIShouldHave__left__Cucumbers()
         {
-            Assert.That(Start - Eat, Is.EqualTo(Left));
+            (Start - Eat).ShouldBe(Left);
         }
     }
 }

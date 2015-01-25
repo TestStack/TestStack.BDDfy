@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
@@ -24,13 +24,13 @@ namespace TestStack.BDDfy.Samples
         {
         }
 
-        [Test]
+        [Fact]
         public void BDDfy_with_reflective_API()
         {
             this.BDDfy();
         }
 
-        [Test]
+        [Fact]
         public void BDDfy_with_fluent_API()
         {
             this.Given(_ => Given_I_have_not_used_BDDfy_before())

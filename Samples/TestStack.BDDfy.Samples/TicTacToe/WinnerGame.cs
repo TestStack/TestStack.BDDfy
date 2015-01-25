@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Shouldly;
 
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
@@ -38,7 +39,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
         IEnumerable<string> ThenTheWinnerShouldBe()
         {
             yield return "Then the winner is " + _expectedWinner;
-            Assert.AreEqual(Game.Winner, _expectedWinner);
+            _expectedWinner.ShouldBe(Game.Winner);
         }
     }
 }

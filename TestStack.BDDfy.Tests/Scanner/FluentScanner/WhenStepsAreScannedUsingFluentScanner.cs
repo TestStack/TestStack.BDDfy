@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    [TestFixture]
     public class WhenStepsAreScannedUsingFluentScanner
     {
         private IEnumerable<Step> _steps;
 
-        [SetUp]
-        public void Setup()
+        public WhenStepsAreScannedUsingFluentScanner()
         {
             var scenario = new ScenarioToBeScannedUsingFluentScanner();
             _steps = ScenarioToBeScannedUsingFluentScanner.GetSteps(scenario);
         }
 
-        [Test]
+        [Fact]
         public void IndicatedStepsAreReturned()
         {
-            Assert.That(_steps.Count(), Is.EqualTo(12));
+            _steps.Count().ShouldBe(12);
         }
 
         Step GivenSomeStateStep
@@ -30,22 +29,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void GivenSomeState_StepIsASetupMethod()
         {
-            Assert.That(GivenSomeStateStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.SetupState));
+            GivenSomeStateStep.ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
         }
 
-        [Test]
+        [Fact]
         public void GivenSomeState_IsNotAsserting()
         {
-            Assert.IsFalse(GivenSomeStateStep.Asserts);
+            GivenSomeStateStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void GivenSomeState_StepReports()
         {
-            Assert.IsTrue(GivenSomeStateStep.ShouldReport);
+            GivenSomeStateStep.ShouldReport.ShouldBe(true);
         }
 
         Step WhenSomeStepUsesIncompatibleNamingConventionStep
@@ -56,22 +55,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void WhenSomeStepUsesIncompatibleNamingConvention_IsAConsecutiveSetupMethod()
         {
-            Assert.That(WhenSomeStepUsesIncompatibleNamingConventionStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+            WhenSomeStepUsesIncompatibleNamingConventionStep.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomeStepUsesIncompatibleNamingConvention_DoesNotAssert()
         {
-            Assert.IsFalse(WhenSomeStepUsesIncompatibleNamingConventionStep.Asserts);
+            WhenSomeStepUsesIncompatibleNamingConventionStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomeStepUsesIncompatibleNamingConvention_Reports()
         {
-            Assert.IsTrue(WhenSomeStepUsesIncompatibleNamingConventionStep.ShouldReport);
+            WhenSomeStepUsesIncompatibleNamingConventionStep.ShouldReport.ShouldBe(true);
         }
 
         Step AndAMethodTakesArrayInputsStep
@@ -82,22 +81,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void AndAMethodTakesArrayInputs_IsAConsecutiveSetupMethod()
         {
-            Assert.That(AndAMethodTakesArrayInputsStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveSetupState));
+            AndAMethodTakesArrayInputsStep.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
         }
 
-        [Test]
+        [Fact]
         public void AndAMethodTakesArrayInputs_DoesNotAssert()
         {
-            Assert.IsFalse(AndAMethodTakesArrayInputsStep.Asserts);
+            AndAMethodTakesArrayInputsStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void AndAMethodTakesArrayInputs_Reports()
         {
-            Assert.IsTrue(AndAMethodTakesArrayInputsStep.ShouldReport);
+            AndAMethodTakesArrayInputsStep.ShouldReport.ShouldBe(true);
         }
 
         Step WhenSomethingHappensTransitionStep
@@ -108,22 +107,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensTransitionStep_IsATransitionStep()
         {
-            Assert.That(WhenSomethingHappensTransitionStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Transition));
+            WhenSomethingHappensTransitionStep.ExecutionOrder.ShouldBe(ExecutionOrder.Transition);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensTransitionStep_DoesNotAssert()
         {
-            Assert.IsFalse(WhenSomethingHappensTransitionStep.Asserts);
+            WhenSomethingHappensTransitionStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensTransitionStep_Reports()
         {
-            Assert.IsTrue(WhenSomethingHappensTransitionStep.ShouldReport);
+            WhenSomethingHappensTransitionStep.ShouldReport.ShouldBe(true);
         }
 
         Step WhenSomethingHappensTransitionStepIgnoringInputInStepTitle
@@ -134,22 +133,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_IsAConsecutiveTransitionStep()
         {
-            Assert.That(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+            WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_DoesNotAssert()
         {
-            Assert.IsFalse(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.Asserts);
+            WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensTransitionStepIgnoringInputInStepTitle_Reports()
         {
-            Assert.IsTrue(WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ShouldReport);
+            WhenSomethingHappensTransitionStepIgnoringInputInStepTitle.ShouldReport.ShouldBe(true);
         }
 
         Step WhenSomethingHappensConsecutiveTransitionStep
@@ -160,22 +159,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensConsecutiveTransitionStep_IsAConsecutiveTransitionStep()
         {
-            Assert.That(WhenSomethingHappensConsecutiveTransitionStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+            WhenSomethingHappensConsecutiveTransitionStep.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensConsecutiveTransitionStep_DoesNotAssert()
         {
-            Assert.IsFalse(WhenSomethingHappensConsecutiveTransitionStep.Asserts);
+            WhenSomethingHappensConsecutiveTransitionStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void WhenSomethingHappensConsecutiveTransitionStep_Reports()
         {
-            Assert.IsTrue(WhenSomethingHappensConsecutiveTransitionStep.ShouldReport);
+            WhenSomethingHappensConsecutiveTransitionStep.ShouldReport.ShouldBe(true);
         }
 
         Step AndThenSomethingElseHappensStep
@@ -186,22 +185,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void AndThenSomethingElseHappensStep_IsAConsecutiveTransitionStep()
         {
-            Assert.That(AndThenSomethingElseHappensStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveTransition));
+            AndThenSomethingElseHappensStep.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
         }
 
-        [Test]
+        [Fact]
         public void AndThenSomethingElseHappensStep_DoesNotAssert()
         {
-            Assert.IsFalse(AndThenSomethingElseHappensStep.Asserts);
+            AndThenSomethingElseHappensStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void AndThenSomethingElseHappensStep_Reports()
         {
-            Assert.IsTrue(AndThenSomethingElseHappensStep.ShouldReport);
+            AndThenSomethingElseHappensStep.ShouldReport.ShouldBe(true);
         }
 
         Step ThenTheFollowingAssertionsShouldBeCorrectStep
@@ -212,22 +211,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void ThenTheFollowingAssertionsShouldBeCorrectStep_IsAnAssertingStep()
         {
-            Assert.That(ThenTheFollowingAssertionsShouldBeCorrectStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.Assertion));
+            ThenTheFollowingAssertionsShouldBeCorrectStep.ExecutionOrder.ShouldBe(ExecutionOrder.Assertion);
         }
 
-        [Test]
+        [Fact]
         public void ThenTheFollowingAssertionsShouldBeCorrectStep_DoesAssert()
         {
-            Assert.IsTrue(ThenTheFollowingAssertionsShouldBeCorrectStep.Asserts);
+            ThenTheFollowingAssertionsShouldBeCorrectStep.Asserts.ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void ThenTheFollowingAssertionsShouldBeCorrectStep_Reports()
         {
-            Assert.IsTrue(ThenTheFollowingAssertionsShouldBeCorrectStep.ShouldReport);        
+            ThenTheFollowingAssertionsShouldBeCorrectStep.ShouldReport.ShouldBe(true);
         }
 
         Step AndIncorrectAttributeWouldNotMatterStep
@@ -238,22 +237,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void AndIncorrectAttributeWouldNotMatterStep_IsAConsecutiveAssertingStep()
         {
-            Assert.That(AndIncorrectAttributeWouldNotMatterStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
+            AndIncorrectAttributeWouldNotMatterStep.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
         }
 
-        [Test]
+        [Fact]
         public void AndIncorrectAttributeWouldNotMatterStep_DoesAssert()
         {
-            Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.Asserts);
+            AndIncorrectAttributeWouldNotMatterStep.Asserts.ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void AndIncorrectAttributeWouldNotMatterStep_Reports()
         {
-            Assert.IsTrue(AndIncorrectAttributeWouldNotMatterStep.ShouldReport);
+            AndIncorrectAttributeWouldNotMatterStep.ShouldReport.ShouldBe(true);
         }
 
         Step AndInputsAreFormattedPropertlyInTheTitle
@@ -268,10 +267,10 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void AndInputsAreFormattedPropertlyInTheTitle_IsAConsecutiveAssertingStep()
         {
-            Assert.That(AndInputsAreFormattedPropertlyInTheTitle.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
+            AndInputsAreFormattedPropertlyInTheTitle.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
         }
 
         Step TearDownStep
@@ -282,22 +281,22 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void TearDownStep_IsAConsecutiveAssertingStep()
         {
-            Assert.That(TearDownStep.ExecutionOrder, Is.EqualTo(ExecutionOrder.TearDown));
+            TearDownStep.ExecutionOrder.ShouldBe(ExecutionOrder.TearDown);
         }
 
-        [Test]
+        [Fact]
         public void TearDownStep_DoesAssert()
         {
-            Assert.IsFalse(TearDownStep.Asserts);
+            TearDownStep.Asserts.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void TearDownStep_DoesNotReports()
         {
-            Assert.IsFalse(TearDownStep.ShouldReport);
+            TearDownStep.ShouldReport.ShouldBe(false);
         }
     }
 }

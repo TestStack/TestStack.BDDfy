@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples.Atm
 {
@@ -7,8 +8,8 @@ namespace TestStack.BDDfy.Samples.Atm
         private Card _card;
         private Atm _atm;
 
-		// You can override step text using executable attributes
-		[Given("Given the Account Balance is $10")]
+        // You can override step text using executable attributes
+        [Given("Given the Account Balance is $10")]
         void GivenTheAccountBalanceIs10()
         {
             _card = new Card(true, 10);
@@ -23,7 +24,7 @@ namespace TestStack.BDDfy.Samples.Atm
             _atm = new Atm(100);
         }
 
-		[When("When the Account Holder requests $20")]
+        [When("When the Account Holder requests $20")]
         void WhenTheAccountHolderRequests20()
         {
             _atm.RequestMoney(_card, 20);
@@ -31,26 +32,26 @@ namespace TestStack.BDDfy.Samples.Atm
 
         void Then_the_ATM_should_not_dispense_any_Money()
         {
-            Assert.AreEqual(0, _atm.DispenseValue);
+            _atm.DispenseValue.ShouldBe(0);
         }
 
         void And_the_ATM_should_say_there_are_Insufficient_Funds()
         {
-            Assert.AreEqual(DisplayMessage.InsufficientFunds, _atm.Message);
+            _atm.Message.ShouldBe(DisplayMessage.InsufficientFunds);
         }
 
-		[AndThen("And the Account Balance should be $20")]
+        [AndThen("And the Account Balance should be $20")]
         void AndTheAccountBalanceShouldBe20()
         {
-            Assert.AreEqual(10, _card.AccountBalance);
+            _card.AccountBalance.ShouldBe(10);
         }
 
         void And_the_Card_should_be_returned()
         {
-            Assert.IsFalse(_atm.CardIsRetained);
+            _atm.CardIsRetained.ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void Verify()
         {
             this.BDDfy<AccountHolderWithdrawsCash>();

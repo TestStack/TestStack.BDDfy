@@ -1,9 +1,8 @@
 using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class PropertiesAreNotConsideredAsStepsEvenWhenTheirNameMatchesConventions
     {
         // It has to end with context to fulfil the convention; after compilation this property will be get_GivenblahblahContext
@@ -29,7 +28,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         {
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             this.BDDfy();

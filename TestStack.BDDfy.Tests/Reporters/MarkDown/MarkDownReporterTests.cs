@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using NSubstitute;
-using NUnit.Framework;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.MarkDown;
 using TestStack.BDDfy.Reporters.Writers;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
-    [TestFixture]
     public class MarkDownReporterTests
     {
         private IReportBuilder _builder;
         private IReportWriter _writer;
 
-        [Test]
+        [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
         {
             var sut = CreateSut();
@@ -25,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
 
-        [Test]
+        [Fact]
         public void ShouldPrintErrorInReportIfProcessingFails()
         {
             var sut = CreateSut();

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
-    [TestFixture]
     public class WhenStepsReturnTheirText
     {
         class TestClassWithStepsReturningTheirText
@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             }
         }
 
-        [Test]
+        [Fact]
         public void Test()
         {
             var testObject = new TestClassWithStepsReturningTheirText(1, "some input");
@@ -48,10 +48,10 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         private static void AssertStep(Step step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            Assert.That(step.Title.Trim(), Is.EqualTo(stepTitle));
-            Assert.That(step.Asserts, Is.EqualTo(asserts));
-            Assert.That(step.ExecutionOrder, Is.EqualTo(order));
-            Assert.That(step.ShouldReport, Is.EqualTo(shouldReport));
+            step.Title.Trim().ShouldBe(stepTitle);
+            step.Asserts.ShouldBe(asserts);
+            step.ExecutionOrder.ShouldBe(order);
+            step.ShouldReport.ShouldBe(shouldReport);
         }
 
     }

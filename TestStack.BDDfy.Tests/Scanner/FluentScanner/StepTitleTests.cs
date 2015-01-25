@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using NUnit.Framework;
 using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    [TestFixture]
     public class StepTitleTests
     {
         private string _mutatedState;
 
-        [Test]
+        [Fact]
         public void MethodCallInStepTitle()
         {
             FooClass something = new FooClass();

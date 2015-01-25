@@ -1,53 +1,53 @@
-﻿using NUnit.Framework;
+﻿using Shouldly;
 using TestStack.BDDfy.Configuration;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
-    [TestFixture]
     public class SequentialKeyGeneratorTests
     {
-        [Test]
+        [Fact]
         public void ShouldReturnOneForFirstScenario()
         {
-            Assert.That(new SequentialKeyGenerator().GetScenarioId(), Is.EqualTo("scenario-1"));
+            new SequentialKeyGenerator().GetScenarioId().ShouldBe("scenario-1");
         }
 
-        [Test]
+        [Fact]
         public void ShouldIncrementScenarioIdForEachRequestForScenariId()
         {
             var sut = new SequentialKeyGenerator();
 
             for (int i = 1; i <= 12; i++)
             {
-                Assert.That(sut.GetScenarioId(), Is.EqualTo("scenario-" + i));
+                sut.GetScenarioId().ShouldBe("scenario-" + i);
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldReturnOneOneForFirstStepOfFirstScenario()
         {
-            Assert.That(new SequentialKeyGenerator().GetStepId(), Is.EqualTo("step-1-1"));
+            new SequentialKeyGenerator().GetStepId().ShouldBe("step-1-1");
         }
 
-        [Test]
+        [Fact]
         public void ShouldIncrementStepIdForEachRequestForStepId()
         {
             var sut = new SequentialKeyGenerator();
 
             for (int i = 1; i <= 12; i++)
             {
-                Assert.That(sut.GetStepId(), Is.EqualTo("step-1-" + i));
+                sut.GetStepId().ShouldBe("step-1-" + i);
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldResetStepCountForNewScenario()
         {
             var sut = new SequentialKeyGenerator();
             sut.GetStepId();
             sut.GetScenarioId();
 
-            Assert.That(sut.GetStepId(), Is.EqualTo("step-2-1"));
+            sut.GetStepId().ShouldBe("step-2-1");
         }
     }
 }

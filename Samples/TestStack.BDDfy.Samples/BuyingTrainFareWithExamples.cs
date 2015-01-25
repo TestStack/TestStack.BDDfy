@@ -1,16 +1,18 @@
-﻿using NUnit.Framework;
-using TestStack.BDDfy.Samples.BuyingTrainFares;
+﻿using TestStack.BDDfy.Samples.BuyingTrainFares;
+using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
-    [TestFixture]
     public class BuyingTrainFareWithExamples
     {
+        #pragma warning disable 649
+        // ReSharper disable once InconsistentNaming
         private Fare fare;
         private BuyerCategory _buyerCategory;
+        #pragma warning restore 649
         Money Price { get; set; }
 
-        [Test]
+        [Fact]
         public void SuccessfulRailCardPurchases()
         {
             this.Given(_ => TheBuyerIsA(_buyerCategory))

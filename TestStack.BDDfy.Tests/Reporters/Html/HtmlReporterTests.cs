@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using NSubstitute;
-using NUnit.Framework;
+using Shouldly;
 using TestStack.BDDfy.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
-    [TestFixture]
     public class HtmlReporterTests
     {
         private TestableHtmlReporter _sut;
@@ -16,13 +16,12 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         private const string CustomJavascript = "some custom javascript in here!";
         private const string ErrorMessage = "There was some exception.";
 
-        [SetUp]
-        public void SetUp()
+        public HtmlReporterTests()
         {
             _sut = TestableHtmlReporter.Create();
         }
 
-        [Test]
+        [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
         {
             _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
@@ -32,7 +31,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
             _sut.Writer.Received().OutputReport(ReportData, Arg.Any<string>(), Arg.Any<string>());
         }
 
-        [Test]
+        [Fact]
         public void ShouldPrintErrorInReportIfProcessingFails()
         {
             _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception(ErrorMessage); });
@@ -45,7 +44,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                 Arg.Any<string>());
         }
 
-        [Test]
+        [Fact]
         public void ShouldLoadCustomStyleSheetIfOneExists()
         {
             const string customStylesheetFilePath = OutputPath + @"\BDDfyCustom.css";
@@ -55,11 +54,11 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(_sut.Model.CustomStylesheet, Is.EqualTo(CustomStylesheet));
+            _sut.Model.CustomStylesheet.ShouldBe(CustomStylesheet);
             _sut.FileReader.Received().Read(customStylesheetFilePath);
         }
 
-        [Test]
+        [Fact]
         public void ShouldNotLoadCustomStyleSheetIfNoneExist()
         {
             const string customStylesheet = OutputPath + @"\BDDfyCustom.css";
@@ -68,11 +67,11 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(_sut.Model.CustomStylesheet, Is.Null);
+            _sut.Model.CustomStylesheet.ShouldBe(null);
             _sut.FileReader.DidNotReceive().Read(customStylesheet);
         }
 
-        [Test]
+        [Fact]
         public void ShouldLoadCustomJavascriptIfOneExists()
         {
             const string javaScriptFilePath = OutputPath + @"\BDDfyCustom.js";
@@ -82,11 +81,11 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(_sut.Model.CustomJavascript, Is.EqualTo(CustomJavascript));
+            _sut.Model.CustomJavascript.ShouldBe(CustomJavascript);
             _sut.FileReader.Received().Read(javaScriptFilePath);
         }
 
-        [Test]
+        [Fact]
         public void ShouldNotLoadCustomJavascriptIfNoneExist()
         {
             const string customJavascript = OutputPath + @"\BDDfyCustom.js";
@@ -95,7 +94,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
-            Assert.That(_sut.Model.CustomJavascript, Is.Null);
+            _sut.Model.CustomJavascript.ShouldBe(null);
             _sut.FileReader.DidNotReceive().Read(customJavascript);
         }
     }

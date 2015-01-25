@@ -1,4 +1,4 @@
-using NUnit.Framework;
+using Shouldly;
 
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
@@ -6,7 +6,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
     {
         public static void VerifyBoardState(this Game game, string[] firstRow, string[] secondRow, string[] thirdRow)
         {
-            Assert.IsTrue(game.Equals(new Game(firstRow, secondRow, thirdRow)));
+            game.Equals(new Game(firstRow, secondRow, thirdRow)).ShouldBe(true);
         }
     }
 

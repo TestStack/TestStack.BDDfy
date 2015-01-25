@@ -1,11 +1,10 @@
 ﻿using ApprovalTests;
-using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
-    [TestFixture]
     public class ReflectiveWithExamples
     {
         public string SecondExample { get; set; }
@@ -20,7 +19,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             SecondExample.ShouldBeOneOf("foo", "bar");
         }
 
-        [Test]
+        [Fact]
         public void Run()
         {
             var story = this

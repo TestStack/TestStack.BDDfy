@@ -95,21 +95,16 @@
 
   <Target Name="Test" DependsOnTargets="Build;Copy">
     <PropertyGroup>
-      <NUnitHome>$(MSBuildProjectDirectory)\packages\NUnit.Runners.2.6.4\tools\</NUnitHome>
-      <NUnitConsole>$(NUnitHome)nunit-console.exe</NUnitConsole>
+      <XUnitHome>$(MSBuildProjectDirectory)\packages\xunit.runners.1.9.2\tools\</XUnitHome>
+      <XUnitConsole>$(XUnitHome)xunit.console.clr4.x86.exe</XUnitConsole>
     </PropertyGroup>
-    <ItemGroup>
-      <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.4.*" />
-    </ItemGroup>
 
     <Exec Command="$(MSBuildProjectDirectory)\.nuget\nuget.exe install &quot;$(MSBuildProjectDirectory)\.nuget\packages.config&quot; -o &quot;$(MSBuildProjectDirectory)\packages&quot;" />
-    <MakeDir Directories="$(NUnitHome)addins" />
-    <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)addins" />
-    
+
     <CreateItem Include="$(TestPath)\TestStack.BDDfy.Tests.dll;$(TestPath)\TestStack.BDDfy.Samples.dll">
       <Output ItemName="_testFiles" TaskParameter="Include"/>
     </CreateItem>
-    <Exec Command="&quot;$(NUnitConsole)&quot; @(_testFiles->'&quot;%(FullPath)&quot;', ' ') /nologo /noshadow"></Exec>
+    <Exec Command="&quot;$(XUnitConsole)&quot; %(_testFiles.FullPath) /noshadow" />
   </Target>
 
   <Target Name="Distrib" DependsOnTargets="Clean;Build;Copy">

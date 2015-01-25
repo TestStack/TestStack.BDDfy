@@ -1,11 +1,12 @@
-using NUnit.Framework;
 using System.Collections.Generic;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Arguments
 {
     public class ArgumentsProvidedForGiven
     {
-        private List<int> _andGivenInput1 = new List<int>();
+        private readonly List<int> _andGivenInput1 = new List<int>();
         private List<int> _andGivenInput2 = new List<int>();
         private List<int> _andGivenInput3 = new List<int>();
 
@@ -32,27 +33,27 @@ namespace TestStack.BDDfy.Tests.Arguments
 
         void ThenOneSetOfArgumentsArePassedInProperly()
         {
-            Assert.That(_givenInput1, Is.EqualTo(1));
-            Assert.That(_givenInput2, Is.EqualTo(2));
-            Assert.That(_givenInput3, Is.EqualTo(3));
+            _givenInput1.ShouldBe(1);
+            _givenInput2.ShouldBe(2);
+            _givenInput3.ShouldBe(3);
         }
 
         void ThenSeveralSetsOfArgumentsArePassedInProperly()
         {
-            Assert.That(_andGivenInput1.Count, Is.EqualTo(2));
-            Assert.That(_andGivenInput1, Contains.Item(4));
-            Assert.That(_andGivenInput1, Contains.Item(7));
+            _andGivenInput1.Count.ShouldBe(2);
+            _andGivenInput1.ShouldContain(4);
+            _andGivenInput1.ShouldContain(7);
 
-            Assert.That(_andGivenInput2.Count, Is.EqualTo(2));
-            Assert.That(_andGivenInput2, Contains.Item(5));
-            Assert.That(_andGivenInput2, Contains.Item(8));
+            _andGivenInput2.Count.ShouldBe(2);
+            _andGivenInput2.ShouldContain(5);
+            _andGivenInput2.ShouldContain(8);
 
-            Assert.That(_andGivenInput3.Count, Is.EqualTo(2));
-            Assert.That(_andGivenInput3, Contains.Item(6));
-            Assert.That(_andGivenInput3, Contains.Item(9));
+            _andGivenInput3.Count.ShouldBe(2);
+            _andGivenInput3.ShouldContain(6);
+            _andGivenInput3.ShouldContain(9);
         }
 
-        [Test]
+        [Fact]
         public void Execute()
         {
             this.BDDfy();

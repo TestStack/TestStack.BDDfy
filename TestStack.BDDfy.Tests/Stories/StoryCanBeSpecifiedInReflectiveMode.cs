@@ -1,17 +1,17 @@
-﻿using NUnit.Framework;
+﻿using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories
 {
     [Story]
     public class StoryCanBeSpecifiedInReflectiveMode
     {
-        [Test] 
+        [Fact] 
         public void Verify()
         {
             var story = this.BDDfy<SharedStoryNotion>();
 
-            Assert.That(story.Metadata, Is.Not.Null);
-            Assert.AreEqual(story.Metadata.Type, typeof(SharedStoryNotion));
+            story.Metadata.Type.ShouldBe(typeof(SharedStoryNotion));
         }
 
         void WhenStoryIsSpecifiedInReflectiveMode()

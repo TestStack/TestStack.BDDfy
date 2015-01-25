@@ -1,5 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
+using Shouldly;
+using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
@@ -39,64 +41,61 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var scanner = new DefaultMethodNameStepScanner();
             var steps = scanner.Scan(TestContext.GetContext(testObject)).ToList();
             var theStep = steps.Where(s => s.Title == expectedStepTitle);
-            
-            if(exists)
-                Assert.That(theStep.Count(), Is.EqualTo(1));
-            else
-                Assert.That(theStep.Count(), Is.EqualTo(0));
+
+            theStep.Count().ShouldBe(exists ? 1 : 0);
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithPascalCaseIsSeparatedAndTurnedIntoLowerCaseExceptTheFirstWord()
         {
             VerifyMethod("Given the pascal case for method name");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithUnderscoreAndLowerCaseWordsIsSeparatedAndCaseIsRetained()
         {
             VerifyMethod("Then with lower case underscored method name");
         }
 
-        [Test]
+        [Fact]
         public void TrailingNumberGetsTheSameTreatmentAsWords()
         {
             VerifyMethod("When step name ends with number 29");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
         {
             VerifyMethod("When step is run with arguments without provided text 1, 2, 3");
             VerifyMethod("When step is run with arguments without provided text 3, 4, 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArrayArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
         {
             VerifyMethod("When step is run with array arguments without provided text 1, 2, 3, 4, 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArrayArgumentWithProvidedTextUsesArrayToFormatTheTextTemplate()
         {
             VerifyMethod("With the following inputs 1, 2, 3, 4, 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodIsRunWithStringAsProvidedArgumentsWithoutProvidedTextTemplate()
         {
             VerifyMethod("When some string is provided as input input string");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithProvidedTextUsesTheProvidedTextAsTemplate()
         {
             VerifyMethod("The step text gets argument 1, 2 and then 3");
             VerifyMethod("The step text gets argument 3, 4 and then 5");
         }
 
-        [Test]
+        [Fact]
         public void TheMethodWithArgumentWithProvidedTextDoesNotUseTheMethodName()
         {
             VerifyMethod("When step is run with arguments with provided text 1, 2, 3", false);
