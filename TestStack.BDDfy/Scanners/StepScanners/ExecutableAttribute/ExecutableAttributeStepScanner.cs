@@ -37,12 +37,13 @@ namespace TestStack.BDDfy
                 stepTitle = new StepTitle(Configurator.Scanners.Humanize(candidateMethod.Name));
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
+            var shouldReport = executableAttribute.ShouldReport;
 
             var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), true);
             if (runStepWithArgsAttributes.Length == 0)
             {
                 var stepAction = StepActionFactory.GetStepAction(candidateMethod, new object[0]);
-                yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, true, new List<StepArgument>())
+                yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, shouldReport, new List<StepArgument>())
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -62,7 +63,7 @@ namespace TestStack.BDDfy
 
                 var stepAction = StepActionFactory.GetStepAction(candidateMethod, inputArguments);
                 yield return new Step(stepAction, new StepTitle(methodName), stepAsserts,
-                                      executableAttribute.ExecutionOrder, true, new List<StepArgument>())
+                                      executableAttribute.ExecutionOrder, shouldReport, new List<StepArgument>())
                         {
                             ExecutionSubOrder = executableAttribute.Order
                         };
@@ -80,6 +81,7 @@ namespace TestStack.BDDfy
                 stepTitle = Configurator.Scanners.Humanize(method.Name);
 
             var stepAsserts = IsAssertingByAttribute(method);
+            var shouldReport = executableAttribute.ShouldReport;
             var methodParameters = method.GetParameters();
 
             var inputs = new List<object>();
@@ -100,7 +102,7 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
-            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, true, new List<StepArgument>());
+            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, shouldReport, new List<StepArgument>());
         }
 
 

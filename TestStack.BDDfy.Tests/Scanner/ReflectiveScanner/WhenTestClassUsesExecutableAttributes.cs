@@ -54,6 +54,9 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
             [But]
             public void IDontWantThisToBeTrue() { }
+
+            [Executable(ExecutionOrder.Assertion, "", ShouldReport = false)]
+            public void Executable() { }
         }
 
         [SetUp]
@@ -71,7 +74,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Test]
         public void DecoratedMethodsAreReturned()
         {
-            Assert.That(_steps.Count, Is.EqualTo(10));
+            Assert.That(_steps.Count, Is.EqualTo(11));
         }
 
         [Test]
@@ -152,6 +155,22 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var step = _steps.Single(s => s.Title == "I dont want this to be true");
             Assert.That(step.ExecutionOrder, Is.EqualTo(ExecutionOrder.ConsecutiveAssertion));
             Assert.IsTrue(step.Asserts);
+        }
+
+        [Test]
+        public void ExecutableAttributesDefaultToShouldReport()
+        {
+            foreach (var step in _steps.Where(s => s.Title != "Executable"))
+            {
+                Assert.IsTrue(step.ShouldReport);
+            }
+        }
+
+        [Test]
+        public void CanPreventExecutableAttributesReporting()
+        {
+            var step = _steps.First(s => s.Title == "Executable");
+            Assert.IsFalse(step.ShouldReport);
         }
     }
 }
