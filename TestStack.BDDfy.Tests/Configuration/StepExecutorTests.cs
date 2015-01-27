@@ -54,9 +54,7 @@ About to run step 'Then something'
 Finished running step 'Then something'
 ".Replace("\r", string.Empty).Trim();
 
-                string actual = testStepExecutor.Results.Replace("\r", string.Empty).Trim();
-                expected.ShouldBe(actual);
-
+                testStepExecutor.Results.Replace("\r", string.Empty).Trim().ShouldBe(expected);
             }
             finally
             {

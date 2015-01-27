@@ -26,12 +26,11 @@ namespace TestStack.BDDfy.Tests.Processors
             var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true, new List<StepArgument>()) };
 
             var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable, new List<string>());
-            var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()),
-                new[] { scenarioWithExample });
+            var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()), scenarioWithExample);
 
             sut.Process(story);
 
-            expectedValue.ShouldBe(actualValue);
+            actualValue.ShouldBe(expectedValue);
         }
     }
 }

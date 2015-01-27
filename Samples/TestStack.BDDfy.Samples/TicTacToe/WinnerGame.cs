@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
         IEnumerable<string> ThenTheWinnerShouldBe()
         {
             yield return "Then the winner is " + _expectedWinner;
-            _expectedWinner.ShouldBe(Game.Winner);
+            Game.Winner.ShouldBe(_expectedWinner);
         }
     }
 }

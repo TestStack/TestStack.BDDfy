@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
 
         void ThenTheWinnerShouldBe(string expectedWinner)
         {
-            expectedWinner.ShouldBe(Game.Winner);
+            Game.Winner.ShouldBe(expectedWinner);
         }
 
         void ThenItShouldBeACatsGame()
