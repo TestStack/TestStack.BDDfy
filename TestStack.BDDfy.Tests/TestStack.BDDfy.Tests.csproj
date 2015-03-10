@@ -83,6 +83,7 @@
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\StepExecutorTests.cs" />
     <Compile Include="Configuration\TestRunnerTests.cs" />
+    <Compile Include="Exceptions\ExceptionsWhenUsingExamples.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Reporters\TextReporter\TextReporterTests.cs" />
     <Compile Include="Reporters\Html\MetroReportBuilderTests.cs" />

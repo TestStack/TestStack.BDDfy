@@ -31,7 +31,7 @@
                     stepFailed = true;
                 }
 
-                if (scenario.Example != null)
+                if (scenario.Example != null && scenario.Result == Result.Passed)
                 {
                     var unusedValue = scenario.Example.Values.FirstOrDefault(v => !v.ValueHasBeenUsed);
                     if (unusedValue != null) throw new UnusedExampleException(unusedValue);
