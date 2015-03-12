@@ -13,7 +13,7 @@ namespace TestStack.BDDfy.Tests
                 this.Given("Foo")
                 .WithExamples(new ExampleTable("Example 1") { 1 }).BDDfy());
 
-            ex.Message.ShouldBe("Example Column 'Example 1' is unused, all examples should be consumed by the test (have you misspelt a field or property?)");
+            ex.Message.ShouldBe("Example Column 'Example 1' is unused, all examples should be consumed by the test (have you misspelt a field or property?)\r\n\r\nIf this is not the case, raise an issue at https://github.com/TestStack/TestStack.BDDfy/issues.");
         }
 
         [Fact]
