@@ -16,6 +16,12 @@
                 var executor = new ScenarioExecutor(scenario);
                 executor.InitializeScenario();
 
+                if (scenario.Example != null)
+                {
+                    var unusedValue = scenario.Example.Values.FirstOrDefault(v => !v.ValueHasBeenUsed);
+                    if (unusedValue != null) throw new UnusedExampleException(unusedValue);
+                }
+
                 var stepFailed = false;
                 foreach (var executionStep in scenario.Steps)
                 {
@@ -29,12 +35,6 @@
                         break;
 
                     stepFailed = true;
-                }
-
-                if (scenario.Example != null && scenario.Result == Result.Passed)
-                {
-                    var unusedValue = scenario.Example.Values.FirstOrDefault(v => !v.ValueHasBeenUsed);
-                    if (unusedValue != null) throw new UnusedExampleException(unusedValue);
                 }
             }
         }

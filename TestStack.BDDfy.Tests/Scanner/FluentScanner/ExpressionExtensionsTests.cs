@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using NUnit.Framework;
@@ -67,6 +68,11 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
             }
 
+            public void MethodWithNullableArg(decimal? nullableInput)
+            {
+                
+            }
+
             public Bar Foo { get; set; }
 
             public class Bar
@@ -77,9 +83,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        object[] GetArguments(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
+        List<object> GetArgumentValues(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
         {
-            return action.ExtractArguments(instance).Select(o => o.Value).ToArray();
+            return action.ExtractArguments(instance).Select(o => o.Value).ToList();
+        }
+
+        List<StepArgument> GetArguments(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
+        {
+            return action.ExtractArguments(instance).ToList();
         }
 
         int _input1 = 1;
@@ -124,13 +135,13 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void NoArguments()
         {
-            var arguments = GetArguments(x => x.MethodWithoutArguments(), new ClassUnderTest());
-            arguments.Length.ShouldBe(0);
+            var arguments = GetArgumentValues(x => x.MethodWithoutArguments(), new ClassUnderTest());
+            arguments.Count.ShouldBe(0);
         }
 
-        void AssertReturnedArguments(object[] arguments, params object[] expectedArgs)
+        void AssertReturnedArguments(List<object> arguments, params object[] expectedArgs)
         {
-            arguments.Length.ShouldBe(expectedArgs.Length);
+            arguments.Count.ShouldBe(expectedArgs.Length);
             for (int i = 0; i < expectedArgs.Length; i++)
             {
                 arguments[i].ShouldBe(expectedArgs[i]);
@@ -140,7 +151,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void InputArgumentsPassedInline()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(1, "2"), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(1, "2"), new ClassUnderTest());
             AssertReturnedArguments(arguments, 1, "2");
         }
 
@@ -149,41 +160,60 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             int input1 = 1;
             const string input2 = "2";
-            var arguments = GetArguments(x => x.MethodWithInputs(input1, input2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(input1, input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, input1, input2);
         }
 
         [Fact]
         public void InputArgumentsProvidedUsingFields()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(_input1, ConstInput2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(_input1, ConstInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, _input1, ConstInput2);
+        }
+
+        [Fact]
+        public void InputArgumentsProvidedWhenCastIsInvolved()
+        {
+            // For some reason default(decimal) will cause a different expression when passing to a nullable method than
+            // if we have input1 = 1m; No idea why...
+            var input1 = default(decimal);
+            var arguments = GetArguments(x => x.MethodWithNullableArg(input1), new ClassUnderTest());
+            input1 = 1;
+            AssertReturnedArguments(arguments.Select(a => a.Value).ToList(), input1);
+        }
+
+        [Fact]
+        public void InputArgWithImplicitCast()
+        {
+            int input1 = 1;
+            var arguments = GetArgumentValues(x => x.MethodWithNullableArg(input1), new ClassUnderTest());
+            AssertReturnedArguments(arguments, input1);
         }
 
         [Fact]
         public void InputArgumentsProvidedUsingProperty()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(Input1, Input2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(Input1, Input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, Input1, Input2);
         }
 
         [Fact]
         public void InputArgumentsProvidedUsingInheritedFields()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(InheritedInput1, InheritedInput2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(InheritedInput1, InheritedInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, InheritedInput1, InheritedInput2);
         }
 
         [Fact]
         public void InputArgumentsProvidedUsingMethodCallDoesNotThrow()
         {
-            Should.NotThrow(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test")), new ClassUnderTest()));
+            Should.NotThrow(() => GetArgumentValues(x => x.MethodWithInputs(GetInput1(10), GetInput2("Test")), new ClassUnderTest()));
         }
 
         [Fact]
         public void ArrayInputsArgumentsProvidedInline()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(new[] { 1, 2 }, new[] { "3", "4" }), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithArrayInputs(new[] { 1, 2 }, new[] { "3", "4" }), new ClassUnderTest());
             AssertReturnedArguments(arguments, new[] { 1, 2 }, new[] { "3", "4" });
         }
 
@@ -192,21 +222,21 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             var input1 = new[] { 1, 2 };
             var input2 = new[] { "3", "4" };
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(input1, input2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithArrayInputs(input1, input2), new ClassUnderTest());
             AssertReturnedArguments(arguments, input1, input2);
         }
 
         [Fact]
         public void ArrayInputArgumentsProvidedUsingFields()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(_arrayInput1, _arrayInput2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithArrayInputs(_arrayInput1, _arrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, _arrayInput1, _arrayInput2);
         }
 
         [Fact]
         public void ArrayInputArgumentsProvidedUsingProperty()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(ArrayInput1, ArrayInput2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithArrayInputs(ArrayInput1, ArrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, ArrayInput1, ArrayInput2);
         }
 
@@ -216,7 +246,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             container.Target = 1;
             container.SubContainer = new ContainerType { Target2 = "Foo" };
 
-            var arguments = GetArguments(x => x.MethodWithInputs(container.Target, container.SubContainer.Target2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(container.Target, container.SubContainer.Target2), new ClassUnderTest());
             AssertReturnedArguments(arguments, 1, "Foo");
         }
 
@@ -226,7 +256,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             container.Target = 1;
             container.SubContainer = new ContainerType { Target2 = "Foo" };
 
-            var arguments = GetArguments(x => x.MethodWithInputs(container.Target, container.SubContainer.ToString()), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(container.Target, container.SubContainer.ToString()), new ClassUnderTest());
             AssertReturnedArguments(arguments, 1, "Foo");
         }
 
@@ -235,7 +265,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             container.SubContainer = new ContainerType { Target2 = "Foo" };
 
-            var arguments = GetArguments(x => x.MethodWithInputs(container.SubContainer), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(container.SubContainer), new ClassUnderTest());
             AssertReturnedArguments(arguments, container.SubContainer);
         }
 
@@ -243,21 +273,21 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void ComplexArgumentWhenContainerIsNull()
         {
             ContainerType nullContainer = null;
-            var arguments = GetArguments(x => x.MethodWithInputs(nullContainer.SubContainer), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(nullContainer.SubContainer), new ClassUnderTest());
             AssertReturnedArguments(arguments, new object[] { null });
         }
 
         [Fact]
         public void MethodCallValue()
         {
-            var arguments = GetArguments(x => x.MethodWithInputs(GetNumberThree(), GetFooString()), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(GetNumberThree(), GetFooString()), new ClassUnderTest());
             AssertReturnedArguments(arguments, new object[] { 3, "Foo" });
         }
 
         [Fact]
         public void DeepPropertyCall()
         {
-            var arguments = GetArguments(x => x.Foo.Baz(), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.Foo.Baz(), new ClassUnderTest());
             arguments.ShouldBeEmpty();
         }
 
@@ -274,14 +304,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void ArrayInputArgumentsProvidedUsingInheritedProperty()
         {
-            var arguments = GetArguments(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2), new ClassUnderTest());
+            var arguments = GetArgumentValues(x => x.MethodWithArrayInputs(InheritedArrayInput1, InheritedArrayInput2), new ClassUnderTest());
             AssertReturnedArguments(arguments, InheritedArrayInput1, InheritedArrayInput2);
         }
 
         [Fact]
         public void StaticField()
         {
-            Should.NotThrow(() => GetArguments(x => x.MethodWithInputs(GetInput1(10), GetInput2(string.Empty)), new ClassUnderTest()));
+            Should.NotThrow(() => GetArgumentValues(x => x.MethodWithInputs(GetInput1(10), GetInput2(string.Empty)), new ClassUnderTest()));
         }
     }
 }
