@@ -32,40 +32,45 @@ namespace TestStack.BDDfy
 
             protected override Expression VisitMethodCall(MethodCallExpression node)
             {
-                var arguments = node.Arguments.Select(a =>
-                {
-                    switch (a.NodeType)
-                    {
-                        case ExpressionType.MemberAccess:
-                            var memberExpression = (MemberExpression)a;
-                            var field = memberExpression.Member as FieldInfo;
-                            string name;
-                            Type parameterType;
-                            bool isReadOnly;
-                            if (field != null)
-                            {
-                                name = field.Name;
-                                parameterType = field.FieldType;
-                                isReadOnly = field.IsInitOnly;
-                            }
-                            else
-                            {
-                                var propertyInfo = (PropertyInfo)memberExpression.Member;
-                                name = propertyInfo.Name;
-                                parameterType = propertyInfo.PropertyType;
-                                isReadOnly = !propertyInfo.CanWrite;
-                            }
-
-                            var getValue = GetValue(memberExpression);
-                            var setValue = isReadOnly ? null : SetValue(memberExpression, parameterType);
-
-                            return new StepArgument(name, parameterType, getValue, setValue);
-                        default:
-                            return new StepArgument(GetValue(a));
-                    }
-                });
+                var arguments = node.Arguments.Select(ExtractStepArgument);
                 _arguments.AddRange(arguments);
                 return node;
+            }
+
+            private static StepArgument ExtractStepArgument(Expression a)
+            {
+                switch (a.NodeType)
+                {
+                    case ExpressionType.MemberAccess:
+                        var memberExpression = (MemberExpression) a;
+                        var field = memberExpression.Member as FieldInfo;
+                        string name;
+                        Type parameterType;
+                        bool isReadOnly;
+                        if (field != null)
+                        {
+                            name = field.Name;
+                            parameterType = field.FieldType;
+                            isReadOnly = field.IsInitOnly;
+                        }
+                        else
+                        {
+                            var propertyInfo = (PropertyInfo) memberExpression.Member;
+                            name = propertyInfo.Name;
+                            parameterType = propertyInfo.PropertyType;
+                            isReadOnly = !propertyInfo.CanWrite;
+                        }
+
+                        var getValue = GetValue(memberExpression);
+                        var setValue = isReadOnly ? null : SetValue(memberExpression, parameterType);
+
+                        return new StepArgument(name, parameterType, getValue, setValue);
+
+                    case ExpressionType.Convert:
+                        return ExtractStepArgument(((UnaryExpression)a).Operand);
+                    default:
+                        return new StepArgument(GetValue(a));
+                }
             }
 
             private static Func<object> GetValue(Expression a)
