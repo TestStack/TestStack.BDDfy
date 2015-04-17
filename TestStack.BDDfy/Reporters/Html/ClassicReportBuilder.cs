@@ -175,7 +175,7 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             using (OpenTag(string.Format("<div class='scenario'>"), HtmlTag.div))
             {
-                if (scenarioGroup.Count() == 1)
+                if (scenarioGroup.First().Example == null)
                     AddScenario(scenarioGroup.Single());
                 else
                     AddScenarioWithExamples(scenarioGroup);
