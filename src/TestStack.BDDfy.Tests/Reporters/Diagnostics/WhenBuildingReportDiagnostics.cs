@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 
         public void WhenTheDiagnosticDataIsCalculated()
         {
-            _result = _sut.GetDiagnosticData(new FileReportModel(_stories));
+            _result = _sut.GetDiagnosticData(new FileReportModel(_stories.ToReportModel()));
         }
 
         public void ThenTwoStoriesShouldBeReturned()

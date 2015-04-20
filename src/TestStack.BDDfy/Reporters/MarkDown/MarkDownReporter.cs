@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
         public void Process(IEnumerable<Story> stories)
         {
-            var viewModel = new FileReportModel(stories);
+            var viewModel = new FileReportModel(stories.ToReportModel());
             string report;
 
             try

@@ -19,7 +19,7 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
 
         public void Process(IEnumerable<Story> stories)
         {
-            var viewModel = new FileReportModel(stories);
+            var viewModel = new FileReportModel(stories.ToReportModel());
             string report;
 
             try
