@@ -45,12 +45,12 @@ namespace TestStack.BDDfy.Reporters.Html
         public void Process(IEnumerable<Story> stories)
         {
             var allowedStories = stories.Where(s => _configuration.RunsOn(s)).ToList();
-            WriteOutHtmlReport(allowedStories);
+            WriteOutHtmlReport(allowedStories.ToReportModel());
         }
 
-        void WriteOutHtmlReport(IEnumerable<Story> stories)
+        void WriteOutHtmlReport(ReportModel reportModel)
         {
-            Model = new HtmlReportModel(_configuration, stories);
+            Model = new HtmlReportModel(_configuration, reportModel);
             LoadCustomScripts();
             string report;
 

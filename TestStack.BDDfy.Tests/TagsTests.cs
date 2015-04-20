@@ -32,7 +32,7 @@ namespace TestStack.BDDfy.Tests
             var story = this.Given(_ => GivenAStep())
                 .WithTags("Tag1", "Tag 2")
                 .BDDfy();
-            Func<FileReportModel> model = () => new HtmlReportModel(new[] { story })
+            Func<FileReportModel> model = () => new HtmlReportModel(new[] { story }.ToReportModel())
                 {
                     RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                 };
@@ -48,7 +48,7 @@ namespace TestStack.BDDfy.Tests
             var story = this.Given(_ => GivenAStep())
                 .WithTags("Tag1", "Tag 2")
                 .BDDfy();
-            Func<FileReportModel> model = () => new HtmlReportModel(new[] { story })
+            Func<FileReportModel> model = () => new HtmlReportModel(new[] { story }.ToReportModel())
                 {
                     RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                 };
@@ -64,7 +64,7 @@ namespace TestStack.BDDfy.Tests
             var story = this.Given(_ => GivenAStep())
                 .WithTags("Tag1", "Tag 2")
                 .BDDfy();
-            Func<FileReportModel> model = () => new FileReportModel(new[] { story });
+            Func<FileReportModel> model = () => new FileReportModel(new[] { story }.ToReportModel());
             var sut = new MarkDownReportBuilder();
             ReportApprover.Approve(model, sut);
         }

@@ -6,18 +6,18 @@ namespace TestStack.BDDfy.Reporters
 {
     public class FileReportModel
     {
-        public FileReportModel(IEnumerable<Story> stories)
+        public FileReportModel(ReportModel reportModel)
         {
-            _stories = stories;
-            Summary = new FileReportSummaryModel(stories);
+            _stories = reportModel.Stories;
+            Summary = new FileReportSummaryModel(reportModel);
             RunDate = DateTime.Now;
         }
 
-        readonly IEnumerable<Story> _stories;
+        readonly IEnumerable<ReportModel.Story> _stories;
         public FileReportSummaryModel Summary { get; private set; }
         public DateTime RunDate { get; set; }
 
-        public IEnumerable<Story> Stories
+        public IEnumerable<ReportModel.Story> Stories
         {
             get
             {
@@ -35,9 +35,7 @@ namespace TestStack.BDDfy.Reporters
 
                 var aggregatedStories =
                     from story in groupedByStories.Union(groupedByNamespace)
-                    select new Story(
-                        story.First().Metadata, // first story in the group is a representative for the entire group
-                        story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToArray()) // order scenarios by title
+                    select new ReportModel.Story() // order scenarios by title
                         {
                             Namespace = story.Key
                         };

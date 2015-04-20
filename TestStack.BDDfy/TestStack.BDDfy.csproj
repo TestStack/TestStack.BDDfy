@@ -78,6 +78,7 @@
     <Compile Include="Processors\ScenarioExecutor.cs" />
     <Compile Include="Processors\UnusedExampleException.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Reporters\Class1.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReporter.cs" />

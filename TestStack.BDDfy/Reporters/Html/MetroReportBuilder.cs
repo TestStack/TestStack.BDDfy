@@ -165,7 +165,7 @@ namespace TestStack.BDDfy.Reporters.Html
             EmbedJavascriptFile(_model.CustomJavascript, HtmlReportResources.CustomJavascriptComment);
         }
 
-        private void AddStory(Story story)
+        private void AddStory(ReportModel.Story story)
         {
             var scenariosInGroup = story.Scenarios.ToList();
             var scenariosGroupedById = story.Scenarios.GroupBy(s => s.Id);
@@ -186,7 +186,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddScenario(Scenario[] scenarioGroup)
+        private void AddScenario(ReportModel.Scenario[] scenarioGroup)
         {
             using (OpenTag(string.Format("<div class='scenario'>"), HtmlTag.div))
             {
@@ -197,7 +197,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddScenarioWithExamples(Scenario[] scenarioGroup)
+        private void AddScenarioWithExamples(ReportModel.Scenario[] scenarioGroup)
         {
             var firstScenario = scenarioGroup.First();
             var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
@@ -230,7 +230,7 @@ namespace TestStack.BDDfy.Reporters.Html
             return string.Join(string.Empty, tags.Select(t => string.Format("<div class='tag'>{0}</div>", t)));
         }
 
-        private void AddExamples(Scenario[] scenarioGroup)
+        private void AddExamples(ReportModel.Scenario[] scenarioGroup)
         {
             var firstScenario = scenarioGroup.First();
             var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
@@ -256,7 +256,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddExampleRow(Scenario scenario, Result scenarioResult)
+        private void AddExampleRow(ReportModel.Scenario scenario, Result scenarioResult)
         {
             using (OpenTag("<tr>", HtmlTag.tr))
             {
@@ -285,7 +285,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddScenario(Scenario scenario)
+        private void AddScenario(ReportModel.Scenario scenario)
         {
             AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, HttpUtility.HtmlEncode(scenario.Title), FormatTags(scenario.Tags)));
 
@@ -325,7 +325,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddStoryMetadataAndNarrative(Story story)
+        private void AddStoryMetadataAndNarrative(ReportModel.Story story)
         {
             using (OpenTag("<div class='storyMetadata'>", HtmlTag.div))
             {
