@@ -12,7 +12,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
-            Func<FileReportModel> model = () =>
+            var model = 
                 new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
                     .ToReportModel())
                     {
@@ -27,12 +27,11 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtmlWithExamples()
         {
-            Func<FileReportModel> model = () => 
-                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
-                    .ToReportModel())
-                    {
-                        RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
-                    };
+            var reportData = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples().ToReportModel();
+            var model = new HtmlReportModel(reportData)
+            {
+                RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+            };
 
             var sut = new ClassicReportBuilder();
             ReportApprover.Approve(model, sut);

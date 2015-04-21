@@ -35,9 +35,12 @@ namespace TestStack.BDDfy.Reporters
 
                 var aggregatedStories =
                     from story in groupedByStories.Union(groupedByNamespace)
-                    select new ReportModel.Story() // order scenarios by title
+                    select new ReportModel.Story() 
                         {
-                            Namespace = story.Key
+                            Metadata = story.First().Metadata,
+                            Namespace = story.Key,
+                            Result = story.First().Result,
+                            Scenarios = story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToList() // order scenarios by title,
                         };
 
                 return aggregatedStories;
