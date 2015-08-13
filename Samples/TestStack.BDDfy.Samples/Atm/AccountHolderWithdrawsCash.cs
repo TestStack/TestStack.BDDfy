@@ -6,7 +6,9 @@ namespace TestStack.BDDfy.Samples.Atm
     [Story(
         AsA = "As an Account Holder",
         IWant = "I want to withdraw cash from an ATM",
-        SoThat = "So that I can get money when the bank is closed")]
+        SoThat = "So that I can get money when the bank is closed",
+        ImageUri = "https://upload.wikimedia.org/wikipedia/commons/d/d3/49024-SOS-ATM.JPG",
+        StoryUri = "http://google.com")]
     public class AccountHolderWithdrawsCash
     {
         private const string GivenTheAccountBalanceIsTitleTemplate = "Given the account balance is ${0}";
