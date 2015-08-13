@@ -894,3 +894,9 @@ code {
     border: 1px solid #d0d0d0;
     display: inline-block;
 }
+
+.storyImg {
+    max-width:600px;
+    max-height:400px;
+    margin: 10px;
+}
