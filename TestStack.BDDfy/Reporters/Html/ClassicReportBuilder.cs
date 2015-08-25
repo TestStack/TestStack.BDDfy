@@ -316,8 +316,16 @@ namespace TestStack.BDDfy.Reporters.Html
             {
                 AddLine(story.Metadata == null
                     ? string.Format("<div class='namespaceName'>{0}</div>", story.Namespace)
-                    : string.Format("<div class='storyTitle'>{0}{1}</div>", story.Metadata.TitlePrefix, story.Metadata.Title));
-
+                    : string.Format("<div class='storyTitle'>{0}</div>",
+                        string.IsNullOrWhiteSpace(story.Metadata.StoryUri)
+                            ? story.Metadata.TitlePrefix + story.Metadata.Title
+                            : string.Format("<a href='{0}'>{1}{2}</a>", story.Metadata.StoryUri, story.Metadata.TitlePrefix, story.Metadata.Title)));
+                
+                if (story.Metadata != null && !string.IsNullOrWhiteSpace(story.Metadata.ImageUri))
+                {
+                    AddLine(string.Format("<img class='storyImg' src='{0}' alt='Image for {1}{2}'/>", story.Metadata.ImageUri, story.Metadata.TitlePrefix, story.Metadata.Title));
+                }
+                
                 if (story.Metadata == null || string.IsNullOrEmpty(story.Metadata.Narrative1)) 
                     return;
 

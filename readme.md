@@ -9,6 +9,8 @@ A few quick facts about BDDfy:
  - BDDfy is very extensible: the core barely has any logic in it and delegates all its responsibilities to the extensions all of which are configurable; e.g. if you don't like the reports it generates, you can write your custom reporter in a few lines of code.
 
 ## Usage
+
+[![Join the chat at https://gitter.im/TestStack/TestStack.BDDfy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TestStack/TestStack.BDDfy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 To use BDDfy install TestStack.BDDfy nuget package: `Install-Package TestStack.BDDfy`
 
 This adds BDDfy assembly and its dependencies to your test project. If this is the first time you are using BDDfy you may want to check out the samples on NuGet. Just run `Install-Package TestStack.BDDfy.Samples` and it will load two fully working samples to your project.

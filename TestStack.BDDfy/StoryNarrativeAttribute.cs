@@ -11,6 +11,8 @@ namespace TestStack.BDDfy
         public string Narrative1 { get; set; }
         public string Narrative2 { get; set; }
         public string Narrative3 { get; set; }
+        public string StoryUri { get; set; }    // link to story in task management system
+        public string ImageUri { get; set; }    // image to display for the story
 
         protected string CleanseProperty(string text, string prefix)
         {
