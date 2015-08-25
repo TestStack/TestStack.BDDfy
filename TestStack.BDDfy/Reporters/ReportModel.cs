@@ -34,6 +34,8 @@ namespace TestStack.BDDfy.Reporters
             public string Narrative1 { get; set; }
             public string Narrative2 { get; set; }
             public string Narrative3 { get; set; }
+            public string ImageUri { get; set; }
+            public string StoryUri { get; set; }
         }
 
         public class Scenario

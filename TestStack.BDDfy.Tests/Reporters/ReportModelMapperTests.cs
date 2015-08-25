@@ -45,6 +45,8 @@ namespace TestStack.BDDfy.Tests.Reporters
                 mapped[i].Metadata.Title.ShouldBe(_stories[i].Metadata.Title);
                 mapped[i].Metadata.TitlePrefix.ShouldBe(_stories[i].Metadata.TitlePrefix);
                 mapped[i].Metadata.Type.ShouldBe(_stories[i].Metadata.Type);
+                mapped[i].Metadata.ImageUri.ShouldBe(_stories[i].Metadata.ImageUri);
+                mapped[i].Metadata.StoryUri.ShouldBe(_stories[i].Metadata.StoryUri);
             }
         }
 

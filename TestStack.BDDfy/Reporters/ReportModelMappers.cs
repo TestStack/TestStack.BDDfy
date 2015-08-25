@@ -48,6 +48,8 @@
                 Narrative1 = metadata.Narrative1,
                 Narrative2 = metadata.Narrative2,
                 Narrative3 = metadata.Narrative3,
+                ImageUri = metadata.ImageUri,
+                StoryUri = metadata.StoryUri
             };
         }
         public static ReportModel.Scenario ToScenarioModel(this Scenario scenario)
