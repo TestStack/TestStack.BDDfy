@@ -12,8 +12,8 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
-            Func<FileReportModel> model = () => 
-                new HtmlReportModel(new ReportTestData().CreateMixContainingEachTypeOfOutcome())
+            var model = 
+                new HtmlReportModel(new ReportTestData().CreateMixContainingEachTypeOfOutcome().ToReportModel())
                     {
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };
@@ -26,8 +26,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtmlWithExamples()
         {
-            Func<FileReportModel> model = () =>
-                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples())
+            var model = 
+                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
+                    .ToReportModel())
                 {
                     RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                 };

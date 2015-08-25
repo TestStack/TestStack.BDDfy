@@ -80,7 +80,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             report.AppendLine(string.Format("Tags: {0}", string.Join(", ", tags.Select(t => string.Format("`{0}`", t)))));
         }
 
-        private void WriteExamples(StringBuilder report, Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)
+        private void WriteExamples(StringBuilder report, ReportModel.Scenario exampleScenario, IEnumerable<ReportModel.Scenario> scenarioGroup)
         {
             report.AppendLine("### Examples: ");
             report.AppendLine();
@@ -141,7 +141,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             report.AppendLine("|");
         }
 
-        private string CreateExceptionMessage(Step step)
+        private string CreateExceptionMessage(ReportModel.Step step)
         {
             _exceptions.Add(step.Exception);
 

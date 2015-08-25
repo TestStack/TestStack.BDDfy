@@ -78,6 +78,7 @@
     <Compile Include="Processors\ScenarioExecutor.cs" />
     <Compile Include="Processors\UnusedExampleException.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Reporters\ReportModel.cs" />
     <Compile Include="Reporters\ConsoleReporter.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReportBuilder.cs" />
     <Compile Include="Reporters\Diagnostics\DiagnosticsReporter.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Reporters\MarkDown\MarkDownReportBuilder.cs" />
     <Compile Include="Reporters\Readers\FileReader.cs" />
     <Compile Include="Reporters\Readers\IFileReader.cs" />
+    <Compile Include="Reporters\ReportModelMappers.cs" />
     <Compile Include="Reporters\Serializers\ISerializer.cs" />
     <Compile Include="Reporters\Serializers\JsonFormatter.cs" />
     <Compile Include="Reporters\Serializers\JsonSerializer.cs" />

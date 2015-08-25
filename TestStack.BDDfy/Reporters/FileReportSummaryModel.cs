@@ -5,12 +5,12 @@ namespace TestStack.BDDfy.Reporters
 {
     public class FileReportSummaryModel
     {
-        readonly IEnumerable<Story> _stories;
-        readonly IEnumerable<Scenario> _scenarios;
+        readonly IEnumerable<ReportModel.Story> _stories;
+        readonly IEnumerable<ReportModel.Scenario> _scenarios;
 
-        public FileReportSummaryModel(IEnumerable<Story> stories)
+        public FileReportSummaryModel(ReportModel reportModel)
         {
-            _stories = stories;
+            _stories = reportModel.Stories;
             _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
         }
 
