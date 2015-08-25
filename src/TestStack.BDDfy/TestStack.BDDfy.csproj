@@ -187,6 +187,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FluentApi.cs</LastGenOutput>
     </None>
+    <None Include="TestStack.BDDfy.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Reporters\Html\Scripts\classic.min.css">
