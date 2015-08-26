@@ -117,9 +117,6 @@ namespace TestStack.BDDfy.Reporters.Html {
         
         /// <summary>
         ///   Looks up a localized string similar to $(function(){$(&quot;.canToggle&quot;).each(function(){var n=$(&quot;#&quot;+$(this).data(&quot;toggle-target&quot;));n.hide();$(this).click(function(){n.toggle(200)})});$(&quot;.expandAll&quot;).click(function(){$(&quot;.steps&quot;).css(&quot;display&quot;,&quot;&quot;)});$(&quot;.collapseAll&quot;).click(function(){$(&quot;.steps&quot;).css(&quot;display&quot;,&quot;none&quot;)});$(&quot;#filterOptions li input&quot;).click(function(){var n=$(this),t=n.data(&quot;target-class&quot;);$(&quot;div.scenario .&quot;+t).parent().toggle(n.prop(&quot;checked&quot;))})});
-        ////*
-        /////# sourceMappingURL=metro.min.js.map
-        ///*/.
         /// </summary>
         internal static string metro_js_min {
             get {

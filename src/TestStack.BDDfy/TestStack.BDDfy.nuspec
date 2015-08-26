@@ -13,4 +13,8 @@
     <iconUrl>https://raw.github.com/TestStack/TestStack.BDDfy/master/logo.png</iconUrl>
     <tags>BDD testing</tags>
   </metadata>
+  <files>
+    <file src="bin\$configuration$\TestStack.BDDfy.dll" target="lib\net40\" />
+    <file src="bin\$configuration$\TestStack.BDDfy.xml" target="lib\net40\" />
+  </files>
 </package>
