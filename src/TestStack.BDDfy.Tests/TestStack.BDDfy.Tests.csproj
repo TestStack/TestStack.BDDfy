@@ -76,6 +76,7 @@
     <Compile Include="Configuration\TestRunnerTests.cs" />
     <Compile Include="Exceptions\ExceptionsWhenUsingExamples.cs" />
     <Compile Include="ModuleInitializer.cs" />
+    <Compile Include="Reporters\ReportModelMapperTests.cs" />
     <Compile Include="Reporters\TextReporter\TextReporterTests.cs" />
     <Compile Include="Reporters\Html\MetroReportBuilderTests.cs" />
     <Compile Include="Processors\TestRunnerTests.cs" />

@@ -14,7 +14,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             firstExample.ShouldBeOneOf(1, 2);
         }
 
-        public void GivenStepWith__SecondExample__AccessedViaProperty()
+        public void AndGivenStepWith__SecondExample__AccessedViaProperty()
         {
             SecondExample.ShouldBeOneOf("foo", "bar");
         }

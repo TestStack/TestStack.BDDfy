@@ -89,8 +89,9 @@ namespace TestStack.BDDfy
                     continue;
 
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, example);
+                return new[] { GetStep(testContext.TestObject, matcher, method, returnsItsText, example)};
             }
+            return Enumerable.Empty<Step>();
         }
 
         private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
