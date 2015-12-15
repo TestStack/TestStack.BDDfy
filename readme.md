@@ -107,8 +107,8 @@ which gives you a report like:
       		And the atm should say the card has been retained
 
 This is only the tip of iceberg. Absolutely everything you do with BDDfy is extensible and customizable. 
-You might see full documentation of BDDfy on the [TestStack documentation website](http://docs.teststack.net/bddfy/index.html).
-Oh and while you are there don't forget to checkout other cool projects from [TestStack](http://teststack.net/).
+You might see full documentation of BDDfy on the [TestStack documentation website](http://bddfy.teststack.net/).
+Oh and while you are there don't forget to checkout other cool projects from [TestStack](http://www.teststack.net/).
 
 ## Authors 
 * [Mehdi Khalili](https://github.com/MehdiK)
