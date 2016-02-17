@@ -5,6 +5,7 @@ namespace TestStack.BDDfy
     public class TestContext : ITestContext
     {
         private static readonly Dictionary<object, ITestContext> ContextLookup = new Dictionary<object, ITestContext>();
+        private static object _dictionaryLock = new object();
 
         private TestContext(object testObject)
         {
@@ -17,15 +18,18 @@ namespace TestStack.BDDfy
             var fluentBuilder = testObject as IFluentStepBuilder;
             if (fluentBuilder != null) testObject = fluentBuilder.TestObject;
 
-            if (ContextLookup.ContainsKey(testObject))
+            lock (_dictionaryLock)
             {
-                var oldContext = ContextLookup[testObject];
-                context.Examples = oldContext.Examples;
-                ContextLookup[testObject] = new TestContext(testObject);
-            }
-            else
-            {
-                ContextLookup.Add(testObject, context);
+                if (ContextLookup.ContainsKey(testObject))
+                {
+                    var oldContext = ContextLookup[testObject];
+                    context.Examples = oldContext.Examples;
+                    ContextLookup[testObject] = new TestContext(testObject);
+                }
+                else
+                {
+                    ContextLookup.Add(testObject, context);
+                }
             }
         }
 
@@ -34,16 +38,22 @@ namespace TestStack.BDDfy
             var fluentBuilder = testObject as IFluentStepBuilder;
             if (fluentBuilder != null) testObject = fluentBuilder.TestObject;
 
-            if (!ContextLookup.ContainsKey(testObject))
-                ContextLookup.Add(testObject, new TestContext(testObject));
+            lock (_dictionaryLock)
+            {
+                if (!ContextLookup.ContainsKey(testObject))
+                    ContextLookup.Add(testObject, new TestContext(testObject));
 
-            return ContextLookup[testObject];
+                return ContextLookup[testObject];
+            }
         }
 
         public static void ClearContextFor(object testObject)
         {
-            if (ContextLookup.ContainsKey(testObject))
-                ContextLookup.Remove(testObject);
+            lock (_dictionaryLock)
+            {
+                if (ContextLookup.ContainsKey(testObject))
+                    ContextLookup.Remove(testObject);
+            }
         }
 
         public ExampleTable Examples { get; set; }
