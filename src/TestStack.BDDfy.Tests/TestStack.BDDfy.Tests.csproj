@@ -70,6 +70,7 @@
     <Compile Include="Arguments\ArgumentsProvidedForGiven.cs" />
     <Compile Include="Arguments\ArgumentsProvidedForThen.cs" />
     <Compile Include="Arguments\MultipleArgumentsProvidedForTheSameStep.cs" />
+    <Compile Include="Concurrency\ParallelRunnerScenario.cs" />
     <Compile Include="Configuration\EmptyScenario.cs" />
     <Compile Include="Configuration\SequentialKeyGeneratorTests.cs" />
     <Compile Include="Configuration\StepExecutorTests.cs" />
@@ -192,6 +193,7 @@
     <Content Include="TagsTests.TagsAreReportedInHtmlReport.approved.txt" />
     <Content Include="TagsTests.TagsAreReportedInTextReport.approved.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
