@@ -1,0 +1,6 @@
+﻿
+Scenario: Fluent can be used with examples
+	Given method taking <example int a>
+	When empty method
+	Then all is good
+
