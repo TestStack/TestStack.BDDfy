@@ -45,6 +45,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         {
         }
 
+        // Ending an example name with a number seems to cause problems in BDDfy
         private void MethodTaking__ExampleInt1__(int exampleInt)
         {
             exampleInt.ShouldBeInRange(1, 2);
