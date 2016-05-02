@@ -87,6 +87,7 @@
     <Compile Include="Reporters\Html\TestableHtmlReporter.cs" />
     <Compile Include="Reporters\ReportApprover.cs" />
     <Compile Include="Scanner\Examples\ExampleActionTests.cs" />
+    <Compile Include="Scanner\Examples\FluentWithExamplesAtEnd.cs" />
     <Compile Include="Scanner\FluentScanner\ComplexStepsTests.cs" />
     <Compile Include="Scanner\FluentScanner\DoesNotConflictWithnSubstitute.cs" />
     <Compile Include="Scanner\Examples\FluentWithExamples.cs" />

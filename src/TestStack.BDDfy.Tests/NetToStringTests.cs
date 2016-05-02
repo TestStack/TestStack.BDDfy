@@ -1,3 +1,4 @@
+using System;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
@@ -55,6 +56,8 @@ namespace TestStack.BDDfy.Tests
         [Theory]
         [InlineData("GivenThereAre__start__Cucumbers", "Given there are <start> cucumbers")]
         [InlineData("Given_there_are__start__cucumbers", "Given there are <start> cucumbers")]
+        [InlineData("GivenThereAre__count1__Cucumbers", "Given there are <count 1> cucumbers")]
+        [InlineData("Given_there_are__count2__cucumbers", "Given there are <count2> cucumbers")] // The spacing rules for numbers are not consequential
         [InlineData("GivenMethodTaking__ExampleInt__", "Given method taking <example int>")]
         [InlineData("Given_method_taking__ExampleInt__", "Given method taking <ExampleInt>")]
         [InlineData("__starting__with_example", "<starting> with example")]
@@ -66,6 +69,17 @@ namespace TestStack.BDDfy.Tests
         public void CanDealWithExampleStepNames(string stepName, string expectedStepTitle)
         {
             NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
+        }
+
+        [Theory]
+        [InlineData("GivenThereAre__två__Cucumbers", "Given there are <två> cucumbers")]
+        public void ReportsIllegalExampleStepNames(string stepName, string expectedStepTitle) {
+            var exception = Record.Exception(() => {
+                NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
+            });
+
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentException>(exception);
         }
     }
 }
