@@ -49,11 +49,11 @@ namespace TestStack.BDDfy
             return false;
         }
 
-        public static readonly Func<string, string> Convert = name =>
-        {
-            if (name.Contains("__"))
-                return ExampleTitle(name);
+        public static readonly Func<string, string> Convert = name => {
+            return name.Contains("__") ? ExampleTitle(name) : ConvertNonExample(name);
+        };
 
+        private static readonly Func<string, string> ConvertNonExample = name => {
             if (name.Contains("_"))
                 return FromUnderscoreSeparatedWords(name);
 
@@ -62,11 +62,16 @@ namespace TestStack.BDDfy
 
         private static string ExampleTitle(string name)
         {
-            name = Regex.Replace(name, "__([a-zA-Z]+)__", " <$1> ");
+            // Compare contains("__") with a regex match
+            string newName = Regex.Replace(name, "__([a-zA-Z][a-zA-Z0-9]*)__", " <$1> ");
+
+            if (newName == name) {
+                throw new ArgumentException("Illegal example title in name '" + name + "'!");
+            }
 
             // for when there are two consequetive example placeholders in the word; e.g. Given__one____two__parameters
-            name = name.Replace("  ", " ");
-            return Convert(name).Trim();
+            newName = newName.Replace("  ", " ");
+            return Convert(newName).Trim();
         }
     }
 }
