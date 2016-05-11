@@ -17,6 +17,7 @@ This adds BDDfy assembly and its dependencies to your test project. If this is t
 
 Now that you have installed BDDfy, write your first test (this test is borrowed from ATM sample that you can install using nuget package TestStack.BDDfy.Samples):
 
+````csharp
     [Story(
         AsA = "As an Account Holder",
         IWant = "I want to withdraw cash from an ATM",
@@ -68,6 +69,7 @@ Now that you have installed BDDfy, write your first test (this test is borrowed 
     	    this.BDDfy();
     	}
     }
+````
 
 And this gives you a report like:
 
@@ -88,6 +90,7 @@ This is just the console report. Have a look at your output folder and you shoul
 
 If you want more control you can also use BDDfy's Fluent API. Here is another example done using the Fluent API:
 
+````csharp
 	[Fact]
 	public void CardHasBeenDisabled()
 	{
@@ -97,6 +100,7 @@ If you want more control you can also use BDDfy's Fluent API. Here is another ex
 	            .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
 	        .BDDfy(htmlReportName: "ATM");
 	}
+````
 
 which gives you a report like:
 
