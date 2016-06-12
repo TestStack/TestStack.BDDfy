@@ -1,7 +1,8 @@
-using System.Web.Script.Serialization;
-
 namespace TestStack.BDDfy.Reporters.Serializers
 {
+#if NET40
+    using System.Web.Script.Serialization;
+
     public class JsonSerializer : ISerializer
     {
         public string Serialize(object obj)
@@ -12,4 +13,23 @@ namespace TestStack.BDDfy.Reporters.Serializers
             return new JsonFormatter(json).Format();
         }
     }
+
+#else
+    using Newtonsoft.Json;
+
+    public class JsonSerializer : ISerializer
+    {
+        public string Serialize(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+        }
+    }
+
+#endif
+
 }

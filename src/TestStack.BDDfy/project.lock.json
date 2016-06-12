@@ -4,6 +4,33 @@
   "targets": {
     ".NETFramework,Version=v4.0": {},
     ".NETStandard,Version=v1.5": {
+      "Microsoft.CSharp/4.0.1-rc2-24027": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-rc2-24027",
+          "System.Diagnostics.Debug": "4.0.11-rc2-24027",
+          "System.Dynamic.Runtime": "4.0.11-rc2-24027",
+          "System.Globalization": "4.0.11-rc2-24027",
+          "System.Linq": "4.1.0-rc2-24027",
+          "System.Linq.Expressions": "4.0.11-rc2-24027",
+          "System.ObjectModel": "4.0.12-rc2-24027",
+          "System.Reflection": "4.1.0-rc2-24027",
+          "System.Reflection.Extensions": "4.0.1-rc2-24027",
+          "System.Reflection.Primitives": "4.0.1-rc2-24027",
+          "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
+          "System.Resources.ResourceManager": "4.0.1-rc2-24027",
+          "System.Runtime": "4.1.0-rc2-24027",
+          "System.Runtime.Extensions": "4.1.0-rc2-24027",
+          "System.Runtime.InteropServices": "4.1.0-rc2-24027",
+          "System.Threading": "4.0.11-rc2-24027"
+        },
+        "compile": {
+          "ref/netstandard1.0/Microsoft.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.CSharp.dll": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/1.0.1-rc2-24027": {
         "type": "package",
         "dependencies": {
@@ -84,6 +111,39 @@
           "System.Threading.Timer": "4.0.1-rc2-24027",
           "System.Xml.ReaderWriter": "4.0.11-rc2-24027",
           "System.Xml.XDocument": "4.0.11-rc2-24027"
+        }
+      },
+      "Newtonsoft.Json/9.0.1-beta1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1-rc2-24027",
+          "System.Collections": "4.0.11-rc2-24027",
+          "System.Diagnostics.Debug": "4.0.11-rc2-24027",
+          "System.Dynamic.Runtime": "4.0.11-rc2-24027",
+          "System.Globalization": "4.0.11-rc2-24027",
+          "System.IO": "4.1.0-rc2-24027",
+          "System.Linq": "4.1.0-rc2-24027",
+          "System.Linq.Expressions": "4.0.11-rc2-24027",
+          "System.ObjectModel": "4.0.12-rc2-24027",
+          "System.Reflection": "4.1.0-rc2-24027",
+          "System.Reflection.Extensions": "4.0.1-rc2-24027",
+          "System.Resources.ResourceManager": "4.0.1-rc2-24027",
+          "System.Runtime": "4.1.0-rc2-24027",
+          "System.Runtime.Extensions": "4.1.0-rc2-24027",
+          "System.Runtime.Serialization.Primitives": "4.1.1-rc2-24027",
+          "System.Text.Encoding": "4.0.11-rc2-24027",
+          "System.Text.Encoding.Extensions": "4.0.11-rc2-24027",
+          "System.Text.RegularExpressions": "4.0.12-rc2-24027",
+          "System.Threading": "4.0.11-rc2-24027",
+          "System.Threading.Tasks": "4.0.11-rc2-24027",
+          "System.Xml.ReaderWriter": "4.0.11-rc2-24027",
+          "System.Xml.XDocument": "4.0.11-rc2-24027"
+        },
+        "compile": {
+          "lib/netstandard1.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         }
       },
       "runtime.native.System/4.0.0-rc2-24027": {
@@ -205,6 +265,32 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Diagnostics.Tracing.dll": {}
+        }
+      },
+      "System.Dynamic.Runtime/4.0.11-rc2-24027": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-rc2-24027",
+          "System.Diagnostics.Debug": "4.0.11-rc2-24027",
+          "System.Globalization": "4.0.11-rc2-24027",
+          "System.Linq": "4.1.0-rc2-24027",
+          "System.Linq.Expressions": "4.0.11-rc2-24027",
+          "System.ObjectModel": "4.0.12-rc2-24027",
+          "System.Reflection": "4.1.0-rc2-24027",
+          "System.Reflection.Emit": "4.0.1-rc2-24027",
+          "System.Reflection.Emit.ILGeneration": "4.0.1-rc2-24027",
+          "System.Reflection.Primitives": "4.0.1-rc2-24027",
+          "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
+          "System.Resources.ResourceManager": "4.0.1-rc2-24027",
+          "System.Runtime": "4.1.0-rc2-24027",
+          "System.Runtime.Extensions": "4.1.0-rc2-24027",
+          "System.Threading": "4.0.11-rc2-24027"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Dynamic.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Dynamic.Runtime.dll": {}
         }
       },
       "System.Globalization/4.0.11-rc2-24027": {
@@ -646,6 +732,19 @@
           "lib/netstandard1.3/System.Runtime.Numerics.dll": {}
         }
       },
+      "System.Runtime.Serialization.Primitives/4.1.1-rc2-24027": {
+        "type": "package",
+        "dependencies": {
+          "System.Resources.ResourceManager": "4.0.1-rc2-24027",
+          "System.Runtime": "4.1.0-rc2-24027"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
+        }
+      },
       "System.Security.Cryptography.Algorithms/4.1.0-rc2-24027": {
         "type": "package",
         "dependencies": {
@@ -1017,6 +1116,62 @@
     }
   },
   "libraries": {
+    "Microsoft.CSharp/4.0.1-rc2-24027": {
+      "sha512": "P6MB1bNnyy4PizG4ewY0z2FP7R2kI3g/nB5qTF3rh75JXPekaJiDFPd+34uymg/5xtjllwCyM2RtVxaOhnRAPA==",
+      "type": "package",
+      "files": [
+        "Microsoft.CSharp.4.0.1-rc2-24027.nupkg.sha512",
+        "Microsoft.CSharp.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/Microsoft.CSharp.dll",
+        "lib/netstandard1.3/Microsoft.CSharp.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcore50/Microsoft.CSharp.dll",
+        "ref/netcore50/Microsoft.CSharp.xml",
+        "ref/netcore50/de/Microsoft.CSharp.xml",
+        "ref/netcore50/es/Microsoft.CSharp.xml",
+        "ref/netcore50/fr/Microsoft.CSharp.xml",
+        "ref/netcore50/it/Microsoft.CSharp.xml",
+        "ref/netcore50/ja/Microsoft.CSharp.xml",
+        "ref/netcore50/ko/Microsoft.CSharp.xml",
+        "ref/netcore50/ru/Microsoft.CSharp.xml",
+        "ref/netcore50/zh-hans/Microsoft.CSharp.xml",
+        "ref/netcore50/zh-hant/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/Microsoft.CSharp.dll",
+        "ref/netstandard1.0/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/de/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/es/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/fr/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/it/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ja/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ko/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ru/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/zh-hans/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/zh-hant/Microsoft.CSharp.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._"
+      ]
+    },
     "Microsoft.NETCore.Platforms/1.0.1-rc2-24027": {
       "sha512": "BIZpJMovdHgUbCrZR9suwwLpZMNehIkaFKiIb9X5+wPjXNHMSQ91ETSASAnEXERyU7+ptJAfJGqgr3Y9ly98MQ==",
       "type": "package",
@@ -1124,6 +1279,29 @@
         "NETStandard.Library.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt"
+      ]
+    },
+    "Newtonsoft.Json/9.0.1-beta1": {
+      "sha512": "eGdISZNV16lWnDPHjfgBVcoyihASk/zsoXLN3r2uZYnXisiTUWKF8Xmgza3EtEFOMbYTmjUqBEjjT7Lx7ilK/w==",
+      "type": "package",
+      "files": [
+        "Newtonsoft.Json.9.0.1-beta1.nupkg.sha512",
+        "Newtonsoft.Json.nuspec",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
+        "tools/install.ps1"
       ]
     },
     "runtime.native.System/4.0.0-rc2-24027": {
@@ -1612,6 +1790,74 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
+      ]
+    },
+    "System.Dynamic.Runtime/4.0.11-rc2-24027": {
+      "sha512": "ZbyJQ3UQSGiB5aotbYN3otZ7vrwimkG6dAN4YYAwH3YvP9X1zF5GHeHuSqX1uDq0hGX+vngi8s1oUKgWHAYYrQ==",
+      "type": "package",
+      "files": [
+        "System.Dynamic.Runtime.4.0.11-rc2-24027.nupkg.sha512",
+        "System.Dynamic.Runtime.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/System.Dynamic.Runtime.dll",
+        "lib/netstandard1.3/System.Dynamic.Runtime.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcore50/System.Dynamic.Runtime.dll",
+        "ref/netcore50/System.Dynamic.Runtime.xml",
+        "ref/netcore50/de/System.Dynamic.Runtime.xml",
+        "ref/netcore50/es/System.Dynamic.Runtime.xml",
+        "ref/netcore50/fr/System.Dynamic.Runtime.xml",
+        "ref/netcore50/it/System.Dynamic.Runtime.xml",
+        "ref/netcore50/ja/System.Dynamic.Runtime.xml",
+        "ref/netcore50/ko/System.Dynamic.Runtime.xml",
+        "ref/netcore50/ru/System.Dynamic.Runtime.xml",
+        "ref/netcore50/zh-hans/System.Dynamic.Runtime.xml",
+        "ref/netcore50/zh-hant/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/System.Dynamic.Runtime.dll",
+        "ref/netstandard1.0/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/de/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/es/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/fr/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/it/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/ja/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/ko/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/ru/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/zh-hans/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/zh-hant/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/System.Dynamic.Runtime.dll",
+        "ref/netstandard1.3/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/de/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/es/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/fr/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/it/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/ja/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/ko/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/ru/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/zh-hans/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/zh-hant/System.Dynamic.Runtime.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Dynamic.Runtime.dll"
       ]
     },
     "System.Globalization/4.0.11-rc2-24027": {
@@ -3147,6 +3393,76 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "System.Runtime.Serialization.Primitives/4.1.1-rc2-24027": {
+      "sha512": "CatEVkKtMZlBrsdboi2RNediIXkYaiKtseORboHASI96mYtlPvivmHr/nw+pKx7s7enaFvs5Ovfbc8uXs5Qt7Q==",
+      "type": "package",
+      "files": [
+        "System.Runtime.Serialization.Primitives.4.1.1-rc2-24027.nupkg.sha512",
+        "System.Runtime.Serialization.Primitives.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/net46/System.Runtime.Serialization.Primitives.dll",
+        "lib/netcore50/System.Runtime.Serialization.Primitives.dll",
+        "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/net46/System.Runtime.Serialization.Primitives.dll",
+        "ref/netcore50/System.Runtime.Serialization.Primitives.dll",
+        "ref/netcore50/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/de/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/es/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/fr/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/it/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/ja/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/ko/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/ru/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/zh-hans/System.Runtime.Serialization.Primitives.xml",
+        "ref/netcore50/zh-hant/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/System.Runtime.Serialization.Primitives.dll",
+        "ref/netstandard1.0/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/de/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/es/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/fr/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/it/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/ja/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/ko/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/ru/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/zh-hans/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.0/zh-hant/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/System.Runtime.Serialization.Primitives.dll",
+        "ref/netstandard1.3/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/de/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/es/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/fr/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/it/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/ja/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/ko/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/ru/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/zh-hans/System.Runtime.Serialization.Primitives.xml",
+        "ref/netstandard1.3/zh-hant/System.Runtime.Serialization.Primitives.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Runtime.Serialization.Primitives.dll"
+      ]
+    },
     "System.Security.Cryptography.Algorithms/4.1.0-rc2-24027": {
       "sha512": "oh/g+cyjJ7b1GpLmSHSPAv2o3juedBppGeumF25ELzsyINFCeOGpVOdUr15GLfTpNYHyYML0PCefIW6PrFH2XQ==",
       "type": "package",
@@ -3952,6 +4268,7 @@
     ],
     ".NETStandard,Version=v1.5": [
       "NETStandard.Library >= 1.5.0-rc2-24027",
+      "Newtonsoft.Json >= 9.0.1-beta1",
       "System.Linq.Expressions >= 4.0.11-rc2-24027",
       "System.Runtime.Extensions >= 4.1.0-rc2-24027"
     ]
