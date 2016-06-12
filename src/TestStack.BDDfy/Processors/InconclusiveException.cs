@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace TestStack.BDDfy.Processors
 {
@@ -14,10 +13,6 @@ namespace TestStack.BDDfy.Processors
         }
 
         public InconclusiveException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected InconclusiveException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

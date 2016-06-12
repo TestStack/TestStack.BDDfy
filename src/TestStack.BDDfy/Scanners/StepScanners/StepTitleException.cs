@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Serialization;
 
 namespace TestStack.BDDfy
 {
@@ -14,11 +13,6 @@ namespace TestStack.BDDfy
         }
 
         public StepTitleException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected StepTitleException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }
