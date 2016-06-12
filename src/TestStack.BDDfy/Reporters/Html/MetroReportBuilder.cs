@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
-using System.Web;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Reporters.Html
@@ -202,7 +202,7 @@ namespace TestStack.BDDfy.Reporters.Html
             var firstScenario = scenarioGroup.First();
             var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
 
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenarioResult, firstScenario.Id, HttpUtility.HtmlEncode(firstScenario.Title), FormatTags(firstScenario.Tags)));
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenarioResult, firstScenario.Id, WebUtility.HtmlEncode(firstScenario.Title), FormatTags(firstScenario.Tags)));
 
             using (OpenTag(string.Format("<ul class='steps' id='{0}'>", firstScenario.Id), HtmlTag.ul))
             {
@@ -210,7 +210,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 {
                     using (OpenTag(string.Format("<li class='step {0}'>", step.ExecutionOrder), HtmlTag.li))
                     {
-                        var titleLines = HttpUtility.HtmlEncode(step.Title)
+                        var titleLines = WebUtility.HtmlEncode(step.Title)
                             .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
                         var title = titleLines[0];
 
@@ -262,7 +262,7 @@ namespace TestStack.BDDfy.Reporters.Html
             {
                 AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
                 foreach (var exampleValue in scenario.Example.Values)
-                    AddLine(string.Format("<td>{0}</td>", HttpUtility.HtmlEncode(exampleValue.GetValueAsString())));
+                    AddLine(string.Format("<td>{0}</td>", WebUtility.HtmlEncode(exampleValue.GetValueAsString())));
 
                 if (scenarioResult != Result.Failed)
                     return;
@@ -275,7 +275,7 @@ namespace TestStack.BDDfy.Reporters.Html
                         return;
 
                     var exceptionId = Configurator.IdGenerator.GetStepId();
-                    var encodedExceptionMessage = HttpUtility.HtmlEncode(failingStep.Exception.Message);
+                    var encodedExceptionMessage = WebUtility.HtmlEncode(failingStep.Exception.Message);
                     AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, encodedExceptionMessage));
                     using (OpenTag(string.Format("<div class='step FailedException' id='{0}'>", exceptionId), HtmlTag.div))
                     {
@@ -287,7 +287,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void AddScenario(ReportModel.Scenario scenario)
         {
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, HttpUtility.HtmlEncode(scenario.Title), FormatTags(scenario.Tags)));
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, WebUtility.HtmlEncode(scenario.Title), FormatTags(scenario.Tags)));
 
             using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
             {
