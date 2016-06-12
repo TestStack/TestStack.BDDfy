@@ -46,7 +46,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 EmbedCssFile(HtmlReportResources.classic_css_min);
                 EmbedCssFile(_model.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
 
-                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _model.RunDate.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern)));
+                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _model.RunDate.AsShortDateTimeString()));
             }
         }
 

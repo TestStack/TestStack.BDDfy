@@ -56,7 +56,7 @@ namespace TestStack.BDDfy.Processors
         //http://stackoverflow.com/questions/520290/how-can-i-get-the-default-value-of-a-type-in-a-non-generic-way
         static object DefaultValue(Type myType)
         {
-            return !myType.IsValueType ? null : Activator.CreateInstance(myType);
+            return !myType.IsValueType() ? null : Activator.CreateInstance(myType);
         }
 
         public ExceptionProcessor() : this(BestGuessInconclusiveAssertion)

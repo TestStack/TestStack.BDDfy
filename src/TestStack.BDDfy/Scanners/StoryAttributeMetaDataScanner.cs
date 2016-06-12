@@ -46,7 +46,7 @@ namespace TestStack.BDDfy
 
             var scenarioType = testObject.GetType();
             // This is assuming scenario and story live in the same assembly
-            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
+            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly() == scenarioType.Assembly());
             if (firstFrame == null)
                 return null;
 

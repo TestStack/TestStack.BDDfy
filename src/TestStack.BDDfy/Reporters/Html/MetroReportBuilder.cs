@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 EmbedCssFile(HtmlReportResources.metro_css_min);
                 EmbedCssFile(_model.CustomStylesheet, HtmlReportResources.CustomStylesheetComment);
                 AddLine("<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>");
-                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _model.RunDate.ToShortDateString()));
+                AddLine(string.Format("<title>BDDfy Test Result {0}</title>", _model.RunDate.AsShortDateTimeString()));
             }
         }
 

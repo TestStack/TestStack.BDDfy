@@ -34,7 +34,7 @@ namespace TestStack.BDDfy
             var stringValue = _underlyingValue as string;
             if (_underlyingValue == null)
             {
-                if (targetType.IsValueType && !(targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>)))
+                if (targetType.IsValueType() && !(targetType.IsGenericType() && targetType.GetGenericTypeDefinition() == typeof(Nullable<>)))
                 {
                     var valueAsString = string.IsNullOrEmpty(stringValue) ? "<null>" : string.Format("\"{0}\"", _underlyingValue);
                     throw new ArgumentException(string.Format("Cannot convert {0} to {1} (Column: '{2}', Row: {3})", valueAsString, targetType.Name, Header, Row));
@@ -48,7 +48,7 @@ namespace TestStack.BDDfy
             if (targetType.IsInstanceOfType(_underlyingValue))
                 return _underlyingValue;
 
-            if (targetType.IsEnum && _underlyingValue is string)
+            if (targetType.IsEnum() && _underlyingValue is string)
                 return Enum.Parse(targetType, (string)_underlyingValue);
 
             if (targetType == typeof(DateTime))

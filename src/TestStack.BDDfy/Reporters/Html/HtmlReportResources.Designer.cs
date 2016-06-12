@@ -38,7 +38,7 @@ namespace TestStack.BDDfy.Reporters.Html {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestStack.BDDfy.HtmlReportResources", typeof(HtmlReportResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TestStack.BDDfy.HtmlReportResources", typeof(HtmlReportResources).Assembly());
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -64,7 +64,7 @@ namespace TestStack.BDDfy
 
         private string AppendPrefix(string title, string stepPrefix)
         {
-            if (!title.StartsWith(stepPrefix, StringComparison.InvariantCultureIgnoreCase))
+            if (!title.ToLower().StartsWith(stepPrefix.ToLower()))
             {
                 if (title.Length == 0)
                     return string.Format("{0} ", stepPrefix);

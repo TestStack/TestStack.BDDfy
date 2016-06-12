@@ -91,7 +91,7 @@ namespace TestStack.BDDfy
             if (name == null)
                 return false;
 
-            return Sanitise(name).Equals(Sanitise(header), StringComparison.InvariantCultureIgnoreCase);
+            return Sanitise(name).ToLower().Equals(Sanitise(header).ToLower());
         }
 
         private static string Sanitise(string value)
