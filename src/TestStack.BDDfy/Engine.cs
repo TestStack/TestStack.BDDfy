@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 
@@ -11,10 +10,16 @@ namespace TestStack.BDDfy
 
         static Engine()
         {
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomain_DomainUnload;
+#if APPDOMAIN
+            System.AppDomain.CurrentDomain.DomainUnload += (sender, e) => {
+                InvokeBatchProcessors();
+            };
+#else
+            System.Runtime.Loader.AssemblyLoadContext.Default.Unloading += context => InvokeBatchProcessors();
+#endif
         }
 
-        static void CurrentDomain_DomainUnload(object sender, EventArgs e)
+        static void InvokeBatchProcessors()
         {
             foreach (var batchProcessor in Configurator.BatchProcessors.GetProcessors())
             {

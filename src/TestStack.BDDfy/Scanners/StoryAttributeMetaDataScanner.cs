@@ -39,11 +39,23 @@ namespace TestStack.BDDfy
             if (explicitStoryType != null)
                 return explicitStoryType;
 
-            var stackTrace = new StackTrace();
+            // ReSharper disable once JoinDeclarationAndInitializer
+            StackTrace stackTrace;
+#if STACKTRACE
+            stackTrace = new StackTrace();
+#else
+            try
+            {
+                throw new Exception();
+            }
+            catch (Exception e)
+            {
+                stackTrace = new StackTrace(e, false);
+            }
+#endif
             var frames = stackTrace.GetFrames();
             if (frames == null)
                 return null;
-
             var scenarioType = testObject.GetType();
             // This is assuming scenario and story live in the same assembly
             var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly() == scenarioType.Assembly());
