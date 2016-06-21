@@ -1,6 +1,6 @@
-﻿using System;
+﻿#if Approvals
+using System;
 using System.Linq;
-using ApprovalTests;
 using Shouldly;
 using Xunit;
 
@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
                 {3, 4}
             };
 
-            Approvals.Verify(table.ToString());
+            table.ToString().ShouldMatchApproved();
         }
 
         [Fact]
@@ -51,7 +51,9 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
                 {3, 4}
             };
 
-            Approvals.Verify(table.ToString(new[] {"Additional"}, new[] {new[] {"SomeAdditional Value"}}));
+            table.ToString(new[] {"Additional"}, new[] {new[] {"SomeAdditional Value"}})
+                .ShouldMatchApproved();
         }
     }
 }
+#endif

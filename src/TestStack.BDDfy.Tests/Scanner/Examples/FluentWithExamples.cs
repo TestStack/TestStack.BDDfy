@@ -1,5 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using ApprovalTests;
+﻿#if Approvals
+using System.Runtime.CompilerServices;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
@@ -28,7 +28,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
 
             var textReporter = new TextReporter();
             textReporter.Process(story);
-            Approvals.Verify(textReporter.ToString());
+            textReporter.ToString().ShouldMatchApproved();
         }
 
         private void GivenIntWithValue(int differentName)
@@ -49,7 +49,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
 
             var textReporter = new TextReporter();
             textReporter.Process(story);
-            Approvals.Verify(textReporter.ToString());
+            textReporter.ToString().ShouldMatchApproved();
         }
 
         [Fact]
@@ -107,3 +107,4 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         public ExecutionOrder Prop_3 { get; set; }
     }
 }
+#endif

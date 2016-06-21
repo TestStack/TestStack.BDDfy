@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿#if NSubstitute
+using NSubstitute;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Serializers;
@@ -22,3 +23,4 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
         }
     }
 }
+#endif

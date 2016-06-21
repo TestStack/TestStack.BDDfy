@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NSubstitute
+using System;
 using System.Collections.Generic;
 using NSubstitute;
 using TestStack.BDDfy.Reporters;
@@ -46,3 +47,4 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
         }
     }
 }
+#endif

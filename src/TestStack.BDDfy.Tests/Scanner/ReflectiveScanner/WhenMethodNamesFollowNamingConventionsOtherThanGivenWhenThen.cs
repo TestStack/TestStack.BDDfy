@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
@@ -75,8 +76,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void TheCorrectSpecificationStepsAreFound()
         {
-            AssertSpecificationStepIsScannedProperly(_scenario.SpecificationAppearingInTheBeginningOfTheMethodName);
-            AssertSpecificationStepIsScannedProperly(_scenario.AppearingAtTheEndOfTheMethodNameSpecification);
+            AssertSpecificationStepIsScannedProperly(() => _scenario.SpecificationAppearingInTheBeginningOfTheMethodName());
+            AssertSpecificationStepIsScannedProperly(() => _scenario.AppearingAtTheEndOfTheMethodNameSpecification());
         }
 
         [Fact]
@@ -86,7 +87,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             specMethod.ShouldBeEmpty();
         }
 
-        void AssertSpecificationStepIsScannedProperly(Action getSpecMethod)
+        void AssertSpecificationStepIsScannedProperly(Expression<Action> getSpecMethod)
         {
             var specMethods = _steps.Where(s => s.Title.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
             specMethods.Count().ShouldBe(1);

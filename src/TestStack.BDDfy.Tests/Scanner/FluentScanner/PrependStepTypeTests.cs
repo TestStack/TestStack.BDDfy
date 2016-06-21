@@ -1,5 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using ApprovalTests;
+﻿#if Approvals
+using System.Runtime.CompilerServices;
+using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
             var textReporter = new TextReporter();
             textReporter.Process(story);
-            Approvals.Verify(textReporter.ToString());
+            textReporter.ToString().ShouldMatchApproved();
         }
 
         private void GivenAStepWithGivenInIt()
@@ -74,3 +75,4 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
     }
 }
+#endif

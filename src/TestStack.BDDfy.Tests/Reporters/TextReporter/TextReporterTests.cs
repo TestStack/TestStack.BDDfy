@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#if Approvals
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-using ApprovalTests;
-using ApprovalTests.Utilities;
+using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
 
@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
+            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(StackTraceScrubber.ScrubStackTrace));
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
+            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(StackTraceScrubber.ScrubStackTrace));
         }
 
         [Fact]
@@ -61,7 +61,8 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 scenario));
             var actual = new StringBuilder();
             actual.AppendLine(textReporter.ToString());
-            Approvals.Verify(actual.ToString(), StackTraceScrubber.ScrubStackTrace);
+            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(StackTraceScrubber.ScrubStackTrace));
         }
     }
 }
+#endif
