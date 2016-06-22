@@ -77,7 +77,7 @@ namespace TestStack.BDDfy.Tests
                 NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
             });
 
-            exception.ShouldBeNull();
+            exception.ShouldNotBeNull();
             exception.ShouldBeOfType<ArgumentException>();
         }
     }

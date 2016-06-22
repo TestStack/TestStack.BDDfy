@@ -16,7 +16,9 @@ namespace TestStack.BDDfy.Tests.Reporters
             using (new TemporaryCulture("en-GB"))
             {
                 var result = reportBuilder.CreateReport(model);
-                result.ShouldMatchApproved(c => c.WithScrubber(s => StackTraceScrubber.ScrubLineNumbers(StackTraceScrubber.ScrubPaths(s))));
+                result.ShouldMatchApproved(c => c
+                    .WithScrubber(s => StackTraceScrubber.ScrubLineNumbers(StackTraceScrubber.ScrubPaths(s)))
+                    .UseCallerLocation());
             }
         }
 

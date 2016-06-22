@@ -3,6 +3,9 @@
     "packOptions": {
     },
 
+    "buildOptions": {
+        "embed": "**/Scripts/*.*"
+    },
     "dependencies": {
 
     },
