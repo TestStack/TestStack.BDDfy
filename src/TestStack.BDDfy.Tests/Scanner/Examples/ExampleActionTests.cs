@@ -1,4 +1,4 @@
-﻿using ApprovalTests;
+﻿#if Approvals
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
 
             var textReporter = new TextReporter();
             textReporter.Process(story);
-            Approvals.Verify(textReporter.ToString());
+            textReporter.ToString().ShouldMatchApproved();
         }
 
         private void ShouldBe(int i)
@@ -41,3 +41,4 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         }
     }
 }
+#endif

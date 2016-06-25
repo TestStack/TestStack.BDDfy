@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -36,12 +37,23 @@ namespace TestStack.BDDfy
 
         private static string GetTitleFromMethodNameInStackTrace(object testObject)
         {
-            var trace = new StackTrace();
+            // ReSharper disable once JoinDeclarationAndInitializer
+            StackTrace trace;
+#if STACKTRACE
+            trace = new StackTrace();
+#else
+            try
+            {
+                throw new Exception();
+            }
+            catch (Exception e)
+            {
+                trace = new StackTrace(e, false);
+            }
+#endif
             var frames = trace.GetFrames();
-            if (frames == null)
-                return null;
 
-            var initiatingFrame = frames.LastOrDefault(s => s.GetMethod().DeclaringType == testObject.GetType());
+            var initiatingFrame = frames?.LastOrDefault(s => s.GetMethod().DeclaringType == testObject.GetType());
             if (initiatingFrame == null)
                 return null;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
@@ -77,52 +78,52 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void GivenStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.Given, ExecutionOrder.SetupState);
+            VerifyStepAndItsProperties(() => _sut.Given(), ExecutionOrder.SetupState);
         }
 
         [Fact]
         public void ExecutableAttributesHaveHigherPriorityThanNamingConventions()
         {
-            VerifyStepAndItsProperties(_sut.ThenThisMethodIsFoundAsAGivenStepNotThenStep, ExecutionOrder.ConsecutiveSetupState);
+            VerifyStepAndItsProperties(() => _sut.ThenThisMethodIsFoundAsAGivenStepNotThenStep(), ExecutionOrder.ConsecutiveSetupState);
         }
 
         [Fact]
         public void WhenStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.When, ExecutionOrder.Transition);
+            VerifyStepAndItsProperties(() => _sut.When(), ExecutionOrder.Transition);
         }
 
         [Fact]
         public void LegacyTransitionStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.LegacyTransitionMethod, ExecutionOrder.ConsecutiveTransition);
+            VerifyStepAndItsProperties(() => _sut.LegacyTransitionMethod(), ExecutionOrder.ConsecutiveTransition);
         }
 
         [Fact]
         public void ThenStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.Then, ExecutionOrder.Assertion);
+            VerifyStepAndItsProperties(() => _sut.Then(), ExecutionOrder.Assertion);
         }
 
         [Fact]
         public void AndThenStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.AndThen, ExecutionOrder.ConsecutiveAssertion);
+            VerifyStepAndItsProperties(() => _sut.AndThen(), ExecutionOrder.ConsecutiveAssertion);
         }
 
         [Fact]
         public void LegacyAssertionStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.TestThatSomethingIsRight, ExecutionOrder.Assertion);
+            VerifyStepAndItsProperties(() => _sut.TestThatSomethingIsRight(), ExecutionOrder.Assertion);
         }
 
         [Fact]
         public void LegacyConsecutiveAssertionStepIsScanned()
         {
-            VerifyStepAndItsProperties(_sut.TestThatSomethingIsWrong, ExecutionOrder.ConsecutiveAssertion);
+            VerifyStepAndItsProperties(() => _sut.TestThatSomethingIsWrong(), ExecutionOrder.ConsecutiveAssertion);
         }
 
-        void VerifyStepAndItsProperties(Action stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
+        void VerifyStepAndItsProperties(Expression<Action> stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
         {
             var matchingSteps = _scenario.Steps.Where(s => s.Title.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
             matchingSteps.Count().ShouldBe(expectedCount);
@@ -132,7 +133,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void IgnoredMethodShouldNotBeAddedToSteps()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(_sut.ThenIAmNotAStep).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(() => _sut.ThenIAmNotAStep()).Name));
             matchingSteps.ShouldBeEmpty();
         }
     }

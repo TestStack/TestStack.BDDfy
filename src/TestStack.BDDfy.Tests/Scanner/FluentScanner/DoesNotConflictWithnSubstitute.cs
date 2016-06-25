@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿#if NSubstitute
+using NSubstitute;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
@@ -34,3 +35,4 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
     }
 }
+#endif

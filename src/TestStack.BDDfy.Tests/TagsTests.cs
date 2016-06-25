@@ -1,6 +1,7 @@
-﻿using System;
+﻿#if Approvals
+using System;
+using Shouldly;
 using System.Runtime.CompilerServices;
-using ApprovalTests;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
@@ -22,7 +23,7 @@ namespace TestStack.BDDfy.Tests
             var textReporter = new TextReporter();
             textReporter.Process(story);
 
-            Approvals.Verify(textReporter.ToString());
+            textReporter.ToString().ShouldMatchApproved();
         }
 
         [Fact]
@@ -76,3 +77,4 @@ namespace TestStack.BDDfy.Tests
         }
     }
 }
+#endif

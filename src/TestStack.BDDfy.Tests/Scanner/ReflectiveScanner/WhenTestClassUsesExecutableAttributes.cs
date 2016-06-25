@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
@@ -65,7 +66,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             _steps = new ExecutableAttributeStepScanner().Scan(TestContext.GetContext(_typeWithAttribute)).ToList();
         }
 
-        private static string GetStepTextFromMethodName(Action methodInfoAction)
+        private static string GetStepTextFromMethodName(Expression<Action> methodInfoAction)
         {
             return Configurator.Scanners.Humanize(Helpers.GetMethodInfo(methodInfoAction).Name);
         }
@@ -82,7 +83,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var givenStep = _steps.Single(s => s.Title == "Given"); 
             givenStep.ExecutionOrder.ShouldBe(ExecutionOrder.SetupState);
             givenStep.Asserts.ShouldBe(false);
-            givenStep.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.Given));
+            givenStep.Title.Trim().ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.Given()));
         }
 
         [Fact]
@@ -91,7 +92,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var step = _steps.Single(s => s.Title.Trim() == "Some other part of the given");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
             step.Asserts.ShouldBe(false);
-            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.SomeOtherPartOfTheGiven));
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.SomeOtherPartOfTheGiven()));
         }
 
         [Fact]
@@ -100,7 +101,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var step = _steps.Single(s => s.Title.Trim() == "Setup should avoid somethings");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
             step.Asserts.ShouldBe(false);
-            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.SetupShouldAvoidSomethings));
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.SetupShouldAvoidSomethings()));
         }
 
         [Fact]
@@ -117,7 +118,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         {
             var step = _steps.Single(s => s.Title.Trim() == "The other part of when");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
-            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.TheOtherPartOfWhen));
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.TheOtherPartOfWhen()));
             step.Asserts.ShouldBe(false);
         }
 
@@ -126,7 +127,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         {
             var step = _steps.Single(s => s.Title.Trim() == "And something has not happened");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
-            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(_typeWithAttribute.AndSomethingHasNotHappened));
+            step.Title.Trim().ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.AndSomethingHasNotHappened()));
             step.Asserts.ShouldBe(false);
         }
 

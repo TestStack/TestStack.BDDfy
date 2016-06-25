@@ -1,0 +1,41 @@
+﻿{
+    "version": "1.0.0-*",
+    "testRunner": "xunit",
+
+    "dependencies": {
+        "Shouldly": "2.8.0",
+        "dotnet-test-xunit": "1.0.0-rc3-build10019",
+        "xunit.core": "2.1.0",
+        "TestStack.BDDfy": {
+            "target": "project"
+        }
+    },
+
+    "frameworks": {
+        //"netcoreapp1.0": {
+        //    "dependencies": {
+        //        "Microsoft.NETCore.App": {
+        //            "type": "platform",
+        //            "version": "1.0.0-rc2-3002702"
+        //        }
+        //    },
+        //    "imports": [
+        //        "dnxcore50",
+        //        "portable-net45+win8"
+        //    ]
+        //},
+        "net46": {
+            "dependencies": {
+                "Microsoft.NETCore.Platforms": "1.0.1-rc2-24027",
+                "NSubstitute": "1.10.0"
+            },
+            "buildOptions": {
+                "define": [
+                    "Approvals",
+                    "Culture",
+                    "NSubstitute"
+                ]
+            }
+        }
+    }
+}

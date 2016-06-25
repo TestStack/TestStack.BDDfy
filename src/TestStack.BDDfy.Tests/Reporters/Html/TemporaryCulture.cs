@@ -1,3 +1,4 @@
+#if Culture
 using System;
 using System.Globalization;
 using System.Threading;
@@ -19,3 +20,4 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         }
     }
 }
+#endif

@@ -2,7 +2,6 @@ using System;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
-using Xunit.Extensions;
 
 namespace TestStack.BDDfy.Tests
 {
@@ -78,8 +77,8 @@ namespace TestStack.BDDfy.Tests
                 NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
             });
 
-            Assert.NotNull(exception);
-            Assert.IsType<ArgumentException>(exception);
+            exception.ShouldNotBeNull();
+            exception.ShouldBeOfType<ArgumentException>();
         }
     }
 }
