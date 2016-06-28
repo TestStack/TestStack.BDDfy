@@ -6,10 +6,10 @@
     "buildOptions": {
         "embed": "**/Scripts/*.*"
     },
-  "dependencies": {
-    "NETStandard.Library": "1.6.0",
-    "Newtonsoft.Json": "9.0.1"
-  },
+    "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "Newtonsoft.Json": "9.0.1"
+    },
 
     "frameworks": {
         "net40": {
@@ -29,15 +29,15 @@
         },
         "netstandard1.5": {
             "imports": "dnxcore50",
-          "dependencies": {
-            "System.Reflection.TypeExtensions": "4.1.0",
-            "System.Runtime.Loader": "4.0.0",
-            "System.Threading.ThreadPool": "4.0.10",
-            "System.Linq.Expressions": "4.1.0",
-            "System.Reflection": "4.1.0",
-            "System.Runtime.Extensions": "4.1.0",
-            "System.Diagnostics.StackTrace": "4.0.1"
-          }
+            "dependencies": {
+                "System.Reflection.TypeExtensions": "4.1.0",
+                "System.Runtime.Loader": "4.0.0",
+                "System.Threading.ThreadPool": "4.0.10",
+                "System.Linq.Expressions": "4.1.0",
+                "System.Reflection": "4.1.0",
+                "System.Runtime.Extensions": "4.1.0",
+                "System.Diagnostics.StackTrace": "4.0.1"
+            }
         }
     }
 }
