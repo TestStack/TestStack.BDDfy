@@ -38,6 +38,7 @@ namespace TestStack.BDDfy
     }
 
 #else
+using System.Linq;
     public static class TypeExtensions
     {
         public static Assembly Assembly(this Type type)
@@ -48,7 +49,10 @@ namespace TestStack.BDDfy
 
         public static object[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
         {
-            return type.GetCustomAttributes(attributeType, inherit);
+            return type.GetTypeInfo()
+                .GetCustomAttributes(attributeType, inherit)
+                .Cast<object>()
+                .ToArray();
         }
 
         public static bool IsEnum(this Type type)
