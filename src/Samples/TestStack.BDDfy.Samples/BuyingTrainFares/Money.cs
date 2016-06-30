@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Samples.BuyingTrainFares
 
         public override string ToString()
         {
-            return Amount.ToString("C", CultureInfo.CreateSpecificCulture("EN-US"));
+            return Amount.ToString("C", new CultureInfo("EN-US"));
         }
     }
 }

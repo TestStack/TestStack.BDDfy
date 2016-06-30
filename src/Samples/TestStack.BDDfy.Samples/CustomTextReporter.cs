@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace TestStack.BDDfy.Samples
@@ -17,7 +18,7 @@ namespace TestStack.BDDfy.Samples
         {
             get
             {
-                string codeBase = typeof(CustomTextReporter).Assembly.CodeBase;
+                string codeBase = typeof(CustomTextReporter).GetTypeInfo().Assembly.CodeBase;
                 var uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return System.IO.Path.GetDirectoryName(path);
