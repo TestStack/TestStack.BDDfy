@@ -39,20 +39,9 @@ namespace TestStack.BDDfy
             if (explicitStoryType != null)
                 return explicitStoryType;
 
-            // ReSharper disable once JoinDeclarationAndInitializer
-            StackTrace stackTrace;
 #if STACKTRACE
-            stackTrace = new StackTrace();
-#else
-            try
-            {
-                throw new Exception();
-            }
-            catch (Exception e)
-            {
-                stackTrace = new StackTrace(e, false);
-            }
-#endif
+            StackTrace stackTrace = new StackTrace();
+
             var frames = stackTrace.GetFrames();
             if (frames == null)
                 return null;
@@ -63,6 +52,8 @@ namespace TestStack.BDDfy
                 return null;
 
             return firstFrame.GetMethod().DeclaringType;
+#endif
+            return null;
         }
 
         static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)

@@ -14,12 +14,13 @@ namespace TestStack.BDDfy.Tests.Stories
         public void ScanningAScenarioWithoutArgsFromAStoryClass()
         {
             var testObject = new DummyScenario();
-            var scanner = new DefaultScanner(TestContext.GetContext(testObject), new ReflectiveScenarioScanner(new DefaultMethodNameStepScanner()));
+            var scanner = new DefaultScanner(TestContext.GetContext(testObject), new ReflectiveScenarioScanner(new DefaultMethodNameStepScanner()), typeof(StoryDouble));
             var story = scanner.Scan();
 
             story.Metadata.Type.ShouldBe(typeof(StoryDouble));
             story.Scenarios.Count().ShouldBe(1);
             story.Scenarios.Single().TestObject.ShouldBeAssignableTo<DummyScenario>();
+
         }
     }
 }
