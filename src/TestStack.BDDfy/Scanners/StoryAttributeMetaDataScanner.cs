@@ -52,8 +52,9 @@ namespace TestStack.BDDfy
                 return null;
 
             return firstFrame.GetMethod().DeclaringType;
-#endif
+#else
             return null;
+#endif
         }
 
         static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)

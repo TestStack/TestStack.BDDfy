@@ -1,13 +1,12 @@
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
     public static class BDDfyExtensions
     {
-#if StackTrace
+#if STACKTRACE
         /// <summary>
         /// Extension method to BDDfy an object instance.
         /// </summary>
@@ -51,12 +50,12 @@ namespace TestStack.BDDfy
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="caller">Caller (populated by [CallerMemberName])</param>
         /// <returns></returns>
-        public static Story BDDfy(this object testObject, string scenarioTitle = null, [CallerMemberName] string caller = null)
+        public static Story BDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller)).Run();
         }
 
-        public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null, [CallerMemberName] string caller = null)
+        public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller));
         }
@@ -69,13 +68,13 @@ namespace TestStack.BDDfy
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="caller">Caller (populated by [CallerMemberName])</param>
         /// <returns></returns>
-        public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null, [CallerMemberName] string caller = null)
+        public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
             where TStory : class
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory)).Run();
         }
 
-        public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [CallerMemberName] string caller = null)
+        public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
             where TStory : class
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory));

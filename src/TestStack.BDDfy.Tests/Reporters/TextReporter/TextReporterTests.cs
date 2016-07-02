@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(StackTraceScrubber.ScrubStackTrace));
+            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(ReportApprover.Scrub));
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 actual.AppendLine(textReporter.ToString());
             }
 
-            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(StackTraceScrubber.ScrubStackTrace));
+            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(ReportApprover.Scrub));
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 scenario));
             var actual = new StringBuilder();
             actual.AppendLine(textReporter.ToString());
-            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(StackTraceScrubber.ScrubStackTrace));
+            actual.ToString().ShouldMatchApproved(c => c.WithScrubber(ReportApprover.Scrub));
         }
     }
 }

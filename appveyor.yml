@@ -1,21 +1,17 @@
-install:
-  - choco install gitversion.portable -pre -y
-  
+assembly_info:
+  patch: false
+
 platform:
   - Any CPU
 
 configuration:
   - Release
 
-assembly_info:
-  patch: false
+build_script:
+  - ps: .\build.ps1
 
-before_build:
-  - nuget restore src\
-  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
-
-build:
-  project: src\TestStack.BDDfy.sln
+test: off
+skip_tags: true
 
 after_build:
   - cmd: nuget pack src\TestStack.BDDfy\TestStack.BDDfy.nuspec -BasePath src\TestStack.BDDfy\ -version "%GitVersion_NuGetVersion%" -prop "configuration=%CONFIGURATION%"

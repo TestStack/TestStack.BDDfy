@@ -30,7 +30,7 @@ namespace TestStack.BDDfy.Tests
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInHtmlReport()
         {
-            var model = new HtmlReportModel(this.CreateReportModel())            {
+            var model = new HtmlReportModel(this.CreateReportModel()) {
                 RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
             };
 
