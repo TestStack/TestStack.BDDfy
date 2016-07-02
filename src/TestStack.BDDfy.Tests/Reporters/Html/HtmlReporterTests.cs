@@ -1,5 +1,4 @@
-﻿#if NSubstitute
-using System;
+﻿using System;
 using System.Collections.Generic;
 using NSubstitute;
 using Shouldly;
@@ -100,4 +99,3 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         }
     }
 }
-#endif

@@ -1,4 +1,3 @@
-#if NSubstitute
 using NSubstitute;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
@@ -31,4 +30,3 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         }
     }
 }
-#endif
