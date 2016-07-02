@@ -1,35 +1,22 @@
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
+
 namespace TestStack.BDDfy.Reporters.Serializers
 {
-#if NET40
-    using System.Web.Script.Serialization;
-
     public class JsonSerializer : ISerializer
     {
         public string Serialize(object obj)
         {
-            var serializer = new JavaScriptSerializer();
-            string json = serializer.Serialize(obj);
+            var serializer = new DataContractJsonSerializer(obj.GetType());
+            string json;
+            using (var stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, obj);
+                json = Encoding.UTF8.GetString(stream.ToArray());
+            }
 
             return new JsonFormatter(json).Format();
         }
     }
-
-#else
-    using Newtonsoft.Json;
-
-    public class JsonSerializer : ISerializer
-    {
-        public string Serialize(object obj)
-        {
-            return JsonConvert.SerializeObject(obj, Formatting.Indented,
-                new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-        }
-    }
-
-#endif
-
 }
