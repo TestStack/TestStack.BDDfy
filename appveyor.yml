@@ -13,12 +13,5 @@ build_script:
 test: off
 skip_tags: true
 
-after_build:
-  - cmd: nuget pack src\TestStack.BDDfy\TestStack.BDDfy.nuspec -BasePath src\TestStack.BDDfy\ -version "%GitVersion_NuGetVersion%" -prop "configuration=%CONFIGURATION%"
-  - cmd: appveyor PushArtifact "TestStack.BDDfy.%GitVersion_NuGetVersion%.nupkg"
-
-  - cmd: 7z a "TestStack.BDDfy_%GitVersion_NuGetVersion%.zip" -r src\TestStack.BDDfy\bin\%CONFIGURATION%\*.*
-  - cmd: appveyor PushArtifact "TestStack.BDDfy_%GitVersion_NuGetVersion%.zip"
-
 cache:
   - src\packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
