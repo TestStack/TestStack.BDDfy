@@ -20,7 +20,7 @@ namespace TestStack.BDDfy.Reporters.Writers
         {
             get
             {
-                string codeBase = typeof(DiagnosticsReporter).Assembly.CodeBase;
+                string codeBase = typeof(DiagnosticsReporter).Assembly().CodeBase;
                 var uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);

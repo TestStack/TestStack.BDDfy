@@ -1,6 +1,7 @@
-﻿using System;
+﻿#if Approvals
+using System;
+using Shouldly;
 using System.Runtime.CompilerServices;
-using ApprovalTests;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
@@ -22,14 +23,14 @@ namespace TestStack.BDDfy.Tests
             var textReporter = new TextReporter();
             textReporter.Process(story);
 
-            Approvals.Verify(textReporter.ToString());
+            textReporter.ToString().ShouldMatchApproved();
         }
 
         [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void TagsAreReportedInHtmlReport()
         {
-            var model = new HtmlReportModel(this.CreateReportModel())            {
+            var model = new HtmlReportModel(this.CreateReportModel()) {
                 RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
             };
 
@@ -76,3 +77,4 @@ namespace TestStack.BDDfy.Tests
         }
     }
 }
+#endif

@@ -16,6 +16,8 @@ namespace TestStack.BDDfy.Processors
         static ExceptionProcessor()
         {
             var exceptionType = typeof(Exception);
+// No best guess for CORE Clr
+#if APPDOMAIN
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if(ExcludedAssemblies.Any(ex => assembly.GetName().FullName.StartsWith(ex)))
@@ -37,6 +39,7 @@ namespace TestStack.BDDfy.Processors
                     }
                 }
             }
+#endif
 
             BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
         }
@@ -56,7 +59,7 @@ namespace TestStack.BDDfy.Processors
         //http://stackoverflow.com/questions/520290/how-can-i-get-the-default-value-of-a-type-in-a-non-generic-way
         static object DefaultValue(Type myType)
         {
-            return !myType.IsValueType ? null : Activator.CreateInstance(myType);
+            return !myType.IsValueType() ? null : Activator.CreateInstance(myType);
         }
 
         public ExceptionProcessor() : this(BestGuessInconclusiveAssertion)

@@ -1,4 +1,4 @@
-﻿using ApprovalTests;
+﻿#if Approvals
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
@@ -32,7 +32,8 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
 
             var reporter = new TextReporter();
             reporter.Process(story);
-            Approvals.Verify(reporter.ToString());
+            reporter.ToString().ShouldMatchApproved();
         }
     }
 }
+#endif

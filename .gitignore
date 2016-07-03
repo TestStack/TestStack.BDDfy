@@ -19,3 +19,8 @@ TestStack.BDDfy.sln.ide/graph
 _NCrunch_TestStack.BDDfy/
 TestStack.BDDfy.sln.ide/
 src/packages/
+src/.vs/
+project.lock.json
+tools/Cake/
+tools/GitReleaseNotes/
+artifacts/

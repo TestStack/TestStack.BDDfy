@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
-using System.Web;
 
 namespace TestStack.BDDfy.Reporters.MarkDown
 {
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                         if (exampleScenario.Steps.Any())
                         {
                             foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
-                                report.AppendLine("  " + HttpUtility.HtmlEncode(step.Title) + "  ");
+                                report.AppendLine("  " + WebUtility.HtmlEncode(step.Title) + "  ");
                         }
 
                         report.AppendLine(); // separator
@@ -55,7 +55,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                             report.AppendLine(string.Format("### {0}", scenario.Title));
 
                             foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                                report.AppendLine("  " + HttpUtility.HtmlEncode(step.Title) + "  ");
+                                report.AppendLine("  " + WebUtility.HtmlEncode(step.Title) + "  ");
 
                             report.AppendLine(); // separator
                         }
@@ -121,7 +121,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
                 var error = failingStep == null
                     ? null
-                    : string.Format("Step: {0} failed with exception: {1}", HttpUtility.HtmlEncode(failingStep.Title), CreateExceptionMessage(failingStep));
+                    : string.Format("Step: {0} failed with exception: {1}", WebUtility.HtmlEncode(failingStep.Title), CreateExceptionMessage(failingStep));
 
                 addRow(scenario.Example.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
             }

@@ -39,18 +39,22 @@ namespace TestStack.BDDfy
             if (explicitStoryType != null)
                 return explicitStoryType;
 
-            var stackTrace = new StackTrace();
+#if STACKTRACE
+            StackTrace stackTrace = new StackTrace();
+
             var frames = stackTrace.GetFrames();
             if (frames == null)
                 return null;
-
             var scenarioType = testObject.GetType();
             // This is assuming scenario and story live in the same assembly
-            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly == scenarioType.Assembly);
+            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly() == scenarioType.Assembly());
             if (firstFrame == null)
                 return null;
 
             return firstFrame.GetMethod().DeclaringType;
+#else
+            return null;
+#endif
         }
 
         static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
@@ -278,7 +279,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .BDDfy();
 
             var scenario = story.Scenarios.First();
-            scenario.Title.ShouldBe(Configurator.Scanners.Humanize(MethodBase.GetCurrentMethod().Name));
+            scenario.Title.ShouldBe(Configurator.Scanners.Humanize(nameof(WhenTitleIsNotProvidedItIsFetchedFromMethodName)));
         }
 
         [Fact]
@@ -296,14 +297,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         private static void ExceptionThrowingAction()
         {
-            throw new ApplicationException();
+            throw new InvalidDataException();
         }
 
         [Fact]
         public void CanPassActionToFluentApi()
         {
             this.Given(x => x.GivenAnAction(ExceptionThrowingAction))
-                .Then(x => x.ThenCallingTheActionThrows<ApplicationException>())
+                .Then(x => x.ThenCallingTheActionThrows<InvalidDataException>())
                 .BDDfy();
         }
 
@@ -311,7 +312,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         public void CanPassActionAndTitleToFluentApi()
         {
             this.Given(x => x.GivenAnAction(ExceptionThrowingAction), "Given an action that throws AppliationException")
-                .Then(x => x.ThenCallingTheActionThrows<ApplicationException>(), "Then calling the action does throw that exception")
+                .Then(x => x.ThenCallingTheActionThrows<InvalidDataException>(), "Then calling the action does throw that exception")
                 .BDDfy();
         }
     }

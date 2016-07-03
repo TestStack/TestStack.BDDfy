@@ -1,3 +1,4 @@
+#if Approvals
 using System;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
@@ -38,3 +39,4 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         }
     }
 }
+#endif

@@ -1,7 +1,6 @@
-﻿using System;
+﻿#if Approvals
 using System.Text.RegularExpressions;
-using ApprovalTests;
-using ApprovalTests.Utilities;
+using Shouldly;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Tests.Reporters.Html;
 
@@ -15,13 +14,32 @@ namespace TestStack.BDDfy.Tests.Reporters
             using (new TemporaryCulture("en-GB"))
             {
                 var result = reportBuilder.CreateReport(model);
-                Approvals.Verify(result, s => Scrub(StackTraceScrubber.ScrubLineNumbers(StackTraceScrubber.ScrubPaths(s))));
+                result.ShouldMatchApproved(c => c
+                    .WithScrubber(Scrub)
+                    .UseCallerLocation());
             }
         }
 
-        static string Scrub(string scrubPaths)
+        public static string Scrub(string scrubPaths)
         {
-            return Regex.Replace(Regex.Replace(Regex.Replace(scrubPaths, @"(?<!\r)\n", "\r\n"), "step-\\d+-\\d+", "step-1-1"), "scenario-\\d+", "scenario-1");
+            return ScrubLineNumbers(ScrubPaths(
+                Regex.Replace(
+                    Regex.Replace(Regex.Replace(scrubPaths, @"(?<!\r)\n", "\r\n"), "step-\\d+-\\d+", "step-1-1"),
+                    "scenario-\\d+", "scenario-1")));
+        }
+
+        static string ScrubLineNumbers(string source)
+        {
+            var regex = new Regex(@":line \d+");
+            return regex.Replace(source, string.Empty);
+        }
+
+        static string ScrubPaths(string source)
+        {
+            var result = new Regex(@"\b\w:[\\\w.\s-]+\\").Replace(source, "...\\");
+            return result;
         }
     }
 }
+
+#endif

@@ -2,7 +2,6 @@ using System;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
-using Xunit.Extensions;
 
 namespace TestStack.BDDfy.Tests
 {
@@ -68,18 +67,18 @@ namespace TestStack.BDDfy.Tests
         [InlineData("WhenMethodTakes__one__and__two__parameters", "When method takes <one> and <two> parameters")]
         public void CanDealWithExampleStepNames(string stepName, string expectedStepTitle)
         {
-            NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
+            NetToString.Convert(stepName).ShouldBe(expectedStepTitle);
         }
 
         [Theory]
         [InlineData("GivenThereAre__två__Cucumbers", "Given there are <två> cucumbers")]
         public void ReportsIllegalExampleStepNames(string stepName, string expectedStepTitle) {
             var exception = Record.Exception(() => {
-                NetToString.Convert(stepName).ShouldBe(expectedStepTitle, Case.Sensitive);
+                NetToString.Convert(stepName).ShouldBe(expectedStepTitle);
             });
 
-            Assert.NotNull(exception);
-            Assert.IsType<ArgumentException>(exception);
+            exception.ShouldNotBeNull();
+            exception.ShouldBeOfType<ArgumentException>();
         }
     }
 }

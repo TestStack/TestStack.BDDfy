@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,8 +19,8 @@ namespace TestStack.BDDfy
             }
         }
 
-        public StoryMetadata Metadata { get; private set; }
-        
+        public StoryMetadata Metadata { get; }
+
         /// <summary>
         /// Currently used only when scenario doesn't have a story and we use the namespace instead
         /// </summary>

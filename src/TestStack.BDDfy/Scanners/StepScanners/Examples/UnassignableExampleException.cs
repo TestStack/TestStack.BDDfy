@@ -10,6 +10,7 @@ namespace TestStack.BDDfy
         {
             ExampleValue = exampleValue;
         }
+#if NET40
 
         protected UnassignableExampleException(
             SerializationInfo info,
@@ -17,6 +18,7 @@ namespace TestStack.BDDfy
         {
         }
 
+#endif
         public ExampleValue ExampleValue { get; private set; }
     }
 }
