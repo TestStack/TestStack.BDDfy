@@ -48,7 +48,7 @@ Task("DownloadGitHubReleaseArtifacts")
     .IsDependentOn("UpdateVersionInfo")
     .Does(() =>
     {
-        var assets_url = ParseJson(Get("https://api.github.com/repos/shouldly/shouldly/releases/tags/" + tag))
+        var assets_url = ParseJson(Get("https://api.github.com/repos/teststack/teststack.bddfy/releases/tags/" + tag))
             .GetValue("assets_url").Value<string>();
         EnsureDirectoryExists("./releaseArtifacts");
         foreach(var asset in DeserializeJson<JArray>(Get(assets_url)))
