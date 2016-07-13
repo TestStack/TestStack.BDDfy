@@ -117,6 +117,7 @@ Oh and while you are there don't forget to checkout other cool projects from [Te
 ## Authors 
 * [Mehdi Khalili](https://github.com/MehdiK)
 * [Michael Whelan](https://github.com/mwhelan)
+* [Jake Ginnivan](https://github.com/JakeGinnivan)
 
 ## License
 BDDfy is released under the MIT License. See the bundled license.txt file for details.
