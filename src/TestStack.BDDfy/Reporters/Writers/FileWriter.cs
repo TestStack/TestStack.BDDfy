@@ -20,10 +20,16 @@ namespace TestStack.BDDfy.Reporters.Writers
         {
             get
             {
+                
+#if NET40
                 string codeBase = typeof(DiagnosticsReporter).Assembly().CodeBase;
                 var uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
+#else
+                var basePath = AppContext.BaseDirectory;
+                return Path.GetFullPath(basePath);
+#endif
             }
         }
     }
