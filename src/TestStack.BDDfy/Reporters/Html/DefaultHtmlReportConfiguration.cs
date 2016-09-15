@@ -20,7 +20,7 @@ namespace TestStack.BDDfy.Reporters.Html
             set { _reportDescription = value; }
         }
 
-        private string _outputPath = AssemblyDirectory;
+        private string _outputPath = FileHelpers.AssemblyDirectory();
         public virtual string OutputPath
         {
             get { return _outputPath; }
@@ -44,18 +44,6 @@ namespace TestStack.BDDfy.Reporters.Html
         public virtual bool RunsOn(Story story)
         {
             return true;
-        }
-
-        // http://stackoverflow.com/questions/52797/c-how-do-i-get-the-path-of-the-assembly-the-code-is-in#answer-283917
-        private static string AssemblyDirectory
-        {
-            get
-            {
-                var codeBase = typeof(DefaultHtmlReportConfiguration).Assembly().CodeBase;
-                var uri = new UriBuilder(codeBase);
-                var path = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
-            }
         }
     }
 }
