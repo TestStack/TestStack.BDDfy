@@ -25,6 +25,22 @@
                 ]
             }
         },
+        "netstandard1.3": {
+          "imports": "dnxcore50",
+          "dependencies": {
+            "NETStandard.Library": "1.6.0",
+            "System.AppContext": "4.1.0",
+            "System.Linq.Expressions": "4.1.0",
+            "System.Reflection": "4.3.0",
+            "System.Reflection.TypeExtensions": "4.3.0",
+            "System.Runtime.Extensions": "4.1.0",
+            "System.Runtime.Loader": "4.0.0",
+            "System.Runtime.Serialization.Json": "4.0.2",
+            "System.Runtime.Serialization.Primitives": "4.1.1",
+            "System.Text.Encoding": "4.3.0",
+            "System.Threading.ThreadPool": "4.0.10"
+          }
+        },
         "netstandard1.5": {
             "imports": "dnxcore50",
             "dependencies": {
