@@ -67,7 +67,11 @@ using System.Linq;
 
         public static bool IsInstanceOfType(this Type type, object obj)
         {
+#if NETSTANDARD1_3
+            return type.GetTypeInfo().IsAssignableFrom(obj.GetType().GetTypeInfo());
+#else
             return type.GetTypeInfo().IsInstanceOfType(obj);
+#endif
         }
 
         public static bool IsValueType(this Type type)

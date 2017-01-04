@@ -1,4 +1,5 @@
 #tool "nuget:?package=GitReleaseNotes"
+#tool "nuget:?package=GitVersion.CommandLine"
 
 var target = Argument("target", "Default");
 var bddfyProj = "./src/TestStack.BDDfy/project.json";
