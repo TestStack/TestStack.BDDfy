@@ -89,7 +89,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
       <p>Tested at: 25/03/2014 11:30:05</p>
       <p>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a></p>
     </section>
-    <script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.0.min.js'></script>
     <script>
 $(function(){$(".canToggle").each(function(){var n=$("#"+$(this).data("toggle-target"));n.hide();$(this).click(function(){n.toggle(200)})});$(".expandAll").click(function(){$(".steps").css("display","")});$(".collapseAll").click(function(){$(".steps").css("display","none")});$("#filterOptions a").click(function(){var n=$(this).children("div"),t,i;n.toggleClass("filterTileDisabled");t=!n.hasClass("filterTileDisabled");i=n.data("target-class");$("div."+i).closest(".scenario").toggle(t)})});
 /*
