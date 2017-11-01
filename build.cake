@@ -1,7 +1,8 @@
 #tool "nuget:?package=GitReleaseNotes"
+#tool "nuget:?package=GitVersion.CommandLine"
 
 var target = Argument("target", "Default");
-var bddfyProj = "./src/TestStack.BDDfy/project.json";
+var bddfyProj = "./src/TestStack.BDDfy/TestStack.BDDfy.csproj";
 var outputDir = "./artifacts/";
 
 Task("Clean")

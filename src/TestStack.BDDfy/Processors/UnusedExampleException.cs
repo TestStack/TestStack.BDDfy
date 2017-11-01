@@ -3,7 +3,11 @@ using System.Runtime.Serialization;
 
 namespace TestStack.BDDfy.Processors
 {
-    [Serializable]
+#if NET40 
+    [System.Runtime.Serialization.Serializable]
+#else
+    [System.Serializable]
+#endif
     public class UnusedExampleException : Exception
     {
         public UnusedExampleException(ExampleValue unusedValue) :

@@ -3,7 +3,11 @@ using System.Runtime.Serialization;
 
 namespace TestStack.BDDfy
 {
-    [Serializable]
+#if NET40 
+    [System.Runtime.Serialization.Serializable]
+#else
+    [System.Serializable]
+#endif
     public class UnassignableExampleException : Exception
     {
         public UnassignableExampleException(string message, Exception inner, ExampleValue exampleValue) : base(message, inner)

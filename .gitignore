@@ -11,6 +11,8 @@ obj/
 *.crunchproject.local.xml
 *.crunchsolution.local.xml
 *.cache
+*.userprefs
+.DS_Store
 packages/*
 PackageBuild/*
 Build/*
@@ -23,4 +25,5 @@ src/.vs/
 project.lock.json
 tools/Cake/
 tools/GitReleaseNotes/
+tools/gitversion.commandline/
 artifacts/
