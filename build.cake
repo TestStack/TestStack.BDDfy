@@ -21,16 +21,16 @@ Task("Restore")
 GitVersion versionInfo = null;
 Task("Version")
     .Does(() => {
-        GitVersion(new GitVersionSettings{
+		GitVersion(new GitVersionSettings{
             UpdateAssemblyInfo = true,
             OutputType = GitVersionOutput.BuildServer
         });
-        versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
-        // Update project.json
-        var updatedProjectJson = System.IO.File.ReadAllText(bddfyProj)
+        versionInfo = GitVersion(new GitVersionSettings());        
+		
+        var updatedProject = System.IO.File.ReadAllText(bddfyProj)
             .Replace("1.0.0-*", versionInfo.NuGetVersion);
 
-        System.IO.File.WriteAllText(bddfyProj, updatedProjectJson);
+        System.IO.File.WriteAllText(bddfyProj, updatedProject);
     });
 
 Task("Build")
@@ -62,6 +62,7 @@ Task("Package")
         var releaseNotesExitCode = StartProcess(
             @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
             new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
+
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
