@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace TestStack.BDDfy.Processors
 {
-#if NET40 
-    [System.Runtime.Serialization.Serializable]
-#else
+#if NET40
     [System.Serializable]
+#else
+    [System.Runtime.Serialization.Serializable]
 #endif
     public class UnusedExampleException : Exception
     {
@@ -17,8 +16,8 @@ namespace TestStack.BDDfy.Processors
 #if NET40
 
         protected UnusedExampleException(
-            SerializationInfo info,
-            StreamingContext context)
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
         }
