@@ -21,7 +21,7 @@ Task("Restore")
 GitVersion versionInfo = null;
 Task("Version")
     .Does(() => {
-		GitVersion(new GitVersionSettings{
+        GitVersion(new GitVersionSettings{
             UpdateAssemblyInfo = true,
             OutputType = GitVersionOutput.BuildServer
         });
@@ -48,13 +48,13 @@ Task("Package")
     .Does(() => {
         var settings = new DotNetCorePackSettings
         {
-			ArgumentCustomization = args=> args.Append(" --include-symbols /p:PackageVersion=" + versionInfo.NuGetVersion),
+            ArgumentCustomization = args=> args.Append(" --include-symbols /p:PackageVersion=" + versionInfo.NuGetVersion),
             OutputDirectory = outputDir,
             NoBuild = true
         };
-		
+
         DotNetCorePack(bddfyProj, settings);
-		
+
         var releaseNotesExitCode = StartProcess(
             @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
             new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
