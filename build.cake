@@ -25,12 +25,7 @@ Task("Version")
             UpdateAssemblyInfo = true,
             OutputType = GitVersionOutput.BuildServer
         });
-        versionInfo = GitVersion(new GitVersionSettings());        
-		
-        var updatedProject = System.IO.File.ReadAllText(bddfyProj)
-            .Replace("1.0.0-*", versionInfo.NuGetVersion);
-
-        System.IO.File.WriteAllText(bddfyProj, updatedProject);
+        versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });        
     });
 
 Task("Build")
@@ -53,12 +48,13 @@ Task("Package")
     .Does(() => {
         var settings = new DotNetCorePackSettings
         {
+			ArgumentCustomization = args=> args.Append(" --include-symbols /p:PackageVersion=" + versionInfo.NuGetVersion),
             OutputDirectory = outputDir,
             NoBuild = true
         };
-
+		
         DotNetCorePack(bddfyProj, settings);
-
+		
         var releaseNotesExitCode = StartProcess(
             @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
             new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
