@@ -1,7 +1,8 @@
 #tool "nuget:?package=GitReleaseNotes"
+#tool "nuget:?package=GitVersion.CommandLine"
 
 var target = Argument("target", "Default");
-var bddfyProj = "./src/TestStack.BDDfy/project.json";
+var bddfyProj = "./src/TestStack.BDDfy/TestStack.BDDfy.csproj";
 var outputDir = "./artifacts/";
 
 Task("Clean")
@@ -24,12 +25,7 @@ Task("Version")
             UpdateAssemblyInfo = true,
             OutputType = GitVersionOutput.BuildServer
         });
-        versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
-        // Update project.json
-        var updatedProjectJson = System.IO.File.ReadAllText(bddfyProj)
-            .Replace("1.0.0-*", versionInfo.NuGetVersion);
-
-        System.IO.File.WriteAllText(bddfyProj, updatedProjectJson);
+        versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });        
     });
 
 Task("Build")
@@ -52,6 +48,7 @@ Task("Package")
     .Does(() => {
         var settings = new DotNetCorePackSettings
         {
+            ArgumentCustomization = args=> args.Append(" --include-symbols /p:PackageVersion=" + versionInfo.NuGetVersion),
             OutputDirectory = outputDir,
             NoBuild = true
         };
@@ -61,6 +58,7 @@ Task("Package")
         var releaseNotesExitCode = StartProcess(
             @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
             new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
+
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 

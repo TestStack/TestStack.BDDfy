@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -8,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TestStack.BDDfy - http://teststack.github.com/TestStack.BDDfy/")]
 [assembly: AssemblyProduct("TestStack.BDDfy")]
-[assembly: AssemblyCopyright("Copyright © 2011-2012 TestStack.BDDfy contributors")]
+[assembly: AssemblyCopyright("Copyright © 2011-2017 TestStack.BDDfy contributors")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

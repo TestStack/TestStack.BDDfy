@@ -11,6 +11,8 @@ obj/
 *.crunchproject.local.xml
 *.crunchsolution.local.xml
 *.cache
+*.userprefs
+.DS_Store
 packages/*
 PackageBuild/*
 Build/*
@@ -20,7 +22,9 @@ _NCrunch_TestStack.BDDfy/
 TestStack.BDDfy.sln.ide/
 src/packages/
 src/.vs/
+.vs/
 project.lock.json
 tools/Cake/
 tools/GitReleaseNotes/
+tools/gitversion.commandline/
 artifacts/
