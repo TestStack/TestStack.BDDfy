@@ -176,49 +176,47 @@ namespace TestStack.BDDfy
 
         private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, StepArgument[] inputArguments, string stepPrefix)
         {
-            Func<string> createTitle = () =>
+            string Title()
+            {
+                var autoFormatText = true;
+                var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
+                var name = methodInfo.Name;
+                var stepTitleAttribute = methodInfo.GetCustomAttributes(typeof(StepTitleAttribute), true).SingleOrDefault();
+                if (stepTitleAttribute != null)
                 {
+                    var titleAttribute = ((StepTitleAttribute) stepTitleAttribute);
+                    name = string.Format(titleAttribute.StepTitle, flatInputArray);
+                    if (titleAttribute.IncludeInputsInStepTitle != null) includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
+                    autoFormatText = titleAttribute.AutoFormatStepText;
+                }
 
-                    var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
-                    var name = methodInfo.Name;
-                    var stepTitleAttribute = methodInfo.GetCustomAttributes(typeof(StepTitleAttribute), true).SingleOrDefault();
-                    if (stepTitleAttribute != null)
-                    {
-                        var titleAttribute = ((StepTitleAttribute)stepTitleAttribute);
-                        name = string.Format(titleAttribute.StepTitle, flatInputArray);
-                        if (titleAttribute.IncludeInputsInStepTitle != null)
-                            includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
-                    }
+                var stepTitle = AppendPrefix(autoFormatText ? Configurator.Scanners.Humanize(name) : name, stepPrefix);
 
-                    var stepTitle = AppendPrefix(Configurator.Scanners.Humanize(name), stepPrefix);
 
-                    if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
-                    else if (includeInputsInStepTitle)
-                    {
-                        var parameters = methodInfo.GetParameters();
-                        var stringFlatInputs =
-                            inputArguments
-                                .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
-                                .Select(i =>
-                                {
-                                    if (_testContext.Examples != null)
-                                    {
-                                        var matchingHeader = _testContext.Examples.Headers
-                                            .SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName) ||
-                                            ExampleTable.HeaderMatches(header, i.Value.Name));
-                                        if (matchingHeader != null)
-                                            return string.Format("<{0}>", matchingHeader);
-                                    }
-                                    return i.Value.Value.FlattenArray();
-                                })
-                                .ToArray();
-                        stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
-                    }
+                if (!string.IsNullOrEmpty(stepTextTemplate))
+                    stepTitle = string.Format(stepTextTemplate, flatInputArray);
+                else if (includeInputsInStepTitle)
+                {
+                    var parameters = methodInfo.GetParameters();
+                    var stringFlatInputs = inputArguments.Select((a, i) => new {ParameterName = parameters[i].Name, Value = a})
+                        .Select(i =>
+                        {
+                            if (_testContext.Examples != null)
+                            {
+                                var matchingHeader = _testContext.Examples.Headers.SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName) || ExampleTable.HeaderMatches(header, i.Value.Name));
+                                if (matchingHeader != null) return string.Format("<{0}>", matchingHeader);
+                            }
 
-                    return stepTitle.Trim();
-                };
+                            return i.Value.Value.FlattenArray();
+                        })
+                        .ToArray();
+                    stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+                }
 
-            return new StepTitle(createTitle);
+                return stepTitle.Trim();
+            }
+
+            return new StepTitle(Title);
         }
 
         private static MethodInfo GetMethodInfo(LambdaExpression stepAction)
