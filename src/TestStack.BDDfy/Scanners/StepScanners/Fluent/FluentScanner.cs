@@ -43,14 +43,20 @@ namespace TestStack.BDDfy
         private readonly TScenario _testObject;
         private readonly ITestContext _testContext;
         private readonly MethodInfo _fakeExecuteActionMethod;
-
+        private Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> _createTitle;
         internal FluentScanner(TScenario testObject)
         {
+            _createTitle = CreateTitle;
             _testObject = testObject;
             _testContext = TestContext.GetContext(_testObject);
             _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>).GetMethod("ExecuteAction", BindingFlags.Instance | BindingFlags.NonPublic);
         }
 
+
+        public void SetCreateTitle(Func<string, bool, MethodInfo, StepArgument[], string, StepTitle>customCreateTitle)
+        {
+            _createTitle = customCreateTitle;
+        }
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
             return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
@@ -105,7 +111,7 @@ namespace TestStack.BDDfy
                 inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
-            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
+            var title = _createTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
             var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, args));
         }
@@ -126,7 +132,7 @@ namespace TestStack.BDDfy
                 inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
-            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments,
+            var title = _createTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments,
                 stepPrefix);
             var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder),
