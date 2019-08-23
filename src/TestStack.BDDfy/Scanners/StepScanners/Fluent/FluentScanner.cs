@@ -36,7 +36,7 @@ namespace TestStack.BDDfy
     /// }
     /// </code>
     /// </example>
-    internal class FluentScanner<TScenario> : IFluentScanner
+    public class FluentScanner<TScenario> : IFluentScanner
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
@@ -44,15 +44,18 @@ namespace TestStack.BDDfy
         private readonly ITestContext _testContext;
         private readonly MethodInfo _fakeExecuteActionMethod;
         private Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> _createTitle;
-        internal FluentScanner(TScenario testObject)
-        {
-            _createTitle = CreateTitle;
+        public FluentScanner(TScenario testObject)
+        {     
             _testObject = testObject;
             _testContext = TestContext.GetContext(_testObject);
             _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>).GetMethod("ExecuteAction", BindingFlags.Instance | BindingFlags.NonPublic);
+            _createTitle = CreateTitle;
         }
 
-
+        /// <summary>
+        /// string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, StepArgument[] inputArguments, string stepPrefix
+        /// </summary>
+        /// <param name="customCreateTitle"></param>
         public void SetCreateTitle(Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> customCreateTitle)
         {
             _createTitle = customCreateTitle;
