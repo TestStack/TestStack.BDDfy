@@ -24,20 +24,18 @@
                 }
 
                 var stepFailed = false;
+               
                 foreach (var executionStep in scenario.Steps)
                 {
                     executionStep.ResetTitle();
-                    
                     if (stepFailed && ShouldExecuteStepWhenPreviousStepFailed(executionStep))
                         break;
 
                     if (executor.ExecuteStep(executionStep) == Result.Passed)
-                     
                         continue;
-
+                  
                     if (!executionStep.Asserts)
                         break;
-
                     stepFailed = true;
                 }
             }

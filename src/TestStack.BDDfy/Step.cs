@@ -60,7 +60,6 @@ namespace TestStack.BDDfy
             _getMethodInfo = getMethodInfo;
             _testObject = testObject;
             this.Asserts = assert;
-            _title = new StepTitle(title);
             ExecutionOrder = executionOrder;
             ShouldReport = shouldReport;
             Arguments = args;
@@ -107,6 +106,14 @@ namespace TestStack.BDDfy
         {
             get
             {
+                if (_title == null)
+                {
+                    ResetTitle();
+                }
+                if (_title == null)
+                {
+                 return  string.Empty;
+                }
                 return _title.ToString();
             }
         }
