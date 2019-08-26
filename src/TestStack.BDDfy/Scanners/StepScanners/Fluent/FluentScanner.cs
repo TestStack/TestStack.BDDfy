@@ -98,13 +98,14 @@ namespace TestStack.BDDfy
             AddStep(_ => compiledAction().Action(), expression, null, true, reports, executionOrder, asserts, stepPrefix);
         }
 
+
+
         [UsedImplicitly]
         [StepTitle("")]
         private void ExecuteAction(ExampleAction action)
         {
 
         }
-
         public void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
         {
             var action = stepAction.Compile();
@@ -116,7 +117,7 @@ namespace TestStack.BDDfy
 
             var title = _createTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
             var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, args));
+            _steps.Add(new Step(stepAction, StepActionFactory.GetStepAction(action), _createTitle, stepTextTemplate,stepPrefix, includeInputsInStepTitle, GetMethodInfo, _testObject,title,  FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, args));
         }
 
         public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
@@ -138,7 +139,7 @@ namespace TestStack.BDDfy
             var title = _createTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments,
                 stepPrefix);
             var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder),
+            _steps.Add(new Step(stepAction, stepTextTemplate, includeInputsInStepTitle, GetMethodInfo, stepPrefix,_createTitle, StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder),
                 FixConsecutiveStep(executionOrder), reports, args));
         }
 

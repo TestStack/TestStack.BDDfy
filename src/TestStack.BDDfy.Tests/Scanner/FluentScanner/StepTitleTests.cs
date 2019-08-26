@@ -68,7 +68,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                .Given(_ => GivenWeMutateSomeState())
                 .When(_ => something.Sub.SomethingHappens())
                 .And(_ => something.Sub.SomethingWithDifferentTitle())
-                .Then(_ => ThenTitleHas("Mutated state"))
+                .Then(_ => ThenTitleHas(AMethodCall()))
                 .And(_ => something.Sub.SomethingWithArg("foo"))
                 .And(_ => something.Sub.SomethingWithArg2("foo2"))
                 .And(_ => something.Sub.SomethingWithArg3("foo3"))

@@ -1,5 +1,6 @@
 ﻿namespace TestStack.BDDfy.Processors
 {
+    using System;
     using System.Linq;
 
     public class TestRunner : IProcessor
@@ -25,10 +26,13 @@
                 var stepFailed = false;
                 foreach (var executionStep in scenario.Steps)
                 {
+                    executionStep.ResetTitle();
+                    
                     if (stepFailed && ShouldExecuteStepWhenPreviousStepFailed(executionStep))
                         break;
 
-                    if (executor.ExecuteStep(executionStep) == Result.Passed) 
+                    if (executor.ExecuteStep(executionStep) == Result.Passed)
+                     
                         continue;
 
                     if (!executionStep.Asserts)
