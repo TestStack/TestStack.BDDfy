@@ -36,7 +36,7 @@ namespace TestStack.BDDfy
     /// }
     /// </code>
     /// </example>
-    public class FluentScanner<TScenario> : IFluentScanner
+    internal class FluentScanner<TScenario> : IFluentScanner
         where TScenario : class
     {
         private readonly List<Step> _steps = new List<Step>();
@@ -44,7 +44,7 @@ namespace TestStack.BDDfy
         private readonly ITestContext _testContext;
         private readonly MethodInfo _fakeExecuteActionMethod;
         private Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> _createTitle;
-        public FluentScanner(TScenario testObject)
+        internal FluentScanner(TScenario testObject)
         {     
             _testObject = testObject;
             _testContext = TestContext.GetContext(_testObject);

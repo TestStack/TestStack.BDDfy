@@ -36,7 +36,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             FooClass something = new FooClass();
             var context = TestContext.GetContext(something);
-            context.FluentScanner = new TestStack.BDDfy.FluentScanner<FooClass>(something);
+            new FluentStepBuilder<FooClass>(something);
             context.FluentScanner.SetCreateTitle((a, b, c, d, e) => new StepTitle("hallo"));
             var story = something
                .Given(_ => GivenWeMutateSomeState())
@@ -62,8 +62,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
             FooClass something = new FooClass();
             var context = TestContext.GetContext(something);
-            context.FluentScanner = new TestStack.BDDfy.FluentScanner<FooClass>(something);
-            context.FluentScanner.SetCreateTitle((a, b, c, d, e) => new StepTitle(e + " " + c.Name + " " + string.Join(",", d.Select(arg => arg.Value).ToArray())));
+            new FluentStepBuilder<FooClass>(something);
+           context.FluentScanner.SetCreateTitle((a, b, c, d, e) => new StepTitle(e + " " + c.Name + " " + string.Join(",", d.Select(arg => arg.Value).ToArray())));
             var story = something
                .Given(_ => GivenWeMutateSomeState())
                 .When(_ => something.Sub.SomethingHappens())
