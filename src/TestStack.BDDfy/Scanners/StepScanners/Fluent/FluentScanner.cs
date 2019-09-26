@@ -45,21 +45,31 @@ namespace TestStack.BDDfy
         private readonly MethodInfo _fakeExecuteActionMethod;
         private Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> _createTitle;
         internal FluentScanner(TScenario testObject)
-        {     
-            _testObject = testObject;
+        {
+             _testObject = testObject;
             _testContext = TestContext.GetContext(_testObject);
             _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>).GetMethod("ExecuteAction", BindingFlags.Instance | BindingFlags.NonPublic);
-            _createTitle = CreateTitle;
+
+            SetTitleFunction();
         }
 
-        /// <summary>
-        /// string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, StepArgument[] inputArguments, string stepPrefix
-        /// </summary>
-        /// <param name="customCreateTitle"></param>
-        public void SetCreateTitle(Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> customCreateTitle)
+        public void SetTitleFunction()
         {
-            _createTitle = customCreateTitle;
+            if (Configurator.Scanners.CustomStepTitleCreatorFunction != null)
+            {
+                _createTitle = Configurator.Scanners.CustomStepTitleCreatorFunction;
+            }
+            else
+          if (Configurator.Scanners.DefaultStepTitleCreatorFunction != null)
+            {
+                _createTitle = Configurator.Scanners.DefaultStepTitleCreatorFunction;
+            }
+            else
+            {
+                _createTitle = CreateTitle;
+            }
         }
+
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
         {
             return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -52,7 +53,9 @@ namespace TestStack.BDDfy
         /// <returns></returns>
         public static Story BDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller)).Run();
+            var currentStory= InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller)).Run();
+            Configurator.Scanners.SetCustomStepTitleCreatorFunction(null);
+            return currentStory;
         }
 
         public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
@@ -71,10 +74,13 @@ namespace TestStack.BDDfy
         public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
             where TStory : class
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory)).Run();
+            Story currentStory= InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory)).Run();
+            Configurator.Scanners.SetCustomStepTitleCreatorFunction(null);
+            return currentStory;
         }
 
-        public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
+   
+       public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
             where TStory : class
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory));
@@ -94,6 +100,7 @@ namespace TestStack.BDDfy
 
             return new Engine(storyScanner);
         }
+
 
         static IScanner GetReflectiveScanner(ITestContext testContext, string scenarioTitle = null, Type explicitStoryType = null)
         {

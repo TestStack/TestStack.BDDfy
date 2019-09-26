@@ -13,6 +13,7 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 
         private void ExecuteUsingFluentScanners()
         {
+            
             Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Given, true));
         }
 
