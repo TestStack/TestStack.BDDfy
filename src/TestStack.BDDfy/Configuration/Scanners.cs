@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace TestStack.BDDfy.Configuration
 {
     public class Scanners
     {
+        public readonly StepScannerFactory _ = new StepScannerFactory(() => new ExecutableAttributeStepScanner());
         private readonly StepScannerFactory _executableAttributeScanner = new StepScannerFactory(() => new ExecutableAttributeStepScanner());
         public StepScannerFactory ExecutableAttributeScanner { get { return _executableAttributeScanner; } }
 
@@ -15,6 +17,17 @@ namespace TestStack.BDDfy.Configuration
         public Scanners Add(Func<IStepScanner> stepScannerFactory)
         {
             _addedStepScanners.Add(stepScannerFactory);
+            return this;
+        }
+        internal Scanners SetCustomStepTitleCreatorFunction( Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> customStepTitleCreatorFunction)
+        {
+            CustomStepTitleCreatorFunction= customStepTitleCreatorFunction;
+            return this;
+        }
+
+        public Scanners SetDefaultStepTitleCreatorFunction(Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> defaultStepTitleCreatorFunction)
+        {
+            DefaultStepTitleCreatorFunction = defaultStepTitleCreatorFunction;
             return this;
         }
 
@@ -35,6 +48,9 @@ namespace TestStack.BDDfy.Configuration
         }
 
         public Func<IStoryMetadataScanner> StoryMetadataScanner = () => new StoryAttributeMetadataScanner();
+
+        internal Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> CustomStepTitleCreatorFunction = null;
+        internal Func<string, bool, MethodInfo, StepArgument[], string, StepTitle> DefaultStepTitleCreatorFunction = null;
 
         public Func<string, string> Humanize = NetToString.Convert;
     }
