@@ -52,7 +52,6 @@ namespace TestStack.BDDfy.Tests.Exceptions
 
         private Engine FluentScannerBddifier()
         {
-            BDDfy.Configuration.Configurator.Scanners.SetDefaultStepTitleCreatorFunction(null);
             return this.Given(s => s.Given())
                         .When(s => s.When())
                         .Then(s => s.Then())

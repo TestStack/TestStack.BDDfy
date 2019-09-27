@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Shouldly;
 using TestStack.BDDfy.Configuration;
@@ -6,7 +7,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    public class StepTitleTests
+    public class StepTitleTests:IDisposable
     {
         public StepTitleTests()
         {
@@ -192,6 +193,12 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         private void ThenTitleHas(string result)
         {
             result.ShouldBe(_mutatedState);
+        }
+
+        public void Dispose()
+        {
+            Configurator.Scanners.SetDefaultStepTitleCreatorFunction(null);
+
         }
     }
 }
