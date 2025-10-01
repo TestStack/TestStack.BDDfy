@@ -140,7 +140,7 @@ namespace TestStack.BDDfy.Reporters.Html
             AddLine("<div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>");
 
             if (_model.Configuration.ResolveJqueryFromCdn)
-                AddLine("<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>");
+                AddLine("<script type='text/javascript' src='https://code.jquery.com/jquery-2.1.0.min.js'></script>");
             else
                 EmbedJavascriptFile(HtmlReportResources.jquery_2_1_0_min);
 
