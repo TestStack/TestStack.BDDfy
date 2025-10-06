@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace TestStack.BDDfy.Processors
 {
-    public class ExceptionProcessor : IProcessor
+    public class ExceptionProcessor(Action assertInconclusive): IProcessor
     {
-        private readonly Action _assertInconclusive;
+        private readonly Action _assertInconclusive = assertInconclusive;
         private static readonly Action BestGuessInconclusiveAssertion;
 
         static readonly List<string> ExcludedAssemblies =
-            new List<string>(new[] { "System", "mscorlib", "TestStack.BDDfy", "TestDriven", "JetBrains.ReSharper" });
+            new(new[] { "System", "mscorlib", "TestStack.BDDfy", "TestDriven", "JetBrains.ReSharper" });
     
         static ExceptionProcessor()
         {
@@ -64,11 +64,6 @@ namespace TestStack.BDDfy.Processors
 
         public ExceptionProcessor() : this(BestGuessInconclusiveAssertion)
         {
-        }
-
-        public ExceptionProcessor(Action assertInconclusive)
-        {
-            _assertInconclusive = assertInconclusive;
         }
 
         public ProcessType ProcessType

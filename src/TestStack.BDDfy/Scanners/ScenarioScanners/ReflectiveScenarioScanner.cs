@@ -6,20 +6,14 @@ using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    public class ReflectiveScenarioScanner : IScenarioScanner
+    public class ReflectiveScenarioScanner(string scenarioTitle, params IStepScanner[] stepScanners): IScenarioScanner
     {
-        private readonly IEnumerable<IStepScanner> _stepScanners;
-        private readonly string _scenarioTitle;
+        private readonly IEnumerable<IStepScanner> _stepScanners = stepScanners;
+        private readonly string _scenarioTitle = scenarioTitle;
 
         public ReflectiveScenarioScanner(params IStepScanner[] stepScanners)
             : this(null, stepScanners)
         {
-        }
-
-        public ReflectiveScenarioScanner(string scenarioTitle, params IStepScanner[] stepScanners)
-        {
-            _stepScanners = stepScanners;
-            _scenarioTitle = scenarioTitle;
         }
 
         public virtual IEnumerable<Scenario> Scan(ITestContext testContext)

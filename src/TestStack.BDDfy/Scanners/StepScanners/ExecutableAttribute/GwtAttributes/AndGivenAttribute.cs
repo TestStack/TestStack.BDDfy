@@ -1,8 +1,7 @@
 ﻿namespace TestStack.BDDfy
 {
-    public class AndGivenAttribute : ExecutableAttribute
+    public class AndGivenAttribute(string stepTitle): ExecutableAttribute(ExecutionOrder.ConsecutiveSetupState, stepTitle)
     {
         public AndGivenAttribute() : this(null) { }
-        public AndGivenAttribute(string stepTitle) : base(ExecutionOrder.ConsecutiveSetupState, stepTitle) { }
     }
 }

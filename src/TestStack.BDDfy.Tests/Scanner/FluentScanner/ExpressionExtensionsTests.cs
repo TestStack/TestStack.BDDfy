@@ -130,7 +130,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             return someInput + " Input 2";
         }
 
-        ContainerType container = new ContainerType();
+        ContainerType container = new();
 
         [Fact]
         public void NoArguments()

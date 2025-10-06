@@ -8,8 +8,8 @@ namespace TestStack.BDDfy.Reporters
 {
     public class TextReporter : IProcessor
     {
-        private readonly List<Exception> _exceptions = new List<Exception>();
-        private readonly StringBuilder _text = new StringBuilder();
+        private readonly List<Exception> _exceptions = new();
+        private readonly StringBuilder _text = new();
         private int _longestStepSentence;
 
         public void Process(Story story)

@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Configuration
     {
         private class TestStepExecutor : StepExecutor
         {
-            readonly StringBuilder _builder = new StringBuilder();
+            readonly StringBuilder _builder = new();
 
             public string Results
             {

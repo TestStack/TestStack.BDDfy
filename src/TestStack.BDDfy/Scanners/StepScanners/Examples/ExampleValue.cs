@@ -2,19 +2,12 @@ using System;
 
 namespace TestStack.BDDfy
 {
-    public class ExampleValue
+    public class ExampleValue(string header, object underlyingValue, Func<int> getRowIndex)
     {
-        private readonly object _underlyingValue;
-        private readonly Func<int> _getRowIndex;
+        private readonly object _underlyingValue = underlyingValue;
+        private readonly Func<int> _getRowIndex = getRowIndex;
 
-        public ExampleValue(string header, object underlyingValue, Func<int> getRowIndex)
-        {
-            Header = header;
-            _underlyingValue = underlyingValue;
-            _getRowIndex = getRowIndex;
-        }
-
-        public string Header { get; private set; }
+        public string Header { get; private set; } = header;
 
         public bool MatchesName(string name)
         {

@@ -9,17 +9,17 @@ namespace TestStack.BDDfy.Samples
     {
         private Sut _sut;
 
-        public async void GivenSomeAsyncSetup()
+        internal async void GivenSomeAsyncSetup()
         {
             _sut = await CreateSut();
         }
 
-        public void ThenBddfyHasWaitedForThatSetupToCompleteBeforeContinuing()
+        internal void ThenBddfyHasWaitedForThatSetupToCompleteBeforeContinuing()
         {
             _sut.ShouldNotBe(null);
         }
 
-        public async Task AndThenBddfyShouldCaptureExceptionsThrownInAsyncMethod()
+        internal async Task AndThenBddfyShouldCaptureExceptionsThrownInAsyncMethod()
         {
             await Task.Yield();
             throw new Exception("Exception in async void method!!");

@@ -42,33 +42,28 @@ namespace TestStack.BDDfy.Annotations
     AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
   public sealed class NotNullAttribute : Attribute { }
 
-  /// <summary>
-  /// Indicates that the marked method builds string by format pattern and (optional) arguments.
-  /// Parameter, which contains format string, should be given in constructor. The format string
-  /// should be in <see cref="string.Format(IFormatProvider,string,object[])"/>-like form
-  /// </summary>
-  /// <example><code>
-  /// [StringFormatMethod("message")]
-  /// public void ShowError(string message, params object[] args) { /* do something */ }
-  /// public void Foo() {
-  ///   ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
-  /// }
-  /// </code></example>
-  [AttributeUsage(
-    AttributeTargets.Constructor | AttributeTargets.Method,
-    AllowMultiple = false, Inherited = true)]
-  public sealed class StringFormatMethodAttribute : Attribute
-  {
+    /// <summary>
+    /// Indicates that the marked method builds string by format pattern and (optional) arguments.
+    /// Parameter, which contains format string, should be given in constructor. The format string
+    /// should be in <see cref="string.Format(IFormatProvider,string,object[])"/>-like form
+    /// </summary>
+    /// <example><code>
+    /// [StringFormatMethod("message")]
+    /// public void ShowError(string message, params object[] args) { /* do something */ }
+    /// public void Foo() {
+    ///   ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
+    /// }
+    /// </code></example>
     /// <param name="formatParameterName">
     /// Specifies which parameter of an annotated method should be treated as format-string
     /// </param>
-    public StringFormatMethodAttribute(string formatParameterName)
-    {
-      FormatParameterName = formatParameterName;
+    [AttributeUsage(
+    AttributeTargets.Constructor | AttributeTargets.Method,
+    AllowMultiple = false, Inherited = true)]
+  public sealed class StringFormatMethodAttribute(string formatParameterName): Attribute
+  {
+        public string FormatParameterName { get; private set; } = formatParameterName;
     }
-
-    public string FormatParameterName { get; private set; }
-  }
 
   /// <summary>
   /// Indicates that the function argument should be string literal and match one
@@ -175,20 +170,14 @@ namespace TestStack.BDDfy.Annotations
   /// </code></item>
   /// </list></examples>
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-  public sealed class ContractAnnotationAttribute : Attribute
+  public sealed class ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates): Attribute
   {
     public ContractAnnotationAttribute([NotNull] string contract)
       : this(contract, false) { }
 
-    public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
-    {
-      Contract = contract;
-      ForceFullStates = forceFullStates;
+        public string Contract { get; private set; } = contract;
+        public bool ForceFullStates { get; private set; } = forceFullStates;
     }
-
-    public string Contract { get; private set; }
-    public bool ForceFullStates { get; private set; }
-  }
 
   /// <summary>
   /// Indicates that marked element should be localized or not
@@ -200,16 +189,12 @@ namespace TestStack.BDDfy.Annotations
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-  public sealed class LocalizationRequiredAttribute : Attribute
+  public sealed class LocalizationRequiredAttribute(bool required): Attribute
   {
     public LocalizationRequiredAttribute() : this(true) { }
-    public LocalizationRequiredAttribute(bool required)
-    {
-      Required = required;
-    }
 
-    public bool Required { get; private set; }
-  }
+        public bool Required { get; private set; } = required;
+    }
 
   /// <summary>
   /// Indicates that the value of the marked type (or its derivatives)
@@ -247,15 +232,10 @@ namespace TestStack.BDDfy.Annotations
   /// </code></example>
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
   [BaseTypeRequired(typeof(Attribute))]
-  public sealed class BaseTypeRequiredAttribute : Attribute
+  public sealed class BaseTypeRequiredAttribute([NotNull] Type baseType): Attribute
   {
-    public BaseTypeRequiredAttribute([NotNull] Type baseType)
-    {
-      BaseType = baseType;
+        [NotNull] public Type BaseType { get; private set; } = baseType;
     }
-
-    [NotNull] public Type BaseType { get; private set; }
-  }
 
   /// <summary>
   /// Indicates that the marked symbol is used implicitly
@@ -263,7 +243,8 @@ namespace TestStack.BDDfy.Annotations
   /// will not be marked as unused (as well as by other usage inspections)
   /// </summary>
   [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-  public sealed class UsedImplicitlyAttribute : Attribute
+  public sealed class UsedImplicitlyAttribute(
+    ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags): Attribute
   {
     public UsedImplicitlyAttribute()
       : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
@@ -274,16 +255,9 @@ namespace TestStack.BDDfy.Annotations
     public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
       : this(ImplicitUseKindFlags.Default, targetFlags) { }
 
-    public UsedImplicitlyAttribute(
-      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
-    {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
+        public ImplicitUseKindFlags UseKindFlags { get; private set; } = useKindFlags;
+        public ImplicitUseTargetFlags TargetFlags { get; private set; } = targetFlags;
     }
-
-    public ImplicitUseKindFlags UseKindFlags { get; private set; }
-    public ImplicitUseTargetFlags TargetFlags { get; private set; }
-  }
 
   /// <summary>
   /// Should be used on attributes and causes ReSharper
@@ -291,7 +265,8 @@ namespace TestStack.BDDfy.Annotations
   /// (as well as by other usage inspections)
   /// </summary>
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-  public sealed class MeansImplicitUseAttribute : Attribute
+  public sealed class MeansImplicitUseAttribute(
+    ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags): Attribute
   {
     public MeansImplicitUseAttribute() 
       : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
@@ -302,16 +277,9 @@ namespace TestStack.BDDfy.Annotations
     public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
       : this(ImplicitUseKindFlags.Default, targetFlags) { }
 
-    public MeansImplicitUseAttribute(
-      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
-    {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
+        [UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; } = useKindFlags;
+        [UsedImplicitly] public ImplicitUseTargetFlags TargetFlags { get; private set; } = targetFlags;
     }
-
-    [UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; }
-    [UsedImplicitly] public ImplicitUseTargetFlags TargetFlags { get; private set; }
-  }
   
   [Flags]
   public enum ImplicitUseKindFlags
@@ -403,51 +371,13 @@ namespace TestStack.BDDfy.Annotations
     [NotNull] public string BasePath { get; private set; }
   }
 
-  // ASP.NET MVC attributes
-
-  [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-  public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
-  {
-    public AspMvcAreaMasterLocationFormatAttribute(string format) { }
-  }
-
-  [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-  public sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
-  {
-    public AspMvcAreaPartialViewLocationFormatAttribute(string format) { }
-  }
-
-  [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-  public sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
-  {
-    public AspMvcAreaViewLocationFormatAttribute(string format) { }
-  }
-
-  [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-  public sealed class AspMvcMasterLocationFormatAttribute : Attribute
-  {
-    public AspMvcMasterLocationFormatAttribute(string format) { }
-  }
-
-  [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-  public sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
-  {
-    public AspMvcPartialViewLocationFormatAttribute(string format) { }
-  }
-
-  [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-  public sealed class AspMvcViewLocationFormatAttribute : Attribute
-  {
-    public AspMvcViewLocationFormatAttribute(string format) { }
-  }
-  
-  /// <summary>
-  /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
-  /// is an MVC action. If applied to a method, the MVC action name is calculated
-  /// implicitly from the context. Use this attribute for custom wrappers similar to
-  /// <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    /// <summary>
+    /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
+    /// is an MVC action. If applied to a method, the MVC action name is calculated
+    /// implicitly from the context. Use this attribute for custom wrappers similar to
+    /// <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
   public sealed class AspMvcActionAttribute : Attribute
   {
     public AspMvcActionAttribute() { }
@@ -592,15 +522,10 @@ namespace TestStack.BDDfy.Annotations
   [AttributeUsage(
     AttributeTargets.Parameter | AttributeTargets.Field |
     AttributeTargets.Property, Inherited = true)]
-  public sealed class HtmlAttributeValueAttribute : Attribute
+  public sealed class HtmlAttributeValueAttribute([NotNull] string name): Attribute
   {
-    public HtmlAttributeValueAttribute([NotNull] string name)
-    {
-      Name = name;
+        [NotNull] public string Name { get; private set; } = name;
     }
-
-    [NotNull] public string Name { get; private set; }
-  }
 
   // Razor attributes
 

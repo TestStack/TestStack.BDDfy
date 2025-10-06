@@ -9,18 +9,11 @@ namespace TestStack.BDDfy.Tests.Disposer
 {
     public class DisposingScenarios
     {
-        class DisposableScenario : IDisposable
+        class DisposableScenario(ThrowingMethods throwingMethods): IDisposable
         {
-            private readonly bool _givenThrows;
-            private readonly bool _whenThrows;
-            private readonly bool _thenThrows;
-
-            public DisposableScenario(ThrowingMethods throwingMethods)
-            {
-                _givenThrows = (throwingMethods & ThrowingMethods.Given) > 0;
-                _whenThrows = (throwingMethods & ThrowingMethods.When) > 0;
-                _thenThrows = (throwingMethods & ThrowingMethods.Then) > 0;
-            }
+            private readonly bool _givenThrows = (throwingMethods & ThrowingMethods.Given) > 0;
+            private readonly bool _whenThrows = (throwingMethods & ThrowingMethods.When) > 0;
+            private readonly bool _thenThrows = (throwingMethods & ThrowingMethods.Then) > 0;
 
             public void Given()
             {

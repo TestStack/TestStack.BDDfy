@@ -4,16 +4,11 @@ using TestStack.BDDfy.Reporters.Serializers;
 
 namespace TestStack.BDDfy.Reporters.Diagnostics
 {
-    public class DiagnosticsReportBuilder : IReportBuilder
+    public class DiagnosticsReportBuilder(ISerializer serializer): IReportBuilder
     {
-        private readonly ISerializer _serializer;
+        private readonly ISerializer _serializer = serializer;
 
         public DiagnosticsReportBuilder() : this(new JsonSerializer()) { }
-
-        public DiagnosticsReportBuilder(ISerializer serializer)
-        {
-            _serializer = serializer;
-        }
 
         public string CreateReport(FileReportModel model)
         {

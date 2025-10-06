@@ -18,10 +18,8 @@ namespace TestStack.BDDfy.Samples
         {
             get
             {
-                string codeBase = typeof(CustomTextReporter).GetTypeInfo().Assembly.CodeBase;
-                var uri = new UriBuilder(codeBase);
-                string path = Uri.UnescapeDataString(uri.Path);
-                return System.IO.Path.GetDirectoryName(path);
+                string codeBase = typeof(CustomTextReporter).GetTypeInfo().Assembly.Location;
+                return System.IO.Path.GetDirectoryName(codeBase);
             }
         }
 

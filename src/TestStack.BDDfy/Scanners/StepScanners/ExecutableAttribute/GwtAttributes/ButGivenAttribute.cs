@@ -1,12 +1,7 @@
 namespace TestStack.BDDfy
 {
-    public class ButGivenAttribute : ExecutableAttribute
+    public class ButGivenAttribute(string stepTitle): ExecutableAttribute(ExecutionOrder.ConsecutiveSetupState, stepTitle)
     {
         public ButGivenAttribute() : this(null) { }
-
-        public ButGivenAttribute(string stepTitle)
-            : base(ExecutionOrder.ConsecutiveSetupState, stepTitle)
-        {
-        }
     }
 }

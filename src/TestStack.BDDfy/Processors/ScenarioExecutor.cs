@@ -5,14 +5,9 @@ using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Processors
 {
-    public class ScenarioExecutor
+    public class ScenarioExecutor(Scenario scenario)
     {
-        private readonly Scenario _scenario;
-
-        public ScenarioExecutor(Scenario scenario)
-        {
-            _scenario = scenario;
-        }
+        private readonly Scenario _scenario = scenario;
 
         public void InitializeScenario()
         {

@@ -4,20 +4,12 @@ using Shouldly;
 
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
-    public class WinnerGame : GameUnderTest
+    public class WinnerGame(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner): GameUnderTest
     {
-        private readonly string[] _firstRow;
-        private readonly string[] _secondRow;
-        private readonly string[] _thirdRow;
-        private readonly string _expectedWinner;
-
-        public WinnerGame(string[] firstRow, string[] secondRow, string[] thirdRow, string expectedWinner)
-        {
-            _firstRow = firstRow;
-            _secondRow = secondRow;
-            _thirdRow = thirdRow;
-            _expectedWinner = expectedWinner;
-        }
+        private readonly string[] _firstRow = firstRow;
+        private readonly string[] _secondRow = secondRow;
+        private readonly string[] _thirdRow = thirdRow;
+        private readonly string _expectedWinner = expectedWinner;
 
         // Note: This method returns IEnumerable<string>
         // this is done to allow the method to return its title.

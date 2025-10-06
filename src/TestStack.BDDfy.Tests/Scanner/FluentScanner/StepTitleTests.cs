@@ -11,7 +11,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void MethodCallInStepTitle()
         {
-            FooClass something = new FooClass();
+            FooClass something = new();
             var story = this
                 .Given(_ => GivenWeMutateSomeState())
                 .When(_ => something.Sub.SomethingHappens())

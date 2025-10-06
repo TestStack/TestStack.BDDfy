@@ -1,8 +1,7 @@
 ﻿namespace TestStack.BDDfy
 {
-    public class AndWhenAttribute : ExecutableAttribute
+    public class AndWhenAttribute(string stepTitle): ExecutableAttribute(ExecutionOrder.ConsecutiveTransition, stepTitle)
     {
         public AndWhenAttribute() : this(null) { }
-        public AndWhenAttribute(string stepTitle) : base(ExecutionOrder.ConsecutiveTransition, stepTitle) { }
     }
 }
