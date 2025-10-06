@@ -6,6 +6,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
+    [Collection("ExclusiveAccessToConfigurator")]
     public class ComplexStepsTests
     {
         private int count;

@@ -7,6 +7,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
+    [Collection("ExclusiveAccessToConfigurator")]
     public class HtmlReporterTests
     {
         private TestableHtmlReporter _sut;
