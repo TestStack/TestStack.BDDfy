@@ -9,10 +9,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '8.0.x'
 
@@ -25,20 +25,20 @@ jobs:
         run: dotnet test --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
 
       - name: Generate coverage report
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.16
         with:
           reports: 'coverage/**/coverage.cobertura.xml'
           targetdir: 'coverage-report'
           reporttypes: 'Html;Cobertura'
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           files: ./coverage/**/coverage.cobertura.xml
           fail_ci_if_error: false
 
       - name: Publish coverage report as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage-report/
