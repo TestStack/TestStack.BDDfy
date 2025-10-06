@@ -13,7 +13,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void ShouldBeAbleToChainComplexTestWithFluentApi()
         {
-            this.Given(_ => count.ShouldBe(0))
+            this.Given(_ => count.ShouldBe(0, "count should start with 0"))
                 .When(() => count++.ShouldBe(0), "When I do something")
                 .Given(() => count++.ShouldBe(1), "Given I am doing things in different order")
                 .Then(() => count++.ShouldBe(2), "Then they should run in defined order")

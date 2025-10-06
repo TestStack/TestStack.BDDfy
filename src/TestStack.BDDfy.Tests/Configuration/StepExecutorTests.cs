@@ -5,6 +5,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
+    [Collection("ExclusiveAccessToConfigurator")]
     public class StepExecutorTests
     {
         private class TestStepExecutor : StepExecutor

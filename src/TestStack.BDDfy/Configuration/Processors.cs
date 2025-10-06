@@ -32,16 +32,13 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        private readonly TestRunnerFactory _testRunnerFactory = new TestRunnerFactory(() => new TestRunner());
-        public TestRunnerFactory TestRunner { get { return _testRunnerFactory; } }
+        public TestRunnerFactory TestRunner { get; } = new(() => new TestRunner());
 
-        private readonly ProcessorFactory _consoleReportFactory = new ProcessorFactory(() => new ConsoleReporter());
-        public ProcessorFactory ConsoleReport { get { return _consoleReportFactory; } }
+        public ProcessorFactory ConsoleReport { get; } = new(() => new ConsoleReporter());
 
-        private readonly ProcessorFactory _storyCacheFactory = new ProcessorFactory(() => new StoryCache());
-        public ProcessorFactory StoryCache { get { return _storyCacheFactory; } }
+        public ProcessorFactory StoryCache { get; } = new(() => new StoryCache());
 
-        readonly List<Func<IProcessor>> _addedProcessors = new List<Func<IProcessor>>();
+        readonly List<Func<IProcessor>> _addedProcessors = [];
 
         public Processors Add(Func<IProcessor> processorFactory)
         {

@@ -7,6 +7,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
+    [Collection("ExclusiveAccessToConfigurator")]
     public class ProcessorPipelineTests
     {
         [Fact]

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11018.127 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F515887-AAB5-4873-8BE9-5AB10685EBCB}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,7 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\GitVersion.yml = ..\GitVersion.yml
 		..\license.txt = ..\license.txt
 		..\logo.png = ..\logo.png
-		NuGet.config = NuGet.config
 		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
