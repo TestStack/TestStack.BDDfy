@@ -22,8 +22,6 @@ jobs:
       - name: Determine Version
         uses: gittools/actions/gitversion/execute@v4.1.0
         id: gitversion
-        with:
-          useConfigFile: true
 
       - name: Display GitVersion outputs
         run: |
@@ -50,7 +48,21 @@ jobs:
         with:
           reports: 'coverage/**/coverage.cobertura.xml'
           targetdir: 'coverage-report'
-          reporttypes: 'Html;Cobertura'
+          reporttypes: 'Html;Cobertura;TextSummary'
+
+      - name: Display Code Coverage Summary
+        run: |
+          echo "## 📊 Code Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f "coverage-report/Summary.txt" ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat coverage-report/Summary.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "### Build Log Coverage Summary:"
+            cat coverage-report/Summary.txt
+          else
+            echo "⚠️ Coverage summary file not found"
+            echo "⚠️ Coverage summary file not found" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Create NuGet package
         working-directory: src
