@@ -39,7 +39,7 @@ jobs:
 
       - name: Build project
         working-directory: src
-        run: dotnet build --configuration Release /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+        run: dotnet build --configuration Release /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }}
 
       - name: Run tests with coverage
         working-directory: src
@@ -54,7 +54,7 @@ jobs:
 
       - name: Create NuGet package
         working-directory: src
-        run: dotnet pack --configuration Release --no-build /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }} --output ../packages
+        run: dotnet pack --configuration Release --no-build /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }} --output ../packages
 
       - name: Upload NuGet package as artifact
         uses: actions/upload-artifact@v4
