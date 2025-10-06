@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using NSubstitute;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
@@ -7,7 +8,6 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
-    [Collection("ExclusiveAccessToConfigurator")]
     public class HtmlReporterTests
     {
         private TestableHtmlReporter _sut;
@@ -48,7 +48,8 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Fact]
         public void ShouldLoadCustomStyleSheetIfOneExists()
         {
-            const string customStylesheetFilePath = OutputPath + @"\BDDfyCustom.css";
+            var customStylesheetFilePath = Path.Combine(OutputPath, "BDDfyCustom.css");
+
             _sut.Configuration.OutputPath.Returns(OutputPath);
             _sut.FileReader.Exists(customStylesheetFilePath).Returns(true);
             _sut.FileReader.Read(customStylesheetFilePath).Returns(CustomStylesheet);
@@ -62,7 +63,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Fact]
         public void ShouldNotLoadCustomStyleSheetIfNoneExist()
         {
-            const string customStylesheet = OutputPath + @"\BDDfyCustom.css";
+            var customStylesheet = Path.Combine(OutputPath, "BDDfyCustom.css");
             _sut.Configuration.OutputPath.Returns(OutputPath);
             _sut.FileReader.Exists(customStylesheet).Returns(false);
 
@@ -75,7 +76,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Fact]
         public void ShouldLoadCustomJavascriptIfOneExists()
         {
-            const string javaScriptFilePath = OutputPath + @"\BDDfyCustom.js";
+            var javaScriptFilePath = Path.Combine(OutputPath, "BDDfyCustom.js");
             _sut.Configuration.OutputPath.Returns(OutputPath);
             _sut.FileReader.Exists(javaScriptFilePath).Returns(true);
             _sut.FileReader.Read(javaScriptFilePath).Returns(CustomJavascript);
@@ -89,7 +90,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [Fact]
         public void ShouldNotLoadCustomJavascriptIfNoneExist()
         {
-            const string customJavascript = OutputPath + @"\BDDfyCustom.js";
+            var customJavascript = Path.Combine(OutputPath, "BDDfyCustom.js");
             _sut.Configuration.OutputPath.Returns(OutputPath);
             _sut.FileReader.Exists(customJavascript).Returns(false);
 
