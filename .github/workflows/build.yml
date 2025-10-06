@@ -64,6 +64,52 @@ jobs:
             echo "⚠️ Coverage summary file not found" >> $GITHUB_STEP_SUMMARY
           fi
 
+      - name: Generate Rich Release Notes
+        id: release_notes
+        uses: mikepenz/release-changelog-builder-action@v5.4.1
+        with:
+          configuration: |
+            {
+              "template": "## 🚀 Release ${{ steps.gitversion.outputs.semVer }}\n\n### 📅 Release Information\n- **Version**: ${{ steps.gitversion.outputs.semVer }}\n- **NuGet Version**: ${{ steps.gitversion.outputs.fullSemVer }}\n- **Build Date**: $(date -u +'%Y-%m-%d %H:%M:%S UTC')\n- **Commit**: ${{ github.sha }}\n\n#{{CHANGELOG}}\n\n### 📊 Statistics\n- **Total Changes**: #{{UNCATEGORIZED_COUNT}} commits\n- **Contributors**: #{{CONTRIBUTORS}}\n\n---\n*Generated automatically by GitHub Actions*",
+              "categories": [
+                {
+                  "title": "## 🚀 Features",
+                  "labels": ["feature", "enhancement", "feat"]
+                },
+                {
+                  "title": "## 🐛 Bug Fixes", 
+                  "labels": ["bug", "fix", "bugfix"]
+                },
+                {
+                  "title": "## 📚 Documentation",
+                  "labels": ["documentation", "docs"]
+                },
+                {
+                  "title": "## 🔧 Maintenance",
+                  "labels": ["maintenance", "chore", "refactor"]
+                },
+                {
+                  "title": "## ⚠️ Breaking Changes",
+                  "labels": ["breaking", "breaking-change"]
+                }
+              ],
+              "pr_template": "- #{{TITLE}} (#{{NUMBER}}) by @#{{AUTHOR}}",
+              "empty_template": "- #{{TITLE}} (#{{HASH}}) by @#{{AUTHOR}}",
+              "max_pull_requests": 200,
+              "max_back_track_time_days": 365
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Save Release Notes to File
+        run: echo "${{ steps.release_notes.outputs.changelog }}" > release-notes.md
+
+      - name: Upload Release Notes as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: release-notes.md
+
       - name: Create NuGet package
         working-directory: src
         run: dotnet pack --configuration Release --no-build /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }} --output ../packages
