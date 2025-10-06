@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
     <AssemblyName>TestStack.BDDfy</AssemblyName>
     <PackageId>TestStack.BDDfy</PackageId>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

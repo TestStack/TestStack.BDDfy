@@ -1,7 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	<TargetFrameworks>net8.0</TargetFrameworks>
     <AssemblyName>TestStack.BDDfy.Tests</AssemblyName>
     <PackageId>TestStack.BDDfy.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
