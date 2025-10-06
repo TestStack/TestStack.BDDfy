@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      semver: ${{ steps.gitversion.outputs.semVer }}
+      fullsemver: ${{ steps.gitversion.outputs.fullSemVer }}
+      nugetversion: ${{ steps.gitversion.outputs.fullSemVer }}
 
     steps:
       - name: Checkout code
@@ -28,7 +32,7 @@ jobs:
           echo "Version: ${{ steps.gitversion.outputs.semVer }}"
           echo "AssemblyVersion: ${{ steps.gitversion.outputs.assemblySemVer }}"
           echo "FileVersion: ${{ steps.gitversion.outputs.assemblySemFileVer }}"
-          echo "NuGet Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+          echo "NuGet Version: ${{ steps.gitversion.outputs.fullSemVer }}"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
@@ -148,3 +152,58 @@ jobs:
 
       - name: Publish to NuGet
         run: dotnet nuget push packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  create-release-tag:
+    runs-on: ubuntu-latest
+    needs: [build, publish-nuget]
+    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          TAG="v${{ needs.build.outputs.semver }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists"
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Creating new tag: $TAG"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+            echo "new_tag=$TAG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Download Release Notes
+        if: steps.check_tag.outputs.tag_exists == 'false'
+        uses: actions/download-artifact@v5
+        with:
+          name: release-notes
+          path: .
+
+      - name: Create Git Tag and GitHub Release
+        if: steps.check_tag.outputs.tag_exists == 'false'
+        run: |
+          TAG="${{ steps.check_tag.outputs.new_tag }}"
+          
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create and push tag
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+          
+          # Create GitHub release
+          gh release create "$TAG" \
+            --title "Release $TAG" \
+            --notes-file release-notes.md \
+            --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
