@@ -11,8 +11,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
       - name: Build project
+        working-directory: src
         run: dotnet build --configuration Release
 
-      - name: Run tests
-        run: dotnet test --configuration Release
+      - name: Run tests with coverage
+        working-directory: src
+        run: dotnet test --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+      - name: Generate coverage report
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+        with:
+          reports: 'coverage/**/coverage.cobertura.xml'
+          targetdir: 'coverage-report'
+          reporttypes: 'Html;Cobertura'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/**/coverage.cobertura.xml
+          fail_ci_if_error: false
+
+      - name: Publish coverage report as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage-report/
