@@ -4,18 +4,12 @@ using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy.Reporters.Diagnostics
 {
-    public class DiagnosticsReporter : IBatchProcessor
+    public class DiagnosticsReporter(IReportBuilder builder, IReportWriter writer): IBatchProcessor
     {
-        private readonly IReportBuilder _builder;
-        private readonly IReportWriter _writer;
+        private readonly IReportBuilder _builder = builder;
+        private readonly IReportWriter _writer = writer;
 
         public DiagnosticsReporter() : this(new DiagnosticsReportBuilder(), new FileWriter()) { }
-
-        public DiagnosticsReporter(IReportBuilder builder, IReportWriter writer)
-        {
-            _builder = builder;
-            _writer = writer;
-        }
 
         public void Process(IEnumerable<Story> stories)
         {

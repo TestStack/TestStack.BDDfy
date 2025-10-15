@@ -28,3 +28,5 @@ tools/Cake/
 tools/GitReleaseNotes/
 tools/gitversion.commandline/
 artifacts/
+*.code-workspace
+**/coverage

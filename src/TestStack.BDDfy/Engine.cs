@@ -4,9 +4,9 @@ using TestStack.BDDfy.Processors;
 
 namespace TestStack.BDDfy
 {
-    public class Engine
+    public class Engine(IScanner scanner)
     {
-        private readonly IScanner _scanner;
+        private readonly IScanner _scanner = scanner;
 
         static Engine()
         {
@@ -25,11 +25,6 @@ namespace TestStack.BDDfy
             {
                 batchProcessor.Process(StoryCache.Stories);
             }
-        }
-
-        public Engine(IScanner scanner)
-        {
-            _scanner = scanner;
         }
 
         public Story Run()

@@ -1,8 +1,7 @@
 ﻿namespace TestStack.BDDfy
 {
-    public class WhenAttribute : ExecutableAttribute
+    public class WhenAttribute(string stepTitle): ExecutableAttribute(ExecutionOrder.Transition, stepTitle)
     {
         public WhenAttribute() : this(null) { }
-        public WhenAttribute(string stepTitle) : base(ExecutionOrder.Transition, stepTitle) { }
     }
 }

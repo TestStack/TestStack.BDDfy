@@ -10,16 +10,10 @@ namespace TestStack.BDDfy.Samples.TicTacToe
         SoThat = "So that I can waste some time!")]
     public class TicTacToe : NewGame
     {
-        class Cell
+        class Cell(int row, int col)
         {
-            public Cell(int row, int col)
-            {
-                Row = row;
-                Col = col;
-            }
-
-            public int Row { get; set; }
-            public int Col { get; set; }
+            public int Row { get; set; } = row;
+            public int Col { get; set; } = col;
 
             public override string ToString()
             {

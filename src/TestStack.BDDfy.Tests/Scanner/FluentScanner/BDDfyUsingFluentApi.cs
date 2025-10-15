@@ -36,51 +36,51 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         private SomeEnumForTesting _enumInput;
         private Action _action;
 
-        public void GivenAnAction(Action actionInput)
+        internal void GivenAnAction(Action actionInput)
         {
             _action = actionInput;    
         }
 
-        public void ThenCallingTheActionThrows<T>() where T : Exception
+        internal void ThenCallingTheActionThrows<T>() where T : Exception
         {
             Should.Throw<T>(() => _action());
         }
 
-        public void GivenPrimitiveInputs(string input1, int input2)
+        internal void GivenPrimitiveInputs(string input1, int input2)
         {
             _primitiveInput1 = input1;
             _primitiveInput2 = input2;
         }
 
-        public void GivenEnumInputs(SomeEnumForTesting input)
+        internal void GivenEnumInputs(SomeEnumForTesting input)
         {
             _enumInput = input;
         }
 
-        public void GivenArrayInputs(string[] input1, int[] input2)
+        internal void GivenArrayInputs(string[] input1, int[] input2)
         {
             _arrayInput1 = input1;
             _arrayInput2 = input2;
         }
 
-        public void GivenEnumerableInputs(IEnumerable<string> input1, IEnumerable<int> input2)
+        internal void GivenEnumerableInputs(IEnumerable<string> input1, IEnumerable<int> input2)
         {
             _arrayInput1 = input1.ToArray();
             _arrayInput2 = input2.ToArray();
         }
 
-        public void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(string expectedInput1, int expectedInput2)
+        internal void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(string expectedInput1, int expectedInput2)
         {
             _primitiveInput1.ShouldBe(expectedInput1);
             _primitiveInput2.ShouldBe(expectedInput2);
         }
 
-        public void ThenEnumArgumentIsPassedInProperlyAndStoredOnTheSameObjectInstance(SomeEnumForTesting expectedInput)
+        internal void ThenEnumArgumentIsPassedInProperlyAndStoredOnTheSameObjectInstance(SomeEnumForTesting expectedInput)
         {
             _enumInput.ShouldBe(expectedInput);
         }
 
-        public void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(IEnumerable<string> expectedInput1, IEnumerable<int> expectedInput2)
+        internal void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(IEnumerable<string> expectedInput1, IEnumerable<int> expectedInput2)
         {
             _arrayInput1.ShouldBe(expectedInput1);
             _arrayInput2.ShouldBe(expectedInput2);

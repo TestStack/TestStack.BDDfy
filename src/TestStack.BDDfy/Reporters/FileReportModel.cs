@@ -4,18 +4,11 @@ using System.Linq;
 
 namespace TestStack.BDDfy.Reporters
 {
-    public class FileReportModel
+    public class FileReportModel(ReportModel reportModel)
     {
-        public FileReportModel(ReportModel reportModel)
-        {
-            _stories = reportModel.Stories;
-            Summary = new FileReportSummaryModel(reportModel);
-            RunDate = DateTime.Now;
-        }
-
-        readonly IEnumerable<ReportModel.Story> _stories;
-        public FileReportSummaryModel Summary { get; private set; }
-        public DateTime RunDate { get; set; }
+        readonly IEnumerable<ReportModel.Story> _stories = reportModel.Stories;
+        public FileReportSummaryModel Summary { get; private set; } = new FileReportSummaryModel(reportModel);
+        public DateTime RunDate { get; set; } = DateTime.Now;
 
         public IEnumerable<ReportModel.Story> Stories
         {

@@ -4,18 +4,11 @@ using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    public class DefaultScanner : IScanner
+    public class DefaultScanner(ITestContext testContext, IScenarioScanner scenarioScanner, Type explicitStoryType = null): IScanner
     {
-        private readonly ITestContext _testContext;
-        private readonly Type _explicitStoryType;
-        private readonly IScenarioScanner _scenarioScanner;
-
-        public DefaultScanner(ITestContext testContext, IScenarioScanner scenarioScanner, Type explicitStoryType = null)
-        {
-            _testContext = testContext;
-            _explicitStoryType = explicitStoryType;
-            _scenarioScanner = scenarioScanner;
-        }
+        private readonly ITestContext _testContext = testContext;
+        private readonly Type _explicitStoryType = explicitStoryType;
+        private readonly IScenarioScanner _scenarioScanner = scenarioScanner;
 
         public Story Scan()
         {

@@ -3,14 +3,9 @@ using System;
 namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class RunStepWithArgsAttribute : Attribute
+    public class RunStepWithArgsAttribute(params object[] inputArguments): Attribute
     {
-        private readonly object[] _inputArguments;
-
-        public RunStepWithArgsAttribute(params object[] inputArguments)
-        {
-            _inputArguments = inputArguments;
-        }
+        private readonly object[] _inputArguments = inputArguments;
 
         public string StepTextTemplate { get; set; }
 

@@ -6,8 +6,8 @@ namespace TestStack.BDDfy.Reporters.Serializers
     public class JsonFormatter
     {
         StringWalker _walker;
-        IndentWriter _writer = new IndentWriter();
-        StringBuilder _currentLine = new StringBuilder();
+        IndentWriter _writer = new();
+        StringBuilder _currentLine = new();
         bool _quoted;
 
         public JsonFormatter(string json)
@@ -102,7 +102,7 @@ namespace TestStack.BDDfy.Reporters.Serializers
 
     public class IndentWriter
     {
-        StringBuilder _sb = new StringBuilder();
+        StringBuilder _sb = new();
         int _indent;
 
         public void Indent()
@@ -123,7 +123,7 @@ namespace TestStack.BDDfy.Reporters.Serializers
 
         private string CreateIndent()
         {
-            StringBuilder indentString = new StringBuilder();
+            StringBuilder indentString = new();
             for (int i = 0; i < _indent; i++)
                 indentString.Append("    ");
             return indentString.ToString();
@@ -135,16 +135,10 @@ namespace TestStack.BDDfy.Reporters.Serializers
         }
     }
 
-    public class StringWalker
+    public class StringWalker(string s)
     {
-        string _s;
-        public int Index { get; set; }
-
-        public StringWalker(string s)
-        {
-            _s = s;
-            Index = -1;
-        }
+        string _s = s;
+        public int Index { get; set; } = -1;
 
         public bool MoveNext()
         {

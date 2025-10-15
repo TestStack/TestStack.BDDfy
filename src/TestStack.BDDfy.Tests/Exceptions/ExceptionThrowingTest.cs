@@ -6,9 +6,9 @@ namespace TestStack.BDDfy.Tests.Exceptions
 {
     public class ExceptionThrowingTest<T> where T : Exception, new()
     {
-        private static bool _givenShouldThrow;
-        private static bool _whenShouldThrow;
-        private static bool _thenShouldThrow;
+        private bool _givenShouldThrow;
+        private bool _whenShouldThrow;
+        private bool _thenShouldThrow;
         Scenario _scenario;
 
         void Given()

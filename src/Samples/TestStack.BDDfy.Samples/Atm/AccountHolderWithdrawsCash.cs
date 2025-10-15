@@ -19,47 +19,47 @@ namespace TestStack.BDDfy.Samples.Atm
         private Card _card;
         private Atm _atm;
 
-        public void Given_the_Account_Balance_is(int balance)
+        internal void Given_the_Account_Balance_is(int balance)
         {
             _card = new Card(true, balance);
         }
 
-        public void Given_the_Card_is_disabled()
+        internal void Given_the_Card_is_disabled()
         {
             _card = new Card(false, 100);
             _atm = new Atm(100);
         }
 
-        public void And_the_Card_is_valid()
+        internal void And_the_Card_is_valid()
         {
         }
 
-        public void And_the_machine_contains(int atmBalance)
+        internal void And_the_machine_contains(int atmBalance)
         {
             _atm = new Atm(atmBalance);
         }
 
-        public void When_the_Account_Holder_requests(int moneyRequest)
+        internal void When_the_Account_Holder_requests(int moneyRequest)
         {
             _atm.RequestMoney(_card, moneyRequest);
         }
 
-        public void The_ATM_should_dispense(int dispensedMoney)
+        internal void The_ATM_should_dispense(int dispensedMoney)
         {
             _atm.DispenseValue.ShouldBe(dispensedMoney);
         }
 
-        public void And_the_Account_Balance_should_be(int balance)
+        internal void And_the_Account_Balance_should_be(int balance)
         {
             _card.AccountBalance.ShouldBe(balance);
         }
 
-        public void Then_Card_is_retained(bool cardIsRetained)
+        internal void Then_Card_is_retained(bool cardIsRetained)
         {
             _atm.CardIsRetained.ShouldBe(cardIsRetained);
         }
 
-        void And_the_ATM_should_say_the_Card_has_been_retained()
+        internal void And_the_ATM_should_say_the_Card_has_been_retained()
         {
             _atm.Message.ShouldBe(DisplayMessage.CardIsRetained);
         }

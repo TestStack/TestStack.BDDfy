@@ -4,16 +4,10 @@ using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    public class FluentScenarioScanner : IScenarioScanner
+    public class FluentScenarioScanner(List<Step> steps, string title): IScenarioScanner
     {
-        private readonly string _title;
-        private readonly List<Step> _steps;
-
-        public FluentScenarioScanner(List<Step> steps, string title)
-        {
-            _title = title;
-            _steps = steps;
-        }
+        private readonly string _title = title;
+        private readonly List<Step> _steps = steps;
 
         public IEnumerable<Scenario> Scan(ITestContext testContext)
         {

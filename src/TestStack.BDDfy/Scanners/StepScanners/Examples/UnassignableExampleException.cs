@@ -7,12 +7,8 @@ namespace TestStack.BDDfy
 #else
     [System.Runtime.Serialization.Serializable]
 #endif
-    public class UnassignableExampleException : Exception
+    public class UnassignableExampleException(string message, Exception inner, ExampleValue exampleValue): Exception(message, inner)
     {
-        public UnassignableExampleException(string message, Exception inner, ExampleValue exampleValue) : base(message, inner)
-        {
-            ExampleValue = exampleValue;
-        }
 #if NET40
 
         protected UnassignableExampleException(
@@ -22,6 +18,6 @@ namespace TestStack.BDDfy
         }
 
 #endif
-        public ExampleValue ExampleValue { get; private set; }
+        public ExampleValue ExampleValue { get; private set; } = exampleValue;
     }
 }

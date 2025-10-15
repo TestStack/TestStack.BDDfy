@@ -1,13 +1,8 @@
 namespace TestStack.BDDfy.Samples.Atm
 {
-    public class Atm
+    public class Atm(int existingCash)
     {
-        public int ExistingCash { get; private set; }
-
-        public Atm(int existingCash)
-        {
-            ExistingCash = existingCash;
-        }
+        public int ExistingCash { get; private set; } = existingCash;
 
         public void RequestMoney(Card card, int request)
         {
@@ -35,16 +30,10 @@ namespace TestStack.BDDfy.Samples.Atm
         public DisplayMessage Message { get; private set; }
     }
 
-    public class Card
+    public class Card(bool enabled, int accountBalance)
     {
-        public int AccountBalance { get; set; }
-        private readonly bool _enabled;
-
-        public Card(bool enabled, int accountBalance)
-        {
-            AccountBalance = accountBalance;
-            _enabled = enabled;
-        }
+        public int AccountBalance { get; set; } = accountBalance;
+        private readonly bool _enabled = enabled;
 
         public bool Enabled
         {

@@ -23,7 +23,7 @@ namespace TestStack.BDDfy.Tests.Processors
 
             var sut = new TestRunner();
             Func<object, object> action = o => actualValue = ExampleValue;
-            var steps = new List<Step> { new Step(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true, new List<StepArgument>()) };
+            var steps = new List<Step> { new(action, new StepTitle("A Step"), true, ExecutionOrder.Initialize, true, new List<StepArgument>()) };
 
             var scenarioWithExample = new Scenario("id", this, steps, "Scenario Text", exampleTable, new List<string>());
             var story = new Story(new StoryMetadata(typeof(TestRunnerTests), new StoryNarrativeAttribute()), scenarioWithExample);
