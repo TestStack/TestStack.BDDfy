@@ -5,6 +5,5 @@ branches:
     increment: Patch
     regex: ^main$
     is-release-branch: true
-    tag: ''
 ignore:
   sha: []
