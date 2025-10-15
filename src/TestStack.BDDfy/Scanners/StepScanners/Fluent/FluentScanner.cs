@@ -203,9 +203,15 @@ namespace TestStack.BDDfy
                                 {
                                     if (_testContext.Examples != null)
                                     {
-                                        var matchingHeader = _testContext.Examples.Headers
-                                            .SingleOrDefault(header => ExampleTable.HeaderMatches(header, i.ParameterName) ||
-                                            ExampleTable.HeaderMatches(header, i.Value.Name));
+                                        var matchingHeaders = _testContext.Examples.Headers
+                                            .Where(header => ExampleTable.HeaderMatches(header, i.ParameterName) ||
+                                                            ExampleTable.HeaderMatches(header, i.Value.Name))
+                                            .ToList();
+
+                                        if (matchingHeaders.Count > 1)
+                                            throw new ArgumentException($"Cannot uniquely distinguish parameter name between '{methodInfo.Name}' method's parameter name '{i.ParameterName}' and header's name '{i.Value.Name}'");
+
+                                        var matchingHeader = matchingHeaders.SingleOrDefault();
                                         if (matchingHeader != null)
                                             return string.Format("<{0}>", matchingHeader);
                                     }
