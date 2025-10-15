@@ -8,10 +8,7 @@ on:
         description: 'Publish Nuget ?'
         required: true
         default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        type: boolean
 
 jobs:
   build:
