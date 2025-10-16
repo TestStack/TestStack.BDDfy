@@ -33,12 +33,19 @@ jobs:
         uses: gittools/actions/gitversion/execute@v4.1.0
         id: gitversion
 
+      - name: Format NuGet version
+        run: |         
+          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${{steps.gitversion.outputs.preReleaseNumber}}"
+          echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
+        id: formatversion
+  
       - name: Display GitVersion outputs
         run: |
           echo "Version: ${{ steps.gitversion.outputs.semVer }}"
           echo "AssemblyVersion: ${{ steps.gitversion.outputs.assemblySemVer }}"
           echo "FileVersion: ${{ steps.gitversion.outputs.assemblySemFileVer }}"
           echo "NuGet Version: ${{ steps.gitversion.outputs.fullSemVer }}"
+          echo "Package Version: ${{ steps.formatversion.outputs.packageVersion }}"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
@@ -47,11 +54,20 @@ jobs:
 
       - name: Build project
         working-directory: src
-        run: dotnet build --configuration Release /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }}
+        run: >-
+          dotnet build --configuration Release 
+          /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} 
+          /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} 
+          /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} 
+          /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }}
 
       - name: Run tests with coverage
         working-directory: src
-        run: dotnet test --configuration Release --collect:"XPlat Code Coverage" --results-directory ../coverage
+        run: >-
+          dotnet test 
+          --configuration Release 
+          --collect:"XPlat Code Coverage" 
+          --results-directory ../coverage
 
       - name: Generate coverage report
         uses: danielpalme/ReportGenerator-GitHub-Action@5.4.16
@@ -122,7 +138,12 @@ jobs:
 
       - name: Create NuGet package
         working-directory: src
-        run: dotnet pack --configuration Release --no-build /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }} --output ../packages
+        run: >-
+          dotnet pack 
+          --configuration Release 
+          --no-build 
+          /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }} 
+          --output ../packages
 
       - name: Upload NuGet package as artifact
         uses: actions/upload-artifact@v4
