@@ -56,7 +56,7 @@ jobs:
         working-directory: src
         run: >-
           dotnet build --configuration Release 
-          /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} 
+          /p:Version=${{ steps.formatversion.outputs.packageVersion }} 
           /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} 
           /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} 
           /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }}
