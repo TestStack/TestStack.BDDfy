@@ -37,7 +37,7 @@ jobs:
         run: |         
           nugetVersion="${{ steps.gitversion.outputs.NuGetVersion }}"
           nugetVersion="${nugetVersion//-/.}"
-          echo "##[set-output name=nugetVersion;]$nugetVersion"
+          echo "nugetVersion=$nugetVersion" >> $NUGET_VERSION
         id: formatversion
   
       - name: Display GitVersion outputs
