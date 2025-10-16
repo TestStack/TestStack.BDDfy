@@ -35,7 +35,7 @@ jobs:
 
       - name: Format NuGet version
         run: |         
-          nugetVersion="${{ steps.gitversion.outputs.majorMinorPatch }}${{steps.gitversion.outputs.buildMetaData}}"
+          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${{steps.gitversion.outputs.buildMetaData}}"
           echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
         id: formatversion
   
