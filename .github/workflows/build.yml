@@ -35,9 +35,8 @@ jobs:
 
       - name: Format NuGet version
         run: |         
-          nugetVersion="${{ steps.gitversion.outputs.NuGetVersion }}"
-          nugetVersion="${nugetVersion//-/.}"
-          echo "nugetVersion=$nugetVersion" >> $GITHUB_OUTPUT
+          nugetVersion="${{ steps.gitversion.outputs.majorMinorPatch }}${{steps.gitversion.outputs.buildMetaData}}"
+          echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
         id: formatversion
   
       - name: Display GitVersion outputs
@@ -46,7 +45,7 @@ jobs:
           echo "AssemblyVersion: ${{ steps.gitversion.outputs.assemblySemVer }}"
           echo "FileVersion: ${{ steps.gitversion.outputs.assemblySemFileVer }}"
           echo "NuGet Version: ${{ steps.gitversion.outputs.fullSemVer }}"
-          echo "NuGet Version: ${{ steps.formatversion.outputs.nugetVersion }}"
+          echo "Package Version: ${{ steps.formatversion.outputs.packageVersion }}"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
