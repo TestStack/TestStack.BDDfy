@@ -59,7 +59,7 @@ jobs:
           /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} 
           /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} 
           /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} 
-          /p:PackageVersion=${{ steps.formatversion.outputs.nugetVersion }}
+          /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }}
 
       - name: Run tests with coverage
         working-directory: src
