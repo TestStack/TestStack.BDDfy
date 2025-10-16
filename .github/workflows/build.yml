@@ -34,7 +34,10 @@ jobs:
         id: gitversion
 
       - name: Format NuGet version
-        run: echo "##[set-output name=nugetVersion;]${{ steps.gitversion.outputs.NuGetVersion | replace('-', '.') }}"
+        run: |         
+          nugetVersion="${{ steps.gitversion.outputs.NuGetVersion }}"
+          nugetVersion="${nugetVersion//-/.}"
+          echo "##[set-output name=nugetVersion;]$nugetVersion"
         id: formatversion
   
       - name: Display GitVersion outputs
