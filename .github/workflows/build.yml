@@ -33,12 +33,17 @@ jobs:
         uses: gittools/actions/gitversion/execute@v4.1.0
         id: gitversion
 
+      - name: Format NuGet version
+        run: echo "##[set-output name=nugetVersion;]${{ steps.gitversion.outputs.NuGetVersion | replace('-', '.') }}"
+        id: formatversion
+  
       - name: Display GitVersion outputs
         run: |
           echo "Version: ${{ steps.gitversion.outputs.semVer }}"
           echo "AssemblyVersion: ${{ steps.gitversion.outputs.assemblySemVer }}"
           echo "FileVersion: ${{ steps.gitversion.outputs.assemblySemFileVer }}"
           echo "NuGet Version: ${{ steps.gitversion.outputs.fullSemVer }}"
+          echo "NuGet Version: ${{ steps.formatversion.outputs.nugetVersion }}"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
@@ -47,7 +52,12 @@ jobs:
 
       - name: Build project
         working-directory: src
-        run: dotnet build --configuration Release /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }}
+        run: >-
+          dotnet build --configuration Release 
+          /p:Version=${{ steps.gitversion.outputs.assemblySemVer }} 
+          /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemVer }} 
+          /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} 
+          /p:PackageVersion=${{ steps.formatversion.outputs.nugetVersion }}
 
       - name: Run tests with coverage
         working-directory: src
