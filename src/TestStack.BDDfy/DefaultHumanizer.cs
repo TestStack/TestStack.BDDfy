@@ -7,7 +7,7 @@ using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    internal partial class DefaultHumanizer: IHumanizer
+    public partial class DefaultHumanizer: IHumanizer
     {
         static readonly Func<string, string> FromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
         static string FromPascalCase(string name)
