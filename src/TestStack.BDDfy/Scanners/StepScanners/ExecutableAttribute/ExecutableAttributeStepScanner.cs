@@ -34,7 +34,7 @@ namespace TestStack.BDDfy
 
             var stepTitle = new StepTitle(executableAttribute.StepTitle);
             if(string.IsNullOrEmpty(stepTitle))
-                stepTitle = new StepTitle(Configurator.Scanners.Humanize(candidateMethod.Name));
+                stepTitle = new StepTitle(Configurator.Humanizer.Humanize(candidateMethod.Name));
 
             var stepAsserts = IsAssertingByAttribute(candidateMethod);
             var shouldReport = executableAttribute.ShouldReport;
@@ -78,7 +78,7 @@ namespace TestStack.BDDfy
 
             string stepTitle = executableAttribute.StepTitle;
             if (string.IsNullOrEmpty(stepTitle))
-                stepTitle = Configurator.Scanners.Humanize(method.Name);
+                stepTitle = Configurator.Humanizer.Humanize(method.Name);
 
             var stepAsserts = IsAssertingByAttribute(method);
             var shouldReport = executableAttribute.ShouldReport;

@@ -52,12 +52,12 @@ namespace TestStack.BDDfy
         /// <returns></returns>
         public static Story BDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller)).Run();
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller)).Run();
         }
 
         public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller));
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller));
         }
 
         /// <summary>
@@ -71,13 +71,13 @@ namespace TestStack.BDDfy
         public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
             where TStory : class
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory)).Run();
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller), typeof(TStory)).Run();
         }
 
         public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
             where TStory : class
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Scanners.Humanize(caller), typeof(TStory));
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller), typeof(TStory));
         }
 #endif
 

@@ -125,7 +125,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         void VerifyStepAndItsProperties(Expression<Action> stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Title.Trim() == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.Title.Trim() == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
             matchingSteps.Count().ShouldBe(expectedCount);
             matchingSteps.All(s => s.ExecutionOrder == expectedOrder).ShouldBe(true);
         }
@@ -133,7 +133,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void IgnoredMethodShouldNotBeAddedToSteps()
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Scanners.Humanize(Helpers.GetMethodInfo(() => _sut.ThenIAmNotAStep()).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(() => _sut.ThenIAmNotAStep()).Name));
             matchingSteps.ShouldBeEmpty();
         }
     }

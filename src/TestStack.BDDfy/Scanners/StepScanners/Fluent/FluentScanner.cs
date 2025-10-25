@@ -190,7 +190,7 @@ namespace TestStack.BDDfy
                             includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
                     }
 
-                    var stepTitle = AppendPrefix(Configurator.Scanners.Humanize(name), stepPrefix);
+                    var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
 
                     if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
                     else if (includeInputsInStepTitle)

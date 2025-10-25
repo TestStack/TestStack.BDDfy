@@ -35,7 +35,5 @@ namespace TestStack.BDDfy.Configuration
         }
 
         public Func<IStoryMetadataScanner> StoryMetadataScanner = () => new StoryAttributeMetadataScanner();
-
-        public Func<string, string> Humanize = NetToString.Convert;
     }
 }
