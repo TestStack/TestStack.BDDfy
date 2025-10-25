@@ -110,6 +110,15 @@ which gives you a report like:
     	Then the ATM should retain the card
       		And the atm should say the card has been retained
 
+## IDE annotations
+
+This repository contains a small set of in-repo code-analysis annotations (see `src/TestStack.BDDfy/Properties/Annotations.cs`).
+
+Notably, the attribute classes used for step discovery (for example `ExecutableAttribute` and the GWT attribute variants) are marked with a local `MeansImplicitUse` attribute. That makes methods decorated with `[Executable]` (or `[Given]`, `[When]`, `[Then]`, etc.) be treated as "used implicitly" by IDEs such as ReSharper or Rider. The effect: you won't see "unused" inspections on step methods even though they're invoked via reflection at runtime.
+
+If you prefer to use the official `JetBrains.Annotations` NuGet package instead of the in-repo annotations, you can replace the local attributes and add the package as a development-only dependency (use `PrivateAssets="all"` on the package reference so it doesn't become transitive).
+
+
 This is only the tip of iceberg. Absolutely everything you do with BDDfy is extensible and customizable. 
 You might see full documentation of BDDfy on the [TestStack documentation website](http://bddfy.teststack.net/).
 Oh and while you are there don't forget to checkout other cool projects from [TestStack](http://www.teststack.net/).
