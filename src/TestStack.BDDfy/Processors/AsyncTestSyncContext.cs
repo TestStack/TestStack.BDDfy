@@ -8,7 +8,7 @@ namespace TestStack.BDDfy
     /// </summary>
     internal class AsyncTestSyncContext : SynchronizationContext
     {
-        readonly ManualResetEvent _event = new ManualResetEvent(initialState: true);
+        readonly ManualResetEvent _event = new(initialState: true);
         Exception _exception;
         int _operationCount;
 

@@ -6,16 +6,11 @@ using System.Text;
 
 namespace TestStack.BDDfy
 {
-    public class ExampleTable : ICollection<Example>
+    public class ExampleTable(params string[] headers): ICollection<Example>
     {
-        private readonly List<Example> _rows = new List<Example>();
+        private readonly List<Example> _rows = new();
 
-        public ExampleTable(params string[] headers)
-        {
-            Headers = headers;
-        }
-
-        public string[] Headers { get; private set; }
+        public string[] Headers { get; private set; } = headers;
 
         public int Count { get { return _rows.Count; } }
 

@@ -5,17 +5,11 @@ namespace TestStack.BDDfy
     /// <summary>
     /// Allows examples to contain actions which can be performed
     /// </summary>
-    public class ExampleAction
+    public class ExampleAction(string stepTitle, Action action)
     {
-        private readonly string _stepTitle;
+        private readonly string _stepTitle = stepTitle;
 
-        public ExampleAction(string stepTitle, Action action)
-        {
-            Action = action;
-            _stepTitle = stepTitle;
-        }
-
-        public Action Action { get; private set; }
+        public Action Action { get; private set; } = action;
 
         public override string ToString()
         {

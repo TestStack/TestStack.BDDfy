@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 {
     public class MarkDownReportBuilder : IReportBuilder
     {
-        private readonly List<Exception> _exceptions = new List<Exception>();
+        private readonly List<Exception> _exceptions = new();
 
         public string CreateReport(FileReportModel model)
         {

@@ -4,8 +4,8 @@ namespace TestStack.BDDfy
 {
     public class TestContext : ITestContext
     {
-        private static readonly Dictionary<object, ITestContext> ContextLookup = new Dictionary<object, ITestContext>();
-        private static object _dictionaryLock = new object();
+        private static readonly Dictionary<object, ITestContext> ContextLookup = new();
+        private static object _dictionaryLock = new();
 
         private TestContext(object testObject)
         {

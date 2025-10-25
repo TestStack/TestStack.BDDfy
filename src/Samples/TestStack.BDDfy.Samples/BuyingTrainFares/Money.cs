@@ -2,14 +2,9 @@ using System.Globalization;
 
 namespace TestStack.BDDfy.Samples.BuyingTrainFares
 {
-    class Money
+    class Money(decimal amount)
     {
-        public Money(decimal amount)
-        {
-            Amount = amount;
-        }
-
-        public decimal Amount { get; set; }
+        public decimal Amount { get; set; } = amount;
 
         protected bool Equals(Money other)
         {

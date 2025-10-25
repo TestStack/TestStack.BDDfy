@@ -24,11 +24,9 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             var assembly = typeof(HtmlReportResources).Assembly();
 
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
+            using var stream = assembly.GetManifestResourceStream(resourceName);
+            using var reader = new StreamReader(stream);
+            return reader.ReadToEnd();
         }
     }
 }

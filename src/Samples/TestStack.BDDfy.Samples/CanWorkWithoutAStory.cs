@@ -4,15 +4,15 @@ namespace TestStack.BDDfy.Samples
 {
     public class CanWorkWithoutAStory
     {
-        public void Given_no_story_is_provided()
+        internal void Given_no_story_is_provided()
         {
         }
 
-        public void When_we_BDDfy_the_class()
+        internal void When_we_BDDfy_the_class()
         {
         }
 
-        public void Then_the_namespace_is_used_in_the_report()
+        internal void Then_the_namespace_is_used_in_the_report()
         {
         }
 

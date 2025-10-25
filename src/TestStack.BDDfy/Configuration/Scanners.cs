@@ -5,13 +5,13 @@ namespace TestStack.BDDfy.Configuration
 {
     public class Scanners
     {
-        private readonly StepScannerFactory _executableAttributeScanner = new StepScannerFactory(() => new ExecutableAttributeStepScanner());
+        private readonly StepScannerFactory _executableAttributeScanner = new(() => new ExecutableAttributeStepScanner());
         public StepScannerFactory ExecutableAttributeScanner { get { return _executableAttributeScanner; } }
 
-        private readonly StepScannerFactory _methodNameStepScanner = new StepScannerFactory(() => new DefaultMethodNameStepScanner());
+        private readonly StepScannerFactory _methodNameStepScanner = new(() => new DefaultMethodNameStepScanner());
         public StepScannerFactory DefaultMethodNameStepScanner { get { return _methodNameStepScanner; } }
 
-        private readonly List<Func<IStepScanner>> _addedStepScanners = new List<Func<IStepScanner>>();
+        private readonly List<Func<IStepScanner>> _addedStepScanners = new();
         public Scanners Add(Func<IStepScanner> stepScannerFactory)
         {
             _addedStepScanners.Add(stepScannerFactory);

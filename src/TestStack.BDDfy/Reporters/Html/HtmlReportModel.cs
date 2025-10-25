@@ -2,14 +2,8 @@
 
 namespace TestStack.BDDfy.Reporters.Html
 {
-    public class HtmlReportModel : FileReportModel
+    public class HtmlReportModel(IHtmlReportConfiguration configuration, ReportModel reportModel): FileReportModel(reportModel)
     {
-        public HtmlReportModel(IHtmlReportConfiguration configuration, ReportModel reportModel)
-            : base(reportModel)
-        {
-            Configuration = configuration;
-        }
-
         public HtmlReportModel(ReportModel reportModel) 
             :this(new DefaultHtmlReportConfiguration(), reportModel)
         {
@@ -18,6 +12,6 @@ namespace TestStack.BDDfy.Reporters.Html
         public string CustomStylesheet { get; set; }
         public string CustomJavascript { get; set; }
 
-        public IHtmlReportConfiguration Configuration { get; private set; }
+        public IHtmlReportConfiguration Configuration { get; private set; } = configuration;
     }
 }

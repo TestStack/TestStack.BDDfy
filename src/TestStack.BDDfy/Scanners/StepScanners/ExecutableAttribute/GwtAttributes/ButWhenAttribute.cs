@@ -1,12 +1,7 @@
 namespace TestStack.BDDfy
 {
-    public class ButWhenAttribute : ExecutableAttribute
+    public class ButWhenAttribute(string stepTitle): ExecutableAttribute(ExecutionOrder.ConsecutiveTransition, stepTitle)
     {
         public ButWhenAttribute() : this(null) { }
-
-        public ButWhenAttribute(string stepTitle)
-            : base(ExecutionOrder.ConsecutiveTransition, stepTitle)
-        {
-        }
     }
 }

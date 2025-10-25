@@ -33,19 +33,19 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        private readonly BatchProcessorFactory _htmlReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
+        private readonly BatchProcessorFactory _htmlReportFactory = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
         public BatchProcessorFactory HtmlReport { get { return _htmlReportFactory; } }
 
-        private readonly BatchProcessorFactory _htmlMetroReportFactory = new BatchProcessorFactory(() => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
+        private readonly BatchProcessorFactory _htmlMetroReportFactory = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
         public BatchProcessorFactory HtmlMetroReport { get { return _htmlMetroReportFactory; } }
 
-        private readonly BatchProcessorFactory _markDownFactory = new BatchProcessorFactory(() => new MarkDownReporter(), false);
+        private readonly BatchProcessorFactory _markDownFactory = new(() => new MarkDownReporter(), false);
         public BatchProcessorFactory MarkDownReport { get { return _markDownFactory; } }
 
-        private readonly BatchProcessorFactory _diagnosticsFactory = new BatchProcessorFactory(() => new DiagnosticsReporter(), false);
+        private readonly BatchProcessorFactory _diagnosticsFactory = new(() => new DiagnosticsReporter(), false);
         public BatchProcessorFactory DiagnosticsReport { get { return _diagnosticsFactory; } }
 
-        readonly List<IBatchProcessor> _addedProcessors = new List<IBatchProcessor>();
+        readonly List<IBatchProcessor> _addedProcessors = new();
 
         public BatchProcessors Add(IBatchProcessor processor)
         {

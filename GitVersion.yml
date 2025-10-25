@@ -1,0 +1,9 @@
+mode: ContinuousDelivery
+next-version: 8.0.0
+branches:
+  main:
+    increment: Patch
+    regex: ^main$
+    is-release-branch: true
+ignore:
+  sha: []

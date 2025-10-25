@@ -2,7 +2,7 @@
 
 namespace TestStack.BDDfy
 {
-    public class MethodNameMatcher
+    public class MethodNameMatcher(Predicate<string> isMethodOfInterest, ExecutionOrder executionOrder)
     {
         public MethodNameMatcher(Predicate<string> isMethodOfInterest, bool asserts, ExecutionOrder executionOrder, bool shouldReport)
             : this(isMethodOfInterest, executionOrder)
@@ -11,17 +11,9 @@ namespace TestStack.BDDfy
             ShouldReport = shouldReport;
         }
 
-        public MethodNameMatcher(Predicate<string> isMethodOfInterest, ExecutionOrder executionOrder)
-        {
-            IsMethodOfInterest = isMethodOfInterest;
-            ExecutionOrder = executionOrder;
-            Asserts = false;
-            ShouldReport = true;
-        }
-
-        public Predicate<string> IsMethodOfInterest { get; private set; }
-        public bool Asserts { get; set; }
-        public bool ShouldReport { get; set; }
-        public ExecutionOrder ExecutionOrder { get; private set; }
+        public Predicate<string> IsMethodOfInterest { get; private set; } = isMethodOfInterest;
+        public bool Asserts { get; set; } = false;
+        public bool ShouldReport { get; set; } = true;
+        public ExecutionOrder ExecutionOrder { get; private set; } = executionOrder;
     }
 }

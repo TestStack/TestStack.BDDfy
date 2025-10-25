@@ -3,19 +3,12 @@
 namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class ExecutableAttribute : Attribute
+    public class ExecutableAttribute(ExecutionOrder order, string stepTitle): Attribute
     {
-        public ExecutableAttribute(ExecutionOrder order, string stepTitle)
-        {
-            ExecutionOrder = order;
-            StepTitle = stepTitle;
-            ShouldReport = true;
-        }
-
-        public ExecutionOrder ExecutionOrder { get; private set; }
+        public ExecutionOrder ExecutionOrder { get; private set; } = order;
         public bool Asserts { get; set; }
-        public string StepTitle { get; set; }
+        public string StepTitle { get; set; } = stepTitle;
         public int Order { get; set; }
-        public bool ShouldReport { get; set; }
+        public bool ShouldReport { get; set; } = true;
     }
 }

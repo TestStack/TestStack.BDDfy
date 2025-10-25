@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
+    [Collection("ExclusiveAccessToConfigurator")]
     public class TestRunnerTests
     {
         public class ScenarioWithFailingThen
@@ -104,6 +104,8 @@ namespace TestStack.BDDfy.Tests.Configuration
             [Fact]
             public void FailingThenDoesNotStopThePipelineWithFluentAPI()
             {
+                Configurator.Processors.TestRunner.StopExecutionOnFailingThen = false;
+
                 var testRun = new ScenarioWithFailingThen()
                     .Given(x => x.PassingGiven())
                     .When(x => x.PassingWhen())

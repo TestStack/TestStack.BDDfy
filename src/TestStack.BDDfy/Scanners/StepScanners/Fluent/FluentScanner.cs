@@ -39,7 +39,7 @@ namespace TestStack.BDDfy
     internal class FluentScanner<TScenario> : IFluentScanner
         where TScenario : class
     {
-        private readonly List<Step> _steps = new List<Step>();
+        private readonly List<Step> _steps = new();
         private readonly TScenario _testObject;
         private readonly ITestContext _testContext;
         private readonly MethodInfo _fakeExecuteActionMethod;

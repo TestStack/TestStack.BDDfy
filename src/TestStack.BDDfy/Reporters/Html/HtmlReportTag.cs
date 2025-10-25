@@ -2,16 +2,10 @@ using System;
 
 namespace TestStack.BDDfy.Reporters.Html
 {
-    class HtmlReportTag : IDisposable
+    class HtmlReportTag(HtmlTag tag, Action<HtmlTag> closeTagAction): IDisposable
     {
-        private readonly HtmlTag _tagName;
-        private readonly Action<HtmlTag> _closeTagAction;
-
-        public HtmlReportTag(HtmlTag tag, Action<HtmlTag> closeTagAction)
-        {
-            _tagName = tag;
-            _closeTagAction = closeTagAction;
-        }
+        private readonly HtmlTag _tagName = tag;
+        private readonly Action<HtmlTag> _closeTagAction = closeTagAction;
 
         public void Dispose()
         {
