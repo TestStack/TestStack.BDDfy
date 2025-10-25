@@ -38,7 +38,7 @@ namespace TestStack.BDDfy
             if (initiatingFrame == null)
                 return null;
 
-            return Configurator.Scanners.Humanize(initiatingFrame.GetMethod().Name);
+            return Configurator.Humanizer.Humanize(initiatingFrame.GetMethod().Name);
 #else
             return null;
 #endif

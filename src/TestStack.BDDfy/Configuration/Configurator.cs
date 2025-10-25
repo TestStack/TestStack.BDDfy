@@ -2,45 +2,18 @@ namespace TestStack.BDDfy.Configuration
 {
     public static class Configurator
     {
-        static Configurator()
-        {
-            AsyncVoidSupportEnabled = true;
-        }
+        public static bool AsyncVoidSupportEnabled { get; set; } = true;
 
-        public static bool AsyncVoidSupportEnabled { get; set; }
+        public static Processors Processors { get; } = new();
 
-        private static readonly Processors ProcessorsFactory = new();
-        public static Processors Processors
-        {
-            get { return ProcessorsFactory; }
-        }
+        public static BatchProcessors BatchProcessors { get; } = new();
 
-        private static readonly BatchProcessors BatchProcessorFactory = new();
-        public static BatchProcessors BatchProcessors
-        {
-            get { return BatchProcessorFactory; }
-        }
+        public static Scanners Scanners { get; } = new();
 
-        private static readonly Scanners ScannersFactory = new();
-        public static Scanners Scanners
-        {
-            get { return ScannersFactory; }
-        }
+        public static IKeyGenerator IdGenerator { get; set; } = new SequentialKeyGenerator();
 
-        private static IKeyGenerator _idGenerator = new SequentialKeyGenerator();
-        public static IKeyGenerator IdGenerator
-        {
-            get { return _idGenerator; }
-            set { _idGenerator = value; }
-        }
+        public static IStepExecutor StepExecutor { get; set; } = new StepExecutor();
 
-
-        private static IStepExecutor _stepExecutor = new StepExecutor();
-        public static IStepExecutor  StepExecutor
-        {
-            get { return _stepExecutor; }
-            set { _stepExecutor = value; }
-        }
-
+        public static IHumanizer Humanizer { get; set; } = new DefaultHumanizer();
     }
 }

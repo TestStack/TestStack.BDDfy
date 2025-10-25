@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    public class NetToString
+    internal partial class DefaultHumanizer: IHumanizer
     {
         static readonly Func<string, string> FromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
         static string FromPascalCase(string name)
@@ -49,21 +51,17 @@ namespace TestStack.BDDfy
             return false;
         }
 
-        public static readonly Func<string, string> Convert = name => {
-            return name.Contains("__") ? ExampleTitle(name) : ConvertNonExample(name);
-        };
-
         private static readonly Func<string, string> ConvertNonExample = name => {
-            if (name.Contains("_"))
+            if (name.Contains('_'))
                 return FromUnderscoreSeparatedWords(name);
 
             return FromPascalCase(name);
         };
 
-        private static string ExampleTitle(string name)
+        private string ExampleTitle(string name)
         {
             // Compare contains("__") with a regex match
-            string newName = Regex.Replace(name, "__([a-zA-Z][a-zA-Z0-9]*)__", " <$1> ");
+            string newName = TitleCleanerRegex().Replace(name, " <$1> ");
 
             if (newName == name) {
                 throw new ArgumentException("Illegal example title in name '" + name + "'!");
@@ -71,7 +69,13 @@ namespace TestStack.BDDfy
 
             // for when there are two consequetive example placeholders in the word; e.g. Given__one____two__parameters
             newName = newName.Replace("  ", " ");
-            return Convert(newName).Trim();
+            return Humanize(newName).Trim();
         }
+
+        public string Humanize(string input) 
+            => input.Contains("__") ? ExampleTitle(input) : ConvertNonExample(input);
+
+        [GeneratedRegex("__([a-zA-Z][a-zA-Z0-9]*)__")]
+        private static partial Regex TitleCleanerRegex();
     }
 }
