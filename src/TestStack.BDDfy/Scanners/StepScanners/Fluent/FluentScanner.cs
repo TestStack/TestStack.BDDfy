@@ -209,7 +209,7 @@ namespace TestStack.BDDfy
                                             .ToList();
 
                                         if (matchingHeaders.Count > 1)
-                                            throw new ArgumentException($"Cannot uniquely distinguish parameter name between '{methodInfo.Name}' method's parameter name '{i.ParameterName}' and header's name '{i.Value.Name}'");
+                                            throw new AmbiguousMatchException ($"More than one headers for examples, match the parameter '{i.ParameterName}' provided for '{methodInfo.Name}'");
 
                                         var matchingHeader = matchingHeaders.SingleOrDefault();
                                         if (matchingHeader != null)
