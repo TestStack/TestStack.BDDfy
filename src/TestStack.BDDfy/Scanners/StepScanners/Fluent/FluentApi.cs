@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
- 
+using TestStack.BDDfy.Configuration;
+
 // ReSharper disable CheckNamespace
 // This is in BDDfy namespace to make its usage simpler
 namespace TestStack.BDDfy
@@ -308,8 +309,9 @@ namespace TestStack.BDDfy
         object TestObject { get; }
     }
 
-    public class FluentStepBuilder<TScenario> : IFluentStepBuilder<TScenario>, IFluentStepBuilder 
-                                                where TScenario : class
+    public class FluentStepBuilder<TScenario> 
+        : IFluentStepBuilder<TScenario>, IFluentStepBuilder
+        where TScenario : class
     {
         readonly FluentScanner<TScenario> scanner;
 
@@ -318,7 +320,7 @@ namespace TestStack.BDDfy
             TestObject = testObject;
             var existingContext = TestContext.GetContext(TestObject);
             if (existingContext.FluentScanner == null)
-                existingContext.FluentScanner = new FluentScanner<TScenario>(testObject);
+                existingContext.FluentScanner = Configurator.FluentScannerFactory.Create(testObject);
  
             scanner = (FluentScanner<TScenario>) existingContext.FluentScanner;
         }

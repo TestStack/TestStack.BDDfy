@@ -1,81 +1,76 @@
+﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    public partial class DefaultHumanizer: IHumanizer
+    internal partial class DefaultHumanizer: IHumanizer
     {
-        static readonly Func<string, string> FromUnderscoreSeparatedWords = methodName => string.Join(" ", methodName.Split(new[] { '_' }));
-        static string FromPascalCase(string name)
+        private static readonly TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+
+        public Func<string, bool> PreserveCasingWhen { get; set; } = input
+            => input.Replace("__", "-").Contains('_');
+
+        public string Humanize(string input)
         {
-            var chars = name.Aggregate(
-                new List<char>(), 
-                (list, currentChar) =>
-                    {
-                        if (currentChar == ' ' || list.Count == 0)
-                            list.Add(currentChar);
-                        else
-                        {
-                            if(ShouldAddSpace(list[list.Count - 1], currentChar))
-                                list.Add(' ');
-                            list.Add(char.ToLower(currentChar));
-                        }
+            var shouldPreserveCasing = PreserveCasingWhen(input);
+            input = TokensPattern().Replace(input, "-#$1#-");
 
-                        return list;
-                    });
+            var words = input.Split(['_','-']);
 
-            var result = new string(chars.ToArray());
-            return result.Replace(" i ", " I "); // I is an exception
-        }
+            var finalWords = words.Select(x => TokenReplacePattern().Replace(x, "<$1>"));
 
-        private static bool ShouldAddSpace(char lastChar, char currentChar)
-        {
-            if (lastChar == ' ') 
-                return false;
+            var sentence = string.Join(" ", finalWords);
 
-            if (char.IsDigit(lastChar))
+            if (!shouldPreserveCasing)
             {
-                if (char.IsLetter(currentChar))
-                    return true;
-
-                return false;
+                sentence = ConsecutiveCapitalLetters().Replace(sentence, "$1 $2");
+                sentence = PascalToSentence(sentence);
+                sentence = SentenceWithNumerals().Replace(sentence, " ");
+                if (UnicodeMatchPattern().IsMatch(input)) 
+                    throw new ArgumentException("Non ascii characters detected");
             }
-
-            if (!char.IsLower(currentChar) && currentChar != '>' && lastChar != '<')
-                return true;
-
-            return false;
+            
+            
+            sentence = sentence.Trim().Replace("  "," ");
+            sentence = LoneIReplacePattern().Replace(sentence, "I");
+            return sentence;
         }
 
-        private static readonly Func<string, string> ConvertNonExample = name => {
-            if (name.Contains('_'))
-                return FromUnderscoreSeparatedWords(name);
-
-            return FromPascalCase(name);
-        };
-
-        private string ExampleTitle(string name)
+        public static string PascalToSentence(string input)
         {
-            // Compare contains("__") with a regex match
-            string newName = TitleCleanerRegex().Replace(name, " <$1> ");
+            if (string.IsNullOrEmpty(input)) return input;
 
-            if (newName == name) {
-                throw new ArgumentException("Illegal example title in name '" + name + "'!");
-            }
-
-            // for when there are two consequetive example placeholders in the word; e.g. Given__one____two__parameters
-            newName = newName.Replace("  ", " ");
-            return Humanize(newName).Trim();
+            var sentence = PascalCaseRegex().Replace(input, " $1");
+            sentence = sentence.Replace("< ", "<").Replace(" >",">");
+            var final = char.ToUpper(sentence[0]) + sentence.Substring(1).ToLower();
+            return final;
         }
 
-        public string Humanize(string input) 
-            => input.Contains("__") ? ExampleTitle(input) : ConvertNonExample(input);
 
-        [GeneratedRegex("__([a-zA-Z][a-zA-Z0-9]*)__")]
-        private static partial Regex TitleCleanerRegex();
+        [GeneratedRegex("([A-Z]+)([A-Z][a-z])")]
+        private static partial Regex ConsecutiveCapitalLetters();
+
+        [GeneratedRegex("__([a-zA-Z0-9]+)__")]
+        private static partial Regex TokensPattern();
+
+        [GeneratedRegex(@"(?<!^)([A-Z])")]
+        private static partial Regex PascalCaseRegex();
+
+        [GeneratedRegex("#(\\S+)#")]
+        private static partial Regex TokenReplacePattern();
+
+        [GeneratedRegex(@"(?<=[a-zA-Z])(?=\d)(?![^<>]*>)")]
+        private static partial Regex SentenceWithNumerals();
+
+        [GeneratedRegex(@"[^\u0000-\u007F]")]
+        private static partial Regex UnicodeMatchPattern();
+
+        [GeneratedRegex(@"(?<=^|\s)i(?=\s|$)")]
+        private static partial Regex LoneIReplacePattern();
     }
 }
