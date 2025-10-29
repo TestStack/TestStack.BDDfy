@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Linq;
 using System.Threading.Tasks;
 using TestStack.BDDfy.Annotations;
 using TestStack.BDDfy.Configuration;
@@ -59,32 +59,23 @@ namespace TestStack.BDDfy
         public void AddStep(Action stepAction, string title, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
         {
             var action = StepActionFactory.GetStepAction<object>(o => stepAction());
-            _steps.Add(new Step(action, new StepTitle(AppendPrefix(title, stepPrefix)), FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, new List<StepArgument>()));
-        }
-
-        private string AppendPrefix(string title, string stepPrefix)
-        {
-            if (!title.ToLower().StartsWith(stepPrefix.ToLower()))
-            {
-                if (title.Length == 0)
-                    return string.Format("{0} ", stepPrefix);
-                return string.Format("{0} {1}{2}", stepPrefix, title.Substring(0, 1).ToLower(), title.Substring(1));
-            }
-
-            return title;
+            var stepTitle = CreateTitle(title, stepPrefix);
+            _steps.Add(new Step(action, stepTitle, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, new List<StepArgument>()));
         }
 
         public void AddStep(Func<Task> stepAction, string title, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
         {
             var action = StepActionFactory.GetStepAction<object>(o => stepAction());
-            _steps.Add(new Step(action, new StepTitle(AppendPrefix(title, stepPrefix)), FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, new List<StepArgument>()));
+            var stepTitle = CreateTitle(title, stepPrefix);
+            _steps.Add(new Step(action, stepTitle, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, new List<StepArgument>()));
         }
+
+        private StepTitle CreateTitle(string title, string stepPrefix) => Configurator.StepTitleFactory.Create(title, stepPrefix, _testContext);
 
         public void AddStep(Expression<Func<ExampleAction>> stepAction, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
         {
             var compiledAction = stepAction.Compile();
-            var call = Expression.Call(Expression.Constant(this),
-                _fakeExecuteActionMethod, stepAction.Body);
+            var call = Expression.Call(Expression.Constant(this), _fakeExecuteActionMethod, stepAction.Body);
             var expression = Expression.Lambda<Action<TScenario>>(call, Expression.Parameter(typeof(TScenario)));
             AddStep(_ => compiledAction().Action(), expression, null, true, reports, executionOrder, asserts, stepPrefix);
         }
@@ -96,21 +87,45 @@ namespace TestStack.BDDfy
             
         }
 
-        public void AddStep(Expression<Func<TScenario, Task>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
+        public void AddStep(
+            Expression<Func<TScenario, Task>> stepAction, 
+            string stepTextTemplate, 
+            bool includeInputsInStepTitle, 
+            bool reports, 
+            ExecutionOrder executionOrder, 
+            bool asserts, 
+            string stepPrefix)
         {
             var action = stepAction.Compile();
-            var inputArguments = new StepArgument[0];
+            var inputArguments = Array.Empty<StepArgument>();
             if (includeInputsInStepTitle)
             {
                 inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
-            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
+            var title = CreateTitle(
+                stepTextTemplate, 
+                includeInputsInStepTitle, 
+                GetMethodInfo(stepAction), 
+                inputArguments,
+                stepPrefix);
+
             var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
-            _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder), FixConsecutiveStep(executionOrder), reports, args));
+            var stepDelegate = StepActionFactory.GetStepAction(action);
+            var shouldFixAsserts = FixAsserts(asserts, executionOrder);
+            var shouldFixConsecutiveStep = FixConsecutiveStep(executionOrder);
+
+            _steps.Add(new Step(stepDelegate, title, shouldFixAsserts, shouldFixConsecutiveStep, reports, args));
         }
 
-        public void AddStep(Expression<Action<TScenario>> stepAction, string stepTextTemplate, bool includeInputsInStepTitle, bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
+        public void AddStep(
+            Expression<Action<TScenario>> stepAction, 
+            string stepTextTemplate, 
+            bool includeInputsInStepTitle, 
+            bool reports, 
+            ExecutionOrder executionOrder, 
+            bool asserts, 
+            string stepPrefix)
         {
             var action = stepAction.Compile();
 
@@ -120,18 +135,32 @@ namespace TestStack.BDDfy
         private void AddStep(Action<TScenario> action, LambdaExpression stepAction, string stepTextTemplate, bool includeInputsInStepTitle,
             bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
         {
-            var inputArguments = new StepArgument[0];
+            var inputArguments = Array.Empty<StepArgument>();
             if (includeInputsInStepTitle)
             {
                 inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
             }
 
-            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments,
-                stepPrefix);
+            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
+
             var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder),
                 FixConsecutiveStep(executionOrder), reports, args));
         }
+
+        private StepTitle CreateTitle(
+            string stepTextTemplate,
+            bool includeInputsInStepTitle,
+            MethodInfo methodInfo,
+            StepArgument[] inputArguments,
+            string stepPrefix) 
+            => Configurator.StepTitleFactory.Create(
+                stepTextTemplate, 
+                includeInputsInStepTitle, 
+                methodInfo, 
+                inputArguments, 
+                _testContext, 
+                stepPrefix);
 
         private bool FixAsserts(bool asserts, ExecutionOrder executionOrder)
         {
@@ -172,59 +201,6 @@ namespace TestStack.BDDfy
             }
 
             return executionOrder;
-        }
-
-        private StepTitle CreateTitle(string stepTextTemplate, bool includeInputsInStepTitle, MethodInfo methodInfo, StepArgument[] inputArguments, string stepPrefix)
-        {
-            Func<string> createTitle = () =>
-                {
-
-                    var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
-                    var name = methodInfo.Name;
-                    var stepTitleAttribute = methodInfo.GetCustomAttributes(typeof(StepTitleAttribute), true).SingleOrDefault();
-                    if (stepTitleAttribute != null)
-                    {
-                        var titleAttribute = ((StepTitleAttribute)stepTitleAttribute);
-                        name = string.Format(titleAttribute.StepTitle, flatInputArray);
-                        if (titleAttribute.IncludeInputsInStepTitle != null)
-                            includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
-                    }
-
-                    var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
-
-                    if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
-                    else if (includeInputsInStepTitle)
-                    {
-                        var parameters = methodInfo.GetParameters();
-                        var stringFlatInputs =
-                            inputArguments
-                                .Select((a, i) => new { ParameterName = parameters[i].Name, Value = a })
-                                .Select(i =>
-                                {
-                                    if (_testContext.Examples != null)
-                                    {
-                                        var matchingHeaders = _testContext.Examples.Headers
-                                            .Where(header => ExampleTable.HeaderMatches(header, i.ParameterName) ||
-                                                            ExampleTable.HeaderMatches(header, i.Value.Name))
-                                            .ToList();
-
-                                        if (matchingHeaders.Count > 1)
-                                            throw new AmbiguousMatchException ($"More than one headers for examples, match the parameter '{i.ParameterName}' provided for '{methodInfo.Name}'");
-
-                                        var matchingHeader = matchingHeaders.SingleOrDefault();
-                                        if (matchingHeader != null)
-                                            return string.Format("<{0}>", matchingHeader);
-                                    }
-                                    return i.Value.Value.FlattenArray();
-                                })
-                                .ToArray();
-                        stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
-                    }
-
-                    return stepTitle.Trim();
-                };
-
-            return new StepTitle(createTitle);
         }
 
         private static MethodInfo GetMethodInfo(LambdaExpression stepAction)

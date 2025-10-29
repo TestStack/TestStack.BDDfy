@@ -10,13 +10,7 @@ namespace TestStack.BDDfy
 
         static Engine()
         {
-#if APPDOMAIN
-            System.AppDomain.CurrentDomain.DomainUnload += (sender, e) => {
-                InvokeBatchProcessors();
-            };
-#else
             System.Runtime.Loader.AssemblyLoadContext.Default.Unloading += context => InvokeBatchProcessors();
-#endif
         }
 
         static void InvokeBatchProcessors()
