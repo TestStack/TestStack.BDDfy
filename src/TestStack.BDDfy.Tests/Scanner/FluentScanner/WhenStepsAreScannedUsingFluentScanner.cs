@@ -5,6 +5,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
+    [Collection("UseConfigurator")]
     public class WhenStepsAreScannedUsingFluentScanner
     {
         private IEnumerable<Step> _steps;
