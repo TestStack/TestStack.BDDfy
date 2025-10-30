@@ -7,6 +7,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
+    [Collection("UseConfigurator")]
     public class UsingCustomStepTitleFactory
     {
         private class CustomStepTitleFactory : IStepTitleFactory
