@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using Shouldly;
 
 namespace TestStack.BDDfy.Samples.TicTacToe

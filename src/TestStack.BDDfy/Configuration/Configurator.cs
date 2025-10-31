@@ -1,5 +1,3 @@
-using System;
-using TestStack.BDDfy;
 using TestStack.BDDfy.Abstractions;
 using TestStack.BDDfy.Factories;
 

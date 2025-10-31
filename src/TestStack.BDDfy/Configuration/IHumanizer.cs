@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy.Configuration
 {
     public interface IHumanizer

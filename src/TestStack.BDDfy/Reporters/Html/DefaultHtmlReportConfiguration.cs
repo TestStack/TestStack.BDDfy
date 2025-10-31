@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Reflection;
-
 namespace TestStack.BDDfy.Reporters.Html
 {
     public class DefaultHtmlReportConfiguration : IHtmlReportConfiguration

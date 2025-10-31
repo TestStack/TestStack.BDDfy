@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.Utilities;
-using Shouldly;
-using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Reporters;
-using TestStack.BDDfy.Reporters.Html;
+﻿using Shouldly;
 using Xunit;
 
 namespace TestStack.BDDfy.Samples
