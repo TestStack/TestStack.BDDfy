@@ -4,7 +4,6 @@ branches:
   main:
     regex: ^main$
     is-release-branch: true
-    tag: ''
 
   other:
     regex: .*
