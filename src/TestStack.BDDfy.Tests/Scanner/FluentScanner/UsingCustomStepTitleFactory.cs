@@ -3,11 +3,12 @@ using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Abstractions;
 using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    [Collection("UseConfigurator")]
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class UsingCustomStepTitleFactory
     {
         private class CustomStepTitleFactory : IStepTitleFactory
