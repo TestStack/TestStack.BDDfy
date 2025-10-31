@@ -43,7 +43,6 @@ namespace TestStack.BDDfy.Annotations
 
     /// <summary>
     /// Specify what is considered used implicitly
-    /// when marked with <see cref="MeansImplicitUseAttribute"/>
     /// or <see cref="UsedImplicitlyAttribute"/>
     /// </summary>
     [Flags]
