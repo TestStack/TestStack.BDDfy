@@ -10,32 +10,9 @@ namespace TestStack.BDDfy.Processors
         private readonly Action _assertInconclusive = assertInconclusive;
         private static readonly Action BestGuessInconclusiveAssertion;
 
-        static readonly List<string> ExcludedAssemblies =
-            new(new[] { "System", "mscorlib", "TestStack.BDDfy", "TestDriven", "JetBrains.ReSharper" });
-    
         static ExceptionProcessor()
         {
-            var exceptionType = typeof(Exception);
-
             BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
-        }
-
-        private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
-        {
-            try
-            {
-                return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                return ex.Types.Where(x => x != null);
-            }
-        }
-
-        //http://stackoverflow.com/questions/520290/how-can-i-get-the-default-value-of-a-type-in-a-non-generic-way
-        static object DefaultValue(Type myType)
-        {
-            return !myType.IsValueType() ? null : Activator.CreateInstance(myType);
         }
 
         public ExceptionProcessor() : this(BestGuessInconclusiveAssertion)
