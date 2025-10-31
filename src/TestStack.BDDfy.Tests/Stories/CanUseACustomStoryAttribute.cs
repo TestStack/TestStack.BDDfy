@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Stories

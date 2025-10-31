@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using TestStack.BDDfy.Reporters.Diagnostics;
 
 namespace TestStack.BDDfy.Reporters.Writers
 {

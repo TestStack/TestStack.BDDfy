@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TestStack.BDDfy.Annotations
 {
@@ -8,6 +9,7 @@ namespace TestStack.BDDfy.Annotations
     /// (as well as by other usage inspections)
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class MeansImplicitUseAttribute(
       ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags) : Attribute
     {
@@ -31,6 +33,7 @@ namespace TestStack.BDDfy.Annotations
     /// will not be marked as unused (as well as by other usage inspections)
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class UsedImplicitlyAttribute(
       ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags) : Attribute
     {
