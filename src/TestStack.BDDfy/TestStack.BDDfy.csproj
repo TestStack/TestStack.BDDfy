@@ -20,6 +20,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="**\Scripts\*.*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <InternalsVisibleTo Include="$(AssemblyName).Tests"/>
+    <InternalsVisibleTo Include="$(AssemblyName).Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>
