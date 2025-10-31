@@ -7,7 +7,7 @@ on:
       runPublish:
         description: 'Publish Nuget ?'
         required: true
-        default: 'false'
+        default: false
         type: boolean
 
 jobs:
@@ -34,8 +34,14 @@ jobs:
         id: gitversion
 
       - name: Format NuGet version
-        run: |         
-          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${{steps.gitversion.outputs.preReleaseNumber}}"
+        run: |
+          buildNumber="${{steps.gitversion.outputs.preReleaseNumber}}${{ steps.gitversion.outputs.buildMetaData }}"
+          
+          if [[ "${GITHUB_REF}" != "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
+            buildNumber = "${buildNumber}-beta"
+          fi
+          
+          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber}"
           echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
         id: formatversion
   
