@@ -12,12 +12,10 @@ namespace TestStack.BDDfy
     {
         private static readonly TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
 
-        public Func<string, bool> PreserveCasingWhen { get; set; } = input
-            => input.Replace("__", "-").Contains('_');
-
         public string Humanize(string input)
         {
-            var shouldPreserveCasing = PreserveCasingWhen(input);
+            var shouldPreserveCasing = input.Replace("__", "-").Contains('_');
+
             input = TokensPattern().Replace(input, "-#$1#-");
 
             var words = input.Split(['_','-']);
