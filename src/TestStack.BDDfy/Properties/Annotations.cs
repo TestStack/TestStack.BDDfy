@@ -3,6 +3,29 @@
 namespace TestStack.BDDfy.Annotations
 {
     /// <summary>
+    /// Should be used on attributes and causes ReSharper
+    /// to not mark symbols marked with such attributes as unused
+    /// (as well as by other usage inspections)
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    public sealed class MeansImplicitUseAttribute(
+      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags) : Attribute
+    {
+        public MeansImplicitUseAttribute()
+          : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+
+        public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
+          : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
+
+        public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
+          : this(ImplicitUseKindFlags.Default, targetFlags) { }
+
+        [UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; } = useKindFlags;
+        [UsedImplicitly] public ImplicitUseTargetFlags TargetFlags { get; private set; } = targetFlags;
+    }
+
+
+    /// <summary>
     /// Indicates that the marked symbol is used implicitly
     /// (e.g. via reflection, in external library), so this symbol
     /// will not be marked as unused (as well as by other usage inspections)
@@ -44,7 +67,7 @@ namespace TestStack.BDDfy.Annotations
     /// <summary>
     /// Specify what is considered used implicitly
     /// or <see cref="UsedImplicitlyAttribute"/>
-    /// </summary>
+    /// </summary>Ex
     [Flags]
     public enum ImplicitUseTargetFlags
     {
