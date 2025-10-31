@@ -4,10 +4,10 @@ branches:
   main:
     regex: ^main$
     is-release-branch: true
+    increment: Patch
 
   other:
     regex: .*
-    tag: beta
     increment: Patch
 ignore:
   sha: []
