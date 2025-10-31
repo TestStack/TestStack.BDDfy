@@ -1,9 +1,14 @@
-mode: ContinuousDelivery
-next-version: 8.0.0
+mode: ContinuousDeployment
+assembly-versioning-scheme: MajorMinorPatch
 branches:
   main:
-    increment: Patch
     regex: ^main$
     is-release-branch: true
+    tag: ''
+
+  other:
+    regex: .*
+    tag: beta
+    increment: Patch
 ignore:
   sha: []
