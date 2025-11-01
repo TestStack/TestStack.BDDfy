@@ -2,11 +2,11 @@
 using System.Linq;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
-    [Collection("ExclusiveAccessToConfigurator")]
     public class TestRunnerTests
     {
         public class ScenarioWithFailingThen
@@ -32,6 +32,9 @@ namespace TestStack.BDDfy.Tests.Configuration
             {
             }
         }
+
+
+        [Collection(TestCollectionName.ModifiesConfigurator)]
 
         public class When_StopExecutionOnFailingThen_IsSetToTrue
         {
