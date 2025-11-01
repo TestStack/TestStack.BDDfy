@@ -50,12 +50,20 @@ namespace TestStack.BDDfy
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="caller">Caller (populated by [CallerMemberName])</param>
         /// <returns></returns>
-        public static Story BDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
+        public static Story BDDfy(
+            this object testObject, 
+            string scenarioTitle = null, 
+            [System.Runtime.CompilerServices.CallerMemberName] 
+            string caller = null)
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller)).Run();
         }
 
-        public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
+        public static Engine LazyBDDfy(
+            this object testObject, 
+            string scenarioTitle = null, 
+            [System.Runtime.CompilerServices.CallerMemberName] 
+            string caller = null)
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller));
         }
@@ -68,22 +76,30 @@ namespace TestStack.BDDfy
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="caller">Caller (populated by [CallerMemberName])</param>
         /// <returns></returns>
-        public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
-            where TStory : class
+        public static Story BDDfy<TStory>(
+            this object testObject,
+            string scenarioTitle = null,
+            [System.Runtime.CompilerServices.CallerMemberName]
+            string caller = null)
+        where TStory : class
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller), typeof(TStory)).Run();
         }
 
-        public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
-            where TStory : class
+        public static Engine LazyBDDfy<TStory>(
+            this object testObject,
+            string scenarioTitle = null,
+            [System.Runtime.CompilerServices.CallerMemberName]
+            string caller = null)
+        where TStory : class
         {
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller), typeof(TStory));
         }
 #endif
 
         static Engine InternalLazyBDDfy(
-            object testObject, 
-            string scenarioTitle, 
+            object testObject,
+            string scenarioTitle,
             Type explicitStoryType = null)
         {
             var testContext = TestContext.GetContext(testObject);

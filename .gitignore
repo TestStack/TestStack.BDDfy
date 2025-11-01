@@ -16,7 +16,8 @@ obj/
 packages/*
 PackageBuild/*
 Build/*
-TestResult.xml
+TestResult*
+CoverageReport
 TestStack.BDDfy.sln.ide/graph
 _NCrunch_TestStack.BDDfy/
 TestStack.BDDfy.sln.ide/

@@ -331,6 +331,7 @@ namespace TestStack.BDDfy.Annotations
     /// which should not be removed and so is treated as used
     /// </summary>
     [MeansImplicitUse]
+    [ExcludeFromCodeCoverage]
     public sealed class PublicAPIAttribute : Attribute
     {
         public PublicAPIAttribute() { }
