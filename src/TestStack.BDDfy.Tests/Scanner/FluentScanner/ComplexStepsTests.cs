@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Shouldly;
+using TestStack.BDDfy.Tests.Concurrency;
 using TestStack.BDDfy.Tests.Configuration;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
-    [Collection("ExclusiveAccessToConfigurator")]
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class ComplexStepsTests
     {
         private int count;

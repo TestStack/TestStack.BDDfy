@@ -103,11 +103,10 @@ namespace TestStack.BDDfy
             var setMethods = properties.Select(p => p.GetSetMethod(true));
             var allPropertyMethods = getMethods.Union(setMethods);
 
-            return scenarioType
+            return [.. scenarioType
                 .GetMethods(bindingFlags)
-                .Where(m => !m.GetCustomAttributes(typeof(IgnoreStepAttribute), false).Any()) // it is not decorated with IgnoreStep
-                .Except(allPropertyMethods) // properties cannot be steps; only methods
-                .ToList();
+                .Where(m => m.GetCustomAttribute<IgnoreStepAttribute>() is null)
+                .Except(allPropertyMethods)];
         }
     }
 }

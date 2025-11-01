@@ -2,15 +2,13 @@
 
 namespace TestStack.BDDfy.Configuration
 {
-    public class ComponentFactory<TComponent, TMaterial> where TComponent : class 
+    public abstract class ComponentFactory<TComponent, TMaterial> where TComponent : class 
     {
-        private bool _active = true;
+        private const bool DefaultState = true;
+        private bool _active = DefaultState;
         private Predicate<TMaterial> _runsOn = o => true;
         readonly Func<TComponent> _factory;
-        internal ComponentFactory(Func<TComponent> factory)
-        {
-            _factory = factory;
-        }
+        internal ComponentFactory(Func<TComponent> factory):this(factory, DefaultState) { }
 
         internal ComponentFactory(Func<TComponent> factory, bool active)
         {
@@ -30,10 +28,10 @@ namespace TestStack.BDDfy.Configuration
 
         public TComponent ConstructFor(TMaterial material)
         {
-            if (!_active || !_runsOn(material))
-                return null;
+            if (_active && _runsOn(material))
+                return _factory();
 
-            return _factory();
+            return null;
         }
 
         public void RunsOn(Predicate<TMaterial> runOn)
