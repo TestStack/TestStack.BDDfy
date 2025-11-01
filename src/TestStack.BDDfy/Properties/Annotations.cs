@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-#pragma warning disable 1591
+#pragma warning disable CS1591 //Missing XML comment for publicly visible type or member
+#pragma warning disable CS9113 // Parameter is unread.
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBePrivate.Global
@@ -277,7 +278,7 @@ namespace TestStack.BDDfy.Annotations
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     [ExcludeFromCodeCoverage]
-    public sealed class MeansImplicitUseAttribute(
+    public class MeansImplicitUseAttribute(
       ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags) : Attribute
     {
         public MeansImplicitUseAttribute()
@@ -330,9 +331,8 @@ namespace TestStack.BDDfy.Annotations
     /// This attribute is intended to mark publicly available API
     /// which should not be removed and so is treated as used
     /// </summary>
-    [MeansImplicitUse]
     [ExcludeFromCodeCoverage]
-    public sealed class PublicAPIAttribute : Attribute
+    public sealed class PublicAPIAttribute : MeansImplicitUseAttribute
     {
         public PublicAPIAttribute() { }
         public PublicAPIAttribute([NotNull] string comment)
