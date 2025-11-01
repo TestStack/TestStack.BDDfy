@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Shouldly;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class WhenStepsAreScannedUsingFluentScanner
     {
         private IEnumerable<Step> _steps;

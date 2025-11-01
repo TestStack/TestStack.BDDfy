@@ -1,9 +1,11 @@
 using System;
 using Shouldly;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 {
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class WhenWhenThrowsException : OtherExceptionBase
     {
         private void ExecuteUsingFluentScanner()

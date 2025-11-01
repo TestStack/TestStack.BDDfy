@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -10,56 +9,9 @@ namespace TestStack.BDDfy.Processors
         private readonly Action _assertInconclusive = assertInconclusive;
         private static readonly Action BestGuessInconclusiveAssertion;
 
-        static readonly List<string> ExcludedAssemblies =
-            new(new[] { "System", "mscorlib", "TestStack.BDDfy", "TestDriven", "JetBrains.ReSharper" });
-    
         static ExceptionProcessor()
         {
-            var exceptionType = typeof(Exception);
-// No best guess for CORE Clr
-#if APPDOMAIN
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                if(ExcludedAssemblies.Any(ex => assembly.GetName().FullName.StartsWith(ex)))
-                    continue;
-
-                foreach (var inconclusiveExceptionType in GetTypesSafely(assembly))
-                {
-                    if (inconclusiveExceptionType.Name.Contains("Inconclusive") &&
-                        inconclusiveExceptionType.Name.Contains("Exception") &&
-                        exceptionType.IsAssignableFrom(inconclusiveExceptionType))
-                    {
-                        var constructors = inconclusiveExceptionType.GetConstructors();
-                        var shortestCtor = constructors.Min(c => c.GetParameters().Length);
-                        var ctor = constructors.First(c => c.GetParameters().Length == shortestCtor);
-                        var argList = new List<object>();
-                        argList.AddRange(ctor.GetParameters().Select(p => DefaultValue(p.ParameterType)));
-                        BestGuessInconclusiveAssertion = () => { throw (Exception)ctor.Invoke(argList.ToArray()); };
-                        return;
-                    }
-                }
-            }
-#endif
-
             BestGuessInconclusiveAssertion = () => { throw new InconclusiveException(); };
-        }
-
-        private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
-        {
-            try
-            {
-                return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                return ex.Types.Where(x => x != null);
-            }
-        }
-
-        //http://stackoverflow.com/questions/520290/how-can-i-get-the-default-value-of-a-type-in-a-non-generic-way
-        static object DefaultValue(Type myType)
-        {
-            return !myType.IsValueType() ? null : Activator.CreateInstance(myType);
         }
 
         public ExceptionProcessor() : this(BestGuessInconclusiveAssertion)
