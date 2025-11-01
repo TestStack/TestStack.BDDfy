@@ -1,12 +1,15 @@
-mode: MainLine
 assembly-versioning-scheme: MajorMinorPatch
+strategies:
+- Mainline
 branches:
   main:
+    mode: ContinuousDeployment
     regex: ^main$
     is-release-branch: true
     increment: Patch
 
   other:
+    mode: ContinuousDelivery
     regex: .*
     increment: Patch
 ignore:
