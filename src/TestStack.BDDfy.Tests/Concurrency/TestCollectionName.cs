@@ -2,6 +2,6 @@
 {
     internal static class TestCollectionName { 
         public const string ModifiesConfigurator = "ModifiesConfigurator";
-        public const string Approvals = "Approvals";
+        public const string Approvals = nameof(Approvals);
     }
 }
