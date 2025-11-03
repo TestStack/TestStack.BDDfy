@@ -1,5 +1,4 @@
-﻿#if Approvals
-using System;
+﻿using System;
 using Shouldly;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
@@ -7,9 +6,11 @@ using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
 using TestStack.BDDfy.Tests.Reporters;
 using Xunit;
+using TestStack.BDDfy.Tests.Concurrency;
 
 namespace TestStack.BDDfy.Tests
 {
+    [Trait("Category", TestCollectionName.Approvals)]
     public class TagsTests
     {
         [Fact]
@@ -77,4 +78,3 @@ namespace TestStack.BDDfy.Tests
         }
     }
 }
-#endif

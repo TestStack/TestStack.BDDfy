@@ -1,6 +1,7 @@
 dotnet test ./src `
     --collect:"XPlat Code Coverage" `
-    --results-directory ./TestResults
+    --results-directory ./TestResults `
+    --settings ./src/default.runsettings
 
 reportgenerator `
     -reports:./TestResults/**/coverage.cobertura.xml `

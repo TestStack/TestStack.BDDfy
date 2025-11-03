@@ -159,7 +159,7 @@ body{margin:0;padding:0;padding-bottom:40px;max-width:100%;background-color:#fff
       </div>
     </div>
     <div class='footer'>Powered by <a href='https://github.com/TestStack/TestStack.BDDfy'>BDDfy</a> framework</div>
-    <script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.0.min.js'></script>
     <script>
 $(function(){$(".canToggle").each(function(){var n=$("#"+$(this).data("toggle-target"));n.hide();$(this).click(function(){n.toggle(200)})});$(".expandAll").click(function(){$(".steps").css("display","")});$(".collapseAll").click(function(){$(".steps").css("display","none")});$("ul.resultSummary li:not('.storySummary'):not('.scenarioSummary')").append("<input type='checkbox' class='cbx_toggle' checked/>");$(".cbx_toggle").click(function(){var n=$(this),t=n.closest("li").attr("class");$("#testResult div.scenario ."+t).parent().toggle(n.is(":checked"))})});
 /*

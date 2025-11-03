@@ -1,0 +1,5 @@
+﻿<RunSettings>
+  <RunConfiguration>
+    <TestCaseFilter>Category!=Approvals</TestCaseFilter>
+  </RunConfiguration>
+</RunSettings>

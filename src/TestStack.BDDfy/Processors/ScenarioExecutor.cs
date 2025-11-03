@@ -34,7 +34,7 @@ namespace TestStack.BDDfy.Processors
                     .Where(n => cell.MatchesName(n.Name))
                     .ToArray();
 
-                if (!matchingMembers.Any())
+                if (matchingMembers.Length == 0)
                     continue;
 
                 foreach (var matchingMember in matchingMembers)
@@ -57,11 +57,7 @@ namespace TestStack.BDDfy.Processors
             catch (Exception ex)
             {
                 // ToDo: more thought should be put into this. Is it safe to get the exception?
-                var exception = ex;
-                if (exception is TargetInvocationException)
-                {
-                    exception = ex.InnerException ?? ex;
-                }
+                var exception = ExceptionResolver.Resolve(ex);
 
                 if (exception is NotImplementedException)
                 {

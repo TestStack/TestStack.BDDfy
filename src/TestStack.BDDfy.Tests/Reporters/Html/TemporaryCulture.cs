@@ -1,4 +1,3 @@
-#if Culture
 using System;
 using System.Globalization;
 using System.Threading;
@@ -17,7 +16,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         public void Dispose()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(_originalCulture);
+            GC.SuppressFinalize(this);
         }
     }
 }
-#endif

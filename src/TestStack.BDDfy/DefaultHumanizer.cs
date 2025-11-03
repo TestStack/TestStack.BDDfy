@@ -17,6 +17,8 @@ namespace TestStack.BDDfy
 
         public string Humanize(string input)
         {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+
             var shouldPreserveCasing = input.Replace("__", "-").Contains('_');
 
             input = TokensPattern.Replace(input, "-#$1#-");
@@ -42,10 +44,8 @@ namespace TestStack.BDDfy
             return sentence;
         }
 
-        public static string PascalToSentence(string input)
+        private static string PascalToSentence(string input)
         {
-            if (string.IsNullOrEmpty(input)) return input;
-
             var sentence = PascalCaseRegex.Replace(input, " $1");
             sentence = sentence.Replace("< ", "<").Replace(" >",">");
             var final = char.ToUpper(sentence[0]) + sentence[1..].ToLower();
