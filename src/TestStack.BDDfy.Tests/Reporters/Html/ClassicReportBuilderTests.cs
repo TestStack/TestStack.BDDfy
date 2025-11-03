@@ -2,21 +2,21 @@ using System;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
-using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
-    [Trait("Category", TestCollectionName.Approvals)]
     public class ClassicReportBuilderTests
     {
         [Fact]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtml()
         {
-            var model = 
-                new HtmlReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
-                    .ToReportModel())
+            var reportModel = new ReportTestData()
+                .CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
+                .ToReportModel();
+
+            var model = new HtmlReportModel(reportModel)
                     {
                         RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                     };
@@ -29,8 +29,11 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedHtmlWithExamples()
         {
-            var reportData = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples().ToReportModel();
-            var model = new HtmlReportModel(reportData)
+            var reportModel = new ReportTestData()
+                .CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
+                .ToReportModel();
+
+            var model = new HtmlReportModel(reportModel)
             {
                 RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
             };
