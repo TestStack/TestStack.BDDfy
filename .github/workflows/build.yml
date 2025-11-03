@@ -69,12 +69,13 @@ jobs:
 
       - name: Run tests with coverage
         working-directory: src
+        env:
+          DiffEngine_Disabled: 'true'
         run: >-
           dotnet test 
           --configuration Release 
           --collect:"XPlat Code Coverage" 
           --results-directory ../coverage
-          --settings ./default.runsettings
 
       - name: Generate coverage report
         uses: danielpalme/ReportGenerator-GitHub-Action@5.4.16
