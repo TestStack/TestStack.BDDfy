@@ -1,12 +1,13 @@
-#if Approvals
 using System;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
+    [Trait("Category", TestCollectionName.Approvals)]
     public class ClassicReportBuilderTests
     {
         [Fact]
@@ -39,4 +40,3 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         }
     }
 }
-#endif

@@ -1,12 +1,11 @@
-﻿#if Approvals
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Tests.Reporters.Html;
 
 namespace TestStack.BDDfy.Tests.Reporters
 {
-    class ReportApprover
+    internal class ReportApprover
     {
         public static void Approve(FileReportModel model, IReportBuilder reportBuilder)
         {
@@ -41,5 +40,3 @@ namespace TestStack.BDDfy.Tests.Reporters
         }
     }
 }
-
-#endif

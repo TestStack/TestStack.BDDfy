@@ -1,5 +1,4 @@
-﻿#if Approvals
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.MarkDown;
@@ -34,4 +33,3 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
         }
     }
 }
-#endif

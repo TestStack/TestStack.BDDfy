@@ -1,10 +1,11 @@
-﻿#if Approvals
-using Shouldly;
+﻿using Shouldly;
 using TestStack.BDDfy.Reporters;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
+    [Trait("Category", TestCollectionName.Approvals)]
     public class ExampleActionTests
     {
         private int _value;
@@ -41,4 +42,3 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         }
     }
 }
-#endif

@@ -88,5 +88,14 @@ namespace TestStack.BDDfy.Tests
             exception.ShouldNotBeNull();
             exception.ShouldBeOfType<ArgumentException>();
         }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        internal void HumanizeWithNullOrEmptyInput_ReturnsTheSame(string providedInput)
+        {
+            Humanizer.Humanize(providedInput).ShouldBe(providedInput);
+        }
     }
 }
