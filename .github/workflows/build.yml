@@ -73,7 +73,7 @@ jobs:
           dotnet test 
           --configuration Release 
           --collect:"XPlat Code Coverage" 
-          --results-directory ../coverage `
+          --results-directory ../coverage
           --settings ./default.runsettings
 
       - name: Generate coverage report
