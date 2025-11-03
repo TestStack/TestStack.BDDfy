@@ -85,7 +85,6 @@ jobs:
           --configuration Release 
           --collect:"XPlat Code Coverage" 
           --results-directory ../coverage
-          --settings ./default.runsettings
 
       - name: Generate coverage report
         uses: danielpalme/ReportGenerator-GitHub-Action@5.4.16
