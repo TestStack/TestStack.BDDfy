@@ -89,7 +89,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         void AssertSpecificationStepIsScannedProperly(Expression<Action> getSpecMethod)
         {
-            var specMethods = _steps.Where(s => s.Title.Trim() == Configurator.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
+            var specMethods = _steps.Where(s => s.Title.Trim() == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
             specMethods.Count().ShouldBe(1);
             var specStep = specMethods.First();
             specStep.Asserts.ShouldBe(false);
