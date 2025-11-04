@@ -11,7 +11,7 @@ namespace TestStack.BDDfy
         }
 
         public Type Type { get; private set; } = storyType;
-        public string Title { get; private set; } = title ?? Configurator.Humanize(storyType.Name);
+        public string Title { get; private set; } = title ?? Configurator.Humanizer.Humanize(storyType.Name);
         public string TitlePrefix { get; private set; } = titlePrefix ?? "Story: ";
         public string Narrative1 { get; private set; } = narrative1;
         public string Narrative2 { get; private set; } = narrative2;

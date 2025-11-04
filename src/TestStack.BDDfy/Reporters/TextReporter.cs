@@ -170,7 +170,7 @@ namespace TestStack.BDDfy.Reporters
             }
 
             var step = stepAndLines.Item1;
-            var humanizedResult = Configurator.Humanize(step.Result.ToString());
+            var humanizedResult = Configurator.Humanizer.Humanize(step.Result.ToString());
 
             string message;
             if (scenario.Result == Result.Passed)

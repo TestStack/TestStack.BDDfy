@@ -1,3 +1,5 @@
+![Build Status](https://github.com/TestStack/TestStack.BDDfy/actions/workflows/build.yml/badge.svg)
+
 BDDfy is the simplest BDD framework to use, customize and extend! 
 
 A few quick facts about BDDfy:

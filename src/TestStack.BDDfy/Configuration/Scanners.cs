@@ -36,5 +36,8 @@ namespace TestStack.BDDfy.Configuration
         }
 
         public Func<IStoryMetadataScanner> StoryMetadataScanner = () => new StoryAttributeMetadataScanner();
+
+        [Obsolete("This will be removed soon. Use Configurator.Humanizer.Humanize")]
+        public Func<string, string> Humanize = Configurator.Humanizer.Humanize;
     }
 }
