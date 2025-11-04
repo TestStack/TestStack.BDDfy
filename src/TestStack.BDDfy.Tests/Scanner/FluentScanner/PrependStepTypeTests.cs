@@ -1,5 +1,4 @@
-﻿#if Approvals
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
@@ -75,4 +74,3 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         }
     }
 }
-#endif

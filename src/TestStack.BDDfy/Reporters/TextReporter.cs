@@ -19,7 +19,7 @@ namespace TestStack.BDDfy.Reporters
             var allSteps = story.Scenarios.SelectMany(s => s.Steps)
                 .Select(GetStepWithLines)
                 .ToList();
-            if (allSteps.Any())
+            if (allSteps.Count != 0)
                 _longestStepSentence = allSteps.SelectMany(s => s.Item2.Select(l => l.Length)).Max();
 
             foreach (var scenarioGroup in story.Scenarios.GroupBy(s => s.Id))
@@ -30,7 +30,7 @@ namespace TestStack.BDDfy.Reporters
                     var exampleScenario = story.Scenarios.First();
                     Report(exampleScenario);
 
-                    if (exampleScenario.Steps.Any())
+                    if (exampleScenario.Steps.Count != 0)
                     {
                         foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
                             ReportOnStep(exampleScenario, GetStepWithLines(step), false);
@@ -46,7 +46,7 @@ namespace TestStack.BDDfy.Reporters
                     {
                         Report(scenario);
 
-                        if (scenario.Steps.Any())
+                        if (scenario.Steps.Count != 0)
                         {
                             foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                                 ReportOnStep(scenario, GetStepWithLines(step), true);
@@ -68,7 +68,7 @@ namespace TestStack.BDDfy.Reporters
 
         private void ReportTags(List<string> tags)
         {
-            if (!tags.Any())
+            if (tags.Count == 0)
                 return;
 
             WriteLine();

@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using Shouldly;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class StepTitleTests
     {
         private string _mutatedState;

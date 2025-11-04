@@ -15,8 +15,7 @@ namespace TestStack.BDDfy.Processors
                 var asyncSyncContext = new AsyncTestSyncContext();
                 SetSynchronizationContext(asyncSyncContext);
                 var result = performStep();
-                var task = result as Task;
-                if (task != null)
+                if (result is Task task)
                 {
                     try
                     {

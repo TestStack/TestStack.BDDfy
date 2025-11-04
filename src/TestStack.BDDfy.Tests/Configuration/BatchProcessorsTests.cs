@@ -1,17 +1,21 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class BatchProcessorsTests
     {
         static bool MetroReportProcessorIsActive(IBatchProcessor batchProcessor)
         {
-            return batchProcessor is HtmlReporter && ((HtmlReporter)batchProcessor).ReportBuilder is MetroReportBuilder;
+            return batchProcessor is HtmlReporter reporter && reporter.ReportBuilder is MetroReportBuilder;
         }
 
         [Fact]
@@ -66,6 +70,36 @@ namespace TestStack.BDDfy.Tests.Configuration
             processors.Any(MetroReportProcessorIsActive).ShouldBe(true);
 
             Configurator.BatchProcessors.HtmlMetroReport.Disable();
+        }
+
+        [Fact]
+        public void ReturnsDianosticsReporterWhenItIsActivated()
+        {
+            Configurator.BatchProcessors.DiagnosticsReport.Enable();
+
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+
+            processors.ShouldContain(p=> p is DiagnosticsReporter, 1);
+
+            Configurator.BatchProcessors.DiagnosticsReport.Disable();
+        }
+
+        [Fact]
+        public void ReturnsAdditionalBatchProcessorsWhenAdded()
+        {
+            Configurator.BatchProcessors.Add(new FooBatchProcessor());
+
+            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+
+            processors.ShouldContain(p => p is FooBatchProcessor, 1);
+        }
+
+        private class FooBatchProcessor : IBatchProcessor
+        {
+            public void Process(IEnumerable<Story> stories)
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

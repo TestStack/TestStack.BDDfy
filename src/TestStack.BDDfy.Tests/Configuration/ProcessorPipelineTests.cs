@@ -3,11 +3,12 @@ using Shouldly;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Reporters;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
-    [Collection("ExclusiveAccessToConfigurator")]
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class ProcessorPipelineTests
     {
         [Fact]

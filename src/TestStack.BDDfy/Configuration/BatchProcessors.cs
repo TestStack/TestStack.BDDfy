@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Html;
@@ -9,7 +8,9 @@ namespace TestStack.BDDfy.Configuration
 {
     public class BatchProcessors
     {
-        IEnumerable<IBatchProcessor> _GetProcessors()
+        readonly List<IBatchProcessor> _addedProcessors = [];
+
+        private IEnumerable<IBatchProcessor> YieldProcessors()
         {
             var htmlReporter = HtmlReport.ConstructFor(StoryCache.Stories);
             if (htmlReporter != null)
@@ -33,19 +34,14 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        private readonly BatchProcessorFactory _htmlReportFactory = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
-        public BatchProcessorFactory HtmlReport { get { return _htmlReportFactory; } }
+        public BatchProcessorFactory HtmlReport { get; } = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
 
-        private readonly BatchProcessorFactory _htmlMetroReportFactory = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
-        public BatchProcessorFactory HtmlMetroReport { get { return _htmlMetroReportFactory; } }
+        public BatchProcessorFactory HtmlMetroReport { get; } = new(() 
+            => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
 
-        private readonly BatchProcessorFactory _markDownFactory = new(() => new MarkDownReporter(), false);
-        public BatchProcessorFactory MarkDownReport { get { return _markDownFactory; } }
+        public BatchProcessorFactory MarkDownReport { get; } = new(() => new MarkDownReporter(), false);
 
-        private readonly BatchProcessorFactory _diagnosticsFactory = new(() => new DiagnosticsReporter(), false);
-        public BatchProcessorFactory DiagnosticsReport { get { return _diagnosticsFactory; } }
-
-        readonly List<IBatchProcessor> _addedProcessors = new();
+        public BatchProcessorFactory DiagnosticsReport { get; } = new(() => new DiagnosticsReporter(), false);
 
         public BatchProcessors Add(IBatchProcessor processor)
         {
@@ -55,7 +51,7 @@ namespace TestStack.BDDfy.Configuration
 
         public IEnumerable<IBatchProcessor> GetProcessors()
         {
-            return _GetProcessors().ToList();
+            return [.. YieldProcessors()];
         }
     }
 }

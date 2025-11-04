@@ -6,21 +6,31 @@ namespace TestStack.BDDfy
 {
     public static class BDDfyExtensions
     {
-#if STACKTRACE
         /// <summary>
         /// Extension method to BDDfy an object instance.
         /// </summary>
         /// <param name="testObject">The test object representing a scenario.</param>
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
+        /// <param name="caller">Caller (populated by [CallerMemberName])</param>
         /// <returns></returns>
-        public static Story BDDfy(this object testObject, string scenarioTitle = null)
+        public static Story BDDfy(
+            this object testObject, 
+            string scenarioTitle = null, 
+            [System.Runtime.CompilerServices.CallerMemberName] 
+            string caller = null)
         {
-            return testObject.LazyBDDfy(scenarioTitle).Run();
+            var callerName = testObject.GetActualCallerName(caller);
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName)).Run();
         }
 
-        public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null)
+        public static Engine LazyBDDfy(
+            this object testObject, 
+            string scenarioTitle = null, 
+            [System.Runtime.CompilerServices.CallerMemberName] 
+            string caller = null)
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle);
+            var callerName = testObject.GetActualCallerName(caller);
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName));
         }
 
         /// <summary>
@@ -31,59 +41,31 @@ namespace TestStack.BDDfy
         /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
         /// <param name="caller">Caller (populated by [CallerMemberName])</param>
         /// <returns></returns>
-        public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null)
-            where TStory : class
+        public static Story BDDfy<TStory>(
+            this object testObject,
+            string scenarioTitle = null,
+            [System.Runtime.CompilerServices.CallerMemberName]
+            string caller = null)
+        where TStory : class
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle, typeof(TStory)).Run();
+            var callerName = testObject.GetActualCallerName(caller);
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName), typeof(TStory)).Run();
         }
 
-        public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null)
-            where TStory : class
+        public static Engine LazyBDDfy<TStory>(
+            this object testObject,
+            string scenarioTitle = null,
+            [System.Runtime.CompilerServices.CallerMemberName]
+            string caller = null)
+        where TStory : class
         {
-            return InternalLazyBDDfy(testObject, scenarioTitle, typeof(TStory));
+            var callerName = testObject.GetActualCallerName(caller);
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName), typeof(TStory));
         }
-#else
-        /// <summary>
-        /// Extension method to BDDfy an object instance.
-        /// </summary>
-        /// <param name="testObject">The test object representing a scenario.</param>
-        /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
-        /// <param name="caller">Caller (populated by [CallerMemberName])</param>
-        /// <returns></returns>
-        public static Story BDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
-        {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller)).Run();
-        }
-
-        public static Engine LazyBDDfy(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
-        {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller));
-        }
-
-        /// <summary>
-        /// Extension method to BDDfy an object instance.
-        /// </summary>
-        /// <typeparam name="TStory">The type representing the story.</typeparam>
-        /// <param name="testObject">The test object representing a scenario.</param>
-        /// <param name="scenarioTitle">Overrides the default scenario title and is displayed in the reports.</param>
-        /// <param name="caller">Caller (populated by [CallerMemberName])</param>
-        /// <returns></returns>
-        public static Story BDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
-            where TStory : class
-        {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller), typeof(TStory)).Run();
-        }
-
-        public static Engine LazyBDDfy<TStory>(this object testObject, string scenarioTitle = null, [System.Runtime.CompilerServices.CallerMemberName] string caller = null)
-            where TStory : class
-        {
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(caller), typeof(TStory));
-        }
-#endif
 
         static Engine InternalLazyBDDfy(
-            object testObject, 
-            string scenarioTitle, 
+            object testObject,
+            string scenarioTitle,
             Type explicitStoryType = null)
         {
             var testContext = TestContext.GetContext(testObject);
@@ -92,15 +74,18 @@ namespace TestStack.BDDfy
                 testContext.FluentScanner.GetScanner(scenarioTitle, explicitStoryType) :
                 GetReflectiveScanner(testContext, scenarioTitle, explicitStoryType);
 
-            return new Engine(storyScanner);
+            return new (storyScanner);
         }
 
-        static IScanner GetReflectiveScanner(ITestContext testContext, string scenarioTitle = null, Type explicitStoryType = null)
+        static DefaultScanner GetReflectiveScanner(ITestContext testContext, string scenarioTitle = null, Type explicitStoryType = null)
         {
             var stepScanners = Configurator.Scanners.GetStepScanners(testContext).ToArray();
             var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
 
-            return new DefaultScanner(testContext, reflectiveScenarioScanner, explicitStoryType);
+            return new (testContext, reflectiveScenarioScanner, explicitStoryType);
         }
+
+        static string GetActualCallerName(this object testObject, string inferedCallerName)
+            => inferedCallerName == ".ctor" ? testObject.GetType().Name : inferedCallerName;
     }
 }

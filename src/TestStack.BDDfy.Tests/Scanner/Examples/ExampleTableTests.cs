@@ -1,5 +1,4 @@
-﻿#if Approvals
-using System;
+﻿using System;
 using System.Linq;
 using Shouldly;
 using Xunit;
@@ -51,9 +50,8 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
                 {3, 4}
             };
 
-            table.ToString(new[] {"Additional"}, new[] {new[] {"SomeAdditional Value"}})
+            table.ToString(new[] { "Additional" }, new[] { new[] { "SomeAdditional Value" } })
                 .ShouldMatchApproved();
         }
     }
 }
-#endif

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using NUnit.Framework;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;
