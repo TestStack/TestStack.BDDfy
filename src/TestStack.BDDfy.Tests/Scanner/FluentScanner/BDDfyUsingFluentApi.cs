@@ -277,7 +277,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .BDDfy();
 
             var scenario = story.Scenarios.First();
-            scenario.Title.ShouldBe(Configurator.Humanizer.Humanize(nameof(WhenTitleIsNotProvidedItIsFetchedFromMethodName)));
+            scenario.Title.ShouldBe(Configurator.Humanize(nameof(WhenTitleIsNotProvidedItIsFetchedFromMethodName)));
         }
 
         [Fact]

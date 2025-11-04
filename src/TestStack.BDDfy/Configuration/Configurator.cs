@@ -22,5 +22,7 @@ namespace TestStack.BDDfy.Configuration
         public static IFluentScannerFactory FluentScannerFactory { get; set; } = new DefaultFluentScannerFactory();
 
         public static IStepTitleFactory StepTitleFactory { get; set; } = new DefaultStepTitleFactory();
+
+        public static string Humanize(string text) => Humanizer.Humanize(text);
     }
 }

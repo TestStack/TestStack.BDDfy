@@ -135,7 +135,7 @@ namespace TestStack.BDDfy
 
         private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
         {
-            var methodName = _stepTextTransformer(Configurator.Humanizer.Humanize(method.Name));
+            var methodName = _stepTextTransformer(Configurator.Humanize(method.Name));
             object[] inputs = null;
 
             if (argAttribute != null && argAttribute.InputArguments != null)

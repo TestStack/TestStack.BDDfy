@@ -35,7 +35,7 @@ namespace TestStack.BDDfy
 
             var stepTitle = new StepTitle(executableAttribute.StepTitle);
             if (string.IsNullOrWhiteSpace(stepTitle))
-                stepTitle = new StepTitle(Configurator.Humanizer.Humanize(candidateMethod.Name));
+                stepTitle = new StepTitle(Configurator.Humanize(candidateMethod.Name));
 
             var shouldReport = executableAttribute.ShouldReport;
 
@@ -89,7 +89,7 @@ namespace TestStack.BDDfy
 
             string stepTitle = executableAttribute.StepTitle;
             if (string.IsNullOrWhiteSpace(stepTitle))
-                stepTitle = Configurator.Humanizer.Humanize(method.Name);
+                stepTitle = Configurator.Humanize(method.Name);
 
             var shouldReport = executableAttribute.ShouldReport;
             var methodParameters = method.GetParameters();
