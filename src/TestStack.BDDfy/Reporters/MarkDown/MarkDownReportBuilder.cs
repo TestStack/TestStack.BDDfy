@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 {
     public class MarkDownReportBuilder : IReportBuilder
     {
-        private readonly List<Exception> _exceptions = new();
+        private readonly List<Exception> _exceptions = [];
 
         public string CreateReport(FileReportModel model)
         {
@@ -38,7 +38,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                         var exampleScenario = story.Scenarios.First();
                         report.AppendLine(string.Format("### {0}", exampleScenario.Title));
 
-                        if (exampleScenario.Steps.Any())
+                        if (exampleScenario.Steps.Count != 0)
                         {
                             foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
                                 report.AppendLine("  " + WebUtility.HtmlEncode(step.Title) + "  ");
@@ -72,9 +72,9 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             return report.ToString();
         }
 
-        private void ReportTags(StringBuilder report, List<string> tags)
+        private static void ReportTags(StringBuilder report, List<string> tags)
         {
-            if (!tags.Any())
+            if (tags.Count == 0)
                 return;
 
             report.AppendLine(string.Format("Tags: {0}", string.Join(", ", tags.Select(t => string.Format("`{0}`", t)))));
@@ -91,7 +91,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            Action<IEnumerable<string>, string, string> addRow = (cells, result, error) =>
+            void addRow(IEnumerable<string> cells, string result, string error)
             {
                 var row = new string[numberColumns];
                 var index = 0;
@@ -113,7 +113,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 }
 
                 rows.Add(row);
-            };
+            }
 
             addRow(exampleScenario.Example.Headers, "Result", "Errors");
             foreach (var scenario in scenarios)
@@ -130,7 +130,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 WriteExampleRow(report, row, maxWidth);
         }
 
-        private void WriteExampleRow(StringBuilder report, string[] row, int[] maxWidth)
+        private static void WriteExampleRow(StringBuilder report, string[] row, int[] maxWidth)
         {
             report.Append("    ");
             for (int index = 0; index < row.Length; index++)
@@ -173,7 +173,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 else
                     report.AppendLine();
 
-                var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None)
+                var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split([Environment.NewLine], StringSplitOptions.None)
                     .Select(s => "    " + s));
                 report.AppendLine(stackTrace);
             }
@@ -185,7 +185,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
         {
             return string.Join(" ", message
                 .Replace("\t", " ") // replace tab with one space
-                .Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                .Split(["\r\n", "\n"], StringSplitOptions.None)
                 .Select(s => s.Trim()))
                 .TrimEnd(','); // chop any , from the end
         }

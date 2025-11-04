@@ -35,7 +35,8 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         static string ScrubPaths(string source)
         {
-            var result = new Regex(@"\b\w:[\\\w.\s-]+\\").Replace(source, "...\\");
+            var result = Regex.Replace(source, @"^.*[\\/]", @"...\");
+            //var result = new Regex(@"\b\w:[\\\w.\s-]+\\").Replace(source, "...\\");
             return result;
         }
     }

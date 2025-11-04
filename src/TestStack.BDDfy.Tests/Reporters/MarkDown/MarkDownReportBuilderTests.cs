@@ -12,7 +12,8 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedMarkdown()
         {
-            var model = new FileReportModel(new ReportTestData().CreateMixContainingEachTypeOfOutcome().ToReportModel());
+            var reportModel = new ReportTestData().CreateMixContainingEachTypeOfOutcome().ToReportModel();
+            var model = new FileReportModel(reportModel);
             var sut = new MarkDownReportBuilder();
             ReportApprover.Approve(model, sut);
         }
@@ -21,12 +22,14 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void ShouldProduceExpectedMarkdownWithExamples()
         {
-            var model = 
-                new FileReportModel(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
-                    .ToReportModel())
-                {
-                    RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
-                };
+            var reportModel = new ReportTestData()
+                .CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
+                .ToReportModel();
+
+            var model =  new FileReportModel(reportModel)
+            {
+                RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+            };
 
             var sut = new MarkDownReportBuilder();
             ReportApprover.Approve(model, sut);
