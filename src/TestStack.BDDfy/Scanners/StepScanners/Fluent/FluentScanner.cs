@@ -4,38 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-using TestStack.BDDfy.Annotations;
 using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Scanners.ScenarioScanners;
 
 namespace TestStack.BDDfy
 {
-    /// <summary>
-    /// Provides an alternative method of implementing stories and scenarios.
-    /// </summary>
-    /// <remarks>
-    /// Reflecting scanners run in a pipeline which means you can mix and match their
-    /// usage in your scenario; however, when you use FluentStepScanner, BDDfy does not
-    /// use other scanners which means method names and attributes are ignored for
-    /// scanning methods. You are in full control of what steps you want
-    /// run and in what order.
-    /// </remarks>
-    /// <typeparam name="TScenario"></typeparam>
-    /// <example>
-    /// <code>
-    /// [Fact]
-    /// public void AccountHasSufficientFund()
-    /// {
-    ///     this.Given(s => s.GivenTheAccountBalanceIs(100), GivenTheAccountBalanceIsTitleTemplate)
-    ///             .And(s => s.AndTheCardIsValid())
-    ///             .And(s => s.AndTheMachineContains(100), AndTheMachineContainsEnoughMoneyTitleTemplate)
-    ///         .When(s => s.WhenTheAccountHolderRequests(20), WhenTheAccountHolderRequestsTitleTemplate)
-    ///         .Then(s => s.TheAtmShouldDispense(20), "Then the ATM should dispense $20")
-    ///             .And(s => s.AndTheAccountBalanceShouldBe(80), "And the account balance should be $80")
-    ///             .And(s => s.ThenCardIsRetained(false), AndTheCardShouldBeReturnedTitleTemplate)
-    ///         .BDDfy(storyCategory: "ATM");
-    /// }
-    /// </code>
-    /// </example>
     internal class FluentScanner<TScenario> : IFluentScanner
         where TScenario : class
     {
@@ -48,7 +21,7 @@ namespace TestStack.BDDfy
         {
             _testObject = testObject;
             _testContext = TestContext.GetContext(_testObject);
-            _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>).GetMethod("ExecuteAction", BindingFlags.Instance | BindingFlags.NonPublic);
+            _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>).GetMethod(nameof(ExecuteAction), BindingFlags.Instance | BindingFlags.NonPublic);
         }
 
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
@@ -80,9 +53,10 @@ namespace TestStack.BDDfy
             AddStep(_ => compiledAction().Action(), expression, null, true, reports, executionOrder, asserts, stepPrefix);
         }
 
-        [UsedImplicitly]
         [StepTitle("")]
-        private void ExecuteAction(ExampleAction action)
+#pragma warning disable CA1822 // Mark members as static
+        private void ExecuteAction(ExampleAction _)
+#pragma warning restore CA1822 // Mark members as static
         {
             
         }
