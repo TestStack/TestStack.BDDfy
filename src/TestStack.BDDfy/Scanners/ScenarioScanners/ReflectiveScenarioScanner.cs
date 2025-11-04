@@ -47,7 +47,7 @@ namespace TestStack.BDDfy
 
         static string GetScenarioText(Type scenarioType)
         {
-            return Configurator.Humanize(scenarioType.Name);
+            return Configurator.Humanizer.Humanize(scenarioType.Name);
         }
 
         protected virtual IEnumerable<Step> ScanScenarioForSteps(ITestContext testContext)

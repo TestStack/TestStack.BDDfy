@@ -20,7 +20,7 @@ namespace TestStack.BDDfy
             string caller = null)
         {
             var callerName = testObject.GetActualCallerName(caller);
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanize(callerName)).Run();
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName)).Run();
         }
 
         public static Engine LazyBDDfy(
@@ -30,7 +30,7 @@ namespace TestStack.BDDfy
             string caller = null)
         {
             var callerName = testObject.GetActualCallerName(caller);
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanize(callerName));
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName));
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace TestStack.BDDfy
         where TStory : class
         {
             var callerName = testObject.GetActualCallerName(caller);
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanize(callerName), typeof(TStory)).Run();
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName), typeof(TStory)).Run();
         }
 
         public static Engine LazyBDDfy<TStory>(
@@ -60,7 +60,7 @@ namespace TestStack.BDDfy
         where TStory : class
         {
             var callerName = testObject.GetActualCallerName(caller);
-            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanize(callerName), typeof(TStory));
+            return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName), typeof(TStory));
         }
 
         static Engine InternalLazyBDDfy(
