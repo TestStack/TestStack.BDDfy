@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [RunStepWithArgs("ThenInTheBaseClass")]
         void ThenTheFollowingStepFromBaseClassIsScanned(string stepName)
         {
-            Scenario.Steps.Count(s => s.Title == Configurator.Humanizer.Humanize(stepName)).ShouldBe(1);
+            Scenario.Steps.Count(s => s.Title == Configurator.Humanize(stepName)).ShouldBe(1);
         }
 
         [RunStepWithArgs("GivenInTheSubClass")]
@@ -49,7 +49,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [RunStepWithArgs("ThenInTheSubClass")]
         void ThenTheFollowingStepFromSubClassScanned(string stepName)
         {
-            Scenario.Steps.Count(s => s.Title == Configurator.Humanizer.Humanize(stepName)).ShouldBe(1);
+            Scenario.Steps.Count(s => s.Title == Configurator.Humanize(stepName)).ShouldBe(1);
         }
 
         [Fact]

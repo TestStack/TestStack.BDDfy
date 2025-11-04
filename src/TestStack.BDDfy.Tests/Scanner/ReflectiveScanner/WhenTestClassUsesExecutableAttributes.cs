@@ -68,7 +68,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         private static string GetStepTextFromMethodName(Expression<Action> methodInfoAction)
         {
-            return Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(methodInfoAction).Name);
+            return Configurator.Humanize(Helpers.GetMethodInfo(methodInfoAction).Name);
         }
 
         [Fact]
