@@ -163,11 +163,22 @@ jobs:
         run: |
           echo "SamplesUpdated: ${{ steps.changes.outputs.SamplesUpdated }}"
           echo "BddfyUpdated: ${{ steps.changes.outputs.BddfyUpdated }}"
-          
-      - name: Create NuGet package
+
+      - name: Create Samples package
         working-directory: src
+        if: steps.changes.outputs.SamplesUpdated == 'true'
         run: >-
-          dotnet pack 
+          dotnet pack ./Samples/TestStack.BDDfy.Samples/*.csproj
+          --configuration Release 
+          --no-build 
+          /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }} 
+          --output ../packages
+
+      - name: Create Bddfy package
+        working-directory: src
+        if: steps.changes.outputs.BddfyUpdated == 'true'
+        run: >-
+          dotnet pack ./TestStack.BDDfy/*.csproj
           --configuration Release 
           --no-build 
           /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }} 
