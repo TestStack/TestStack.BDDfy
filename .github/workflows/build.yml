@@ -156,15 +156,15 @@ jobs:
       - name: Check for changes in project paths
         id: changes
         run: |
-          BASE=$(git merge-base HEAD origin/main)
+          latestTag=$(git describe --tags --abbrev=0)
 
-          if git diff --quiet $BASE HEAD -- src/Samples/; then
+          if git diff --quiet "$latestTag" HEAD -- src/Samples/; then
             echo "SamplesUpdated=false" >> $GITHUB_OUTPUT
           else
             echo "SamplesUpdated=true" >> $GITHUB_OUTPUT
           fi
           
-          if git diff --quiet $BASE HEAD -- src/TestStack.BDDfy/; then
+          if git diff --quiet "$latestTag" HEAD -- src/TestStack.BDDfy/; then
             echo "BddfyUpdated=false" >> $GITHUB_OUTPUT
           else
             echo "BddfyUpdated=true" >> $GITHUB_OUTPUT
