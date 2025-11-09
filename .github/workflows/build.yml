@@ -144,7 +144,7 @@ jobs:
           name: release-notes
           path: release-notes.md
 
-      - name: Check for changes in Samples
+      - name: Check for changes in project paths
         id: changes
         run: |
           if git diff --quiet origin/main HEAD -- src/Samples/; then
@@ -159,6 +159,11 @@ jobs:
             echo "BddfyUpdated=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Print changed paths
+        run: |
+          echo "SamplesUpdated: ${{ steps.changes.outputs.SamplesUpdated }}"
+          echo "BddfyUpdated: ${{ steps.changes.outputs.BddfyUpdated }}"
+          
       - name: Create NuGet package
         working-directory: src
         run: >-
