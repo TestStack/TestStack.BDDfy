@@ -8,65 +8,61 @@ namespace TestStack.BDDfy.Reporters
 {
     public class TextReporter : IProcessor
     {
-        private readonly List<Exception> _exceptions = new();
+        private readonly List<Exception> _exceptions = [];
         private readonly StringBuilder _text = new();
         private int _longestStepSentence;
 
         public void Process(Story story)
         {
-            ReportStoryHeader(story);
+            WriteStoryTitle(story);
 
             var allSteps = story.Scenarios.SelectMany(s => s.Steps)
                 .Select(GetStepWithLines)
                 .ToList();
+
             if (allSteps.Count != 0)
                 _longestStepSentence = allSteps.SelectMany(s => s.Item2.Select(l => l.Length)).Max();
 
             foreach (var scenarioGroup in story.Scenarios.GroupBy(s => s.Id))
             {
+                var firstScenario = scenarioGroup.First();
+
                 if (scenarioGroup.Count() > 1)
                 {
                     // all scenarios in an example based scenario share the same header and narrative
-                    var exampleScenario = story.Scenarios.First();
-                    Report(exampleScenario);
+                    WriteScenario(firstScenario, false);
 
-                    if (exampleScenario.Steps.Count != 0)
+                    if(firstScenario.Example != null)
                     {
-                        foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
-                            ReportOnStep(exampleScenario, GetStepWithLines(step), false);
+                        WriteLine();
+                        WriteExamples(firstScenario, scenarioGroup);
                     }
-
-                    WriteLine();
-                    WriteExamples(exampleScenario, scenarioGroup);
-                    ReportTags(exampleScenario.Tags);
                 }
                 else
                 {
                     foreach (var scenario in story.Scenarios)
                     {
-                        Report(scenario);
-
-                        if (scenario.Steps.Count != 0)
-                        {
-                            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                                ReportOnStep(scenario, GetStepWithLines(step), true);
-                        }
+                        WriteScenario(scenario, true);
                     }
-
-                    var exampleScenario = story.Scenarios.First();
-                    ReportTags(exampleScenario.Tags);
                 }
+                
+                WriteTags(firstScenario.Tags);
             }
 
             ReportExceptions();
         }
 
-        private static Tuple<Step, string[]> GetStepWithLines(Step s)
+        private void WriteScenario(Scenario scenario, bool writeResults)
         {
-            return Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
+            WriteScenarioTitle(scenario);
+
+            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                WriteScenarioStep(scenario, GetStepWithLines(step), writeResults);
         }
 
-        private void ReportTags(List<string> tags)
+        private static Tuple<Step, string[]> GetStepWithLines(Step s) => Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
+
+        private void WriteTags(List<string> tags)
         {
             if (tags.Count == 0)
                 return;
@@ -85,7 +81,7 @@ namespace TestStack.BDDfy.Reporters
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            Action<IEnumerable<string>, string, string> addRow = (cells, result, error) =>
+            void addRow(IEnumerable<string> cells, string result, string error)
             {
                 var row = new string[numberColumns];
                 var index = 0;
@@ -107,7 +103,7 @@ namespace TestStack.BDDfy.Reporters
                 }
 
                 rows.Add(row);
-            };
+            }
 
             addRow(exampleScenario.Example.Headers, "Result", "Errors");
             foreach (var scenario in scenarios)
@@ -134,7 +130,7 @@ namespace TestStack.BDDfy.Reporters
             WriteLine("|");
         }
 
-        private void ReportStoryHeader(Story story)
+        private void WriteStoryTitle(Story story)
         {
             if (story.Metadata == null || story.Metadata.Type == null)
                 return;
@@ -158,7 +154,7 @@ namespace TestStack.BDDfy.Reporters
             return stepTitle;
         }
 
-        void ReportOnStep(Scenario scenario, Tuple<Step, string[]> stepAndLines, bool includeResults)
+        void WriteScenarioStep(Scenario scenario, Tuple<Step, string[]> stepAndLines, bool includeResults)
         {
             if (!includeResults)
             {
@@ -166,6 +162,7 @@ namespace TestStack.BDDfy.Reporters
                 {
                     WriteLine("\t{0}", line);
                 }
+
                 return;
             }
 
@@ -191,8 +188,10 @@ namespace TestStack.BDDfy.Reporters
 
             if (step.Result == Result.Inconclusive || step.Result == Result.NotImplemented)
                 ForegroundColor = ConsoleColor.Yellow;
+
             else if (step.Result == Result.Failed)
                 ForegroundColor = ConsoleColor.Red;
+
             else if (step.Result == Result.NotExecuted)
                 ForegroundColor = ConsoleColor.Gray;
 
@@ -236,16 +235,13 @@ namespace TestStack.BDDfy.Reporters
             WriteLine();
         }
 
-        static string FlattenExceptionMessage(string message)
-        {
-            return string.Join(" ", message
+        static string FlattenExceptionMessage(string message) => string.Join(" ", message
                 .Replace("\t", " ") // replace tab with one space
-                .Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+                .Split(["\r\n", "\n"], StringSplitOptions.None)
                 .Select(s => s.Trim()))
                 .TrimEnd(','); // chop any , from the end
-        }
 
-        void Report(Scenario scenario)
+        void WriteScenarioTitle(Scenario scenario)
         {
             ForegroundColor = ConsoleColor.White;
             WriteLine();
@@ -259,24 +255,12 @@ namespace TestStack.BDDfy.Reporters
             get { return ProcessType.Report; }
         }
 
-        public override string ToString()
-        {
-            return _text.ToString();
-        }
+        public override string ToString() => _text.ToString();
 
-        protected virtual void WriteLine(string text = null)
-        {
-            _text.AppendLine(text);
-        }
+        protected virtual void WriteLine(string text = null) => _text.AppendLine(text);
 
-        protected virtual void WriteLine(string text, params object[] args)
-        {
-            _text.AppendLine(string.Format(text, args));
-        }
+        protected virtual void WriteLine(string text, params object[] args) => _text.AppendLine(string.Format(text, args));
 
-        protected virtual void Write(string text, params object[] args)
-        {
-            _text.AppendFormat(text, args);
-        }
+        protected virtual void Write(string text, params object[] args) => _text.AppendFormat(text, args);
     }
 }
