@@ -10,6 +10,15 @@ on:
         default: false
         type: boolean
 
+      publishWhichNuget:
+        description: 'Which Nuget ?'
+        required: true
+        default: 'Only Changed'
+        type: choice
+        options:
+          - Only Changed
+          - All
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +26,7 @@ jobs:
       semver: ${{ steps.gitversion.outputs.semVer }}
       fullsemver: ${{ steps.gitversion.outputs.fullSemVer }}
       nugetversion: ${{ steps.gitversion.outputs.fullSemVer }}
-      publishNuget: ${{ steps.changes.outputs.BddfyUpdated == 'true' || steps.changes.outputs.SamplesUpdated == 'true' }}
+      publishNuget: ${{ steps.changes.outputs.BddfyUpdated == 'true' || steps.changes.outputs.SamplesUpdated == 'true' || github.event.inputs.publishWhichNuget == 'All' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -168,7 +177,7 @@ jobs:
 
       - name: Create Samples package
         working-directory: src
-        if: steps.changes.outputs.SamplesUpdated == 'true'
+        if: steps.changes.outputs.SamplesUpdated == 'true' || github.event.inputs.publishWhichNuget == 'All'
         run: >-
           dotnet pack ./Samples/TestStack.BDDfy.Samples/*.csproj
           --configuration Release 
@@ -178,7 +187,7 @@ jobs:
 
       - name: Create Bddfy package
         working-directory: src
-        if: steps.changes.outputs.BddfyUpdated == 'true'
+        if: steps.changes.outputs.BddfyUpdated == 'true' || github.event.inputs.publishWhichNuget == 'All'
         run: >-
           dotnet pack ./TestStack.BDDfy/*.csproj
           --configuration Release 
