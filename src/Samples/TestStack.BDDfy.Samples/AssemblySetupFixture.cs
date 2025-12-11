@@ -45,7 +45,8 @@ namespace TestStack.BDDfy.Samples
     }
 
     public class XunitTestFrameworkExecutorWithAssemblyFixture(AssemblyName assemblyName,
-        ISourceInformationProvider sourceInformationProvider, IMessageSink diagnosticMessageSink): XunitTestFrameworkExecutor(assemblyName, sourceInformationProvider, diagnosticMessageSink)
+        ISourceInformationProvider sourceInformationProvider, IMessageSink diagnosticMessageSink): 
+        XunitTestFrameworkExecutor(assemblyName, sourceInformationProvider, diagnosticMessageSink)
     {
         protected override async void RunTestCases(IEnumerable<IXunitTestCase> testCases,
             IMessageSink executionMessageSink, ITestFrameworkExecutionOptions executionOptions)
@@ -60,7 +61,8 @@ namespace TestStack.BDDfy.Samples
                                                       IEnumerable<IXunitTestCase> testCases,
                                                       IMessageSink diagnosticMessageSink,
                                                       IMessageSink executionMessageSink,
-                                                      ITestFrameworkExecutionOptions executionOptions): XunitTestAssemblyRunner(testAssembly, testCases, diagnosticMessageSink, executionMessageSink, executionOptions)
+                                                      ITestFrameworkExecutionOptions executionOptions): 
+        XunitTestAssemblyRunner(testAssembly, testCases, diagnosticMessageSink, executionMessageSink, executionOptions)
     {
         readonly Dictionary<Type, object> assemblyFixtureMappings = new();
 
@@ -96,7 +98,15 @@ namespace TestStack.BDDfy.Samples
                                                                    ITestCollection testCollection,
                                                                    IEnumerable<IXunitTestCase> testCases,
                                                                    CancellationTokenSource cancellationTokenSource)
-            => new XunitTestCollectionRunnerWithAssemblyFixture(assemblyFixtureMappings, testCollection, testCases, DiagnosticMessageSink, messageBus, TestCaseOrderer, new ExceptionAggregator(Aggregator), cancellationTokenSource).RunAsync();
+            => new XunitTestCollectionRunnerWithAssemblyFixture(
+                assemblyFixtureMappings, 
+                testCollection, 
+                testCases, 
+                DiagnosticMessageSink, 
+                messageBus, 
+                TestCaseOrderer, 
+                new ExceptionAggregator(Aggregator), 
+                cancellationTokenSource).RunAsync();
     }
 
     public class XunitTestCollectionRunnerWithAssemblyFixture(Dictionary<Type, object> assemblyFixtureMappings,
@@ -106,7 +116,8 @@ namespace TestStack.BDDfy.Samples
                                                         IMessageBus messageBus,
                                                         ITestCaseOrderer testCaseOrderer,
                                                         ExceptionAggregator aggregator,
-                                                        CancellationTokenSource cancellationTokenSource): XunitTestCollectionRunner(testCollection, testCases, diagnosticMessageSink, messageBus, testCaseOrderer, aggregator, cancellationTokenSource)
+                                                        CancellationTokenSource cancellationTokenSource): 
+        XunitTestCollectionRunner(testCollection, testCases, diagnosticMessageSink, messageBus, testCaseOrderer, aggregator, cancellationTokenSource)
     {
         readonly Dictionary<Type, object> assemblyFixtureMappings = assemblyFixtureMappings;
         readonly IMessageSink diagnosticMessageSink = diagnosticMessageSink;
@@ -120,7 +131,16 @@ namespace TestStack.BDDfy.Samples
                 combinedFixtures[kvp.Key] = kvp.Value;
 
             // We've done everything we need, so let the built-in types do the rest of the heavy lifting
-            return new XunitTestClassRunner(testClass, @class, testCases, diagnosticMessageSink, MessageBus, TestCaseOrderer, new ExceptionAggregator(Aggregator), CancellationTokenSource, combinedFixtures).RunAsync();
+            return new XunitTestClassRunner(
+                testClass, 
+                @class, 
+                testCases, 
+                diagnosticMessageSink, 
+                MessageBus, 
+                TestCaseOrderer, 
+                new ExceptionAggregator(Aggregator), 
+                CancellationTokenSource, 
+                combinedFixtures).RunAsync();
         }
     }
 
