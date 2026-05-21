@@ -1,5 +1,4 @@
-﻿#if Approvals
-using Shouldly;
+﻿using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
 
@@ -54,4 +53,3 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         }
     }
 }
-#endif

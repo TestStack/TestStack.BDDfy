@@ -210,7 +210,7 @@ jobs:
   publish-nuget:
     runs-on: ubuntu-latest
     needs: build
-    if: needs.build.outputs.publishNuget == 'true' && (github.event.inputs.runPublish == 'true' || github.ref_name == github.event.repository.default_branch)
+    if: github.event.inputs.runPublish == 'true' || github.ref_name == github.event.repository.default_branch
     environment: 
       name: Publish
       url: https://www.nuget.org/packages/TestStack.BDDfy/

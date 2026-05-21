@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 
-namespace TestStack.BDDfy
+namespace TestStack.BDDfy.Scanners
 {
-    public class StoryAttributeMetadataScanner : IStoryMetadataScanner
+    internal class StoryAttributeMetadataScanner : IStoryMetadataScanner
     {
         public virtual StoryMetadata Scan(object testObject, Type explicitStoryType = null)
         {
@@ -39,22 +38,9 @@ namespace TestStack.BDDfy
             if (explicitStoryType != null)
                 return explicitStoryType;
 
-#if STACKTRACE
-            StackTrace stackTrace = new StackTrace();
-
-            var frames = stackTrace.GetFrames();
-            if (frames == null)
-                return null;
-            var scenarioType = testObject.GetType();
-            // This is assuming scenario and story live in the same assembly
-            var firstFrame = frames.LastOrDefault(f => f.GetMethod().DeclaringType.Assembly() == scenarioType.Assembly());
-            if (firstFrame == null)
-                return null;
-
-            return firstFrame.GetMethod().DeclaringType;
-#else
-            return null;
-#endif
+            var testObjectType = testObject.GetType();
+            var declaringType = testObjectType.DeclaringType;
+            return declaringType ?? testObjectType;
         }
 
         static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)

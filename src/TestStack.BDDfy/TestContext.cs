@@ -20,9 +20,8 @@ namespace TestStack.BDDfy
 
             lock (_dictionaryLock)
             {
-                if (ContextLookup.ContainsKey(testObject))
+                if (ContextLookup.TryGetValue(testObject, out ITestContext oldContext))
                 {
-                    var oldContext = ContextLookup[testObject];
                     context.Examples = oldContext.Examples;
                     ContextLookup[testObject] = new TestContext(testObject);
                 }
@@ -51,8 +50,7 @@ namespace TestStack.BDDfy
         {
             lock (_dictionaryLock)
             {
-                if (ContextLookup.ContainsKey(testObject))
-                    ContextLookup.Remove(testObject);
+                ContextLookup.Remove(testObject);
             }
         }
 

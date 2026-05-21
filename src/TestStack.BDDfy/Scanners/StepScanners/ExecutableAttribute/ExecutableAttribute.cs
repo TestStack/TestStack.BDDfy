@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using TestStack.BDDfy.Annotations;
 
 namespace TestStack.BDDfy

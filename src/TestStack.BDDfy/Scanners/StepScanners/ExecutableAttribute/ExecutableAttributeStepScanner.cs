@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -28,25 +29,30 @@ namespace TestStack.BDDfy
     {
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo candidateMethod)
         {
-            var executableAttribute = (ExecutableAttribute)candidateMethod.GetCustomAttributes(typeof(ExecutableAttribute), true).FirstOrDefault();
-            if(executableAttribute == null)
+            var executableAttribute = candidateMethod.GetCustomAttribute<ExecutableAttribute>(true);
+            if (executableAttribute == null)
                 yield break;
 
             var stepTitle = new StepTitle(executableAttribute.StepTitle);
-            if(string.IsNullOrEmpty(stepTitle))
+            if (string.IsNullOrWhiteSpace(stepTitle))
                 stepTitle = new StepTitle(Configurator.Humanizer.Humanize(candidateMethod.Name));
 
-            var stepAsserts = IsAssertingByAttribute(candidateMethod);
             var shouldReport = executableAttribute.ShouldReport;
 
             var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), true);
             if (runStepWithArgsAttributes.Length == 0)
             {
-                var stepAction = StepActionFactory.GetStepAction(candidateMethod, new object[0]);
-                yield return new Step(stepAction, stepTitle, stepAsserts, executableAttribute.ExecutionOrder, shouldReport, new List<StepArgument>())
-                        {
-                            ExecutionSubOrder = executableAttribute.Order
-                        };
+                var stepAction = StepActionFactory.GetStepAction(candidateMethod, []);
+                yield return new Step(
+                    stepAction,
+                    stepTitle,
+                    executableAttribute.Asserts,
+                    executableAttribute.ExecutionOrder,
+                    shouldReport,
+                    [])
+                {
+                    ExecutionSubOrder = executableAttribute.Order
+                };
             }
 
             foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
@@ -62,25 +68,29 @@ namespace TestStack.BDDfy
                     methodName = string.Format(executableAttribute.StepTitle, flatInput);
 
                 var stepAction = StepActionFactory.GetStepAction(candidateMethod, inputArguments);
-                yield return new Step(stepAction, new StepTitle(methodName), stepAsserts,
-                                      executableAttribute.ExecutionOrder, shouldReport, new List<StepArgument>())
-                        {
-                            ExecutionSubOrder = executableAttribute.Order
-                        };
+                yield return new Step(
+                    stepAction,
+                    new StepTitle(methodName),
+                    executableAttribute.Asserts,
+                    executableAttribute.ExecutionOrder,
+                    shouldReport,
+                    [])
+                {
+                    ExecutionSubOrder = executableAttribute.Order
+                };
             }
         }
 
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
-            var executableAttribute = (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), true).FirstOrDefault();
+            var executableAttribute = method.GetCustomAttribute<ExecutableAttribute>(true);
             if (executableAttribute == null)
                 yield break;
 
             string stepTitle = executableAttribute.StepTitle;
-            if (string.IsNullOrEmpty(stepTitle))
+            if (string.IsNullOrWhiteSpace(stepTitle))
                 stepTitle = Configurator.Humanizer.Humanize(method.Name);
 
-            var stepAsserts = IsAssertingByAttribute(method);
             var shouldReport = executableAttribute.ShouldReport;
             var methodParameters = method.GetParameters();
 
@@ -101,20 +111,14 @@ namespace TestStack.BDDfy
                 }
             }
 
-            var stepAction = StepActionFactory.GetStepAction(method, inputs.ToArray());
-            yield return new Step(stepAction, new StepTitle(stepTitle), stepAsserts, executableAttribute.ExecutionOrder, shouldReport, new List<StepArgument>());
-        }
-
-
-        private static bool IsAssertingByAttribute(MethodInfo method)
-        {
-            var attribute = GetExecutableAttribute(method);
-            return attribute.Asserts;
-        }
-
-        private static ExecutableAttribute GetExecutableAttribute(MethodInfo method)
-        {
-            return (ExecutableAttribute)method.GetCustomAttributes(typeof(ExecutableAttribute), true).First();
+            var stepAction = StepActionFactory.GetStepAction(method, [.. inputs]);
+            yield return new Step(
+                stepAction,
+                new StepTitle(stepTitle),
+                executableAttribute.Asserts,
+                executableAttribute.ExecutionOrder,
+                shouldReport,
+                []);
         }
     }
 }

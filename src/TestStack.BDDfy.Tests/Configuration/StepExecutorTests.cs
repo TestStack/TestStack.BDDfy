@@ -1,11 +1,12 @@
 ﻿using System.Text;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Configuration
 {
-    [Collection("ExclusiveAccessToConfigurator")]
+    [Collection(TestCollectionName.ModifiesConfigurator)]
     public class StepExecutorTests
     {
         private class TestStepExecutor : StepExecutor

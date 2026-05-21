@@ -1,5 +1,4 @@
-﻿#if Approvals
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;
@@ -107,4 +106,3 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         public ExecutionOrder Prop_3 { get; set; }
     }
 }
-#endif

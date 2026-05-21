@@ -1,13 +1,12 @@
 using System;
 using Shouldly;
-using TestStack.BDDfy.Configuration;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests
 {
-    public class DefaultHumanizerTests
+    public sealed class HumanizerTests
     {
-        private static DefaultHumanizer Humanizer => new();
+        private static readonly DefaultHumanizer Humanizer = new();
 
         [Fact]
         public void PascalCaseInputStringIsTurnedIntoSentence()
@@ -35,6 +34,13 @@ namespace TestStack.BDDfy.Tests
         }
 
         [Fact]
+        public void WhenInputStringHasANumberInTheMiddleAndEnd_ThenNumberIsDealtWithLikeAWord()
+        {
+            Humanizer.Humanize("Number15InTheMiddleAndEndingWith100")
+                .ShouldBe("Number 15 in the middle and ending with 100");
+        }
+
+        [Fact]
         public void UnderscoredInputStringIsTurnedIntoSentence()
         {
             Humanizer.Humanize("Underscored_input_string_is_turned_into_sentence")
@@ -57,7 +63,7 @@ namespace TestStack.BDDfy.Tests
         [Theory]
         [InlineData("GivenThereAre__start__Cucumbers", "Given there are <start> cucumbers")]
         [InlineData("Given_there_are__start__cucumbers", "Given there are <start> cucumbers")]
-        [InlineData("GivenThereAre__count1__Cucumbers", "Given there are <count 1> cucumbers")]
+        [InlineData("GivenThereAre__count1__Cucumbers", "Given there are <count1> cucumbers")]
         [InlineData("Given_there_are__count2__cucumbers", "Given there are <count2> cucumbers")] // The spacing rules for numbers are not consequential
         [InlineData("GivenMethodTaking__ExampleInt__", "Given method taking <example int>")]
         [InlineData("Given_method_taking__ExampleInt__", "Given method taking <ExampleInt>")]
@@ -81,6 +87,15 @@ namespace TestStack.BDDfy.Tests
 
             exception.ShouldNotBeNull();
             exception.ShouldBeOfType<ArgumentException>();
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        internal void HumanizeWithNullOrEmptyInput_ReturnsTheSame(string providedInput)
+        {
+            Humanizer.Humanize(providedInput).ShouldBe(providedInput);
         }
     }
 }

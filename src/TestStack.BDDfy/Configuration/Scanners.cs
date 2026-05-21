@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Configuration
 {
@@ -11,7 +12,7 @@ namespace TestStack.BDDfy.Configuration
         private readonly StepScannerFactory _methodNameStepScanner = new(() => new DefaultMethodNameStepScanner());
         public StepScannerFactory DefaultMethodNameStepScanner { get { return _methodNameStepScanner; } }
 
-        private readonly List<Func<IStepScanner>> _addedStepScanners = new();
+        private readonly List<Func<IStepScanner>> _addedStepScanners = [];
         public Scanners Add(Func<IStepScanner> stepScannerFactory)
         {
             _addedStepScanners.Add(stepScannerFactory);
@@ -35,5 +36,8 @@ namespace TestStack.BDDfy.Configuration
         }
 
         public Func<IStoryMetadataScanner> StoryMetadataScanner = () => new StoryAttributeMetadataScanner();
+
+        [Obsolete("This will be removed soon. Use Configurator.Humanizer.Humanize")]
+        public static Func<string, string> Humanize = Configurator.Humanizer.Humanize;
     }
 }

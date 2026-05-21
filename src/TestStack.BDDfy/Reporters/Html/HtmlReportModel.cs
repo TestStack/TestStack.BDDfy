@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TestStack.BDDfy.Reporters.Html
+﻿namespace TestStack.BDDfy.Reporters.Html
 {
     public class HtmlReportModel(IHtmlReportConfiguration configuration, ReportModel reportModel): FileReportModel(reportModel)
     {
