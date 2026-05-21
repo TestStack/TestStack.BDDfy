@@ -26,7 +26,7 @@ jobs:
       semver: ${{ steps.gitversion.outputs.semVer }}
       fullsemver: ${{ steps.gitversion.outputs.fullSemVer }}
       nugetversion: ${{ steps.gitversion.outputs.fullSemVer }}
-      publishNuget: ${{ steps.changes.outputs.BddfyUpdated == 'true' || steps.changes.outputs.SamplesUpdated == 'true' || github.event.inputs.publishWhichNuget == 'All' }}
+      publishNuget: ${{ steps.changes.outputs.BddfyUpdated == 'true' || github.event.inputs.publishWhichNuget == 'All' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -158,12 +158,6 @@ jobs:
         run: |
           latestTag=$(git describe --tags --abbrev=0)
 
-          if git diff --quiet "$latestTag" HEAD -- src/Samples/; then
-            echo "SamplesUpdated=false" >> $GITHUB_OUTPUT
-          else
-            echo "SamplesUpdated=true" >> $GITHUB_OUTPUT
-          fi
-          
           if git diff --quiet "$latestTag" HEAD -- src/TestStack.BDDfy/; then
             echo "BddfyUpdated=false" >> $GITHUB_OUTPUT
           else
@@ -172,18 +166,7 @@ jobs:
 
       - name: Print changed paths
         run: |
-          echo "SamplesUpdated: ${{ steps.changes.outputs.SamplesUpdated }}"
           echo "BddfyUpdated: ${{ steps.changes.outputs.BddfyUpdated }}"
-
-      - name: Create Samples package
-        working-directory: src
-        if: steps.changes.outputs.SamplesUpdated == 'true' || github.event.inputs.publishWhichNuget == 'All'
-        run: >-
-          dotnet pack ./Samples/TestStack.BDDfy.Samples/*.csproj
-          --configuration Release 
-          --no-build 
-          /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }} 
-          --output ../packages
 
       - name: Create Bddfy package
         working-directory: src
