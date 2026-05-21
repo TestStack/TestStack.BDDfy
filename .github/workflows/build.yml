@@ -50,7 +50,7 @@ jobs:
             buildNumber="${buildNumber}-beta"
           fi
           
-          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber}"
+          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}"
           echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
         id: formatversion
   
