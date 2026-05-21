@@ -6,8 +6,6 @@
   </PropertyGroup>
   <PropertyGroup>
 	  <TargetFrameworks>net8.0</TargetFrameworks>
-    <AssemblyName>TestStack.BDDfy</AssemblyName>
-    <PackageId>TestStack.BDDfy</PackageId>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
