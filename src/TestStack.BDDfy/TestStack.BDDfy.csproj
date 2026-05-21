@@ -1,11 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Company>TestStack.BDDfy - http://teststack.github.com/TestStack.BDDfy/</Company>
-    <Product>TestStack.BDDfy</Product>
-    <Copyright>Copyright © 2011-2017 TestStack.BDDfy contributors</Copyright>
-  </PropertyGroup>
-  <PropertyGroup>
-	  <TargetFrameworks>net8.0</TargetFrameworks>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
