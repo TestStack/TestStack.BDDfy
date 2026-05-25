@@ -175,6 +175,7 @@ jobs:
       - name: Print changed paths
         run: |
           echo "BddfyUpdated: ${{ steps.changes.outputs.BddfyUpdated }}"
+          echo "SamplesUpdated: ${{ steps.changes.outputs.SamplesUpdated }}"
 
       - name: Create Samples package
         working-directory: src
