@@ -8,29 +8,20 @@ namespace TestStack.BDDfy
     {
         internal static object[] FlattenArrays(this IEnumerable<object> inputs)
         {
-            return inputs.Select(FlattenArray).ToArray();
+            return [.. inputs.Select(FlattenArray)];
         }
 
         public static object FlattenArray(this object input)
         {
-            var inputArray = input as Array;
-            if (inputArray != null)
+            if (input is Array inputArray)
             {
-                var temp = (from object arrElement in inputArray select GetSafeString(arrElement)).ToArray();
+                var temp = from object arrElement in inputArray select GetSafeValue(arrElement);
                 return string.Join(", ", temp);
             }
 
-            if (input == null) return "'null'";
-
-            return input;
+            return GetSafeValue(input);
         }
 
-        static string GetSafeString(object input)
-        {
-            if (input == null)
-                return "'null'";
-
-            return input.ToString();
-        }
+        static object GetSafeValue(object input) => input ?? "'null'";
     }
 }

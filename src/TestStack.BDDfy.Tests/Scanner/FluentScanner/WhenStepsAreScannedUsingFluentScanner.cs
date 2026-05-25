@@ -265,6 +265,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     ScenarioToBeScannedUsingFluentScanner.InputDateStepTitleTemplate, 
                     ScenarioToBeScannedUsingFluentScanner.InputDate);
 
+                var titles = _steps.Select(x=>x.Title.Trim()).ToArray();
+
                 return _steps.Single(s => s.Title.Trim() == formattedTitle);
             }
         }

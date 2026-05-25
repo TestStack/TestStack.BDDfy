@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Shouldly;
+using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
 
@@ -8,7 +9,43 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
     [Collection(TestCollectionName.ModifiesConfigurator)]
     public class StepTitleTests
     {
-        private string _mutatedState;
+        private string _state;
+
+        [Fact]
+        public void UseConfiguration_IncludeInputsInStepTitle()
+        {
+            try
+            {
+                Configurator.StepTitleFactory.IncludeInputsInStepTitle = false;
+                FooClass something = new();
+                var story = this
+                    .When(_ => something.Sub.ActionWithArgument("foo"))
+                    .And(_ => something.Sub.ActionWithArgumentsDisabledInTitle("foo"))
+                    .And(_ => something.Sub.ActionWithTemplateTitleAndArguments("foo"))
+                    .And(_ => something.Sub.ActionWithArgumentsEnabledInTitle("foo"))
+                    .BDDfy();
+
+                var actualTitles = story.Scenarios.Single().Steps.Select(s => s.Title).ToArray();
+                var expectedTitles = new[]
+                {
+                    "When with arg",
+                    "And with arg",
+                    "And with foo arg",
+                    "And with arg foo"
+                };
+
+                actualTitles.ShouldBeEquivalentTo(expectedTitles); ;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                Configurator.StepTitleFactory.IncludeInputsInStepTitle = true;
+            }
+
+        }
 
         [Fact]
         public void MethodCallInStepTitle()
@@ -19,16 +56,24 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .When(_ => something.Sub.SomethingHappens())
                 .And(_ => something.Sub.SomethingWithDifferentTitle())
                 .Then(_ => ThenTitleHas(AMethodCall()))
-                .And(_ => something.Sub.SomethingWithArg("foo"))
-                .And(_ => something.Sub.SomethingWithArg2("foo"))
-                .And(_ => something.Sub.SomethingWithArg3("foo"))
+                .And(_ => something.Sub.ActionWithArgument("foo"))
+                .And(_ => something.Sub.ActionWithArgumentsDisabledInTitle("foo"))
+                .And(_ => something.Sub.ActionWithTemplateTitleAndArguments("foo"))
                 .BDDfy();
 
-            story.Scenarios.Single().Steps.ElementAt(2).Title.ShouldBe("And different title");
-            story.Scenarios.Single().Steps.ElementAt(3).Title.ShouldBe("Then title has Mutated state");
-            story.Scenarios.Single().Steps.ElementAt(4).Title.ShouldBe("And with arg foo");
-            story.Scenarios.Single().Steps.ElementAt(5).Title.ShouldBe("And with arg");
-            story.Scenarios.Single().Steps.ElementAt(6).Title.ShouldBe("And with foo arg");
+            var actualTitles = story.Scenarios.Single().Steps.Select(s => s.Title).ToArray();
+            var expectedTitles = new[]
+            {
+                "Given we mutate some state",
+                "When something happens",
+                "And different title",
+                "Then title has Mutated state",
+                "And with arg foo",
+                "And with arg",
+                "And with foo arg"
+            };
+
+            actualTitles.ShouldBeEquivalentTo(expectedTitles);
         }
 
         public class FooClass
@@ -54,34 +99,39 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
 
             [StepTitle("With arg")]
-            public void SomethingWithArg(string arg)
+            public void ActionWithArgument(string arg)
             {
             }
 
             [StepTitle("With arg", false)]
-            public void SomethingWithArg2(string arg)
+            public void ActionWithArgumentsDisabledInTitle(string arg)
+            {
+            }
+
+            [StepTitle("With arg", true)]
+            public void ActionWithArgumentsEnabledInTitle(string arg)
             {
             }
 
             [StepTitle("With {0} arg", false)]
-            public void SomethingWithArg3(string arg)
+            public void ActionWithTemplateTitleAndArguments(string arg)
             {
             }
         }
 
         private string AMethodCall()
         {
-            return _mutatedState;
+            return _state;
         }
 
         private void GivenWeMutateSomeState()
         {
-            _mutatedState = "Mutated state";
+            _state = "Mutated state";
         }
 
         private void ThenTitleHas(string result)
         {
-            result.ShouldBe(_mutatedState);
+            result.ShouldBe(_state);
         }
     }
 }

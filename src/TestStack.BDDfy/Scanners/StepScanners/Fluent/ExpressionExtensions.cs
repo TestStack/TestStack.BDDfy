@@ -22,10 +22,12 @@ namespace TestStack.BDDfy
         private class ArgumentExtractorVisitor : ExpressionVisitor
         {
             private List<StepArgument> _arguments;
+            private object _value;
 
             public IEnumerable<StepArgument> ExtractArguments(LambdaExpression methodCallExpression, object value)
             {
-                _arguments = new List<StepArgument>();
+                _arguments = [];
+                _value = value;
                 Visit(methodCallExpression);
                 return _arguments;
             }
@@ -37,7 +39,7 @@ namespace TestStack.BDDfy
                 return node;
             }
 
-            private static StepArgument ExtractStepArgument(Expression a)
+            private StepArgument ExtractStepArgument(Expression a)
             {
                 switch (a.NodeType)
                 {
@@ -73,17 +75,33 @@ namespace TestStack.BDDfy
                 }
             }
 
-            private static Func<object> GetValue(Expression a)
+            private Func<object> GetValue(Expression a)
             {
+                // If the expression is a member access on the lambda parameter (e.g. _ => _.Prop)
+                // replace the parameter with the supplied _value so the compiled delegate can be invoked
+                if (a is MemberExpression memberExpression && memberExpression.Expression is ParameterExpression)
+                {
+                    var replaced = Expression.Convert(Expression.MakeMemberAccess(Expression.Constant(_value), memberExpression.Member), typeof(object));
+                    return Expression.Lambda<Func<object>>(replaced).Compile();
+                }
+
                 return Expression.Lambda<Func<object>>(Expression.Convert(a, typeof(object))).Compile();
             }
 
-            private static Action<object> SetValue(Expression a, Type parameterType)
+            private Action<object> SetValue(Expression a, Type parameterType)
             {
                 var parameter = Expression.Parameter(typeof(object));
                 var unaryExpression = Expression.Convert(parameter, parameterType);
-                var assign = Expression.Assign(a, unaryExpression);
-                return Expression.Lambda<Action<object>>(assign, parameter).Compile();
+
+                if (a is MemberExpression memberExpression && memberExpression.Expression is ParameterExpression)
+                {
+                    var memberAccess = Expression.MakeMemberAccess(Expression.Constant(_value), memberExpression.Member);
+                    var assign = Expression.Assign(memberAccess, unaryExpression);
+                    return Expression.Lambda<Action<object>>(assign, parameter).Compile();
+                }
+
+                var assignDefault = Expression.Assign(a, unaryExpression);
+                return Expression.Lambda<Action<object>>(assignDefault, parameter).Compile();
             }
         }
     }
