@@ -15,6 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: GitHub Copilot coding agent
-        uses: github/copilot-coding-agent@v1
+        uses: github/copilot-actions/coding-agent@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

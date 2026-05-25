@@ -12,7 +12,7 @@ jobs:
   copilot-review:
     runs-on: ubuntu-latest
     steps:
-      - name: GitHub Copilot code review
-        uses: github/copilot-review@v1
+      - name: GitHub Copilot review
+        uses: github/copilot-actions/review@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
