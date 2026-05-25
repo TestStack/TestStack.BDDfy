@@ -19,12 +19,13 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
                 })
                 .BDDfy();
         }
-        public void GivenStepWith__FirstExample__PassedAsParameter(int firstExample)
+
+        internal void GivenStepWith__FirstExample__PassedAsParameter(int firstExample)
         {
             firstExample.ShouldBeOneOf(1, 2);
         }
 
-        public void AndGivenStepWith__SecondExample__AccessedViaProperty()
+        internal void AndGivenStepWith__SecondExample__AccessedViaProperty()
         {
             SecondExample.ShouldBeOneOf("foo", "bar");
         }

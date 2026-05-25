@@ -65,7 +65,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            10.0.x
 
       - name: Build project
         working-directory: src
@@ -172,8 +174,8 @@ jobs:
 
       - name: Print changed paths
         run: |
-          echo "SamplesUpdated: ${{ steps.changes.outputs.SamplesUpdated }}"
           echo "BddfyUpdated: ${{ steps.changes.outputs.BddfyUpdated }}"
+          echo "SamplesUpdated: ${{ steps.changes.outputs.SamplesUpdated }}"
 
       - name: Create Samples package
         working-directory: src
@@ -210,7 +212,7 @@ jobs:
   publish-nuget:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event.inputs.runPublish == 'true' || github.ref_name == github.event.repository.default_branch
+    if: needs.build.outputs.publishNuget == 'true' && (github.event.inputs.runPublish == 'true' || github.ref_name == github.event.repository.default_branch)
     environment: 
       name: Publish
       url: https://www.nuget.org/packages/TestStack.BDDfy/

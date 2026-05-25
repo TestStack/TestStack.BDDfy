@@ -45,7 +45,9 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                         }
 
                         report.AppendLine(); // separator
-                        WriteExamples(report, exampleScenario, scenarioGroup);
+                        if(exampleScenario.Example is not null)
+                            WriteExamples(report, exampleScenario, scenarioGroup);
+
                         ReportTags(report, exampleScenario.Tags);
                     }
                     else
@@ -123,6 +125,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                     ? null
                     : string.Format("Step: {0} failed with exception: {1}", WebUtility.HtmlEncode(failingStep.Title), CreateExceptionMessage(failingStep));
 
+                if (scenario.Example is null) continue;
                 addRow(scenario.Example.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
             }
 

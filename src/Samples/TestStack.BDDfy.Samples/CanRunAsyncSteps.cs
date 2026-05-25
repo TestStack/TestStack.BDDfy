@@ -19,7 +19,7 @@ namespace TestStack.BDDfy.Samples
             _sut.ShouldNotBe(null);
         }
 
-        internal async Task AndThenBddfyShouldCaptureExceptionsThrownInAsyncMethod()
+        internal async void AndThenBddfyShouldCaptureExceptionsThrownInAsyncMethod()
         {
             await Task.Yield();
             throw new Exception("Exception in async void method!!");

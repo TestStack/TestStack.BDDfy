@@ -1,6 +1,6 @@
 namespace TestStack.BDDfy.Configuration
 {
-    public class SequentialKeyGenerator : IKeyGenerator
+    internal class SequentialKeyGenerator : IKeyGenerator
     {
         private int _currentScenarioNumber = 1;
         private int _currentStepNumber = 1;

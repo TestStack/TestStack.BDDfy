@@ -1,0 +1,11 @@
+<RunSettings>
+  <RunConfiguration>
+    <Loggers>
+      <Logger friendlyName="Console" enabled="True">
+        <Configuration>
+          <Verbosity>detailed</Verbosity>
+        </Configuration>
+      </Logger>
+    </Loggers>
+  </RunConfiguration>
+</RunSettings>

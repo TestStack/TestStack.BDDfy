@@ -1,0 +1,20 @@
+name: Copilot coding agent
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "copilot/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  copilot-coding-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GitHub Copilot coding agent
+        uses: github/copilot-actions/coding-agent@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
