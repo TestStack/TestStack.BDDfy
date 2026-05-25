@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using TestStack.BDDfy.Annotations;
 
 namespace TestStack.BDDfy
 {
     /// <summary>
-    /// This attribute is marked with <see cref="TestStack.BDDfy.Annotations.MeansImplicitUseAttribute"/>
+    /// This attribute is marked with <see cref="MeansImplicitUseAttribute"/>
     /// so that any method decorated with <c>[Executable]</c> (or derived GWT attributes)
     /// is treated as "used implicitly" by code-analysis tools (ReSharper/Rider/etc).
     ///

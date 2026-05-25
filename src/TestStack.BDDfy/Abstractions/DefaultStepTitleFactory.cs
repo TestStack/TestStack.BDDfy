@@ -7,31 +7,36 @@ namespace TestStack.BDDfy.Abstractions;
 
 internal class DefaultStepTitleFactory : IStepTitleFactory
 {
+    public bool IncludeInputsInStepTitle { get; set; } = true;
+
     public StepTitle Create(
         string stepTextTemplate,
-        bool includeInputsInStepTitle,
+        bool? includeInputsInStepTitle,
         MethodInfo methodInfo,
         StepArgument[] inputArguments,
         ITestContext testContext,
         string stepPrefix)
     {
-        Func<string> createTitle = () =>
+        string createTitle()
         {
             var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
             var name = methodInfo.Name;
-            var stepTitleAttribute = methodInfo.GetCustomAttributes(typeof(StepTitleAttribute), true).SingleOrDefault();
-            if (stepTitleAttribute != null)
+            var titleAttribute = methodInfo.GetCustomAttribute<StepTitleAttribute>(true);
+            var executableAttribute = methodInfo.GetCustomAttribute<ExecutableAttribute>(true);
+
+            includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle ?? IncludeInputsInStepTitle;
+
+            var titleTemplate = titleAttribute?.StepTitle ?? executableAttribute?.StepTitle;
+
+            if (titleTemplate is not null)
             {
-                var titleAttribute = ((StepTitleAttribute)stepTitleAttribute);
-                name = string.Format(titleAttribute.StepTitle, flatInputArray);
-                if (titleAttribute.IncludeInputsInStepTitle != null)
-                    includeInputsInStepTitle = titleAttribute.IncludeInputsInStepTitle.Value;
+                name = string.Format(titleTemplate, flatInputArray);
             }
 
             var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
 
             if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
-            else if (includeInputsInStepTitle)
+            else if (includeInputsInStepTitle.Value)
             {
                 var parameters = methodInfo.GetParameters();
                 var stringFlatInputs =
@@ -56,23 +61,24 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
                             return i.Value.Value.FlattenArray();
                         })
                         .ToArray();
+
                 stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
             }
 
             return stepTitle.Trim();
-        };
+        }
 
         return new StepTitle(createTitle);
     }
 
-    public StepTitle Create(string title, string stepPrefix, ITestContext testContext) => new StepTitle(AppendPrefix(title, stepPrefix));
+    public StepTitle Create(string title, string stepPrefix, ITestContext testContext) => new(AppendPrefix(title, stepPrefix));
 
     private static string AppendPrefix(string title, string stepPrefix)
     {
         if (!title.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
         {
             if (title.Length == 0) return string.Format("{0} ", stepPrefix);
-            return string.Format("{0} {1}{2}", stepPrefix, title.Substring(0, 1).ToLower(), title.Substring(1));
+            return string.Format("{0} {1}{2}", stepPrefix, title[..1].ToLower(), title[1..]);
         }
 
         return title;

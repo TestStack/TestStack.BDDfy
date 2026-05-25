@@ -331,7 +331,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> Given(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.SetupState, false, "Given");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
@@ -343,13 +343,13 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> Given(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.SetupState, false, "Given");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Given(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.SetupState, false, "Given");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
@@ -361,7 +361,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> Given(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.SetupState, false, "Given");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.SetupState, false, "Given");
             return this;
         }
 
@@ -390,7 +390,7 @@ namespace TestStack.BDDfy
         }
         public IFluentStepBuilder<TScenario> When(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Transition, false, "When");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
@@ -402,13 +402,13 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> When(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Transition, false, "When");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> When(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Transition, false, "When");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
@@ -420,7 +420,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> When(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Transition, false, "When");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.Transition, false, "When");
             return this;
         }
 
@@ -449,7 +449,7 @@ namespace TestStack.BDDfy
         }
         public IFluentStepBuilder<TScenario> Then(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Assertion, true, "Then");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
@@ -461,13 +461,13 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> Then(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Assertion, true, "Then");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> Then(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.Assertion, true, "Then");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
@@ -479,7 +479,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> Then(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.Assertion, true, "Then");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.Assertion, true, "Then");
             return this;
         }
 
@@ -508,7 +508,7 @@ namespace TestStack.BDDfy
         }
         public IFluentStepBuilder<TScenario> And(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
@@ -520,13 +520,13 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> And(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> And(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
@@ -538,7 +538,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> And(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "And");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.ConsecutiveStep, false, "And");
             return this;
         }
 
@@ -567,7 +567,7 @@ namespace TestStack.BDDfy
         }
         public IFluentStepBuilder<TScenario> But(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
@@ -579,13 +579,13 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> But(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> But(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
+            scanner.AddStep(step, stepTextTemplate, null, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
@@ -597,7 +597,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> But(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, true, ExecutionOrder.ConsecutiveStep, false, "But");
+            scanner.AddStep(step, null, null, true, ExecutionOrder.ConsecutiveStep, false, "But");
             return this;
         }
 
@@ -626,7 +626,7 @@ namespace TestStack.BDDfy
         }
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Action<TScenario>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, false, ExecutionOrder.TearDown, false, "");
+            scanner.AddStep(step, stepTextTemplate, null, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
@@ -638,13 +638,13 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Action<TScenario>> step)
         {
-            scanner.AddStep(step, null, true, false, ExecutionOrder.TearDown, false, "");
+            scanner.AddStep(step, null, null, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<TScenario, Task>> step, string stepTextTemplate)
         {
-            scanner.AddStep(step, stepTextTemplate, true, false, ExecutionOrder.TearDown, false, "");
+            scanner.AddStep(step, stepTextTemplate, null, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 
@@ -656,7 +656,7 @@ namespace TestStack.BDDfy
 
         public IFluentStepBuilder<TScenario> TearDownWith(Expression<Func<TScenario, Task>> step)
         {
-            scanner.AddStep(step, null, true, false, ExecutionOrder.TearDown, false, "");
+            scanner.AddStep(step, null, null, false, ExecutionOrder.TearDown, false, "");
             return this;
         }
 

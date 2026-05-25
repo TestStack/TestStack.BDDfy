@@ -4,9 +4,11 @@ namespace TestStack.BDDfy.Abstractions;
 
 public interface IStepTitleFactory
 {
+    bool IncludeInputsInStepTitle { get; set; }
+
     public StepTitle Create(
         string stepTextTemplate,
-        bool includeInputsInStepTitle,
+        bool? includeInputsInStepTitle,
         MethodInfo methodInfo,
         StepArgument[] inputArguments,
         ITestContext testContext,

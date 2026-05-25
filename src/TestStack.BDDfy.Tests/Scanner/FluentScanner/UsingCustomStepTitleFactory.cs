@@ -13,15 +13,17 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
     {
         private class CustomStepTitleFactory : IStepTitleFactory
         {
+            public bool IncludeInputsInStepTitle { get; set; } = true;
+
             public StepTitle Create(
                 string stepTextTemplate,
-                bool includeInputsInStepTitle,
+                bool? includeInputsInStepTitle,
                 MethodInfo methodInfo,
                 StepArgument[] inputArguments,
                 ITestContext testContext,
-                string stepPrefix) => new StepTitle("Custom Step Title");
+                string stepPrefix) => new("Custom Step Title");
 
-            public StepTitle Create(string title, string stepPrefix, ITestContext testContext) => new StepTitle(title);
+            public StepTitle Create(string title, string stepPrefix, ITestContext testContext) => new(title);
         }
 
         [Fact]
