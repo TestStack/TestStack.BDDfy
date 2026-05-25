@@ -19,6 +19,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 Configurator.StepTitleFactory.IncludeInputsInStepTitle = false;
                 FooClass something = new();
                 var story = this
+                    .Given(_=>something.Sub.GivenWithStepTitleAndArgument(1))
                     .When(_ => something.Sub.ActionWithArgument("foo"))
                     .And(_ => something.Sub.ActionWithArgumentsDisabledInTitle("foo"))
                     .And(_ => something.Sub.ActionWithTemplateTitleAndArguments("foo"))
@@ -28,6 +29,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 var actualTitles = story.Scenarios.Single().Steps.Select(s => s.Title).ToArray();
                 var expectedTitles = new[]
                 {
+                    "Given step title with 1 args",
                     "When with arg",
                     "And with arg",
                     "And with foo arg",
@@ -117,6 +119,10 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             public void ActionWithTemplateTitleAndArguments(string arg)
             {
             }
+
+            [Given("step title with {0} args")]
+            public void GivenWithStepTitleAndArgument(int count)
+            { }
         }
 
         private string AMethodCall()

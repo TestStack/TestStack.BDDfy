@@ -22,11 +22,15 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
             var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
             var name = methodInfo.Name;
             var titleAttribute = methodInfo.GetCustomAttribute<StepTitleAttribute>(true);
+            var executableAttribute = methodInfo.GetCustomAttribute<ExecutableAttribute>(true);
+
             includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle ?? IncludeInputsInStepTitle;
 
-            if (titleAttribute is not null)
+            var titleTemplate = titleAttribute?.StepTitle ?? executableAttribute?.StepTitle;
+
+            if (titleTemplate is not null)
             {
-                name = string.Format(titleAttribute.StepTitle, flatInputArray);
+                name = string.Format(titleTemplate, flatInputArray);
             }
 
             var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
@@ -74,7 +78,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
         if (!title.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
         {
             if (title.Length == 0) return string.Format("{0} ", stepPrefix);
-            return string.Format("{0} {1}{2}", stepPrefix, title.Substring(0, 1).ToLower(), title.Substring(1));
+            return string.Format("{0} {1}{2}", stepPrefix, title[..1].ToLower(), title[1..]);
         }
 
         return title;
