@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Shouldly;
-using TestStack.BDDfy.Configuration;
 using Xunit;
 
 namespace TestStack.BDDfy.Samples
