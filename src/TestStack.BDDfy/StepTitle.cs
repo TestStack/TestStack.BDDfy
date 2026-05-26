@@ -5,9 +5,8 @@ namespace TestStack.BDDfy
     public class StepTitle
     {
         private readonly Func<string> _createTitle;
-        private string _title;
 
-        public StepTitle(string title) => _createTitle = () => _title = title;
+        public StepTitle(string title) => _createTitle = () => title;
 
         public StepTitle(Func<string> createTitle)
         {
@@ -21,7 +20,7 @@ namespace TestStack.BDDfy
 
         public override string ToString()
         {
-            return _title ??= _createTitle();
+            return _createTitle();
         }
     }
 }
