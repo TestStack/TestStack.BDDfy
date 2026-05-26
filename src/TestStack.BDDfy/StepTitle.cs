@@ -6,10 +6,7 @@ namespace TestStack.BDDfy
     {
         private readonly Func<string> _createTitle;
 
-        public StepTitle(string title)
-        {
-            _createTitle = () => title;
-        }
+        public StepTitle(string title) => _createTitle = () => title;
 
         public StepTitle(Func<string> createTitle)
         {
