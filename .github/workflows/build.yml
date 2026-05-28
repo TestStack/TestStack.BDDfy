@@ -21,7 +21,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       semver: ${{ steps.gitversion.outputs.semVer }}
       fullsemver: ${{ steps.gitversion.outputs.fullSemVer }}
@@ -36,7 +36,7 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v4.1.0
         with:
-          versionSpec: '6.x'
+          versionSpec: '6.0.x'
 
       - name: Determine Version
         uses: gittools/actions/gitversion/execute@v4.1.0
