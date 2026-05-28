@@ -6,9 +6,9 @@ namespace TestStack.BDDfy.Tests.Arguments
 {
     public class ArgumentsProvidedForGiven
     {
-        private readonly List<int> _andGivenInput1 = new();
-        private List<int> _andGivenInput2 = new();
-        private List<int> _andGivenInput3 = new();
+        private readonly List<int> _andGivenInput1 = [];
+        private readonly List<int> _andGivenInput2 = [];
+        private readonly List<int> _andGivenInput3 = [];
 
         private int _givenInput3;
         private int _givenInput2;
@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Tests.Arguments
         }
 
         [Fact]
-        public void Execute()
+        public void RunTestWithArgumentsProvidedForGiven()
         {
             this.BDDfy();
         }

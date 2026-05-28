@@ -5,7 +5,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
-    public class CanRunAsyncSteps
+    public class CanRunAsyncVoidSteps
     {
         private object _sut;
 
@@ -32,7 +32,7 @@ namespace TestStack.BDDfy.Samples
         }
 
         [Fact]
-        public void Run()
+        public void RunTestWithAsyncVoidSteps()
         {
             var engine = this.LazyBDDfy();
             var exception = Should.Throw<Exception>(engine.Run);

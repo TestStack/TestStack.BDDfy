@@ -9,8 +9,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed
     {
-        private Scenario _scenario;
-        private ScenarioWithMixedSteps _sut;
+        private readonly Scenario _scenario;
+        private readonly ScenarioWithMixedSteps _sut;
 
         private class ScenarioWithMixedSteps
         {

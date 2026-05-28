@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         private void WhenSomethingHappens()
         {
-            _exampleTable = new ExampleTable();
+            _exampleTable = [];
             _subsitute.Examples = _exampleTable;
         }
 

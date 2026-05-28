@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 {
     public class HtmlReporterTests
     {
-        private TestableHtmlReporter _sut;
+        private readonly TestableHtmlReporter _sut;
         private const string OutputPath = @"C:\Reports";
         private const string ReportData = "Report Data";
         private const string CustomStylesheet = "some custom css in here!";

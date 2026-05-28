@@ -4,13 +4,13 @@ namespace TestStack.BDDfy
 {
     public class TestContext : ITestContext
     {
-        private static readonly Dictionary<object, ITestContext> ContextLookup = new();
-        private static object _dictionaryLock = new();
+        private static readonly Dictionary<object, ITestContext> ContextLookup = [];
+        private static readonly object _dictionaryLock = new();
 
         private TestContext(object testObject)
         {
             TestObject = testObject;
-            Tags = new List<string>();
+            Tags = [];
         }
 
         public static void SetContext(object testObject, ITestContext context)

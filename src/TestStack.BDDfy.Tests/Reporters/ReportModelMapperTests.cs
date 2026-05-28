@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
     public class ReportModelMapperTests
     {
-        private List<Story> _stories;
+        private readonly List<Story> _stories;
 
         public ReportModelMapperTests()
         {

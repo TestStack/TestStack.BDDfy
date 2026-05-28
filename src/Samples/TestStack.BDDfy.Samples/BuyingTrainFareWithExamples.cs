@@ -7,8 +7,8 @@ namespace TestStack.BDDfy.Samples
     {
         #pragma warning disable 649
         // ReSharper disable once InconsistentNaming
-        private Fare fare;
-        private BuyerCategory _buyerCategory;
+        private readonly Fare fare;
+        private readonly BuyerCategory _buyerCategory;
         #pragma warning restore 649
         Money Price { get; set; }
 

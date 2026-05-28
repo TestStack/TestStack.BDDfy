@@ -92,11 +92,11 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             return action.ExtractArguments(instance).ToList();
         }
 
-        int _input1 = 1;
-        string _input2 = "2";
+        readonly int _input1 = 1;
+        readonly string _input2 = "2";
         const string ConstInput2 = "2";
 
-        int[] _arrayInput1 = { 1, 2 };
+        readonly int[] _arrayInput1 = { 1, 2 };
         public string[] _arrayInput2 = { "3", "4" };
 
         public int[] ArrayInput1
@@ -129,7 +129,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             return someInput + " Input 2";
         }
 
-        ContainerType container = new();
+        readonly ContainerType container = new();
 
         [Fact]
         public void NoArguments()

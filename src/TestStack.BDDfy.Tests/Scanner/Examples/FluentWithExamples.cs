@@ -101,8 +101,8 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
 
         public int WrongType { get; set; }
         public int Prop1 { get; set; }
-        private string _prop2 = null;
-        private string multiWordHeading = null;
+        private readonly string _prop2 = null;
+        private readonly string multiWordHeading = null;
         public ExecutionOrder Prop_3 { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace TestStack.BDDfy
 {
     public class ExampleTable(params string[] headers): ICollection<Example>
     {
-        private readonly List<Example> _rows = new();
+        private readonly List<Example> _rows = [];
 
         public string[] Headers { get; private set; } = headers;
 

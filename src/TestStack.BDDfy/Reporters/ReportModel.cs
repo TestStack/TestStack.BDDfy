@@ -10,14 +10,14 @@ namespace TestStack.BDDfy.Reporters
 
         public ReportModel()
         {
-            Stories = new List<Story>();
+            Stories = [];
         }
 
         public class Story
         {
             public Story()
             {
-                Scenarios = new List<Scenario>();
+                Scenarios = [];
             }
 
             public string Namespace { get; set; }
@@ -42,8 +42,8 @@ namespace TestStack.BDDfy.Reporters
         {
             public Scenario()
             {
-                Tags = new List<string>();
-                Steps = new List<Step>();
+                Tags = [];
+                Steps = [];
             }
 
             public string Id { get; set; }

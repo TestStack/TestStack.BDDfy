@@ -4,7 +4,7 @@ namespace TestStack.BDDfy.Processors
 {
     public class StoryCache : IProcessor
     {
-        private static readonly IList<Story> Cache = new List<Story>();
+        private static readonly IList<Story> Cache = [];
 
         public ProcessType ProcessType
         {

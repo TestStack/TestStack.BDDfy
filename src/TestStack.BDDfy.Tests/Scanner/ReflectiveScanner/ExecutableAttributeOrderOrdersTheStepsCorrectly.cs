@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class ExecutableAttributeOrderOrdersTheStepsCorrectly
     {
-        private List<Step> _steps;
+        private readonly List<Step> _steps;
 
         private class TypeWithOrderedAttribute
         {

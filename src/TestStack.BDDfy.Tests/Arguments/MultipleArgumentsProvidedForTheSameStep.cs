@@ -6,7 +6,7 @@ namespace TestStack.BDDfy.Tests.Arguments
 {
     public class MultipleArgumentsProvidedForTheSameStep
     {
-        private readonly List<int> _inputs = new();
+        private readonly List<int> _inputs = [];
 
         [RunStepWithArgs(1)]
         [RunStepWithArgs(2)]
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Arguments
         }
 
         [Fact]
-        public void Execute()
+        public void RunTestWithMultipleArgumentsProvidedForTheSameStep()
         {
             this.BDDfy();
         }
