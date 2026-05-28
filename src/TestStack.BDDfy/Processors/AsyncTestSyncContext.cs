@@ -8,21 +8,26 @@ namespace TestStack.BDDfy
     /// </summary>
     internal class AsyncTestSyncContext : SynchronizationContext
     {
-        readonly ManualResetEvent _event = new(initialState: true);
+        readonly object _lock = new();
         Exception _exception;
         int _operationCount;
 
         public override void OperationCompleted()
         {
-            var result = Interlocked.Decrement(ref _operationCount);
-            if (result == 0)
-                _event.Set();
+            lock (_lock)
+            {
+                _operationCount--;
+                if (_operationCount == 0)
+                    Monitor.PulseAll(_lock);
+            }
         }
 
         public override void OperationStarted()
         {
-            Interlocked.Increment(ref _operationCount);
-            _event.Reset();
+            lock (_lock)
+            {
+                _operationCount++;
+            }
         }
 
         public override void Post(SendOrPostCallback d, object state)
@@ -59,7 +64,12 @@ namespace TestStack.BDDfy
 
         public Exception WaitForCompletion()
         {
-            _event.WaitOne();
+            lock (_lock)
+            {
+                while (_operationCount > 0)
+                    Monitor.Wait(_lock);
+            }
+
             return _exception;
         }
     }

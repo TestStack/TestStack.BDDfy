@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Samples
 {
     public class CanRunAsyncSteps
     {
-        private Sut _sut;
+        private object _sut;
 
         internal async void GivenSomeAsyncSetup()
         {
@@ -25,23 +25,19 @@ namespace TestStack.BDDfy.Samples
             throw new Exception("Exception in async void method!!");
         }
 
-        private async Task<Sut> CreateSut()
+        private static async Task<object> CreateSut()
         {
             await Task.Delay(500);
-            return new Sut();
+            return new object();
         }
 
         [Fact]
         public void Run()
         {
             var engine = this.LazyBDDfy();
-            var exception = Should.Throw<Exception>(() => engine.Run());
+            var exception = Should.Throw<Exception>(engine.Run);
 
             exception.Message.ShouldBe("Exception in async void method!!");
-        }
-
-        internal class Sut
-        {
         }
     }
 }
