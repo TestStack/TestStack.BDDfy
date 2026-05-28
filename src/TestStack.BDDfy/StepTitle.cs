@@ -20,7 +20,7 @@ namespace TestStack.BDDfy
 
         public override string ToString()
         {
-            return _createTitle();
+            return _title ??= _createTitle();
         }
     }
 }
