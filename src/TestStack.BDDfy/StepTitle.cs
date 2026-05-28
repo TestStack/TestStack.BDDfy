@@ -18,9 +18,6 @@ namespace TestStack.BDDfy
             return title.ToString();
         }
 
-        public override string ToString()
-        {
-            return _title ??= _createTitle();
-        }
+        public override string ToString() => _createTitle();
     }
 }

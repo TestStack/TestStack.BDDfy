@@ -49,7 +49,7 @@ namespace TestStack.BDDfy
         public MethodNameStepScanner(Func<string, string> stepTextTransformer)
         {
             _stepTextTransformer = stepTextTransformer;
-            _matchers = new List<MethodNameMatcher>();
+            _matchers = [];
         }
 
         protected void AddMatcher(MethodNameMatcher matcher)
@@ -113,14 +113,14 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = GetStepAction(method, inputs.ToArray(), returnsItsText);
-            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, new List<StepArgument>());
+            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []);
         }
 
         private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
-            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, new List<StepArgument>());
+            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []);
         }
 
         private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)

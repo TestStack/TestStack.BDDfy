@@ -28,8 +28,8 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        Engine _engine;
-        private Scenario _scenario;
+        readonly Engine _engine;
+        private readonly Scenario _scenario;
 
         Step GivenStep
         {

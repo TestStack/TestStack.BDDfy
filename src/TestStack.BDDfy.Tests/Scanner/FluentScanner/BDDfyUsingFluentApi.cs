@@ -84,21 +84,21 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             _arrayInput2.ShouldBe(expectedInput2);
         }
 
-        string _primitiveInput1Field = "1";
-        int _primitiveInput2Field = 2;
+        readonly string _primitiveInput1Field = "1";
+        readonly int _primitiveInput2Field = 2;
 
-        SomeEnumForTesting _enumInputField = SomeEnumForTesting.Value2;
+        readonly SomeEnumForTesting _enumInputField = SomeEnumForTesting.Value2;
 
         public string PrimitiveInput1Property { get { return _primitiveInput1Field; } }
         public int PrimitiveInput2Property { get { return _primitiveInput2Field; } }
 
         public SomeEnumForTesting EnumInputProperty { get { return _enumInputField; } }
 
-        string[] _arrayInput1Field = new[] { "1", "2" };
-        int[] _arrayInput2Field = new[] { 3, 4 };
+        readonly string[] _arrayInput1Field = new[] { "1", "2" };
+        readonly int[] _arrayInput2Field = new[] { 3, 4 };
 
-        private IEnumerable<string> EnumerableString = new[] {"1", null, "2"};
-        private IEnumerable<int> EnumerableInt = new[] {1, 2};
+        private readonly IEnumerable<string> EnumerableString = new[] {"1", null, "2"};
+        private readonly IEnumerable<int> EnumerableInt = new[] {1, 2};
 
         public string[] ArrayInput1Property { get { return _arrayInput1Field; } }
         public int[] ArrayInput2Property { get { return _arrayInput2Field; } }

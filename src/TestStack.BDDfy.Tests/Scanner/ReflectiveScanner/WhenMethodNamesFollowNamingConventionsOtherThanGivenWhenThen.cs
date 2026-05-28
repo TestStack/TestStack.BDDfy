@@ -10,8 +10,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen
     {
-        private List<Step> _steps;
-        ScenarioClass _scenario;
+        private readonly List<Step> _steps;
+        readonly ScenarioClass _scenario;
 
         public WhenMethodNamesFollowNamingConventionsOtherThanGivenWhenThen()
         {

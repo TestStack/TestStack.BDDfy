@@ -5,9 +5,9 @@ namespace TestStack.BDDfy.Reporters.Serializers
     // http://www.limilabs.com/blog/json-net-formatter
     public class JsonFormatter
     {
-        StringWalker _walker;
-        IndentWriter _writer = new();
-        StringBuilder _currentLine = new();
+        readonly StringWalker _walker;
+        readonly IndentWriter _writer = new();
+        readonly StringBuilder _currentLine = new();
         bool _quoted;
 
         public JsonFormatter(string json)
@@ -102,7 +102,7 @@ namespace TestStack.BDDfy.Reporters.Serializers
 
     public class IndentWriter
     {
-        StringBuilder _sb = new();
+        readonly StringBuilder _sb = new();
         int _indent;
 
         public void Indent()
@@ -137,7 +137,7 @@ namespace TestStack.BDDfy.Reporters.Serializers
 
     public class StringWalker(string s)
     {
-        string _s = s;
+        readonly string _s = s;
         public int Index { get; set; } = -1;
 
         public bool MoveNext()

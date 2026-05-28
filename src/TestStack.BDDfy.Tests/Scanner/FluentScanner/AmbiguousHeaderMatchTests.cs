@@ -6,7 +6,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     public class AmbiguousHeaderMatchTests
     {
-        private int _count = 0;
+        private readonly int _count = 0;
 
         [Fact]
         public void ThrowsWhenMultipleHeadersMatchParameterName()

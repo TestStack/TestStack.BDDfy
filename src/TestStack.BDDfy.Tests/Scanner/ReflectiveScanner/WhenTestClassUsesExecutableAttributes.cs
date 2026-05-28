@@ -10,8 +10,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class WhenTestClassUsesExecutableAttributes
     {
-        private TypeWithAttribute _typeWithAttribute;
-        private List<Step> _steps;
+        private readonly TypeWithAttribute _typeWithAttribute;
+        private readonly List<Step> _steps;
 
         private class TypeWithAttribute
         {
