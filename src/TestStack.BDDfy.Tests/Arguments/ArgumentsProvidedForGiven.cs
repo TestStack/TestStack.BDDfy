@@ -54,7 +54,7 @@ namespace TestStack.BDDfy.Tests.Arguments
         }
 
         [Fact]
-        public void Execute()
+        public void RunTestWithArgumentsProvidedForGiven()
         {
             this.BDDfy();
         }

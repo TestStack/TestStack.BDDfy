@@ -48,7 +48,7 @@ namespace TestStack.BDDfy.Tests.Stories
         }
 
         [Fact]
-        public void Execute()
+        public void RunTestWithStoryClassAndScenarioClassAreTheSame()
         {
             try
             {

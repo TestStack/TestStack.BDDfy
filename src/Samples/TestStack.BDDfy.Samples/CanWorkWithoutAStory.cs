@@ -17,7 +17,7 @@ namespace TestStack.BDDfy.Samples
         }
 
         [Fact]
-        public void Execute()
+        public void RunTestWithoutAStory()
         {
             this.BDDfy();
         }

@@ -7,8 +7,6 @@ namespace TestStack.BDDfy
         public DefaultMethodNameStepScanner()
             : base(CleanupTheStepText)
         {
-            AddMatcher(new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), ExecutionOrder.Initialize) { ShouldReport = false });
-            AddMatcher(new MethodNameMatcher(s => s.Equals("Setup", StringComparison.OrdinalIgnoreCase), ExecutionOrder.Initialize) { ShouldReport = false });
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("Given", StringComparison.OrdinalIgnoreCase), ExecutionOrder.SetupState));
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("AndGiven", StringComparison.OrdinalIgnoreCase), ExecutionOrder.ConsecutiveSetupState));
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("And_Given_", StringComparison.OrdinalIgnoreCase), ExecutionOrder.ConsecutiveSetupState));
@@ -26,6 +24,8 @@ namespace TestStack.BDDfy
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("But", StringComparison.OrdinalIgnoreCase), ExecutionOrder.ConsecutiveAssertion) { Asserts = true });
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("But_Then_", StringComparison.OrdinalIgnoreCase), ExecutionOrder.ConsecutiveAssertion) { Asserts = true });
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("ButThen", StringComparison.OrdinalIgnoreCase), ExecutionOrder.ConsecutiveAssertion) { Asserts = true });
+            AddMatcher(new MethodNameMatcher(s => s.EndsWith("Context", StringComparison.OrdinalIgnoreCase), ExecutionOrder.Initialize) { ShouldReport = false });
+            AddMatcher(new MethodNameMatcher(s => s.Equals("Setup", StringComparison.OrdinalIgnoreCase), ExecutionOrder.Initialize) { ShouldReport = false });
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("TearDown", StringComparison.OrdinalIgnoreCase), ExecutionOrder.TearDown) { ShouldReport = false });
         }
 
