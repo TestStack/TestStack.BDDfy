@@ -84,7 +84,6 @@ jobs:
           DiffEngine_Disabled: 'true'
         run: >-
           dotnet test 
-          -f net10.0
           --configuration Release 
           --collect:"XPlat Code Coverage" 
           --results-directory ../coverage
