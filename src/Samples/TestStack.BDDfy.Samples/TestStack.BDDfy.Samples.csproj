@@ -6,7 +6,6 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="../../TestStack.BDDfy/TestStack.BDDfy.csproj" />
   </ItemGroup>
@@ -23,5 +22,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="xunit.v3" Version="3.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TestStack.BDDfy\TestStack.BDDfy.csproj" />
   </ItemGroup>
 </Project>
