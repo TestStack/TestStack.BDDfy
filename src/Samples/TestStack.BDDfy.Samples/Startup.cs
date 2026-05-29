@@ -2,6 +2,7 @@
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Samples.Atm;
+using TestStack.BDDfy.Tests;
 
 namespace TestStack.BDDfy.Samples
 {
@@ -11,6 +12,7 @@ namespace TestStack.BDDfy.Samples
         public static void Initialize()
         {
             Configurator.Processors.Add(() => new CustomTextReporter());
+            Configurator.Processors.Add(() => new XUnitOutputReporter());
             Configurator.Processors.ConsoleReport.Enable();
             Configurator.BatchProcessors.MarkDownReport.Enable();
             Configurator.BatchProcessors.DiagnosticsReport.Enable();
