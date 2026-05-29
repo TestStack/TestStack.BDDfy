@@ -43,45 +43,61 @@ namespace TestStack.BDDfy.Tests.Configuration
         public void DoesNotReturnHtmlReporterWhenItIsDeactivated()
         {
             Configurator.BatchProcessors.HtmlReport.Disable();
-            
-            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            processors.Any(p => p is HtmlReporter).ShouldBe(false);
-
-            Configurator.BatchProcessors.HtmlReport.Enable();
+            try
+            {
+                var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+                processors.Any(p => p is HtmlReporter).ShouldBe(false);
+            }
+            finally
+            {
+                Configurator.BatchProcessors.HtmlReport.Enable();
+            }
         }
 
         [Fact]
         public void ReturnsMarkdownReporterWhenItIsActivated()
         {
             Configurator.BatchProcessors.MarkDownReport.Enable();
-            
-            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            processors.Any(p => p is MarkDownReporter).ShouldBe(true);
-
-            Configurator.BatchProcessors.MarkDownReport.Disable();
+            try
+            {
+                var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+                processors.Any(p => p is MarkDownReporter).ShouldBe(true);
+            }
+            finally
+            {
+                Configurator.BatchProcessors.MarkDownReport.Disable();
+            }
         }
 
         [Fact]
         public void ReturnsHtmlMetroReporterWhenItIsActivated()
         {
             Configurator.BatchProcessors.HtmlMetroReport.Enable();
-            
-            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            processors.Any(MetroReportProcessorIsActive).ShouldBe(true);
-
-            Configurator.BatchProcessors.HtmlMetroReport.Disable();
+            try
+            {
+                var processors = Configurator.BatchProcessors.GetProcessors().ToList();
+                processors.Any(MetroReportProcessorIsActive).ShouldBe(true);
+            }
+            finally
+            {
+                Configurator.BatchProcessors.HtmlMetroReport.Disable();
+            }
         }
 
         [Fact]
         public void ReturnsDianosticsReporterWhenItIsActivated()
         {
             Configurator.BatchProcessors.DiagnosticsReport.Enable();
+            try
+            {
+                var processors = Configurator.BatchProcessors.GetProcessors().ToList();
 
-            var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-
-            processors.ShouldContain(p=> p is DiagnosticsReporter, 1);
-
-            Configurator.BatchProcessors.DiagnosticsReport.Disable();
+                processors.ShouldContain(p=> p is DiagnosticsReporter, 1);
+            }
+            finally
+            {
+                Configurator.BatchProcessors.DiagnosticsReport.Disable();
+            }
         }
 
         [Fact]
