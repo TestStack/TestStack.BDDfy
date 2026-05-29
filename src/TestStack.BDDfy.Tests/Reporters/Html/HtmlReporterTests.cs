@@ -1,9 +1,11 @@
-﻿using System;
+﻿using NSubstitute;
+using Shouldly;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using NSubstitute;
-using Shouldly;
+using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Reporters;
+using TestStack.BDDfy.Reporters.Html;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
@@ -23,8 +25,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         }
 
         [Fact]
-        public void ShouldCreateReportIfProcessingSucceeds()
+        public void ShouldCreateFileIfDirectoryDoesNotExist()
         {
+            Configurator.BatchProcessors.HtmlReport.Disable();
             _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
 
             _sut.Process(new List<Story>());

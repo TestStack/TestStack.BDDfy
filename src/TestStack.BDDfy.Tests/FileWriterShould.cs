@@ -1,5 +1,6 @@
-using System;
 using Shouldly;
+using System;
+using System.IO;
 using TestStack.BDDfy.Reporters.Writers;
 using Xunit;
 
@@ -18,11 +19,11 @@ namespace TestStack.BDDfy.Tests
         public void CreatePathIfItDoesNotExist(string reportName, string outputDirectory)
         {
             var fileWriter = new FileWriter();
-            outputDirectory = outputDirectory is null ? null : System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString(), $"{outputDirectory}");
+            outputDirectory = outputDirectory is null ? null : Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), $"{outputDirectory}");
             fileWriter.OutputReport("Test content", reportName, outputDirectory);
-            var expectedPath = System.IO.Path.Combine(outputDirectory ?? string.Empty, reportName);
-            System.IO.File.Exists(expectedPath).ShouldBeTrue();
-            System.IO.File.ReadAllText(expectedPath).ShouldBe("Test content");
+            var expectedPath = Path.Combine(outputDirectory ?? string.Empty, reportName);
+            File.Exists(expectedPath).ShouldBeTrue();
+            File.ReadAllText(expectedPath).ShouldBe("Test content");
         }
     }
 }

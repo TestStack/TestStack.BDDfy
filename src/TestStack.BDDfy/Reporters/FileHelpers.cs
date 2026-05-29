@@ -11,6 +11,5 @@ namespace TestStack.BDDfy.Reporters
             var basePath = AppContext.BaseDirectory;
             return Path.GetFullPath(basePath);
         }
-
     }
 }

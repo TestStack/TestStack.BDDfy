@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
@@ -9,10 +8,10 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         [Fact]
         public void CanFormatAsStringTests()
         {
-            new ExampleValue("Header", null, () => 0).GetValueAsString().ShouldBe("'null'");
+            new ExampleValue("Header", null, () => 0).GetValueAsString().ShouldBe("<null>");
             new ExampleValue("Header", 1, () => 0).GetValueAsString().ShouldBe("1");
-            new ExampleValue("Header", new Object(), () => 0).GetValueAsString().ShouldBe("System.Object");
-            new ExampleValue("Header", new[] {1, 2}, () => 0).GetValueAsString().ShouldBe("1, 2");
+            new ExampleValue("Header", new object(), () => 0).GetValueAsString().ShouldBe("System.Object");
+            new ExampleValue("Header", new[] { 1, 2 }, () => 0).GetValueAsString().ShouldBe("1, 2");
         }
     }
 }

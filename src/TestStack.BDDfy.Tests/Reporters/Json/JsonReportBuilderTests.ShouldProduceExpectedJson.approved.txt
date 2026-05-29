@@ -1,0 +1,545 @@
+﻿{
+  "summary": {
+    "namespaces": 1,
+    "scenarios": 12,
+    "stories": 2,
+    "passed": 3,
+    "failed": 3,
+    "inconclusive": 3,
+    "notImplemented": 3
+  },
+  "runDate": "2024-06-01T12:00:00",
+  "stories": [
+    {
+      "namespace": "GoldAccountHolderStory",
+      "result": "Failed",
+      "scenarios": [
+        {
+          "id": "scenario-1",
+          "title": "Happy Path Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a positive account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Passed"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Inconclusive Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Inconclusive",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Inconclusive"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Not Implemented Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "NotImplemented",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "NotImplemented"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Sad Path Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Failed",
+              "exception": {
+                "type": "InvalidOperationException",
+                "message": "Boom",
+                "stackTrace": "   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetOneOfEachScenarioResult() in ...\ReportTestData.cs"
+              },
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Failed"
+        }
+      ],
+      "metadata": {
+        "type": "GoldAccountHolderStory",
+        "title": "Account holder withdraws cash",
+        "titlePrefix": "Story: ",
+        "narrative1": "As an account holder",
+        "narrative2": "I want to withdraw cash",
+        "narrative3": "So that I can get money when the bank is closed",
+        "imageUri": null,
+        "storyUri": null
+      }
+    },
+    {
+      "namespace": "RegularAccountHolderStory",
+      "result": "Failed",
+      "scenarios": [
+        {
+          "id": "scenario-1",
+          "title": "Happy Path Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a positive account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Passed"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Inconclusive Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Inconclusive",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Inconclusive"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Not Implemented Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "NotImplemented",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "NotImplemented"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Sad Path Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Failed",
+              "exception": {
+                "type": "InvalidOperationException",
+                "message": "Boom",
+                "stackTrace": "   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetOneOfEachScenarioResult() in ...\ReportTestData.cs"
+              },
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Failed"
+        }
+      ],
+      "metadata": {
+        "type": "RegularAccountHolderStory",
+        "title": "Happiness",
+        "titlePrefix": "Story: ",
+        "narrative1": "As a person",
+        "narrative2": "I want ice cream",
+        "narrative3": "So that I can be happy",
+        "imageUri": null,
+        "storyUri": null
+      }
+    },
+    {
+      "namespace": "System",
+      "result": "Failed",
+      "scenarios": [
+        {
+          "id": "scenario-1",
+          "title": "Happy Path Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a positive account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Passed"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Inconclusive Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Inconclusive",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Inconclusive"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Not Implemented Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "NotImplemented",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "NotImplemented"
+        },
+        {
+          "id": "scenario-1",
+          "title": "Sad Path Scenario",
+          "tags": [],
+          "example": null,
+          "duration": "00:00:00.0150000",
+          "steps": [
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Given a negative account balance",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "When the account holder requests money",
+              "executionOrder": "Assertion",
+              "result": "Passed",
+              "exception": null,
+              "duration": "00:00:00.0050000"
+            },
+            {
+              "id": "step-1-1",
+              "asserts": true,
+              "shouldReport": true,
+              "title": "Then no money is dispensed",
+              "executionOrder": "Assertion",
+              "result": "Failed",
+              "exception": {
+                "type": "InvalidOperationException",
+                "message": "Boom",
+                "stackTrace": "   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetOneOfEachScenarioResult() in ...\ReportTestData.cs"
+              },
+              "duration": "00:00:00.0050000"
+            }
+          ],
+          "result": "Failed"
+        }
+      ],
+      "metadata": null
+    }
+  ]
+}
