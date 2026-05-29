@@ -22,6 +22,11 @@ namespace TestStack.BDDfy
             return GetSafeValue(input);
         }
 
-        static object GetSafeValue(object input) => input ?? "'null'";
+        static object GetSafeValue(object input) => input switch
+        {
+            null => "<null>",
+            string s => s == "" ? "<empty>" : (s.Trim() == "" ? $"'{s}'" : s),
+            _ => input
+        };
     }
 }

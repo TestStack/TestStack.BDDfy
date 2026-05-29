@@ -10,6 +10,6 @@ Scenario: Fluent can be used with examples
 
 Examples: 
 | Prop 1 | Prop2 | Prop 3               | Multi word heading |
-| 1      | foo   | ConsecutiveAssertion |                    |
+| 1      | foo   | ConsecutiveAssertion | <empty>            |
 | 2      | bar   | Initialize           | val2               |
 
