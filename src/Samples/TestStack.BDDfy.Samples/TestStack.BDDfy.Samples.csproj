@@ -7,9 +7,8 @@
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../../TestStack.BDDfy/TestStack.BDDfy.csproj" />
+    <Compile Include="..\..\TestStack.BDDfy.Tests\XUnitOutputReporter.cs" Link="XUnitOutputReporter.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="10.0.1">
       <PrivateAssets>all</PrivateAssets>
