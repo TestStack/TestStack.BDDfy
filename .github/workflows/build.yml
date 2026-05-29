@@ -78,12 +78,24 @@ jobs:
           /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} 
           /p:PackageVersion=${{ steps.formatversion.outputs.packageVersion }}
 
-      - name: Run tests with coverage
+      - name: .net8 tests with coverage
         working-directory: src
         env:
           DiffEngine_Disabled: 'true'
         run: >-
           dotnet test 
+          -f net8.0
+          --configuration Release 
+          --collect:"XPlat Code Coverage" 
+          --results-directory ../coverage
+
+      - name: .net10 tests with coverage
+        working-directory: src
+        env:
+          DiffEngine_Disabled: 'true'
+        run: >-
+          dotnet test 
+          -f net10.0
           --configuration Release 
           --collect:"XPlat Code Coverage" 
           --results-directory ../coverage
