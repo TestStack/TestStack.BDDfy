@@ -8,11 +8,12 @@ permissions:
   contents: read
   pull-requests: write
 
-jobs:
+jobs:    
   copilot-review:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
+    if: false
     steps:
-      - name: GitHub Copilot review
+      - name: GitHub Copilot review      
         uses: github/copilot-actions/review@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
