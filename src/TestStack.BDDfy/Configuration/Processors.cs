@@ -32,11 +32,11 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        public TestRunnerFactory TestRunner { get; } = new(() => new TestRunner());
+        public TestRunnerFactory TestRunner { get; internal set; } = new(() => new TestRunner());
 
-        public ProcessorFactory ConsoleReport { get; } = new(() => new ConsoleReporter());
+        public ProcessorFactory ConsoleReport { get; set; } = new(() => new ConsoleReporter());
 
-        public ProcessorFactory StoryCache { get; } = new(() => new StoryCache());
+        public ProcessorFactory StoryCache { get; internal set; } = new(() => new StoryCache());
 
         readonly List<Func<IProcessor>> _addedProcessors = [];
 

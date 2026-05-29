@@ -36,8 +36,7 @@ namespace TestStack.BDDfy.Configuration
 
         public BatchProcessorFactory HtmlReport { get; } = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
 
-        public BatchProcessorFactory HtmlMetroReport { get; } = new(() 
-            => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
+        public BatchProcessorFactory HtmlMetroReport { get; } = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
 
         public BatchProcessorFactory MarkDownReport { get; } = new(() => new MarkDownReporter(), false);
 
