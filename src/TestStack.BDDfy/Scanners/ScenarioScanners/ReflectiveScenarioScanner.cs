@@ -6,26 +6,19 @@ using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
-    public class ReflectiveScenarioScanner(string scenarioTitle, params IStepScanner[] stepScanners): IScenarioScanner
+    public class ReflectiveScenarioScanner(string? scenarioTitle, params IStepScanner[] stepScanners): IScenarioScanner
     {
-        private readonly IEnumerable<IStepScanner> _stepScanners = stepScanners;
-        private readonly string _scenarioTitle = scenarioTitle;
-
-        public ReflectiveScenarioScanner(params IStepScanner[] stepScanners)
-            : this(null, stepScanners)
-        {
-        }
+        public ReflectiveScenarioScanner(params IStepScanner[] stepScanners) : this(null, stepScanners) { }
 
         public virtual IEnumerable<Scenario> Scan(ITestContext testContext)
         {
             Type scenarioType;
-            string scenarioTitle;
 
             if (testContext.Examples == null)
             {
                 var steps = ScanScenarioForSteps(testContext);
                 scenarioType = testContext.TestObject.GetType();
-                scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
+                scenarioTitle ??= GetScenarioText(scenarioType);
 
                 var orderedSteps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
                 yield return new Scenario(testContext.TestObject, orderedSteps, scenarioTitle, testContext.Tags);
@@ -33,7 +26,7 @@ namespace TestStack.BDDfy
             }
 
             scenarioType = testContext.TestObject.GetType();
-            scenarioTitle = _scenarioTitle ?? GetScenarioText(scenarioType);
+            scenarioTitle ??= GetScenarioText(scenarioType);
 
             var scenarioId = Configurator.IdGenerator.GetScenarioId();
 
@@ -45,10 +38,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        static string GetScenarioText(Type scenarioType)
-        {
-            return Configurator.Humanizer.Humanize(scenarioType.Name);
-        }
+        static string? GetScenarioText(Type scenarioType) => Configurator.Humanizer.Humanize(scenarioType.Name);
 
         protected virtual IEnumerable<Step> ScanScenarioForSteps(ITestContext testContext)
         {
@@ -58,7 +48,7 @@ namespace TestStack.BDDfy
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
                 // chain of responsibility of step scanners
-                foreach (var scanner in _stepScanners)
+                foreach (var scanner in stepScanners)
                 {
                     var steps = scanner.Scan(testContext, methodInfo);
                     if (steps.Any())
@@ -80,7 +70,7 @@ namespace TestStack.BDDfy
             foreach (var methodInfo in GetMethodsOfInterest(scenarioType))
             {
                 // chain of responsibility of step scanners
-                foreach (var scanner in _stepScanners)
+                foreach (var scanner in stepScanners)
                 {
                     var steps = scanner.Scan(testContext, methodInfo, example);
                     if (steps.Any())

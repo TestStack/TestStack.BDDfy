@@ -26,9 +26,8 @@ namespace TestStack.BDDfy.Processors
         // http://weblogs.asp.net/fmarguerie/archive/2008/01/02/rethrowing-exceptions-and-preserving-the-full-call-stack-trace.aspx
         internal static void PreserveStackTrace(Exception exception)
         {
-            MethodInfo preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
-              BindingFlags.Instance | BindingFlags.NonPublic);
-            preserveStackTrace.Invoke(exception, null);
+            var preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace", BindingFlags.Instance | BindingFlags.NonPublic);
+            preserveStackTrace?.Invoke(exception, null);
         }
 
         public void Process(Story story)

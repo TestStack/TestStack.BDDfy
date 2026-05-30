@@ -23,9 +23,13 @@ namespace TestStack.BDDfy.Processors
                     }
                     catch (AggregateException ae)
                     {
-                        var innerException = ae.InnerException;
-                        ExceptionProcessor.PreserveStackTrace(innerException);
-                        throw innerException;
+                        if(ae.InnerException is Exception innerException)
+                        {
+                            ExceptionProcessor.PreserveStackTrace(innerException);
+                            throw innerException;
+                        }
+
+                        throw;
                     }
                 }
                 else
@@ -45,7 +49,7 @@ namespace TestStack.BDDfy.Processors
         }
 
         [SecuritySafeCritical]
-        private static void SetSynchronizationContext(SynchronizationContext context)
+        private static void SetSynchronizationContext(SynchronizationContext? context)
         {
             SynchronizationContext.SetSynchronizationContext(context);
         }

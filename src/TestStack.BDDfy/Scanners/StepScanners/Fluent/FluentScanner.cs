@@ -26,7 +26,7 @@ namespace TestStack.BDDfy
                 ?? throw new InvalidOperationException("Failed to retrieve method info for ExecuteAction.");
         }
 
-        IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
+        public IScanner GetScanner(string? scenarioTitle, Type? explicitStoryType)
         {
             return new DefaultScanner(_testContext, new FluentScenarioScanner(_steps, scenarioTitle), explicitStoryType);
         }

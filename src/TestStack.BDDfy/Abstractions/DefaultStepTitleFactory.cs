@@ -47,8 +47,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
                             if (testContext.Examples != null)
                             {
                                 var matchingHeaders = testContext.Examples.Headers
-                                    .Where(header => ExampleTable.HeaderMatches(header, i.ParameterName) ||
-                                                    ExampleTable.HeaderMatches(header, i.Value.Name))
+                                    .Where(header => ExampleTable.HeaderMatches(header, i.ParameterName) || ExampleTable.HeaderMatches(header, i.Value.Name))
                                     .ToList();
 
                                 if (matchingHeaders.Count > 1)
@@ -58,7 +57,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
                                 if (matchingHeader != null)
                                     return string.Format("<{0}>", matchingHeader);
                             }
-                            return i.Value.Value.FlattenArray();
+                            return i.Value.Value?.FlattenArray() ?? Array.Empty<string>();
                         })
                         .ToArray();
 

@@ -5,7 +5,7 @@ namespace TestStack.BDDfy.Tests
 {
     public class XUnitOutputReporter(ITestOutputHelper testOutputHelper = null): TextReporter
     {
-        private ITestOutputHelper _outputHelper = testOutputHelper ?? Xunit.TestContext.Current.TestOutputHelper;
+        private readonly ITestOutputHelper _outputHelper = testOutputHelper ?? Xunit.TestContext.Current.TestOutputHelper;
 
         protected override void WriteLine(string text = null)
         {

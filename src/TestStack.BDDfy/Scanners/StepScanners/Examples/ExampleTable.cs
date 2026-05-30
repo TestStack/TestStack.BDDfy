@@ -16,51 +16,29 @@ namespace TestStack.BDDfy
 
         public bool IsReadOnly { get { return false; } }
 
-        public void Add(params object[] items)
+        public void Add(params object?[] items)
         {
             if (items.Length != Headers.Length)
                 throw new ArgumentException(string.Format("Number of column values does not match number of headers, got {0}, expected {1}", items.Length, Headers.Length));
 
-            Example example = null;
-            // ReSharper disable once AccessToModifiedClosure
-            example = new Example(items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example))).ToArray());
+            Example? example = null;
+            example = new Example([.. items.Select((o, i) => new ExampleValue(Headers[i], o, () => _rows.IndexOf(example!)))]);
             Add(example);
         }
 
-        public void Add(Example example)
-        {
-            _rows.Add(example);
-        }
+        public void Add(Example example) => _rows.Add(example);
 
-        public void Clear()
-        {
-            _rows.Clear();
-        }
+        public void Clear() => _rows.Clear();
 
-        public bool Contains(Example item)
-        {
-            return _rows.Contains(item);
-        }
+        public bool Contains(Example item) => _rows.Contains(item);
 
-        public void CopyTo(Example[] array, int arrayIndex)
-        {
-            _rows.CopyTo(array, arrayIndex);
-        }
+        public void CopyTo(Example[] array, int arrayIndex) => _rows.CopyTo(array, arrayIndex);
 
-        public bool Remove(Example item)
-        {
-            return _rows.Remove(item);
-        }
+        public bool Remove(Example item) => _rows.Remove(item);
 
-        public IEnumerator<Example> GetEnumerator()
-        {
-            return _rows.GetEnumerator();
-        }
+        public IEnumerator<Example> GetEnumerator() => _rows.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public static ExampleTable Parse(string table)
         {
@@ -76,23 +54,16 @@ namespace TestStack.BDDfy
             return exampleTable;
         }
 
-        static object[] GetValues(string row)
-        {
-            return row.Split('|').Select(h => h.Trim()).Select(s=>string.IsNullOrEmpty(s) ? null : (object)s).ToArray();
-        }
+        static object?[] GetValues(string row) => [.. row.Split('|').Select(static h => h.Trim()).Select(s => string.IsNullOrEmpty(s) ? null : (object)s)];
 
-        public static bool HeaderMatches(string header, string name)
+        public static bool HeaderMatches(string header, string? name)
         {
-            if (name == null)
-                return false;
+            if (name is null) return false;
 
             return Sanitise(name).ToLower().Equals(Sanitise(header).ToLower());
         }
 
-        private static string Sanitise(string value)
-        {
-            return value.Replace(" ", string.Empty).Replace("_", string.Empty);
-        }
+        private static string Sanitise(string value) => value.Replace(" ", string.Empty).Replace("_", string.Empty);
 
         public string ToString(string[] additionalHeaders, string[][] additionalData)
         {
@@ -101,7 +72,7 @@ namespace TestStack.BDDfy
 
             var rows = new List<string[]>();
 
-            Action<IEnumerable<string>> addRow = cells =>
+            void addRow(IEnumerable<string> cells)
             {
                 var row = new string[numberColumns];
                 var index = 0;
@@ -121,7 +92,7 @@ namespace TestStack.BDDfy
                 }
 
                 rows.Add(row);
-            };
+            }
 
             addRow(Headers.Concat(additionalHeaders));
             var rowIndex = 0;
@@ -141,12 +112,9 @@ namespace TestStack.BDDfy
             return stringBuilder.ToString();
         }
 
-        public override string ToString()
-        {
-            return ToString(new string[0], new string[0][]);
-        }
+        public override string ToString() => ToString([], []);
 
-        private void WriteExampleRow(string[] row, int[] maxWidth, StringBuilder stringBuilder)
+        private static void WriteExampleRow(string[] row, int[] maxWidth, StringBuilder stringBuilder)
         {
             for (var index = 0; index < row.Length; index++)
             {

@@ -1,8 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Configuration;
-using TestStack.BDDfy.Tests;
 
-namespace TestStack.BDDfy.Samples
+namespace TestStack.BDDfy.Tests
 {
     public class Startup
     {

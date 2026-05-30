@@ -15,9 +15,9 @@ namespace TestStack.BDDfy
         /// <returns></returns>
         public static Story BDDfy(
             this object testObject, 
-            string scenarioTitle = null, 
+            string? scenarioTitle = null, 
             [System.Runtime.CompilerServices.CallerMemberName] 
-            string caller = null)
+            string? caller = null)
         {
             var callerName = testObject.GetActualCallerName(caller);
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName)).Run();
@@ -25,9 +25,9 @@ namespace TestStack.BDDfy
 
         public static Engine LazyBDDfy(
             this object testObject, 
-            string scenarioTitle = null, 
+            string? scenarioTitle = null, 
             [System.Runtime.CompilerServices.CallerMemberName] 
-            string caller = null)
+            string? caller = null)
         {
             var callerName = testObject.GetActualCallerName(caller);
             return InternalLazyBDDfy(testObject, scenarioTitle ?? Configurator.Humanizer.Humanize(callerName));
@@ -43,9 +43,9 @@ namespace TestStack.BDDfy
         /// <returns></returns>
         public static Story BDDfy<TStory>(
             this object testObject,
-            string scenarioTitle = null,
+            string? scenarioTitle = null,
             [System.Runtime.CompilerServices.CallerMemberName]
-            string caller = null)
+            string? caller = null)
         where TStory : class
         {
             var callerName = testObject.GetActualCallerName(caller);
@@ -54,9 +54,9 @@ namespace TestStack.BDDfy
 
         public static Engine LazyBDDfy<TStory>(
             this object testObject,
-            string scenarioTitle = null,
+            string? scenarioTitle = null,
             [System.Runtime.CompilerServices.CallerMemberName]
-            string caller = null)
+            string? caller = null)
         where TStory : class
         {
             var callerName = testObject.GetActualCallerName(caller);
@@ -65,8 +65,8 @@ namespace TestStack.BDDfy
 
         static Engine InternalLazyBDDfy(
             object testObject,
-            string scenarioTitle,
-            Type explicitStoryType = null)
+            string? scenarioTitle,
+            Type? explicitStoryType = null)
         {
             var testContext = TestContext.GetContext(testObject);
 
@@ -77,7 +77,7 @@ namespace TestStack.BDDfy
             return new (storyScanner);
         }
 
-        static DefaultScanner GetReflectiveScanner(ITestContext testContext, string scenarioTitle = null, Type explicitStoryType = null)
+        static DefaultScanner GetReflectiveScanner(ITestContext testContext, string? scenarioTitle = null, Type? explicitStoryType = null)
         {
             var stepScanners = Configurator.Scanners.GetStepScanners(testContext).ToArray();
             var reflectiveScenarioScanner = new ReflectiveScenarioScanner(scenarioTitle, stepScanners);
@@ -85,7 +85,7 @@ namespace TestStack.BDDfy
             return new (testContext, reflectiveScenarioScanner, explicitStoryType);
         }
 
-        static string GetActualCallerName(this object testObject, string inferedCallerName)
+        static string? GetActualCallerName(this object testObject, string? inferedCallerName)
             => inferedCallerName == ".ctor" ? testObject.GetType().Name : inferedCallerName;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 
@@ -7,6 +8,7 @@ namespace TestStack.BDDfy
     public class Engine(IScanner scanner)
     {
         private readonly IScanner _scanner = scanner;
+        private Story? _story;
 
         static Engine()
         {
@@ -23,25 +25,25 @@ namespace TestStack.BDDfy
 
         public Story Run()
         {
-            Story = _scanner.Scan();
+            _story = _scanner.Scan();
 
-            var processors = Configurator.Processors.GetProcessors(Story).ToList();
+            var processors = Configurator.Processors.GetProcessors(_story).ToList();
 
             try
             {
                 //run processors in the right order regardless of the order they are provided to the Bddfier
                 foreach (var processor in processors.Where(p => p.ProcessType < ProcessType.Disposal).OrderBy(p => (int)p.ProcessType))
-                    processor.Process(Story);
+                    processor.Process(_story);
             }
             finally
             {
                 foreach (var finallyProcessor in processors.Where(p => p.ProcessType >= ProcessType.Disposal).OrderBy(p => (int)p.ProcessType))
-                    finallyProcessor.Process(Story);
+                    finallyProcessor.Process(_story);
             }
 
-            return Story;
+            return _story;
         }
 
-        public Story Story { get; private set; }
+        public Story Story { get { return _story ?? throw new InvalidOperationException("Story has not been run yet"); } }
     }
 }

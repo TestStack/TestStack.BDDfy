@@ -6,95 +6,71 @@ namespace TestStack.BDDfy.Reporters
 {
     public class ReportModel
     {
-        public List<ReportModel.Story> Stories { get; set; }
-
-        public ReportModel()
-        {
-            Stories = [];
-        }
+        public List<Story> Stories { get; set; } = [];
 
         public class Story
         {
-            public Story()
-            {
-                Scenarios = [];
-            }
-
-            public string Namespace { get; set; }
+            public string? Namespace { get; set; }
             public Result Result { get; set; }
-            public List<Scenario> Scenarios { get; set; }
-            public StoryMetadata Metadata { get; set; }
+            public List<Scenario> Scenarios { get; set; } = [];
+            public StoryMetadata? Metadata { get; set; }
         }
 
         public class StoryMetadata
         {
-            public Type Type { get; set; }
-            public string Title { get; set; }
-            public string TitlePrefix { get; set; }
-            public string Narrative1 { get; set; }
-            public string Narrative2 { get; set; }
-            public string Narrative3 { get; set; }
-            public string ImageUri { get; set; }
-            public string StoryUri { get; set; }
+            public Type? Type { get; set; }
+            public string? Title { get; set; }
+            public string? TitlePrefix { get; set; }
+            public string? Narrative1 { get; set; }
+            public string? Narrative2 { get; set; }
+            public string? Narrative3 { get; set; }
+            public string? ImageUri { get; set; }
+            public string? StoryUri { get; set; }
         }
 
         public class Scenario
         {
-            public Scenario()
-            {
-                Tags = [];
-                Steps = [];
-            }
+            public string Id { get; set; } = null!;
 
-            public string Id { get; set; }
+            public string? Title { get; set; }
 
-            public string Title { get; set; }
+            public List<string> Tags { get; set; } = [];
 
-            public List<string> Tags { get; set; }
-
-            public Example Example { get; set; }
+            public Example? Example { get; set; }
 
             public TimeSpan Duration { get; set; }
 
-            public List<Step> Steps { get; set; }
+            public List<Step> Steps { get; set; } = [];
 
             public Result Result { get; set; }
         }
 
         public class Step
         {
-            public string Id { get; set; }
+            public string Id { get; set; } = null!;
 
             public bool Asserts { get; set; }
 
             public bool ShouldReport { get; set; }
 
-            public string Title { get; set; }
+            public string? Title { get; set; }
 
             public ExecutionOrder ExecutionOrder { get; set; }
 
             public Result Result { get; set; }
 
-            public Exception Exception { get; set; }
+            public Exception? Exception { get; set; }
 
             public TimeSpan Duration { get; set; }
         }
 
         public class Example
         {
-            public Example()
-            {
-                Values = new List<ExampleValue>();
-            }
+            public string[] Headers { get; set; } = [];
 
-            public string[] Headers { get; set; }
+            public IEnumerable<ExampleValue> Values { get; set; } = [];
 
-            public IEnumerable<ExampleValue> Values { get; set; }
-
-            public override string ToString()
-            {
-                return string.Join(", ", Values.Select(i => i.ToString()));
-            }
+            public override string ToString() => string.Join(", ", Values.Select(i => i.ToString()));
         }
     }
 }
