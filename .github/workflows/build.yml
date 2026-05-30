@@ -33,7 +33,11 @@ jobs:
         run: |
           buildNumber="${{steps.gitversion.outputs.preReleaseNumber}}${{ steps.gitversion.outputs.buildMetaData }}"
           
-          if [[ "${GITHUB_REF}" != "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            if [[ "${{ github.event.release.target_commitish }}" != "${{ github.event.repository.default_branch }}" ]]; then
+              buildNumber="${buildNumber}-beta"
+            fi
+          elif [[ "${GITHUB_REF}" != "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
             buildNumber="${buildNumber}-beta"
           fi
           
