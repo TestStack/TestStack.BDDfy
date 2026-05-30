@@ -21,7 +21,9 @@ namespace TestStack.BDDfy
         {
             _testObject = testObject;
             _testContext = TestContext.GetContext(_testObject);
-            _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>).GetMethod(nameof(ExecuteAction), BindingFlags.Instance | BindingFlags.NonPublic);
+            _fakeExecuteActionMethod = typeof(FluentScanner<TScenario>)
+                .GetMethod(nameof(ExecuteAction), BindingFlags.Instance | BindingFlags.NonPublic)
+                ?? throw new InvalidOperationException("Failed to retrieve method info for ExecuteAction.");
         }
 
         IScanner IFluentScanner.GetScanner(string scenarioTitle, Type explicitStoryType)
@@ -63,7 +65,7 @@ namespace TestStack.BDDfy
 
         public void AddStep(
             Expression<Func<TScenario, Task>> stepAction, 
-            string stepTextTemplate, 
+            string? stepTextTemplate, 
             bool? includeInputsInStepTitle, 
             bool reports, 
             ExecutionOrder executionOrder, 
@@ -71,16 +73,22 @@ namespace TestStack.BDDfy
             string stepPrefix)
         {
             var action = stepAction.Compile();
-            var inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
 
-            var title = CreateTitle(
-                stepTextTemplate, 
-                includeInputsInStepTitle, 
-                GetMethodInfo(stepAction), 
-                inputArguments,
-                stepPrefix);
+            StepTitle title;
+            List<StepArgument> args;
 
-            var args = inputArguments.Where(s => !string.IsNullOrWhiteSpace(s.Name)).ToList();
+            if (string.IsNullOrWhiteSpace(stepTextTemplate) && IsChainedMethodCall(stepAction.Body))
+            {
+                title = FluentScanner<TScenario>.BuildChainedTitle(stepAction, stepPrefix);
+                args = [];
+            }
+            else
+            {
+                var inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
+                title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
+                args = [.. inputArguments.Where(s => !string.IsNullOrWhiteSpace(s.Name))];
+            }
+
             var stepDelegate = StepActionFactory.GetStepAction(action);
             var shouldFixAsserts = FixAsserts(asserts, executionOrder);
             var shouldFixConsecutiveStep = FixConsecutiveStep(executionOrder);
@@ -90,7 +98,7 @@ namespace TestStack.BDDfy
 
         public void AddStep(
             Expression<Action<TScenario>> stepAction, 
-            string stepTextTemplate, 
+            string? stepTextTemplate, 
             bool? includeInputsInStepTitle, 
             bool reports, 
             ExecutionOrder executionOrder, 
@@ -102,21 +110,37 @@ namespace TestStack.BDDfy
             AddStep(action, stepAction, stepTextTemplate, includeInputsInStepTitle, reports, executionOrder, asserts, stepPrefix);
         }
 
-        private void AddStep(Action<TScenario> action, LambdaExpression stepAction, string stepTextTemplate, bool? includeInputsInStepTitle,
-            bool reports, ExecutionOrder executionOrder, bool asserts, string stepPrefix)
+        private void AddStep(
+            Action<TScenario> action, 
+            LambdaExpression stepAction, 
+            string? stepTextTemplate, 
+            bool? includeInputsInStepTitle,
+            bool reports, 
+            ExecutionOrder executionOrder, 
+            bool asserts, 
+            string stepPrefix)
         {
-            var inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
+            StepTitle title;
+            List<StepArgument> args;
 
-            var title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
-
-            var args = inputArguments.Where(s => !string.IsNullOrEmpty(s.Name)).ToList();
+            if (string.IsNullOrWhiteSpace(stepTextTemplate) && IsChainedMethodCall(stepAction.Body))
+            {
+                title = FluentScanner<TScenario>.BuildChainedTitle(stepAction, stepPrefix);
+                args = [];
+            }
+            else
+            {
+                var inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
+                title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
+                args = [.. inputArguments.Where(s => !string.IsNullOrEmpty(s.Name))];
+            }
 
             _steps.Add(new Step(StepActionFactory.GetStepAction(action), title, FixAsserts(asserts, executionOrder),
                 FixConsecutiveStep(executionOrder), reports, args));
         }
 
         private StepTitle CreateTitle(
-            string stepTextTemplate,
+            string? stepTextTemplate,
             bool? includeInputsInStepTitle,
             MethodInfo methodInfo,
             StepArgument[] inputArguments,
@@ -170,10 +194,57 @@ namespace TestStack.BDDfy
             return executionOrder;
         }
 
-        private static MethodInfo GetMethodInfo(LambdaExpression stepAction)
+        private static MethodInfo GetMethodInfo(LambdaExpression stepAction) => ((MethodCallExpression)stepAction.Body).Method;
+
+        private static bool IsChainedMethodCall(Expression body) => body is MethodCallExpression { Object: MethodCallExpression };
+
+        private static StepTitle BuildChainedTitle(LambdaExpression stepAction, string stepPrefix)
         {
-            var methodCall = (MethodCallExpression)stepAction.Body;
-            return methodCall.Method;
+            var chain = new List<(MethodInfo Method, StepArgument[] Args)>();
+            var node = (MethodCallExpression)stepAction.Body;
+
+            while (node is not null)
+            {
+                var args = FluentScanner<TScenario>.ExtractArgumentsFromCall(node);
+                chain.Add((node.Method, args));
+                node = node.Object as MethodCallExpression;
+            }
+
+            chain.Reverse();
+
+            return new StepTitle(() =>
+            {
+                var parts = chain.Select(entry =>
+                {
+                    var humanized = Configurator.Humanizer.Humanize(entry.Method.Name);
+                    if (entry.Args.Length > 0)
+                    {
+                        var argValues = entry.Args.Select(a => a.Value?.FlattenArray()).ToArray();
+                        humanized = humanized + " " + string.Join(", ", argValues);
+                    }
+                    return humanized;
+                });
+
+                var title = string.Join(" ", parts).Trim();
+                if (!string.IsNullOrEmpty(stepPrefix) && !title.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    title = $"{stepPrefix} {title[..1].ToLower()}{title[1..]}";
+                }
+                return title;
+            });
+        }
+
+        private static StepArgument[] ExtractArgumentsFromCall(MethodCallExpression node)
+        {
+            var parameters = node.Method.GetParameters();
+            var args = new StepArgument[node.Arguments.Count];
+            for (int i = 0; i < node.Arguments.Count; i++)
+            {
+                var arg = node.Arguments[i];
+                var value = Expression.Lambda<Func<object>>(Expression.Convert(arg, typeof(object))).Compile();
+                args[i] = new StepArgument(parameters[i].Name, parameters[i].ParameterType, value, null);
+            }
+            return args;
         }
     }
 }

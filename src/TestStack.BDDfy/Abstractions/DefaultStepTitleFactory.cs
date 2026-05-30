@@ -10,7 +10,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
     public bool IncludeInputsInStepTitle { get; set; } = true;
 
     public StepTitle Create(
-        string stepTextTemplate,
+        string? stepTextTemplate,
         bool? includeInputsInStepTitle,
         MethodInfo methodInfo,
         StepArgument[] inputArguments,
@@ -19,7 +19,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
     {
         string createTitle()
         {
-            var flatInputArray = inputArguments.Select(o => o.Value).FlattenArrays();
+            var flatInputArray = inputArguments.Select(o => o.Value!).FlattenArrays();
             var name = methodInfo.Name;
             var titleAttribute = methodInfo.GetCustomAttribute<StepTitleAttribute>(true);
             var executableAttribute = methodInfo.GetCustomAttribute<ExecutableAttribute>(true);

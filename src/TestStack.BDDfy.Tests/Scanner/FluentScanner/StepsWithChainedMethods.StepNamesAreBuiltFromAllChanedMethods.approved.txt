@@ -1,0 +1,6 @@
+﻿
+### Step names are built from all chaned methods
+  Given i have a car with color red with horn crazy  
+  When i honk the horn  
+  Then i verify diagnostics a red car honked crazy horn  
+

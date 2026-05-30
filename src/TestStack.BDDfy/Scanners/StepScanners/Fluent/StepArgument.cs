@@ -7,12 +7,13 @@ namespace TestStack.BDDfy
         private readonly Action<object> _set = o => { };
         private readonly Func<object> _get;
 
-        public StepArgument(string name, Type argumentType, Func<object> getValue, Action<object> setValue)
+        public StepArgument(string? name, Type argumentType, Func<object> getValue, Action<object>? setValue)
         {
             Name = name;
             _get = getValue;
-            if (setValue != null)
-                _set = setValue;
+
+            if (setValue != null) _set = setValue;
+
             ArgumentType = argumentType;
         }
 
@@ -22,9 +23,9 @@ namespace TestStack.BDDfy
             ArgumentType = typeof(object);
         }
 
-        public string Name { get; private set; }
+        public string? Name { get; private set; }
 
-        public object Value
+        public object? Value
         {
             get
             {
