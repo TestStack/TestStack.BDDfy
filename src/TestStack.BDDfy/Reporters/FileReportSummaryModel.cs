@@ -3,53 +3,23 @@ using System.Linq;
 
 namespace TestStack.BDDfy.Reporters
 {
-    public class FileReportSummaryModel
+    public class FileReportSummaryModel(ReportModel reportModel)
     {
-        readonly IEnumerable<ReportModel.Story> _stories;
-        readonly IEnumerable<ReportModel.Scenario> _scenarios;
+        readonly IEnumerable<ReportModel.Story> _stories = reportModel.Stories;
+        readonly IEnumerable<ReportModel.Scenario> _scenarios = [.. reportModel.Stories.SelectMany(s => s.Scenarios)];
 
-        public FileReportSummaryModel(ReportModel reportModel)
-        {
-            _stories = reportModel.Stories;
-            _scenarios = _stories.SelectMany(s => s.Scenarios).ToList();
-        }
+        public int Namespaces => _stories.Where(b => b.Metadata == null).GroupBy(s => s.Namespace).Count();
 
-        public int Namespaces
-        {
-            get
-            {
-                return _stories.Where(b => b.Metadata == null).GroupBy(s => s.Namespace).Count();
-            }
-        }
+        public int Scenarios => _stories.SelectMany(s => s.Scenarios).Count();
 
-        public int Scenarios
-        {
-            get { return _stories.SelectMany(s => s.Scenarios).Count(); }
-        }
+        public int Stories => _stories.Where(b => b.Metadata is not null).GroupBy(b => b.Metadata.Type).Count();
 
-        public int Stories
-        {
-            get { return _stories.Where(b => b.Metadata != null).GroupBy(b => b.Metadata.Type).Count(); }
-        }
+        public int Passed => _scenarios.Count(b => b.Result is Result.Passed);
 
-        public int Passed
-        {
-            get { return _scenarios.Count(b => b.Result == Result.Passed); }
-        }
+        public int Failed => _scenarios.Count(b => b.Result is Result.Failed);
 
-        public int Failed
-        {
-            get { return _scenarios.Count(b => b.Result == Result.Failed); }
-        }
+        public int Inconclusive => _scenarios.Count(b => b.Result is Result.Inconclusive);
 
-        public int Inconclusive
-        {
-            get { return _scenarios.Count(b => b.Result == Result.Inconclusive); }
-        }
-
-        public int NotImplemented
-        {
-            get { return _scenarios.Count(b => b.Result == Result.NotImplemented); }
-        }
+        public int NotImplemented => _scenarios.Count(b => b.Result is Result.NotImplemented);
     }
 }

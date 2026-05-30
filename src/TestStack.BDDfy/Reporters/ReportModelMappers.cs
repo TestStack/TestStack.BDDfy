@@ -1,30 +1,29 @@
 ﻿namespace TestStack.BDDfy.Reporters
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public static class ReportModelMappers
     {
         public static ReportModel ToReportModel(this IEnumerable<Story> stories)
         {
             var report = new ReportModel();
-            foreach (var story in stories)
+            foreach (var story in stories.Where(s=> s is not null))
             {
-                report.Stories.Add(story.ToStoryModel());
+                var storyModel = story.ToStoryModel();
+                report.Stories.Add(storyModel);
             }
 
             return report;
         }
 
-        public static ReportModel.Story ToStoryModel(this Story story)
+        private static ReportModel.Story ToStoryModel(this Story story)
         {
-            if (story == null)
-                return null;
-
             var model = new ReportModel.Story
             {
                 Namespace = story.Namespace,
                 Result = story.Result,
-                Metadata = story.Metadata.ToStoryMetadataModel()
+                Metadata = story.Metadata?.ToStoryMetadataModel()
             };
 
             foreach (var scenario in story.Scenarios)
@@ -35,11 +34,8 @@
             return model;
         }
 
-        public static ReportModel.StoryMetadata ToStoryMetadataModel(this StoryMetadata metadata)
+        private static ReportModel.StoryMetadata ToStoryMetadataModel(this StoryMetadata metadata)
         {
-            if (metadata == null)
-                return null;
-
             return new ReportModel.StoryMetadata
             {
                 Type = metadata.Type,
@@ -52,17 +48,14 @@
                 StoryUri = metadata.StoryUri
             };
         }
-        public static ReportModel.Scenario ToScenarioModel(this Scenario scenario)
+        private static ReportModel.Scenario ToScenarioModel(this Scenario scenario)
         {
-            if (scenario == null)
-                return null;
-
             var model = new ReportModel.Scenario
             {
                 Id = scenario.Id,
                 Title = scenario.Title,
                 Tags = scenario.Tags,
-                Example = scenario.Example != null ? scenario.Example.ToExampleModel() : null,
+                Example = scenario.Example?.ToExampleModel(),
                 Duration = scenario.Duration,
                 Result = scenario.Result
             };
@@ -70,11 +63,8 @@
             return model;
         }
 
-        public static ReportModel.Step ToStepModel(this Step step)
+        private static ReportModel.Step ToStepModel(this Step step)
         {
-            if (step == null)
-                return null;
-
             return new ReportModel.Step
             {
                 Id = step.Id,
@@ -88,11 +78,8 @@
             };
         }
 
-        public static ReportModel.Example ToExampleModel(this Example example)
+        private static ReportModel.Example ToExampleModel(this Example example)
         {
-            if (example == null)
-                return null;
-
             return new ReportModel.Example
             {
                 Headers = example.Headers,

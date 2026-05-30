@@ -38,7 +38,7 @@ namespace TestStack.BDDfy
         {
             get
             {
-                if (!Steps.Any())
+                if (Steps.Count == 0)
                     return Result.NotExecuted;
 
                 return (Result)Steps.Max(s => (int)s.Result);

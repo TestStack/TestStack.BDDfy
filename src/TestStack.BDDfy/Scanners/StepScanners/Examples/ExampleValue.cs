@@ -9,7 +9,7 @@ namespace TestStack.BDDfy
 
         public string Header { get; private set; } = header;
 
-        public bool MatchesName(string name) => ExampleTable.HeaderMatches(Header, name);
+        public bool MatchesName(string? name) => ExampleTable.HeaderMatches(Header, name);
 
         public int Row => _getRowIndex() + 1;
 
@@ -55,6 +55,6 @@ namespace TestStack.BDDfy
 
         public override string ToString() => string.Join("{0}: {1}", Header, _underlyingValue);
 
-        public string? GetValueAsString() => _underlyingValue.FlattenArray().ToString();
+        public string GetValueAsString() => _underlyingValue.FlattenArray().ToString() ?? ArgumentCleaningExtensions.NullValueRepresentation;
     }
 }

@@ -33,8 +33,8 @@ namespace TestStack.BDDfy
                 yield break;
 
             var stepTitle = new StepTitle(executableAttribute.StepTitle);
-            if (string.IsNullOrWhiteSpace(stepTitle))
-                stepTitle = new StepTitle(Configurator.Humanizer.Humanize(candidateMethod.Name));
+            if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(candidateMethod.Name) is string humanizedName)
+                stepTitle = new StepTitle(humanizedName);
 
             var shouldReport = executableAttribute.ShouldReport;
 
@@ -87,8 +87,8 @@ namespace TestStack.BDDfy
                 yield break;
 
             string stepTitle = executableAttribute.StepTitle;
-            if (string.IsNullOrWhiteSpace(stepTitle))
-                stepTitle = Configurator.Humanizer.Humanize(method.Name);
+            if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(method.Name) is string humanizedName)
+                stepTitle = humanizedName;
 
             var shouldReport = executableAttribute.ShouldReport;
             var methodParameters = method.GetParameters();
@@ -102,9 +102,9 @@ namespace TestStack.BDDfy
 
                 for (int j = 0; j < example.Headers.Length; j++)
                 {
-                    if (example.Values.ElementAt(j).MatchesName(placeholder))
+                    if (example.Values.ElementAt(j).MatchesName(placeholder) && example.GetValueOf(j, methodParameters[inputs.Count].ParameterType) is object value)
                     {
-                        inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
+                        inputs.Add(value);
                         break;
                     }
                 }

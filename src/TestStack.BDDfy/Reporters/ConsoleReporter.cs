@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Reporters
             Console.Write(text, args);
         }
 
-        protected override void WriteLine(string text = null)
+        protected override void WriteLine(string? text = null)
         {
             Console.WriteLine(text);
         }

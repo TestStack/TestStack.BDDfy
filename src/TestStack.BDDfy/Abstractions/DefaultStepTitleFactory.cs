@@ -72,14 +72,17 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
 
     public StepTitle Create(string title, string stepPrefix, ITestContext testContext) => new(AppendPrefix(title, stepPrefix));
 
-    private static string AppendPrefix(string title, string stepPrefix)
+    private static string AppendPrefix(string? title, string stepPrefix)
     {
-        if (!title.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
+        var stepTitle = (title ?? string.Empty).Trim();
+
+        if (!stepTitle.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
         {
-            if (title.Length == 0) return string.Format("{0} ", stepPrefix);
-            return string.Format("{0} {1}{2}", stepPrefix, title[..1].ToLower(), title[1..]);
+            if (stepTitle.Length == 0) return string.Format("{0} ", stepPrefix);
+
+            return string.Format("{0} {1}{2}", stepPrefix, stepTitle[..1].ToLower(), stepTitle[1..]);
         }
 
-        return title;
+        return stepTitle;
     }
 }

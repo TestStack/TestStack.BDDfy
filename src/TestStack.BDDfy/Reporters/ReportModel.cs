@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Reporters
 
         public class Story
         {
-            public string? Namespace { get; set; }
+            public string Namespace { get; set; } = null!;
             public Result Result { get; set; }
             public List<Scenario> Scenarios { get; set; } = [];
             public StoryMetadata? Metadata { get; set; }
@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Reporters
 
         public class StoryMetadata
         {
-            public Type? Type { get; set; }
+            public Type Type { get; set; } = null!; 
             public string? Title { get; set; }
             public string? TitlePrefix { get; set; }
             public string? Narrative1 { get; set; }
@@ -53,7 +53,7 @@ namespace TestStack.BDDfy.Reporters
 
             public bool ShouldReport { get; set; }
 
-            public string? Title { get; set; }
+            public string Title { get; set; } = null!;
 
             public ExecutionOrder ExecutionOrder { get; set; }
 

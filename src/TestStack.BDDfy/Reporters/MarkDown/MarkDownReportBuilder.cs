@@ -84,6 +84,8 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
         private void WriteExamples(StringBuilder report, ReportModel.Scenario exampleScenario, IEnumerable<ReportModel.Scenario> scenarioGroup)
         {
+            if(exampleScenario.Example is null) return;
+
             report.AppendLine("### Examples: ");
             report.AppendLine();
             var scenarios = scenarioGroup.ToArray();
@@ -93,7 +95,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            void addRow(IEnumerable<string> cells, string result, string error)
+            void addRow(IEnumerable<string> cells, string result, string? error)
             {
                 var row = new string[numberColumns];
                 var index = 0;
@@ -104,7 +106,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 if (!allPassed)
                 {
                     row[numberColumns - 2] = result;
-                    row[numberColumns - 1] = error;
+                    row[numberColumns - 1] = error!;
                 }
 
                 for (var i = 0; i < numberColumns; i++)

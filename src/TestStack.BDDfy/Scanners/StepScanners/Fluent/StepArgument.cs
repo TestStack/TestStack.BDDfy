@@ -4,10 +4,10 @@ namespace TestStack.BDDfy
 {
     public class StepArgument
     {
-        private readonly Action<object> _set = o => { };
-        private readonly Func<object> _get;
+        private readonly Action<object?> _set = o => { };
+        private readonly Func<object?> _get;
 
-        public StepArgument(string? name, Type argumentType, Func<object> getValue, Action<object>? setValue)
+        public StepArgument(string? name, Type argumentType, Func<object?> getValue, Action<object?>? setValue)
         {
             Name = name;
             _get = getValue;
@@ -17,7 +17,7 @@ namespace TestStack.BDDfy
             ArgumentType = argumentType;
         }
 
-        public StepArgument(Func<object> value)
+        public StepArgument(Func<object?> value)
         {
             _get = value;
             ArgumentType = typeof(object);
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy
         }
         public Type ArgumentType { get; private set; }
 
-        public void SetValue(object newValue)
+        public void SetValue(object? newValue)
         {
             _set(newValue);
         }

@@ -37,16 +37,16 @@ namespace TestStack.BDDfy
     /// </remarks>
     public class MethodNameStepScanner : IStepScanner
     {
-        private readonly Func<string, string> _stepTextTransformer;
+        private readonly Func<string?, string> _stepTextTransformer;
         private readonly List<MethodNameMatcher> _matchers;
 
-        public MethodNameStepScanner(Func<string, string> stepTextTransformer, params MethodNameMatcher[] matchers)
+        public MethodNameStepScanner(Func<string?, string> stepTextTransformer, params MethodNameMatcher[] matchers)
         {
             _stepTextTransformer = stepTextTransformer;
-            _matchers = matchers.ToList();
+            _matchers = [.. matchers];
         }
 
-        public MethodNameStepScanner(Func<string, string> stepTextTransformer)
+        public MethodNameStepScanner(Func<string?, string> stepTextTransformer)
         {
             _stepTextTransformer = stepTextTransformer;
             _matchers = [];
@@ -68,7 +68,7 @@ namespace TestStack.BDDfy
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                 if (argAttributes.Length == 0)
-                    yield return GetStep(testContext.TestObject, matcher, method, returnsItsText);
+                    yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, [], null);
 
                 foreach (var argAttribute in argAttributes)
                 {
@@ -83,18 +83,16 @@ namespace TestStack.BDDfy
 
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
-            foreach (var matcher in _matchers)
+            foreach (var matcher in _matchers.Where(x=> x.IsMethodOfInterest(method.Name)))
             {
-                if (!matcher.IsMethodOfInterest(method.Name))
-                    continue;
-
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                return new[] { GetStep(testContext.TestObject, matcher, method, returnsItsText, example)};
+                return [GetStep(matcher, method, returnsItsText, example)];
             }
-            return Enumerable.Empty<Step>();
+
+            return [];
         }
 
-        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
+        private Step GetStep(MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
         {
             var stepMethodName = GetStepTitleFromMethodName(method, null);
             var methodParameters = method.GetParameters();
@@ -107,42 +105,40 @@ namespace TestStack.BDDfy
                     var methodParameter = methodParameters[parameterIndex];
                     var parameterName = methodParameter.Name;
                     var placeholderMatchesExampleColumn = example.Values.ElementAt(exampleIndex).MatchesName(parameterName);
-                    if (placeholderMatchesExampleColumn )
-                        inputs[parameterIndex] = example.GetValueOf(exampleIndex, methodParameter.ParameterType);
+                    if (placeholderMatchesExampleColumn && example.GetValueOf(exampleIndex, methodParameter.ParameterType) is object value)
+                        inputs[parameterIndex] = value;
                 }
             }
 
-            var stepAction = GetStepAction(method, inputs.ToArray(), returnsItsText);
+            var stepAction = GetStepAction(method, [.. inputs], returnsItsText);
             return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []);
         }
 
-        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs = null, RunStepWithArgsAttribute argAttribute = null)
+        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs, RunStepWithArgsAttribute? argAttribute)
         {
             var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
             return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []);
         }
 
-        private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute argAttribute, bool returnsItsText)
+        private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute? argAttribute, bool returnsItsText)
         {
-            Func<string> stepTitleFromMethodName = () => GetStepTitleFromMethodName(method, argAttribute);
+            string stepTitleFromMethodName() => GetStepTitleFromMethodName(method, argAttribute);
 
-            if(returnsItsText)
+            if (returnsItsText)
                 return GetStepTitleFromMethod(method, argAttribute, testObject) ?? stepTitleFromMethodName();
 
             return stepTitleFromMethodName();
         }
 
-        private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute argAttribute)
+        private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute? argAttribute)
         {
             var methodName = _stepTextTransformer(Configurator.Humanizer.Humanize(method.Name));
-            object[] inputs = null;
+            if (argAttribute is null) return methodName;
 
-            if (argAttribute != null && argAttribute.InputArguments != null)
-                inputs = argAttribute.InputArguments;
+            var inputs = argAttribute.InputArguments;
 
-            if (inputs == null)
-                return methodName;
+            if (argAttribute is null) return methodName;
             
             if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
             {
@@ -153,11 +149,9 @@ namespace TestStack.BDDfy
             return string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
         }
 
-        private static string GetStepTitleFromMethod(MethodInfo method, RunStepWithArgsAttribute argAttribute, object testObject)
+        private static string? GetStepTitleFromMethod(MethodInfo method, RunStepWithArgsAttribute? argAttribute, object testObject)
         {
-            object[] inputs = null;
-            if(argAttribute != null && argAttribute.InputArguments != null)
-                inputs = argAttribute.InputArguments;
+            object[] inputs = argAttribute?.InputArguments ?? [];
 
             var enumerableResult = InvokeIEnumerableMethod(method, testObject, inputs);
             try
@@ -173,7 +167,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        static Func<object,object> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
+        static Func<object,object?> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
         {
             if (returnsItsText)
             {
@@ -184,9 +178,7 @@ namespace TestStack.BDDfy
             return StepActionFactory.GetStepAction(method, inputs);
         }
 
-        private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs)
-        {
-            return (IEnumerable<string>)method.Invoke(testObject, inputs);
-        }
+        private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs) 
+            => method.Invoke(testObject, inputs) as IEnumerable<string> ?? [];
     }
 }

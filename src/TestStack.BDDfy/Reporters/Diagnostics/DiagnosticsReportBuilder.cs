@@ -17,29 +17,27 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
             return _serializer.Serialize(rootObject);
         }
 
-        public IList<StoryDiagnostic> GetDiagnosticData(FileReportModel viewModel)
+        internal static IList<StoryDiagnostic> GetDiagnosticData(FileReportModel viewModel)
         {
             var graph = new List<StoryDiagnostic>();
             foreach (var story in viewModel.Stories)
             {
-                var name = story.Namespace;
-                if (story.Metadata != null)
-                    name = story.Metadata.Title;
+                var name = story.Metadata?.Title ?? story.Namespace;
 
                 graph.Add(new StoryDiagnostic
                 {
-                    Name = name,
+                    Name = name ?? "Story",
                     Duration = story.Scenarios.Sum(x => x.Duration.Milliseconds),
-                    Scenarios = story.Scenarios.Select(scenario => new StoryDiagnostic.Scenario()
+                    Scenarios = [.. story.Scenarios.Select(scenario => new StoryDiagnostic.Scenario()
                     {
-                        Name = scenario.Title,
+                        Name = scenario.Title ?? "Scenario",
                         Duration = scenario.Duration.Milliseconds,
-                        Steps = scenario.Steps.Select(step => new StoryDiagnostic.Step()
+                        Steps = [.. scenario.Steps.Select(step => new StoryDiagnostic.Step()
                         {
-                            Name = step.Title,
+                            Name = step.Title ?? "Step",
                             Duration = step.Duration.Milliseconds
-                        }).ToList()
-                    }).ToList()
+                        })]
+                    })]
                 });
             }
 

@@ -33,8 +33,8 @@ namespace TestStack.BDDfy.Reporters
                             Metadata = story.First().Metadata,
                             Namespace = story.Key,
                             Result = story.First().Result,
-                            Scenarios = story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToList() // order scenarios by title,
-                        };
+                            Scenarios = [.. story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title)],
+                    };
 
                 return aggregatedStories;
             }

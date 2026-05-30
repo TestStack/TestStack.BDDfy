@@ -131,7 +131,7 @@ namespace TestStack.BDDfy.Annotations
             ParameterName = parameterName;
         }
 
-        public string ParameterName { get; private set; }
+        public string? ParameterName { get; private set; }
     }
 
     /// <summary>

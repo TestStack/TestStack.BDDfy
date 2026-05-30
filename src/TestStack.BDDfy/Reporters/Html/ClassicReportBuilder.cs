@@ -9,24 +9,16 @@ namespace TestStack.BDDfy.Reporters.Html
 {
     public class ClassicReportBuilder : IReportBuilder
     {
-        private HtmlReportModel _model;
+        private HtmlReportModel _model = null!;
         readonly StringBuilder _html;
         const int TabIndentation = 2;
         int _tabCount;
 
-        public ClassicReportBuilder()
-        {
-            _html = new StringBuilder();
-        }
+        public ClassicReportBuilder() => _html = new StringBuilder();
 
-        string IReportBuilder.CreateReport(FileReportModel model)
+        public string CreateReport(FileReportModel model)
         {
-            return CreateReport(model as HtmlReportModel);
-        }
-
-        public string CreateReport(HtmlReportModel model)
-        {
-            _model = model;
+            _model = model as HtmlReportModel ?? throw new InvalidCastException("Model must be of type HtmlReportModel");
             AddLine("<!DOCTYPE html>");
             using (OpenTag(HtmlTag.html))
             {
@@ -164,7 +156,7 @@ namespace TestStack.BDDfy.Reporters.Html
                     {
                         foreach (var scenario in scenariosGroupedById)
                         {
-                            AddScenario(scenario.ToArray());
+                            AddScenario([.. scenario]);
                         }
                     }
                 }
@@ -187,7 +179,7 @@ namespace TestStack.BDDfy.Reporters.Html
             var firstScenario = scenarioGroup.First();
             var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
 
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenarioResult, firstScenario.Id, WebUtility.HtmlEncode(firstScenario.Title), FormatTags(firstScenario.Tags)));
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenarioResult, firstScenario.Id, WebUtility.HtmlEncode(firstScenario.Title), ClassicReportBuilder.FormatTags(firstScenario.Tags)));
 
             using (OpenTag(string.Format("<ul class='steps' id='{0}'>", firstScenario.Id), HtmlTag.ul))
             {
@@ -195,8 +187,8 @@ namespace TestStack.BDDfy.Reporters.Html
                 {
                     using (OpenTag(string.Format("<li class='step {0}'>", step.ExecutionOrder), HtmlTag.li))
                     {
-                        var titleLines = WebUtility.HtmlEncode(step.Title)
-                            .Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                        var titleLines = WebUtility.HtmlEncode(step.Title).Split([Environment.NewLine], StringSplitOptions.None);
+
                         var title = titleLines[0];
 
                         AddLine(string.Format("<span>{0}</span>", title));
@@ -210,14 +202,13 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private string FormatTags(List<string> tags)
-        {
-            return string.Join(string.Empty, tags.Select(t => string.Format("<div class='tag'>{0}</div>", t)));
-        }
+        private static string FormatTags(List<string> tags) => string.Join(string.Empty, tags.Select(t => string.Format("<div class='tag'>{0}</div>", t)));
 
         private void AddExamples(ReportModel.Scenario[] scenarioGroup)
         {
             var firstScenario = scenarioGroup.First();
+            if(firstScenario.Example is null) throw new InvalidOperationException("First scenario in the group must have an example");
+
             var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
 
             using (OpenTag("<li class='step'>", HtmlTag.li))
@@ -246,25 +237,25 @@ namespace TestStack.BDDfy.Reporters.Html
             using (OpenTag("<tr>", HtmlTag.tr))
             {
                 AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
-                foreach (var exampleValue in scenario.Example.Values)
+                foreach (var exampleValue in scenario.Example?.Values ?? [])
                     AddLine(string.Format("<td>{0}</td>", WebUtility.HtmlEncode(exampleValue.GetValueAsString())));
 
-                if (scenarioResult != Result.Failed)
+                if (scenarioResult is not Result.Failed)
                     return;
 
                 using (OpenTag("<td>", HtmlTag.td))
                 {
-                    var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
+                    var failingStep = scenario.Steps.FirstOrDefault(s => s.Result is Result.Failed);
 
-                    if (failingStep == null)
-                        return;
+                    if (failingStep is null) return;
 
                     var exceptionId = Configurator.IdGenerator.GetStepId();
-                    var encodedExceptionMessage = WebUtility.HtmlEncode(failingStep.Exception.Message);
+                    var encodedExceptionMessage = WebUtility.HtmlEncode(failingStep.Exception?.Message);
                     AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, encodedExceptionMessage));
                     using (OpenTag(string.Format("<div class='step' id='{0}'>", exceptionId), HtmlTag.div))
                     {
-                        AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
+                        if(failingStep.Exception is not null)
+                            AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
                     }
                 }
             }
@@ -272,24 +263,24 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void AddScenario(ReportModel.Scenario scenario)
         {
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, scenario.Title, FormatTags(scenario.Tags)));
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, scenario.Title, ClassicReportBuilder.FormatTags(scenario.Tags)));
 
             using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
             {
                 foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                 {
                     string stepClass = string.Empty;
-                    var reportException = step.Exception != null && step.Result == Result.Failed;
+                    var reportException = step.Exception is not null && step.Result == Result.Failed;
                     string canToggle = reportException ? "canToggle" : string.Empty;
 
                     using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
                     {
-                        var titleLines = step.Title.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                        var titleLines = step.Title.Split([Environment.NewLine], StringSplitOptions.None);
                         var title = titleLines[0];
                         if (reportException)
                         {
                             stepClass = step.Result + "Exception";
-                            if (!string.IsNullOrEmpty(step.Exception.Message))
+                            if (!string.IsNullOrEmpty(step.Exception!.Message))
                                 title += " [Exception Message: '" + step.Exception.Message + "']";
                         }
 
@@ -302,7 +293,7 @@ namespace TestStack.BDDfy.Reporters.Html
                         {
                             using (OpenTag(string.Format("<div class='step {0}' id='{1}'>", stepClass, step.Id), HtmlTag.div))
                             {
-                                AddLine(string.Format("<code>{0}</code>", step.Exception.StackTrace));
+                                AddLine(string.Format("<code>{0}</code>", step.Exception!.StackTrace));
                             }
                         }
                     }
@@ -367,7 +358,7 @@ namespace TestStack.BDDfy.Reporters.Html
             _html.AppendLine(string.Empty.PadLeft(tabWidth) + line);
         }
 
-        private void EmbedCssFile(string cssContent, string htmlComment = null)
+        private void EmbedCssFile(string? cssContent, string? htmlComment = null)
         {
             using (OpenTag("<style type='text/css'>", HtmlTag.style))
             {
@@ -376,7 +367,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void EmbedJavascriptFile(string javascriptContent, string htmlComment = null)
+        private void EmbedJavascriptFile(string javascriptContent, string? htmlComment = null)
         {
             using (OpenTag(HtmlTag.script))
             {
@@ -385,10 +376,9 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void AddHtmlComment(string htmlComment)
+        private void AddHtmlComment(string? htmlComment)
         {
-            if (string.IsNullOrWhiteSpace(htmlComment))
-                return;
+            if (string.IsNullOrWhiteSpace(htmlComment)) return;
 
             _html.AppendFormat("/*{0}*/", htmlComment);
             _html.AppendLine();
