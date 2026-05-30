@@ -1,6 +1,8 @@
 name: Build and Test
 on:
   push:
+    branches:
+      - '**'
   pull_request:
   release:
     types: [published]
@@ -31,17 +33,20 @@ jobs:
 
       - name: Format NuGet version
         run: |
-          buildNumber="${{steps.gitversion.outputs.preReleaseNumber}}${{ steps.gitversion.outputs.buildMetaData }}"
-          
           if [[ "${{ github.event_name }}" == "release" ]]; then
-            if [[ "${{ github.event.release.target_commitish }}" != "${{ github.event.repository.default_branch }}" ]]; then
+            # Use the release tag as the package version, stripping any leading 'v'
+            tag="${{ github.event.release.tag_name }}"
+            packageVersion="${tag#v}"
+          else
+            buildNumber="${{steps.gitversion.outputs.preReleaseNumber}}${{ steps.gitversion.outputs.buildMetaData }}"
+            
+            if [[ "${GITHUB_REF}" != "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
               buildNumber="${buildNumber}-beta"
             fi
-          elif [[ "${GITHUB_REF}" != "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
-            buildNumber="${buildNumber}-beta"
+            
+            packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}"
           fi
           
-          packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}"
           echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
         id: formatversion
   
