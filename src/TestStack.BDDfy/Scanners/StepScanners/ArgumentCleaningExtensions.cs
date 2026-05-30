@@ -11,7 +11,7 @@ namespace TestStack.BDDfy
             return [.. inputs.Select(FlattenArray)];
         }
 
-        public static object FlattenArray(this object input)
+        public static object FlattenArray(this object? input)
         {
             if (input is Array inputArray)
             {
@@ -22,7 +22,7 @@ namespace TestStack.BDDfy
             return GetSafeValue(input);
         }
 
-        static object GetSafeValue(object input) => input switch
+        static object GetSafeValue(object? input) => input switch
         {
             null => "<null>",
             string s => s == "" ? "<empty>" : (s.Trim() == "" ? $"'{s}'" : s),

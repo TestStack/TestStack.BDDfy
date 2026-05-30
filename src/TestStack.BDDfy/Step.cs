@@ -7,7 +7,7 @@ namespace TestStack.BDDfy
     public class Step
     {
         private readonly StepTitle _stepTitle;
-        private string _title;
+        private string? _title;
         public Step(
             Func<object, object> action,
             StepTitle stepTitle,
@@ -45,7 +45,7 @@ namespace TestStack.BDDfy
         public string Title => _title??= _stepTitle;
         public ExecutionOrder ExecutionOrder { get; private set; }
         public Result Result { get; set; }
-        public Exception Exception { get; set; }
+        public Exception? Exception { get; set; }
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
         public List<StepArgument> Arguments { get; private set; }
