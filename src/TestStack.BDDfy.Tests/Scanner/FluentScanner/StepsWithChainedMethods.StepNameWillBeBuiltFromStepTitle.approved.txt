@@ -1,0 +1,6 @@
+﻿
+### Step name will be built from step title
+  i have a red car with a crazy horn  
+  When i honk the horn at volume high  
+  Then i verify diagnostics a red car honked crazy horn at high volume  
+

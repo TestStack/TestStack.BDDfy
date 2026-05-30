@@ -7,7 +7,7 @@ public interface IStepTitleFactory
     bool IncludeInputsInStepTitle { get; set; }
 
     public StepTitle Create(
-        string stepTextTemplate,
+        string? stepTextTemplate,
         bool? includeInputsInStepTitle,
         MethodInfo methodInfo,
         StepArgument[] inputArguments,
