@@ -3,14 +3,12 @@ using Xunit;
 
 namespace TestStack.BDDfy.Samples
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public class BuyingTrainFareWithExamples
     {
-        #pragma warning disable 649
-        // ReSharper disable once InconsistentNaming
-        private readonly Fare fare;
-        private readonly BuyerCategory _buyerCategory;
-        #pragma warning restore 649
-        Money Price { get; set; }
+        private readonly Fare fare = null!;
+        private readonly BuyerCategory _buyerCategory = default!;
+        Money Price { get; set; } = null!;
 
         [Fact]
         public void SuccessfulRailCardPurchases()

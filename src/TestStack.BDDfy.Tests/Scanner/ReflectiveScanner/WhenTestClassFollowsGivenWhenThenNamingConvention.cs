@@ -7,8 +7,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class WhenTestClassFollowsGivenWhenThenNamingConvention
     {
-        private List<Step> _steps;
-        private TypeWithoutAttribute _typeWithoutAttribute;
+        private List<Step> _steps = null!;
+        private TypeWithoutAttribute _typeWithoutAttribute = null!;
 
         private class TypeWithoutAttribute
         {
@@ -42,7 +42,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         public void VerifyScannedSteps()
         {
             _typeWithoutAttribute = new TypeWithoutAttribute();
-            _steps = new DefaultMethodNameStepScanner().Scan(TestContext.GetContext(_typeWithoutAttribute)).ToList();
+            _steps = [.. new DefaultMethodNameStepScanner().Scan(TestContext.GetContext(_typeWithoutAttribute))];
             int stepIndex = 0;
         
             _steps.Count.ShouldBe(24);
@@ -74,7 +74,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         private static void AssertStep(Step step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            step.Title.Trim().ShouldBe(stepTitle);
+            step.Title.ShouldBe(stepTitle);
             step.Asserts.ShouldBe(asserts);
             step.ExecutionOrder.ShouldBe(order);
             step.ShouldReport.ShouldBe(shouldReport);

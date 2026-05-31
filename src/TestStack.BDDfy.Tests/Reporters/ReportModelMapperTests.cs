@@ -13,8 +13,7 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         public ReportModelMapperTests()
         {
-            _stories = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
-                .ToList();
+            _stories = [.. new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()];
         }
             
         [Fact]
@@ -28,26 +27,38 @@ namespace TestStack.BDDfy.Tests.Reporters
                 mapped[i].Namespace.ShouldBe(_stories[i].Namespace);
                 mapped[i].Result.ShouldBe(_stories[i].Result);
                 mapped[i].Scenarios.Count.ShouldBe(_stories[i].Scenarios.Count());
-                mapped[i].Metadata.ShouldNotBe(null);
+                mapped[i].Metadata.ShouldNotBeNull();
             }
         }
 
         [Fact]
         public void story_metadata_should_map_to_report_story_metadata()
         {
-            var mapped = _stories.ToReportModel().Stories;
-
-            for (int i = 0; i < 2; i++)
+            var mapped = _stories.ToReportModel().Stories.Select(x => new
             {
-                mapped[i].Metadata.Narrative1.ShouldBe(_stories[i].Metadata.Narrative1);
-                mapped[i].Metadata.Narrative2.ShouldBe(_stories[i].Metadata.Narrative2);
-                mapped[i].Metadata.Narrative3.ShouldBe(_stories[i].Metadata.Narrative3);
-                mapped[i].Metadata.Title.ShouldBe(_stories[i].Metadata.Title);
-                mapped[i].Metadata.TitlePrefix.ShouldBe(_stories[i].Metadata.TitlePrefix);
-                mapped[i].Metadata.Type.ShouldBe(_stories[i].Metadata.Type);
-                mapped[i].Metadata.ImageUri.ShouldBe(_stories[i].Metadata.ImageUri);
-                mapped[i].Metadata.StoryUri.ShouldBe(_stories[i].Metadata.StoryUri);
-            }
+                x.Metadata!.Narrative1,
+                x.Metadata.Narrative2,
+                x.Metadata.Narrative3,
+                x.Metadata.Title,
+                x.Metadata.TitlePrefix,
+                x.Metadata.Type,
+                x.Metadata.ImageUri,
+                x.Metadata.StoryUri
+            }).ToArray();
+
+            var original = _stories.Select(x => new
+            {
+                x.Metadata!.Narrative1,
+                x.Metadata.Narrative2,
+                x.Metadata.Narrative3,
+                x.Metadata.Title,
+                x.Metadata.TitlePrefix,
+                x.Metadata.Type,
+                x.Metadata.ImageUri,
+                x.Metadata.StoryUri
+            }).ToArray();
+
+            mapped.ShouldBeEquivalentTo(original);
         }
 
         [Fact]
@@ -91,14 +102,17 @@ namespace TestStack.BDDfy.Tests.Reporters
         [Fact]
         public void example_should_map_to_report_example()
         {
-            var scenarios = _stories[0].Scenarios.ToList();
-            var mapped = _stories.ToReportModel().Stories[0].Scenarios;
+            var scenarios = _stories[0].Scenarios.Select(x=> new {
+                x.Example!.Headers,
+                x.Example.Values
+             }).ToArray();
 
-            for (int i = 0; i < 2; i++)
-            {
-                mapped[i].Example.Headers.ShouldBe(scenarios[i].Example.Headers);
-                mapped[i].Example.Values.ShouldBe(scenarios[i].Example.Values);
-            }
+            var mapped = _stories.ToReportModel().Stories[0].Scenarios.Select(x=> new {
+                x.Example!.Headers,
+                x.Example.Values
+            }).ToArray();
+
+            mapped.ShouldBeEquivalentTo(scenarios);
         }
     }
 }

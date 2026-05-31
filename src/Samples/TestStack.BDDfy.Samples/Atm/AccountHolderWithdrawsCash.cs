@@ -16,8 +16,8 @@ namespace TestStack.BDDfy.Samples.Atm
         private const string WhenTheAccountHolderRequestsTitleTemplate = "When the account holder requests ${0}";
         private const string AndTheCardShouldBeReturnedTitleTemplate = "And the card should be returned";
 
-        private Card _card;
-        private Atm _atm;
+        private Card _card = null!;
+        private Atm _atm = null!;
 
         internal void Given_the_Account_Balance_is(int balance)
         {

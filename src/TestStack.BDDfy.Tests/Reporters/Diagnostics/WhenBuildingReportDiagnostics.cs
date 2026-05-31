@@ -9,9 +9,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
 {
     public class WhenBuildingReportDiagnostics
     {
-        private DiagnosticsReportBuilder _sut;
-        private IEnumerable<Story> _stories; 
-        private IList<StoryDiagnostic> _result;
+        private DiagnosticsReportBuilder _sut = null!;
+        private IEnumerable<Story> _stories = null!;
+        private IList<StoryDiagnostic> _result = null!;
             
         internal void GivenADiagnosticsReportBuilder()
         {

@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
             _board[2] = (string[])thirdRow.Clone();
         }
 
-        public string Winner
+        public string? Winner
         {
             get 
             {
@@ -62,15 +62,11 @@ namespace TestStack.BDDfy.Samples.TicTacToe
             _board[row][column] = player;
         }
 
-        public override bool Equals(object obj)
-        {
-            var game = obj as Game;
-            return game != null && base.Equals(game);
-        }
+        public override bool Equals(object? obj) => obj is Game game && Equals(game);
 
         public bool Equals(Game other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             for (int i = 0; i < 3; i++)

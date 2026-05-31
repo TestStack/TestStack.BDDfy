@@ -22,8 +22,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             var andAssertMatcher = new MethodNameMatcher(s => s.StartsWith("AndAssert", StringComparison.Ordinal), true, ExecutionOrder.ConsecutiveAssertion, true);
             var methodNameMatchers = new[] { assertMatcher, andAssertMatcher, specEndMatcher, specStartMatcher, setupMethod };
             _scenario = new ScenarioClass();
-            var scanner = new MethodNameStepScanner(s => s, methodNameMatchers);
-            _steps = scanner.Scan(TestContext.GetContext(_scenario)).ToList();
+            var scanner = new MethodNameStepScanner(s => s!, methodNameMatchers);
+            _steps = [.. scanner.Scan(TestContext.GetContext(_scenario))];
         }
 
         class ScenarioClass
@@ -89,7 +89,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         void AssertSpecificationStepIsScannedProperly(Expression<Action> getSpecMethod)
         {
-            var specMethods = _steps.Where(s => s.Title.Trim() == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
+            var specMethods = _steps.Where(s => s.Title == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(getSpecMethod).Name));
             specMethods.Count().ShouldBe(1);
             var specStep = specMethods.First();
             specStep.Asserts.ShouldBe(false);

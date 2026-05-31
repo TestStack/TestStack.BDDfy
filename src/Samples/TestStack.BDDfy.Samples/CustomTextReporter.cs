@@ -14,7 +14,7 @@ namespace TestStack.BDDfy.Samples
     {
         private static readonly string Path;
 
-        private static string OutputDirectory
+        private static string? OutputDirectory
         {
             get
             {
@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Samples
 
         static CustomTextReporter()
         {
-            Path = System.IO.Path.Combine(OutputDirectory, "BDDfy-text-report.txt");
+            Path = System.IO.Path.Combine(OutputDirectory ?? string.Empty, "BDDfy-text-report.txt");
             
             if(File.Exists(Path))
                 File.Delete(Path);
@@ -52,7 +52,7 @@ namespace TestStack.BDDfy.Samples
             if (scenario.Result != Result.Passed && scenario.Steps.Any(s => s.Exception != null))
             {
                 scenarioReport.Append(string.Format("    {0} : ", scenario.Result));
-                scenarioReport.AppendLine(scenario.Steps.First(s => s.Result == scenario.Result).Exception.Message);
+                scenarioReport.AppendLine(scenario.Steps.First(s => s.Result == scenario.Result).Exception?.Message);
             }
 
             scenarioReport.AppendLine();

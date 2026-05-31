@@ -11,9 +11,9 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         private SutStepBuilder _sutStepBuilder = new();
         private class SutStepBuilder
         {
-            public string state;
-            private string color;
-            private string horn;
+            public string state = null!;
+            private string color = null!;
+            private string horn = null!;
 
             public SutStepBuilder with_color(string color) { this.color = color; return this; }
             public SutStepBuilder with_horn(string horn) { this.horn = horn; return this; }

@@ -15,7 +15,7 @@ namespace TestStack.BDDfy.Tests
         [InlineData("report.txt", "TestDirectory")]
         [InlineData("./reports/report.txt", "TestDirectory")]
         [InlineData("./reports/report.txt", "TestDirectory/Reports")]
-        public void CreatePathIfItDoesNotExist(string reportName, string outputDirectory)
+        public void CreatePathIfItDoesNotExist(string reportName, string? outputDirectory)
         {
             var fileWriter = new FileWriter();
             outputDirectory = outputDirectory is null ? null : System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString(), $"{outputDirectory}");

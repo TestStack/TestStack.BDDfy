@@ -7,6 +7,8 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+
     public class WhenStepScannerFactoryAsyncMethods
     {
         [Fact]
@@ -28,7 +30,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         public void InvokingAsyncTaskWhichThrowsIsObservedAndRethrown()
         {
             var methodInfo = typeof(WhenStepScannerFactoryAsyncMethods).GetMethod("AsyncVoidMethod", BindingFlags.Instance | BindingFlags.NonPublic);
-            var stepAction = StepActionFactory.GetStepAction(methodInfo, new object[] { new SomeScenario() });
+            methodInfo.ShouldNotBeNull();
+            var stepAction = StepActionFactory.GetStepAction(methodInfo, [new SomeScenario()]);
 
             Should.Throw<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(this)));
         }
@@ -37,7 +40,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         public void InvokingAsyncVoidWhichThrowsIsObservedAndRethrown()
         {
             var methodInfo = typeof(WhenStepScannerFactoryAsyncMethods).GetMethod("AsyncTaskMethod", BindingFlags.Instance | BindingFlags.NonPublic);
-            var stepAction = StepActionFactory.GetStepAction(methodInfo, new object[] { new SomeScenario() });
+            methodInfo.ShouldNotBeNull();
+            var stepAction = StepActionFactory.GetStepAction(methodInfo, [new SomeScenario()]);
 
             Should.Throw<ArgumentException>(()=> AsyncTestRunner.Run(() => stepAction(this)));
         }
@@ -45,13 +49,13 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         private async void AsyncVoidMethod(SomeScenario someScenario)
         {
             await Task.Yield();
-            throw new ArgumentException();
+            ArgumentException.ThrowIfNullOrEmpty(null);
         }
 
         private async Task AsyncTaskMethod(SomeScenario obj)
         {
             await Task.Yield();
-            throw new ArgumentException();
+            ArgumentException.ThrowIfNullOrEmpty(null);
         }
 
         private class SomeScenario

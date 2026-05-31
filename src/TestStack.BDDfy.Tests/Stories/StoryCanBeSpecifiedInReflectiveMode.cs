@@ -11,6 +11,7 @@ namespace TestStack.BDDfy.Tests.Stories
         {
             var story = this.BDDfy<SharedStoryNotion>();
 
+            story.Metadata.ShouldNotBeNull();
             story.Metadata.Type.ShouldBe(typeof(SharedStoryNotion));
         }
 

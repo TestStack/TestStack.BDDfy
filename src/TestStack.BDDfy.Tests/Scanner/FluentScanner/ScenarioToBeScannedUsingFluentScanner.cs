@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shouldly;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         internal const string InputDateStepTitleTemplate = "The provided date is {0:MMM d yyyy}";
         public static readonly DateTime InputDate = DateTime.Parse("2011-10-20", new CultureInfo("en-AU"));
 
-        private string[] _input1;
-        private int[] _input2;
+        private string[] _input1 = null!;
+        private int[] _input2 = null!;
         private int _input3;
 
         public int Input3
@@ -87,6 +88,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .And(s => s.ThenTitleFormatingWorksToo(InputDate), InputDateStepTitleTemplate)
                 .TearDownWith(s => s.Dispose())).FluentScanner;
 
+            fluentScanner.ShouldNotBeNull();
             return fluentScanner.GetScanner(null, null).Scan().Scenarios.SelectMany(s => s.Steps).ToList();
         }
     }

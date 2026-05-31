@@ -20,7 +20,7 @@ namespace TestStack.BDDfy.Tests
         public void NullableEnumIsUsedProperly()
         {
             SomeEnum? nullableEnum = null;
-            string anotherExample = null;
+            string anotherExample = null!;
 
             this.Given(_ => GivenANullableEnumExample(nullableEnum))
                 .Then(_ => AnotherValueIsChanged(anotherExample))
@@ -32,10 +32,12 @@ namespace TestStack.BDDfy.Tests
                 .BDDfy();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         private void AnotherValueIsChanged(string anotherExample)
         {
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         private void GivenANullableEnumExample(SomeEnum? nullableEnum)
         {
         }

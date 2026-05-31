@@ -9,13 +9,13 @@ namespace TestStack.BDDfy.Tests.Exceptions.NotImplementedException
         private void ExecuteUsingFluentScanner()
         {
             var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Given, true));
-            ex.GetType().FullName.ShouldContain("Inconclusive");
+            ex.GetType().FullName!.ShouldContain("Inconclusive");
         }
 
         private void ExecuteUsingReflectingScanners()
         {
             var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Given, false));
-            ex.GetType().FullName.ShouldContain("Inconclusive");
+            ex.GetType().FullName!.ShouldContain("Inconclusive");
         }
 
         [Fact]

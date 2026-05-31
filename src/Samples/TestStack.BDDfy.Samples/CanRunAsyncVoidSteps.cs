@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Samples
 {
     public class CanRunAsyncVoidSteps
     {
-        private object _sut;
+        private object _sut = null!;
 
         internal async void GivenSomeAsyncSetup()
         {

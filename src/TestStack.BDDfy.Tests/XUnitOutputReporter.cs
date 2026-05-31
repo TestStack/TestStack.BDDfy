@@ -1,16 +1,19 @@
+using System;
 using TestStack.BDDfy.Reporters;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests
 {
-    public class XUnitOutputReporter(ITestOutputHelper testOutputHelper = null): TextReporter
+    public class XUnitOutputReporter(ITestOutputHelper? testOutputHelper = null): TextReporter
     {
-        private readonly ITestOutputHelper _outputHelper = testOutputHelper ?? Xunit.TestContext.Current.TestOutputHelper;
+        private readonly ITestOutputHelper _outputHelper = testOutputHelper 
+            ?? Xunit.TestContext.Current.TestOutputHelper 
+            ?? throw new InvalidOperationException("No ITestOutputHelper instance available.");
 
-        protected override void WriteLine(string text = null)
+        protected override void WriteLine(string? text = null)
         {
             if (text is not null) _outputHelper.WriteLine(text);
-            base.WriteLine(text);
+            base.WriteLine(text);   
         }
 
         protected override void Write(string text, params object[] args)

@@ -5,8 +5,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     public class DoesNotConflictWithnSubstitute
     {
-        private ITestContext _subsitute;
-        private ExampleTable _exampleTable;
+        private ITestContext _subsitute = null!;
+        private ExampleTable _exampleTable = null!;
 
         [Fact]
         public void CanUseFluentApiWithNSubstitute()

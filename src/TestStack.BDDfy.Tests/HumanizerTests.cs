@@ -93,7 +93,7 @@ namespace TestStack.BDDfy.Tests
         [InlineData("")]
         [InlineData(" ")]
         [InlineData(null)]
-        internal void HumanizeWithNullOrEmptyInput_ReturnsTheSame(string providedInput)
+        internal void HumanizeWithNullOrEmptyInput_ReturnsTheSame(string? providedInput)
         {
             Humanizer.Humanize(providedInput).ShouldBe(providedInput);
         }

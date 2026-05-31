@@ -23,7 +23,7 @@ namespace TestStack.BDDfy
                 }
 
                 ValueHasBeenUsed = true;
-                return null;
+                return default;
             }
 
             var valueIsString = _underlyingValue is string;

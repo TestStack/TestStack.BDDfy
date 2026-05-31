@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Tests.Configuration
                 get { return _builder.ToString(); }
             }
 
-            public override object Execute(Step step, object testObject)
+            public override object? Execute(Step step, object testObject)
             {
                 try
                 {

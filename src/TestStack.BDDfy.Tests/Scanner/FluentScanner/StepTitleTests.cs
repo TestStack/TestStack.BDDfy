@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
     [Collection(TestCollectionName.ModifiesConfigurator)]
     public class StepTitleTests
     {
-        private string _state;
+        private string _state = null!;
 
         [Fact]
         public void UseConfiguration_IncludeInputsInStepTitle()
