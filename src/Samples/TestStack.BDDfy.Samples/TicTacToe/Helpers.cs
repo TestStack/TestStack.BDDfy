@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Samples.TicTacToe
         protected const string O = Game.O;
         protected const string N = Game.N;
 
-        protected Game Game { get; set; }
+        protected Game Game { get; set; } = null!;
     }
 
     public abstract class NewGame : GameUnderTest

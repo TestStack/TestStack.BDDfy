@@ -27,12 +27,12 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         SoThat = "So that I can be in full control of what is passed in")]
     public class BDDfyUsingFluentApi
     {
-        private string[] _arrayInput1;
-        private int[] _arrayInput2;
+        private string[] _arrayInput1 = null!;
+        private int[] _arrayInput2 = null!;
         private int _primitiveInput2;
-        private string _primitiveInput1;
+        private string _primitiveInput1 = null!;
         private SomeEnumForTesting _enumInput;
-        private Action _action;
+        private Action _action = null!;
 
         internal void GivenAnAction(Action actionInput)
         {
@@ -63,8 +63,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         internal void GivenEnumerableInputs(IEnumerable<string> input1, IEnumerable<int> input2)
         {
-            _arrayInput1 = input1.ToArray();
-            _arrayInput2 = input2.ToArray();
+            _arrayInput1 = [.. input1];
+            _arrayInput2 = [.. input2];
         }
 
         internal void ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(string expectedInput1, int expectedInput2)
@@ -94,11 +94,11 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 
         public SomeEnumForTesting EnumInputProperty { get { return _enumInputField; } }
 
-        readonly string[] _arrayInput1Field = new[] { "1", "2" };
-        readonly int[] _arrayInput2Field = new[] { 3, 4 };
+        readonly string[] _arrayInput1Field = ["1", "2"];
+        readonly int[] _arrayInput2Field = [3, 4];
 
-        private readonly IEnumerable<string> EnumerableString = new[] {"1", null, "2"};
-        private readonly IEnumerable<int> EnumerableInt = new[] {1, 2};
+        private readonly IEnumerable<string> EnumerableString = ["1", null!, "2"];
+        private readonly IEnumerable<int> EnumerableInt = [1, 2];
 
         public string[] ArrayInput1Property { get { return _arrayInput1Field; } }
         public int[] ArrayInput2Property { get { return _arrayInput2Field; } }
@@ -130,8 +130,8 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void PassingNullPrimitiveArgumentInline()
         {
-            this.Given(x => x.GivenPrimitiveInputs(null, 2), "Given inline input arguments {0} and {1}")
-                .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(null, 2))
+            this.Given(x => x.GivenPrimitiveInputs(null!, 2), "Given inline input arguments {0} and {1}")
+                .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(null!, 2))
                 .BDDfy();
         }
 
@@ -149,7 +149,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void PassingNullAsPrimitiveArgumentsUsingVariables()
         {
-            string input1 = null;
+            string input1 = null!;
             var input2 = 2;
 
             this.Given(x => x.GivenPrimitiveInputs(input1, input2), "Given input arguments {0} and {1} are passed in using varialbles")
@@ -217,16 +217,16 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void PassingNullArrayArgumentInline()
         {
-            this.Given(x => x.GivenArrayInputs(new[] {"1", null, "2"}, new[] {1, 2}), "Given inline input arguments {0} and {1}")
-                    .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", null, "2" }, new[] { 1, 2 }))
+            this.Given(x => x.GivenArrayInputs(new[] { "1", null!, "2" }, new[] { 1, 2 }), "Given inline input arguments {0} and {1}")
+                    .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(new[] { "1", null!, "2" }, new[] { 1, 2 }))
                 .BDDfy();
         }
 
         [Fact]
         public void PassingNullAsArrayArgumentInline()
         {
-            this.Given(x => x.GivenArrayInputs(null, new[] {1, 2}), "Given inline input arguments {0} and {1}")
-                    .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(null, new[] { 1, 2 }))
+            this.Given(x => x.GivenArrayInputs(null!, new[] {1, 2}), "Given inline input arguments {0} and {1}")
+                    .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(null!, new[] { 1, 2 }))
                 .BDDfy();
         }
 
@@ -244,7 +244,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void PassingNullAsOneOfArrayArgumentUsingVariables()
         {
-            var input1 = new[] {null, "2"};
+            var input1 = new[] {null!, "2"};
             var input2 = new[] {3, 4};
 
             this.Given(x => x.GivenArrayInputs(input1, input2), "Given array input arguments {0} and {1} are passed in using variables")
@@ -312,6 +312,19 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             this.Given(x => x.GivenAnAction(ExceptionThrowingAction), "Given an action that throws AppliationException")
                 .Then(x => x.ThenCallingTheActionThrows<InvalidDataException>(), "Then calling the action does throw that exception")
                 .BDDfy();
+        }
+
+        [Fact]
+        public void WhenWithTitleOnlyCreatesStepWithCorrectTitle()
+        {
+            const string whenTitle = "When something happens";
+            var story = this.When(whenTitle)
+                .Then(x => x.ThenTheArgumentsArePassedInProperlyAndStoredOnTheSameObjectInstance(null!, 0))
+                .BDDfy();
+
+            var scenario = story.Scenarios.First();
+            var whenStep = scenario.Steps.First(s => s.Title == whenTitle);
+            whenStep.ExecutionOrder.ShouldBe(ExecutionOrder.Transition);
         }
     }
 }

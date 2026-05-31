@@ -40,7 +40,7 @@ namespace TestStack.BDDfy.Reporters
 
             public TimeSpan Duration { get; set; }
 
-            public List<Step> Steps { get; set; } = [];
+            public List<Step> Steps { get; } = [];
 
             public Result Result { get; set; }
         }
@@ -69,8 +69,6 @@ namespace TestStack.BDDfy.Reporters
             public string[] Headers { get; set; } = [];
 
             public IEnumerable<ExampleValue> Values { get; set; } = [];
-
-            public override string ToString() => string.Join(", ", Values.Select(i => i.ToString()));
         }
     }
 }

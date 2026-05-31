@@ -14,6 +14,7 @@ namespace TestStack.BDDfy.Tests.Stories
                 .Then(_ => ThenTheSpecifiedStoryShouldBeUsed())
                 .BDDfy<SharedStoryNotion>();
 
+            story.Metadata.ShouldNotBeNull();
             story.Metadata.Type.ShouldBe(typeof(SharedStoryNotion));
         }
 

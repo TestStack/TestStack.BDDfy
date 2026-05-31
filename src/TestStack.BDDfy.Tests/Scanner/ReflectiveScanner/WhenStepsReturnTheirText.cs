@@ -42,7 +42,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         private static void AssertStep(Step step, string stepTitle, ExecutionOrder order, bool asserts = false, bool shouldReport = true)
         {
-            step.Title.Trim().ShouldBe(stepTitle);
+            step.Title.ShouldBe(stepTitle);
             step.Asserts.ShouldBe(asserts);
             step.ExecutionOrder.ShouldBe(order);
             step.ShouldReport.ShouldBe(shouldReport);

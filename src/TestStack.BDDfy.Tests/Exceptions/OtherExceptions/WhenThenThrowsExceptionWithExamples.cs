@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 
             engine.Story.Result.ShouldBe(Result.Failed);
             var titles = engine.Story.Scenarios.Select(s => s.Steps.Single(step => step.Result == Result.Failed).Title).ToArray();
-            titles.ShouldAllBe(t => t.StartsWith("Then", StringComparison.OrdinalIgnoreCase));
+            titles.ShouldAllBe(t => t!.StartsWith("Then", StringComparison.OrdinalIgnoreCase));
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 
             engine.Story.Result.ShouldBe(Result.Failed);
             var titles = engine.Story.Scenarios.Select(s=>s.Steps.Single(step=>step.Result == Result.Failed).Title).ToArray();
-            titles.ShouldAllBe(t=> t.StartsWith("Given", StringComparison.OrdinalIgnoreCase));
+            titles.ShouldAllBe(t=> t!.StartsWith("Given", StringComparison.OrdinalIgnoreCase));
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 
             engine.Story.Result.ShouldBe(Result.Failed);
             var titles = engine.Story.Scenarios.Select(s => s.Steps.Single(step => step.Result == Result.Failed).Title).ToArray();
-            titles.ShouldAllBe(t => t.StartsWith("When", StringComparison.OrdinalIgnoreCase));
+            titles.ShouldAllBe(t => t!.StartsWith("When", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

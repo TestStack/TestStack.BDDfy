@@ -10,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
     {
         private readonly Story _story;
 
-        public string SecondExample { get; set; }
+        public string SecondExample { get; set; } = null!;
         public ReflectiveWithExamples()
         {
             _story = this

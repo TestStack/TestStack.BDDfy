@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NSubstitute;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.MarkDown;
@@ -10,8 +9,8 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 {
     public class MarkDownReporterTests
     {
-        private IReportBuilder _builder;
-        private IReportWriter _writer;
+        private IReportBuilder _builder = null!;
+        private IReportWriter _writer = null!;
 
         [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
@@ -19,7 +18,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             var sut = CreateSut();
             _builder.CreateReport(Arg.Any<FileReportModel>()).Returns("Report Data");
 
-            sut.Process(new List<Story>());
+            sut.Process([]);
 
             _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
@@ -30,7 +29,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
             var sut = CreateSut();
             _builder.CreateReport(Arg.Any<FileReportModel>()).Returns(x => { throw new Exception("Error occurred."); });
 
-            sut.Process(new List<Story>());
+            sut.Process([]);
 
             _writer.Received().OutputReport(
                 Arg.Is<string>(s => s.StartsWith("Error occurred.")), 

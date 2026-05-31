@@ -11,7 +11,7 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         [Fact]
         public void CanUseActionsInExamples()
         {
-            ExampleAction actionToPerform = null;
+            ExampleAction actionToPerform = null!;
             int valueShouldBe = 0;
             var story = this.Given(_ => SomeSetup())
                 .When(() => actionToPerform)

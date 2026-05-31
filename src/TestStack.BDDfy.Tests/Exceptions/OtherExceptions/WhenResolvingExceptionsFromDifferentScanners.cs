@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions
 {
     public class WhenResolvingExceptionsFromDifferentScanners
     {
-        private ExceptionThrowingTest<OuterException> _sut;
+        private ExceptionThrowingTest<OuterException> _sut = null!;
 
         /// <summary>
         /// Test to resolve issue where fluent scanner was returning the inner exception rather than the outer one.

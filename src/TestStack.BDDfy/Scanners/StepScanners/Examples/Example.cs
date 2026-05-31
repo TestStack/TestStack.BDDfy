@@ -11,7 +11,5 @@ namespace TestStack.BDDfy
         public IEnumerable<ExampleValue> Values { get; } = items;
 
         public object? GetValueOf(int index, Type targetType) => Values.ElementAt(index).GetValue(targetType);
-
-        public override string ToString() => string.Join(", ", Values.Select(i => i.ToString()));
     }
 }

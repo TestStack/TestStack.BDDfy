@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             get
             {
-                return new[] { "5", "6" };
+                return ["5", "6"];
             }
         }
     }
@@ -35,9 +35,9 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         {
             public int Target { get; set; }
 
-            public string Target2 { get; set; }
+            public string Target2 { get; set; } = null!;
 
-            public ContainerType SubContainer { get; set; }
+            public ContainerType SubContainer { get; set; } = null!;
 
             public override string ToString()
             {
@@ -72,7 +72,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 
             }
 
-            public Bar Foo { get; set; }
+            public Bar Foo { get; set; } = null!;
 
             public class Bar
             {
@@ -82,14 +82,14 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
         }
 
-        List<object> GetArgumentValues(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
+        List<object?> GetArgumentValues(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
         {
-            return action.ExtractArguments(instance).Select(o => o.Value).ToList();
+            return [.. action.ExtractArguments(instance).Select(o => o.Value)];
         }
 
         List<StepArgument> GetArguments(Expression<Action<ClassUnderTest>> action, ClassUnderTest instance)
         {
-            return action.ExtractArguments(instance).ToList();
+            return [.. action.ExtractArguments(instance)];
         }
 
         readonly int _input1 = 1;
@@ -138,7 +138,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             arguments.Count.ShouldBe(0);
         }
 
-        void AssertReturnedArguments(List<object> arguments, params object[] expectedArgs)
+        void AssertReturnedArguments(List<object?> arguments, params object?[] expectedArgs)
         {
             arguments.Count.ShouldBe(expectedArgs.Length);
             for (int i = 0; i < expectedArgs.Length; i++)
@@ -178,7 +178,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             var input1 = default(decimal);
             var arguments = GetArguments(x => x.MethodWithNullableArg(input1), new ClassUnderTest());
             input1 = 1;
-            AssertReturnedArguments(arguments.Select(a => a.Value).ToList(), input1);
+            AssertReturnedArguments([.. arguments.Select(a => a.Value)], input1);
         }
 
         [Fact]
@@ -271,16 +271,16 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         [Fact]
         public void ComplexArgumentWhenContainerIsNull()
         {
-            ContainerType nullContainer = null;
-            var arguments = GetArgumentValues(x => x.MethodWithInputs(nullContainer.SubContainer), new ClassUnderTest());
-            AssertReturnedArguments(arguments, new object[] { null });
+            ContainerType? nullContainer = null;
+            var arguments = GetArgumentValues(x => x.MethodWithInputs(nullContainer!.SubContainer), new ClassUnderTest());
+            AssertReturnedArguments(arguments, [null]);
         }
 
         [Fact]
         public void MethodCallValue()
         {
             var arguments = GetArgumentValues(x => x.MethodWithInputs(GetNumberThree(), GetFooString()), new ClassUnderTest());
-            AssertReturnedArguments(arguments, new object[] { 3, "Foo" });
+            AssertReturnedArguments(arguments, [3, "Foo"]);
         }
 
         [Fact]

@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Exceptions
         private bool _givenShouldThrow;
         private bool _whenShouldThrow;
         private bool _thenShouldThrow;
-        Scenario _scenario;
+        Scenario _scenario = null!;
 
         void Given()
         {
@@ -130,7 +130,7 @@ namespace TestStack.BDDfy.Tests.Exceptions
             }
         }
 
-        Story Story { get; set; }
+        Story Story { get; set; } = null!;
  
         public void AssertTearDownMethodIsExecuted()
         {

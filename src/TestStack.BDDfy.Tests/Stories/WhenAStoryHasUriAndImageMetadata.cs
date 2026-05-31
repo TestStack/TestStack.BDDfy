@@ -15,6 +15,7 @@ namespace TestStack.BDDfy.Tests.Stories
         public void Then_it_is_injected_by_BDDfy()
         {
             var story = new DummyScenario().BDDfy<WhenAStoryHasUriAndImageMetadata>();
+            story.Metadata.ShouldNotBeNull();
             story.Metadata.StoryUri.ShouldBe("http://teststoryuri.com.au");
             story.Metadata.ImageUri.ShouldBe("http://teststoryuri.com.au/storyimg.png");
         }

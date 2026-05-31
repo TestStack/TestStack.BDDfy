@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using NSubstitute;
 using Shouldly;
@@ -27,7 +26,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
         {
             _sut.ReportBuilder.CreateReport(Arg.Any<FileReportModel>()).Returns(ReportData);
 
-            _sut.Process(new List<Story>());
+            _sut.Process([]);
 
             _sut.Writer.Received().OutputReport(ReportData, Arg.Any<string>(), Arg.Any<string>());
         }

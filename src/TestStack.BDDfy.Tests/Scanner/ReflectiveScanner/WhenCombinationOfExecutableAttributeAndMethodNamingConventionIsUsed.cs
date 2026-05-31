@@ -60,13 +60,12 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         public WhenCombinationOfExecutableAttributeAndMethodNamingConventionIsUsed()
         {
             _sut = new ScenarioWithMixedSteps();
-            _scenario = 
+            _scenario =
                 new ReflectiveScenarioScanner(
-                    new IStepScanner[]
-                        {
-                            new ExecutableAttributeStepScanner(),
-                            new DefaultMethodNameStepScanner()
-                        }).Scan(TestContext.GetContext(_sut)).First();
+                    [
+                      new ExecutableAttributeStepScanner(),
+                      new DefaultMethodNameStepScanner()
+                    ]).Scan(TestContext.GetContext(_sut)).First();
         }
 
         [Fact]
@@ -125,7 +124,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
         void VerifyStepAndItsProperties(Expression<Action> stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Title.Trim() == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
+            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
             matchingSteps.Count().ShouldBe(expectedCount);
             matchingSteps.All(s => s.ExecutionOrder == expectedOrder).ShouldBe(true);
         }

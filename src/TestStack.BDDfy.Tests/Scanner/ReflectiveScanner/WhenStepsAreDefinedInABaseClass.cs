@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     public class WhenStepsAreDefinedInABaseClass
     {
-        private Story _story;
+        private Story _story = null!;
 
         class TheBaseClass
         {

@@ -5,8 +5,8 @@ namespace TestStack.BDDfy.Samples.Atm
 {
     public class AccountHasInsufficientFund
     {
-        private Card _card;
-        private Atm _atm;
+        private Card _card = null!;
+        private Atm _atm = null!;
 
         // You can override step text using executable attributes
         [Given("Given the Account Balance is $10")]
@@ -61,6 +61,13 @@ namespace TestStack.BDDfy.Samples.Atm
         public void VerifyLazy()
         {
             var engine = this.LazyBDDfy<AccountHolderWithdrawsCash>();
+            engine.Run();
+        }
+
+        [Fact]
+        public void VerifyLazyWithAllArguments()
+        {
+            var engine = this.LazyBDDfy<AccountHolderWithdrawsCash>("lazy scenario", nameof(AccountHasInsufficientFund));
             engine.Run();
         }
     }

@@ -146,7 +146,7 @@ jobs:
         run: echo "${{ steps.release_notes.outputs.changelog }}" > release-notes.md
 
       - name: Upload Release Notes as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-notes
           path: release-notes.md
@@ -185,6 +185,7 @@ jobs:
 
       - name: Create Bddfy package
         working-directory: src
+
         if: steps.changes.outputs.BddfyUpdated == 'true' || github.event_name == 'release'
         run: >-
           dotnet pack ./TestStack.BDDfy/*.csproj
@@ -194,13 +195,13 @@ jobs:
           --output ../packages
 
       - name: Upload NuGet package as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nuget-package
           path: packages/*.nupkg
 
       - name: Publish coverage report as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage-report/

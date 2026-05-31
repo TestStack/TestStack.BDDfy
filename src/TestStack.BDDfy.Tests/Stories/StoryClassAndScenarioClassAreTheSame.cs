@@ -6,7 +6,7 @@ namespace TestStack.BDDfy.Tests.Stories
 {
     public class StoryClassAndScenarioClassAreTheSame
     {
-        private Story _story;
+        private Story _story = null!;
 
         [Story(
             AsA = "As a story with no scenarios specified using attributes",
@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Stories
 
         void ThenStoryIsReturnedAsAStory()
         {
-            _story.Metadata.Type.ShouldBe(typeof(StoryAsScenario));
+            _story.Metadata!.Type.ShouldBe(typeof(StoryAsScenario));
         }
 
         [AndThen(StepTitle = "and as a scenario")]
@@ -41,7 +41,7 @@ namespace TestStack.BDDfy.Tests.Stories
         void andTheNarrativeIsReturnedAsExpected()
         {
             var expectedNarrative = (StoryAttribute)typeof(StoryAsScenario).GetCustomAttributes(typeof(StoryAttribute), false).First();
-            _story.Metadata.ShouldNotBe(null);
+            _story.Metadata.ShouldNotBeNull();
             _story.Metadata.Narrative1.ShouldBe(expectedNarrative.AsA);
             _story.Metadata.Narrative2.ShouldBe(expectedNarrative.IWant);
             _story.Metadata.Narrative3.ShouldBe(expectedNarrative.SoThat);

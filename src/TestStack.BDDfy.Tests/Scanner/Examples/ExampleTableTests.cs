@@ -65,9 +65,11 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         [Fact]
         public void CollectionOperations_WorkCorrectly()
         {
-            var table = new ExampleTable("A");
-            table.Add("val1");
-            table.Add("val2");
+            var table = new ExampleTable("A")
+            {
+                "val1",
+                "val2"
+            };
 
             table.Count.ShouldBe(2);
             table.IsReadOnly.ShouldBeFalse();
@@ -84,9 +86,11 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
         [Fact]
         public void CopyTo_CopiesElements()
         {
-            var table = new ExampleTable("A");
-            table.Add("x");
-            table.Add("y");
+            var table = new ExampleTable("A")
+            {
+                "x",
+                "y"
+            };
 
             var array = new Example[3];
             table.CopyTo(array, 1);

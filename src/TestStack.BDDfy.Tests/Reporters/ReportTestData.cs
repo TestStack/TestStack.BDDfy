@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
             var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
 
-            const StoryMetadata testThatReportWorksWithNoStory = null;
+            const StoryMetadata testThatReportWorksWithNoStory = null!;
 
             var stories = new List<Story>
             {
@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an unhappy examples story", "I want to see failed steps", "So that I can diagnose what's wrong", "Unhappy examples");
             var storyMetadata3 = new StoryMetadata(typeof(PlatinumAccountHolderStory), "As a happy examples story", "I want a clean report with examples", "So that the report is clean and readable", "Happy Examples");
 
-            const StoryMetadata testThatReportWorksWithNoStory = null;
+            const StoryMetadata testThatReportWorksWithNoStory = null!;
 
             var stories = new List<Story>
             {
@@ -116,18 +116,18 @@ namespace TestStack.BDDfy.Tests.Reporters
                         last.Exception = ex;
                     }
                 }
-                return new List<Scenario>
-                {
+                return
+                [
                     new(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0), []),
                     new(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1), [])
-                }.ToArray();
+                ];
             }
 
-            return new List<Scenario>
-                       {
+            return
+                       [
                            new(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario", []),
                            new(typeof(SadPathScenario), sadExecutionSteps, "Sad Path Scenario", [])
-                       }.ToArray();
+                       ];
         }
 
         private Scenario[] GetOneOfEachScenarioResult()
@@ -155,7 +155,7 @@ namespace TestStack.BDDfy.Tests.Reporters
                 last.Exception = ex;
             }
 
-            return scenarios.ToArray();
+            return [.. scenarios];
         }
 
         private List<Step> GetHappyExecutionSteps()

@@ -16,7 +16,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             public bool IncludeInputsInStepTitle { get; set; } = true;
 
             public StepTitle Create(
-                string stepTextTemplate,
+                string? stepTextTemplate,
                 bool? includeInputsInStepTitle,
                 MethodInfo methodInfo,
                 StepArgument[] inputArguments,

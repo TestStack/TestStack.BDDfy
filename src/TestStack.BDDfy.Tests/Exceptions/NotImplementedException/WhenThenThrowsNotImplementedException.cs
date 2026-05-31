@@ -9,13 +9,13 @@ namespace TestStack.BDDfy.Tests.Exceptions.NotImplementedException
         private void ExecuteUsingReflectingScanners()
         {
             var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Then, false));
-            ex.GetType().FullName.ShouldContain("Inconclusive");
+            ex.GetType().FullName!.ShouldContain("Inconclusive");
         }
 
         private void ExecuteUsingFluentScanner()
         {
             var ex = Should.Throw<Exception>(() => Sut.Execute(ThrowingMethods.Then, true));
-            ex.GetType().FullName.ShouldContain("Inconclusive");
+            ex.GetType().FullName!.ShouldContain("Inconclusive");
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace TestStack.BDDfy.Tests.Exceptions.NotImplementedException
         }
 
         [Fact]
-        public void ThenIsReportedAsNotImplemenetedWhenUsingReflectingScanners()
+        public void ThenIsReportedAsNotImplementedWhenUsingReflectingScanners()
         {
             ExecuteUsingReflectingScanners();
             Sut.AssertThenStepResult(Result.NotImplemented);
