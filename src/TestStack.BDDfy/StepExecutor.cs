@@ -9,17 +9,15 @@ namespace TestStack.BDDfy
         /// Executes the step. If you'd like to run your own custom logic before/after each step, 
         /// override this method and call the base method within your implementation.
         /// </summary>
-        public virtual object Execute(Step step, object testObject)
+        public virtual object? Execute(Step step, object testObject)
         {
-            if(step.Action is null) throw new InvalidOperationException("Step action cannot be null");
-
             Stopwatch sw = Stopwatch.StartNew();
             try
             {
-                var result = step.Action(testObject);
+                var result = step.Action?.Invoke(testObject);
                 sw.Stop();
                 step.Duration = sw.Elapsed;
-                return result ?? throw new InvalidOperationException("Step action returned null");
+                return result;
             }
             finally
             {
