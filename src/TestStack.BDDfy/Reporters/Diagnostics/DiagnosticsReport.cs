@@ -4,6 +4,6 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
 {
     public class DiagnosticsReport
     {
-        public IList<StoryDiagnostic> Stories { get; set; }
+        public IList<StoryDiagnostic> Stories { get; set; } = [];
     }
 }

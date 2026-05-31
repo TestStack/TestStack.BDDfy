@@ -1,9 +1,11 @@
 ﻿using Shouldly;
+using System.Diagnostics.CodeAnalysis;
 using TestStack.BDDfy.Reporters;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples
 {
+    [SuppressMessage("Performance", "CA1822:Mark members as static")]
     public class ReflectiveWithExamples
     {
         private readonly Story _story;
@@ -20,18 +22,12 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
                 .BDDfy();
         }
 
-        internal void GivenStepWith__FirstExample__PassedAsParameter(int firstExample)
-        {
-            firstExample.ShouldBeOneOf(1, 2);
-        }
+        internal void GivenStepWith__FirstExample__PassedAsParameter(int firstExample) => firstExample.ShouldBeOneOf(1, 2);
 
-        internal void AndGivenStepWith__SecondExample__AccessedViaProperty()
-        {
-            SecondExample.ShouldBeOneOf("foo", "bar");
-        }
+        internal void AndGivenStepWith__SecondExample__AccessedViaProperty() => SecondExample.ShouldBeOneOf("foo", "bar");
 
         [Fact]
-        public void Run()
+        public void RunExamplesUsingReflectiveScanner()
         {
             var reporter = new TextReporter();
             reporter.Process(_story);

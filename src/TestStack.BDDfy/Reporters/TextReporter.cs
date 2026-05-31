@@ -60,7 +60,10 @@ namespace TestStack.BDDfy.Reporters
                 WriteScenarioStep(scenario, GetStepWithLines(step), writeResults);
         }
 
-        private static Tuple<Step, string[]> GetStepWithLines(Step s) => Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
+        private static Tuple<Step, string[]> GetStepWithLines(Step s) 
+            => s.Title is null 
+            ? Tuple.Create<Step, string[]>(s, []) 
+            : Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
 
         private void WriteTags(List<string> tags)
         {
@@ -73,6 +76,8 @@ namespace TestStack.BDDfy.Reporters
 
         private void WriteExamples(Scenario exampleScenario, IEnumerable<Scenario> scenarioGroup)
         {
+            if (exampleScenario.Example is null) return;
+
             WriteLine("Examples: ");
             var scenarios = scenarioGroup.ToArray();
             var allPassed = scenarios.All(s => s.Result == Result.Passed);
@@ -81,7 +86,7 @@ namespace TestStack.BDDfy.Reporters
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            void addRow(IEnumerable<string> cells, string result, string error)
+            void addRow(IEnumerable<string> cells, string result, string? error)
             {
                 var row = new string[numberColumns];
                 var index = 0;
@@ -92,7 +97,7 @@ namespace TestStack.BDDfy.Reporters
                 if (!allPassed)
                 {
                     row[numberColumns - 2] = result;
-                    row[numberColumns - 1] = error;
+                    row[numberColumns - 1] = error!;
                 }
 
                 for (var i = 0; i < numberColumns; i++)
@@ -113,7 +118,7 @@ namespace TestStack.BDDfy.Reporters
                     ? null
                     : string.Format("Step: {0} failed with exception: {1}", failingStep.Title, CreateExceptionMessage(failingStep));
 
-                addRow(scenario.Example.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
+                addRow(scenario.Example!.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
             }
 
             foreach (var row in rows)
@@ -132,8 +137,7 @@ namespace TestStack.BDDfy.Reporters
 
         private void WriteStoryTitle(Story story)
         {
-            if (story.Metadata == null || story.Metadata.Type == null)
-                return;
+            if (story?.Metadata?.Type is null) return; ;
 
             WriteLine(story.Metadata.TitlePrefix + story.Metadata.Title);
             if (!string.IsNullOrEmpty(story.Metadata.Narrative1))
@@ -201,10 +205,10 @@ namespace TestStack.BDDfy.Reporters
 
         private string CreateExceptionMessage(Step step)
         {
-            _exceptions.Add(step.Exception);
+            if(step.Exception is not null) _exceptions.Add(step.Exception);
 
             var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
-            if (!string.IsNullOrEmpty(step.Exception.Message))
+            if (!string.IsNullOrEmpty(step.Exception?.Message))
                 return string.Format("[{0}] {1}", FlattenExceptionMessage(step.Exception.Message), exceptionReference);
 
             return string.Format("{0}", exceptionReference);
@@ -221,6 +225,7 @@ namespace TestStack.BDDfy.Reporters
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
+  
                 WriteLine();
                 Write(string.Format("  {0}. ", index + 1));
 
@@ -229,6 +234,7 @@ namespace TestStack.BDDfy.Reporters
                 else
                     WriteLine();
 
+                if (exception.StackTrace is null) continue;
                 WriteLine(exception.StackTrace);
             }
 
@@ -257,7 +263,7 @@ namespace TestStack.BDDfy.Reporters
 
         public override string ToString() => _text.ToString();
 
-        protected virtual void WriteLine(string text = null) => _text.AppendLine(text);
+        protected virtual void WriteLine(string? text = null) => _text.AppendLine(text);
 
         protected virtual void WriteLine(string text, params object[] args) => _text.AppendLine(string.Format(text, args));
 

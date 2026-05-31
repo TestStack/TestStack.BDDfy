@@ -26,25 +26,27 @@ namespace TestStack.BDDfy.Processors
         // http://weblogs.asp.net/fmarguerie/archive/2008/01/02/rethrowing-exceptions-and-preserving-the-full-call-stack-trace.aspx
         internal static void PreserveStackTrace(Exception exception)
         {
-            MethodInfo preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
-              BindingFlags.Instance | BindingFlags.NonPublic);
-            preserveStackTrace.Invoke(exception, null);
+            var preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace", BindingFlags.Instance | BindingFlags.NonPublic);
+            preserveStackTrace?.Invoke(exception, null);
         }
 
         public void Process(Story story)
         {
             var allSteps = story.Scenarios.SelectMany(s => s.Steps);
-            if (!allSteps.Any())
-                return;
+            
+            if (!allSteps.Any()) return;
 
             var worseResult = story.Result;
 
             var stepWithWorseResult = allSteps.First(s => s.Result == worseResult);
-
+            
             if (worseResult == Result.Failed || worseResult == Result.Inconclusive)
             {
-                PreserveStackTrace(stepWithWorseResult.Exception);
-                throw stepWithWorseResult.Exception;
+                if(stepWithWorseResult.Exception is not null)
+                {
+                    PreserveStackTrace(stepWithWorseResult.Exception!);
+                    throw stepWithWorseResult.Exception;
+                }
             }
 
             if (worseResult == Result.NotImplemented)

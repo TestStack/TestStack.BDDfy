@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,20 +6,20 @@ namespace TestStack.BDDfy
 {
     public class Story
     {
-        public Story(StoryMetadata metadata, params Scenario[] scenarios)
+        public Story(StoryMetadata? metadata, params Scenario[] scenarios)
         {
             Metadata = metadata;
             Scenarios = scenarios;
+            Namespace = metadata?.Type?.Namespace ?? "Tests";
 
-            if (scenarios.Length > 0)
-            {
-                var testObject = scenarios.First().TestObject;
-                if(testObject != null)
-                    Namespace = testObject.GetType().Namespace;
-            }
+            if (scenarios.Length == 0) return;
+
+            var storyNamespace = scenarios.First().TestObject?.GetType()?.Namespace;
+            if (string.IsNullOrWhiteSpace(storyNamespace)) return;
+            Namespace = storyNamespace;
         }
 
-        public StoryMetadata Metadata { get; }
+        public StoryMetadata? Metadata { get; }
 
         /// <summary>
         /// Currently used only when scenario doesn't have a story and we use the namespace instead
@@ -26,12 +27,6 @@ namespace TestStack.BDDfy
         public string Namespace { get; set; }
         public IEnumerable<Scenario> Scenarios { get; private set; }
 
-        public Result Result
-        {
-            get 
-            {
-                return (Result)Scenarios.Max(s => (int)s.Result); 
-            }
-        }
+        public Result Result => (Result)Scenarios.Max(s => (int)s.Result);
     }
 }

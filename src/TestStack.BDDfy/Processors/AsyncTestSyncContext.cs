@@ -9,7 +9,7 @@ namespace TestStack.BDDfy
     internal class AsyncTestSyncContext : SynchronizationContext
     {
         readonly object _lock = new();
-        Exception _exception;
+        Exception? _exception;
         int _operationCount;
 
         public override void OperationCompleted()
@@ -30,7 +30,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public override void Post(SendOrPostCallback d, object state)
+        public override void Post(SendOrPostCallback d, object? state)
         {
             // The call to Post() may be the state machine signaling that an exception is
             // about to be thrown, so we make sure the operation count gets incremented
@@ -50,7 +50,7 @@ namespace TestStack.BDDfy
             });
         }
 
-        public override void Send(SendOrPostCallback d, object state)
+        public override void Send(SendOrPostCallback d, object? state)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace TestStack.BDDfy
             }
         }
 
-        public Exception WaitForCompletion()
+        public Exception? WaitForCompletion()
         {
             lock (_lock)
             {

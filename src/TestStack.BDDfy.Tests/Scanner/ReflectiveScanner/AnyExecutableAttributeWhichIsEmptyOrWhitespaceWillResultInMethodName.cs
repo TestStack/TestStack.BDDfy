@@ -1,10 +1,12 @@
 ﻿using Shouldly;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TestStack.BDDfy.Configuration;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
+    [SuppressMessage("Performance", "CA1822:Mark members as static")]
     public class AnyExecutableAttributeWhichIsEmptyOrWhitespaceWillResultInMethodName
     {
         private class TypeWithDecoratedMethods
@@ -20,8 +22,10 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 
             [Given("")]
             public void GivenWithEmptyString() { }
+
             [When("   ")]
             public void WhenWithWhitespace() { }
+
             [Then(null)]
             public void ThenWithNull() { }
 

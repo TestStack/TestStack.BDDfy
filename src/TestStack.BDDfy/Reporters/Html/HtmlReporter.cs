@@ -17,7 +17,7 @@ namespace TestStack.BDDfy.Reporters.Html
         private readonly IReportWriter _writer = writer;
         private readonly IFileReader _fileReader = reader;
         readonly IHtmlReportConfiguration _configuration = configuration;
-        public HtmlReportModel Model { get; private set; }
+        public HtmlReportModel Model { get; private set; } = null!;
 
         public HtmlReporter(IHtmlReportConfiguration configuration)
             : this(configuration, new ClassicReportBuilder())
@@ -36,13 +36,13 @@ namespace TestStack.BDDfy.Reporters.Html
 
         public void Process(IEnumerable<Story> stories)
         {
-            var allowedStories = stories.Where(s => _configuration.RunsOn(s)).ToList();
-            WriteOutHtmlReport(allowedStories.ToReportModel());
+            var allowedStories = stories.Where(_configuration.RunsOn).ToList();
+            Model = new HtmlReportModel(_configuration, allowedStories.ToReportModel());
+            WriteOutHtmlReport();
         }
 
-        void WriteOutHtmlReport(ReportModel reportModel)
-        {
-            Model = new HtmlReportModel(_configuration, reportModel);
+        void WriteOutHtmlReport()
+        {           
             LoadCustomScripts();
             string report;
 

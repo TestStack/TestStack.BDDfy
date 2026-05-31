@@ -26,7 +26,7 @@ namespace TestStack.BDDfy.Configuration
             _active = true;
         }
 
-        public TComponent ConstructFor(TMaterial material)
+        public TComponent? ConstructFor(TMaterial material)
         {
             if (_active && _runsOn(material))
                 return _factory();

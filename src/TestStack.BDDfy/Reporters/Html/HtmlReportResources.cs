@@ -24,7 +24,9 @@ namespace TestStack.BDDfy.Reporters.Html
         {
             var assembly = typeof(HtmlReportResources).Assembly();
 
-            using var stream = assembly.GetManifestResourceStream(resourceName);
+            using var stream = assembly.GetManifestResourceStream(resourceName) 
+                ?? throw new FileNotFoundException($"Resource '{resourceName}' not found in assembly '{assembly.FullName}'.");
+           
             using var reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }

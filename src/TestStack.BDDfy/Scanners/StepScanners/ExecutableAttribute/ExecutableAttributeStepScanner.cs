@@ -33,8 +33,8 @@ namespace TestStack.BDDfy
                 yield break;
 
             var stepTitle = new StepTitle(executableAttribute.StepTitle);
-            if (string.IsNullOrWhiteSpace(stepTitle))
-                stepTitle = new StepTitle(Configurator.Humanizer.Humanize(candidateMethod.Name));
+            if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(candidateMethod.Name) is string humanizedName)
+                stepTitle = new StepTitle(humanizedName);
 
             var shouldReport = executableAttribute.ShouldReport;
 
@@ -86,26 +86,29 @@ namespace TestStack.BDDfy
             if (executableAttribute == null)
                 yield break;
 
-            string stepTitle = executableAttribute.StepTitle;
-            if (string.IsNullOrWhiteSpace(stepTitle))
-                stepTitle = Configurator.Humanizer.Humanize(method.Name);
+            var stepTitle = executableAttribute.StepTitle;
+            if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(method.Name) is string humanizedName)
+                stepTitle = humanizedName;
 
             var shouldReport = executableAttribute.ShouldReport;
             var methodParameters = method.GetParameters();
 
             var inputs = new List<object>();
-            var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
-
-            for (int i = 0; i < inputPlaceholders.Count; i++)
+            if(stepTitle is not null)
             {
-                var placeholder = inputPlaceholders[i].Groups[1].Value;
+                var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
 
-                for (int j = 0; j < example.Headers.Length; j++)
+                for (int i = 0; i < inputPlaceholders.Count; i++)
                 {
-                    if (example.Values.ElementAt(j).MatchesName(placeholder))
+                    var placeholder = inputPlaceholders[i].Groups[1].Value;
+
+                    for (int j = 0; j < example.Headers.Length; j++)
                     {
-                        inputs.Add(example.GetValueOf(j, methodParameters[inputs.Count].ParameterType));
-                        break;
+                        if (example.Values.ElementAt(j).MatchesName(placeholder) && example.GetValueOf(j, methodParameters[inputs.Count].ParameterType) is object value)
+                        {
+                            inputs.Add(value);
+                            break;
+                        }
                     }
                 }
             }

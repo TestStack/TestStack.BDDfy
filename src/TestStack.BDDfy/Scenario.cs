@@ -7,7 +7,7 @@ namespace TestStack.BDDfy
 {
     public class Scenario
     {
-        public Scenario(object testObject, List<Step> steps, string scenarioText, List<string> tags)
+        public Scenario(object testObject, List<Step> steps, string? scenarioText, List<string> tags)
         {
             TestObject = testObject;
             Steps = steps;
@@ -16,7 +16,7 @@ namespace TestStack.BDDfy
             Id = Configurator.IdGenerator.GetScenarioId();
         }
 
-        public Scenario(string id, object testObject, List<Step> steps, string scenarioText, Example example, List<string> tags)
+        public Scenario(string id, object testObject, List<Step> steps, string? scenarioText, Example? example, List<string> tags)
         {
             Id = id;
             TestObject = testObject;
@@ -27,9 +27,9 @@ namespace TestStack.BDDfy
         }
 
         public string Id { get; set; }
-        public string Title { get; private set; }
+        public string? Title { get; private set; }
         public List<string> Tags { get; private set; }
-        public Example Example { get; set; }
+        public Example? Example { get; set; }
         public TimeSpan Duration { get { return new TimeSpan(Steps.Sum(x => x.Duration.Ticks)); } }
         public object TestObject { get; internal set; }
         public List<Step> Steps { get; private set; }
@@ -38,7 +38,7 @@ namespace TestStack.BDDfy
         {
             get
             {
-                if (!Steps.Any())
+                if (Steps.Count == 0)
                     return Result.NotExecuted;
 
                 return (Result)Steps.Max(s => (int)s.Result);

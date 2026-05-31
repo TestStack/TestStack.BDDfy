@@ -6,25 +6,26 @@ namespace TestStack.BDDfy
 {
     internal static class ArgumentCleaningExtensions
     {
+        public const string NullValueRepresentation = "<null>";
         internal static object[] FlattenArrays(this IEnumerable<object> inputs)
         {
             return [.. inputs.Select(FlattenArray)];
         }
 
-        public static object FlattenArray(this object input)
+        public static object FlattenArray(this object? input)
         {
             if (input is Array inputArray)
             {
-                var temp = from object arrElement in inputArray select GetSafeValue(arrElement);
+                var temp = from object arrElement in inputArray select arrElement.GetSafeValue();
                 return string.Join(", ", temp);
             }
 
-            return GetSafeValue(input);
+            return input.GetSafeValue();
         }
 
-        static object GetSafeValue(object input) => input switch
+        private static object GetSafeValue(this object? input) => input switch
         {
-            null => "<null>",
+            null => NullValueRepresentation,
             string s => s == "" ? "<empty>" : (s.Trim() == "" ? $"'{s}'" : s),
             _ => input
         };

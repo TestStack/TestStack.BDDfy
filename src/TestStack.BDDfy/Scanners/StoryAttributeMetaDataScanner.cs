@@ -1,39 +1,35 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace TestStack.BDDfy.Scanners
 {
     internal class StoryAttributeMetadataScanner : IStoryMetadataScanner
     {
-        public virtual StoryMetadata Scan(object testObject, Type explicitStoryType = null)
-        {
-            return GetStoryMetadata(testObject, explicitStoryType) ?? GetStoryMetadataFromScenario(testObject);
-        }
+        public virtual StoryMetadata? Scan(object testObject, Type? explicitStoryType = null) 
+            => GetStoryMetadata(testObject, explicitStoryType) ?? GetStoryMetadataFromScenario(testObject);
 
-        static StoryMetadata GetStoryMetadataFromScenario(object testObject)
+        static StoryMetadata? GetStoryMetadataFromScenario(object testObject)
         {
             var scenarioType = testObject.GetType();
             var storyAttribute = GetStoryAttribute(scenarioType);
-            if (storyAttribute == null)
-                return null;
+            if (storyAttribute is null) return null;
 
             return new StoryMetadata(scenarioType, storyAttribute);
         }
 
-        StoryMetadata GetStoryMetadata(object testObject, Type explicityStoryType)
+        StoryMetadata? GetStoryMetadata(object testObject, Type? explicitStoryType)
         {
-            var candidateStoryType = GetCandidateStory(testObject, explicityStoryType);
-            if (candidateStoryType == null)
-                return null;
+            var candidateStoryType = GetCandidateStory(testObject, explicitStoryType);
+            if (candidateStoryType is null) return null;
 
             var storyAttribute = GetStoryAttribute(candidateStoryType);
-            if (storyAttribute == null)
-                return null;
+            if (storyAttribute is null) return null;
 
             return new StoryMetadata(candidateStoryType, storyAttribute);
         }
 
-        protected virtual Type GetCandidateStory(object testObject, Type explicitStoryType)
+        protected virtual Type? GetCandidateStory(object testObject, Type? explicitStoryType)
         {
             if (explicitStoryType != null)
                 return explicitStoryType;
@@ -43,9 +39,7 @@ namespace TestStack.BDDfy.Scanners
             return declaringType ?? testObjectType;
         }
 
-        static StoryNarrativeAttribute GetStoryAttribute(Type candidateStoryType)
-        {
-            return (StoryNarrativeAttribute)candidateStoryType.GetCustomAttributes(typeof(StoryNarrativeAttribute), true).FirstOrDefault();
-        }
+        static StoryNarrativeAttribute? GetStoryAttribute(Type candidateStoryType) 
+            => candidateStoryType.GetCustomAttribute<StoryNarrativeAttribute>(true);
     }
 }

@@ -84,6 +84,8 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
         private void WriteExamples(StringBuilder report, ReportModel.Scenario exampleScenario, IEnumerable<ReportModel.Scenario> scenarioGroup)
         {
+            if(exampleScenario.Example is null) return;
+
             report.AppendLine("### Examples: ");
             report.AppendLine();
             var scenarios = scenarioGroup.ToArray();
@@ -93,7 +95,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
 
-            void addRow(IEnumerable<string> cells, string result, string error)
+            void addRow(IEnumerable<string> cells, string result, string? error)
             {
                 var row = new string[numberColumns];
                 var index = 0;
@@ -104,7 +106,7 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 if (!allPassed)
                 {
                     row[numberColumns - 2] = result;
-                    row[numberColumns - 1] = error;
+                    row[numberColumns - 1] = error!;
                 }
 
                 for (var i = 0; i < numberColumns; i++)
@@ -144,8 +146,10 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             report.AppendLine("|");
         }
 
-        private string CreateExceptionMessage(ReportModel.Step step)
+        private string? CreateExceptionMessage(ReportModel.Step step)
         {
+            if (step.Exception is null) return null;
+
             _exceptions.Add(step.Exception);
 
             var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
@@ -176,9 +180,12 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 else
                     report.AppendLine();
 
-                var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split([Environment.NewLine], StringSplitOptions.None)
-                    .Select(s => "    " + s));
-                report.AppendLine(stackTrace);
+                if (exception.StackTrace is not null)
+                {
+                    var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split([Environment.NewLine], StringSplitOptions.None)
+                        .Select(s => "    " + s));
+                    report.AppendLine(stackTrace);
+                }
             }
 
             report.AppendLine();

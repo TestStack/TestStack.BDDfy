@@ -19,8 +19,7 @@ namespace TestStack.BDDfy.Samples
                 .And(_ => TheBuyerSelectsA(fare))
                 .When(_ => TheBuyerPays())
                 .Then(_ => ASaleOccursWithAnAmountOf(Price))
-                .WithExamples(new ExampleTable(
-                    "Buyer Category", "Fare", "Price")
+                .WithExamples(new ExampleTable("Buyer Category", "Fare", "Price")
                 {
                     {BuyerCategory.Student, new MonthlyPass(), new Money(76)},
                     {BuyerCategory.Senior, new MonthlyPass(), new Money(98)},

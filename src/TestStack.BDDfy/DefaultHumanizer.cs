@@ -15,7 +15,7 @@ namespace TestStack.BDDfy
         private static readonly Regex UnicodeMatchPattern = new(@"[^\u0000-\u007F]");
         private static readonly Regex LoneIReplacePattern = new(@"(?<=^|\s)i(?=\s|$)");
 
-        public string Humanize(string input)
+        public string? Humanize(string? input)
         {
             if (string.IsNullOrWhiteSpace(input)) return input;
 
@@ -23,7 +23,7 @@ namespace TestStack.BDDfy
 
             input = TokensPattern.Replace(input, "-#$1#-");
 
-            var words = input.Split(['_','-']);
+            var words = input.Split(['_', '-'], StringSplitOptions.RemoveEmptyEntries);
 
             var finalWords = words.Select(x => TokenReplacePattern.Replace(x, "<$1>"));
 

@@ -15,15 +15,15 @@ namespace TestStack.BDDfy.Reporters
             get
             {
                 var groupedByNamespace = from story in _stories
-                                         where story.Metadata == null
+                                         where story.Metadata is null
                                          orderby story.Namespace
                                          group story by story.Namespace into g
                                          select g;
 
                 var groupedByStories = from story in _stories
-                                       where story.Metadata != null
-                                       orderby story.Metadata.Title   
-                                       group story by story.Metadata.Type.Name into g
+                                       where story.Metadata is not null
+                                       orderby story.Metadata!.Title   
+                                       group story by story.Metadata!.Type.Name into g
                                        select g;
 
                 var aggregatedStories =
@@ -33,8 +33,8 @@ namespace TestStack.BDDfy.Reporters
                             Metadata = story.First().Metadata,
                             Namespace = story.Key,
                             Result = story.First().Result,
-                            Scenarios = story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title).ToList() // order scenarios by title,
-                        };
+                            Scenarios = [.. story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title)],
+                    };
 
                 return aggregatedStories;
             }
