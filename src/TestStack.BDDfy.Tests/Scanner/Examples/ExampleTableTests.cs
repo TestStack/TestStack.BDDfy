@@ -53,5 +53,58 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             table.ToString(new[] { "Additional" }, new[] { new[] { "SomeAdditional Value" } })
                 .ShouldMatchApproved();
         }
+
+        [Fact]
+        public void Add_WhenColumnCountMismatch_Throws()
+        {
+            var table = new ExampleTable("A", "B");
+            var ex = Should.Throw<ArgumentException>(() => table.Add(1, 2, 3));
+            ex.Message.ShouldContain("Number of column values does not match");
+        }
+
+        [Fact]
+        public void CollectionOperations_WorkCorrectly()
+        {
+            var table = new ExampleTable("A");
+            table.Add("val1");
+            table.Add("val2");
+
+            table.Count.ShouldBe(2);
+            table.IsReadOnly.ShouldBeFalse();
+
+            var first = table.First();
+            table.Contains(first).ShouldBeTrue();
+            table.Remove(first).ShouldBeTrue();
+            table.Count.ShouldBe(1);
+
+            table.Clear();
+            table.Count.ShouldBe(0);
+        }
+
+        [Fact]
+        public void CopyTo_CopiesElements()
+        {
+            var table = new ExampleTable("A");
+            table.Add("x");
+            table.Add("y");
+
+            var array = new Example[3];
+            table.CopyTo(array, 1);
+
+            array[0].ShouldBeNull();
+            array[1].ShouldNotBeNull();
+            array[2].ShouldNotBeNull();
+        }
+
+        [Theory]
+        [InlineData("MyHeader", "my header", true)]
+        [InlineData("MyHeader", "my_header", true)]
+        [InlineData("MyHeader", "MYHEADER", true)]
+        [InlineData("MyHeader", "Other", false)]
+        [InlineData("MyHeader", null, false)]
+        public void HeaderMatches_VariousCases(string header, string? name, bool expected)
+        {
+            ExampleTable.HeaderMatches(header, name).ShouldBe(expected);
+        }
     }
 }

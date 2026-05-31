@@ -7,7 +7,7 @@ namespace TestStack.BDDfy.Processors
 {
     public static class AsyncTestRunner
     {        
-        public static void Run(Func<object> performStep)
+        public static void Run(Func<object?> performStep)
         {
             var oldSyncContext = SynchronizationContext.Current;
             try
