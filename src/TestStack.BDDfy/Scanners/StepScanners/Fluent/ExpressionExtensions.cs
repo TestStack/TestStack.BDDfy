@@ -90,7 +90,7 @@ namespace TestStack.BDDfy
                 return Expression.Lambda<Func<object>>(Expression.Convert(expression, typeof(object))).Compile();
             }
 
-            private Action<object> SetValue(Expression expression, Type parameterType)
+            private Action<object?> SetValue(Expression expression, Type parameterType)
             {
                 var parameter = Expression.Parameter(typeof(object));
                 var unaryExpression = Expression.Convert(parameter, parameterType);
@@ -99,11 +99,11 @@ namespace TestStack.BDDfy
                 {
                     var memberAccess = Expression.MakeMemberAccess(Expression.Constant(_value), memberExpression.Member);
                     var assign = Expression.Assign(memberAccess, unaryExpression);
-                    return Expression.Lambda<Action<object>>(assign, parameter).Compile();
+                    return Expression.Lambda<Action<object?>>(assign, parameter).Compile();
                 }
 
                 var assignDefault = Expression.Assign(expression, unaryExpression);
-                return Expression.Lambda<Action<object>>(assignDefault, parameter).Compile();
+                return Expression.Lambda<Action<object?>>(assignDefault, parameter).Compile();
             }
         }
     }

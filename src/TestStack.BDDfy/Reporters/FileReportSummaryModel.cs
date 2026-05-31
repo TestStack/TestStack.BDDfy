@@ -12,7 +12,7 @@ namespace TestStack.BDDfy.Reporters
 
         public int Scenarios => _stories.SelectMany(s => s.Scenarios).Count();
 
-        public int Stories => _stories.Where(b => b.Metadata is not null).GroupBy(b => b.Metadata.Type).Count();
+        public int Stories => _stories.Where(b => b.Metadata is not null).GroupBy(b => b.Metadata!.Type).Count();
 
         public int Passed => _scenarios.Count(b => b.Result is Result.Passed);
 

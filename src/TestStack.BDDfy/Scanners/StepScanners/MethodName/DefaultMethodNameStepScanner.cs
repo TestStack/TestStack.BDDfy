@@ -29,8 +29,10 @@ namespace TestStack.BDDfy
             AddMatcher(new MethodNameMatcher(s => s.StartsWith("TearDown", StringComparison.OrdinalIgnoreCase), ExecutionOrder.TearDown) { ShouldReport = false });
         }
 
-        static string CleanupTheStepText(string stepText)
+        static string CleanupTheStepText(string? stepText)
         {
+            if (stepText is null) return string.Empty;
+
             if (stepText.StartsWith("and given ", StringComparison.OrdinalIgnoreCase))
                 return stepText.Remove("and ".Length, "given ".Length);
 

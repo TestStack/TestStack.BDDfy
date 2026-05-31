@@ -95,8 +95,9 @@ namespace TestStack.BDDfy
 
             return [.. scenarioType
                 .GetMethods(bindingFlags)
-                .Where(m => m.GetCustomAttribute<IgnoreStepAttribute>() is null)
-                .Except(allPropertyMethods)];
+                .Where(m => m.GetCustomAttribute<IgnoreStepAttribute>(true) is null)
+                .Except(allPropertyMethods).Where(mi=> mi is not null)
+                .Select(x=>x!)];
         }
     }
 }

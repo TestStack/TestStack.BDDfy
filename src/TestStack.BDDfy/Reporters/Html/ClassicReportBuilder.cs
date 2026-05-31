@@ -367,7 +367,7 @@ namespace TestStack.BDDfy.Reporters.Html
             }
         }
 
-        private void EmbedJavascriptFile(string javascriptContent, string? htmlComment = null)
+        private void EmbedJavascriptFile(string? javascriptContent, string? htmlComment = null)
         {
             using (OpenTag(HtmlTag.script))
             {

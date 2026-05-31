@@ -146,8 +146,10 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             report.AppendLine("|");
         }
 
-        private string CreateExceptionMessage(ReportModel.Step step)
+        private string? CreateExceptionMessage(ReportModel.Step step)
         {
+            if (step.Exception is null) return null;
+
             _exceptions.Add(step.Exception);
 
             var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
@@ -178,9 +180,12 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 else
                     report.AppendLine();
 
-                var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split([Environment.NewLine], StringSplitOptions.None)
-                    .Select(s => "    " + s));
-                report.AppendLine(stackTrace);
+                if (exception.StackTrace is not null)
+                {
+                    var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split([Environment.NewLine], StringSplitOptions.None)
+                        .Select(s => "    " + s));
+                    report.AppendLine(stackTrace);
+                }
             }
 
             report.AppendLine();

@@ -334,7 +334,6 @@ namespace TestStack.BDDfy.Annotations
     [ExcludeFromCodeCoverage]
     public sealed class PublicAPIAttribute : MeansImplicitUseAttribute
     {
-        public PublicAPIAttribute() { }
         public PublicAPIAttribute([NotNull] string comment)
         {
             Comment = comment;
