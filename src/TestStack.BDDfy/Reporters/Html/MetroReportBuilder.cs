@@ -208,7 +208,8 @@ namespace TestStack.BDDfy.Reporters.Html
                 {
                     using (OpenTag(string.Format("<li class='step {0}'>", step.ExecutionOrder), HtmlTag.li))
                     {
-                        var titleLines = WebUtility.HtmlEncode(step.Title).Split([Environment.NewLine], StringSplitOptions.None);
+                        var titleLines = WebUtility.HtmlEncode(step.Title)?.Split([Environment.NewLine], StringSplitOptions.None) ?? [];
+                        if (titleLines.Length == 0) continue;
                         var title = titleLines[0];
 
                         AddLine(string.Format("<span>{0}</span>", title));

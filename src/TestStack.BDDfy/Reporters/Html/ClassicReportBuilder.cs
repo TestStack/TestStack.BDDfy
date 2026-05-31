@@ -187,7 +187,8 @@ namespace TestStack.BDDfy.Reporters.Html
                 {
                     using (OpenTag(string.Format("<li class='step {0}'>", step.ExecutionOrder), HtmlTag.li))
                     {
-                        var titleLines = WebUtility.HtmlEncode(step.Title).Split([Environment.NewLine], StringSplitOptions.None);
+                        var titleLines = WebUtility.HtmlEncode(step.Title)?.Split([Environment.NewLine], StringSplitOptions.None) ?? [];
+                        if (titleLines.Length == 0) continue;
 
                         var title = titleLines[0];
 
@@ -274,8 +275,9 @@ namespace TestStack.BDDfy.Reporters.Html
                     string canToggle = reportException ? "canToggle" : string.Empty;
 
                     using (OpenTag(string.Format("<li class='step {0} {1} {2} {3}' data-toggle-target='{4}' >", step.Result, stepClass, step.ExecutionOrder, canToggle, step.Id), HtmlTag.li))
-                    {
-                        var titleLines = step.Title.Split([Environment.NewLine], StringSplitOptions.None);
+                    {                        
+                        var titleLines = step.Title?.Split([Environment.NewLine], StringSplitOptions.None) ?? [];
+                        if (titleLines.Length == 0) continue;
                         var title = titleLines[0];
                         if (reportException)
                         {
