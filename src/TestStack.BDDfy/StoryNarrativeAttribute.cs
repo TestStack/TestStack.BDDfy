@@ -14,11 +14,11 @@ namespace TestStack.BDDfy
         public string? StoryUri { get; set; }    // link to story in task management system
         public string? ImageUri { get; set; }    // image to display for the story
 
-        protected static string? CleanseProperty(string text, string prefix)
+        protected static string? CleanseProperty(string? text, string prefix)
         {
-            var property = new StringBuilder();
-
             if (string.IsNullOrWhiteSpace(text)) return null;
+
+            var property = new StringBuilder();
 
             if (!text.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                 property.AppendFormat("{0} ", prefix);

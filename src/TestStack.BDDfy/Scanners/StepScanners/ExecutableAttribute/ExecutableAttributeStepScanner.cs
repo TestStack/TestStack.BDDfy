@@ -86,7 +86,7 @@ namespace TestStack.BDDfy
             if (executableAttribute == null)
                 yield break;
 
-            string stepTitle = executableAttribute.StepTitle;
+            var stepTitle = executableAttribute.StepTitle;
             if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(method.Name) is string humanizedName)
                 stepTitle = humanizedName;
 
@@ -94,18 +94,21 @@ namespace TestStack.BDDfy
             var methodParameters = method.GetParameters();
 
             var inputs = new List<object>();
-            var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
-
-            for (int i = 0; i < inputPlaceholders.Count; i++)
+            if(stepTitle is not null)
             {
-                var placeholder = inputPlaceholders[i].Groups[1].Value;
+                var inputPlaceholders = Regex.Matches(stepTitle, " <(\\w+)> ");
 
-                for (int j = 0; j < example.Headers.Length; j++)
+                for (int i = 0; i < inputPlaceholders.Count; i++)
                 {
-                    if (example.Values.ElementAt(j).MatchesName(placeholder) && example.GetValueOf(j, methodParameters[inputs.Count].ParameterType) is object value)
+                    var placeholder = inputPlaceholders[i].Groups[1].Value;
+
+                    for (int j = 0; j < example.Headers.Length; j++)
                     {
-                        inputs.Add(value);
-                        break;
+                        if (example.Values.ElementAt(j).MatchesName(placeholder) && example.GetValueOf(j, methodParameters[inputs.Count].ParameterType) is object value)
+                        {
+                            inputs.Add(value);
+                            break;
+                        }
                     }
                 }
             }

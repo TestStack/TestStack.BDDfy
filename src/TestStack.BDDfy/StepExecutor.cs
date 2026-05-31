@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace TestStack.BDDfy
@@ -10,13 +11,15 @@ namespace TestStack.BDDfy
         /// </summary>
         public virtual object Execute(Step step, object testObject)
         {
+            if(step.Action is null) throw new InvalidOperationException("Step action cannot be null");
+
             Stopwatch sw = Stopwatch.StartNew();
             try
             {
                 var result = step.Action(testObject);
                 sw.Stop();
                 step.Duration = sw.Elapsed;
-                return result;
+                return result ?? throw new InvalidOperationException("Step action returned null");
             }
             finally
             {

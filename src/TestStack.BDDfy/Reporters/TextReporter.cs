@@ -60,7 +60,10 @@ namespace TestStack.BDDfy.Reporters
                 WriteScenarioStep(scenario, GetStepWithLines(step), writeResults);
         }
 
-        private static Tuple<Step, string[]> GetStepWithLines(Step s) => Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
+        private static Tuple<Step, string[]> GetStepWithLines(Step s) 
+            => s.Title is null 
+            ? Tuple.Create<Step, string[]>(s, []) 
+            : Tuple.Create(s, s.Title.Replace("\r\n", "\n").Split('\n').Select(l => PrefixWithSpaceIfRequired(l, s.ExecutionOrder)).ToArray());
 
         private void WriteTags(List<string> tags)
         {

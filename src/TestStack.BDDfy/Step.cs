@@ -9,7 +9,7 @@ namespace TestStack.BDDfy
         private readonly StepTitle _stepTitle;
         private string? _title;
         public Step(
-            Func<object, object> action,
+            Func<object, object?> action,
             StepTitle stepTitle,
             bool asserts,
             ExecutionOrder executionOrder,
@@ -39,10 +39,10 @@ namespace TestStack.BDDfy
         }
 
         public string Id { get; private set; }
-        internal Func<object, object>? Action { get; set; }
+        internal Func<object, object?>? Action { get; set; }
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
-        public string Title => _title??= _stepTitle;
+        public string? Title => _title??= _stepTitle;
         public ExecutionOrder ExecutionOrder { get; private set; }
         public Result Result { get; set; }
         public Exception? Exception { get; set; }

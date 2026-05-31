@@ -5,4 +5,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Justification = "<Pending>", Scope = "namespace", Target = "~N:TestStack.BDDfy")]
+[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Justification = "We want most of the classes to sit in root namespace", Scope = "namespace", Target = "~N:TestStack.BDDfy")]
+[assembly: SuppressMessage("Design", "CA1069:Enums values should not be duplicated", Scope = "type", Target = "~T:TestStack.BDDfy.Annotations.ImplicitUseTargetFlags")]
+[assembly: SuppressMessage("Style", "IDE0130:Namespace does not match folder structure", Scope = "namespace", Target = "~N:TestStack.BDDfy.Annotations")]

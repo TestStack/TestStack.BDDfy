@@ -1,12 +1,17 @@
 using System.Collections.Generic;
-
+#if NET9_0_OR_GREATER
+using System.Threading;
+#endif
 namespace TestStack.BDDfy
 {
     public class TestContext : ITestContext
     {
         private static readonly Dictionary<object, ITestContext> ContextLookup = [];
-        private static readonly object _dictionaryLock = new();
-
+#if NET9_0_OR_GREATER
+        private static readonly Lock DictionaryLock = new();
+#else
+        private static readonly object DictionaryLock = new();
+#endif
         private TestContext(object testObject)
         {
             TestObject = testObject;
@@ -15,12 +20,11 @@ namespace TestStack.BDDfy
 
         public static void SetContext(object testObject, ITestContext context)
         {
-            var fluentBuilder = testObject as IFluentStepBuilder;
-            if (fluentBuilder != null) testObject = fluentBuilder.TestObject;
-
-            lock (_dictionaryLock)
+            if (testObject is IFluentStepBuilder fluentBuilder) testObject = fluentBuilder.TestObject;
+            
+            lock (DictionaryLock)
             {
-                if (ContextLookup.TryGetValue(testObject, out ITestContext oldContext))
+                if (ContextLookup.TryGetValue(testObject, out var oldContext))
                 {
                     context.Examples = oldContext.Examples;
                     ContextLookup[testObject] = new TestContext(testObject);
@@ -34,10 +38,9 @@ namespace TestStack.BDDfy
 
         public static ITestContext GetContext(object testObject)
         {
-            var fluentBuilder = testObject as IFluentStepBuilder;
-            if (fluentBuilder != null) testObject = fluentBuilder.TestObject;
+            if (testObject is IFluentStepBuilder fluentBuilder) testObject = fluentBuilder.TestObject;
 
-            lock (_dictionaryLock)
+            lock (DictionaryLock)
             {
                 if (!ContextLookup.ContainsKey(testObject))
                     ContextLookup.Add(testObject, new TestContext(testObject));
@@ -48,14 +51,14 @@ namespace TestStack.BDDfy
 
         public static void ClearContextFor(object testObject)
         {
-            lock (_dictionaryLock)
+            lock (DictionaryLock)
             {
                 ContextLookup.Remove(testObject);
             }
         }
 
-        public ExampleTable Examples { get; set; }
-        public IFluentScanner FluentScanner { get; set; }
+        public ExampleTable? Examples { get; set; }
+        public IFluentScanner? FluentScanner { get; set; }
         public List<string> Tags { get; private set; }
         public object TestObject { get; private set; }
     }

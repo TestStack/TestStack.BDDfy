@@ -53,7 +53,7 @@ namespace TestStack.BDDfy.Reporters
 
             public bool ShouldReport { get; set; }
 
-            public string Title { get; set; } = null!;
+            public string? Title { get; set; }
 
             public ExecutionOrder ExecutionOrder { get; set; }
 
