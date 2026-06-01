@@ -90,6 +90,18 @@ namespace TestStack.BDDfy.Tests
         }
 
         [Theory]
+        [InlineData("my__step_method", "my step method")]
+        [InlineData("Method__Name", "Method name")]
+        [InlineData("my__step__method", "My <step> method")]
+        [InlineData("Given__value__is_set", "Given <value> is set")]
+        [InlineData("a__b", "A b")]
+        [InlineData("step____name", "Step name")]
+        public void DoubleUnderscoreWithoutClosingPair_DoesNotCauseStackOverflow(string stepName, string expectedStepTitle)
+        {
+            Humanizer.Humanize(stepName).ShouldBe(expectedStepTitle);
+        }
+
+        [Theory]
         [InlineData("")]
         [InlineData(" ")]
         [InlineData(null)]
