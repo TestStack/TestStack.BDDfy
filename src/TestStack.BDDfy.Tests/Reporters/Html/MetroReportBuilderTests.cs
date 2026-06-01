@@ -1,3 +1,4 @@
+using SampleStories;
 using System;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
@@ -32,6 +33,23 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
                 {
                     RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
                 };
+
+            var sut = new MetroReportBuilder();
+            ReportApprover.Approve(model, sut);
+        }
+
+        [Fact]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldProduceExpectedHtmlWithExternalStories()
+        {
+            var story = new LameExternalStory();
+            var bddfiedStories = new[] { story.BDDfy() };
+
+            var reportModel = bddfiedStories.ToReportModel();
+            var model = new HtmlReportModel(reportModel)
+            {
+                RunDate = new DateTime(2014, 3, 25, 11, 30, 5)
+            };
 
             var sut = new MetroReportBuilder();
             ReportApprover.Approve(model, sut);
