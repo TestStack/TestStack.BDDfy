@@ -1,0 +1,6 @@
+
+Scenario: Türkçe adımlarla senaryo
+	Given fiyat belirlendiğinde 1.5
+	When indirim uygulandığında 0.25
+	Then toplam fiyat doğru olmalı 1.125
+

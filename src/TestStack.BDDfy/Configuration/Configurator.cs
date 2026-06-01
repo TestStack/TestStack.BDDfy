@@ -1,3 +1,4 @@
+using System.Globalization;
 using TestStack.BDDfy.Abstractions;
 using TestStack.BDDfy.Factories;
 
@@ -22,5 +23,7 @@ namespace TestStack.BDDfy.Configuration
         public static IFluentScannerFactory FluentScannerFactory { get; set; } = new DefaultFluentScannerFactory();
 
         public static IStepTitleFactory StepTitleFactory { get; set; } = new DefaultStepTitleFactory();
+
+        public static CultureInfo CultureInfo { get; set; } = CultureInfo.CurrentCulture;
     }
 }

@@ -219,16 +219,16 @@ namespace TestStack.BDDfy
                     var humanized = Configurator.Humanizer.Humanize(entry.Method.Name);
                     if (entry.Args.Length > 0)
                     {
-                        var argValues = entry.Args.Select(a => a.Value?.FlattenArray()).ToArray();
+                        var argValues = entry.Args.Select(a => a.Value?.FlattenArray().ToTextRepresentation() ?? ArgumentCleaningExtensions.NullValueRepresentation).ToArray();
                         humanized = humanized + " " + string.Join(", ", argValues);
                     }
                     return humanized;
                 });
 
                 var title = string.Join(" ", parts).Trim();
-                if (!string.IsNullOrEmpty(stepPrefix) && !title.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(stepPrefix) && !title.StartsWith(stepPrefix, ignoreCase: true, Configurator.CultureInfo))
                 {
-                    title = $"{stepPrefix} {title[..1].ToLower()}{title[1..]}";
+                    title = $"{stepPrefix} {title[..1].ToLower(Configurator.CultureInfo)}{title[1..]}";
                 }
                 return title;
             });

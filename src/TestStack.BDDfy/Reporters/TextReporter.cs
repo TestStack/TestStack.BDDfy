@@ -265,8 +265,8 @@ namespace TestStack.BDDfy.Reporters
 
         protected virtual void WriteLine(string? text = null) => _text.AppendLine(text);
 
-        protected virtual void WriteLine(string text, params object[] args) => _text.AppendLine(string.Format(text, args));
+        protected virtual void WriteLine(string text, params object[] args) => _text.AppendLine(string.Format(Configurator.CultureInfo, text, args));
 
-        protected virtual void Write(string text, params object[] args) => _text.AppendFormat(text, args);
+        protected virtual void Write(string text, params object[] args) => _text.AppendFormat(Configurator.CultureInfo, text, args);
     }
 }

@@ -55,6 +55,6 @@ namespace TestStack.BDDfy
 
         public override string ToString() => string.Join("{0}: {1}", Header, _underlyingValue);
 
-        public string GetValueAsString() => _underlyingValue.FlattenArray().ToString() ?? ArgumentCleaningExtensions.NullValueRepresentation;
+        public string GetValueAsString() => _underlyingValue.FlattenArray().ToTextRepresentation();
     }
 }
