@@ -83,6 +83,7 @@ Step-discovery attributes (`[Given]`, `[When]`, `[Then]`, etc.) are marked with 
 
 ## Authors
 
+* [Gurpreet Singh](https://github.com/SonOfSardaar)
 * [Mehdi Khalili](https://github.com/MehdiK)
 * [Michael Whelan](https://github.com/mwhelan)
 * [Jake Ginnivan](https://github.com/JakeGinnivan)
