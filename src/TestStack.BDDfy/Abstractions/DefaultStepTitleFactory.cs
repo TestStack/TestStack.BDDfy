@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
@@ -30,12 +28,12 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
 
             if (titleTemplate is not null)
             {
-                name = string.Format(titleTemplate, flatInputArray);
+                name = string.Format(Configurator.CultureInfo, titleTemplate, flatInputArray);
             }
 
             var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
 
-            if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
+            if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(Configurator.CultureInfo, stepTextTemplate, flatInputArray);
             else if (includeInputsInStepTitle.Value)
             {
                 var parameters = methodInfo.GetParameters();
@@ -61,7 +59,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
                         })
                         .ToArray();
 
-                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs.Select(o => o.ToTextRepresentation()));
             }
 
             return stepTitle.Trim();
@@ -76,11 +74,11 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
     {
         var stepTitle = (title ?? string.Empty).Trim();
 
-        if (!stepTitle.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
+        if (!stepTitle.StartsWith(stepPrefix, ignoreCase: true, Configurator.CultureInfo))
         {
-            if (stepTitle.Length == 0) return string.Format("{0} ", stepPrefix);
+            if (stepTitle.Length == 0) return string.Format(Configurator.CultureInfo, "{0} ", stepPrefix);
 
-            return string.Format("{0} {1}{2}", stepPrefix, stepTitle[..1].ToLower(), stepTitle[1..]);
+            return string.Format(Configurator.CultureInfo, "{0} {1}{2}", stepPrefix, stepTitle[..1].ToLower(Configurator.CultureInfo), stepTitle[1..]);
         }
 
         return stepTitle;

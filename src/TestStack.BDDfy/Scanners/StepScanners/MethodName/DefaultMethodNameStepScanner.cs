@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy
 {
     public class DefaultMethodNameStepScanner : MethodNameStepScanner

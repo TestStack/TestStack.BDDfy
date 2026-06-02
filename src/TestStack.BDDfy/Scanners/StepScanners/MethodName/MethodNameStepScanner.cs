@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
+﻿using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -142,11 +139,11 @@ namespace TestStack.BDDfy
             
             if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
             {
-                var stringFlatInputs = inputs.FlattenArrays().Select(i => i.ToString()).ToArray();
+                var stringFlatInputs = inputs.FlattenArrays().Select(i => i.ToTextRepresentation()).ToArray();
                 return methodName + " " + string.Join(", ", stringFlatInputs);
             }
 
-            return string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
+            return string.Format(Configurator.CultureInfo, argAttribute.StepTextTemplate, inputs.FlattenArrays());
         }
 
         private static string? GetStepTitleFromMethod(MethodInfo method, RunStepWithArgsAttribute? argAttribute, object testObject)

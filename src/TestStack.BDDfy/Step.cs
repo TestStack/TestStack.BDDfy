@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy

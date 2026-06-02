@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy.Reporters.Html
 {
     class HtmlReportTag(HtmlTag tag, Action<HtmlTag> closeTagAction): IDisposable

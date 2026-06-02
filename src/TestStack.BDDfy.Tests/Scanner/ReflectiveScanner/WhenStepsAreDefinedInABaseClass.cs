@@ -1,4 +1,3 @@
-using System.Linq;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 using Xunit;

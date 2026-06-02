@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]

@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace TestStack.BDDfy.Reporters.Readers
+﻿namespace TestStack.BDDfy.Reporters.Readers
 {
     public class FileReader : IFileReader
     {

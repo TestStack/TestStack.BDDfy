@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using TestStack.BDDfy.Reporters.Readers;
 using TestStack.BDDfy.Reporters.Writers;
 

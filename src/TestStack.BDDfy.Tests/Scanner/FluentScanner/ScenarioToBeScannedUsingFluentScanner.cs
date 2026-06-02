@@ -1,8 +1,5 @@
 ﻿using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {

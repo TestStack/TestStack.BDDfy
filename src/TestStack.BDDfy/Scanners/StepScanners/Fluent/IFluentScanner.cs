@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy
+﻿namespace TestStack.BDDfy
 {
     public interface IFluentScanner
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy.Processors
+﻿namespace TestStack.BDDfy.Processors
 {
     [Serializable]
     public class UnusedExampleException(ExampleValue unusedValue): Exception(

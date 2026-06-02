@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy.Tests.Exceptions
+﻿namespace TestStack.BDDfy.Tests.Exceptions
 {
     [Flags]
     public enum ThrowingMethods

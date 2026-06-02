@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute;
+﻿using NSubstitute;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Writers;

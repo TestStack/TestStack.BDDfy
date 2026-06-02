@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace TestStack.BDDfy.Samples.TicTacToe
 {
     public class Game

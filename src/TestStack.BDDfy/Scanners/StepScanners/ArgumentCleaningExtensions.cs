@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -29,5 +27,15 @@ namespace TestStack.BDDfy
             string s => s == "" ? "<empty>" : (s.Trim() == "" ? $"'{s}'" : s),
             _ => input
         };
+
+        internal static string ToTextRepresentation(this object? value)
+        {
+            return value switch
+            {
+                null => NullValueRepresentation,
+                IFormattable f => f.ToString(null, Configurator.CultureInfo),
+                _ => value.ToString() ?? NullValueRepresentation
+            };
+        }
     }
 }

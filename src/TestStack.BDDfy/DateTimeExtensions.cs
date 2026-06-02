@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
@@ -7,7 +6,7 @@ namespace TestStack.BDDfy
     {
         public static string AsShortDateTimeString(this DateTime dateTime)
         {
-            return dateTime.ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+            return dateTime.ToString(Configurator.CultureInfo.DateTimeFormat.ShortDatePattern, Configurator.CultureInfo);
         }
     }
 }

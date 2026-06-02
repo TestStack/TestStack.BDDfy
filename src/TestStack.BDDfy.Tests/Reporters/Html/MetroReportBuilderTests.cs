@@ -1,5 +1,4 @@
 using SampleStories;
-using System;
 using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Html;
