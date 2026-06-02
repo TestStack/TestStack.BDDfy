@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace TestStack.BDDfy.Tests.Reporters
 {
     using System.Linq;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.MarkDown;
 using Xunit;

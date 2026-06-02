@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy.Configuration
+﻿namespace TestStack.BDDfy.Configuration
 {
     public class ProcessorFactory : ComponentFactory<IProcessor, Story>
     {

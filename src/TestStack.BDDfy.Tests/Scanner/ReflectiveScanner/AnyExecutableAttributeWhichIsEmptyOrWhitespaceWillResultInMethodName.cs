@@ -1,6 +1,5 @@
 ﻿using Shouldly;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using TestStack.BDDfy.Configuration;
 using Xunit;
 

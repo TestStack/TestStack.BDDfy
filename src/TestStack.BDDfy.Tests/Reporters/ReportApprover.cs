@@ -9,8 +9,7 @@ namespace TestStack.BDDfy.Tests.Reporters
     {
         public static void Approve(FileReportModel model, IReportBuilder reportBuilder)
         {
-            // setting the culture to make sure the date is formatted the same on all machines
-            using (new TemporaryCulture("en-GB"))
+            using (new TemporaryCulture("en-GB", "en-GB"))
             {
                 var result = reportBuilder.CreateReport(model);
                 result.ShouldMatchApproved(c => c

@@ -1,5 +1,4 @@
-﻿using System;
-using TestStack.BDDfy.Reporters.Html;
+﻿using TestStack.BDDfy.Reporters.Html;
 
 namespace TestStack.BDDfy.Samples.Atm
 {

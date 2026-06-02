@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace TestStack.BDDfy.Reporters
+﻿namespace TestStack.BDDfy.Reporters
 {
     public class FileReportModel(ReportModel reportModel)
     {

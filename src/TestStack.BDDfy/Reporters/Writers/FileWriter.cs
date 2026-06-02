@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 namespace TestStack.BDDfy.Reporters.Writers
 {
     public class FileWriter : IReportWriter

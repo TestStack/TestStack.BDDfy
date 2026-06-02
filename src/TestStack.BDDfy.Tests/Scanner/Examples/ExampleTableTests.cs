@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.Examples

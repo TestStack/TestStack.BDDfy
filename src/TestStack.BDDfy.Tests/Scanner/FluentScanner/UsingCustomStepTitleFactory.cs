@@ -1,5 +1,4 @@
 ﻿using Shouldly;
-using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Abstractions;
 using TestStack.BDDfy.Configuration;

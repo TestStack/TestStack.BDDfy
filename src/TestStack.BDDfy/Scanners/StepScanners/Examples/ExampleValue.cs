@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy
 {
     public class ExampleValue(string header, object? underlyingValue, Func<int> getRowIndex)

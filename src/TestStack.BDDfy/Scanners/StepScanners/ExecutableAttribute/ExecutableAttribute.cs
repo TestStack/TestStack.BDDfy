@@ -1,5 +1,4 @@
-﻿using System;
-using TestStack.BDDfy.Annotations;
+﻿using TestStack.BDDfy.Annotations;
 
 namespace TestStack.BDDfy
 {

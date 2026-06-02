@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Exceptions

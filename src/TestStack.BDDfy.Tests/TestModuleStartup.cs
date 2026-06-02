@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
 

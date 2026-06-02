@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Html;

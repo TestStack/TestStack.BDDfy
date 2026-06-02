@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TestStack.BDDfy.Scanners;
+﻿using TestStack.BDDfy.Scanners;
 
 namespace TestStack.BDDfy.Configuration
 {

@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace TestStack.BDDfy.Reporters.Html
 {
     internal class HtmlReportResources

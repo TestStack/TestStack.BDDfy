@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TestStack.BDDfy.Reporters.Writers;
+﻿using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy.Reporters.Diagnostics
 {
