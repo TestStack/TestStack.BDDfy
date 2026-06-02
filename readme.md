@@ -1,134 +1,92 @@
 ![Build Status](https://github.com/TestStack/TestStack.BDDfy/actions/workflows/build.yml/badge.svg)
+[![NuGet](https://img.shields.io/nuget/v/TestStack.BDDfy.svg)](https://www.nuget.org/packages/TestStack.BDDfy)
 
-BDDfy is the simplest BDD framework to use, customize and extend! 
+# BDDfy
 
-A few quick facts about BDDfy:
- - It can run with any testing framework. Actually you don't have to use a testing framework at all. You can just apply it on your POCO (test) classes!
- - It does not need a separate test runner. You can use your runner of choice. For example, you can write your BDDfy tests using NUnit and run them using NUnit console or GUI runner, Resharper or TD.Net and regardless of the runner, you will get the same result.
- - It can run standalone scenarios. In other words, although BDDfy supports stories, you do not necessarily have to have or make up a story to use it. This is useful for developers who work in non-Agile environments but would like to get some decent testing experience.
- - You can use underscored or pascal or camel cased method names for your steps.
- - You do not have to explain your scenarios or stories or steps in string, but you can if you need full control over what gets printed into console and HTML reports.
- - BDDfy is very extensible: the core barely has any logic in it and delegates all its responsibilities to the extensions all of which are configurable; e.g. if you don't like the reports it generates, you can write your custom reporter in a few lines of code.
+**The simplest BDD framework for .NET — easy to use, customize, and extend.**
 
-## Usage
+## Key Features
 
-[![Join the chat at https://gitter.im/TestStack/TestStack.BDDfy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TestStack/TestStack.BDDfy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-To use BDDfy install TestStack.BDDfy nuget package: `Install-Package TestStack.BDDfy`
+- **Works with any test framework** — xUnit, NUnit, MSTest, or plain POCO classes
+- **No special test runner** — use your IDE, `dotnet test`, or any runner you prefer
+- **Two flexible APIs** — convention-based (reflective) or explicit (fluent)
+- **Rich reporting** — Console, HTML (Classic & Metro), Markdown, Text, and JSON diagnostics
+- **Data-driven scenarios** — `ExampleTable` for parameterized tests
+- **Stories are optional** — group scenarios under stories or run them standalone
+- **Fully extensible** — custom reporters, scanners, step executors, and humanizers
+- **Async support** — `Task`-returning and `async void` step methods
 
-This adds BDDfy assembly and its dependencies to your test project. If this is the first time you are using BDDfy you may want to check out the samples on NuGet. Just run `Install-Package TestStack.BDDfy.Samples` and it will load two fully working samples to your project.
+## Quick Start
 
-Now that you have installed BDDfy, write your first test (this test is borrowed from ATM sample that you can install using nuget package TestStack.BDDfy.Samples):
+```shell
+dotnet add package TestStack.BDDfy
+```
 
-````csharp
-    [Story(
-        AsA = "As an Account Holder",
-        IWant = "I want to withdraw cash from an ATM",
-        SoThat = "So that I can get money when the bank is closed")]
-    public class AccountHasInsufficientFund
-    {
-    	private Card _card;
-    	private Atm _atm;
-    	
-    	// You can override step text using executable attributes
-    	[Given(StepText = "Given the account balance is $10")]
-    	void GivenAccountHasEnoughBalance()
-    	{
-    	    _card = new Card(true, 10);
-    	}
-    	
-    	void AndGivenTheCardIsValid()
-    	{
-    	}
-    	
-    	void AndGivenTheMachineContainsEnoughMoney()
-    	{
-    	    _atm = new Atm(100);
-    	}
-    	
-    	void WhenTheAccountHolderRequests20()
-    	{
-    	    _atm.RequestMoney(_card, 20);
-    	}
-    	
-    	void ThenTheAtmShouldNotDispenseAnyMoney()
-    	{
-    	    Assert.AreEqual(0, _atm.DispenseValue);
-    	}
-    	
-    	void AndTheAtmShouldSayThereAreInsufficientFunds()
-    	{
-    	    Assert.AreEqual(DisplayMessage.InsufficientFunds, _atm.Message);
-    	}
-    	
-    	void AndTheCardShouldBeReturned()
-    	{
-    	    Assert.IsFalse(_atm.CardIsRetained);
-    	}
-    	
-    	[Fact]
-    	public void Execute()
-    	{
-    	    this.BDDfy();
-    	}
-    }
-````
+### Reflective API (convention-based)
 
-And this gives you a report like:
+Name your methods with Given/When/Then prefixes:
 
-	Story: Account holder withdraws cash
-    	As an Account Holder
-    	I want to withdraw cash from an ATM
-    	So that I can get money when the bank is closed
+```csharp
+public class ShouldRefundItem
+{
+	void GivenTheItemWasBoughtRecently() { }
+	void WhenTheCustomerReturnsIt() { }
+	void ThenARefundIsIssued() { }
 
-	Scenario: Account has insufficient fund
-    	Given the account balance is $10
-      		And the card is valid
-    	When the account holder requests $20
-    	Then the atm should not dispense any money
-      		And the atm should say there are insufficient funds
-      		And the card should be returned
-
-This is just the console report. Have a look at your output folder and you should see a nice html report too.
-
-If you want more control you can also use BDDfy's Fluent API. Here is another example done using the Fluent API:
-
-````csharp
 	[Fact]
-	public void CardHasBeenDisabled()
-	{
-	    this.Given(s => s.GivenTheCardIsDisabled())
-	        .When(s => s.WhenTheAccountHolderRequests(20))
-	        .Then(s => s.CardIsRetained(true), "Then the ATM should retain the card")
-	            .And(s => s.AndTheAtmShouldSayTheCardHasBeenRetained())
-	        .BDDfy(htmlReportName: "ATM");
-	}
-````
+	public void Execute() => this.BDDfy();
+}
+```
 
-which gives you a report like:
+### Fluent API (explicit)
 
-	Scenario: Card has been disabled
-    	Given the card is disabled
-    	When the account holder requests 20
-    	Then the ATM should retain the card
-      		And the atm should say the card has been retained
+```csharp
+[Fact]
+public void CardHasBeenDisabled()
+{
+	this.Given(s => s.GivenTheCardIsDisabled())
+		.When(s => s.WhenTheAccountHolderRequests(20))
+		.Then(s => s.ThenTheAtmRetainsTheCard())
+		.BDDfy();
+}
+```
 
-## IDE annotations
+Both produce readable reports:
 
-This repository contains a small set of in-repo code-analysis annotations (see `src/TestStack.BDDfy/Properties/Annotations.cs`).
+```
+Scenario: Should refund item
+	Given the item was bought recently
+	When the customer returns it
+	Then a refund is issued
+```
 
-Notably, the attribute classes used for step discovery (for example `ExecutableAttribute` and the GWT attribute variants) are marked with a local `MeansImplicitUse` attribute. That makes methods decorated with `[Executable]` (or `[Given]`, `[When]`, `[Then]`, etc.) be treated as "used implicitly" by IDEs such as ReSharper or Rider. The effect: you won't see "unused" inspections on step methods even though they're invoked via reflection at runtime.
+## 📖 Documentation
 
-If you prefer to use the official `JetBrains.Annotations` NuGet package instead of the in-repo annotations, you can replace the local attributes and add the package as a development-only dependency (use `PrivateAssets="all"` on the package reference so it doesn't become transitive).
+Full documentation is available in the [`docs/`](docs/) folder:
 
+| Guide | Description |
+|-------|-------------|
+| [Getting Started](docs/getting-started.md) | Installation and first scenario |
+| [Reflective API](docs/reflective-api.md) | Method naming conventions and executable attributes |
+| [Fluent API](docs/fluent-api.md) | Chainable Given/When/Then builder |
+| [Stories](docs/stories.md) | Story metadata, shared stories, standalone scenarios |
+| [Examples](docs/examples.md) | Data-driven scenarios with ExampleTable |
+| [Reporters](docs/reporters.md) | Console, HTML, Markdown, Text, and Diagnostics reporters |
+| [Configuration](docs/configuration.md) | Customizing the BDDfy pipeline |
+| [Extensibility](docs/extensibility.md) | Custom reporters, scanners, and step executors |
+| [Async Support](docs/async-support.md) | Async Task and async void steps |
+| [Tags](docs/tags.md) | Tagging and filtering scenarios |
 
-This is only the tip of iceberg. Absolutely everything you do with BDDfy is extensible and customizable. 
-You might see full documentation of BDDfy on the [Read The Docs](https://teststackbddfy.readthedocs.io).
-Oh and while you are there don't forget to checkout other cool projects from [TestStack](http://www.teststack.net/).
+## IDE Annotations
 
-## Authors 
+Step-discovery attributes (`[Given]`, `[When]`, `[Then]`, etc.) are marked with `MeansImplicitUse` so IDEs like ReSharper and Rider won't flag step methods as unused. See [`src/TestStack.BDDfy/Properties/Annotations.cs`](src/TestStack.BDDfy/Properties/Annotations.cs) for details.
+
+## Authors
+
 * [Mehdi Khalili](https://github.com/MehdiK)
 * [Michael Whelan](https://github.com/mwhelan)
 * [Jake Ginnivan](https://github.com/JakeGinnivan)
 
 ## License
-BDDfy is released under the MIT License. See the bundled license.txt file for details.
+
+BDDfy is released under the MIT License. See the bundled [license.txt](license.txt) file for details.
