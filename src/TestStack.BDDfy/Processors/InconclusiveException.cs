@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy.Processors
+﻿namespace TestStack.BDDfy.Processors
 {
     public class InconclusiveException : Exception
     {

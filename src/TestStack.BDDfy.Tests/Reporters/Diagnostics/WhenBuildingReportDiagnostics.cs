@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Shouldly;
+﻿using Shouldly;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using Xunit;

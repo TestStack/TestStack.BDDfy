@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Shouldly;
+﻿using Shouldly;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 using TestStack.BDDfy.Reporters;

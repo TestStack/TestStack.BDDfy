@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using TestStack.BDDfy.Configuration;
+﻿using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
 
 namespace TestStack.BDDfy

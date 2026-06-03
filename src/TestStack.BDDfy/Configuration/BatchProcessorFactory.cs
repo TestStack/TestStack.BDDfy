@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace TestStack.BDDfy.Configuration
 {
     public class BatchProcessorFactory : ComponentFactory<IBatchProcessor, IEnumerable<Story>>

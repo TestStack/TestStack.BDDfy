@@ -1,0 +1,17 @@
+﻿
+Scenario: All variations with include inputs disabled
+	Given the user is logged in
+	  And the shopping cart contains 3 items
+	  And the discount code SAVE20 is applied
+	  And the payment gateway is available
+	  And the shipping address is set to London
+	  And the order total is calculated
+	  And the delivery fee is 4.99
+	When the user checks out
+	  And the payment is processed
+	Then the order is confirmed
+	  And verify order totals
+	  And verify order totals
+	  And the inventory is reduced by 1 of 2 items
+	  And a confirmation email is sent
+

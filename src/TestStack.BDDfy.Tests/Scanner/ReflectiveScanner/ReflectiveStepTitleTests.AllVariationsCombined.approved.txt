@@ -1,0 +1,15 @@
+﻿
+Scenario: All variations combined
+	Given the system is in maintenance mode
+	  And the database connection pool is initialized
+	  And the cache has 50 entries preloaded
+	  And the retry policy allows 3 attempts
+	When the request is sent to /api/orders /api/orders
+	  And the timeout is set to 5000ms
+	  And the health check endpoint is called
+	Then the service returns a 503 status
+	  And the response includes a retry-after header
+	  And verify response headers cache-control, no-store
+	  And the response body contains error: Service Unavailable
+	  And the response body contains retryAfter: 300
+

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace TestStack.BDDfy.Reporters
+﻿namespace TestStack.BDDfy.Reporters
 {
     public class FileHelpers
     {

@@ -1,4 +1,3 @@
-using System;
 using Shouldly;
 using TestStack.BDDfy.Reporters.Writers;
 using Xunit;

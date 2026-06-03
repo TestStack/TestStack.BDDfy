@@ -1,22 +1,15 @@
-using System;
-
 namespace TestStack.BDDfy
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class StepTitleAttribute : Attribute
+    
+    public class StepTitleAttribute(string stepTitle): Attribute
     {
-        public StepTitleAttribute(string stepTitle)
-        {
-            StepTitle = stepTitle;
-        }
-        
-        public StepTitleAttribute(string stepTitle, bool includeInputsInStepTitle)
+        public StepTitleAttribute(string stepTitle, bool includeInputsInStepTitle): this(stepTitle)
         {
             IncludeInputsInStepTitle = includeInputsInStepTitle;
-            StepTitle = stepTitle;
         }
 
-        public string StepTitle { get; private set; }
+        public string StepTitle { get; private set; } = stepTitle;
 
         public bool? IncludeInputsInStepTitle { get; private set; }
     }

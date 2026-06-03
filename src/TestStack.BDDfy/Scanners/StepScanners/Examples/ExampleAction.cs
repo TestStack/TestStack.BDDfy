@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy
+﻿namespace TestStack.BDDfy
 {
     /// <summary>
     /// Allows examples to contain actions which can be performed

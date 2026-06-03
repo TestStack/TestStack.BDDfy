@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
@@ -8,6 +6,7 @@ namespace TestStack.BDDfy.Abstractions;
 internal class DefaultStepTitleFactory : IStepTitleFactory
 {
     public bool IncludeInputsInStepTitle { get; set; } = true;
+    public bool AddGherkinPrefixToSecondarySteps { get; set; } = true;
 
     public StepTitle Create(
         string? stepTextTemplate,
@@ -20,23 +19,35 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
         string createTitle()
         {
             var flatInputArray = inputArguments.Select(o => o.Value!).FlattenArrays();
-            var name = methodInfo.Name;
             var titleAttribute = methodInfo.GetCustomAttribute<StepTitleAttribute>(true);
             var executableAttribute = methodInfo.GetCustomAttribute<ExecutableAttribute>(true);
 
-            includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle ?? IncludeInputsInStepTitle;
+            var callerSuppliedTemplate = stepTextTemplate != null;
+            includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle;
+            stepTextTemplate ??= titleAttribute != null
+                ? (NullIfEmpty(titleAttribute.StepTitle) ?? "")
+                : NullIfEmpty(executableAttribute?.StepTitle);
+            var stepTextTemplateWasNotSupplied = string.IsNullOrWhiteSpace(stepTextTemplate);
 
-            var titleTemplate = titleAttribute?.StepTitle ?? executableAttribute?.StepTitle;
+            stepTextTemplate ??= methodInfo.Name;
 
-            if (titleTemplate is not null)
-            {
-                name = string.Format(titleTemplate, flatInputArray);
-            }
+            var formattedStepTitle = string.Format(Configurator.CultureInfo, stepTextTemplate, flatInputArray);
+            var stepTitle = stepTextTemplateWasNotSupplied ? Configurator.Humanizer.Humanize(formattedStepTitle) : formattedStepTitle;
 
-            var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
+            var shouldAddPrefix = stepTextTemplateWasNotSupplied
+                || IsPrimaryPrefix(stepPrefix)
+                || (!callerSuppliedTemplate && AddGherkinPrefixToSecondarySteps);
 
-            if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(stepTextTemplate, flatInputArray);
-            else if (includeInputsInStepTitle.Value)
+            if (shouldAddPrefix)
+                stepTitle = AppendPrefix(stepTitle, stepPrefix);
+
+            if (stepTextTemplate != formattedStepTitle && titleAttribute?.IncludeInputsInStepTitle is null)
+                includeInputsInStepTitle??= false;
+
+            if (stepTitle!.Contains('<') && stepTitle.Contains('>') && titleAttribute?.IncludeInputsInStepTitle is null)
+                includeInputsInStepTitle??=false;
+
+            if (includeInputsInStepTitle ?? IncludeInputsInStepTitle)
             {
                 var parameters = methodInfo.GetParameters();
                 var stringFlatInputs =
@@ -61,7 +72,7 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
                         })
                         .ToArray();
 
-                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs);
+                stepTitle = stepTitle + " " + string.Join(", ", stringFlatInputs.Select(o => o.ToTextRepresentation()));
             }
 
             return stepTitle.Trim();
@@ -76,13 +87,18 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
     {
         var stepTitle = (title ?? string.Empty).Trim();
 
-        if (!stepTitle.StartsWith(stepPrefix, StringComparison.CurrentCultureIgnoreCase))
+        if (!stepTitle.StartsWith(stepPrefix, ignoreCase: true, Configurator.CultureInfo))
         {
-            if (stepTitle.Length == 0) return string.Format("{0} ", stepPrefix);
+            if (stepTitle.Length == 0) return string.Format(Configurator.CultureInfo, "{0} ", stepPrefix);
 
-            return string.Format("{0} {1}{2}", stepPrefix, stepTitle[..1].ToLower(), stepTitle[1..]);
+            return string.Format(Configurator.CultureInfo, "{0} {1}{2}", stepPrefix, stepTitle[..1].ToLower(Configurator.CultureInfo), stepTitle[1..]);
         }
 
         return stepTitle;
     }
+
+    private static string? NullIfEmpty(string? value) => string.IsNullOrWhiteSpace(value) ? null : value;
+
+    private static bool IsPrimaryPrefix(string prefix) =>
+        prefix is "Given" or "When" or "Then";
 }

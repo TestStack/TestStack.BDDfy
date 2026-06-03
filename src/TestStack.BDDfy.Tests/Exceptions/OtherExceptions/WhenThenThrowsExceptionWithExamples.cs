@@ -1,6 +1,4 @@
 using Shouldly;
-using System;
-using System.Linq;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Exceptions.OtherExceptions

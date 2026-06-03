@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Shouldly;
+﻿using Shouldly;
 using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Tests.Concurrency;
 using Xunit;
@@ -22,7 +21,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .Given(_=>something.Sub.GivenWithStepTitleAndArgument(1))
                     .When(_ => something.Sub.ActionWithArgument("foo"))
                     .And(_ => something.Sub.ActionWithArgumentsDisabledInTitle("foo"))
-                    .And(_ => something.Sub.ActionWithTemplateTitleAndArguments("foo"))
+                    .And(_ => something.Sub.ActionWithTemplateTitleAndArgumentsDisabled("foo"))
                     .And(_ => something.Sub.ActionWithArgumentsEnabledInTitle("foo"))
                     .BDDfy();
 
@@ -60,7 +59,10 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 .Then(_ => ThenTitleHas(AMethodCall()))
                 .And(_ => something.Sub.ActionWithArgument("foo"))
                 .And(_ => something.Sub.ActionWithArgumentsDisabledInTitle("foo"))
-                .And(_ => something.Sub.ActionWithTemplateTitleAndArguments("foo"))
+                .And(_ => something.Sub.ActionWithArgumentsEnabledInTitle("foo"))
+                .And(_ => something.Sub.ActionWithTemplateTitleAndArgumentsDisabled("foo"))
+                .And(_ => something.Sub.ActionWithTemplateTitleAndArgumentsEnabled("foo"))
+                .And(_ => something.Sub.ActionWithStepTitleWithArgument("foo"))
                 .BDDfy();
 
             var actualTitles = story.Scenarios.Single().Steps.Select(s => s.Title).ToArray();
@@ -72,6 +74,9 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                 "Then title has Mutated state",
                 "And with arg foo",
                 "And with arg",
+                "And with arg foo",
+                "And with foo arg",
+                "And with foo arg foo",
                 "And with foo arg"
             };
 
@@ -116,7 +121,18 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
             }
 
             [StepTitle("With {0} arg", false)]
-            public void ActionWithTemplateTitleAndArguments(string arg)
+            public void ActionWithTemplateTitleAndArgumentsDisabled(string arg)
+            {
+            
+            }
+
+            [StepTitle("With {0} arg", true)]
+            public void ActionWithTemplateTitleAndArgumentsEnabled(string arg)
+            {
+            }
+
+            [StepTitle("With {0} arg")]
+            public void ActionWithStepTitleWithArgument(string value)
             {
             }
 

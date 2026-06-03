@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Shouldly;
 
 namespace TestStack.BDDfy.Samples.TicTacToe

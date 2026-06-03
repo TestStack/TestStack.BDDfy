@@ -1,15 +1,12 @@
 ﻿using Shouldly;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     [Story]
     class ScenarioToBeScannedUsingFluentScanner
     {
-        internal const string InputDateStepTitleTemplate = "The provided date is {0:MMM d yyyy}";
+        internal const string InputDateStepTitleTemplate = "And the provided date is {0:MMM d yyyy}";
         public static readonly DateTime InputDate = DateTime.Parse("2011-10-20", new CultureInfo("en-AU"));
 
         private string[] _input1 = null!;

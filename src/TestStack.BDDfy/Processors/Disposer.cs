@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace TestStack.BDDfy.Processors
 {
     public class Disposer : IProcessor

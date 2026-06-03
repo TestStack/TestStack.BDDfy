@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
+﻿using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -68,13 +65,13 @@ namespace TestStack.BDDfy
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
 
                 if (argAttributes.Length == 0)
-                    yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, [], null);
+                    yield return GetStep(testContext, matcher, method, returnsItsText, [], null);
 
                 foreach (var argAttribute in argAttributes)
                 {
                     var inputs = argAttribute.InputArguments;
                     if (inputs != null && inputs.Length > 0)
-                        yield return GetStep(testContext.TestObject, matcher, method, returnsItsText, inputs, argAttribute);
+                        yield return GetStep(testContext, matcher, method, returnsItsText, inputs, argAttribute);
                 }
 
                 yield break;
@@ -86,15 +83,14 @@ namespace TestStack.BDDfy
             foreach (var matcher in _matchers.Where(x=> x.IsMethodOfInterest(method.Name)))
             {
                 var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
-                return [GetStep(matcher, method, returnsItsText, example)];
+                return [GetStep(testContext, matcher, method, returnsItsText, example)];
             }
 
             return [];
         }
 
-        private Step GetStep(MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
+        private Step GetStep(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
         {
-            var stepMethodName = GetStepTitleFromMethodName(method, null);
             var methodParameters = method.GetParameters();
             var inputs = new object[methodParameters.Length];
 
@@ -110,43 +106,54 @@ namespace TestStack.BDDfy
                 }
             }
 
+            var stepTitle = CreateStepTitle(testContext, matcher, method, null, inputs);
             var stepAction = GetStepAction(method, [.. inputs], returnsItsText);
-            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []);
+            return new Step(stepAction, stepTitle, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []) { AllowConsecutivePromotion = true };
         }
 
-        private Step GetStep(object testObject, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs, RunStepWithArgsAttribute? argAttribute)
+        private Step GetStep(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs, RunStepWithArgsAttribute? argAttribute)
         {
-            var stepMethodName = GetStepTitle(method, testObject, argAttribute, returnsItsText);
+            var stepTitle = GetStepTitle(testContext, matcher, method, argAttribute, returnsItsText, inputs);
             var stepAction = GetStepAction(method, inputs, returnsItsText);
-            return new Step(stepAction, new StepTitle(stepMethodName), matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []);
+            return new Step(stepAction, stepTitle, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []) { AllowConsecutivePromotion = true };
         }
 
-        private string GetStepTitle(MethodInfo method, object testObject, RunStepWithArgsAttribute? argAttribute, bool returnsItsText)
+        private StepTitle GetStepTitle(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, RunStepWithArgsAttribute? argAttribute, bool returnsItsText, object[] inputs)
         {
-            string stepTitleFromMethodName() => GetStepTitleFromMethodName(method, argAttribute);
-
             if (returnsItsText)
-                return GetStepTitleFromMethod(method, argAttribute, testObject) ?? stepTitleFromMethodName();
-
-            return stepTitleFromMethodName();
-        }
-
-        private string GetStepTitleFromMethodName(MethodInfo method, RunStepWithArgsAttribute? argAttribute)
-        {
-            var methodName = _stepTextTransformer(Configurator.Humanizer.Humanize(method.Name));
-            if (argAttribute is null) return methodName;
-
-            var inputs = argAttribute.InputArguments;
-
-            if (argAttribute is null) return methodName;
-            
-            if (string.IsNullOrEmpty(argAttribute.StepTextTemplate))
             {
-                var stringFlatInputs = inputs.FlattenArrays().Select(i => i.ToString()).ToArray();
-                return methodName + " " + string.Join(", ", stringFlatInputs);
+                var titleFromMethod = GetStepTitleFromMethod(method, argAttribute, testContext.TestObject);
+                if (titleFromMethod != null)
+                    return new StepTitle(titleFromMethod);
             }
 
-            return string.Format(argAttribute.StepTextTemplate, inputs.FlattenArrays());
+            return CreateStepTitle(testContext, matcher, method, argAttribute, inputs);
+        }
+
+        private StepTitle CreateStepTitle(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, RunStepWithArgsAttribute? argAttribute, object[] inputs)
+        {
+            var stepTextTemplate = argAttribute?.StepTextTemplate;
+            var stepArgs = inputs.Select(v => new StepArgument(() => v)).ToArray();
+
+            // If there's a StepTitle attribute, let the factory handle it (no prefix since user provided explicit title)
+            var titleAttribute = method.GetCustomAttribute<StepTitleAttribute>(true);
+            if (titleAttribute != null)
+            {
+                var hasExplicitText = !string.IsNullOrWhiteSpace(titleAttribute.StepTitle) || !string.IsNullOrEmpty(stepTextTemplate);
+                var titlePrefix = hasExplicitText ? "" : matcher.StepPrefix;
+                return Configurator.StepTitleFactory.Create(stepTextTemplate, null, method, stepArgs, testContext, titlePrefix);
+            }
+
+            // If there's an explicit StepTextTemplate from RunStepWithArgs, use it without prefix
+            // (the user is providing the complete title)
+            if (!string.IsNullOrEmpty(stepTextTemplate))
+            {
+                return Configurator.StepTitleFactory.Create(stepTextTemplate, null, method, stepArgs, testContext, "");
+            }
+
+            // Naming convention fallback: humanize + cleanup transform, pass as pre-built title
+            var humanized = _stepTextTransformer(Configurator.Humanizer.Humanize(method.Name));
+            return Configurator.StepTitleFactory.Create(humanized, null, method, stepArgs, testContext, matcher.StepPrefix);
         }
 
         private static string? GetStepTitleFromMethod(MethodInfo method, RunStepWithArgsAttribute? argAttribute, object testObject)

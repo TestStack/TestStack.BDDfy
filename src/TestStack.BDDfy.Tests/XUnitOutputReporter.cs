@@ -1,4 +1,3 @@
-using System;
 using TestStack.BDDfy.Reporters;
 using Xunit;
 

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using TestStack.BDDfy.Tests.Stories;
+﻿using TestStack.BDDfy.Tests.Stories;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Concurrency

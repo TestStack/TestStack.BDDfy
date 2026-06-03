@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestStack.BDDfy.Configuration
+﻿namespace TestStack.BDDfy.Configuration
 {
     public abstract class ComponentFactory<TComponent, TMaterial> where TComponent : class 
     {

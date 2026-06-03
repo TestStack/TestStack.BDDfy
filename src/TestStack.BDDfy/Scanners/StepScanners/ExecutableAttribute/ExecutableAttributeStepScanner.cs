@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using TestStack.BDDfy.Configuration;
@@ -32,15 +30,17 @@ namespace TestStack.BDDfy
             if (executableAttribute == null)
                 yield break;
 
-            var stepTitle = new StepTitle(executableAttribute.StepTitle);
-            if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(candidateMethod.Name) is string humanizedName)
-                stepTitle = new StepTitle(humanizedName);
-
             var shouldReport = executableAttribute.ShouldReport;
+            var stepPrefix = GetStepPrefix(executableAttribute);
 
             var runStepWithArgsAttributes = (RunStepWithArgsAttribute[])candidateMethod.GetCustomAttributes(typeof(RunStepWithArgsAttribute), true);
             if (runStepWithArgsAttributes.Length == 0)
             {
+                var stepArgs = Array.Empty<StepArgument>();
+                var template = string.IsNullOrWhiteSpace(executableAttribute.StepTitle) ? null : executableAttribute.StepTitle;
+                var isPrimaryStep = IsPrimaryExecutionOrder(executableAttribute.ExecutionOrder);
+                var effectivePrefix = template != null && !isPrimaryStep ? "" : stepPrefix;
+                var stepTitle = Configurator.StepTitleFactory.Create(template, null, candidateMethod, stepArgs, testContext, effectivePrefix);
                 var stepAction = StepActionFactory.GetStepAction(candidateMethod, []);
                 yield return new Step(
                     stepAction,
@@ -50,32 +50,34 @@ namespace TestStack.BDDfy
                     shouldReport,
                     [])
                 {
-                    ExecutionSubOrder = executableAttribute.Order
+                    ExecutionSubOrder = executableAttribute.Order,
+                    AllowConsecutivePromotion = true
                 };
             }
 
             foreach (var runStepWithArgsAttribute in runStepWithArgsAttributes)
             {
                 var inputArguments = runStepWithArgsAttribute.InputArguments;
-                var flatInput = inputArguments.FlattenArrays();
-                var stringFlatInputs = flatInput.Select(i => i.ToString()).ToArray();
-                var methodName = stepTitle + " " + string.Join(", ", stringFlatInputs);
-
-                if (!string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate))
-                    methodName = string.Format(runStepWithArgsAttribute.StepTextTemplate, flatInput);
-                else if (!string.IsNullOrEmpty(executableAttribute.StepTitle))
-                    methodName = string.Format(executableAttribute.StepTitle, flatInput);
+                var hasRunStepTemplate = !string.IsNullOrEmpty(runStepWithArgsAttribute.StepTextTemplate);
+                var stepTextTemplate = hasRunStepTemplate
+                    ? runStepWithArgsAttribute.StepTextTemplate
+                    : (string.IsNullOrWhiteSpace(executableAttribute.StepTitle) ? null : executableAttribute.StepTitle);
+                var stepArgs = inputArguments.Select(v => new StepArgument(() => v)).ToArray();
+                var isPrimaryStep = IsPrimaryExecutionOrder(executableAttribute.ExecutionOrder);
+                var effectivePrefix = stepTextTemplate != null && (!isPrimaryStep || hasRunStepTemplate) ? "" : stepPrefix;
+                var stepTitle = Configurator.StepTitleFactory.Create(stepTextTemplate, null, candidateMethod, stepArgs, testContext, effectivePrefix);
 
                 var stepAction = StepActionFactory.GetStepAction(candidateMethod, inputArguments);
                 yield return new Step(
                     stepAction,
-                    new StepTitle(methodName),
+                    stepTitle,
                     executableAttribute.Asserts,
                     executableAttribute.ExecutionOrder,
                     shouldReport,
                     [])
                 {
-                    ExecutionSubOrder = executableAttribute.Order
+                    ExecutionSubOrder = executableAttribute.Order,
+                    AllowConsecutivePromotion = true
                 };
             }
         }
@@ -86,8 +88,10 @@ namespace TestStack.BDDfy
             if (executableAttribute == null)
                 yield break;
 
+            var stepPrefix = GetStepPrefix(executableAttribute);
+            var hasExplicitTitle = !string.IsNullOrWhiteSpace(executableAttribute.StepTitle);
             var stepTitle = executableAttribute.StepTitle;
-            if (string.IsNullOrWhiteSpace(stepTitle) && Configurator.Humanizer.Humanize(method.Name) is string humanizedName)
+            if (!hasExplicitTitle && Configurator.Humanizer.Humanize(method.Name) is string humanizedName)
                 stepTitle = humanizedName;
 
             var shouldReport = executableAttribute.ShouldReport;
@@ -114,13 +118,36 @@ namespace TestStack.BDDfy
             }
 
             var stepAction = StepActionFactory.GetStepAction(method, [.. inputs]);
+            var isPrimaryStep = IsPrimaryExecutionOrder(executableAttribute.ExecutionOrder);
+            var effectivePrefix = hasExplicitTitle && !isPrimaryStep ? "" : stepPrefix;
+            var finalTitle = Configurator.StepTitleFactory.Create(stepTitle ?? string.Empty, effectivePrefix, testContext);
             yield return new Step(
                 stepAction,
-                new StepTitle(stepTitle),
+                finalTitle,
                 executableAttribute.Asserts,
                 executableAttribute.ExecutionOrder,
                 shouldReport,
-                []);
+                [])
+            {
+                AllowConsecutivePromotion = true
+            };
         }
+
+        private static string GetStepPrefix(ExecutableAttribute attribute) => attribute switch
+        {
+            GivenAttribute => "Given",
+            AndGivenAttribute => "And",
+            ButGivenAttribute => "But",
+            WhenAttribute => "When",
+            AndWhenAttribute => "And",
+            ButWhenAttribute => "But",
+            ThenAttribute => "Then",
+            AndThenAttribute => "And",
+            ButAttribute => "But",
+            _ => ""
+        };
+
+        private static bool IsPrimaryExecutionOrder(ExecutionOrder order) =>
+            order is ExecutionOrder.SetupState or ExecutionOrder.Transition or ExecutionOrder.Assertion;
     }
 }

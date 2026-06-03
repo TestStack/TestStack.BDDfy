@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace TestStack.BDDfy.Processors
+﻿namespace TestStack.BDDfy.Processors
 {
     public class StoryCache : IProcessor
     {

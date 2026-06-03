@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Shouldly;
 using TestStack.BDDfy.Configuration;
@@ -88,19 +85,17 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void AndGiven()
         {
-            var step = _steps.Single(s => s.Title == "Some other part of the given");
+            var step = _steps.Single(s => s.Title == "And some other part of the given");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
             step.Asserts.ShouldBe(false);
-            step.Title.ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.SomeOtherPartOfTheGiven()));
         }
 
         [Fact]
         public void ButGiven()
         {
-            var step = _steps.Single(s => s.Title == "Setup should avoid somethings");
+            var step = _steps.Single(s => s.Title == "But setup should avoid somethings");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveSetupState);
             step.Asserts.ShouldBe(false);
-            step.Title.ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.SetupShouldAvoidSomethings()));
         }
 
         [Fact]
@@ -115,18 +110,16 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void TheOtherPartOfWhen()
         {
-            var step = _steps.Single(s => s.Title == "The other part of when");
+            var step = _steps.Single(s => s.Title == "And the other part of when");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
-            step.Title.ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.TheOtherPartOfWhen()));
             step.Asserts.ShouldBe(false);
         }
 
         [Fact]
         public void ButWhen()
         {
-            var step = _steps.Single(s => s.Title == "And something has not happened");
+            var step = _steps.Single(s => s.Title == "But and something has not happened");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveTransition);
-            step.Title.ShouldBe(GetStepTextFromMethodName(() => _typeWithAttribute.AndSomethingHasNotHappened()));
             step.Asserts.ShouldBe(false);
         }
 
@@ -142,16 +135,15 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void AndThen()
         {
-            var step = _steps.Single(s => s.Title == TypeWithAttribute.MethodTextForAndThen);
+            var step = _steps.Single(s => s.Title == "The text for the AndThen part");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
             step.Asserts.ShouldBe(true);
-            step.Title!.Trim().ShouldBe(TypeWithAttribute.MethodTextForAndThen);
         }
 
         [Fact]
         public void But()
         {
-            var step = _steps.Single(s => s.Title == "I dont want this to be true");
+            var step = _steps.Single(s => s.Title == "But i dont want this to be true");
             step.ExecutionOrder.ShouldBe(ExecutionOrder.ConsecutiveAssertion);
             step.Asserts.ShouldBe(true);
         }

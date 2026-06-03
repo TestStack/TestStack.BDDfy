@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using TestStack.BDDfy.Reporters.Serializers;
+﻿using TestStack.BDDfy.Reporters.Serializers;
 
 namespace TestStack.BDDfy.Reporters.Diagnostics
 {

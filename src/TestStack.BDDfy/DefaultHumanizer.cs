@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
@@ -48,7 +46,7 @@ namespace TestStack.BDDfy
         {
             var sentence = PascalCaseRegex.Replace(input, " $1");
             sentence = sentence.Replace("< ", "<").Replace(" >",">");
-            var final = char.ToUpper(sentence[0]) + sentence[1..].ToLower();
+            var final = char.ToUpper(sentence[0], Configurator.CultureInfo) + sentence[1..].ToLower(Configurator.CultureInfo);
             return final;
         }
     }

@@ -5,6 +5,7 @@ namespace TestStack.BDDfy.Abstractions;
 public interface IStepTitleFactory
 {
     bool IncludeInputsInStepTitle { get; set; }
+    bool AddGherkinPrefixToSecondarySteps { get; set; }
 
     public StepTitle Create(
         string? stepTextTemplate,

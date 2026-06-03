@@ -1,5 +1,4 @@
 ﻿using Shouldly;
-using System.Linq;
 using System.Reflection;
 using TestStack.BDDfy.Abstractions;
 using TestStack.BDDfy.Configuration;
@@ -14,6 +13,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         private class CustomStepTitleFactory : IStepTitleFactory
         {
             public bool IncludeInputsInStepTitle { get; set; } = true;
+            public bool AddGherkinPrefixToSecondarySteps { get; set; } = true;
 
             public StepTitle Create(
                 string? stepTextTemplate,

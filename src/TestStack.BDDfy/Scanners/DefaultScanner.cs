@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy

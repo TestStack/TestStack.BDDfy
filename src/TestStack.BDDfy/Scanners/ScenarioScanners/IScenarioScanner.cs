@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace TestStack.BDDfy
 {
     public interface IScenarioScanner

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using NSubstitute;
+﻿using NSubstitute;
 using Shouldly;
 using TestStack.BDDfy.Reporters;
 using Xunit;

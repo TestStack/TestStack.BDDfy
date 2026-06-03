@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TestStack.BDDfy.Reporters.Diagnostics
+﻿namespace TestStack.BDDfy.Reporters.Diagnostics
 {
     public class StoryDiagnostic
     {

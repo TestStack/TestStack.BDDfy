@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy
 {
     [Serializable]

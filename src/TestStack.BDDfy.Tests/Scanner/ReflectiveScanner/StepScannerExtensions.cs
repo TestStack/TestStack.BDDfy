@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
+﻿namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
 {
     internal static class StepScannerExtensions
     {

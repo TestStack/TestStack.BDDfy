@@ -1,5 +1,3 @@
-using System;
-
 namespace TestStack.BDDfy.Reporters
 {
     public class ConsoleReporter : TextReporter

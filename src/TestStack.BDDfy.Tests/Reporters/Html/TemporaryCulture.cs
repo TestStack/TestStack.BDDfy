@@ -1,21 +1,31 @@
-using System;
 using System.Globalization;
-using System.Threading;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Tests.Reporters.Html
 {
     public class TemporaryCulture : IDisposable
     {
-        private readonly string _originalCulture;
-        public TemporaryCulture(string newCulture)
+        private readonly CultureInfo _originalThreadCulture;
+        private readonly CultureInfo? _originalConfiguratorCulture;
+
+        public TemporaryCulture(string threadCulture, string? configuratorCulture = null)
         {
-            _originalCulture = Thread.CurrentThread.CurrentCulture.Name;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(newCulture);
+            _originalThreadCulture = CultureInfo.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(threadCulture);
+            if (configuratorCulture is not null)
+            {
+                Configurator.CultureInfo = CultureInfo.CreateSpecificCulture(configuratorCulture);
+                _originalConfiguratorCulture = Configurator.CultureInfo;
+            }
         }
 
         public void Dispose()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(_originalCulture);
+            CultureInfo.CurrentCulture = _originalThreadCulture;
+            
+            if (_originalConfiguratorCulture is not null)
+                Configurator.CultureInfo = _originalConfiguratorCulture;
+
             GC.SuppressFinalize(this);
         }
     }
