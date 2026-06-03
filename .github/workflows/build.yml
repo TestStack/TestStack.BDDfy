@@ -7,6 +7,12 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      publish_nuget:
+        description: 'Publish NuGet package'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -40,11 +46,11 @@ jobs:
           else
             buildNumber="${{steps.gitversion.outputs.preReleaseNumber}}${{ steps.gitversion.outputs.buildMetaData }}"
             
-            if [[ "${GITHUB_REF}" != "refs/heads/${{ github.event.repository.default_branch }}" ]]; then
-              buildNumber="${buildNumber}-beta"
+            if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+              packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}"
+            else
+              packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}-beta"
             fi
-            
-            packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}"
           fi
           
           echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
@@ -209,7 +215,7 @@ jobs:
   publish-nuget:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_nuget == 'true')
     environment: 
       name: Publish
       url: https://www.nuget.org/packages/TestStack.BDDfy/

@@ -6,11 +6,18 @@ branches:
     mode: ContinuousDeployment
     regex: ^main$
     is-release-branch: true
-    increment: Patch
+    increment: Minor
+
+  develop:
+    mode: ContinuousDeployment
+    regex: ^develop$
+    tag: beta
+    increment: Minor
 
   other:
     mode: ContinuousDelivery
     regex: .*
+    tag: beta
     increment: Patch
 ignore:
   sha: []
