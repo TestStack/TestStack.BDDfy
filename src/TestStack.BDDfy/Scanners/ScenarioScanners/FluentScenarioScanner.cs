@@ -7,7 +7,7 @@ internal class FluentScenarioScanner(List<Step> steps, string? title): IScenario
     public IEnumerable<Scenario> Scan(ITestContext testContext)
     {
         var scenarioText = title ?? testContext.TestObject.GetType().Name;
-        if (testContext.Examples != null)
+        if (testContext.Examples is not null)
         {
             var scenarioId = Configurator.IdGenerator.GetScenarioId();
             return testContext.Examples.Select(example =>

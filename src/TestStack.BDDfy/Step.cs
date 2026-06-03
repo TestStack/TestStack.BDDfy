@@ -27,7 +27,7 @@ namespace TestStack.BDDfy
         public Step(Step step)
         {
             Id = step.Id;
-            _stepTitle = step._stepTitle;
+            _stepTitle = step._stepTitle;            
             Asserts = step.Asserts;
             ExecutionOrder = step.ExecutionOrder;
             ShouldReport = step.ShouldReport;
@@ -41,11 +41,15 @@ namespace TestStack.BDDfy
         public bool Asserts { get; private set; }
         public bool ShouldReport { get; private set; }
         public string? Title => (_title ??= _stepTitle)?.Trim();
-        public ExecutionOrder ExecutionOrder { get; private set; }
+        public ExecutionOrder ExecutionOrder { get; internal set; }
         public Result Result { get; set; }
         public Exception? Exception { get; set; }
         public int ExecutionSubOrder { get; set; }
         public TimeSpan Duration { get; set; }
         public List<StepArgument> Arguments { get; private set; }
+
+        internal bool AllowConsecutivePromotion { get; set; }
+        internal void OverrideTitle(string newTitle) => _title = newTitle;
+        public override string ToString() => Title ?? nameof(Step);
     }
 }

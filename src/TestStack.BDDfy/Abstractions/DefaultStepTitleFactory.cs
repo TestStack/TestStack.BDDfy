@@ -6,6 +6,7 @@ namespace TestStack.BDDfy.Abstractions;
 internal class DefaultStepTitleFactory : IStepTitleFactory
 {
     public bool IncludeInputsInStepTitle { get; set; } = true;
+    public bool AddGherkinPrefixToSecondarySteps { get; set; } = true;
 
     public StepTitle Create(
         string? stepTextTemplate,
@@ -18,23 +19,35 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
         string createTitle()
         {
             var flatInputArray = inputArguments.Select(o => o.Value!).FlattenArrays();
-            var name = methodInfo.Name;
             var titleAttribute = methodInfo.GetCustomAttribute<StepTitleAttribute>(true);
             var executableAttribute = methodInfo.GetCustomAttribute<ExecutableAttribute>(true);
 
-            includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle ?? IncludeInputsInStepTitle;
+            var callerSuppliedTemplate = stepTextTemplate != null;
+            includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle;
+            stepTextTemplate ??= titleAttribute != null
+                ? (NullIfEmpty(titleAttribute.StepTitle) ?? "")
+                : NullIfEmpty(executableAttribute?.StepTitle);
+            var stepTextTemplateWasNotSupplied = string.IsNullOrWhiteSpace(stepTextTemplate);
 
-            var titleTemplate = titleAttribute?.StepTitle ?? executableAttribute?.StepTitle;
+            stepTextTemplate ??= methodInfo.Name;
 
-            if (titleTemplate is not null)
-            {
-                name = string.Format(Configurator.CultureInfo, titleTemplate, flatInputArray);
-            }
+            var formattedStepTitle = string.Format(Configurator.CultureInfo, stepTextTemplate, flatInputArray);
+            var stepTitle = stepTextTemplateWasNotSupplied ? Configurator.Humanizer.Humanize(formattedStepTitle) : formattedStepTitle;
 
-            var stepTitle = AppendPrefix(Configurator.Humanizer.Humanize(name), stepPrefix);
+            var shouldAddPrefix = stepTextTemplateWasNotSupplied
+                || IsPrimaryPrefix(stepPrefix)
+                || (!callerSuppliedTemplate && AddGherkinPrefixToSecondarySteps);
 
-            if (!string.IsNullOrEmpty(stepTextTemplate)) stepTitle = string.Format(Configurator.CultureInfo, stepTextTemplate, flatInputArray);
-            else if (includeInputsInStepTitle.Value)
+            if (shouldAddPrefix)
+                stepTitle = AppendPrefix(stepTitle, stepPrefix);
+
+            if (stepTextTemplate != formattedStepTitle && titleAttribute?.IncludeInputsInStepTitle is null)
+                includeInputsInStepTitle??= false;
+
+            if (stepTitle!.Contains('<') && stepTitle.Contains('>') && titleAttribute?.IncludeInputsInStepTitle is null)
+                includeInputsInStepTitle??=false;
+
+            if (includeInputsInStepTitle ?? IncludeInputsInStepTitle)
             {
                 var parameters = methodInfo.GetParameters();
                 var stringFlatInputs =
@@ -83,4 +96,9 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
 
         return stepTitle;
     }
+
+    private static string? NullIfEmpty(string? value) => string.IsNullOrWhiteSpace(value) ? null : value;
+
+    private static bool IsPrimaryPrefix(string prefix) =>
+        prefix is "Given" or "When" or "Then";
 }

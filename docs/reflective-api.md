@@ -116,11 +116,45 @@ For more control over step text and ordering, use the executable attributes inst
 Pass a string to the attribute to override the humanized method name:
 
 ```csharp
-[Given("Given the account balance is $10")]
+[Given("the account balance is $10")]
 void GivenAccountHasEnoughBalance()
 {
     _card = new Card(true, 10);
 }
+```
+
+By default, the Gherkin keyword (Given/When/Then/And/But) is automatically prepended to the custom title:
+
+```csharp
+[When("the user checks out")]
+void WhenTheUserClicksCheckout() { }
+// Reports as: "When the user checks out"
+```
+
+This behavior can be disabled for consecutive steps via configuration:
+
+```csharp
+Configurator.StepTitleFactory.AddGherkinPrefixToSecondarySteps = false;
+// Consecutive custom-titled steps no longer get "And" prepended
+// Primary steps (Given/When/Then) always keep their keyword
+```
+
+When both `[StepTitle]` and an executable attribute (e.g. `[When]`) are present, the executable attribute's text takes priority:
+
+```csharp
+[StepTitle("the user completes checkout")]
+[When("the user checks out")]
+void WhenTheUserClicksCheckout() { }
+// Reports as: "When the user checks out" (When attribute wins)
+```
+
+If the executable attribute has no explicit text, `[StepTitle]` is used as fallback:
+
+```csharp
+[StepTitle("the payment gateway is available")]
+[Given]
+void CheckPaymentGateway() { }
+// Reports as: "Given the payment gateway is available"
 ```
 
 ### Controlling Order

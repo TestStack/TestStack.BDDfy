@@ -81,7 +81,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void ExecutableAttributesHaveHigherPriorityThanNamingConventions()
         {
-            VerifyStepAndItsProperties(() => _sut.ThenThisMethodIsFoundAsAGivenStepNotThenStep(), ExecutionOrder.ConsecutiveSetupState);
+            VerifyStepAndItsProperties(() => _sut.ThenThisMethodIsFoundAsAGivenStepNotThenStep(), ExecutionOrder.ConsecutiveSetupState, expectedTitle: "And this method is found as a given step not then step");
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void LegacyTransitionStepIsScanned()
         {
-            VerifyStepAndItsProperties(() => _sut.LegacyTransitionMethod(), ExecutionOrder.ConsecutiveTransition);
+            VerifyStepAndItsProperties(() => _sut.LegacyTransitionMethod(), ExecutionOrder.ConsecutiveTransition, expectedTitle: "And legacy transition method");
         }
 
         [Fact]
@@ -111,18 +111,19 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void LegacyAssertionStepIsScanned()
         {
-            VerifyStepAndItsProperties(() => _sut.TestThatSomethingIsRight(), ExecutionOrder.Assertion);
+            VerifyStepAndItsProperties(() => _sut.TestThatSomethingIsRight(), ExecutionOrder.ConsecutiveAssertion, expectedTitle: "And test that something is right");
         }
 
         [Fact]
         public void LegacyConsecutiveAssertionStepIsScanned()
         {
-            VerifyStepAndItsProperties(() => _sut.TestThatSomethingIsWrong(), ExecutionOrder.ConsecutiveAssertion);
+            VerifyStepAndItsProperties(() => _sut.TestThatSomethingIsWrong(), ExecutionOrder.ConsecutiveAssertion, expectedTitle: "And test that something is wrong");
         }
 
-        void VerifyStepAndItsProperties(Expression<Action> stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1)
+        void VerifyStepAndItsProperties(Expression<Action> stepMethodAction, ExecutionOrder expectedOrder, int expectedCount = 1, string? expectedTitle = null)
         {
-            var matchingSteps = _scenario.Steps.Where(s => s.Title == Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name));
+            var title = expectedTitle ?? Configurator.Humanizer.Humanize(Helpers.GetMethodInfo(stepMethodAction).Name);
+            var matchingSteps = _scenario.Steps.Where(s => s.Title == title);
             matchingSteps.Count().ShouldBe(expectedCount);
             matchingSteps.All(s => s.ExecutionOrder == expectedOrder).ShouldBe(true);
         }

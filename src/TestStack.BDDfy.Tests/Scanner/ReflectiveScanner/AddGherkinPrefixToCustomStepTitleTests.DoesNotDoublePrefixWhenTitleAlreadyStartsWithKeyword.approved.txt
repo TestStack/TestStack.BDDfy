@@ -1,0 +1,8 @@
+﻿
+Scenario: Does not double prefix when title already starts with keyword
+	Given the account is active
+	  And the balance is 100
+	When the user withdraws 50
+	Then the balance is 50
+	  And a receipt is printed
+
