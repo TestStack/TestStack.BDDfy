@@ -1,0 +1,9 @@
+﻿
+Scenario: With prefix disabled
+	Given the user is logged in
+	  the cart has items
+	  the payment gateway is available
+	When the user checks out
+	Then the order is confirmed
+	  a confirmation email is sent
+

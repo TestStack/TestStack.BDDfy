@@ -13,6 +13,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
         private class CustomStepTitleFactory : IStepTitleFactory
         {
             public bool IncludeInputsInStepTitle { get; set; } = true;
+            public bool AddGherkinPrefixToSecondarySteps { get; set; } = true;
 
             public StepTitle Create(
                 string? stepTextTemplate,

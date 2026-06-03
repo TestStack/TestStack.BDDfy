@@ -35,20 +35,20 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
             }
         }
 
-        [RunStepWithArgs("GivenInTheBaseClass")]
-        [RunStepWithArgs("WhenInTheBaseClass")]
-        [RunStepWithArgs("ThenInTheBaseClass")]
-        void ThenTheFollowingStepFromBaseClassIsScanned(string stepName)
+        [RunStepWithArgs("GivenInTheBaseClass", "Given in the base class", "And in the base class")]
+        [RunStepWithArgs("WhenInTheBaseClass", "When in the base class", "And in the base class")]
+        [RunStepWithArgs("ThenInTheBaseClass", "Then in the base class", "And in the base class")]
+        void ThenTheFollowingStepFromBaseClassIsScanned(string stepName, string title, string promotedTitle)
         {
-            Scenario.Steps.Count(s => s.Title == Configurator.Humanizer.Humanize(stepName)).ShouldBe(1);
+            Scenario.Steps.Any(s => s.Title == title || s.Title == promotedTitle).ShouldBe(true);
         }
 
-        [RunStepWithArgs("GivenInTheSubClass")]
-        [RunStepWithArgs("WhenInTheSubClass")]
-        [RunStepWithArgs("ThenInTheSubClass")]
-        void ThenTheFollowingStepFromSubClassScanned(string stepName)
+        [RunStepWithArgs("GivenInTheSubClass", "Given in the sub class", "And in the sub class")]
+        [RunStepWithArgs("WhenInTheSubClass", "When in the sub class", "And in the sub class")]
+        [RunStepWithArgs("ThenInTheSubClass", "Then in the sub class", "And in the sub class")]
+        void ThenTheFollowingStepFromSubClassScanned(string stepName, string title, string promotedTitle)
         {
-            Scenario.Steps.Count(s => s.Title == Configurator.Humanizer.Humanize(stepName)).ShouldBe(1);
+            Scenario.Steps.Any(s => s.Title == title || s.Title == promotedTitle).ShouldBe(true);
         }
 
         [Fact]

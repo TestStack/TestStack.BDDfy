@@ -128,6 +128,52 @@ Customize how step titles are generated from expressions:
 Configurator.StepTitleFactory = new MyStepTitleFactory();
 ```
 
+### IncludeInputsInStepTitle
+
+Controls whether step arguments are appended to step titles (default: `true`):
+
+```csharp
+Configurator.StepTitleFactory.IncludeInputsInStepTitle = false;
+```
+
+### AddGherkinPrefixToSecondarySteps
+
+When a step has an explicit title (via `[Given("...")]`, `[When("...")]`, `[Then("...")]`, or `[StepTitle("...")]`), BDDfy prepends the Gherkin keyword to the title by default. For consecutive steps in the same group, this means they get an "And" prefix. Set this to `false` to disable the "And" prefix on consecutive custom-titled steps:
+
+```csharp
+Configurator.StepTitleFactory.AddGherkinPrefixToSecondarySteps = true;  // default
+```
+
+**With prefix enabled (default):**
+
+```
+Scenario: With prefix enabled
+    Given the user is logged in
+      And the cart has items
+      And the payment gateway is available
+    When the user checks out
+    Then the order is confirmed
+      And a confirmation email is sent
+```
+
+```csharp
+Configurator.StepTitleFactory.AddGherkinPrefixToSecondarySteps = false;
+```
+
+**With prefix disabled:**
+
+```
+Scenario: With prefix disabled
+    Given the user is logged in
+      the cart has items
+      the payment gateway is available
+    When the user checks out
+    Then the order is confirmed
+      a confirmation email is sent
+```
+
+> **Note:** Primary step keywords (Given/When/Then) are always applied regardless of this setting. Only the consecutive "And" prefix on custom-titled steps is affected.
+
 ## Culture
 
 Set the culture used for formatting values in reports:

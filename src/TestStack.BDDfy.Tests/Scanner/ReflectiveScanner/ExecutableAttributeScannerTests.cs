@@ -62,13 +62,13 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void TheMethodWithPascalCaseIsSeparatedAndTurnedIntoLowerCaseExceptTheFirstWord()
         {
-            VerifyMethod("The pascal case for method name");
+            VerifyMethod("Given the pascal case for method name");
         }
 
         [Fact]
         public void TheMethodWithUnderscoreAndLowerCaseWordsIsSeparatedAndCaseIsRetained()
         {
-            VerifyMethod("with lower case underscored method name");
+            VerifyMethod("Then with lower case underscored method name");
         }
 
         [Fact]
@@ -86,8 +86,8 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void TheMethodWithArgumentWithoutProvidedTextGetsArgumentsAppendedToTheMethodName()
         {
-            VerifyMethod("Step is run with arguments without provided text 1, 2, 3");
-            VerifyMethod("Step is run with arguments without provided text 3, 4, 5");
+            VerifyMethod("Given step is run with arguments without provided text 1, 2, 3");
+            VerifyMethod("Given step is run with arguments without provided text 3, 4, 5");
         }
 
         [Fact]
@@ -107,13 +107,13 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void TheMethodWithArgumentWithTextProvidedOnTheExecutableAttributeUsesExecutableAttributeTemplate()
         {
-            VerifyMethod("Running step with arg 1, 2 and 3 using exec attribute template");
+            VerifyMethod("When running step with arg 1, 2 and 3 using exec attribute template");
         }
 
         [Fact]
         public void RunStepWithArgsTemplateOverrideAllOtherTemplates()
         {
-            VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute and RunStepWithArgs attribute");
+            VerifyMethod("When running step with arg 1, 2 and 3 when template is provided by exec attribute and RunStepWithArgs attribute");
             VerifyMethod("Running step with args using exec attribute template and run step with args template 1, 2, 3", false);
             VerifyMethod("The template provided on RunStepWithArgs overrides all the others 4, 5, 6");
         }
@@ -121,13 +121,13 @@ namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner
         [Fact]
         public void TheMethodWithArgumentWithTextProvidedOnTheExecutableAttributeConstructorUsesExecutableAttributeTemplate()
         {
-            VerifyMethod("Running step with arg 1, 2 and 3 using exec attribute(string stepTitle)");
+            VerifyMethod("When running step with arg 1, 2 and 3 using exec attribute(string stepTitle)");
         }
 
         [Fact]
         public void RunStepWithArgsTemplateOverrideAllOtherTemplatesThatUseTheConstructor()
         {
-            VerifyMethod("Running step with arg 1, 2 and 3 when template is provided by exec attribute(string stepTitle) and RunStepWithArgs attribute");
+            VerifyMethod("When running step with arg 1, 2 and 3 when template is provided by exec attribute(string stepTitle) and RunStepWithArgs attribute");
             VerifyMethod("Running step with args using exec attribute template and run step with args template 1, 2, 3", false);
             VerifyMethod("The template provided on RunStepWithArgs overrides all the others 4, 5, 6 attribute(string stepTitle)");
         }
