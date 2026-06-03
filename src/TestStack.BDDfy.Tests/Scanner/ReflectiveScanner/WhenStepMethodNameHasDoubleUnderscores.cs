@@ -1,3 +1,4 @@
+using System.Linq;
 using Shouldly;
 using Xunit;
 
