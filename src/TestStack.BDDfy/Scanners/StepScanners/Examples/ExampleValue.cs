@@ -51,6 +51,34 @@ namespace TestStack.BDDfy
 
         public bool ValueHasBeenUsed { get; private set; }
 
+        public bool IsCompatibleWith(Type targetType)
+        {
+            if (_underlyingValue is null)
+                return !targetType.IsValueType() || (targetType.IsGenericType() && targetType.GetGenericTypeDefinition() == typeof(Nullable<>));
+
+            if (targetType.IsInstanceOfType(_underlyingValue))
+                return true;
+
+            if (_underlyingValue is string stringValue)
+            {
+                if (targetType.IsEnum())
+                    return Enum.IsDefined(targetType, stringValue) || Enum.GetNames(targetType).Any(n => n.Equals(stringValue, StringComparison.OrdinalIgnoreCase));
+
+                if (targetType == typeof(DateTime))
+                    return DateTime.TryParse(stringValue, out _);
+            }
+
+            try
+            {
+                Convert.ChangeType(_underlyingValue, targetType);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public override string ToString() => string.Join("{0}: {1}", Header, _underlyingValue);
 
         public string GetValueAsString() => _underlyingValue.FlattenArray().ToTextRepresentation();

@@ -13,33 +13,42 @@ namespace TestStack.BDDfy.Processors
                 return;
 
             var type = _scenario.TestObject.GetType();
-            var memberInfos = type
+            var members = type
                 .GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public)
                 .Where(m => m is FieldInfo || m is PropertyInfo)
-                .Where(m => !m.Name.EndsWith("BackingField"))
-                .ToArray();
+                .Where(m => !m.Name.EndsWith("BackingField"));
 
-            var possibleTargets = memberInfos
-                .OfType<FieldInfo>()
-                .Select(f => new StepArgument(f.Name, f.FieldType, () => f.GetValue(_scenario.TestObject), o => f.SetValue(_scenario.TestObject, o)))
-                .Union(memberInfos.OfType<PropertyInfo>().Select(m => new StepArgument(m.Name, m.PropertyType, () => m.GetValue(_scenario.TestObject, null), o => m.SetValue(_scenario.TestObject, o, null))))
-                .Union(_scenario.Steps.SelectMany(s=>s.Arguments))
-                .ToArray();
+            var fieldTargets = members.OfType<FieldInfo>()
+                .Select(f => new StepArgument(f.Name, f.FieldType, () => f.GetValue(_scenario.TestObject), o => f.SetValue(_scenario.TestObject, o)));
+
+            var propertyTargets = members.OfType<PropertyInfo>()
+                .Select(p => new StepArgument(p.Name, p.PropertyType, () => p.GetValue(_scenario.TestObject, null), o => p.SetValue(_scenario.TestObject, o, null)));
+
+            var memberTargets = fieldTargets.Union(propertyTargets).ToArray();
+            var stepArgTargets = _scenario.Steps.SelectMany(s => s.Arguments).ToArray();
 
             foreach (var cell in _scenario.Example.Values)
             {
-                var matchingMembers = possibleTargets
-                    .Where(n => cell.MatchesName(n.Name))
-                    .ToArray();
+                var targets = ResolveTargets(cell, stepArgTargets, memberTargets);
 
-                if (matchingMembers.Length == 0)
-                    continue;
-
-                foreach (var matchingMember in matchingMembers)
-                {
-                    matchingMember.SetValue(cell.GetValue(matchingMember.ArgumentType));
-                }
+                foreach (var target in targets)
+                    target.SetValue(cell.GetValue(target.ArgumentType));
             }
+        }
+
+        private static StepArgument[] ResolveTargets(ExampleValue cell, StepArgument[] stepArgs, StepArgument[] members)
+        {
+            var matchingStepArgs = stepArgs.Where(a => cell.MatchesName(a.Name)).ToArray();
+            var matchingMembers = members.Where(m => cell.MatchesName(m.Name)).ToArray();
+
+            if (matchingStepArgs.Length == 0)
+                return matchingMembers;
+
+            // When step arguments match, also include compatible members (e.g. backing fields
+            // read directly in the step body) but skip incompatible ones to avoid type errors
+            // like parsing a string example value into an unrelated enum field.
+            var compatibleMembers = matchingMembers.Where(m => cell.IsCompatibleWith(m.ArgumentType));
+            return [.. matchingStepArgs.Union(compatibleMembers)];
         }
 
         public Result ExecuteStep(Step step)
