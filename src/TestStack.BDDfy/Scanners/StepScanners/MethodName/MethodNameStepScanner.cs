@@ -1,36 +1,16 @@
-﻿using System.Reflection;
+using System.Reflection;
 using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy
 {
     /// <summary>
-    /// Uses reflection to scan a scenario class for steps using method name conventions
+    /// Uses reflection to scan a scenario class for steps using method name conventions.
     /// </summary>
     /// <remarks>
-    /// Method names starting with the following words are considered as steps and are
-    /// reported: 
-    /// <list type="bullet">
-    /// <item>
-    /// <description><i>Given: </i>setup step </description></item>
-    /// <item>
-    /// <description><i>AndGiven: </i>setup step running after 'Given' steps
-    /// </description></item>
-    /// <item>
-    /// <description><i>When: </i>state transition step </description></item>
-    /// <item>
-    /// <description><i>AndWhen: </i>state transition step running after 'When' steps
-    /// </description></item>
-    /// <item>
-    /// <description><i>Then: </i>asserting step </description></item>
-    /// <item>
-    /// <description><i>And: </i>asserting step running after 'Then' steps
-    /// </description></item></list>
-    /// <para>A method ending with <i>Context </i>is considered as a setup method (not
-    /// reported). </para>
-    /// <para>A method starting with <i>Setup </i>is considered as a setup method (not
-    /// reported). </para>
-    /// <para>A method starting with <i>TearDown </i>is considered as a finally method
-    /// which is run after all the other steps (not reported). </para>
+    /// Method names starting with the following words are considered as steps and are reported:
+    /// Given, AndGiven, When, AndWhen, Then, And.
+    /// A method ending with "Context" or starting with "Setup" is a setup method (not reported).
+    /// A method starting with "TearDown" is a finally method run after all other steps (not reported).
     /// </remarks>
     public class MethodNameStepScanner : IStepScanner
     {
@@ -49,30 +29,17 @@ namespace TestStack.BDDfy
             _matchers = [];
         }
 
-        protected void AddMatcher(MethodNameMatcher matcher)
-        {
-            _matchers.Add(matcher);
-        }
+        protected void AddMatcher(MethodNameMatcher matcher) => _matchers.Add(matcher);
 
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method)
         {
             foreach (var matcher in _matchers)
             {
-                if (!matcher.IsMethodOfInterest(method.Name)) 
+                if (!matcher.IsMethodOfInterest(method.Name))
                     continue;
 
-                var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>) || method.ReturnType == typeof(string);
-
-                if (argAttributes.Length == 0)
-                    yield return GetStep(testContext, matcher, method, returnsItsText, [], null);
-
-                foreach (var argAttribute in argAttributes)
-                {
-                    var inputs = argAttribute.InputArguments;
-                    if (inputs != null && inputs.Length > 0)
-                        yield return GetStep(testContext, matcher, method, returnsItsText, inputs, argAttribute);
-                }
+                foreach (var step in ScanWithArgs(testContext, matcher, method))
+                    yield return step;
 
                 yield break;
             }
@@ -80,89 +47,133 @@ namespace TestStack.BDDfy
 
         public IEnumerable<Step> Scan(ITestContext testContext, MethodInfo method, Example example)
         {
-            foreach (var matcher in _matchers.Where(x=> x.IsMethodOfInterest(method.Name)))
-            {
-                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>) || method.ReturnType == typeof(string);
-                return [GetStep(testContext, matcher, method, returnsItsText, example)];
-            }
+            foreach (var matcher in _matchers.Where(m => m.IsMethodOfInterest(method.Name)))
+                return ScanWithArgs(testContext, matcher, method, example);
 
             return [];
         }
 
-        private Step GetStep(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, Example example)
+        private IEnumerable<Step> ScanWithArgs(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, Example? example = null)
         {
-            var methodParameters = method.GetParameters();
-            var inputs = new object[methodParameters.Length];
+            var returnsItsText = ReturnsStepTitle(method);
+            var argAttributes = method.GetCustomAttributes<RunStepWithArgsAttribute>(false).ToArray();
 
-            for (var parameterIndex = 0; parameterIndex < inputs.Length; parameterIndex++)
+            if (argAttributes.Length == 0)
             {
-                for (var exampleIndex = 0; exampleIndex < example.Headers.Length; exampleIndex++)
+                yield return BuildStep(testContext, matcher, method, returnsItsText, example, argAttribute: null);
+                yield break;
+            }
+
+            foreach (var attr in argAttributes.Where(a => a.InputArguments is { Length: > 0 }))
+                yield return BuildStep(testContext, matcher, method, returnsItsText, example, attr);
+        }
+
+        private Step BuildStep(
+            ITestContext testContext,
+            MethodNameMatcher matcher,
+            MethodInfo method,
+            bool returnsItsText,
+            Example? example,
+            RunStepWithArgsAttribute? argAttribute)
+        {
+            var inputs = ResolveInputs(method, example, argAttribute);
+            var stepTitle = ResolveTitle(testContext, matcher, method, argAttribute, returnsItsText, inputs);
+            var stepAction = CreateStepAction(method, inputs, returnsItsText);
+
+            return new Step(stepAction, stepTitle, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, [])
+            {
+                AllowConsecutivePromotion = true
+            };
+        }
+
+        private static object[] ResolveInputs(MethodInfo method, Example? example, RunStepWithArgsAttribute? argAttribute)
+        {
+            if (example is null)
+                return argAttribute?.InputArguments ?? [];
+
+            var parameters = method.GetParameters();
+            var inputs = new object[parameters.Length];
+            var runStepArgs = argAttribute?.InputArguments ?? [];
+            var runStepArgIndex = 0;
+
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                if (TryResolveFromExample(parameters[i], example, out var value))
                 {
-                    var methodParameter = methodParameters[parameterIndex];
-                    var parameterName = methodParameter.Name;
-                    var placeholderMatchesExampleColumn = example.Values.ElementAt(exampleIndex).MatchesName(parameterName);
-                    if (placeholderMatchesExampleColumn && example.GetValueOf(exampleIndex, methodParameter.ParameterType) is object value)
-                        inputs[parameterIndex] = value;
+                    inputs[i] = value;
+                }
+                else if (runStepArgIndex < runStepArgs.Length)
+                {
+                    inputs[i] = runStepArgs[runStepArgIndex++];
                 }
             }
 
-            var stepTitle = CreateStepTitle(testContext, matcher, method, null, inputs);
-            var stepAction = GetStepAction(method, [.. inputs], returnsItsText);
-            return new Step(stepAction, stepTitle, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []) { AllowConsecutivePromotion = true };
+            return inputs;
         }
 
-        private Step GetStep(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, bool returnsItsText, object[] inputs, RunStepWithArgsAttribute? argAttribute)
+        private static bool TryResolveFromExample(ParameterInfo parameter, Example example, out object value)
         {
-            var stepTitle = GetStepTitle(testContext, matcher, method, argAttribute, returnsItsText, inputs);
-            var stepAction = GetStepAction(method, inputs, returnsItsText);
-            return new Step(stepAction, stepTitle, matcher.Asserts, matcher.ExecutionOrder, matcher.ShouldReport, []) { AllowConsecutivePromotion = true };
+            value = null!;
+            for (var i = 0; i < example.Headers.Length; i++)
+            {
+                if (example.Values.ElementAt(i).MatchesName(parameter.Name)
+                    && example.GetValueOf(i, parameter.ParameterType) is { } resolved)
+                {
+                    value = resolved;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        private StepTitle GetStepTitle(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, RunStepWithArgsAttribute? argAttribute, bool returnsItsText, object[] inputs)
+        private StepTitle ResolveTitle(
+            ITestContext testContext,
+            MethodNameMatcher matcher,
+            MethodInfo method,
+            RunStepWithArgsAttribute? argAttribute,
+            bool returnsItsText,
+            object[] inputs)
         {
             if (returnsItsText)
             {
-                var titleFromMethod = GetStepTitleFromMethod(method, argAttribute, testContext.TestObject);
-                if (titleFromMethod != null)
+                var titleFromMethod = InvokeForTitle(method, argAttribute, testContext.TestObject);
+                if (titleFromMethod is not null)
                     return new StepTitle(titleFromMethod);
             }
 
             return CreateStepTitle(testContext, matcher, method, argAttribute, inputs);
         }
 
-        private StepTitle CreateStepTitle(ITestContext testContext, MethodNameMatcher matcher, MethodInfo method, RunStepWithArgsAttribute? argAttribute, object[] inputs)
+        private StepTitle CreateStepTitle(
+            ITestContext testContext,
+            MethodNameMatcher matcher,
+            MethodInfo method,
+            RunStepWithArgsAttribute? argAttribute,
+            object[] inputs)
         {
             var stepTextTemplate = argAttribute?.StepTextTemplate;
             var stepArgs = inputs.Select(v => new StepArgument(() => v)).ToArray();
 
-            // If there's a StepTitle attribute, let the factory handle it (no prefix since user provided explicit title)
             var titleAttribute = method.GetCustomAttribute<StepTitleAttribute>(true);
-            if (titleAttribute != null)
+            if (titleAttribute is not null)
             {
                 var hasExplicitText = !string.IsNullOrWhiteSpace(titleAttribute.StepTitle) || !string.IsNullOrEmpty(stepTextTemplate);
-                var titlePrefix = hasExplicitText ? "" : matcher.StepPrefix;
-                return Configurator.StepTitleFactory.Create(stepTextTemplate, null, method, stepArgs, testContext, titlePrefix);
+                var prefix = hasExplicitText ? "" : matcher.StepPrefix;
+                return Configurator.StepTitleFactory.Create(stepTextTemplate, null, method, stepArgs, testContext, prefix);
             }
 
-            // If there's an explicit StepTextTemplate from RunStepWithArgs, use it without prefix
-            // (the user is providing the complete title)
             if (!string.IsNullOrEmpty(stepTextTemplate))
-            {
                 return Configurator.StepTitleFactory.Create(stepTextTemplate, null, method, stepArgs, testContext, "");
-            }
 
-            // Naming convention fallback: humanize + cleanup transform, pass as pre-built title
             var humanized = _stepTextTransformer(Configurator.Humanizer.Humanize(method.Name));
             return Configurator.StepTitleFactory.Create(humanized, null, method, stepArgs, testContext, matcher.StepPrefix);
         }
 
-        private static string? GetStepTitleFromMethod(MethodInfo method, RunStepWithArgsAttribute? argAttribute, object testObject)
+        private static string? InvokeForTitle(MethodInfo method, RunStepWithArgsAttribute? argAttribute, object testObject)
         {
-            object[] inputs = argAttribute?.InputArguments ?? [];
-
             try
             {
-                var result = method.Invoke(testObject, inputs);
+                var result = method.Invoke(testObject, argAttribute?.InputArguments ?? []);
                 return result switch
                 {
                     string s => s,
@@ -172,27 +183,27 @@ namespace TestStack.BDDfy
             }
             catch (Exception ex)
             {
-                var message = string.Format(
-                    "The signature of method '{0}' indicates that it returns its step title; but the code is throwing an exception before a title is returned",
-                    method.Name);
-                throw new StepTitleException(message, ex);
+                throw new StepTitleException(
+                    $"The signature of method '{method.Name}' indicates that it returns its step title; " +
+                    "but the code is throwing an exception before a title is returned", ex);
             }
         }
 
-        static Func<object,object?> GetStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
-        {
-            if (returnsItsText)
-            {
-                return o =>
-                {
-                    var result = method.Invoke(o, inputs);
-                    if (result is IEnumerable<string> enumerable)
-                        return enumerable.ToList();
-                    return result;
-                };
-            }
+        private static bool ReturnsStepTitle(MethodInfo method) =>
+            method.ReturnType == typeof(string) || method.ReturnType == typeof(IEnumerable<string>);
 
-            return StepActionFactory.GetStepAction(method, inputs);
+        private static Func<object, object?> CreateStepAction(MethodInfo method, object[] inputs, bool returnsItsText)
+        {
+            if (!returnsItsText)
+                return StepActionFactory.GetStepAction(method, inputs);
+
+            return o =>
+            {
+                var result = method.Invoke(o, inputs);
+                if (result is IEnumerable<string> enumerable)
+                    return enumerable.ToList();
+                return result;
+            };
         }
     }
 }

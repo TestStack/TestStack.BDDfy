@@ -1,7 +1,7 @@
 ﻿
 Scenario: Can use actions in examples
 	Given some setup
-	When  <Action to perform>
+	When <Action to perform>
 	Then should be <Value should be>
 
 Examples: 

@@ -11,7 +11,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
     /// </summary>
     public class ExampleColumnNameMatchingMethodParameterName
     {
-        private string _existing = "";
+        private readonly string _existing = "";
         private string _resource = "";
 
         private void GivenThereIsOnly__existing__ResourceInDatabase(string resource)
