@@ -1,0 +1,88 @@
+﻿{
+  "Stories": [
+    {
+      "Name": "Account holder withdraws cash",
+      "Duration": 30,
+      "Scenarios": [
+        {
+          "Name": "Happy Path Scenario",
+          "Duration": 15,
+          "Steps": [
+            {
+              "Name": "Given a positive account balance",
+              "Duration": 5
+            },
+            {
+              "Name": "When the account holder requests money",
+              "Duration": 5
+            },
+            {
+              "Name": "Then money is dispensed",
+              "Duration": 5
+            }
+          ]
+        },
+        {
+          "Name": "Sad Path Scenario",
+          "Duration": 15,
+          "Steps": [
+            {
+              "Name": "Given a negative account balance",
+              "Duration": 5
+            },
+            {
+              "Name": "When the account holder requests money",
+              "Duration": 5
+            },
+            {
+              "Name": "Then no money is dispensed",
+              "Duration": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Happiness",
+      "Duration": 30,
+      "Scenarios": [
+        {
+          "Name": "Happy Path Scenario",
+          "Duration": 15,
+          "Steps": [
+            {
+              "Name": "Given a positive account balance",
+              "Duration": 5
+            },
+            {
+              "Name": "When the account holder requests money",
+              "Duration": 5
+            },
+            {
+              "Name": "Then money is dispensed",
+              "Duration": 5
+            }
+          ]
+        },
+        {
+          "Name": "Sad Path Scenario",
+          "Duration": 15,
+          "Steps": [
+            {
+              "Name": "Given a negative account balance",
+              "Duration": 5
+            },
+            {
+              "Name": "When the account holder requests money",
+              "Duration": 5
+            },
+            {
+              "Name": "Then no money is dispensed",
+              "Duration": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

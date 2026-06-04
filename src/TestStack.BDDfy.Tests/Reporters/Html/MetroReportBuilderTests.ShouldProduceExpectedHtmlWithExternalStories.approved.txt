@@ -75,13 +75,13 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
                   <div class='Passed canToggle scenarioTitle' data-toggle-target='scenario-1'>Should produce expected html with external stories</div>
                   <ul class='steps' id='scenario-1'>
                     <li class='step Passed  SetupState ' data-toggle-target='step-1-1' >
-                      <span>Given a number three</span>
+                      <span>Given some state</span>
                     </li>
                     <li class='step Passed  Transition ' data-toggle-target='step-1-1' >
-                      <span>When I multiply the number by itsef</span>
+                      <span>When user runs the system</span>
                     </li>
                     <li class='step Passed  Assertion ' data-toggle-target='step-1-1' >
-                      <span>Then the number is squared</span>
+                      <span>Then the state changes</span>
                     </li>
                   </ul>
                 </div>

@@ -7,3 +7,5 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Test step methods cannot be static", Scope = "namespaceanddescendants", Target = "~N:TestStack.BDDfy.Tests")]
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "parameters serve as placeholders for step arguments", Scope = "namespaceanddescendants", Target = "~N:TestStack.BDDfy.Tests")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:SampleStories.LameExternalStory.GivenSomeState")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Test step methods cannot be static", Scope = "namespaceanddescendants", Target = "~N:TestStack.BDDfy.Samples")]

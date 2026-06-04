@@ -5,8 +5,8 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
     public class DiagnosticsReportBuilder(ISerializer serializer): IReportBuilder
     {
         private readonly ISerializer _serializer = serializer;
-
-        public DiagnosticsReportBuilder() : this(new JsonSerializer()) { }
+       
+        public DiagnosticsReportBuilder() : this(new CustomJsonSerializer()) { }
 
         public string CreateReport(FileReportModel model)
         {

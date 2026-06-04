@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using Shouldly;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
 using TestStack.BDDfy.Reporters.Serializers;
@@ -14,11 +15,9 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
             var serializer = Substitute.For<ISerializer>();
             var testData = new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds();
             var model = new FileReportModel(testData.ToReportModel());
-            var sut = new DiagnosticsReportBuilder(serializer);
+            var sut = new DiagnosticsReportBuilder(new CustomJsonSerializer());
 
-            sut.CreateReport(model);
-            
-            serializer.Received().Serialize(Arg.Any<object>());
+            sut.CreateReport(model).ShouldMatchApproved();
         }
     }
 }

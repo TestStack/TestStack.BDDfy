@@ -1,5 +1,6 @@
 using TestStack.BDDfy.Reporters;
 using Xunit;
+using Xunit.v3;
 
 namespace TestStack.BDDfy.Tests
 {
@@ -7,7 +8,7 @@ namespace TestStack.BDDfy.Tests
     {
         private readonly ITestOutputHelper _outputHelper = testOutputHelper 
             ?? Xunit.TestContext.Current.TestOutputHelper 
-            ?? throw new InvalidOperationException("No ITestOutputHelper instance available.");
+            ?? new TestOutputHelper();
 
         protected override void WriteLine(string? text = null)
         {
