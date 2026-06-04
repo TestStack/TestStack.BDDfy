@@ -55,15 +55,21 @@ namespace TestStack.BDDfy.Processors
         {
             try
             {
+                object? result;
                 if (Configurator.AsyncVoidSupportEnabled)
-                    AsyncTestRunner.Run(() => Configurator.StepExecutor.Execute(step, _scenario.TestObject));
+                    result = AsyncTestRunner.Run(() => Configurator.StepExecutor.Execute(step, _scenario.TestObject));
                 else
-                    Configurator.StepExecutor.Execute(step, _scenario.TestObject);
+                    result = Configurator.StepExecutor.Execute(step, _scenario.TestObject);
+
+                if (result is string title && !string.IsNullOrWhiteSpace(title))
+                    step.OverrideTitle(title);
+                else if (result is IEnumerable<string> enumerable)
+                    EnumerateAndOverrideTitle(step, enumerable);
+
                 step.Result = Result.Passed;
             }
             catch (Exception ex)
             {
-                // ToDo: more thought should be put into this. Is it safe to get the exception?
                 var exception = ExceptionResolver.Resolve(ex);
 
                 if (exception is NotImplementedException)
@@ -84,6 +90,25 @@ namespace TestStack.BDDfy.Processors
             }
 
             return step.Result;
+        }
+
+        private static void EnumerateAndOverrideTitle(Step step, IEnumerable<string> enumerable)
+        {
+            // Fully enumerate to force execution of iterator method bodies.
+            // Override the title on the first yielded value immediately so that
+            // if the step throws after the yield, the title is already set.
+            using var enumerator = enumerable.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (!string.IsNullOrWhiteSpace(enumerator.Current))
+                {
+                    step.OverrideTitle(enumerator.Current);
+                    break;
+                }
+            }
+
+            // Continue enumeration to run remaining step body
+            while (enumerator.MoveNext()) { }
         }
 
         private static bool IsInconclusive(Exception exception)

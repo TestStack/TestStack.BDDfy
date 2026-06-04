@@ -4,7 +4,7 @@ namespace TestStack.BDDfy.Processors
 {
     public static class AsyncTestRunner
     {        
-        public static void Run(Func<object?> performStep)
+        public static object? Run(Func<object?> performStep)
         {
             var oldSyncContext = SynchronizationContext.Current;
             try
@@ -28,6 +28,7 @@ namespace TestStack.BDDfy.Processors
 
                         throw;
                     }
+                    return null;
                 }
                 else
                 {
@@ -37,6 +38,7 @@ namespace TestStack.BDDfy.Processors
                         ExceptionProcessor.PreserveStackTrace(ex);
                         throw ex;
                     }
+                    return result;
                 }
             }
             finally

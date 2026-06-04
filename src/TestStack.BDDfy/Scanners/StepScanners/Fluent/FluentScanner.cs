@@ -101,10 +101,40 @@ namespace TestStack.BDDfy
             bool asserts, 
             string stepPrefix)
         {
-            var action = stepAction.Compile();
+            // If the method returns string or IEnumerable<string>, recompile as Func to
+            // preserve the return value for dynamic title override at execution time.
+            if (stepAction.Body is MethodCallExpression call && ReturnsDynamicTitle(call.Method.ReturnType))
+            {
+                var funcExpr = Expression.Lambda(call, stepAction.Parameters);
+                var func = funcExpr.Compile();
+                Func<object, object?> stepDelegate = o => func.DynamicInvoke(o);
 
+                StepTitle title;
+                List<StepArgument> args;
+
+                if (string.IsNullOrWhiteSpace(stepTextTemplate) && IsChainedMethodCall(stepAction.Body))
+                {
+                    title = FluentScanner<TScenario>.BuildChainedTitle(stepAction, stepPrefix);
+                    args = [];
+                }
+                else
+                {
+                    var inputArguments = stepAction.ExtractArguments(_testObject).ToArray();
+                    title = CreateTitle(stepTextTemplate, includeInputsInStepTitle, GetMethodInfo(stepAction), inputArguments, stepPrefix);
+                    args = [.. inputArguments.Where(s => !string.IsNullOrEmpty(s.Name))];
+                }
+
+                _steps.Add(new Step(stepDelegate, title, FixAsserts(asserts, executionOrder),
+                    FixConsecutiveStep(executionOrder), reports, args));
+                return;
+            }
+
+            var action = stepAction.Compile();
             AddStep(action, stepAction, stepTextTemplate, includeInputsInStepTitle, reports, executionOrder, asserts, stepPrefix);
         }
+
+        private static bool ReturnsDynamicTitle(Type returnType)
+            => returnType == typeof(string) || returnType == typeof(IEnumerable<string>);
 
         private void AddStep(
             Action<TScenario> action, 

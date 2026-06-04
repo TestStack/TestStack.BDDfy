@@ -62,7 +62,7 @@ namespace TestStack.BDDfy
                     continue;
 
                 var argAttributes = (RunStepWithArgsAttribute[])method.GetCustomAttributes(typeof(RunStepWithArgsAttribute), false);
-                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
+                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>) || method.ReturnType == typeof(string);
 
                 if (argAttributes.Length == 0)
                     yield return GetStep(testContext, matcher, method, returnsItsText, [], null);
@@ -82,7 +82,7 @@ namespace TestStack.BDDfy
         {
             foreach (var matcher in _matchers.Where(x=> x.IsMethodOfInterest(method.Name)))
             {
-                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>);
+                var returnsItsText = method.ReturnType == typeof(IEnumerable<string>) || method.ReturnType == typeof(string);
                 return [GetStep(testContext, matcher, method, returnsItsText, example)];
             }
 
@@ -160,10 +160,15 @@ namespace TestStack.BDDfy
         {
             object[] inputs = argAttribute?.InputArguments ?? [];
 
-            var enumerableResult = InvokeIEnumerableMethod(method, testObject, inputs);
             try
             {
-                return enumerableResult.FirstOrDefault();
+                var result = method.Invoke(testObject, inputs);
+                return result switch
+                {
+                    string s => s,
+                    IEnumerable<string> enumerable => enumerable.FirstOrDefault(),
+                    _ => null
+                };
             }
             catch (Exception ex)
             {
@@ -178,14 +183,16 @@ namespace TestStack.BDDfy
         {
             if (returnsItsText)
             {
-                // Note: Count() is a silly trick to enumerate over the method and make sure it returns because it is an IEnumerable method and runs lazily otherwise
-                return o => InvokeIEnumerableMethod(method, o, inputs).Count();
+                return o =>
+                {
+                    var result = method.Invoke(o, inputs);
+                    if (result is IEnumerable<string> enumerable)
+                        return enumerable.ToList();
+                    return result;
+                };
             }
 
             return StepActionFactory.GetStepAction(method, inputs);
         }
-
-        private static IEnumerable<string> InvokeIEnumerableMethod(MethodInfo method, object testObject, object[] inputs) 
-            => method.Invoke(testObject, inputs) as IEnumerable<string> ?? [];
     }
 }
