@@ -32,7 +32,7 @@
 
             public List<string> Tags { get; set; } = [];
 
-            public Example? Example { get; set; }
+            public List<Example> Examples { get; set; } = [];
 
             public TimeSpan Duration { get; set; }
 
@@ -65,6 +65,12 @@
             public string[] Headers { get; set; } = [];
 
             public IEnumerable<ExampleValue> Values { get; set; } = [];
+
+            public Result Result { get; set; }
+
+            public TimeSpan Duration { get; set; }
+
+            public Exception? Error { get; set; }
         }
     }
 }

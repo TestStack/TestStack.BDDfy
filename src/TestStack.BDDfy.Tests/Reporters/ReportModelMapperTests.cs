@@ -25,7 +25,7 @@ namespace TestStack.BDDfy.Tests.Reporters
             {
                 mapped[i].Namespace.ShouldBe(_stories[i].Namespace);
                 mapped[i].Result.ShouldBe(_stories[i].Result);
-                mapped[i].Scenarios.Count.ShouldBe(_stories[i].Scenarios.Count());
+                mapped[i].Scenarios.Count.ShouldBe(1); // grouped by scenario id
                 mapped[i].Metadata.ShouldNotBeNull();
             }
         }
@@ -66,17 +66,16 @@ namespace TestStack.BDDfy.Tests.Reporters
             var scenarios = _stories[0].Scenarios.ToList();
             var mapped = _stories.ToReportModel().Stories[0].Scenarios;
 
-            for (int i = 0; i < 2; i++)
-            {
-                mapped[i].Id.ShouldBe(scenarios[i].Id);
-                mapped[i].Title.ShouldBe(scenarios[i].Title);
-                mapped[i].Example.ShouldNotBe(null);
-                mapped[i].Duration.ShouldBe(scenarios[i].Duration);
-                mapped[i].Result.ShouldBe(scenarios[i].Result);
+            mapped.Count.ShouldBe(1);
+            var mappedScenario = mapped[0];
+            mappedScenario.Id.ShouldBe(scenarios[0].Id);
+            mappedScenario.Title.ShouldBe(scenarios[0].Title);
+            mappedScenario.Examples.Count.ShouldBe(2);
+            mappedScenario.Duration.ShouldBe(new TimeSpan(scenarios.Sum(s => s.Duration.Ticks)));
+            mappedScenario.Result.ShouldBe((Result)scenarios.Max(s => (int)s.Result));
 
-                mapped[i].Tags.Count.ShouldBe(scenarios[i].Tags.Count);
-                mapped[i].Steps.Count.ShouldBe(scenarios[i].Steps.Count);
-            }
+            mappedScenario.Tags.Count.ShouldBe(scenarios[0].Tags.Count);
+            mappedScenario.Steps.Count.ShouldBe(scenarios[0].Steps.Count);
         }
 
         [Fact]
@@ -101,17 +100,16 @@ namespace TestStack.BDDfy.Tests.Reporters
         [Fact]
         public void example_should_map_to_report_example()
         {
-            var scenarios = _stories[0].Scenarios.Select(x=> new {
-                x.Example!.Headers,
-                x.Example.Values
-             }).ToArray();
+            var scenarios = _stories[0].Scenarios.ToList();
 
-            var mapped = _stories.ToReportModel().Stories[0].Scenarios.Select(x=> new {
-                x.Example!.Headers,
-                x.Example.Values
-            }).ToArray();
+            var mapped = _stories.ToReportModel().Stories[0].Scenarios[0].Examples;
 
-            mapped.ShouldBeEquivalentTo(scenarios);
+            mapped.Count.ShouldBe(2);
+            for (int i = 0; i < 2; i++)
+            {
+                mapped[i].Headers.ShouldBe(scenarios[i].Example!.Headers);
+                mapped[i].Values.ShouldBeEquivalentTo(scenarios[i].Example.Values);
+            }
         }
     }
 }

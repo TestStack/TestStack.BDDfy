@@ -26,9 +26,9 @@
                 Metadata = story.Metadata?.ToStoryMetadataModel()
             };
 
-            foreach (var scenario in story.Scenarios)
+            foreach (var group in story.Scenarios.GroupBy(s => s.Id))
             {
-                model.Scenarios.Add(scenario.ToScenarioModel());
+                model.Scenarios.Add(group.ToScenarioModel());
             }
 
             return model;
@@ -48,18 +48,33 @@
                 StoryUri = metadata.StoryUri
             };
         }
-        private static ReportModel.Scenario ToScenarioModel(this Scenario scenario)
+        private static ReportModel.Scenario ToScenarioModel(this IGrouping<string, Scenario> scenarioGroup)
         {
+            var first = scenarioGroup.First();
             var model = new ReportModel.Scenario
             {
-                Id = scenario.Id,
-                Title = scenario.Title,
-                Tags = scenario.Tags,
-                Example = scenario.Example?.ToExampleModel(),
-                Duration = scenario.Duration,
-                Result = scenario.Result
+                Id = first.Id,
+                Title = first.Title,
+                Tags = first.Tags,
+                Duration = new TimeSpan(scenarioGroup.Sum(s => s.Duration.Ticks)),
+                Result = (Result)scenarioGroup.Max(s => (int)s.Result)
             };
-            scenario.Steps.ForEach(x => model.Steps.Add(x.ToStepModel()));
+
+            first.Steps.ForEach(x => model.Steps.Add(x.ToStepModel()));
+
+            foreach (var scenario in scenarioGroup.Where(s => s.Example is not null))
+            {
+                var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
+                model.Examples.Add(new ReportModel.Example
+                {
+                    Headers = scenario.Example!.Headers,
+                    Values = scenario.Example.Values,
+                    Result = scenario.Result,
+                    Duration = scenario.Duration,
+                    Error = failingStep?.Exception
+                });
+            }
+
             return model;
         }
 
@@ -78,13 +93,5 @@
             };
         }
 
-        private static ReportModel.Example ToExampleModel(this Example example)
-        {
-            return new ReportModel.Example
-            {
-                Headers = example.Headers,
-                Values = example.Values
-            };
+            }
         }
-    }
-}

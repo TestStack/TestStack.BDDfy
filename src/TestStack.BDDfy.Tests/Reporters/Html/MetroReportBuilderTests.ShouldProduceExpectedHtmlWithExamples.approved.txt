@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset='utf-8'/>
@@ -27,14 +27,14 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
             </div>
             <div id='scenariocount' class='tile tileNoHover two-h tealbg'>
               <h3>scenarios</h3>
-              <h1>4</h1>
+              <h1>2</h1>
             </div>
           </div>
           <div class='tilerow' id='filterOptions'>
             <a href='#'>
               <div class='tile one limebg' data-target-class='Passed'>
                 <h4>PASSED</h4>
-                <h1>3</h1>
+                <h1>1</h1>
               </div>
             </a>
             <a href='#'>

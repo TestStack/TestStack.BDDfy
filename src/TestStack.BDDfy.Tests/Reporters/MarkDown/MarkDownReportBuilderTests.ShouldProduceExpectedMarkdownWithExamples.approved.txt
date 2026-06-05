@@ -1,4 +1,4 @@
-﻿## Story: Account holder withdraws cash
+## Story: Account holder withdraws cash
  **As an account holder**  
  **I want to withdraw cash**  
  **So that I can get money when the bank is closed**  
@@ -10,9 +10,9 @@
 
 ### Examples: 
 
-    | sign     | action | Result | Errors                                                                                                      |
-    | positive | is     | Passed |                                                                                                             |
-    | negative | is not | Failed | Step: Then money &lt;action&gt; dispensed failed with exception: [Boom With New lines] [Details at 1 below] |
+    | sign     | action | Result | Errors                                                |
+    | positive | is     | Passed |                                                       |
+    | negative | is not | Failed | Exception: [Boom With New lines] [Details at 1 below] |
 
 #### Exceptions:
     1. Boom With New lines

@@ -23,25 +23,25 @@ internal class DefaultStepTitleFactory : IStepTitleFactory
             var executableAttribute = methodInfo.GetCustomAttribute<ExecutableAttribute>(true);
 
             var callerSuppliedTemplate = stepTextTemplate is not null;
-            includeInputsInStepTitle ??= titleAttribute?.IncludeInputsInStepTitle;
+            var effectiveIncludeInputs = includeInputsInStepTitle ?? titleAttribute?.IncludeInputsInStepTitle;
 
-            stepTextTemplate ??= titleAttribute is not null
-                ? (NullIfEmpty(titleAttribute.StepTitle) ?? "")
-                : NullIfEmpty(executableAttribute?.StepTitle);
+            var template = stepTextTemplate ?? (titleAttribute is not null
+                ? (NullIfEmpty(titleAttribute.StepTitle) ?? string.Empty)
+                : NullIfEmpty(executableAttribute?.StepTitle));
 
-            var hasTemplate = !string.IsNullOrWhiteSpace(stepTextTemplate);
-            stepTextTemplate ??= methodInfo.Name;
+            var hasTemplate = !string.IsNullOrWhiteSpace(template);
+            template ??= methodInfo.Name;
 
-            var formattedTitle = string.Format(Configurator.CultureInfo, stepTextTemplate, flatInputArray);
+            var formattedTitle = string.Format(Configurator.CultureInfo, template, flatInputArray);
             var stepTitle = (hasTemplate ? formattedTitle : Configurator.Humanizer.Humanize(formattedTitle)) 
                 ?? throw new InvalidOperationException($"Failed to create a step title for method '{methodInfo.Name}'.");
 
             if (ShouldAddPrefix(hasTemplate, callerSuppliedTemplate, stepPrefix))
                 stepTitle = PrependPrefix(stepTitle, stepPrefix);
 
-            includeInputsInStepTitle ??= ShouldIncludeInputs(stepTitle, stepTextTemplate, formattedTitle, titleAttribute, methodInfo);
+            effectiveIncludeInputs ??= ShouldIncludeInputs(stepTitle, template, formattedTitle, titleAttribute, methodInfo);
 
-            if (includeInputsInStepTitle ?? IncludeInputsInStepTitle)
+            if (effectiveIncludeInputs ?? IncludeInputsInStepTitle)
                 stepTitle = AppendInputSuffix(stepTitle, methodInfo, inputArguments, testContext);
 
             return stepTitle.Trim();

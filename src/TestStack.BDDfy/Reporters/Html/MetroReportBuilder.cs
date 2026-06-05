@@ -162,9 +162,7 @@ namespace TestStack.BDDfy.Reporters.Html
 
         private void AddStory(ReportModel.Story story)
         {
-            var scenariosInGroup = story.Scenarios.ToList();
-            var scenariosGroupedById = story.Scenarios.GroupBy(s => s.Id);
-            var storyResult = (Result)scenariosInGroup.Max(s => (int)s.Result);
+            var storyResult = (Result)story.Scenarios.Max(s => (int)s.Result);
 
             using (OpenTag(HtmlTag.li))
             {
@@ -174,34 +172,31 @@ namespace TestStack.BDDfy.Reporters.Html
 
                     using (OpenTag("<div class='scenarios'>", HtmlTag.div))
                     {
-                        foreach (var scenario in scenariosGroupedById)
-                            AddScenario([.. scenario]);
+                        foreach (var scenario in story.Scenarios)
+                            AddScenario(scenario);
                     }
                 }
             }
         }
 
-        private void AddScenario(ReportModel.Scenario[] scenarioGroup)
+        private void AddScenario(ReportModel.Scenario scenario)
         {
             using (OpenTag(string.Format("<div class='scenario'>"), HtmlTag.div))
             {
-                if (scenarioGroup.Length == 1)
-                    AddScenario(scenarioGroup.Single());
+                if (scenario.Examples.Count == 0)
+                    AddSimpleScenario(scenario);
                 else
-                    AddScenarioWithExamples(scenarioGroup);
+                    AddScenarioWithExamples(scenario);
             }
         }
 
-        private void AddScenarioWithExamples(ReportModel.Scenario[] scenarioGroup)
+        private void AddScenarioWithExamples(ReportModel.Scenario scenario)
         {
-            var firstScenario = scenarioGroup.First();
-            var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
+            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, WebUtility.HtmlEncode(scenario.Title), MetroReportBuilder.FormatTags(scenario.Tags)));
 
-            AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenarioResult, firstScenario.Id, WebUtility.HtmlEncode(firstScenario.Title), MetroReportBuilder.FormatTags(firstScenario.Tags)));
-
-            using (OpenTag(string.Format("<ul class='steps' id='{0}'>", firstScenario.Id), HtmlTag.ul))
+            using (OpenTag(string.Format("<ul class='steps' id='{0}'>", scenario.Id), HtmlTag.ul))
             {
-                foreach (var step in firstScenario.Steps.Where(s => s.ShouldReport))
+                foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                 {
                     using (OpenTag(string.Format("<li class='step {0}'>", step.ExecutionOrder), HtmlTag.li))
                     {
@@ -216,18 +211,15 @@ namespace TestStack.BDDfy.Reporters.Html
                     }
                 }
 
-                AddExamples(scenarioGroup);
+                AddExamples(scenario);
             }
         }
 
         private static string FormatTags(List<string> tags) => string.Join(string.Empty, tags.Select(t => string.Format("<div class='tag'>{0}</div>", t)));
 
-        private void AddExamples(ReportModel.Scenario[] scenarioGroup)
+        private void AddExamples(ReportModel.Scenario scenario)
         {
-            var firstScenario = scenarioGroup.First();
-            if(firstScenario.Example is null) throw new InvalidOperationException("First scenario in group must have an example");
-
-            var scenarioResult = (Result)scenarioGroup.Max(s => (int)s.Result);
+            var firstExample = scenario.Examples[0];
 
             using (OpenTag("<li class='step'>", HtmlTag.li))
             {
@@ -237,50 +229,46 @@ namespace TestStack.BDDfy.Reporters.Html
                     using (OpenTag("<tr>", HtmlTag.tr))
                     {
                         AddLine(string.Format("<th></th>"));
-                        foreach (var header in firstScenario.Example.Headers)
+                        foreach (var header in firstExample.Headers)
                             AddLine(string.Format("<th>{0}</th>", header));
 
-                        if (scenarioResult == Result.Failed)
+                        if (scenario.Result == Result.Failed)
                             AddLine(string.Format("<th>Error</th>"));
                     }
 
-                    foreach (var scenario in scenarioGroup)
-                        AddExampleRow(scenario, scenarioResult);
+                    foreach (var example in scenario.Examples)
+                        AddExampleRow(example, scenario.Result);
                 }
             }
         }
 
-        private void AddExampleRow(ReportModel.Scenario scenario, Result scenarioResult)
+        private void AddExampleRow(ReportModel.Example example, Result scenarioResult)
         {
             using (OpenTag("<tr>", HtmlTag.tr))
             {
-                AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", scenario.Result));
-                foreach (var exampleValue in scenario.Example?.Values ?? [])
+                AddLine(string.Format("<td><Span class='{0}' style='margin-right:4px;' /></td>", example.Result));
+                foreach (var exampleValue in example.Values)
                     AddLine(string.Format("<td>{0}</td>", WebUtility.HtmlEncode(exampleValue.GetValueAsString())));
 
-                if (scenarioResult != Result.Failed)
+                if (scenarioResult is not Result.Failed)
                     return;
 
                 using (OpenTag("<td>", HtmlTag.td))
                 {
-                    var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
-
-                    if (failingStep == null)
-                        return;
+                    if (example.Error is null) return;
 
                     var exceptionId = Configurator.IdGenerator.GetStepId();
-                    var encodedExceptionMessage = WebUtility.HtmlEncode(failingStep.Exception?.Message);
+                    var encodedExceptionMessage = WebUtility.HtmlEncode(example.Error.Message);
                     AddLine(string.Format("<span class='canToggle' data-toggle-target='{0}'>{1}</span>", exceptionId, encodedExceptionMessage));
                     using (OpenTag(string.Format("<div class='step FailedException' id='{0}'>", exceptionId), HtmlTag.div))
                     {
-                        if(failingStep.Exception is not null)
-                            AddLine(string.Format("<code>{0}</code>", failingStep.Exception.StackTrace));
+                        AddLine(string.Format("<code>{0}</code>", example.Error.StackTrace));
                     }
                 }
             }
         }
 
-        private void AddScenario(ReportModel.Scenario scenario)
+        private void AddSimpleScenario(ReportModel.Scenario scenario)
         {
             AddLine(string.Format("<div class='{0} canToggle scenarioTitle' data-toggle-target='{1}'>{2}{3}</div>", scenario.Result, scenario.Id, WebUtility.HtmlEncode(scenario.Title), MetroReportBuilder.FormatTags(scenario.Tags)));
 

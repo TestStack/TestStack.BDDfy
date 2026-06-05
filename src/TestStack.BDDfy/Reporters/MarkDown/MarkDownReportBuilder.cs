@@ -27,40 +27,31 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
                 report.AppendLine(); // separator
 
-                foreach (var scenarioGroup in story.Scenarios.GroupBy(s => s.Id))
+                foreach (var scenario in story.Scenarios)
                 {
-                    if (scenarioGroup.Count() > 1)
+                    if (scenario.Examples.Count > 0)
                     {
-                        // all scenarios in an example based scenario share the same header and narrative
-                        var exampleScenario = story.Scenarios.First();
-                        report.AppendLine(string.Format("### {0}", exampleScenario.Title));
+                        report.AppendLine(string.Format("### {0}", scenario.Title));
 
-                        if (exampleScenario.Steps.Count != 0)
+                        if (scenario.Steps.Count != 0)
                         {
-                            foreach (var step in exampleScenario.Steps.Where(s => s.ShouldReport))
+                            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
                                 report.AppendLine("  " + WebUtility.HtmlEncode(step.Title) + "  ");
                         }
 
                         report.AppendLine(); // separator
-                        if(exampleScenario.Example is not null)
-                            WriteExamples(report, exampleScenario, scenarioGroup);
-
-                        ReportTags(report, exampleScenario.Tags);
+                        WriteExamples(report, scenario);
+                        ReportTags(report, scenario.Tags);
                     }
                     else
                     {
-                        foreach (var scenario in scenarioGroup)
-                        {
-                            report.AppendLine(string.Format("### {0}", scenario.Title));
+                        report.AppendLine(string.Format("### {0}", scenario.Title));
 
-                            foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
-                                report.AppendLine("  " + WebUtility.HtmlEncode(step.Title) + "  ");
+                        foreach (var step in scenario.Steps.Where(s => s.ShouldReport))
+                            report.AppendLine("  " + WebUtility.HtmlEncode(step.Title) + "  ");
 
-                            report.AppendLine(); // separator
-                        }
-
-                        var exampleScenario = story.Scenarios.First();
-                        ReportTags(report, exampleScenario.Tags);
+                        report.AppendLine(); // separator
+                        ReportTags(report, scenario.Tags);
                     }
                 }
 
@@ -79,15 +70,14 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             report.AppendLine(string.Format("Tags: {0}", string.Join(", ", tags.Select(t => string.Format("`{0}`", t)))));
         }
 
-        private void WriteExamples(StringBuilder report, ReportModel.Scenario exampleScenario, IEnumerable<ReportModel.Scenario> scenarioGroup)
+        private void WriteExamples(StringBuilder report, ReportModel.Scenario scenario)
         {
-            if(exampleScenario.Example is null) return;
+            var firstExample = scenario.Examples[0];
 
             report.AppendLine("### Examples: ");
             report.AppendLine();
-            var scenarios = scenarioGroup.ToArray();
-            var allPassed = scenarios.All(s => s.Result == Result.Passed);
-            var exampleColumns = exampleScenario.Example.Headers.Length;
+            var allPassed = scenario.Examples.All(e => e.Result == Result.Passed);
+            var exampleColumns = firstExample.Headers.Length;
             var numberColumns = allPassed ? exampleColumns : exampleColumns + 2;
             var maxWidth = new int[numberColumns];
             var rows = new List<string[]>();
@@ -116,16 +106,14 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 rows.Add(row);
             }
 
-            addRow(exampleScenario.Example.Headers, "Result", "Errors");
-            foreach (var scenario in scenarios)
+            addRow(firstExample.Headers, "Result", "Errors");
+            foreach (var example in scenario.Examples)
             {
-                var failingStep = scenario.Steps.FirstOrDefault(s => s.Result == Result.Failed);
-                var error = failingStep == null
+                var error = example.Error is null
                     ? null
-                    : string.Format("Step: {0} failed with exception: {1}", WebUtility.HtmlEncode(failingStep.Title), CreateExceptionMessage(failingStep));
+                    : string.Format("Exception: {0}", CreateExceptionMessage(example.Error));
 
-                if (scenario.Example is null) continue;
-                addRow(scenario.Example.Values.Select(e => e.GetValueAsString()), scenario.Result.ToString(), error);
+                addRow(example.Values.Select(e => e.GetValueAsString()), example.Result.ToString(), error);
             }
 
             foreach (var row in rows)
@@ -143,15 +131,15 @@ namespace TestStack.BDDfy.Reporters.MarkDown
             report.AppendLine("|");
         }
 
-        private string? CreateExceptionMessage(ReportModel.Step step)
+        private string? CreateExceptionMessage(Exception? exception)
         {
-            if (step.Exception is null) return null;
+            if (exception is null) return null;
 
-            _exceptions.Add(step.Exception);
+            _exceptions.Add(exception);
 
             var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
-            if (!string.IsNullOrEmpty(step.Exception.Message))
-                return string.Format("[{0}] {1}", FlattenExceptionMessage(step.Exception.Message), exceptionReference);
+            if (!string.IsNullOrEmpty(exception.Message))
+                return string.Format("[{0}] {1}", FlattenExceptionMessage(exception.Message), exceptionReference);
 
             return string.Format("{0}", exceptionReference);
         }
