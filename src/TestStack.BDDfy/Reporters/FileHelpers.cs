@@ -9,5 +9,6 @@
             return Path.GetFullPath(basePath);
         }
 
+        internal static string ResolvePath(string? outputPath, string resourceName) => Path.Combine(outputPath ?? AssemblyDirectory(), resourceName);
     }
 }

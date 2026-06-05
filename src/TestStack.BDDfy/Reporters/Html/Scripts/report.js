@@ -2,6 +2,7 @@
 var html = htm.bind(React.createElement);
 var useState = React.useState;
 var useMemo = React.useMemo;
+var useEffect = React.useEffect;
 
 // Data is loaded from stories.js (sets window.STORIES_DATA via <script src="stories.js">)
 
@@ -128,21 +129,44 @@ function ProgressBar(props) {
     `;
 }
 
-function StepItem(props) {
-    var step = props.step;
-    var keyword = getStepKeyword(step.Title, step.ExecutionOrder);
-    var text = getStepText(step.Title, keyword);
-    var keywordClass = keyword.toLowerCase();
-    var iconColor = step.Result === 'Passed' ? 'has-text-success' : 'has-text-danger';
+function StepsList(props) {
+    var steps = props.steps.filter(function(s) { return s.ShouldReport; });
+
+    // Track current parent keyword for indentation
+    var currentParent = 'given';
 
     return html`
-        <div className="step-item">
-            <span className="step-icon">
-                <i className=${'fas ' + getResultIcon(step.Result) + ' ' + iconColor}></i>
-            </span>
-            <span className=${'step-keyword is-' + keywordClass}>${keyword}</span>
-            <span className="step-text">${text}</span>
-            <span className="step-duration">${formatDuration(step.Duration)}</span>
+        <div className="steps-list">
+            ${steps.map(function(step) {
+                var keyword = getStepKeyword(step.Title, step.ExecutionOrder);
+                var text = getStepText(step.Title, keyword);
+                var keywordClass = keyword.toLowerCase();
+                var iconColor = step.Result === 'Passed' ? 'has-text-success' : 'has-text-danger';
+
+                // Determine indentation: Given/When/Then at root, And indents under parent
+                var indentClass = '';
+                if (keyword === 'Given') {
+                    currentParent = 'given';
+                } else if (keyword === 'When') {
+                    currentParent = 'when';
+                } else if (keyword === 'Then') {
+                    currentParent = 'then';
+                } else if (keyword === 'And') {
+                    indentClass = ' step-indent-1';
+                }
+
+                return html`
+                    <div key=${step.Id}>
+                        <div className=${'step-line' + indentClass}>
+                            <i className=${'fas ' + getResultIcon(step.Result) + ' step-result-icon ' + iconColor}></i>
+                            <span className=${'step-keyword is-' + keywordClass}>${keyword}</span>
+                            <span className="step-text">${text}</span>
+                            <span className="step-duration">${formatDuration(step.Duration)}</span>
+                        </div>
+                        ${step.Exception && html`<${ExceptionBlock} exception=${step.Exception} />`}
+                    </div>
+                `;
+            })}
         </div>
     `;
 }
@@ -162,7 +186,7 @@ function ExampleTable(props) {
     if (!example) return null;
     return html`
         <div className="example-table">
-            <table className="table is-bordered is-narrow is-fullwidth">
+            <table className="table is-bordered is-narrow">
                 <thead>
                     <tr>
                         ${example.Headers.map(function(h, i) {
@@ -173,7 +197,7 @@ function ExampleTable(props) {
                 <tbody>
                     <tr>
                         ${example.Values.map(function(v, i) {
-                            return html`<td key=${i}>Row ${v.Row}</td>`;
+                            return html`<td key=${i}>${v.Row}</td>`;
                         })}
                     </tr>
                 </tbody>
@@ -205,15 +229,8 @@ function ScenarioItem(props) {
                 <${ResultBadge} result=${scenario.Result} />
             </div>
             <div className=${'scenario-steps ' + (isOpen ? 'is-open' : '')}>
+                <${StepsList} steps=${scenario.Steps} />
                 ${scenario.Example && html`<${ExampleTable} example=${scenario.Example} />`}
-                ${scenario.Steps.filter(function(s) { return s.ShouldReport; }).map(function(step) {
-                    return html`
-                        <div key=${step.Id}>
-                            <${StepItem} step=${step} />
-                            ${step.Exception && html`<${ExceptionBlock} exception=${step.Exception} />`}
-                        </div>
-                    `;
-                })}
             </div>
         </div>
     `;
@@ -251,23 +268,24 @@ function StoryMetadata(props) {
     `;
 }
 
-function NamespaceGroup(props) {
-    var namespace = props.namespace;
-    var stories = props.stories;
+function StoryGroup(props) {
+    var story = props.story;
     var openState = useState(true);
     var isOpen = openState[0];
     var setIsOpen = openState[1];
 
-    var totalScenarios = stories.reduce(function(sum, s) { return sum + s.Scenarios.length; }, 0);
-    var hasFailure = stories.some(function(s) { return s.Result === 'Failed'; });
+    var metadata = story.Metadata;
+    var title = metadata && metadata.Title ? metadata.Title : story.Namespace;
+    var totalScenarios = story.Scenarios.length;
+    var hasFailure = story.Result === 'Failed';
 
     return html`
         <div className="namespace-group">
             <div className="namespace-header" onClick=${function() { setIsOpen(!isOpen); }}>
                 <div className="namespace-title">
                     <i className=${'fas fa-chevron-right chevron ' + (isOpen ? 'is-open' : '')}></i>
-                    <i className=${'fas fa-folder' + (isOpen ? '-open' : '') + ' has-text-warning'}></i>
-                    <span>${namespace}</span>
+                    <i className=${'fas fa-book' + (isOpen ? '-open' : '') + ' has-text-info'}></i>
+                    <span>${title}</span>
                     <span className="scenario-count">
                         ${totalScenarios} scenario${totalScenarios !== 1 ? 's' : ''}
                     </span>
@@ -275,16 +293,10 @@ function NamespaceGroup(props) {
                 <${ResultBadge} result=${hasFailure ? 'Failed' : 'Passed'} />
             </div>
             <div className=${'namespace-content ' + (isOpen ? 'is-open' : '')}>
-                ${stories.map(function(story, idx) {
-                    return html`
-                        <div key=${idx}>
-                            <${StoryMetadata} metadata=${story.Metadata} />
-                            ${story.Scenarios.map(function(scenario) {
-                                var key = scenario.Id + '-' + (scenario.Example && scenario.Example.Values[0] ? scenario.Example.Values[0].Row : '');
-                                return html`<${ScenarioItem} key=${key} scenario=${scenario} />`;
-                            })}
-                        </div>
-                    `;
+                <${StoryMetadata} metadata=${metadata} />
+                ${story.Scenarios.map(function(scenario) {
+                    var key = scenario.Id + '-' + (scenario.Example && scenario.Example.Values[0] ? scenario.Example.Values[0].Row : '');
+                    return html`<${ScenarioItem} key=${key} scenario=${scenario} />`;
                 })}
             </div>
         </div>
@@ -298,9 +310,9 @@ function FilterBar(props) {
     var onSearchChange = props.onSearchChange;
 
     var filters = [
-        { key: 'all', label: 'All', icon: 'fa-list' },
-        { key: 'passed', label: 'Passed', icon: 'fa-circle-check' },
-        { key: 'failed', label: 'Failed', icon: 'fa-circle-xmark' }
+        { key: 'all', label: 'All', icon: 'fa-list', iconColor: '' },
+        { key: 'passed', label: 'Passed', icon: 'fa-circle-check', iconColor: 'has-text-success' },
+        { key: 'failed', label: 'Failed', icon: 'fa-circle-xmark', iconColor: 'has-text-danger' }
     ];
 
     return html`
@@ -313,7 +325,7 @@ function FilterBar(props) {
                             className=${'button is-small ' + (filter === f.key ? 'is-dark is-selected' : '')}
                             onClick=${function() { onFilterChange(f.key); }}
                         >
-                            <span className="icon is-small"><i className=${'fas ' + f.icon}></i></span>
+                            <span className="icon is-small"><i className=${'fas ' + f.icon + ' ' + (filter !== f.key ? f.iconColor : '')}></i></span>
                             <span>${f.label}</span>
                         </button>
                     `;
@@ -335,8 +347,55 @@ function FilterBar(props) {
     `;
 }
 
+function ThemeToggle(props) {
+    var theme = props.theme;
+    var setTheme = props.setTheme;
+
+    function cycle() {
+        var next = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light';
+        setTheme(next);
+    }
+
+    var icon = theme === 'dark' ? 'fa-moon' : theme === 'light' ? 'fa-sun' : 'fa-circle-half-stroke';
+    var label = theme === 'system' ? 'Auto' : theme.charAt(0).toUpperCase() + theme.slice(1);
+
+    return html`
+        <button className="button is-small theme-toggle" onClick=${cycle} title=${"Theme: " + label}>
+            <span className="icon is-small"><i className=${'fas ' + icon}></i></span>
+            <span>${label}</span>
+        </button>
+    `;
+}
+
+function getSystemTheme() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+    var resolved = theme === 'system' ? getSystemTheme() : theme;
+    document.documentElement.setAttribute('data-theme', resolved);
+}
+
 function App() {
     var data = STORIES_DATA;
+    var themeState = useState('system');
+    var theme = themeState[0];
+    var setThemeRaw = themeState[1];
+
+    function setTheme(t) {
+        setThemeRaw(t);
+        applyTheme(t);
+    }
+
+    // Apply theme on first render
+    useEffect(function() {
+        applyTheme(theme);
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        function handler() { if (theme === 'system') applyTheme('system'); }
+        mq.addEventListener('change', handler);
+        return function() { mq.removeEventListener('change', handler); };
+    }, [theme]);
+
     var filterState = useState('all');
     var filter = filterState[0];
     var setFilter = filterState[1];
@@ -344,49 +403,28 @@ function App() {
     var searchTerm = searchState[0];
     var setSearchTerm = searchState[1];
 
-    // Group stories by namespace
-    var groupedByNamespace = useMemo(function() {
-        var groups = {};
-        data.Stories.forEach(function(story) {
-            var ns = story.Namespace;
-            if (!groups[ns]) groups[ns] = [];
-            groups[ns].push(story);
-        });
-        return groups;
-    }, [data]);
+    // Apply filters to stories
+    var filteredStories = useMemo(function() {
+        return data.Stories.map(function(story) {
+            var scenarios = story.Scenarios;
 
-    // Apply filters
-    var filteredGroups = useMemo(function() {
-        var result = {};
-        Object.entries(groupedByNamespace).forEach(function(entry) {
-            var ns = entry[0];
-            var stories = entry[1];
-            var filteredStories = stories.map(function(story) {
-                var scenarios = story.Scenarios;
-
-                if (filter !== 'all') {
-                    scenarios = scenarios.filter(function(s) {
-                        return s.Result.toLowerCase() === filter;
-                    });
-                }
-
-                if (searchTerm) {
-                    var term = searchTerm.toLowerCase();
-                    scenarios = scenarios.filter(function(s) {
-                        return s.Title.toLowerCase().includes(term) ||
-                            s.Steps.some(function(step) { return step.Title.toLowerCase().includes(term); });
-                    });
-                }
-
-                return Object.assign({}, story, { Scenarios: scenarios });
-            }).filter(function(story) { return story.Scenarios.length > 0; });
-
-            if (filteredStories.length > 0) {
-                result[ns] = filteredStories;
+            if (filter !== 'all') {
+                scenarios = scenarios.filter(function(s) {
+                    return s.Result.toLowerCase() === filter;
+                });
             }
-        });
-        return result;
-    }, [groupedByNamespace, filter, searchTerm]);
+
+            if (searchTerm) {
+                var term = searchTerm.toLowerCase();
+                scenarios = scenarios.filter(function(s) {
+                    return s.Title.toLowerCase().includes(term) ||
+                        s.Steps.some(function(step) { return step.Title.toLowerCase().includes(term); });
+                });
+            }
+
+            return Object.assign({}, story, { Scenarios: scenarios });
+        }).filter(function(story) { return story.Scenarios.length > 0; });
+    }, [data, filter, searchTerm]);
 
     return html`
         <div>
@@ -403,12 +441,13 @@ function App() {
                                 ${formatDate(data.RunDate)}
                             </p>
                         </div>
-                        <div className="has-text-right">
+                        <div className="is-flex is-align-items-center" style=${{ gap: '0.5rem' }}>
+                            <${ThemeToggle} theme=${theme} setTheme=${setTheme} />
                             <span className="tag is-medium is-light">
                                 <i className="fas fa-layer-group mr-1"></i>
                                 ${data.Summary.Namespaces} Namespaces
                             </span>
-                            <span className="tag is-medium is-light ml-2">
+                            <span className="tag is-medium is-light">
                                 <i className="fas fa-book mr-1"></i>
                                 ${data.Summary.Stories} Stories
                             </span>
@@ -428,18 +467,15 @@ function App() {
                 />
 
                 <section>
-                    ${Object.entries(filteredGroups).map(function(entry) {
-                        var namespace = entry[0];
-                        var stories = entry[1];
+                    ${filteredStories.map(function(story) {
                         return html`
-                            <${NamespaceGroup}
-                                key=${namespace}
-                                namespace=${namespace}
-                                stories=${stories}
+                            <${StoryGroup}
+                                key=${story.Namespace + (story.Metadata ? story.Metadata.Title : '')}
+                                story=${story}
                             />
                         `;
                     })}
-                    ${Object.keys(filteredGroups).length === 0 && html`
+                    ${filteredStories.length === 0 && html`
                         <div className="notification is-light has-text-centered">
                             <i className="fas fa-search mr-2"></i>
                             No scenarios match the current filter.

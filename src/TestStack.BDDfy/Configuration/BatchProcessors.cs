@@ -8,28 +8,25 @@ namespace TestStack.BDDfy.Configuration
     public class BatchProcessors
     {
         readonly List<IBatchProcessor> _addedProcessors = [];
+        readonly List<Action<IBatchProcessor>> _batchProcessorConfigurators = [];
 
         private IEnumerable<IBatchProcessor> YieldProcessors()
         {
             var htmlReporter = HtmlReport.ConstructFor(StoryCache.Stories);
             if (htmlReporter != null)
-                yield return htmlReporter;
-
-            var htmlMetroReporter = HtmlMetroReport.ConstructFor(StoryCache.Stories);
-            if (htmlMetroReporter != null)
-                yield return htmlMetroReporter;
+                yield return Configured(htmlReporter);
 
             var markDown = MarkDownReport.ConstructFor(StoryCache.Stories);
             if (markDown != null)
-                yield return markDown;
+                yield return Configured(markDown);
 
             var diagnostics = DiagnosticsReport.ConstructFor(StoryCache.Stories);
             if (diagnostics != null)
-                yield return diagnostics;
+                yield return Configured(diagnostics);
 
             var jsonReporter = JsonDataFileReport.ConstructFor(StoryCache.Stories);
             if (jsonReporter != null)
-                yield return jsonReporter;
+                yield return Configured(jsonReporter);
 
             foreach (var addedProcessor in _addedProcessors)
             {
@@ -37,14 +34,11 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        public BatchProcessorFactory HtmlReport { get; } = new(() => new HtmlReporter(new DefaultHtmlReportConfiguration()));
+        public BatchProcessorFactory HtmlReport { get; } = new(() => new HtmlReporter());
 
-        public BatchProcessorFactory HtmlMetroReport { get; } = new(() 
-            => new HtmlReporter(new DefaultHtmlReportConfiguration(), new MetroReportBuilder()), false);
+        public BatchProcessorFactory MarkDownReport { get; } = new(() => new GenericReporter<MarkDownReportBuilder>("bddfy.md"), false);
 
-        public BatchProcessorFactory MarkDownReport { get; } = new(() => new MarkDownReporter(), false);
-
-        public BatchProcessorFactory DiagnosticsReport { get; } = new(() => new DiagnosticsReporter(), false);
+        public BatchProcessorFactory DiagnosticsReport { get; } = new(() => new GenericReporter<DiagnosticsReportBuilder>("diagnostics.json"), false);
         
         public BatchProcessorFactory JsonDataFileReport { get; } = new(() => new JavascriptDataFileReporter(), false);
 
@@ -57,6 +51,25 @@ namespace TestStack.BDDfy.Configuration
         public IEnumerable<IBatchProcessor> GetProcessors()
         {
             return [.. YieldProcessors()];
+        }
+
+        public void Configure<TProcessor>(Action<TProcessor> configure) where TProcessor : IBatchProcessor
+        {
+            _batchProcessorConfigurators.Add(processor =>
+            {
+                if (processor is TProcessor typedProcessor)
+                    configure(typedProcessor);
+            });
+        }
+
+        private TProcessor Configured<TProcessor>(TProcessor processor) where TProcessor : IBatchProcessor
+        {
+            foreach (var configurator in _batchProcessorConfigurators)
+            {
+                configurator(processor);
+            }
+
+            return processor;
         }
     }
 }

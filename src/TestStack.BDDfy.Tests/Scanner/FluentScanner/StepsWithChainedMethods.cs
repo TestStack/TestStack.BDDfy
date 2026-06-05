@@ -8,7 +8,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
 {
     public class StepsWithChainedMethods
     {
-        private SutStepBuilder _sutStepBuilder = new();
+        private readonly SutStepBuilder _sutStepBuilder = new();
         private class SutStepBuilder
         {
             public string state = null!;

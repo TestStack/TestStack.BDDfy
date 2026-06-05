@@ -13,11 +13,20 @@ namespace TestStack.BDDfy.Samples
         {
             Configurator.Processors.Add(() => new CustomTextReporter());
             Configurator.Processors.Add(() => new XUnitOutputReporter());
+
             Configurator.Processors.ConsoleReport.Enable();
             Configurator.BatchProcessors.MarkDownReport.Enable();
             Configurator.BatchProcessors.DiagnosticsReport.Enable();
             Configurator.BatchProcessors.JsonDataFileReport.Enable();
-            Configurator.BatchProcessors.Add(new HtmlReporter(new AtmHtmlReportConfig(), new MetroReportBuilder()));
+            Configurator.BatchProcessors.HtmlReport.Enable();
+
+            Configurator.BatchProcessors.Configure<HtmlReporter>(reporter =>
+            {
+                reporter.Configuration = new AtmHtmlReportConfig
+                {
+                    ReportBuilder = new MetroReportBuilder()
+                };
+            });
         }
     }
 }

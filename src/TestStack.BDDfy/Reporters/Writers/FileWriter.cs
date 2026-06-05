@@ -4,7 +4,7 @@ namespace TestStack.BDDfy.Reporters.Writers
     {
         public void OutputReport(string reportData, string reportName, string? outputDirectory = null)
         {
-            var filePath = Path.Combine(outputDirectory ?? FileHelpers.AssemblyDirectory(), reportName);
+            var filePath = FileHelpers.ResolvePath(outputDirectory, reportName);
             string directory = Path.GetDirectoryName(filePath) ?? throw new InvalidOperationException("Unable to determine directory.");
 
             Directory.CreateDirectory(directory);

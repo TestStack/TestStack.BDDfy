@@ -1,5 +1,7 @@
 ﻿using NSubstitute;
 using TestStack.BDDfy.Reporters;
+using TestStack.BDDfy.Reporters.Diagnostics;
+using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.MarkDown;
 using TestStack.BDDfy.Reporters.Writers;
 using Xunit;
@@ -9,7 +11,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
     public class MarkDownReporterTests
     {
         private IReportBuilder _builder = null!;
-        private FileWriter _writer = null!;
+        private IFileWriter _writer = null!;
 
         [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
@@ -36,11 +38,17 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
                 Arg.Any<string>());
         }
 
-        private MarkDownReporter CreateSut()
+        private GenericReporter<MarkDownReportBuilder> CreateSut()
         {
             _builder = Substitute.For<IReportBuilder>();
-            _writer = Substitute.For<FileWriter>();
-            return new MarkDownReporter(_builder, _writer);
+            _writer = Substitute.For<IFileWriter>();
+            var configuration = new ReportConfiguration<MarkDownReportBuilder>("any.md")
+            {
+                ReportBuilder = _builder,
+                FileWriter = _writer
+            };
+
+            return new GenericReporter<MarkDownReportBuilder>(configuration);
         }
     }
 }

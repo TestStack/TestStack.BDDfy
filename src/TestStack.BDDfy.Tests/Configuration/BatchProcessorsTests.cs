@@ -13,7 +13,7 @@ namespace TestStack.BDDfy.Tests.Configuration
     {
         static bool MetroReportProcessorIsActive(IBatchProcessor batchProcessor)
         {
-            return batchProcessor is HtmlReporter reporter && reporter.ReportBuilder is MetroReportBuilder;
+            return batchProcessor is HtmlReporter reporter && reporter.Configuration.ReportBuilder is MetroReportBuilder;
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace TestStack.BDDfy.Tests.Configuration
         public void DoesNotReturnMarkDownReporterByDefault()
         {
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            processors.Any(p => p is MarkDownReporter).ShouldBe(false);
+            processors.Any(p => p is GenericReporter<MarkDownReportBuilder>).ShouldBe(false);
         }
 
         [Fact]
@@ -54,20 +54,31 @@ namespace TestStack.BDDfy.Tests.Configuration
             Configurator.BatchProcessors.MarkDownReport.Enable();
             
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
-            processors.Any(p => p is MarkDownReporter).ShouldBe(true);
+            processors.Any(p => p is GenericReporter<MarkDownReportBuilder>).ShouldBe(true);
 
             Configurator.BatchProcessors.MarkDownReport.Disable();
         }
 
         [Fact]
-        public void ReturnsHtmlMetroReporterWhenItIsActivated()
+        public void ReturnsHtmlMetroReporterWhenItIsActivatedAndConfiguredWithMetroReportBuilder()
         {
-            Configurator.BatchProcessors.HtmlMetroReport.Enable();
-            
+            Configurator.BatchProcessors.Configure<HtmlReporter>(reporter =>
+            {
+                reporter.Configuration = new HtmlReportConfiguration
+                {
+                    ReportBuilder = new MetroReportBuilder()
+                };
+            });
+
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
             processors.Any(MetroReportProcessorIsActive).ShouldBe(true);
-
-            Configurator.BatchProcessors.HtmlMetroReport.Disable();
+            Configurator.BatchProcessors.Configure<HtmlReporter>(reporter =>
+            {
+                reporter.Configuration = new HtmlReportConfiguration
+                {
+                    ReportBuilder = new ClassicReportBuilder()
+                };
+            });
         }
 
         [Fact]
@@ -77,7 +88,7 @@ namespace TestStack.BDDfy.Tests.Configuration
 
             var processors = Configurator.BatchProcessors.GetProcessors().ToList();
 
-            processors.ShouldContain(p=> p is DiagnosticsReporter, 1);
+            processors.ShouldContain(p=> p is GenericReporter<DiagnosticsReportBuilder>, 1);
 
             Configurator.BatchProcessors.DiagnosticsReport.Disable();
         }

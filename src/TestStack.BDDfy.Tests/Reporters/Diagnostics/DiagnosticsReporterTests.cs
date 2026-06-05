@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using TestStack.BDDfy.Reporters;
 using TestStack.BDDfy.Reporters.Diagnostics;
+using TestStack.BDDfy.Reporters.Html;
 using TestStack.BDDfy.Reporters.Writers;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
     public class DiagnosticsReporterTests
     {
         private IReportBuilder _builder = null!;
-        private FileWriter _writer = null!;
+        private IFileWriter _writer = null!;
 
         [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
@@ -36,11 +37,18 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
                 Arg.Any<string>());
         }
 
-        private DiagnosticsReporter CreateSut()
+        private GenericReporter<DiagnosticsReportBuilder> CreateSut()
         {
             _builder = Substitute.For<IReportBuilder>();
-            _writer = Substitute.For<FileWriter>();
-            return new DiagnosticsReporter(_builder, _writer);
+            _writer = Substitute.For<IFileWriter>();
+
+            var configuration = new ReportConfiguration<DiagnosticsReportBuilder>("any")
+            {
+                ReportBuilder = _builder,
+                FileWriter = _writer
+            };
+
+            return new GenericReporter<DiagnosticsReportBuilder>(configuration);
         }
     }
 }

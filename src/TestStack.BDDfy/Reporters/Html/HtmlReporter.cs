@@ -1,39 +1,17 @@
-using TestStack.BDDfy.Reporters.Readers;
-using TestStack.BDDfy.Reporters.Writers;
-
 namespace TestStack.BDDfy.Reporters.Html
 {
-    public class HtmlReporter(
-        IHtmlReportConfiguration configuration,
-        IReportBuilder reportBuilder,
-        FileWriter writer,
-        IFileReader reader): IBatchProcessor
+    public class HtmlReporter(HtmlReportConfiguration configuration): IBatchProcessor
     {
-        public IReportBuilder ReportBuilder { get; set; } = reportBuilder;
-        private readonly FileWriter _writer = writer;
-        private readonly IFileReader _fileReader = reader;
-        readonly IHtmlReportConfiguration _configuration = configuration;
+        public HtmlReportConfiguration Configuration = configuration;
+
         public HtmlReportModel Model { get; private set; } = null!;
 
-        public HtmlReporter(IHtmlReportConfiguration configuration)
-            : this(configuration, new ClassicReportBuilder())
-        {
-        }
-
-        public HtmlReporter(IReportBuilder reportBuilder)
-            : this(new DefaultHtmlReportConfiguration(), reportBuilder)
-        {
-        }
-
-        public HtmlReporter(IHtmlReportConfiguration configuration, IReportBuilder htmlReportBuilder)
-            : this(configuration, htmlReportBuilder, new FileWriter(), new FileReader())
-        {
-        }
+        public HtmlReporter() : this(new HtmlReportConfiguration()) { }
 
         public void Process(IEnumerable<Story> stories)
         {
-            var allowedStories = stories.Where(_configuration.RunsOn).ToList();
-            Model = new HtmlReportModel(_configuration, allowedStories.ToReportModel());
+            var allowedStories = stories.Where(Configuration.RunsOn).ToList();
+            Model = new HtmlReportModel(Configuration, allowedStories.ToReportModel());
             WriteOutHtmlReport();
         }
 
@@ -44,26 +22,26 @@ namespace TestStack.BDDfy.Reporters.Html
 
             try
             {
-                report = ReportBuilder.CreateReport(Model);
+                report = Configuration.ReportBuilder.CreateReport(Model);
             }
             catch (Exception ex)
             {
                 report = ex.Message + ex.StackTrace;
             }
 
-            _writer.OutputReport(report, _configuration.OutputFileName, _configuration.OutputPath);
+            Configuration.FileWriter.OutputReport(report, Configuration.OutputFileName, Configuration.OutputPath);
         }
 
         private void LoadCustomScripts()
         {
-            var customStylesheet = Path.Combine(_configuration.OutputPath, "BDDfyCustom.css");
+            var customStylesheet = FileHelpers.ResolvePath(Configuration.OutputPath, "BDDfyCustom.css");
 
-            if (_fileReader.Exists(customStylesheet))
-                Model.CustomStylesheet = _fileReader.Read(customStylesheet);
+            if (Configuration.FileReader.Exists(customStylesheet))
+                Model.CustomStylesheet = Configuration.FileReader.Read(customStylesheet);
 
-            var customJavascript = Path.Combine(_configuration.OutputPath, "BDDfyCustom.js");
-            if (_fileReader.Exists(customJavascript))
-                Model.CustomJavascript = _fileReader.Read(customJavascript);
+            var customJavascript = FileHelpers.ResolvePath(Configuration.OutputPath, "BDDfyCustom.js");
+            if (Configuration.FileReader.Exists(customJavascript))
+                Model.CustomJavascript = Configuration.FileReader.Read(customJavascript);
         }
     }
 }
