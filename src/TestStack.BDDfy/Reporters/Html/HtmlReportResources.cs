@@ -7,6 +7,7 @@ namespace TestStack.BDDfy.Reporters.Html
         public static string classic_js_min => Read("TestStack.BDDfy.Reporters.Html.Scripts.classic.min.js");
         public static string jquery_2_1_0_min => Read("TestStack.BDDfy.Reporters.Html.Scripts.jquery-2.1.0.min.js");
         public static string classic_css_min => Read("TestStack.BDDfy.Reporters.Html.Scripts.classic.min.css");
+        public static string modern_html_report=> Read("TestStack.BDDfy.Reporters.Html.Scripts.report.html");
 
         public static string CustomStylesheetComment =>
             "If you drop a custom stylesheet named BDDfyCustom.css in your output folder" +

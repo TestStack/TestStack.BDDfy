@@ -24,7 +24,7 @@ namespace TestStack.BDDfy.Samples
             {
                 reporter.Configuration = new AtmHtmlReportConfig
                 {
-                    ReportBuilder = new MetroReportBuilder()
+                    ReportBuilder = new ModernReportBuilder()
                 };
             });
         }

@@ -12,8 +12,492 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="report.css">
-</head>
+    <style>
+/* BDDfy Report - Custom Styles */
+
+:root,
+[data-theme="light"] {
+    --color-passed: #48c78e;
+    --color-failed: #f14668;
+    --color-inconclusive: #ffe08a;
+    --color-not-implemented: #b5b5b5;
+    --color-given: #3e8ed0;
+    --color-when: #9b59b6;
+    --color-then: #48c78e;
+    --color-and: #7a7a7a;
+    --bg-body: #f5f5f5;
+    --bg-card: #fff;
+    --bg-card-hover: #fafafa;
+    --bg-header: linear-gradient(135deg, #363636 0%, #1a1a2e 100%);
+    --text-primary: #363636;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --border-color: #ededed;
+    --border-radius: 8px;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+    --color-passed: #48c78e;
+    --color-failed: #f14668;
+    --color-inconclusive: #ffe08a;
+    --color-not-implemented: #b5b5b5;
+    --color-given: #5ba3d9;
+    --color-when: #bb86fc;
+    --color-then: #66d9a0;
+    --color-and: #a0a0a0;
+    --bg-body: #1a1a2e;
+    --bg-card: #242440;
+    --bg-card-hover: #2d2d4a;
+    --bg-header: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+    --text-primary: #e0e0e0;
+    --text-secondary: #c0c0c0;
+    --text-muted: #888;
+    --border-color: #3a3a5a;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body {
+    background-color: var(--bg-body);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header */
+.report-header {
+    background: var(--bg-header);
+    color: #fff;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.report-header .title {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.report-header .subtitle {
+    color: #b5b5b5;
+}
+
+.report-header .tag.is-light {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* Summary Cards */
+.summary-cards {
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    border-radius: var(--border-radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summary-card .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.summary-card .stat-number i {
+    font-size: 0.8em;
+}
+
+.summary-card .stat-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.summary-card.is-total {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+}
+
+.summary-card.is-passed {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1a3a2a;
+}
+
+.summary-card.is-failed {
+    background: linear-gradient(135deg, #f5576c, #ff6b6b);
+    color: #fff;
+}
+
+.summary-card.is-inconclusive {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    color: #4a3000;
+}
+
+.summary-card.is-not-implemented {
+    background: linear-gradient(135deg, #a8a8a8, #d4d4d4);
+    color: #363636;
+}
+
+/* Namespace Groups */
+.namespace-group {
+    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    background: var(--bg-card);
+}
+
+.namespace-header {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s ease;
+    user-select: none;
+}
+
+.namespace-header:hover {
+    background: var(--bg-card-hover);
+}
+
+.namespace-header .namespace-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.namespace-header .chevron {
+    transition: transform 0.3s ease;
+    color: var(--text-muted);
+}
+
+.namespace-header .chevron.is-open {
+    transform: rotate(90deg);
+}
+
+.namespace-content {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    background: var(--bg-card);
+}
+
+.namespace-content.is-open {
+    max-height: none;
+    padding: 1rem 1.5rem;
+}
+
+/* Story Metadata */
+.story-metadata {
+    background: var(--bg-card-hover);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--color-given);
+}
+
+.story-metadata .story-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.story-metadata .narrative {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.story-metadata .story-links {
+    margin-top: 0.5rem;
+}
+
+.story-metadata .story-links a {
+    font-size: 0.8rem;
+    margin-right: 1rem;
+}
+
+/* Scenario */
+.scenario-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.scenario-item:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.scenario-header {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-card-hover);
+    transition: background 0.2s ease;
+    user-select: none;
+}
+
+.scenario-header:hover {
+    background: var(--bg-card);
+}
+
+.scenario-header .scenario-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.scenario-header .scenario-duration {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+}
+
+.scenario-steps {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.scenario-steps.is-open {
+    max-height: none;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Steps */
+.steps-list {
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.step-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.15rem 0;
+}
+
+.step-line.step-indent-1 {
+    padding-left: 1.5rem;
+}
+
+.step-line.step-indent-2 {
+    padding-left: 3rem;
+}
+
+.step-line .step-duration {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+    flex-shrink: 0;
+}
+
+.step-line .step-result-icon {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+}
+
+.step-line .step-keyword {
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-line .step-keyword.is-given {
+    color: var(--color-given);
+}
+
+.step-line .step-keyword.is-when {
+    color: var(--color-when);
+}
+
+.step-line .step-keyword.is-then {
+    color: var(--color-then);
+}
+
+.step-line .step-keyword.is-and {
+    color: var(--color-and);
+}
+
+.step-line .step-text {
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Result badges */
+.result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.result-badge.is-passed {
+    background: #effaf5;
+    color: #257953;
+}
+
+.result-badge.is-failed {
+    background: #feecf0;
+    color: #cc0f35;
+}
+
+.result-badge.is-inconclusive {
+    background: #fff8e1;
+    color: #946c00;
+}
+
+.result-badge.is-not-implemented {
+    background: #f5f5f5;
+    color: #7a7a7a;
+}
+
+/* Example table */
+.example-table {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.example-table table {
+    font-size: 0.85rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    width: auto;
+}
+
+.example-table th {
+    background: #363636;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Exception display */
+.exception-block {
+    background: #feecf0;
+    border: 1px solid #f14668;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #cc0f35;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* Progress bar */
+.progress-overview {
+    margin-bottom: 2rem;
+}
+
+.progress-overview progress.is-success {
+    --bulma-progress-value-background-color: var(--color-passed);
+}
+
+/* Scenario count badge */
+.scenario-count {
+    background: #eef6fc;
+    color: #3e8ed0;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .scenario-count {
+    background: rgba(62, 142, 208, 0.15);
+    color: #5ba3d9;
+}
+
+/* Story image */
+.story-image {
+    height: 100%;
+    max-height: 15em;
+    width: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-self: stretch;
+}
+
+/* Footer */
+.report-footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.namespace-group {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .summary-card .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .namespace-header {
+        padding: 0.75rem 1rem;
+    }
+
+    .namespace-content.is-open {
+        padding: 0.75rem;
+    }
+
+    .step-line.step-indent-1 {
+        padding-left: 1rem;
+    }
+
+    .step-line.step-indent-2 {
+        padding-left: 2rem;
+    }
+}
+    </style>
 <body>
     <div id="root"></div>
 
@@ -27,7 +511,529 @@
     <!-- Stories data: generated as "var STORIES_DATA = {...};" from stories.json -->
     <script src="stories.js"></script>
 
-    <!-- App Script (runs after stories.js has set the data) -->
-    <script src="report.js"></script>
+    <!-- App Script -->
+    <script>
+// ─── Setup htm for JSX-like templates without Babel ─────────────────────────
+var html = htm.bind(React.createElement);
+var useState = React.useState;
+var useMemo = React.useMemo;
+var useEffect = React.useEffect;
+
+// Data is loaded from stories.js (sets window.STORIES_DATA via <script src="stories.js">)
+
+// ─── Utility Functions ───────────────────────────────────────────────────────
+
+function formatDuration(duration) {
+    if (!duration) return '';
+    var parts = duration.split(':');
+    var seconds = parseFloat(parts[2]);
+    if (seconds < 0.001) return '<1ms';
+    if (seconds < 1) return (seconds * 1000).toFixed(1) + 'ms';
+    return seconds.toFixed(2) + 's';
+}
+
+function formatDate(dateStr) {
+    var date = new Date(dateStr);
+    return date.toLocaleDateString('en-GB', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function getResultClass(result) {
+    switch (result) {
+        case 'Passed': return 'is-passed';
+        case 'Failed': return 'is-failed';
+        case 'Inconclusive': return 'is-inconclusive';
+        case 'NotImplemented': return 'is-not-implemented';
+        default: return '';
+    }
+}
+
+function getResultIcon(result) {
+    switch (result) {
+        case 'Passed': return 'fa-circle-check';
+        case 'Failed': return 'fa-circle-xmark';
+        case 'Inconclusive': return 'fa-circle-question';
+        case 'NotImplemented': return 'fa-circle-minus';
+        default: return 'fa-circle';
+    }
+}
+
+function getStepKeyword(title, executionOrder) {
+    if (title.startsWith('Given')) return 'Given';
+    if (title.startsWith('When')) return 'When';
+    if (title.startsWith('Then')) return 'Then';
+    if (title.startsWith('And')) return 'And';
+    if (executionOrder.includes('SetupState') && !executionOrder.includes('Consecutive')) return 'Given';
+    if (executionOrder.includes('Transition')) return 'When';
+    if (executionOrder.includes('Assertion') && !executionOrder.includes('Consecutive')) return 'Then';
+    if (executionOrder.includes('Consecutive')) return 'And';
+    return '';
+}
+
+function getStepText(title, keyword) {
+    if (title.startsWith(keyword)) {
+        return title.substring(keyword.length).trim();
+    }
+    return title;
+}
+
+// ─── Components ──────────────────────────────────────────────────────────────
+
+function ResultBadge(props) {
+    var result = props.result;
+    return html`
+        <span className=${'result-badge ' + getResultClass(result)}>
+            <i className=${'fas ' + getResultIcon(result)}></i>
+            ${' ' + result}
+        </span>
+    `;
+}
+
+function SummaryCards(props) {
+    var summary = props.summary;
+    var cards = [
+        { label: 'Scenarios', value: summary.Scenarios, className: 'is-total', icon: 'fa-list-check' },
+        { label: 'Passed', value: summary.Passed, className: 'is-passed', icon: 'fa-circle-check' },
+        { label: 'Failed', value: summary.Failed, className: 'is-failed', icon: 'fa-circle-xmark' },
+        { label: 'Inconclusive', value: summary.Inconclusive, className: 'is-inconclusive', icon: 'fa-circle-question' },
+        { label: 'Not Implemented', value: summary.NotImplemented, className: 'is-not-implemented', icon: 'fa-circle-minus' }
+    ];
+
+    return html`
+        <div className="summary-cards">
+            <div className="columns is-multiline is-mobile">
+                ${cards.map(function(card, idx) {
+                    return html`
+                        <div className="column is-half-mobile is-one-fifth-desktop" key=${idx}>
+                            <div className=${'summary-card ' + card.className}>
+                                <div className="stat-number">
+                                    <i className=${'fas ' + card.icon} style=${{ fontSize: '0.8em', marginRight: '0.3em' }}></i>
+                                    ${card.value}
+                                </div>
+                                <div className="stat-label">${card.label}</div>
+                            </div>
+                        </div>
+                    `;
+                })}
+            </div>
+        </div>
+    `;
+}
+
+function ProgressBar(props) {
+    var summary = props.summary;
+    var total = summary.Scenarios;
+    var passedPct = total > 0 ? (summary.Passed / total * 100) : 0;
+
+    return html`
+        <div className="progress-overview">
+            <div className="is-flex is-justify-content-space-between mb-1">
+                <span className="is-size-7 has-text-grey">Pass Rate</span>
+                <span className="is-size-7 has-text-weight-bold">${passedPct.toFixed(1)}%</span>
+            </div>
+            <progress className="progress is-success is-small" value=${summary.Passed} max=${total}>
+                ${passedPct}%
+            </progress>
+        </div>
+    `;
+}
+
+function StepsList(props) {
+    var steps = props.steps.filter(function(s) { return s.ShouldReport; });
+
+    // Track current parent keyword for indentation
+    var currentParent = 'given';
+
+    return html`
+        <div className="steps-list">
+            ${steps.map(function(step) {
+                var keyword = getStepKeyword(step.Title, step.ExecutionOrder);
+                var text = getStepText(step.Title, keyword);
+                var keywordClass = keyword.toLowerCase();
+                var iconColor = step.Result === 'Passed' ? 'has-text-success' : 'has-text-danger';
+
+                // Determine indentation: Given/When/Then at root, And indents under parent
+                var indentClass = '';
+                if (keyword === 'Given') {
+                    currentParent = 'given';
+                } else if (keyword === 'When') {
+                    currentParent = 'when';
+                } else if (keyword === 'Then') {
+                    currentParent = 'then';
+                } else if (keyword === 'And') {
+                    indentClass = ' step-indent-1';
+                }
+
+                return html`
+                    <div key=${step.Id}>
+                        <div className=${'step-line' + indentClass}>
+                            <i className=${'fas ' + getResultIcon(step.Result) + ' step-result-icon ' + iconColor}></i>
+                            <span className=${'step-keyword is-' + keywordClass}>${keyword}</span>
+                            <span className="step-text">${text}</span>
+                            <span className="step-duration">${formatDuration(step.Duration)}</span>
+                        </div>
+                        ${step.Exception && html`<${ExceptionBlock} exception=${step.Exception} />`}
+                    </div>
+                `;
+            })}
+        </div>
+    `;
+}
+
+function ExceptionBlock(props) {
+    if (!props.exception) return null;
+    return html`
+        <div className="exception-block">
+            <i className="fas fa-bug mr-2"></i>
+            ${props.exception}
+        </div>
+    `;
+}
+
+function ExampleTable(props) {
+    var examples = props.examples;
+    if (!examples || examples.length === 0) return null;
+    var headers = examples[0].Headers;
+    return html`
+        <div className="example-table">
+            <table className="table is-bordered is-narrow">
+                <thead>
+                    <tr>
+                        ${headers.map(function(h, i) {
+                            return html`<th key=${i}>${h}</th>`;
+                        })}
+                        <th>Result</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${examples.map(function(ex, rowIdx) {
+                        return html`
+                            <tr key=${rowIdx}>
+                                ${ex.Values.map(function(v, i) {
+                                    return html`<td key=${i}>${v.Row}</td>`;
+                                })}
+                                <td><${ResultBadge} result=${ex.Result} /></td>
+                                <td className="step-duration">${formatDuration(ex.Duration)}</td>
+                            </tr>
+                        `;
+                    })}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function ScenarioItem(props) {
+    var scenario = props.scenario;
+    var openState = useState(scenario.Result === 'Failed');
+    var isOpen = openState[0];
+    var setIsOpen = openState[1];
+
+    var hasExamples = scenario.Examples && scenario.Examples.length > 0;
+
+    return html`
+        <div className="scenario-item">
+            <div className="scenario-header" onClick=${function() { setIsOpen(!isOpen); }}>
+                <i className=${'fas fa-chevron-right chevron ' + (isOpen ? 'is-open' : '')}></i>
+                <span className="scenario-title">${scenario.Title}</span>
+                ${hasExamples && html`
+                    <span className="tag is-light is-info is-small mr-2">
+                        <i className="fas fa-table mr-1"></i>
+                        ${scenario.Examples.length} examples
+                    </span>
+                `}
+                <span className="scenario-duration">${formatDuration(scenario.Duration)}</span>
+                <${ResultBadge} result=${scenario.Result} />
+            </div>
+            <div className=${'scenario-steps ' + (isOpen ? 'is-open' : '')}>
+                <${StepsList} steps=${scenario.Steps} />
+                ${hasExamples && html`<${ExampleTable} examples=${scenario.Examples} />`}
+            </div>
+        </div>
+    `;
+}
+
+function StoryMetadata(props) {
+    var metadata = props.metadata;
+    if (!metadata) return null;
+
+    return html`
+        <div className="story-metadata">
+            <div className="is-flex is-align-items-stretch" style=${{ gap: '1rem' }}>
+                ${metadata.ImageUri && html`
+                    <img src=${metadata.ImageUri} alt="" className="story-image" loading="lazy" />
+                `}
+                <div>
+                    <div className="story-title">
+                        ${metadata.TitlePrefix}${metadata.Title}
+                    </div>
+                    <div className="narrative">
+                        ${metadata.Narrative1 && html`<div>${metadata.Narrative1}</div>`}
+                        ${metadata.Narrative2 && html`<div>${metadata.Narrative2}</div>`}
+                        ${metadata.Narrative3 && html`<div>${metadata.Narrative3}</div>`}
+                    </div>
+                    ${metadata.StoryUri && html`
+                        <div className="story-links">
+                            <a href=${metadata.StoryUri} target="_blank" rel="noopener noreferrer">
+                                <i className="fas fa-external-link-alt mr-1"></i>Story Link
+                            </a>
+                        </div>
+                    `}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function StoryGroup(props) {
+    var story = props.story;
+    var openState = useState(true);
+    var isOpen = openState[0];
+    var setIsOpen = openState[1];
+
+    var metadata = story.Metadata;
+    var title = metadata && metadata.Title ? metadata.Title : story.Namespace;
+    var totalScenarios = story.Scenarios.length;
+    var hasFailure = story.Result === 'Failed';
+
+    return html`
+        <div className="namespace-group">
+            <div className="namespace-header" onClick=${function() { setIsOpen(!isOpen); }}>
+                <div className="namespace-title">
+                    <i className=${'fas fa-chevron-right chevron ' + (isOpen ? 'is-open' : '')}></i>
+                    <i className=${'fas fa-book' + (isOpen ? '-open' : '') + ' has-text-info'}></i>
+                    <span>${title}</span>
+                    <span className="scenario-count">
+                        ${totalScenarios} scenario${totalScenarios !== 1 ? 's' : ''}
+                    </span>
+                </div>
+                <${ResultBadge} result=${hasFailure ? 'Failed' : 'Passed'} />
+            </div>
+            <div className=${'namespace-content ' + (isOpen ? 'is-open' : '')}>
+                <${StoryMetadata} metadata=${metadata} />
+                ${story.Scenarios.map(function(scenario) {
+                    var key = scenario.Id;
+                    return html`<${ScenarioItem} key=${key} scenario=${scenario} />`;
+                })}
+            </div>
+        </div>
+    `;
+}
+
+function FilterBar(props) {
+    var filter = props.filter;
+    var onFilterChange = props.onFilterChange;
+    var searchTerm = props.searchTerm;
+    var onSearchChange = props.onSearchChange;
+
+    var filters = [
+        { key: 'all', label: 'All', icon: 'fa-list', iconColor: '' },
+        { key: 'passed', label: 'Passed', icon: 'fa-circle-check', iconColor: 'has-text-success' },
+        { key: 'failed', label: 'Failed', icon: 'fa-circle-xmark', iconColor: 'has-text-danger' }
+    ];
+
+    return html`
+        <div className="is-flex is-align-items-center is-flex-wrap-wrap mb-4" style=${{ gap: '0.75rem' }}>
+            <div className="buttons has-addons mb-0">
+                ${filters.map(function(f) {
+                    return html`
+                        <button
+                            key=${f.key}
+                            className=${'button is-small ' + (filter === f.key ? 'is-dark is-selected' : '')}
+                            onClick=${function() { onFilterChange(f.key); }}
+                        >
+                            <span className="icon is-small"><i className=${'fas ' + f.icon + ' ' + (filter !== f.key ? f.iconColor : '')}></i></span>
+                            <span>${f.label}</span>
+                        </button>
+                    `;
+                })}
+            </div>
+            <div className="control has-icons-left" style=${{ flex: 1, minWidth: '200px' }}>
+                <input
+                    className="input is-small"
+                    type="search"
+                    placeholder="Search scenarios..."
+                    value=${searchTerm}
+                    onInput=${function(e) { onSearchChange(e.target.value); }}
+                />
+                <span className="icon is-small is-left">
+                    <i className="fas fa-search"></i>
+                </span>
+            </div>
+        </div>
+    `;
+}
+
+function ThemeToggle(props) {
+    var theme = props.theme;
+    var setTheme = props.setTheme;
+
+    function cycle() {
+        var next = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light';
+        setTheme(next);
+    }
+
+    var icon = theme === 'dark' ? 'fa-moon' : theme === 'light' ? 'fa-sun' : 'fa-circle-half-stroke';
+    var label = theme === 'system' ? 'Auto' : theme.charAt(0).toUpperCase() + theme.slice(1);
+
+    return html`
+        <button className="button is-small theme-toggle" onClick=${cycle} title=${"Theme: " + label}>
+            <span className="icon is-small"><i className=${'fas ' + icon}></i></span>
+            <span>${label}</span>
+        </button>
+    `;
+}
+
+function getSystemTheme() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+    var resolved = theme === 'system' ? getSystemTheme() : theme;
+    document.documentElement.setAttribute('data-theme', resolved);
+}
+
+function App() {
+    if (typeof STORIES_DATA === 'undefined') {
+        return html`
+            <div className="container" style=${{ marginTop: '3rem', textAlign: 'center' }}>
+                <div className="notification is-warning">
+                    <p><strong>stories.js not found</strong> in the same location as this HTML file.</p>
+                    <p style=${{ marginTop: '0.5rem' }}>You may need to enable the JSON data file report using:</p>
+                    <code>Configurator.BatchProcessors.JsonDataFileReport.Enable()</code>
+                </div>
+            </div>
+        `;
+    }
+    var data = STORIES_DATA;
+    var themeState = useState('system');
+    var theme = themeState[0];
+    var setThemeRaw = themeState[1];
+
+    function setTheme(t) {
+        setThemeRaw(t);
+        applyTheme(t);
+    }
+
+    // Apply theme on first render
+    useEffect(function() {
+        applyTheme(theme);
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        function handler() { if (theme === 'system') applyTheme('system'); }
+        mq.addEventListener('change', handler);
+        return function() { mq.removeEventListener('change', handler); };
+    }, [theme]);
+
+    var filterState = useState('all');
+    var filter = filterState[0];
+    var setFilter = filterState[1];
+    var searchState = useState('');
+    var searchTerm = searchState[0];
+    var setSearchTerm = searchState[1];
+
+    // Apply filters to stories
+    var filteredStories = useMemo(function() {
+        return data.Stories.map(function(story) {
+            var scenarios = story.Scenarios;
+
+            if (filter !== 'all') {
+                scenarios = scenarios.filter(function(s) {
+                    return s.Result.toLowerCase() === filter;
+                });
+            }
+
+            if (searchTerm) {
+                var term = searchTerm.toLowerCase();
+                scenarios = scenarios.filter(function(s) {
+                    return s.Title.toLowerCase().includes(term) ||
+                        s.Steps.some(function(step) { return step.Title.toLowerCase().includes(term); });
+                });
+            }
+
+            return Object.assign({}, story, { Scenarios: scenarios });
+        }).filter(function(story) { return story.Scenarios.length > 0; });
+    }, [data, filter, searchTerm]);
+
+    return html`
+        <div>
+            <header className="report-header">
+                <div className="container">
+                    <div className="is-flex is-align-items-center is-justify-content-space-between is-flex-wrap-wrap">
+                        <div>
+                            <h1 className="title is-3 mb-1">
+                                <i className="fas fa-vial mr-2"></i>
+                                BDDfy Test Report
+                            </h1>
+                            <p className="subtitle is-6">
+                                <i className="fas fa-calendar-alt mr-1"></i>
+                                ${formatDate(data.RunDate)}
+                            </p>
+                        </div>
+                        <div className="is-flex is-align-items-center" style=${{ gap: '0.5rem' }}>
+                            <${ThemeToggle} theme=${theme} setTheme=${setTheme} />
+                            <span className="tag is-medium is-light">
+                                <i className="fas fa-layer-group mr-1"></i>
+                                ${data.Summary.Namespaces} Namespaces
+                            </span>
+                            <span className="tag is-medium is-light">
+                                <i className="fas fa-book mr-1"></i>
+                                ${data.Summary.Stories} Stories
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main className="container">
+                <${SummaryCards} summary=${data.Summary} />
+                <${ProgressBar} summary=${data.Summary} />
+                <${FilterBar}
+                    filter=${filter}
+                    onFilterChange=${setFilter}
+                    searchTerm=${searchTerm}
+                    onSearchChange=${setSearchTerm}
+                />
+
+                <section>
+                    ${filteredStories.map(function(story) {
+                        return html`
+                            <${StoryGroup}
+                                key=${story.Namespace + (story.Metadata ? story.Metadata.Title : '')}
+                                story=${story}
+                            />
+                        `;
+                    })}
+                    ${filteredStories.length === 0 && html`
+                        <div className="notification is-light has-text-centered">
+                            <i className="fas fa-search mr-2"></i>
+                            No scenarios match the current filter.
+                        </div>
+                    `}
+                </section>
+            </main>
+
+            <footer className="report-footer">
+                <p>
+                    Generated by <strong>TestStack.BDDfy</strong> •${' '}
+                    <i className="fas fa-clock ml-1 mr-1"></i>
+                    ${formatDate(data.RunDate)}
+                </p>
+            </footer>
+        </div>
+    `;
+}
+
+// ─── Render ──────────────────────────────────────────────────────────────────
+
+var root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(html`<${App} />`);
+    </script>
 </body>
 </html>

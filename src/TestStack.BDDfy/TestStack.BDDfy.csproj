@@ -3,7 +3,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\Scripts\*.*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+	  <EmbeddedResource Include="Reporters\Html\Scripts\*.*" />
     <InternalsVisibleTo Include="$(AssemblyName).Tests" />
   </ItemGroup>
   

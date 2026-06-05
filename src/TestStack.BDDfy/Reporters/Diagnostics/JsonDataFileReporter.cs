@@ -3,7 +3,7 @@ using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy.Reporters.Diagnostics
 {
-    public class JavascriptDataFileReporter: IBatchProcessor
+    public class JsonDataFileReporter: IBatchProcessor
     {
         private static readonly CustomJsonSerializer Serializer = new();
         private static readonly FileWriter Writer = new ();
