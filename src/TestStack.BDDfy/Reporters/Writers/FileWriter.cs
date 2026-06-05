@@ -1,6 +1,6 @@
 namespace TestStack.BDDfy.Reporters.Writers
 {
-    public class FileWriter : IReportWriter
+    public class FileWriter : IFileWriter
     {
         public void OutputReport(string reportData, string reportName, string? outputDirectory = null)
         {

@@ -6,11 +6,11 @@ namespace TestStack.BDDfy.Reporters.Html
     public class HtmlReporter(
         IHtmlReportConfiguration configuration,
         IReportBuilder reportBuilder,
-        IReportWriter writer,
+        FileWriter writer,
         IFileReader reader): IBatchProcessor
     {
         public IReportBuilder ReportBuilder { get; set; } = reportBuilder;
-        private readonly IReportWriter _writer = writer;
+        private readonly FileWriter _writer = writer;
         private readonly IFileReader _fileReader = reader;
         readonly IHtmlReportConfiguration _configuration = configuration;
         public HtmlReportModel Model { get; private set; } = null!;

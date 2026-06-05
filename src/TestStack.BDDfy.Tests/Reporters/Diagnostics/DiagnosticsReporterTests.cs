@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
     public class DiagnosticsReporterTests
     {
         private IReportBuilder _builder = null!;
-        private IReportWriter _writer = null!;
+        private FileWriter _writer = null!;
 
         [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Diagnostics
         private DiagnosticsReporter CreateSut()
         {
             _builder = Substitute.For<IReportBuilder>();
-            _writer = Substitute.For<IReportWriter>();
+            _writer = Substitute.For<FileWriter>();
             return new DiagnosticsReporter(_builder, _writer);
         }
     }

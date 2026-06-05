@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDDfy Test Report</title>
+
+    <!-- Bulma CSS Framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="report.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React via jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+
+    <!-- htm - Tagged template alternative to JSX (no build step needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.js" crossorigin></script>
+
+    <!-- Stories data: generated as "var STORIES_DATA = {...};" from stories.json -->
+    <script src="stories.js"></script>
+
+    <!-- App Script (runs after stories.js has set the data) -->
+    <script src="report.js"></script>
+</body>
+</html>

@@ -16,6 +16,7 @@ namespace TestStack.BDDfy.Samples
             Configurator.Processors.ConsoleReport.Enable();
             Configurator.BatchProcessors.MarkDownReport.Enable();
             Configurator.BatchProcessors.DiagnosticsReport.Enable();
+            Configurator.BatchProcessors.JsonDataFileReport.Enable();
             Configurator.BatchProcessors.Add(new HtmlReporter(new AtmHtmlReportConfig(), new MetroReportBuilder()));
         }
     }

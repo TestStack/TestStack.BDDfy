@@ -8,10 +8,6 @@ namespace TestStack.BDDfy.Configuration
         {
         }
 
-        public IEnumerable<IHtmlReportConfiguration> Configurations =
-            new IHtmlReportConfiguration[]
-                {
-                    new DefaultHtmlReportConfiguration()
-                };
+        public IEnumerable<IHtmlReportConfiguration> Configurations = [new DefaultHtmlReportConfiguration()];    
     }
 }

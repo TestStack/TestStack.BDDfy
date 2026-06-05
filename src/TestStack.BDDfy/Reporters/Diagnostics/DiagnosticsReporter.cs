@@ -1,11 +1,12 @@
-﻿using TestStack.BDDfy.Reporters.Writers;
+﻿using TestStack.BDDfy.Reporters.Serializers;
+using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy.Reporters.Diagnostics
 {
-    public class DiagnosticsReporter(IReportBuilder builder, IReportWriter writer): IBatchProcessor
+    public class DiagnosticsReporter(IReportBuilder builder, FileWriter writer): IBatchProcessor
     {
         private readonly IReportBuilder _builder = builder;
-        private readonly IReportWriter _writer = writer;
+        private readonly FileWriter _writer = writer;
 
         public DiagnosticsReporter() : this(new DiagnosticsReportBuilder(), new FileWriter()) { }
 

@@ -9,7 +9,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
     public class MarkDownReporterTests
     {
         private IReportBuilder _builder = null!;
-        private IReportWriter _writer = null!;
+        private FileWriter _writer = null!;
 
         [Fact]
         public void ShouldCreateReportIfProcessingSucceeds()
@@ -39,7 +39,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
         private MarkDownReporter CreateSut()
         {
             _builder = Substitute.For<IReportBuilder>();
-            _writer = Substitute.For<IReportWriter>();
+            _writer = Substitute.For<FileWriter>();
             return new MarkDownReporter(_builder, _writer);
         }
     }

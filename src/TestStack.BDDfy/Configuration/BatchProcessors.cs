@@ -27,6 +27,10 @@ namespace TestStack.BDDfy.Configuration
             if (diagnostics != null)
                 yield return diagnostics;
 
+            var jsonReporter = JsonDataFileReport.ConstructFor(StoryCache.Stories);
+            if (jsonReporter != null)
+                yield return jsonReporter;
+
             foreach (var addedProcessor in _addedProcessors)
             {
                 yield return addedProcessor;
@@ -41,6 +45,8 @@ namespace TestStack.BDDfy.Configuration
         public BatchProcessorFactory MarkDownReport { get; } = new(() => new MarkDownReporter(), false);
 
         public BatchProcessorFactory DiagnosticsReport { get; } = new(() => new DiagnosticsReporter(), false);
+        
+        public BatchProcessorFactory JsonDataFileReport { get; } = new(() => new JavascriptDataFileReporter(), false);
 
         public BatchProcessors Add(IBatchProcessor processor)
         {

@@ -1,6 +1,6 @@
 namespace TestStack.BDDfy.Reporters.Writers
 {
-    public interface IReportWriter
+    public interface IFileWriter
     {
         void OutputReport(string reportData, string reportName, string? outputDirectory = null);
     }
