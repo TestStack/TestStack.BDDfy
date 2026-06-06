@@ -34,13 +34,13 @@ namespace TestStack.BDDfy.Configuration
             }
         }
 
-        public BatchProcessorFactory HtmlReport { get; } = new(() => new HtmlReporter());
+        public BatchProcessorFactory HtmlReport { get; } = new(() => new HtmlReporter(), false);
 
         public BatchProcessorFactory MarkDownReport { get; } = new(() => new GenericReporter<MarkDownReportBuilder>("bddfy-report.md"), false);
 
         public BatchProcessorFactory DiagnosticsReport { get; } = new(() => new GenericReporter<DiagnosticsReportBuilder>("bddfy-diagnostics.json"), false);
         
-        public BatchProcessorFactory JsonDataFileReport { get; } = new(() => new JsonDataFileReporter());
+        public BatchProcessorFactory JsonDataFileReport { get; } = new(() => new JsonDataFileReporter(), false);
 
         public BatchProcessors Add(IBatchProcessor processor)
         {
