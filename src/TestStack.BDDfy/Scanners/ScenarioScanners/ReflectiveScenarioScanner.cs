@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using TestStack.BDDfy.Configuration;
+using TestStack.BDDfy.Scanners.ScenarioScanners;
 
 namespace TestStack.BDDfy
 {
@@ -19,7 +20,17 @@ namespace TestStack.BDDfy
 
                 var orderedSteps = steps.OrderBy(o => o.ExecutionOrder).ThenBy(o => o.ExecutionSubOrder).ToList();
                 PromoteConsecutiveSteps(orderedSteps);
-                yield return new Scenario(testContext.TestObject, orderedSteps, scenarioTitle, testContext.Tags);
+
+                // Check if this is a parameterized test (e.g. [InlineData], [TestCase])
+                var parameterizedInfo = ParameterizedTestDetector.Detect(testContext.TestObject);
+                if (parameterizedInfo is not null)
+                {
+                    yield return new Scenario(parameterizedInfo.StableScenarioId, testContext.TestObject, orderedSteps, scenarioTitle, parameterizedInfo.Example, testContext.Tags);
+                }
+                else
+                {
+                    yield return new Scenario(testContext.TestObject, orderedSteps, scenarioTitle, testContext.Tags);
+                }
                 yield break;
             }
 

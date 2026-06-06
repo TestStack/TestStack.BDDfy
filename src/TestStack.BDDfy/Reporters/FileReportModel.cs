@@ -2,7 +2,6 @@
 {
     public class FileReportModel(ReportModel reportModel)
     {
-        readonly IEnumerable<ReportModel.Story> _stories = reportModel.Stories;
         public FileReportSummaryModel Summary { get; private set; } = new FileReportSummaryModel(reportModel);
         public DateTime RunDate { get; set; } = DateTime.Now;
 
@@ -10,29 +9,19 @@
         {
             get
             {
-                var groupedByNamespace = from story in _stories
-                                         where story.Metadata is null
-                                         orderby story.Namespace
-                                         group story by story.Namespace into g
-                                         select g;
+                var withMetadata = reportModel.Stories
+                    .Where(s => s.Metadata is not null)
+                    .OrderBy(s => s.Metadata!.Title);
 
-                var groupedByStories = from story in _stories
-                                       where story.Metadata is not null
-                                       orderby story.Metadata!.Title   
-                                       group story by story.Metadata!.Type.Name into g
-                                       select g;
+                var withoutMetadata = reportModel.Stories
+                    .Where(s => s.Metadata is null)
+                    .OrderBy(s => s.Namespace);
 
-                var aggregatedStories =
-                    from story in groupedByStories.Union(groupedByNamespace)
-                    select new ReportModel.Story() 
-                        {
-                            Metadata = story.First().Metadata,
-                            Namespace = story.Key,
-                            Result = story.First().Result,
-                            Scenarios = [.. story.SelectMany(s => s.Scenarios).OrderBy(s => s.Title)],
-                    };
-
-                return aggregatedStories;
+                foreach (var story in withMetadata.Concat(withoutMetadata))
+                {
+                    story.Scenarios.Sort((a, b) => string.Compare(a.Title, b.Title, StringComparison.Ordinal));
+                    yield return story;
+                }
             }
         }
     }

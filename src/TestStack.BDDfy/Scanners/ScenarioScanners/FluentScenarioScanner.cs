@@ -14,6 +14,13 @@ internal class FluentScenarioScanner(List<Step> steps, string? title): IScenario
                 new Scenario(scenarioId, testContext.TestObject, CloneSteps(steps), scenarioText, example, testContext.Tags));
         }
 
+        // Check if this is a parameterized test (e.g. [InlineData], [TestCase])
+        var parameterizedInfo = ParameterizedTestDetector.Detect(testContext.TestObject);
+        if (parameterizedInfo is not null)
+        {
+            return [new Scenario(parameterizedInfo.StableScenarioId, testContext.TestObject, steps, scenarioText, parameterizedInfo.Example, testContext.Tags)];
+        }
+
         return [new Scenario(testContext.TestObject, steps, scenarioText, testContext.Tags)];
     }
 

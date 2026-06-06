@@ -508,8 +508,8 @@ body {
     <!-- htm - Tagged template alternative to JSX (no build step needed) -->
     <script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.js" crossorigin></script>
 
-    <!-- Stories data: generated as "var STORIES_DATA = {...};" from stories.json -->
-    <script src="stories.js"></script>
+    <!-- Stories data: generated as "var STORIES_DATA = {...};" from bddfy-stories.json -->
+    <script src="bddfy-stories.js"></script>
 
     <!-- App Script -->
     <script>
@@ -519,7 +519,7 @@ var useState = React.useState;
 var useMemo = React.useMemo;
 var useEffect = React.useEffect;
 
-// Data is loaded from stories.js (sets window.STORIES_DATA via <script src="stories.js">)
+// Data is loaded from bddfy-stories.js (sets window.STORIES_DATA via <script src="bddfy-stories.js">)
 
 // ─── Utility Functions ───────────────────────────────────────────────────────
 
@@ -905,7 +905,7 @@ function App() {
         return html`
             <div className="container" style=${{ marginTop: '3rem', textAlign: 'center' }}>
                 <div className="notification is-warning">
-                    <p><strong>stories.js not found</strong> in the same location as this HTML file.</p>
+                    <p><strong>bddfy-stories.js not found</strong> in the same location as this HTML file.</p>
                     <p style=${{ marginTop: '0.5rem' }}>You may need to enable the JSON data file report using:</p>
                     <code>Configurator.BatchProcessors.JsonDataFileReport.Enable()</code>
                 </div>

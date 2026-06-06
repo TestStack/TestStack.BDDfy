@@ -1,5 +1,4 @@
 using Shouldly;
-using TestStack.BDDfy.Configuration;
 using Xunit;
 
 namespace TestStack.BDDfy.Tests.Scanner.ReflectiveScanner

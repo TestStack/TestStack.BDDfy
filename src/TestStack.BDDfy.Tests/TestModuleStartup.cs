@@ -10,6 +10,8 @@ namespace TestStack.BDDfy.Tests
         public static void Initialize()
         {
             Configurator.Processors.Add(() => new XUnitOutputReporter());
+            Configurator.BatchProcessors.HtmlReport.Enable();
+            Configurator.BatchProcessors.JsonDataFileReport.Enable();
 
             ShouldlyConfiguration.ShouldMatchApprovedDefaults.WithFilenameGenerator((testMethodInfo, discriminator, type, extension) =>
             {

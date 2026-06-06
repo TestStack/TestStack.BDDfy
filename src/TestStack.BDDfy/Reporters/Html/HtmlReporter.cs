@@ -6,7 +6,6 @@ namespace TestStack.BDDfy.Reporters.Html
 
         public HtmlReportModel Model { get; private set; } = null!;
 
-        public HtmlReporter(IReportBuilder reportBuilder) : this(new HtmlReportConfiguration { ReportBuilder = reportBuilder }) { }
         public HtmlReporter() : this(new HtmlReportConfiguration()) { }
 
         public void Process(IEnumerable<Story> stories)

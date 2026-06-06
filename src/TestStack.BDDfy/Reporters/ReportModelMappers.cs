@@ -8,25 +8,61 @@
         public static ReportModel ToReportModel(this IEnumerable<Story> stories)
         {
             var report = new ReportModel();
-            foreach (var story in stories.Where(s=> s is not null))
-            {
-                var storyModel = story.ToStoryModel();
-                report.Stories.Add(storyModel);
-            }
+
+            // Consolidate stories that share the same metadata type (or namespace when no metadata)
+            // so that scenarios from separate parameterized test invocations are grouped together.
+            var validStories = stories.Where(s => s is not null).ToList();
+
+            var withMetadata = validStories
+                .Where(s => s.Metadata is not null)
+                .GroupBy(s => s.Metadata!.Type);
+
+            var withoutMetadata = validStories
+                .Where(s => s.Metadata is null)
+                .GroupBy(s => s.Namespace);
+
+            foreach (var group in withMetadata)
+                report.Stories.Add(group.ToStoryModel());
+
+            foreach (var group in withoutMetadata)
+                report.Stories.Add(group.ToStoryModel());
 
             return report;
         }
 
-        private static ReportModel.Story ToStoryModel(this Story story)
+        private static ReportModel.Story ToStoryModel(this IGrouping<Type, Story> storyGroup)
         {
+            var first = storyGroup.First();
+            var allScenarios = storyGroup.SelectMany(s => s.Scenarios);
+
             var model = new ReportModel.Story
             {
-                Namespace = story.Namespace,
-                Result = story.Result,
-                Metadata = story.Metadata?.ToStoryMetadataModel()
+                Namespace = first.Namespace,
+                Result = (Result)storyGroup.Max(s => (int)s.Result),
+                Metadata = first.Metadata?.ToStoryMetadataModel()
             };
 
-            foreach (var group in story.Scenarios.GroupBy(s => s.Id))
+            foreach (var group in allScenarios.GroupBy(s => s.Id))
+            {
+                model.Scenarios.Add(group.ToScenarioModel());
+            }
+
+            return model;
+        }
+
+        private static ReportModel.Story ToStoryModel(this IGrouping<string, Story> storyGroup)
+        {
+            var first = storyGroup.First();
+            var allScenarios = storyGroup.SelectMany(s => s.Scenarios);
+
+            var model = new ReportModel.Story
+            {
+                Namespace = first.Namespace,
+                Result = (Result)storyGroup.Max(s => (int)s.Result),
+                Metadata = null
+            };
+
+            foreach (var group in allScenarios.GroupBy(s => s.Id))
             {
                 model.Scenarios.Add(group.ToScenarioModel());
             }
@@ -92,6 +128,5 @@
                 Duration = step.Duration
             };
         }
-
-            }
-        }
+    }
+}
