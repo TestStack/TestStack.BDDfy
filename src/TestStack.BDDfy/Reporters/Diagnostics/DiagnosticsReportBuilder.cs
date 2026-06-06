@@ -30,6 +30,15 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
                     {
                         Name = scenario.Title ?? "Scenario",
                         Duration = scenario.Duration.Milliseconds,
+                        Result = scenario.Result.ToString(),
+                        Examples = [.. scenario.Examples.Select(x=> new StoryDiagnostic.Example
+                        {
+                            Duration = x.Duration.Milliseconds,
+                            Error = x.Error?.Message,
+                            Headers = x.Headers,
+                            Result = x.Result.ToString(),
+                            Values = [.. x.Values.Select(x=>x.GetValueAsString())]
+                        })],
                         Steps = [.. scenario.Steps.Select(step => new StoryDiagnostic.Step()
                         {
                             Name = step.Title ?? "Step",
