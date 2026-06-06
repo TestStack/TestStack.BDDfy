@@ -21,7 +21,7 @@ Scenario: Sad Path Scenario [for Happiness]
 
 Exceptions:
   1. Boom
-   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in ...\ReportTestData.cs
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.CaptureException(String message) in ...\ReportTestData.cs
 
 
 Story: Happiness
@@ -61,7 +61,7 @@ Scenario: Sad Path Scenario [with no story]
 
 Exceptions:
   1. Boom
-   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetFailingExecutionSteps() in ...\ReportTestData.cs
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.CaptureException(String message) in ...\ReportTestData.cs
 
 
 
@@ -95,7 +95,7 @@ Examples:
 
 Exceptions:
   1. Boom With New lines
-   at TestStack.BDDfy.Tests.Reporters.ReportTestData.GetScenarios(Boolean includeFailingScenario, Boolean includeExamples) in ...\ReportTestData.cs
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.CaptureException(String message) in ...\ReportTestData.cs
 
 
 Story: Happy Examples

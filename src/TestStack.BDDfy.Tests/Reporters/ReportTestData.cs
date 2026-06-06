@@ -4,254 +4,161 @@ namespace TestStack.BDDfy.Tests.Reporters
 
     public class ReportTestData
     {
+        private static readonly TimeSpan StepDuration = TimeSpan.FromMilliseconds(5);
+
+        private static readonly StoryMetadata HappinessStory = new(
+            typeof(RegularAccountHolderStory),
+            "As a person", "I want ice cream", "So that I can be happy", "Happiness");
+
+        private static readonly StoryMetadata AccountHolderStory = new(
+            typeof(GoldAccountHolderStory),
+            "As an account holder", "I want to withdraw cash",
+            "So that I can get money when the bank is closed", "Account holder withdraws cash");
+
         private int _idCount;
 
         public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
         {
-            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
-            var stories = new List<Story>
-            {
-                new(storyMetadata1, GetScenarios(false, false)),
-                new(storyMetadata2, GetScenarios(true, false))
-            };
-
-            return stories;
+            return
+            [
+                new(HappinessStory, GetScenarios(includeFailingScenario: false, includeExamples: false)),
+                new(AccountHolderStory, GetScenarios(includeFailingScenario: true, includeExamples: false))
+            ];
         }
 
         public IEnumerable<Story> CreateMixContainingEachTypeOfOutcome()
         {
-            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
-
-            const StoryMetadata testThatReportWorksWithNoStory = null!;
-
-            var stories = new List<Story>
-            {
-                new(storyMetadata1, GetOneOfEachScenarioResult()),
-                new(storyMetadata2, GetOneOfEachScenarioResult()),
-                new(testThatReportWorksWithNoStory, GetOneOfEachScenarioResult())
-            };
-
-            return stories;
+            return
+            [
+                new(HappinessStory, GetOneOfEachScenarioResult()),
+                new(AccountHolderStory, GetOneOfEachScenarioResult()),
+                new(null!, GetOneOfEachScenarioResult())
+            ];
         }
 
         public IEnumerable<Story> CreateMixContainingEachTypeOfOutcomeWithOneScenarioPerStory()
         {
-            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an unhappy examples story", "I want to see failed steps", "So that I can diagnose what's wrong", "Unhappy examples");
-            var storyMetadata3 = new StoryMetadata(typeof(PlatinumAccountHolderStory), "As a happy examples story", "I want a clean report with examples", "So that the report is clean and readable", "Happy Examples");
+            var unhappyExamplesStory = new StoryMetadata(
+                typeof(GoldAccountHolderStory),
+                "As an unhappy examples story", "I want to see failed steps",
+                "So that I can diagnose what's wrong", "Unhappy examples");
 
-            const StoryMetadata testThatReportWorksWithNoStory = null!;
+            var happyExamplesStory = new StoryMetadata(
+                typeof(PlatinumAccountHolderStory),
+                "As a happy examples story", "I want a clean report with examples",
+                "So that the report is clean and readable", "Happy Examples");
 
-            var stories = new List<Story>
-            {
-                new(storyMetadata1, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [for Happiness]", [])),
-                new(storyMetadata1, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [for Happiness]", [])),
-                new(storyMetadata1, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [for Happiness]", [])),
-                new(storyMetadata1, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [for Happiness]", [])),
-                new(testThatReportWorksWithNoStory, new Scenario(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario [with no story]", [])),
-                new(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetFailingExecutionSteps(), "Sad Path Scenario [with no story]", [])),
-                new(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario [with no story]", [])),
-                new(testThatReportWorksWithNoStory, new Scenario(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario [with no story]", [])),
-                new(storyMetadata2, GetScenarios(true, true)),
-                new(storyMetadata3, GetScenarios(false, true)),
-            };
-
-            return stories;
+            return
+            [
+                new(HappinessStory, CreateScenario<HappyPathScenario>("Happy Path Scenario [for Happiness]", Result.Passed)),
+                new(HappinessStory, CreateScenario<SadPathScenario>("Sad Path Scenario [for Happiness]", Result.Failed)),
+                new(HappinessStory, CreateScenario<SadPathScenario>("Inconclusive Scenario [for Happiness]", Result.Inconclusive)),
+                new(HappinessStory, CreateScenario<SadPathScenario>("Not Implemented Scenario [for Happiness]", Result.NotImplemented)),
+                new(null!, CreateScenario<HappyPathScenario>("Happy Path Scenario [with no story]", Result.Passed)),
+                new(null!, CreateScenario<SadPathScenario>("Sad Path Scenario [with no story]", Result.Failed)),
+                new(null!, CreateScenario<SadPathScenario>("Inconclusive Scenario [with no story]", Result.Inconclusive)),
+                new(null!, CreateScenario<SadPathScenario>("Not Implemented Scenario [with no story]", Result.NotImplemented)),
+                new(unhappyExamplesStory, GetScenarios(includeFailingScenario: true, includeExamples: true)),
+                new(happyExamplesStory, GetScenarios(includeFailingScenario: false, includeExamples: true)),
+            ];
         }
 
         public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMillisecondsAndEachHasTwoExamples()
         {
-            var storyMetadata1 = new StoryMetadata(typeof(RegularAccountHolderStory), "As a person", "I want ice cream", "So that I can be happy", "Happiness");
-            var storyMetadata2 = new StoryMetadata(typeof(GoldAccountHolderStory), "As an account holder", "I want to withdraw cash", "So that I can get money when the bank is closed", "Account holder withdraws cash");
-            var stories = new List<Story>
-            {
-                new(storyMetadata1, GetScenarios(false, true)),
-                new(storyMetadata2, GetScenarios(true, true))
-            };
-
-            return stories;
+            return
+            [
+                new(HappinessStory, GetScenarios(includeFailingScenario: false, includeExamples: true)),
+                new(AccountHolderStory, GetScenarios(includeFailingScenario: true, includeExamples: true))
+            ];
         }
 
         private Scenario[] GetScenarios(bool includeFailingScenario, bool includeExamples)
         {
-            var sadExecutionSteps = GetSadExecutionSteps().ToList();
-            if (includeFailingScenario)
-            {
-                var last = sadExecutionSteps.Last();
-                last.Result = Result.Failed;
-                try
-                {
-                    throw new InvalidOperationException("Boom");
-                }
-                catch (Exception ex)
-                {
-                    last.Exception = ex;
-                }
-            }
-
             if (includeExamples)
+                return GetExampleScenarios(includeFailingScenario);
+
+            var sadSteps = CreateSadSteps(includeFailingScenario ? Result.Failed : Result.Passed);
+            return
+            [
+                new(typeof(HappyPathScenario), CreateHappySteps(), "Happy Path Scenario", []),
+                new(typeof(SadPathScenario), sadSteps, "Sad Path Scenario", [])
+            ];
+        }
+
+        private Scenario[] GetExampleScenarios(bool includeFailingScenario)
+        {
+            var exampleId = _idCount++.ToString();
+            var exampleTable = new ExampleTable("sign", "action")
             {
-                var exampleId = _idCount++.ToString();
-                var exampleTable = new ExampleTable("sign", "action")
-                                       {
-                                            {"positive", "is"},
-                                            {"negative", "is not"}
-                                       };
-                var exampleExecutionSteps = GetExampleExecutionSteps().ToList();
-                if (includeFailingScenario)
-                {
-                    var last = exampleExecutionSteps.Last();
-                    last.Result = Result.Failed;
-                    try
-                    {
-                        throw new InvalidOperationException("Boom\nWith\r\nNew lines");
-                    }
-                    catch (Exception ex)
-                    {
-                        last.Exception = ex;
-                    }
-                }
-                return
-                [
-                    new(exampleId, typeof(ExampleScenario), GetExampleExecutionSteps(), "Example Scenario", exampleTable.ElementAt(0), []),
-                    new(exampleId, typeof(ExampleScenario), exampleExecutionSteps, "Example Scenario", exampleTable.ElementAt(1), [])
-                ];
-            }
+                { "positive", "is" },
+                { "negative", "is not" }
+            };
+
+            var lastStepResult = includeFailingScenario ? Result.Failed : Result.Passed;
+            var exceptionMessage = includeFailingScenario ? "Boom\nWith\r\nNew lines" : null;
 
             return
-                       [
-                           new(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario", []),
-                           new(typeof(SadPathScenario), sadExecutionSteps, "Sad Path Scenario", [])
-                       ];
+            [
+                new(exampleId, typeof(ExampleScenario), CreateExampleSteps(), "Example Scenario", exampleTable.ElementAt(0), []),
+                new(exampleId, typeof(ExampleScenario), CreateExampleSteps(lastStepResult, exceptionMessage), "Example Scenario", exampleTable.ElementAt(1), [])
+            ];
         }
 
         private Scenario[] GetOneOfEachScenarioResult()
         {
-            var scenarios = new List<Scenario>
-            {
-                new(typeof(HappyPathScenario), GetHappyExecutionSteps(), "Happy Path Scenario", []),
-                new(typeof(SadPathScenario), GetSadExecutionSteps(), "Sad Path Scenario", []),
-                new(typeof(SadPathScenario), GetInconclusiveExecutionSteps(), "Inconclusive Scenario", []),
-                new(typeof(SadPathScenario), GetNotImplementedExecutionSteps(), "Not Implemented Scenario", [])
-            };
-
-            // override specific step results - ideally this class could be refactored to provide  objectmother/builder interface
-            SetAllStepResults(scenarios[0].Steps, Result.Passed);
-
-            SetAllStepResults(scenarios[1].Steps, Result.Passed);
-            var last = scenarios[1].Steps.Last();
-            last.Result = Result.Failed; 
-            try
-            {
-                throw new InvalidOperationException("Boom");
-            }
-            catch (Exception ex)
-            {
-                last.Exception = ex;
-            }
-
-            return [.. scenarios];
+            return
+            [
+                new(typeof(HappyPathScenario), CreateHappySteps(), "Happy Path Scenario", []),
+                new(typeof(SadPathScenario), CreateSadSteps(Result.Failed), "Sad Path Scenario", []),
+                new(typeof(SadPathScenario), CreateSadSteps(Result.Inconclusive), "Inconclusive Scenario", []),
+                new(typeof(SadPathScenario), CreateSadSteps(Result.NotImplemented), "Not Implemented Scenario", [])
+            ];
         }
 
-        private List<Step> GetHappyExecutionSteps()
+        private static Scenario CreateScenario<TScenario>(string title, Result lastStepResult)
         {
-            var steps = new List<Step>
-            {
-                new(null, new StepTitle("Given a positive account balance"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new(null, new StepTitle("Then money is dispensed"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-            };
-            return steps;
+            var steps = lastStepResult == Result.Passed
+                ? CreateHappySteps()
+                : CreateSadSteps(lastStepResult);
+            return new(typeof(TScenario), steps, title, []);
         }
 
-        private List<Step> GetExampleExecutionSteps()
-        {
-            var steps = new List<Step>
-            {
-                new(null, new StepTitle("Given a <sign> account balance"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new(null, new StepTitle("Then money <action> dispensed"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-            };
-            return steps;
-        }
+        private static List<Step> CreateHappySteps() => CreateSteps(
+            ["Given a positive account balance", "When the account holder requests money", "Then money is dispensed"],
+            Result.Passed);
 
-        private List<Step> GetSadExecutionSteps()
-        {
-            var steps = new List<Step>
-            {
-                new(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-                new(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5), Result = Result.Passed},
-            };
-            return steps;
-        }
+        private static List<Step> CreateSadSteps(Result lastStepResult) => CreateSteps(
+            ["Given a negative account balance", "When the account holder requests money", "Then no money is dispensed"],
+            lastStepResult,
+            lastStepResult == Result.Failed ? "Boom" : null);
 
-        private List<Step> GetFailingExecutionSteps()
-        {
-            var steps = new List<Step>
-            {
-                new(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true, []),
-                new(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true, []),
-                new(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true, []),
-            };
+        private static List<Step> CreateExampleSteps(Result lastStepResult = Result.Passed, string? exceptionMessage = null) => CreateSteps(
+            ["Given a <sign> account balance", "When the account holder requests money", "Then money <action> dispensed"],
+            lastStepResult,
+            exceptionMessage);
 
-            SetAllStepResults(steps, Result.Passed);
+        private static List<Step> CreateSteps(string[] titles, Result lastStepResult, string? exceptionMessage = null)
+        {
+            var steps = titles.Select(title =>
+                new Step(null, new StepTitle(title), true, ExecutionOrder.Assertion, true, [])
+                {
+                    Duration = StepDuration,
+                    Result = Result.Passed
+                }).ToList();
 
             var last = steps.Last();
-            last.Result = Result.Failed;
-            try
-            {
-                throw new InvalidOperationException("Boom");
-            }
-            catch (Exception ex)
-            {
-                last.Exception = ex;
-            }
+            last.Result = lastStepResult;
+
+            if (lastStepResult == Result.Failed)
+                last.Exception = CaptureException(exceptionMessage ?? "Boom");
 
             return steps;
         }
 
-        private List<Step> GetInconclusiveExecutionSteps()
+        private static Exception CaptureException(string message)
         {
-            var steps = new List<Step>
-            {
-                new(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-            };
-
-            SetAllStepResults(steps, Result.Passed);
-
-            steps.Last().Result = Result.Inconclusive;
-
-            return steps;
-        }
-
-
-        private List<Step> GetNotImplementedExecutionSteps()
-        {
-            var steps = new List<Step>
-            {
-                new(null, new StepTitle("Given a negative account balance"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new(null, new StepTitle("When the account holder requests money"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-                new(null, new StepTitle("Then no money is dispensed"), true, ExecutionOrder.Assertion, true, []) {Duration = new TimeSpan(0, 0, 0, 0, 5)},
-            };
-
-            SetAllStepResults(steps, Result.Passed);
-
-            steps.Last().Result = Result.NotImplemented;
-
-            return steps;
-        }
-
-        private void SetAllStepResults(IEnumerable<Step> steps, Result result)
-        {
-            foreach (var step in steps)
-            {
-                step.Result = result;
-            }
+            try { throw new InvalidOperationException(message); }
+            catch (Exception ex) { return ex; }
         }
 
         public class RegularAccountHolderStory { }
