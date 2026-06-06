@@ -1,5 +1,7 @@
-﻿using TestStack.BDDfy.Configuration;
+﻿using System.Text;
+using TestStack.BDDfy.Configuration;
 using TestStack.BDDfy.Processors;
+using TestStack.BDDfy.Reporters.Writers;
 
 namespace TestStack.BDDfy
 {
@@ -15,9 +17,19 @@ namespace TestStack.BDDfy
 
         static void InvokeBatchProcessors()
         {
+            var finalErrors = new StringBuilder();
             foreach (var batchProcessor in Configurator.BatchProcessors.GetProcessors())
             {
-                batchProcessor.Process(StoryCache.Stories);
+                try { batchProcessor.Process(StoryCache.Stories); }
+                catch (Exception ex)
+                {
+                    finalErrors.AppendLine($"Error processing batch processor {batchProcessor.GetType().FullName}: {ex}");
+                }
+            }
+
+            if (finalErrors.Length > 0)
+            {
+                FileWriter.Singleton.WriteContents(finalErrors.ToString(), "errors.log");
             }
         }
 

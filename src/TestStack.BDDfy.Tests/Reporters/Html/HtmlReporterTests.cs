@@ -35,7 +35,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             _sut.Process([]);
 
-            _sut.Configuration.FileWriter.Received().OutputReport(ReportData, Arg.Any<string>(), Arg.Any<string>());
+            _sut.Configuration.FileWriter.Received().WriteContents(ReportData, Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace TestStack.BDDfy.Tests.Reporters.Html
 
             _sut.Process(new ReportTestData().CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds());
 
-            _sut.Configuration.FileWriter.Received().OutputReport(
+            _sut.Configuration.FileWriter.Received().WriteContents(
                 Arg.Is<string>(s => s.StartsWith(ErrorMessage)),
                 Arg.Any<string>(),
                 Arg.Any<string>());

@@ -22,7 +22,7 @@ namespace TestStack.BDDfy.Tests.Scanner.FluentScanner
                     .BDDfy();
             });
 
-            exception.Message.ShouldBe("More than one headers for examples, match the parameter 'count' provided for 'GivenInput'");
+            exception.Message.ShouldBe("Duplicate headers detected. count, Count");
         }
 
         private void GivenInput(int count)

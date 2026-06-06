@@ -22,7 +22,7 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
                 filename = filename.Replace(".json", ".js");
             }
 
-            reportConfiguration.FileWriter.OutputReport(content, filename);
+            reportConfiguration.FileWriter.WriteContents(content, filename);
         }
 
         private static ReportConfiguration DefaultReportConfiguration => new(DefaultOutputFileName);

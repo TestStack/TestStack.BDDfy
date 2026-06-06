@@ -21,7 +21,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 
             sut.Process([]);
 
-            _writer.Received().OutputReport("Report Data", Arg.Any<string>(), Arg.Any<string>());
+            _writer.Received().WriteContents("Report Data", Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace TestStack.BDDfy.Tests.Reporters.MarkDown
 
             sut.Process([]);
 
-            _writer.Received().OutputReport(
+            _writer.Received().WriteContents(
                 Arg.Is<string>(s => s.StartsWith("Error occurred.")), 
                 Arg.Any<string>(), 
                 Arg.Any<string>());

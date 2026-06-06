@@ -18,7 +18,7 @@ namespace TestStack.BDDfy.Tests
         {
             var fileWriter = new FileWriter();
             outputDirectory = outputDirectory is null ? null : System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString(), $"{outputDirectory}");
-            fileWriter.OutputReport("Test content", reportName, outputDirectory);
+            fileWriter.WriteContents("Test content", reportName, outputDirectory);
             var expectedPath = System.IO.Path.Combine(outputDirectory ?? string.Empty, reportName);
             System.IO.File.Exists(expectedPath).ShouldBeTrue();
             System.IO.File.ReadAllText(expectedPath).ShouldBe("Test content");

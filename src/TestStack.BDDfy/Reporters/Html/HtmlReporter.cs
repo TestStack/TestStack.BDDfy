@@ -29,7 +29,7 @@ namespace TestStack.BDDfy.Reporters.Html
                 report = ex.Message + ex.StackTrace;
             }
 
-            Configuration.FileWriter.OutputReport(report, Configuration.OutputFileName, Configuration.OutputPath);
+            Configuration.FileWriter.WriteContents(report, Configuration.OutputFileName, Configuration.OutputPath);
         }
 
         private void LoadCustomScripts()

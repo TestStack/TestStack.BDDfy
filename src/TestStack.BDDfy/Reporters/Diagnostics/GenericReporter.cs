@@ -21,7 +21,7 @@ namespace TestStack.BDDfy.Reporters.Diagnostics
                 report = ex.Message + ex.StackTrace;
             }
 
-            _configuration.FileWriter.OutputReport(report, _configuration.OutputFileName);
+            _configuration.FileWriter.WriteContents(report, _configuration.OutputFileName);
         }
     }
 }

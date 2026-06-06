@@ -103,12 +103,9 @@ namespace TestStack.BDDfy.Tests.Configuration
             processors.ShouldContain(p => p is FooBatchProcessor, 1);
         }
 
-        private class FooBatchProcessor : IBatchProcessor
+        private class FooBatchProcessor: IBatchProcessor
         {
-            public void Process(IEnumerable<Story> stories)
-            {
-                throw new System.NotImplementedException();
-            }
+            public void Process(IEnumerable<Story> stories) { }
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Reflection;
 using System.Text;
 
 namespace TestStack.BDDfy
@@ -15,6 +16,9 @@ namespace TestStack.BDDfy
 
         public void Add(params object?[] items)
         {
+            if (Headers.Distinct(StringComparer.OrdinalIgnoreCase).Count() != Headers.Length)
+                throw new AmbiguousMatchException($"Duplicate headers detected. {string.Join(", ", Headers)}");
+
             if (items.Length != Headers.Length)
                 throw new ArgumentException(string.Format("Number of column values does not match number of headers, got {0}, expected {1}", items.Length, Headers.Length));
 
