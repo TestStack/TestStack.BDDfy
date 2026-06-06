@@ -1,0 +1,7 @@
+﻿
+Scenario: B d dfy scenario with nested array arguments
+	Given an array of names bob, jim
+	  And given an array of numbers 1, 2
+	When I pass a mixed nested array [alice, eve], [3, 4], scalar
+	Then the step titles display array contents
+
