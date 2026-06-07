@@ -17,12 +17,12 @@ namespace TestStack.BDDfy.Tests.Reporters
 
         private int _idCount;
 
-        public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds()
+        public IEnumerable<Story> CreateTwoStoriesEachWithOneFailingScenarioAndOnePassingScenarioWithThreeStepsOfFiveMilliseconds(bool? includeExamples = false)
         {
             return
             [
-                new(HappinessStory, GetScenarios(includeFailingScenario: false, includeExamples: false)),
-                new(AccountHolderStory, GetScenarios(includeFailingScenario: true, includeExamples: false))
+                new(HappinessStory, GetScenarios(includeFailingScenario: false, includeExamples: includeExamples ?? false)),
+                new(AccountHolderStory, GetScenarios(includeFailingScenario: true, includeExamples: includeExamples ?? false))
             ];
         }
 

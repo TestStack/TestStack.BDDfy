@@ -7,6 +7,8 @@
         {
           "Name": "Happy Path Scenario",
           "Duration": 15,
+          "Result": "Passed",
+          "Examples": [],
           "Steps": [
             {
               "Name": "Given a positive account balance",
@@ -25,6 +27,8 @@
         {
           "Name": "Sad Path Scenario",
           "Duration": 15,
+          "Result": "Failed",
+          "Examples": [],
           "Steps": [
             {
               "Name": "Given a negative account balance",
@@ -49,6 +53,8 @@
         {
           "Name": "Happy Path Scenario",
           "Duration": 15,
+          "Result": "Passed",
+          "Examples": [],
           "Steps": [
             {
               "Name": "Given a positive account balance",
@@ -67,6 +73,8 @@
         {
           "Name": "Sad Path Scenario",
           "Duration": 15,
+          "Result": "Passed",
+          "Examples": [],
           "Steps": [
             {
               "Name": "Given a negative account balance",
