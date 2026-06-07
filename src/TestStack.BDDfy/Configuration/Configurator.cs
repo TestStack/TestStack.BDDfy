@@ -24,6 +24,8 @@ namespace TestStack.BDDfy.Configuration
 
         public static IStepTitleFactory StepTitleFactory { get; set; } = new DefaultStepTitleFactory();
 
+        public static IExceptionFormatter ExceptionFormatter { get; set; } = new DefaultExceptionFormatter();
+
         public static CultureInfo CultureInfo { get; set; } = CultureInfo.CurrentCulture;
     }
 }

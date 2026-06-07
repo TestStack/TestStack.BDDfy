@@ -15,8 +15,10 @@
     | negative | is not | Failed | Exception: [Boom With New lines] [Details at 1 below] |
 
 #### Exceptions:
-    1. Boom With New lines
-       at TestStack.BDDfy.Tests.Reporters.ReportTestData.CaptureException(String message) in ...\ReportTestData.cs
+```
+1. Boom With New lines
+   at TestStack.BDDfy.Tests.Reporters.ReportTestData.CaptureException(String message) in ...\ReportTestData.cs
+```
 
 ## Story: Happiness
  **As a person**  

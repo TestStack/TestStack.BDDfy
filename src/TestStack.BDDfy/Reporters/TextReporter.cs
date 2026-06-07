@@ -206,9 +206,9 @@ namespace TestStack.BDDfy.Reporters
 
             var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
             if (!string.IsNullOrEmpty(step.Exception?.Message))
-                return string.Format("[{0}] {1}", FlattenExceptionMessage(step.Exception.Message), exceptionReference);
+                return string.Format("[{0}] {1}", Configurator.ExceptionFormatter.Format(step.Exception.Message), exceptionReference);
 
-            return string.Format("{0}", exceptionReference);
+            return exceptionReference;
         }
 
         void ReportExceptions()
@@ -222,27 +222,19 @@ namespace TestStack.BDDfy.Reporters
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-  
+
                 WriteLine();
                 Write(string.Format("  {0}. ", index + 1));
 
-                if (!string.IsNullOrEmpty(exception.Message))
-                    WriteLine(FlattenExceptionMessage(exception.Message));
+                var formatted = Configurator.ExceptionFormatter.Format(exception);
+                if (formatted.Length > 0)
+                    WriteLine(formatted);
                 else
                     WriteLine();
-
-                if (exception.StackTrace is null) continue;
-                WriteLine(exception.StackTrace);
             }
 
             WriteLine();
         }
-
-        static string FlattenExceptionMessage(string message) => string.Join(" ", message
-                .Replace("\t", " ") // replace tab with one space
-                .Split(["\r\n", "\n"], StringSplitOptions.None)
-                .Select(s => s.Trim()))
-                .TrimEnd(','); // chop any , from the end
 
         void WriteScenarioTitle(Scenario scenario)
         {

@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text;
+using TestStack.BDDfy.Configuration;
 
 namespace TestStack.BDDfy.Reporters.MarkDown
 {
@@ -139,9 +140,9 @@ namespace TestStack.BDDfy.Reporters.MarkDown
 
             var exceptionReference = string.Format("[Details at {0} below]", _exceptions.Count);
             if (!string.IsNullOrEmpty(exception.Message))
-                return string.Format("[{0}] {1}", FlattenExceptionMessage(exception.Message), exceptionReference);
+                return string.Format("[{0}] {1}", Configurator.ExceptionFormatter.Format(exception.Message), exceptionReference);
 
-            return string.Format("{0}", exceptionReference);
+            return exceptionReference;
         }
 
         void ReportExceptions(StringBuilder report)
@@ -150,39 +151,24 @@ namespace TestStack.BDDfy.Reporters.MarkDown
                 return;
 
             report.AppendLine();
-            report.Append("#### Exceptions:");
+            report.Append("#### Exceptions:").AppendLine();
+            report.AppendLine("```");
 
             for (int index = 0; index < _exceptions.Count; index++)
             {
                 var exception = _exceptions[index];
-                report.AppendLine();
-                report.AppendFormat("    {0}. ", index + 1);
+                report.AppendFormat("{0}. ", index + 1);
 
-                if (!string.IsNullOrEmpty(exception.Message))
+                var formatted = Configurator.ExceptionFormatter.Format(exception);
+                if (formatted.Length > 0)
                 {
-                    report.AppendLine(FlattenExceptionMessage(exception.Message));
+                    report.AppendLine(formatted);
                 }
                 else
                     report.AppendLine();
-
-                if (exception.StackTrace is not null)
-                {
-                    var stackTrace = string.Join(Environment.NewLine, exception.StackTrace.Split([Environment.NewLine], StringSplitOptions.None)
-                        .Select(s => "    " + s));
-                    report.AppendLine(stackTrace);
-                }
             }
 
-            report.AppendLine();
-        }
-
-        static string FlattenExceptionMessage(string message)
-        {
-            return string.Join(" ", message
-                .Replace("\t", " ") // replace tab with one space
-                .Split(["\r\n", "\n"], StringSplitOptions.None)
-                .Select(s => s.Trim()))
-                .TrimEnd(','); // chop any , from the end
+            report.AppendLine("```").AppendLine();
         }
     }
 }
