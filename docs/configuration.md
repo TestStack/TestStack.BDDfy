@@ -53,13 +53,51 @@ Run once after all scenarios complete (typically reporters):
 
 ```csharp
 Configurator.BatchProcessors.HtmlReport.Enable();
-Configurator.BatchProcessors.HtmlMetroReport.Disable();
 Configurator.BatchProcessors.MarkDownReport.Enable();
 Configurator.BatchProcessors.DiagnosticsReport.Enable();
+Configurator.BatchProcessors.JsonDataFileReport.Enable();
+
+// Configure a batch processor
+Configurator.BatchProcessors.Configure<HtmlReporter>(r =>
+    r.Configuration.ReportBuilder = new ClassicReportBuilder());
 
 // Add custom batch processor
 Configurator.BatchProcessors.Add(new MyBatchProcessor());
 ```
+
+## Exception Formatter
+
+The `IExceptionFormatter` controls how exceptions are rendered in reports and console output. It provides two overloads:
+
+- `Format(string message)` — formats an exception message (e.g., flatten multi-line messages)
+- `Format(Exception exception)` — formats the full exception (message + stack trace)
+
+```csharp
+Configurator.ExceptionFormatter = new MyExceptionFormatter();
+```
+
+The default formatter flattens multi-line messages into a single line and appends the full stack trace. To customize — for example, to suppress stack traces or redact sensitive information:
+
+```csharp
+public class MessageOnlyFormatter : IExceptionFormatter
+{
+    public string Format(string message) => message;
+
+    public string Format(Exception exception) => exception.Message;
+}
+```
+
+Register it before tests run:
+
+```csharp
+[ModuleInitializer]
+public static void Initialize()
+{
+    Configurator.ExceptionFormatter = new MessageOnlyFormatter();
+}
+```
+
+This affects all reporters — console, HTML, Markdown, and diagnostics.
 
 ## Step Scanners
 
@@ -218,7 +256,8 @@ public class BDDfySetup
     [OneTimeSetUp]
     public void Setup()
     {
-        Configurator.BatchProcessors.HtmlMetroReport.Enable();
+        Configurator.BatchProcessors.Configure<HtmlReporter>(r =>
+            r.Configuration.ReportBuilder = new MetroReportBuilder());
     }
 }
 ```
