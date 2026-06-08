@@ -45,7 +45,6 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
 
             // Build example from current parameter values (resolved from the appropriate object)
             var example = BuildExampleFromParameters(declaringObject!, parameters);
-            if (example is null) return null;
 
             // Stable ID based on declaring type + method name (shared across invocations)
             var declaringType = method.DeclaringType ?? testType;
@@ -123,26 +122,35 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
             foreach (var param in parameters)
             {
                 var paramName = param.Name!;
-                object? value = ResolveParameterValue(testObject, type, paramName, bindingFlags);
+                if (!TryResolveParameterValue(testObject, type, paramName, bindingFlags, out var value))
+                    return null; // Can't resolve all parameters — skip Example creation
+
                 values.Add(new ExampleValue(paramName, value, () => rowIndex));
             }
 
             return values.Count > 0 ? new Example([.. values]) : null;
         }
 
-        private static object? ResolveParameterValue(object testObject, Type type, string paramName, BindingFlags flags)
+        private static bool TryResolveParameterValue(object testObject, Type type, string paramName, BindingFlags flags, out object? value)
         {
             // Try field (including backing fields from primary constructors)
             var field = FindField(type, paramName, flags);
             if (field is not null)
-                return field.GetValue(testObject);
+            {
+                value = field.GetValue(testObject);
+                return true;
+            }
 
             // Try property
             var prop = FindProperty(type, paramName, flags);
             if (prop is not null)
-                return prop.GetValue(testObject);
+            {
+                value = prop.GetValue(testObject);
+                return true;
+            }
 
-            return null;
+            value = null;
+            return false;
         }
 
         private static FieldInfo? FindField(Type type, string name, BindingFlags flags)
@@ -159,8 +167,7 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
             var fields = type.GetFields(flags);
             foreach (var f in fields)
             {
-                if (f.Name.Equals($"<{name}>P", StringComparison.Ordinal) ||
-                    f.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                if (f.Name.Equals($"<{name}>P", StringComparison.Ordinal))
                     return f;
             }
 
@@ -180,10 +187,10 @@ namespace TestStack.BDDfy.Scanners.ScenarioScanners
         }
     }
 
-    internal sealed class ParameterizedTestInfo(MethodInfo method, string stableScenarioId, Example example)
+    internal sealed class ParameterizedTestInfo(MethodInfo method, string stableScenarioId, Example? example)
     {
         public MethodInfo Method { get; } = method;
         public string StableScenarioId { get; } = stableScenarioId;
-        public Example Example { get; } = example;
+        public Example? Example { get; } = example;
     }
 }
