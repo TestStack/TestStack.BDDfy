@@ -36,9 +36,9 @@ namespace TestStack.BDDfy.Tests.Scanner.Examples
             _capturedStatus = statusCode;
         }
 
-        private void The_resolved_route_should_be(params string[] expected)
+        private void The_resolved_route_should_be(params string[] endpoint)
         {
-            new[] { _capturedRoute }.ShouldBe(expected);
+            new[] { _capturedRoute }.ShouldBe(endpoint);
         }
 
         private void The_status_should_be(int expected)

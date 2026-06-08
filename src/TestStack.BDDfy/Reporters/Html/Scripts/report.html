@@ -717,7 +717,7 @@ function ExampleTable(props) {
                         return html`
                             <tr key=${rowIdx}>
                                 ${ex.Values.map(function(v, i) {
-                                    return html`<td key=${i}>${v.Row}</td>`;
+                                    return html`<td key=${i}>${v.Value}</td>`;
                                 })}
                                 <td><${ResultBadge} result=${ex.Result} /></td>
                                 <td className="step-duration">${formatDuration(ex.Duration)}</td>
