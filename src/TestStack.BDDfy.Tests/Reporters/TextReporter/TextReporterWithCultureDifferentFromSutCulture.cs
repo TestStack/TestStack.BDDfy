@@ -6,6 +6,7 @@ using Xunit;
 
 namespace TestStack.BDDfy.Tests.Reporters.TextReporter
 {
+    [Collection("ConfiguratorState")]
     public class TextReporterWithCultureDifferentFromSutCulture
     {
         private class MySut

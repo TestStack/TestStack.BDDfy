@@ -6,6 +6,7 @@ using TextReporterClass = TestStack.BDDfy.Reporters.TextReporter;
 
 namespace TestStack.BDDfy.Tests.Reporters
 {
+    [Collection("ConfiguratorState")]
     public class CustomExceptionFormatterTests(ITestOutputHelper output)
     {
         [Fact]
