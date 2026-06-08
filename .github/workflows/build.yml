@@ -44,15 +44,15 @@ jobs:
             tag="${{ github.event.release.tag_name }}"
             packageVersion="${tag#v}"
           else
-            buildNumber="${{steps.gitversion.outputs.preReleaseNumber}}${{ steps.gitversion.outputs.buildMetaData }}"
-            
+            buildNumber="${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
+
             if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
               packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}"
             else
               packageVersion="${{ steps.gitversion.outputs.majorMinorPatch }}.${buildNumber:-0}-beta"
             fi
           fi
-          
+
           echo "packageVersion=$packageVersion" >> $GITHUB_OUTPUT
         id: formatversion
   
