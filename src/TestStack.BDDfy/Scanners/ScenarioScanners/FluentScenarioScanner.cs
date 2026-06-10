@@ -24,8 +24,11 @@ internal class FluentScenarioScanner(List<Step> steps, string? title): IScenario
             // Set the example table on the context so step titles use placeholder formatting (e.g. <endpoint>)
             if (example is not null)
             {
-                var table = new ExampleTable([.. parameterizedInfo.Method.GetParameters().Select(p => p.Name!)]);
-                table.Add(example);
+                var table = new ExampleTable([.. parameterizedInfo.Method.GetParameters().Select(p => p.Name!)])
+                {
+                    example
+                };
+
                 testContext.Examples = table;
             }
 

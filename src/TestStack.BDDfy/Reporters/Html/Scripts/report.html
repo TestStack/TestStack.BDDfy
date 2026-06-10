@@ -264,6 +264,15 @@ body {
     background: var(--bg-card);
 }
 
+.scenario-header .chevron {
+    transition: transform 0.3s ease;
+    color: var(--text-muted);
+}
+
+.scenario-header .chevron.is-open {
+    transform: rotate(90deg);
+}
+
 .scenario-header .scenario-title {
     flex: 1;
     font-weight: 600;
